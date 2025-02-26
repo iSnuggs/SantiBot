@@ -32,11 +32,6 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
     private readonly ICurrencyService _cs;
     private readonly IHttpClientFactory _httpFactory;
     private readonly XpConfigService _xpConfig;
-    private readonly IPubSub _pubSub;
-
-    private readonly ConcurrentDictionary<ulong, ConcurrentHashSet<ulong>> _excludedRoles = new();
-    private readonly ConcurrentDictionary<ulong, ConcurrentHashSet<ulong>> _excludedChannels = new();
-    private readonly ConcurrentHashSet<ulong> _excludedServers;
 
     private readonly DiscordSocketClient _client;
 
@@ -45,8 +40,8 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
 
     private readonly INotifySubscriber _notifySub;
     private readonly IMemoryCache _memCache;
-    private readonly ShardData _shardData;
     private readonly XpTemplateService _templateService;
+    private readonly GuildConfigXpService _xpRateService;
 
     private readonly QueueRunner _levelUpQueue = new QueueRunner(0, 100);
 
@@ -65,7 +60,8 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         INotifySubscriber notifySub,
         IMemoryCache memCache,
         ShardData shardData,
-        XpTemplateService templateService)
+        XpTemplateService templateService,
+        GuildConfigXpService xpRateService)
     {
         _db = db;
         _images = images;
@@ -74,47 +70,17 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         _cs = cs;
         _httpFactory = http;
         _xpConfig = xpConfig;
-        _pubSub = pubSub;
         _notifySub = notifySub;
         _memCache = memCache;
-        _shardData = shardData;
         _templateService = templateService;
-        _excludedServers = [];
-        _excludedChannels = new();
+        _xpRateService = xpRateService;
         _client = client;
         _ps = ps;
         _c = c;
-
-        if (client.ShardId == 0)
-        {
-        }
     }
 
     public async Task OnReadyAsync()
     {
-        // initialize ignored
-        await using (var ctx = _db.GetDbContext())
-        {
-            var xps = await ctx.GetTable<XpSettings>()
-                .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
-                .LoadWith(x => x.ExclusionList)
-                .ToListAsyncLinqToDB();
-
-            foreach (var xp in xps)
-            {
-                if (xp.ServerExcluded)
-                    _excludedServers.Add(xp.GuildId);
-
-                foreach (var item in xp.ExclusionList)
-                {
-                    if (item.ItemType == ExcludedItemType.Channel)
-                        _excludedChannels.GetOrAdd(xp.GuildId, static _ => []).Add(item.ItemId);
-                    else if (item.ItemType == ExcludedItemType.Role)
-                        _excludedRoles.GetOrAdd(xp.GuildId, static _ => []).Add(item.ItemId);
-                }
-            }
-        }
-
         await Task.WhenAll(UpdateTimer(), VoiceUpdateTimer(), _levelUpQueue.RunAsync());
 
         return;
@@ -156,65 +122,66 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
     /// <summary>
     /// The current batch of users that will gain xp
     /// </summary>
-    private readonly ConcurrentHashSet<IGuildUser> _usersBatch = [];
+    private readonly ConcurrentHashSet<XpQueueEntry> _usersBatch = [];
 
     /// <summary>
     /// The current batch of users that will gain voice xp
     /// </summary>
-    private readonly ConcurrentHashSet<IGuildUser> _voiceXpBatch = [];
+    private readonly HashSet<IGuildUser> _voiceXpBatch = [];
 
     private async Task UpdateVoiceXp()
     {
-        var xpAmount = _xpConfig.Data.VoiceXpPerMinute;
-
-        if (xpAmount <= 0)
-            return;
-
-        var oldBatch = _voiceXpBatch.ToArray();
+        var oldBatch = _voiceXpBatch.ToHashSet();
         _voiceXpBatch.Clear();
-        var validUsers = new HashSet<IGuildUser>();
+        var validUsers = new List<XpQueueEntry>(oldBatch.Count);
 
         var guilds = _client.Guilds;
 
         foreach (var g in guilds)
         {
-            if (IsServerExcluded(g.Id))
-                continue;
-
             foreach (var vc in g.VoiceChannels)
             {
                 if (!IsVoiceChannelActive(vc))
                     continue;
 
-                if (IsChannelExcluded(vc))
+                var rate = _xpRateService.GetXpRate(XpRateType.Voice, g.Id, vc.Id);
+
+                if (rate.IsExcluded())
                     continue;
 
                 foreach (var u in vc.ConnectedUsers)
                 {
-                    if (IsServerOrRoleExcluded(u) || !UserParticipatingInVoiceChannel(u))
+                    if (!UserParticipatingInVoiceChannel(u))
                         continue;
 
                     if (oldBatch.Contains(u))
-                        validUsers.Add(u);
+                    {
+                        validUsers.Add(new(u, rate.Amount));
+                    }
 
                     _voiceXpBatch.Add(u);
                 }
             }
         }
 
-        await UpdateXpInternalAsync(validUsers.DistinctBy(x => x.Id).ToArray(), xpAmount);
+        await UpdateXpInternalAsync(validUsers.ToArray());
     }
 
     private async Task UpdateXp()
     {
-        var xpAmount = _xpConfig.Data.TextXpPerMessage;
+        // might want to lock this, but it's not a big deal
+
+        // or do something like this
+        // foreach (var item in currentBatch)
+        //     _usersBatch.TryRemove(item);
+
         var currentBatch = _usersBatch.ToArray();
         _usersBatch.Clear();
 
-        await UpdateXpInternalAsync(currentBatch, xpAmount);
+        await UpdateXpInternalAsync(currentBatch);
     }
 
-    private async Task UpdateXpInternalAsync(IGuildUser[] currentBatch, int xpAmount)
+    private async Task UpdateXpInternalAsync(XpQueueEntry[] currentBatch)
     {
         if (currentBatch.Length == 0)
             return;
@@ -227,16 +194,17 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
 
         await batchTable.BulkCopyAsync(currentBatch.Select(x => new UserXpBatch()
         {
-            GuildId = x.GuildId,
-            UserId = x.Id,
-            Username = x.Username,
-            AvatarId = x.DisplayAvatarId
+            GuildId = x.User.GuildId,
+            UserId = x.User.Id,
+            Username = x.User.Username,
+            AvatarId = x.User.DisplayAvatarId,
+            XpToGain = x.Xp
         }));
 
         await lctx.ExecuteAsync(
             $"""
              INSERT INTO UserXpStats (GuildId, UserId, Xp)
-             SELECT "{tempTableName}"."GuildId", "{tempTableName}"."UserId", {xpAmount}
+             SELECT "{tempTableName}"."GuildId", "{tempTableName}"."UserId", "XpToGain"
              FROM {tempTableName}
              WHERE TRUE
              ON CONFLICT (GuildId, UserId) DO UPDATE 
@@ -251,9 +219,13 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                 (batch, stats) => stats)
             .ToListAsyncLinqToDB();
 
+        var userToXp = currentBatch.ToDictionary(x => x.User.Id, x => x.Xp);
         foreach (var u in updated)
         {
-            var oldStats = new LevelStats(u.Xp - xpAmount);
+            if (!userToXp.TryGetValue(u.UserId, out var xpGained))
+                continue;
+
+            var oldStats = new LevelStats(u.Xp - xpGained);
             var newStats = new LevelStats(u.Xp);
 
             Log.Information("User {User} xp updated from {OldLevel} to {NewLevel}",
@@ -531,8 +503,7 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         {
             if (UserParticipatingInVoiceChannel(user))
             {
-                count++;
-                if (count >= 2)
+                if (++count >= 2)
                     return true;
             }
         }
@@ -542,27 +513,6 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
 
     private static bool UserParticipatingInVoiceChannel(SocketGuildUser user)
         => !user.IsDeafened && !user.IsMuted && !user.IsSelfDeafened && !user.IsSelfMuted;
-
-    private bool IsServerOrRoleExcluded(SocketGuildUser user)
-    {
-        if (_excludedServers.Contains(user.Guild.Id))
-            return true;
-
-        if (_excludedRoles.TryGetValue(user.Guild.Id, out var roles) && user.Roles.Any(x => roles.Contains(x.Id)))
-            return true;
-
-        return false;
-    }
-
-    private bool IsChannelExcluded(IGuildChannel channel)
-    {
-        if (_excludedChannels.TryGetValue(channel.Guild.Id, out var chans)
-            && (chans.Contains(channel.Id)
-                || (channel is SocketThreadChannel tc && chans.Contains(tc.ParentChannel.Id))))
-            return true;
-
-        return false;
-    }
 
     public Task ExecOnNoCommandAsync(IGuild guild, IUserMessage arg)
     {
@@ -574,27 +524,36 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
 
         _ = Task.Run(async () =>
         {
-            if (IsChannelExcluded(gc))
+            var isImage = arg.Attachments.Any(a => a.Height >= 16 && a.Width >= 16);
+            var isText = arg.Content.Contains(' ') || arg.Content.Length >= 5;
+
+            var textRate = _xpRateService.GetXpRate(XpRateType.Text, guild.Id, gc.Id);
+
+            XpRate rate;
+            if (isImage)
+            {
+                var imageRate = _xpRateService.GetXpRate(XpRateType.Image, guild.Id, gc.Id);
+                if (imageRate.IsExcluded())
+                    return;
+
+                rate = imageRate;
+            }
+            else if (isText)
+            {
+                if (textRate.IsExcluded())
+                    return;
+
+                rate = textRate;
+            }
+            else
+            {
+                return;
+            }
+
+            if (!await TryAddUserGainedXpAsync(user.Id, rate.Cooldown))
                 return;
 
-            if (IsServerOrRoleExcluded(user))
-                return;
-
-            var xpConf = _xpConfig.Data;
-            var xp = 0;
-            if (arg.Attachments.Any(a => a.Height >= 128 && a.Width >= 128))
-                xp = xpConf.TextXpFromImage;
-
-            if (arg.Content.Contains(' ') || arg.Content.Length >= 5)
-                xp = Math.Max(xp, xpConf.TextXpPerMessage);
-
-            if (xp <= 0)
-                return;
-
-            if (!await TryAddUserGainedXpAsync(user.Id, xpConf.TextXpCooldown))
-                return;
-
-            _usersBatch.Add(user);
+            _usersBatch.Add(new(user, rate.Amount));
         });
 
         return Task.CompletedTask;
@@ -621,28 +580,9 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         await uow.SaveChangesAsync();
     }
 
-    public bool IsServerExcluded(ulong id)
-        => _excludedServers.Contains(id);
-
-    public IEnumerable<ulong> GetExcludedRoles(ulong id)
+    private Task<bool> TryAddUserGainedXpAsync(ulong userId, float cdInMinutes)
     {
-        if (_excludedRoles.TryGetValue(id, out var val))
-            return val.ToArray();
-
-        return [];
-    }
-
-    public IEnumerable<ulong> GetExcludedChannels(ulong id)
-    {
-        if (_excludedChannels.TryGetValue(id, out var val))
-            return val.ToArray();
-
-        return [];
-    }
-
-    private Task<bool> TryAddUserGainedXpAsync(ulong userId, int cdInSeconds)
-    {
-        if (cdInSeconds <= 0)
+        if (cdInMinutes <= float.Epsilon)
             return Task.FromResult(true);
 
         if (_memCache.TryGetValue(userId, out _))
@@ -651,7 +591,7 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         using var entry = _memCache.CreateEntry(userId);
         entry.Value = true;
 
-        entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(cdInSeconds);
+        entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(cdInMinutes);
 
         return Task.FromResult(true);
     }
@@ -672,81 +612,6 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
             new(stats.Xp),
             globalRank,
             guildRank);
-    }
-
-    public async Task<bool> ToggleExcludeServerAsync(ulong id)
-    {
-        await using var uow = _db.GetDbContext();
-        var xpSetting = await uow.XpSettingsFor(id);
-        if (_excludedServers.Add(id))
-        {
-            xpSetting.ServerExcluded = true;
-            await uow.SaveChangesAsync();
-            return true;
-        }
-
-        _excludedServers.TryRemove(id);
-        xpSetting.ServerExcluded = false;
-        await uow.SaveChangesAsync();
-        return false;
-    }
-
-    public async Task<bool> ToggleExcludeRoleAsync(ulong guildId, ulong rId)
-    {
-        var roles = _excludedRoles.GetOrAdd(guildId, _ => []);
-        await using var uow = _db.GetDbContext();
-        var xpSetting = await uow.XpSettingsFor(guildId, set => set.LoadWith(x => x.ExclusionList));
-        var excludeObj = new ExcludedItem
-        {
-            ItemId = rId,
-            ItemType = ExcludedItemType.Role
-        };
-
-        if (roles.Add(rId))
-        {
-            if (xpSetting.ExclusionList.Add(excludeObj))
-                await uow.SaveChangesAsync();
-
-            return true;
-        }
-
-        roles.TryRemove(rId);
-
-        var toDelete = xpSetting.ExclusionList.FirstOrDefault(x => x.Equals(excludeObj));
-        if (toDelete is not null)
-        {
-            uow.Remove(toDelete);
-            await uow.SaveChangesAsync();
-        }
-
-        return false;
-    }
-
-    public async Task<bool> ToggleExcludeChannelAsync(ulong guildId, ulong chId)
-    {
-        var channels = _excludedChannels.GetOrAdd(guildId, _ => []);
-        await using var uow = _db.GetDbContext();
-        var xpSetting = await uow.XpSettingsFor(guildId, set => set.LoadWith(x => x.ExclusionList));
-        var excludeObj = new ExcludedItem
-        {
-            ItemId = chId,
-            ItemType = ExcludedItemType.Channel
-        };
-
-        if (channels.Add(chId))
-        {
-            if (xpSetting.ExclusionList.Add(excludeObj))
-                await uow.SaveChangesAsync();
-
-            return true;
-        }
-
-        channels.TryRemove(chId);
-
-        if (xpSetting.ExclusionList.Remove(excludeObj))
-            await uow.SaveChangesAsync();
-
-        return false;
     }
 
     public async Task<(Stream Image, IImageFormat Format)> GenerateXpImageAsync(IGuildUser user)
@@ -1224,8 +1089,7 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
             if (item is null || item.Price < 0)
                 return BuyResult.UnknownItem;
 
-            if (item.Price > 0 &&
-                !await _cs.RemoveAsync(userId, item.Price, new("xpshop", "buy", $"Background {key}")))
+            if (item.Price > 0 && !await _cs.RemoveAsync(userId, item.Price, new("xpshop", "buy", $"Background {key}")))
                 return BuyResult.InsufficientFunds;
 
 
@@ -1438,4 +1302,13 @@ public sealed class XpTemplateService : INService, IReadyExecutor
 
     public XpTemplate GetTemplate()
         => _template;
+}
+
+public readonly record struct XpQueueEntry(IGuildUser User, long Xp)
+{
+    public bool Equals(XpQueueEntry? other)
+        => other?.User == User;
+
+    public override int GetHashCode()
+        => User.GetHashCode();
 }

@@ -654,31 +654,6 @@ namespace NadekoBot.Migrations.Sqlite
                     b.ToTable("DiscordUser");
                 });
 
-            modelBuilder.Entity("NadekoBot.Db.Models.ExcludedItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("TEXT");
-
-                    b.Property<ulong>("ItemId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ItemType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("XpSettingsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("XpSettingsId");
-
-                    b.ToTable("ExcludedItem");
-                });
-
             modelBuilder.Entity("NadekoBot.Db.Models.FeedSub", b =>
                 {
                     b.Property<int>("Id")
@@ -2496,9 +2471,6 @@ namespace NadekoBot.Migrations.Sqlite
                     b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("ServerExcluded")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GuildId")
@@ -2603,32 +2575,43 @@ namespace NadekoBot.Migrations.Sqlite
                     b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("XpAmount")
+                    b.Property<int>("RateType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("XpAmount")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("GuildId", "ChannelId");
+                    b.HasAlternateKey("GuildId", "ChannelId", "RateType");
 
                     b.ToTable("ChannelXpConfig");
                 });
 
             modelBuilder.Entity("NadekoBot.Modules.Xp.GuildXpConfig", b =>
                 {
-                    b.Property<ulong>("GuildId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Cooldown")
+                    b.Property<float>("Cooldown")
+                        .HasColumnType("REAL");
+
+                    b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("XpAmount")
+                    b.Property<int>("RateType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("XpAmount")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("XpTemplateUrl")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("GuildId");
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("GuildId", "RateType");
 
                     b.ToTable("GuildXpConfig");
                 });
@@ -2798,13 +2781,6 @@ namespace NadekoBot.Migrations.Sqlite
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Club");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.ExcludedItem", b =>
-                {
-                    b.HasOne("NadekoBot.Db.Models.XpSettings", null)
-                        .WithMany("ExclusionList")
-                        .HasForeignKey("XpSettingsId");
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.FilterChannelId", b =>
@@ -3070,8 +3046,6 @@ namespace NadekoBot.Migrations.Sqlite
             modelBuilder.Entity("NadekoBot.Db.Models.XpSettings", b =>
                 {
                     b.Navigation("CurrencyRewards");
-
-                    b.Navigation("ExclusionList");
 
                     b.Navigation("RoleRewards");
                 });

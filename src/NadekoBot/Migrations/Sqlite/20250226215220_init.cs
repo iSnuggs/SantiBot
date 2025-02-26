@@ -192,15 +192,16 @@ namespace NadekoBot.Migrations.Sqlite
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    RateType = table.Column<int>(type: "INTEGER", nullable: false),
                     GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     ChannelId = table.Column<ulong>(type: "INTEGER", nullable: false),
-                    XpAmount = table.Column<int>(type: "INTEGER", nullable: false),
+                    XpAmount = table.Column<long>(type: "INTEGER", nullable: false),
                     Cooldown = table.Column<float>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ChannelXpConfig", x => x.Id);
-                    table.UniqueConstraint("AK_ChannelXpConfig_GuildId_ChannelId", x => new { x.GuildId, x.ChannelId });
+                    table.UniqueConstraint("AK_ChannelXpConfig_GuildId_ChannelId_RateType", x => new { x.GuildId, x.ChannelId, x.RateType });
                 });
 
             migrationBuilder.CreateTable(
@@ -507,15 +508,18 @@ namespace NadekoBot.Migrations.Sqlite
                 name: "GuildXpConfig",
                 columns: table => new
                 {
-                    GuildId = table.Column<ulong>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    XpAmount = table.Column<int>(type: "INTEGER", nullable: false),
-                    Cooldown = table.Column<int>(type: "INTEGER", nullable: false),
+                    GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    RateType = table.Column<int>(type: "INTEGER", nullable: false),
+                    XpAmount = table.Column<long>(type: "INTEGER", nullable: false),
+                    Cooldown = table.Column<float>(type: "REAL", nullable: false),
                     XpTemplateUrl = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GuildXpConfig", x => x.GuildId);
+                    table.PrimaryKey("PK_GuildXpConfig", x => x.Id);
+                    table.UniqueConstraint("AK_GuildXpConfig_GuildId_RateType", x => new { x.GuildId, x.RateType });
                 });
 
             migrationBuilder.CreateTable(
@@ -1154,7 +1158,6 @@ namespace NadekoBot.Migrations.Sqlite
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
-                    ServerExcluded = table.Column<bool>(type: "INTEGER", nullable: false),
                     DateAdded = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -1510,27 +1513,6 @@ namespace NadekoBot.Migrations.Sqlite
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExcludedItem",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    XpSettingsId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ItemId = table.Column<ulong>(type: "INTEGER", nullable: false),
-                    ItemType = table.Column<int>(type: "INTEGER", nullable: false),
-                    DateAdded = table.Column<DateTime>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExcludedItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ExcludedItem_XpSettings_XpSettingsId",
-                        column: x => x.XpSettingsId,
-                        principalTable: "XpSettings",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "XpCurrencyReward",
                 columns: table => new
                 {
@@ -1862,11 +1844,6 @@ namespace NadekoBot.Migrations.Sqlite
                 name: "IX_DiscordUser_Username",
                 table: "DiscordUser",
                 column: "Username");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExcludedItem_XpSettingsId",
-                table: "ExcludedItem",
-                column: "XpSettingsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FeedSub_GuildId_Url",
@@ -2369,9 +2346,6 @@ namespace NadekoBot.Migrations.Sqlite
 
             migrationBuilder.DropTable(
                 name: "DiscordPermOverrides");
-
-            migrationBuilder.DropTable(
-                name: "ExcludedItem");
 
             migrationBuilder.DropTable(
                 name: "Expressions");

@@ -874,40 +874,6 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("discorduser", (string)null);
                 });
 
-            modelBuilder.Entity("NadekoBot.Db.Models.ExcludedItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("dateadded");
-
-                    b.Property<decimal>("ItemId")
-                        .HasColumnType("numeric(20,0)")
-                        .HasColumnName("itemid");
-
-                    b.Property<int>("ItemType")
-                        .HasColumnType("integer")
-                        .HasColumnName("itemtype");
-
-                    b.Property<int?>("XpSettingsId")
-                        .HasColumnType("integer")
-                        .HasColumnName("xpsettingsid");
-
-                    b.HasKey("Id")
-                        .HasName("pk_excludeditem");
-
-                    b.HasIndex("XpSettingsId")
-                        .HasDatabaseName("ix_excludeditem_xpsettingsid");
-
-                    b.ToTable("excludeditem", (string)null);
-                });
-
             modelBuilder.Entity("NadekoBot.Db.Models.FeedSub", b =>
                 {
                     b.Property<int>("Id")
@@ -3356,10 +3322,6 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasColumnType("numeric(20,0)")
                         .HasColumnName("guildid");
 
-                    b.Property<bool>("ServerExcluded")
-                        .HasColumnType("boolean")
-                        .HasColumnName("serverexcluded");
-
                     b.HasKey("Id")
                         .HasName("pk_xpsettings");
 
@@ -3500,40 +3462,57 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasColumnType("numeric(20,0)")
                         .HasColumnName("guildid");
 
-                    b.Property<int>("XpAmount")
+                    b.Property<int>("RateType")
                         .HasColumnType("integer")
+                        .HasColumnName("ratetype");
+
+                    b.Property<long>("XpAmount")
+                        .HasColumnType("bigint")
                         .HasColumnName("xpamount");
 
                     b.HasKey("Id")
                         .HasName("pk_channelxpconfig");
 
-                    b.HasAlternateKey("GuildId", "ChannelId")
-                        .HasName("ak_channelxpconfig_guildid_channelid");
+                    b.HasAlternateKey("GuildId", "ChannelId", "RateType")
+                        .HasName("ak_channelxpconfig_guildid_channelid_ratetype");
 
                     b.ToTable("channelxpconfig", (string)null);
                 });
 
             modelBuilder.Entity("NadekoBot.Modules.Xp.GuildXpConfig", b =>
                 {
-                    b.Property<decimal>("GuildId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<float>("Cooldown")
+                        .HasColumnType("real")
+                        .HasColumnName("cooldown");
+
+                    b.Property<decimal>("GuildId")
                         .HasColumnType("numeric(20,0)")
                         .HasColumnName("guildid");
 
-                    b.Property<int>("Cooldown")
+                    b.Property<int>("RateType")
                         .HasColumnType("integer")
-                        .HasColumnName("cooldown");
+                        .HasColumnName("ratetype");
 
-                    b.Property<int>("XpAmount")
-                        .HasColumnType("integer")
+                    b.Property<long>("XpAmount")
+                        .HasColumnType("bigint")
                         .HasColumnName("xpamount");
 
                     b.Property<string>("XpTemplateUrl")
                         .HasColumnType("text")
                         .HasColumnName("xptemplateurl");
 
-                    b.HasKey("GuildId")
+                    b.HasKey("Id")
                         .HasName("pk_guildxpconfig");
+
+                    b.HasAlternateKey("GuildId", "RateType")
+                        .HasName("ak_guildxpconfig_guildid_ratetype");
 
                     b.ToTable("guildxpconfig", (string)null);
                 });
@@ -3739,14 +3718,6 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasConstraintName("fk_discorduser_clubs_clubid");
 
                     b.Navigation("Club");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.ExcludedItem", b =>
-                {
-                    b.HasOne("NadekoBot.Db.Models.XpSettings", null)
-                        .WithMany("ExclusionList")
-                        .HasForeignKey("XpSettingsId")
-                        .HasConstraintName("fk_excludeditem_xpsettings_xpsettingsid");
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.FilterChannelId", b =>
@@ -4034,8 +4005,6 @@ namespace NadekoBot.Migrations.PostgreSql
             modelBuilder.Entity("NadekoBot.Db.Models.XpSettings", b =>
                 {
                     b.Navigation("CurrencyRewards");
-
-                    b.Navigation("ExclusionList");
 
                     b.Navigation("RoleRewards");
                 });
