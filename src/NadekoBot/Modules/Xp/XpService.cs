@@ -3,7 +3,6 @@ using LinqToDB;
 using Microsoft.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
-using Newtonsoft.Json;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
@@ -600,17 +599,13 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
     {
         await using var uow = _db.GetDbContext();
         var du = uow.GetOrCreateUser(user, set => set.Include(x => x.Club));
-        var totalXp = du.TotalXp;
-        var globalRank = uow.Set<DiscordUser>().GetUserGlobalRank(user.Id);
         var guildRank = await uow.Set<UserXpStats>().GetUserGuildRanking(user.Id, user.GuildId);
         var stats = uow.GetOrCreateUserXpStats(user.GuildId, user.Id);
         await uow.SaveChangesAsync();
 
         return new(du,
             stats,
-            new(totalXp),
             new(stats.Xp),
-            globalRank,
             guildRank);
     }
 
@@ -619,7 +614,6 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         var stats = await GetUserStatsAsync(user);
         return await GenerateXpImageAsync(stats);
     }
-
 
     public Task<(Stream Image, IImageFormat Format)> GenerateXpImageAsync(FullUserStats stats)
         => Task.Run(async () =>
@@ -662,8 +656,6 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                 }
             }
 
-            var outlinePen = new SolidPen(Color.Black, 1f);
-
             using var img = Image.Load<Rgba32>(bgBytes);
 
             if (template.User.Name.Show)
@@ -687,8 +679,7 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                             Origin = new(template.User.Name.Pos.X, template.User.Name.Pos.Y + 8)
                         },
                         "@" + username,
-                        Brushes.Solid(template.User.Name.Color),
-                        outlinePen);
+                        Brushes.Solid(template.User.Name.Color));
 
 
                     //club name
@@ -707,8 +698,7 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                                 Origin = new(template.Club.Name.Pos.X + 50, template.Club.Name.Pos.Y - 8)
                             },
                             clubName,
-                            Brushes.Solid(template.Club.Name.Color),
-                            outlinePen);
+                            Brushes.Solid(template.Club.Name.Color));
                     }
 
                     Font GetTruncatedFont(
@@ -728,66 +718,30 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                     }
 
 
-                    if (template.User.GlobalLevel.Show)
-                    {
-                        // up to 83 width
-
-                        var globalLevelFont = GetTruncatedFont(
-                            _fonts.NotoSans,
-                            template.User.GlobalLevel.FontSize,
-                            FontStyle.Bold,
-                            stats.Global.Level.ToString(),
-                            75);
-
-
-                        x.DrawText(stats.Global.Level.ToString(),
-                            globalLevelFont,
-                            template.User.GlobalLevel.Color,
-                            new(template.User.GlobalLevel.Pos.X, template.User.GlobalLevel.Pos.Y)); //level
-                    }
-
-                    if (template.User.GuildLevel.Show)
+                    if (template.User.Level.Show)
                     {
                         var guildLevelFont = GetTruncatedFont(
                             _fonts.NotoSans,
-                            template.User.GuildLevel.FontSize,
+                            template.User.Level.FontSize,
                             FontStyle.Bold,
                             stats.Guild.Level.ToString(),
-                            75);
+                            33);
 
 
                         x.DrawText(stats.Guild.Level.ToString(),
                             guildLevelFont,
-                            template.User.GuildLevel.Color,
-                            new(template.User.GuildLevel.Pos.X, template.User.GuildLevel.Pos.Y));
+                            template.User.Level.Color,
+                            new(template.User.Level.Pos.X, template.User.Level.Pos.Y));
                     }
 
 
-                    var global = stats.Global;
                     var guild = stats.Guild;
 
                     //xp bar
                     if (template.User.Xp.Bar.Show)
                     {
-                        var xpPercent = global.LevelXp / (float)global.RequiredXp;
-                        DrawXpBar(xpPercent, template.User.Xp.Bar.Global, img);
-                        xpPercent = guild.LevelXp / (float)guild.RequiredXp;
+                        var xpPercent = guild.LevelXp / (float)guild.RequiredXp;
                         DrawXpBar(xpPercent, template.User.Xp.Bar.Guild, img);
-                    }
-
-                    if (template.User.Xp.Global.Show)
-                    {
-                        x.DrawText(
-                            new RichTextOptions(_fonts.NotoSans.CreateFont(template.User.Xp.Global.FontSize,
-                                FontStyle.Bold))
-                            {
-                                HorizontalAlignment = HorizontalAlignment.Center,
-                                VerticalAlignment = VerticalAlignment.Center,
-                                Origin = new(template.User.Xp.Global.Pos.X, template.User.Xp.Global.Pos.Y),
-                            },
-                            $"{global.LevelXp}/{global.RequiredXp}",
-                            Brushes.Solid(template.User.Xp.Global.Color),
-                            outlinePen);
                     }
 
                     if (template.User.Xp.Guild.Show)
@@ -801,52 +755,30 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                                 Origin = new(template.User.Xp.Guild.Pos.X, template.User.Xp.Guild.Pos.Y)
                             },
                             $"{guild.LevelXp}/{guild.RequiredXp}",
-                            Brushes.Solid(template.User.Xp.Guild.Color),
-                            outlinePen);
+                            Brushes.Solid(template.User.Xp.Guild.Color));
                     }
 
                     var rankPen = new SolidPen(Color.White, 1);
                     //ranking
-                    if (template.User.GlobalRank.Show)
-                    {
-                        var globalRankStr = stats.GlobalRanking.ToString();
 
-                        var globalRankFont = GetTruncatedFont(
-                            _fonts.UniSans,
-                            template.User.GlobalRank.FontSize,
-                            FontStyle.Bold,
-                            globalRankStr,
-                            68);
-
-                        x.DrawText(
-                            new RichTextOptions(globalRankFont)
-                            {
-                                Origin = new(template.User.GlobalRank.Pos.X, template.User.GlobalRank.Pos.Y)
-                            },
-                            globalRankStr,
-                            Brushes.Solid(template.User.GlobalRank.Color),
-                            rankPen
-                        );
-                    }
-
-                    if (template.User.GuildRank.Show)
+                    if (template.User.Rank.Show)
                     {
                         var guildRankStr = stats.GuildRanking.ToString();
 
                         var guildRankFont = GetTruncatedFont(
-                            _fonts.UniSans,
-                            template.User.GuildRank.FontSize,
+                            _fonts.NotoSans,
+                            template.User.Rank.FontSize,
                             FontStyle.Bold,
                             guildRankStr,
-                            43);
+                            22);
 
                         x.DrawText(
                             new RichTextOptions(guildRankFont)
                             {
-                                Origin = new(template.User.GuildRank.Pos.X, template.User.GuildRank.Pos.Y)
+                                Origin = new(template.User.Rank.Pos.X, template.User.Rank.Pos.Y)
                             },
                             guildRankStr,
-                            Brushes.Solid(template.User.GuildRank.Color),
+                            Brushes.Solid(template.User.Rank.Color),
                             rankPen
                         );
                     }
@@ -908,19 +840,10 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
 
     private async Task DrawFrame(Image<Rgba32> img, ulong userId)
     {
-        var patron = await _ps.GetPatronAsync(userId);
-
         var item = await GetItemInUse(userId, XpShopItemType.Frame);
 
         Image? frame = null;
-        if (item is null)
-        {
-            if (patron?.Tier == PatronTier.V)
-                frame = Image.Load<Rgba32>(File.OpenRead("data/images/frame_silver.png"));
-            else if (patron?.Tier >= PatronTier.X || _creds.IsOwner(userId))
-                frame = Image.Load<Rgba32>(File.OpenRead("data/images/frame_gold.png"));
-        }
-        else
+        if (item is not null)
         {
             var url = _xpConfig.Data.Shop.GetItemUrl(XpShopItemType.Frame, item.ItemKey);
             if (!string.IsNullOrWhiteSpace(url))
@@ -1207,7 +1130,7 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         => type switch
         {
             Xp.XpShopInputType.F => _xpConfig.Data.Shop.FramesTierRequirement,
-            _ => _xpConfig.Data.Shop.BgsTierRequirement,
+            _ => PatronTier.None,
         };
 
     public bool IsShopEnabled()
@@ -1244,64 +1167,6 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                     UserId = userId
                 });
     }
-}
-
-public sealed class XpTemplateService : INService, IReadyExecutor
-{
-    private const string XP_TEMPLATE_PATH = "./data/xp_template.json";
-
-    private readonly IPubSub _pubSub;
-    private XpTemplate _template = new();
-    private readonly TypedKey<bool> _xpTemplateReloadKey = new("xp.template.reload");
-
-    public XpTemplateService(IPubSub pubSub)
-    {
-        _pubSub = pubSub;
-    }
-
-    private void InternalReloadXpTemplate()
-    {
-        try
-        {
-            var settings = new JsonSerializerSettings
-            {
-                ContractResolver = new RequireObjectPropertiesContractResolver()
-            };
-
-            if (!File.Exists(XP_TEMPLATE_PATH))
-            {
-                var newTemp = new XpTemplate();
-                newTemp.Version = 2;
-                File.WriteAllText(XP_TEMPLATE_PATH, JsonConvert.SerializeObject(newTemp, Formatting.Indented));
-            }
-
-            _template = JsonConvert.DeserializeObject<XpTemplate>(
-                File.ReadAllText(XP_TEMPLATE_PATH),
-                settings)!;
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "xp_template.json is invalid. Loaded default values");
-            _template = new();
-        }
-    }
-
-    public void ReloadXpTemplate()
-        => _pubSub.Pub(_xpTemplateReloadKey, true);
-
-    public async Task OnReadyAsync()
-    {
-        InternalReloadXpTemplate();
-        await _pubSub.Sub(_xpTemplateReloadKey,
-            _ =>
-            {
-                InternalReloadXpTemplate();
-                return default;
-            });
-    }
-
-    public XpTemplate GetTemplate()
-        => _template;
 }
 
 public readonly record struct XpQueueEntry(IGuildUser User, long Xp)
