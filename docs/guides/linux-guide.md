@@ -59,6 +59,9 @@ Open Terminal (if you're on an installation with a window manager) and navigate 
     brew install curl
     ```
 
+    ///  
+    
+
 2. Download and run the **new** installer script
     ``` sh
         cd ~ && 
