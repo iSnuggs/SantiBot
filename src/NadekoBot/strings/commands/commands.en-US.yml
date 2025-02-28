@@ -4873,11 +4873,17 @@ notify:
   params:
     - { }
     - event:
-        desc: "The event for which to see the current message."
+        desc: "The event for which to see the current message, if set."
+    - event:
+        desc: "The event to notify on."
+      channel:
+        desc: "The channel to send the message to."
+      message:
+        desc: "The message to send."
     - event:
         desc: "The event to notify on."
       message:
-        desc: "The message to send."
+        desc: "The message to send to the channel from which the event originated."
 notifylist:
   desc: |-
     Lists all active notifications in this server.
