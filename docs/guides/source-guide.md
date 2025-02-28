@@ -19,7 +19,7 @@ Open PowerShell (press windows button on your keyboard and type powershell, it s
 
 0. Navigate to the location where you want to install the bot
     - for example, type `cd ~/Desktop/` and press enter
-1. `git clone https://github.com/nadeko-bot/nadekobot -b v5 --depth 1`
+1. `git clone https://github.com/nadeko-bot/nadekobot -b v6 --depth 1`
 2. `cd nadekobot`
 3. `dotnet publish -c Release -o output/ src/NadekoBot/`
 4. `cd output`
@@ -41,7 +41,7 @@ Open PowerShell as described above and run the following commands:
     - *⚠️ If you're on v4, you must run these commands, if not, you may skip them.*
         - `git remote set-branches origin '*'`
         - `git fetch -v --depth=1`
-        - `git checkout v5`
+        - `git checkout v6`
     - `git pull`
     - ⚠️ If this fails, you may want to stash or remove your code changes if you don't know how to resolve merge conflicts
 4. **Backup** old output in case your data is overwritten
