@@ -2,10 +2,10 @@ site_name: 'NadekoBot'
 site_url: 'https://nadeko.bot'
 repo_url: 'https://github.com/nadeko-bot/nadekobot'
 site_author: 'Breaker'
+docs_dir: 'md'
 
 theme:
     name: material
-    custom_dir: docs/overrides
     palette:
           - media: "(prefers-color-scheme: light)"
             scheme: default
@@ -15,7 +15,7 @@ theme:
                 icon: material/weather-sunny
                 name: Switch to dark mode
           - media: "(prefers-color-scheme: dark)"
-            scheme: dark
+            scheme: slate
             primary: blue
             accent: light blue
             toggle:
@@ -31,18 +31,12 @@ theme:
     logo: assets/favicon.png
     favicon: assets/favicon.png
     icon:
-        repo: custom/gitlab
+        repo: material/github
 
 extra:
   homepage: https://nadeko.bot
 
-extra_css:
-  - stylesheets/styling-overrides.css
-  - stylesheets/theme.css
-
 plugins:
-    - git-revision-date-localized:
-        type: date
     - search
 
 markdown_extensions:
@@ -51,14 +45,9 @@ markdown_extensions:
         guess_lang: false
     - toc:
         permalink: true
-    - pymdownx.tasklist:
-        custom_checkbox: true
     - pymdownx.betterem:
         smart_enable: all
     - admonition
-    - meta
-    - footnotes
-    - pymdownx.details
     - pymdownx.inlinehilite
     - pymdownx.superfences
     - pymdownx.blocks.tab:
@@ -67,31 +56,21 @@ markdown_extensions:
     - pymdownx.emoji:
         emoji_index: !!python/name:material.extensions.emoji.twemoji
         emoji_generator: !!python/name:material.extensions.emoji.to_svg
-        options:
-            custom_icons:
-                - docs/overrides/.icons
 
 nav:
     - Home: index.md
     - Guides:
         - Windows Guide: guides/windows-guide.md
         - Linux Guide: guides/linux-guide.md
-        - OSX Guide: guides/osx-guide.md
-        - Windows Guide (from source): guides/windows-source-guide.md
+        - macOS Guide: guides/macos-guide.md
+        - Windows Guide (from source): guides/source-guide.md
         - Docker Guide (unsupported): guides/docker-guide.md
     - Commands:
-        - Readme: commands-readme.md
         - Commands List: https://nadeko.bot/commands
     - Features Explained:
         - Basic Creds: creds-guide.md
-        - Advanced Creds: jsons-explained.md
-        - Permissions System: permissions-system.md
-        - Custom Reactions: custom-reactions.md
-        - Placeholders: placeholders.md
-        - Config: config-guide.md
         - Medusa System:
             - medusa/getting-started.md
             - medusa/creating-a-medusa.md
             - medusa/snek-lifecycle.md
-    - Contribution Guide: contribution-guide.md
     - Donate: donate.md
