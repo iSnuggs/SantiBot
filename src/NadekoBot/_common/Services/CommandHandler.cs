@@ -8,10 +8,8 @@ using PreconditionResult = Discord.Commands.PreconditionResult;
 
 namespace NadekoBot.Services;
 
-public class CommandHandler : INService, IReadyExecutor, ICommandHandler
+public class CommandHandler : INService, ICommandHandler
 {
-    private const int GLOBAL_COMMANDS_COOLDOWN = 200;
-
     private const float ONE_THOUSANDTH = 1.0f / 1000;
 
     public event Func<IUserMessage, CommandInfo, Task> CommandExecuted = delegate { return Task.CompletedTask; };
@@ -57,21 +55,14 @@ public class CommandHandler : INService, IReadyExecutor, ICommandHandler
         _shardData = shardData;
     }
 
-    public async Task OnReadyAsync()
+    public async Task InitializeAsync()
     {
-        await using (var uow = _db.GetDbContext())
-        {
-            _prefixes = await uow.GetTable<GuildConfig>()
-                                 .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
-                                 .Where(x => x.Prefix != null)
-                                 .ToListAsyncLinqToDB()
-                                 .Fmap(x => x.ToDictionary(x => x.GuildId, x => x.Prefix).ToConcurrent());
-        }
-
-        // clear users on short cooldown every GLOBAL_COMMANDS_COOLDOWN miliseconds
-        using var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(GLOBAL_COMMANDS_COOLDOWN));
-        while (await timer.WaitForNextTickAsync())
-            UsersOnShortCooldown.Clear();
+        await using var uow = _db.GetDbContext();
+        _prefixes = await uow.GetTable<GuildConfig>()
+            .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
+            .Where(x => x.Prefix != null)
+            .ToListAsyncLinqToDB()
+            .Fmap(x => x.ToDictionary(x => x.GuildId, x => x.Prefix).ToConcurrent());
     }
 
     public string GetPrefix(IGuild guild)
@@ -218,9 +209,6 @@ public class CommandHandler : INService, IReadyExecutor, ICommandHandler
 
     private Task MessageReceivedHandler(SocketMessage msg)
     {
-        if (!_bot.IsReady)
-            return Task.CompletedTask;
-
         if (_bc.IgnoreOtherBots)
         {
             if (msg.Author.IsBot)
