@@ -1,4 +1,4 @@
---8<-- "md/creds-guide.md"
+--8<-- "../creds-guide.md"
 
 ## Setting Up NadekoBot on Windows from source
 
