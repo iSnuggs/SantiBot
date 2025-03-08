@@ -120,8 +120,6 @@ namespace Musix
             var fullUrl = _baseUrl + endpoint;
             var signedUrl = fullUrl + await GenerateSignature(fullUrl);
 
-            Console.WriteLine($"DEBUG - Request URL: {signedUrl}");
-
             var request = new HttpRequestMessage(HttpMethod.Get, signedUrl);
             request.Headers.UserAgent.ParseAdd(_userAgent);
             request.Headers.Add("Cookie", "mxm_bab=AB");
@@ -131,7 +129,9 @@ namespace Musix
             var content = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"ERROR - Status: {response.StatusCode}, Content: {content}");
+                Log.Warning("Error in musix api request. Status: {ResponseStatusCode}, Content: {Content}",
+                    response.StatusCode,
+                    content);
                 response.EnsureSuccessStatusCode(); // This will throw with the appropriate status code
             }
 
