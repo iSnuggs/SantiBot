@@ -1603,6 +1603,7 @@ namespace NadekoBot.Migrations.Sqlite
                     Name = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    BannerUrl = table.Column<string>(type: "TEXT", nullable: true),
                     Xp = table.Column<int>(type: "INTEGER", nullable: false),
                     OwnerId = table.Column<int>(type: "INTEGER", nullable: true),
                     DateAdded = table.Column<DateTime>(type: "TEXT", nullable: true)

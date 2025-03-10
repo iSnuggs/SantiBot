@@ -425,6 +425,9 @@ namespace NadekoBot.Migrations.Sqlite
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("BannerUrl")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("TEXT");
 

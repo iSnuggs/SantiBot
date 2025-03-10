@@ -887,6 +887,8 @@
   "club_icon_invalid_filetype": "Specified image has an invalid filetype. Make sure you're specifying a direct image url.",
   "club_icon_url_format": "You must specify an absolute image url.",
   "club_icon_set": "New club icon set.",
+  "club_banner_set": "New club banner set.",
+  "club_banner_reset": "Club banner has been reset.",
   "club_bans_for": "Bans for {0} club",
   "club_apps_for": "Applicants for {0} club",
   "club_leaderboard": "Club leaderboard - page {0}",
@@ -1201,6 +1203,6 @@
   "userrole_icon_success": "The icon for {0} has been saved.",
   "userrole_icon_fail": "Failed to set the role icon.",
   "userrole_icon_invalid": "The role icon cannot be empty.",
-  "userrole_hierarchy_error": "You can't assign or modify roles that are higher than or equal to your highest role.",
+  "userrole_hierarchy_error": "You can't assign or modify roles that are higher than or equal to your, or bots highest role.",
   "userrole_role_not_exists": "That role doesn't exist."
 }

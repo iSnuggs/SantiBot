@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NadekoBot.Migrations.PostgreSql
 {
     [DbContext(typeof(PostgreSqlContext))]
-    [Migration("20250310101144_init")]
+    [Migration("20250310143051_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -571,6 +571,10 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BannerUrl")
+                        .HasColumnType("text")
+                        .HasColumnName("bannerurl");
 
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("timestamp without time zone")
