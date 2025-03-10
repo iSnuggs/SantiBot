@@ -3441,6 +3441,32 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("userfishstats", (string)null);
                 });
 
+            modelBuilder.Entity("NadekoBot.Modules.Utility.UserRole.UserRole", b =>
+                {
+                    b.Property<decimal>("GuildId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("guildid");
+
+                    b.Property<decimal>("UserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("userid");
+
+                    b.Property<decimal>("RoleId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("roleid");
+
+                    b.HasKey("GuildId", "UserId", "RoleId")
+                        .HasName("pk_userrole");
+
+                    b.HasIndex("GuildId")
+                        .HasDatabaseName("ix_userrole_guildid");
+
+                    b.HasIndex("GuildId", "UserId")
+                        .HasDatabaseName("ix_userrole_guildid_userid");
+
+                    b.ToTable("userrole", (string)null);
+                });
+
             modelBuilder.Entity("NadekoBot.Modules.Xp.ChannelXpConfig", b =>
                 {
                     b.Property<int>("Id")

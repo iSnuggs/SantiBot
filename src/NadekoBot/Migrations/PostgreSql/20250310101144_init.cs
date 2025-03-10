@@ -1079,6 +1079,19 @@ namespace NadekoBot.Migrations.PostgreSql
                 });
 
             migrationBuilder.CreateTable(
+                name: "userrole",
+                columns: table => new
+                {
+                    guildid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    userid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    roleid = table.Column<decimal>(type: "numeric(20,0)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_userrole", x => new { x.guildid, x.userid, x.roleid });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "userxpstats",
                 columns: table => new
                 {
@@ -2132,6 +2145,16 @@ namespace NadekoBot.Migrations.PostgreSql
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "ix_userrole_guildid",
+                table: "userrole",
+                column: "guildid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_userrole_guildid_userid",
+                table: "userrole",
+                columns: new[] { "guildid", "userid" });
+
+            migrationBuilder.CreateIndex(
                 name: "ix_userxpstats_guildid",
                 table: "userxpstats",
                 column: "guildid");
@@ -2491,6 +2514,9 @@ namespace NadekoBot.Migrations.PostgreSql
 
             migrationBuilder.DropTable(
                 name: "userfishstats");
+
+            migrationBuilder.DropTable(
+                name: "userrole");
 
             migrationBuilder.DropTable(
                 name: "userxpstats");

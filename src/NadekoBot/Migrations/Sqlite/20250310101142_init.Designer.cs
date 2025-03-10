@@ -11,7 +11,7 @@ using NadekoBot.Db;
 namespace NadekoBot.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20250228044206_init")]
+    [Migration("20250310101142_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -2561,6 +2561,26 @@ namespace NadekoBot.Migrations.Sqlite
                         .IsUnique();
 
                     b.ToTable("UserFishStats");
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Utility.UserRole.UserRole", b =>
+                {
+                    b.Property<ulong>("GuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("RoleId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("GuildId", "UserId", "RoleId");
+
+                    b.HasIndex("GuildId");
+
+                    b.HasIndex("GuildId", "UserId");
+
+                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("NadekoBot.Modules.Xp.ChannelXpConfig", b =>

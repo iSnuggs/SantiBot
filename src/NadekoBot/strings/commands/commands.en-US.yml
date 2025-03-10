@@ -4986,3 +4986,80 @@ lyrics:
   params:
     - song:
         desc: "The song to look up lyrics for."
+userroleassign:
+  desc: |-
+    Assigns a role to a user that can later be modified by that user.
+  ex:
+    - '@User @Role'
+  params:
+    - user:
+        desc: 'The user to assign the role to.'
+      role:
+        desc: 'The role to assign.'
+
+userroleremove:
+  desc: |-
+    Removes a previously assigned role from a user.
+  ex:
+    - '@User @Role'
+  params:
+    - user:
+        desc: 'The user to remove the role from.'
+      role:
+        desc: 'The role to remove.'
+
+userrolelist:
+  desc: |-
+    Lists all user roles in the server, or for a specific user.
+  ex:
+    - ''
+    - '@User'
+  params:
+    - { }
+    - user:
+        desc: 'The user whose roles to list.'
+
+userrolemy:
+  desc: |-
+    Lists all of the user roles assigned to you.
+  ex:
+    - ''
+  params:
+    - { }
+
+userrolecolor:
+  desc: |-
+    Changes the color of your assigned role.
+  ex:
+    - '@Role #ff0000'
+  params:
+    - role:
+        desc: 'The assigned role to change the color of.'
+      color:
+        desc: 'The new color for the role in hex format.'
+
+userroleicon:
+  desc: |-
+    Changes the icon of your assigned role.
+  ex:
+    - '@Role :thumbsup:'
+  params:
+    - role:
+        desc: 'The assigned role to change the icon of.'
+      icon:
+        desc: 'The new icon for the role.'
+    - role:
+        desc: 'The assigned role to change the icon of.'
+      emote:
+        desc: 'The server emoji for the role.'
+
+userrolename:
+  desc: |-
+    Changes the name of your assigned role.
+  ex:
+    - '@Role New Role Name'
+  params:
+    - role:
+        desc: 'The assigned role to rename.'
+      name:
+        desc: 'The new name for the role.'

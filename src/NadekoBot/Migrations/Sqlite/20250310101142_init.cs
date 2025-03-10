@@ -1081,6 +1081,19 @@ namespace NadekoBot.Migrations.Sqlite
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserRole",
+                columns: table => new
+                {
+                    GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    RoleId = table.Column<ulong>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRole", x => new { x.GuildId, x.UserId, x.RoleId });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserXpStats",
                 columns: table => new
                 {
@@ -2134,6 +2147,16 @@ namespace NadekoBot.Migrations.Sqlite
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserRole_GuildId",
+                table: "UserRole",
+                column: "GuildId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_GuildId_UserId",
+                table: "UserRole",
+                columns: new[] { "GuildId", "UserId" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserXpStats_GuildId",
                 table: "UserXpStats",
                 column: "GuildId");
@@ -2493,6 +2516,9 @@ namespace NadekoBot.Migrations.Sqlite
 
             migrationBuilder.DropTable(
                 name: "UserFishStats");
+
+            migrationBuilder.DropTable(
+                name: "UserRole");
 
             migrationBuilder.DropTable(
                 name: "UserXpStats");
