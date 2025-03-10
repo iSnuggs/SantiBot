@@ -11,7 +11,15 @@
 - Fedora: 38, 39, 40, 41, 42
 - Arch, Artix
 
---8<-- "md/guides/vps-linux-guide.md"
+---
+
+??? note "24/7 Up-time via VPS (Digital Ocean Guide)"
+    --8<-- "md/guides/vps-linux-guide.md"
+
+??? note "Creating a Discord Bot & Getting Credentials"
+    --8<-- "md/creds-guide.md"
+
+---
 
 ## Installation Instructions
 
@@ -24,7 +32,3 @@ Open Terminal (if you're on an installation with a window manager) and navigate 
 ## Running Nadeko
 
 --8<-- "md/snippets/running-nadeko.md"
-
----
-
---8<-- "md/creds-guide.md"
