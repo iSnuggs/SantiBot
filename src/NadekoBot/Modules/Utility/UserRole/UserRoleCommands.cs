@@ -1,6 +1,7 @@
+using NadekoBot.Modules.Utility.UserRole;
 using SixLabors.ImageSharp.PixelFormats;
 
-namespace NadekoBot.Modules.Utility.UserRole;
+namespace NadekoBot.Modules.Utility;
 
 public partial class Utility
 {
@@ -41,16 +42,16 @@ public partial class Utility
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageRoles)]
         public async Task UserRoleRemove(IUser user, IRole role)
+            => await UserRoleRemove(user, role.Id);
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        [UserPerm(GuildPerm.ManageRoles)]
+        public async Task UserRoleRemove(IUser user, ulong roleId)
         {
-            var modUser = (IGuildUser)ctx.User;
+            var role = ctx.Guild.GetRole(roleId);
 
-            if (modUser.GetRoles().Max(x => x.Position) <= role.Position)
-            {
-                await Response().Error(strs.userrole_hierarchy_error).SendAsync();
-                return;
-            }
-
-            var success = await _urs.RemoveRoleAsync(ctx.Guild.Id, user.Id, role.Id);
+            var success = await _urs.RemoveRoleAsync(ctx.Guild.Id, user.Id, roleId);
             if (!success)
             {
                 await Response().Error(strs.userrole_not_found).SendAsync();
@@ -58,7 +59,9 @@ public partial class Utility
             }
 
             await Response()
-                .Confirm(strs.userrole_removed(Format.Bold(user.ToString()), Format.Bold(role.Name)))
+                .Confirm(strs.userrole_removed(
+                    Format.Bold(user.ToString()),
+                    Format.Bold(role?.Name ?? roleId.ToString())))
                 .SendAsync();
         }
 
