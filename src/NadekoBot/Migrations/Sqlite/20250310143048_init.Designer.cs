@@ -11,7 +11,7 @@ using NadekoBot.Db;
 namespace NadekoBot.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20250310101142_init")]
+    [Migration("20250310143048_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -427,6 +427,9 @@ namespace NadekoBot.Migrations.Sqlite
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("BannerUrl")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("TEXT");

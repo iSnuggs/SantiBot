@@ -27,6 +27,14 @@ public partial class Utility
                 await Response().Error(strs.userrole_hierarchy_error).SendAsync();
                 return;
             }
+            
+            var botUser = ((SocketGuild)ctx.Guild).CurrentUser;
+
+            if (botUser.GetRoles().Max(x => x.Position) <= role.Position)
+            {
+                await Response().Error(strs.hierarchy).SendAsync();
+                return;
+            }
 
             var success = await _urs.AddRoleAsync(ctx.Guild.Id, user.Id, role.Id);
 

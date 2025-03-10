@@ -569,6 +569,10 @@ namespace NadekoBot.Migrations.PostgreSql
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("BannerUrl")
+                        .HasColumnType("text")
+                        .HasColumnName("bannerurl");
+
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("dateadded");

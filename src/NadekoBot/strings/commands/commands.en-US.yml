@@ -3694,6 +3694,17 @@ clubicon:
   params:
     - url:
         desc: "The URL of an image file to use as the club icon."
+clubbanner:
+  desc: |-
+    Sets an image as a club banner.
+    The banner will be displayed when club information is shown.
+  ex:
+    - 'https://i.imgur.com/example.png'
+    - ''
+  params:
+    - { }
+    - url:
+        desc: "URL to the image to set as a club banner."
 clubapps:
   desc: Shows the list of users who have applied to your club. Paginated. You must be club owner to use this command.
   ex:
@@ -5046,12 +5057,12 @@ userroleicon:
   params:
     - role:
         desc: 'The assigned role to change the icon of.'
-      icon:
-        desc: 'The new icon for the role.'
+      imageUrl:
+        desc: 'The image url to be used as a new icon for the role.'
     - role:
         desc: 'The assigned role to change the icon of.'
-      emote:
-        desc: 'The server emoji for the role.'
+      serverEmoji:
+        desc: 'The server emoji to be used as a new icon for the role.'
 
 userrolename:
   desc: |-

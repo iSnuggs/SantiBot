@@ -1601,6 +1601,7 @@ namespace NadekoBot.Migrations.PostgreSql
                     name = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     description = table.Column<string>(type: "text", nullable: true),
                     imageurl = table.Column<string>(type: "text", nullable: true),
+                    bannerurl = table.Column<string>(type: "text", nullable: true),
                     xp = table.Column<int>(type: "integer", nullable: false),
                     ownerid = table.Column<int>(type: "integer", nullable: true),
                     dateadded = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
