@@ -333,7 +333,7 @@ public partial class Utility : NadekoModule
             .WithOkColor()
             .WithAuthor($"NadekoBot v{StatsService.BotVersion}",
                 "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/avatar.png",
-                "https://nadekobot.readthedocs.io/en/latest/")
+                "https://nadeko.bot")
             .AddField(GetText(strs.author), _stats.Author, true)
             .AddField(GetText(strs.botid), _client.CurrentUser.Id.ToString(), true)
             .AddField(GetText(strs.shard),

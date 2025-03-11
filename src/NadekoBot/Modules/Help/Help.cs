@@ -513,7 +513,7 @@ public sealed partial class Help : NadekoModule<HelpService>
     public async Task Guide()
         => await Response()
                  .Confirm(strs.guide("https://nadeko.bot/commands",
-                     "https://nadekobot.readthedocs.io/en/latest/"))
+                     "https://docs.nadeko.bot/"))
                  .SendAsync();
 
     [Cmd]
