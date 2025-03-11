@@ -981,7 +981,7 @@
     "club_create_error_name": "Het aanmaken van de club is mislukt. Er bestaat al een club met die naam.",
     "club_desc_update": "Club Beschrijving Bijgewerkt",
     "bank_accounts": "Bankrekeningen",
-    "module_description_medusa": "**Alleen robot eigenaar.** Laadt, ontlaadt en behandelt dynamische modules. Lees meer [hier](https://nadekobot.readthedocs.io/en/latest/medusa/creating-a-medusa/)",
+    "module_description_medusa": "**Alleen robot eigenaar.** Laadt, ontlaadt en behandelt dynamische modules.",
     "list_of_medusae": "Lijst van Medusae",
     "list_of_unloaded": "Lijst van beschikbare Medusae",
     "medusa_name_not_found": "Medusa met die naam bestaat niet of is niet geladen.",

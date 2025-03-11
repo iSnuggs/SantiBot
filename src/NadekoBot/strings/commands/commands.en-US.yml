@@ -418,7 +418,11 @@ iamnot:
     - role:
         desc: "The role to remove."
 expradd:
-  desc: 'Add an expression with a trigger and a response. Bot will post a response whenever someone types the trigger word.  Running this command in a server requires the Administrator permission. Running this command in DM is Bot Owner only and adds a new global expression. Guide [here](<https://nadekobot.readthedocs.io/en/latest/custom-reactions/>)'
+  desc: |-
+    Add an expression with a trigger and a response.
+    Bot will post a response whenever someone types the trigger word.
+    Running this command in a server requires the Administrator permission.
+    Running this command in DM is Bot Owner only and adds a new global expression.
   ex:
     - '"hello" Hi there %user.mention%'
   params:
@@ -427,7 +431,7 @@ expradd:
       response:
         desc: "The text of the message that shows up when a user types the trigger word or phrase."
 expraddserver:
-  desc: 'Add an expression with a trigger and a response in this server. Bot will post a response whenever someone types the trigger word. This command is useful if you want to lower the permission requirement for managing expressions by using `{0}dpo`. Guide [here](<https://nadekobot.readthedocs.io/en/latest/custom-reactions/>).'
+  desc: 'Add an expression with a trigger and a response in this server. Bot will post a response whenever someone types the trigger word. This command is useful if you want to lower the permission requirement for managing expressions by using `{0}dpo`.'
   ex:
     - '"hello" Hi there %user.mention%'
   params:
@@ -4211,7 +4215,6 @@ medusaload:
   desc: |-
     Loads a medusa with the specified name from the data/medusae/ folder.
     Provide no name to see the list of loadable medusae.
-    Read about the medusa system [here](https://nadekobot.readthedocs.io/en/latest/medusa/creating-a-medusa/)
   ex:
     - mycoolmedusa
     - ''
@@ -4222,7 +4225,6 @@ medusaunload:
   desc: |-
     Unloads the previously loaded medusa.
     Provide no name to see the list of unloadable medusae. 
-    Read about the medusa system [here](https://nadekobot.readthedocs.io/en/latest/medusa/creating-a-medusa/)
   ex:
     - mycoolmedusa
     - ''
@@ -4233,7 +4235,6 @@ medusainfo:
   desc: |-
     Shows information about the specified medusa such as the author, name, description, list of sneks, number of commands etc.
     Provide no name to see the basic information about all loaded medusae. 
-    Read about the medusa system [here](https://nadekobot.readthedocs.io/en/latest/medusa/creating-a-medusa/)
   ex:
     - mycoolmedusa
     - ''
@@ -4243,7 +4244,6 @@ medusainfo:
 medusalist:
   desc: |-
     Lists all loaded and unloaded medusae.
-    Read about the medusa system [here](https://nadekobot.readthedocs.io/en/latest/medusa/creating-a-medusa/)
   ex:
     - ''
   params:

@@ -28,7 +28,7 @@
 - `.lyrics <song_name>` added - find lyrics for a song (it's not always accurate)
 
 - For Selfhosters
-  - you have to update to latest v5 before updating to v6, otherwise migrations will  fail
+  - you have to update to latest v5 before updating to v6, otherwise migrations will fail
   - migration system was reworked
   - Xp card is now 500x245
   - xp_template.json backed up to old_xp_template.json 
