@@ -1166,6 +1166,8 @@ clubadmin:
   - clubadmin
 clubrename:
   - clubrename
+clubbanner:
+  - clubbanner
 eightball:
   - eightball
   - 8ball
