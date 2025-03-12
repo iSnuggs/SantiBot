@@ -1046,6 +1046,5 @@
     "xpshop_buy_success": "Vous avez acheté avec succès `{0}/{1}`",
     "patron_insuff_tier": "Votre Tier Patron est insuffisant pour réaliser cette action.",
     "xpshop_already_owned": "Vous disposez déjà de cet item.",
-    "xpshop_item_not_found": "Aucun item disposant de cette clé n'existe.",
-    "xpshop_website": "Vous pouvez voir la liste de tous les items du magasin d'XP ici: <https://xpshop.nadeko.bot>"
+    "xpshop_item_not_found": "Aucun item disposant de cette clé n'existe."
 }

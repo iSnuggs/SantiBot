@@ -1046,6 +1046,5 @@
     "xpshop_buy_success": "Успішно придбано `{0}/{1}`",
     "patron_insuff_tier": "Рівень вашого патрона недостатній для виконання цієї дії.",
     "xpshop_already_owned": "Ви вже володієте цим товаром.",
-    "xpshop_item_not_found": "Елемент із таким ключем не існує.",
-    "xpshop_website": "Ви можете переглянути список усіх товарів Xp магазина тут: <https://xpshop.nadeko.bot>"
+    "xpshop_item_not_found": "Елемент із таким ключем не існує."
 }
