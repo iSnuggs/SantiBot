@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using LinqToDB.Mapping;
+using DataType = LinqToDB.DataType;
 
 namespace NadekoBot.Db.Models;
 
@@ -14,6 +16,7 @@ public class AntiAltSetting
 
     public ulong GuildId { get; set; }
 
+    [LinqToDB.Mapping.DataType(DataType.Interval)]
     public TimeSpan MinAge { get; set; }
     public PunishmentAction Action { get; set; }
     public int ActionDurationMinutes { get; set; }
