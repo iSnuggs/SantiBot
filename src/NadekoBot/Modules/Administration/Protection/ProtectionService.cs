@@ -27,7 +27,6 @@ public class ProtectionService : IReadyExecutor, INService
     private readonly UserPunishService _punishService;
     private readonly INotifySubscriber _notifySub;
     private readonly ShardData _shardData;
-
     private readonly Channel<PunishQueueItem> _punishUserQueue =
         Channel.CreateUnbounded<PunishQueueItem>(new()
         {
@@ -276,25 +275,23 @@ public class ProtectionService : IReadyExecutor, INService
         await using var uow = _db.GetDbContext();
 
         await uow.GetTable<AntiRaidSetting>()
-            .InsertOrUpdateAsync(() => new()
-                {
-                    GuildId = guildId,
-                    Action = action,
-                    Seconds = seconds,
-                    UserThreshold = userThreshold,
-                    PunishDuration = minutesDuration
-                },
-                _ => new()
-                {
-                    Action = action,
-                    Seconds = seconds,
-                    UserThreshold = userThreshold,
-                    PunishDuration = minutesDuration
-                },
-                () => new()
-                {
-                    GuildId = guildId
-                });
+           .InsertOrUpdateAsync(() => new()
+           {
+               GuildId = guildId,
+               Action = action,
+               Seconds = seconds,
+               UserThreshold = userThreshold,
+               PunishDuration = minutesDuration
+           }, _ => new()
+           {
+               Action = action,
+               Seconds = seconds,
+               UserThreshold = userThreshold,
+               PunishDuration = minutesDuration
+           }, () => new()
+           {
+               GuildId = guildId
+           });
 
 
         return stats;
@@ -365,25 +362,23 @@ public class ProtectionService : IReadyExecutor, INService
         await using var uow = _db.GetDbContext();
         await uow.GetTable<AntiSpamSetting>()
             .InsertOrUpdateAsync(() => new()
-                {
-                    GuildId = guildId,
-                    Action = stats.AntiSpamSettings.Action,
-                    MessageThreshold = stats.AntiSpamSettings.MessageThreshold,
-                    MuteTime = stats.AntiSpamSettings.MuteTime,
-                    RoleId = stats.AntiSpamSettings.RoleId
-                },
-                (old) => new()
-                {
-                    GuildId = guildId,
-                    Action = stats.AntiSpamSettings.Action,
-                    MessageThreshold = stats.AntiSpamSettings.MessageThreshold,
-                    MuteTime = stats.AntiSpamSettings.MuteTime,
-                    RoleId = stats.AntiSpamSettings.RoleId
-                },
-                () => new()
-                {
-                    GuildId = guildId
-                });
+            {
+                GuildId = guildId,
+                Action = stats.AntiSpamSettings.Action,
+                MessageThreshold = stats.AntiSpamSettings.MessageThreshold,
+                MuteTime = stats.AntiSpamSettings.MuteTime,
+                RoleId = stats.AntiSpamSettings.RoleId
+            }, (old) => new()
+            {
+                GuildId = guildId,
+                Action = stats.AntiSpamSettings.Action,
+                MessageThreshold = stats.AntiSpamSettings.MessageThreshold,
+                MuteTime = stats.AntiSpamSettings.MuteTime,
+                RoleId = stats.AntiSpamSettings.RoleId
+            }, () => new()
+            {
+                GuildId = guildId
+            });
 
         return stats;
     }
@@ -394,13 +389,13 @@ public class ProtectionService : IReadyExecutor, INService
         {
             ChannelId = channelId
         };
-
+        
         await using var uow = _db.GetDbContext();
         var spam = await uow.GetTable<AntiSpamSetting>()
             .Include(x => x.IgnoredChannels)
             .Where(x => x.GuildId == guildId)
             .FirstOrDefaultAsyncEF();
-
+        
         if (spam is null)
             return null;
 
@@ -464,24 +459,22 @@ public class ProtectionService : IReadyExecutor, INService
 
         await uow.GetTable<AntiAltSetting>()
             .InsertOrUpdateAsync(() => new()
-                {
-                    GuildId = guildId,
-                    Action = action,
-                    ActionDurationMinutes = actionDurationMinutes,
-                    MinAge = TimeSpan.FromMinutes(minAgeMinutes),
-                    RoleId = roleId
-                },
-                _ => new()
-                {
-                    Action = action,
-                    ActionDurationMinutes = actionDurationMinutes,
-                    MinAge = TimeSpan.FromMinutes(minAgeMinutes),
-                    RoleId = roleId
-                },
-                () => new()
-                {
-                    GuildId = guildId
-                });
+            {
+                GuildId = guildId,
+                Action = action,
+                ActionDurationMinutes = actionDurationMinutes,
+                MinAge = TimeSpan.FromMinutes(minAgeMinutes),
+                RoleId = roleId
+            }, _ => new()
+            {
+                Action = action,
+                ActionDurationMinutes = actionDurationMinutes,
+                MinAge = TimeSpan.FromMinutes(minAgeMinutes),
+                RoleId = roleId
+            }, () => new()
+            {
+                GuildId = guildId
+            });
 
         _antiAltGuilds[guildId] = new(new()
         {
@@ -509,10 +502,10 @@ public class ProtectionService : IReadyExecutor, INService
     {
         await using var uow = _db.GetDbContext();
 
-        var configs = await uow.Set<AntiAltSetting>()
+        var configs = await uow.GetTable<AntiAltSetting>()
             .AsNoTracking()
-            .Where(x => x.GuildId / 4194304 % (ulong)_shardData.TotalShards == (ulong)_shardData.ShardId)
-            .ToListAsyncEF();
+            .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
+            .ToListAsyncLinqToDB();
 
         foreach (var config in configs)
             _antiAltGuilds[config.GuildId] = new(config);
@@ -532,7 +525,7 @@ public class ProtectionService : IReadyExecutor, INService
         var spamConfigs = await uow.GetTable<AntiSpamSetting>()
             .AsNoTracking()
             .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
-            .ToListAsyncEF();
+            .ToListAsyncLinqToDB();
 
         foreach (var config in spamConfigs)
         {
