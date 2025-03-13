@@ -642,9 +642,13 @@ public partial class Utility : NadekoModule
 
     [Cmd]
     [RequireContext(ContextType.Guild)]
-    [OwnerOnly]
+    [UserPerm(GuildPerm.Administrator)]
+    [Ratelimit(3600)]
     public async Task SaveChat(int cnt)
     {
+        if (cnt > 1000)
+            return;
+        
         var msgs = new List<IMessage>(cnt);
         await ctx.Channel.GetMessagesAsync(cnt).ForEachAsync(dled => msgs.AddRange(dled));
 
