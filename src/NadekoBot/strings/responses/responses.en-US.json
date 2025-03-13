@@ -1203,5 +1203,6 @@
   "userrole_icon_fail": "Failed to set the role icon.",
   "userrole_icon_invalid": "The role icon cannot be empty.",
   "userrole_hierarchy_error": "You can't assign or modify roles that are higher than or equal to your, or bots highest role.",
-  "userrole_role_not_exists": "That role doesn't exist."
+  "userrole_role_not_exists": "That role doesn't exist.",
+  "whos_playing_game": "{0} users are playing {1}"
 }
