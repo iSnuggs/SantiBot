@@ -502,10 +502,10 @@ public class ProtectionService : IReadyExecutor, INService
     {
         await using var uow = _db.GetDbContext();
 
-        var configs = await uow.GetTable<AntiAltSetting>()
-            .AsNoTracking()
-            .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
-            .ToListAsyncLinqToDB();
+        var gids = _client.GetGuildIds();
+        var configs = await uow.Set<AntiAltSetting>()
+            .Where(x => gids.Contains(x.GuildId))
+            .ToListAsyncEF();
 
         foreach (var config in configs)
             _antiAltGuilds[config.GuildId] = new(config);
