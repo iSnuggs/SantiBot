@@ -503,8 +503,9 @@ public class ProtectionService : IReadyExecutor, INService
         await using var uow = _db.GetDbContext();
 
         var configs = await uow.GetTable<AntiAltSetting>()
+            .AsNoTracking()
             .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
-            .ToListAsyncLinqToDB();
+            .ToListAsyncEF();
 
         foreach (var config in configs)
             _antiAltGuilds[config.GuildId] = new(config);
@@ -522,8 +523,9 @@ public class ProtectionService : IReadyExecutor, INService
         }
 
         var spamConfigs = await uow.GetTable<AntiSpamSetting>()
+            .AsNoTracking()
             .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
-            .ToListAsyncLinqToDB();
+            .ToListAsyncEF();
 
         foreach (var config in spamConfigs)
         {
