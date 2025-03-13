@@ -142,7 +142,8 @@ DELETE FROM VcRoleInfo WHERE GuildConfigId IS NULL OR GuildConfigId NOT IN (SELE
 UPDATE VcRoleInfo
 SET GuildId = (SELECT GuildId FROM GuildConfigs WHERE GuildConfigs.Id = VcRoleInfo.GuildConfigId);
 
-DELETE FROM UnroleTimer WHERE GuildConfigId IS NULL OR GuildConfigId NOT IN (SELECT Id FROM GuildConfigs);
+DELETE FROM UnroleTimer WHERE GuildConfigId IS NULL OR GuildConfigId NOT IN (SELECT Id FROM GuildConfigs)
+    OR (GuildId, UserId) IN (SELECT GuildId, UserId FROM UnroleTimer GROUP BY GuildId, UserId HAVING COUNT(*) > 1);
 UPDATE UnroleTimer
 SET GuildId = (SELECT GuildId FROM GuildConfigs WHERE GuildConfigs.Id = UnroleTimer.GuildConfigId);
 
