@@ -17,7 +17,6 @@ namespace NadekoBot.Migrations.Sqlite
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    GuildConfigId = table.Column<int>(type: "INTEGER", nullable: false),
                     GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     MinAge = table.Column<TimeSpan>(type: "TEXT", nullable: false),
                     Action = table.Column<int>(type: "INTEGER", nullable: false),
@@ -53,7 +52,6 @@ namespace NadekoBot.Migrations.Sqlite
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    GuildConfigId = table.Column<int>(type: "INTEGER", nullable: false),
                     GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     Action = table.Column<int>(type: "INTEGER", nullable: false),
                     MessageThreshold = table.Column<int>(type: "INTEGER", nullable: false),

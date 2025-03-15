@@ -11,7 +11,7 @@ using NadekoBot.Db;
 namespace NadekoBot.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20250315193844_init")]
+    [Migration("20250315225536_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -30,9 +30,6 @@ namespace NadekoBot.Migrations.Sqlite
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ActionDurationMinutes")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("GuildConfigId")
                         .HasColumnType("INTEGER");
 
                     b.Property<ulong>("GuildId")
@@ -117,9 +114,6 @@ namespace NadekoBot.Migrations.Sqlite
 
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("GuildConfigId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");
