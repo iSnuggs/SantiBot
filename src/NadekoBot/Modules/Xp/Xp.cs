@@ -40,9 +40,19 @@ public partial class Xp : NadekoModule<XpService>
         _templateService = templateService;
     }
 
+    // [Cmd]
+    // [RequireContext(ContextType.Guild)]
+    // public async Task ExperienceText([Leftover] IUser? user = null)
+    // {
+    //     user ??= ctx.User;
+    //     var xp = await _service.GetUserStatsAsync((IGuildUser)user);
+    //     await ctx.Channel.TriggerTypingAsync();
+    //     await ctx.Channel.SendMessageAsync(_templateService.GetXpText(xp));
+    // }
+    
     [Cmd]
     [RequireContext(ContextType.Guild)]
-    public async Task Experience([Leftover] IUser user = null)
+    public async Task Experience([Leftover] IUser? user = null)
     {
         user ??= ctx.User;
         await ctx.Channel.TriggerTypingAsync();

@@ -11,7 +11,7 @@ using NadekoBot.Db;
 namespace NadekoBot.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20250310143048_init")]
+    [Migration("20250315193844_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -627,11 +627,6 @@ namespace NadekoBot.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasDefaultValue(false);
 
-                    b.Property<int>("NotifyOnLevelUp")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(0);
-
                     b.Property<long>("TotalXp")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER")
@@ -810,6 +805,9 @@ namespace NadekoBot.Migrations.Sqlite
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Message")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PrettyName")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Type")

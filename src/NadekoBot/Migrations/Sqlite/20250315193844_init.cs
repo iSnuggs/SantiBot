@@ -366,6 +366,7 @@ namespace NadekoBot.Migrations.Sqlite
                     GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     ChannelId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     Username = table.Column<string>(type: "TEXT", nullable: true),
+                    PrettyName = table.Column<string>(type: "TEXT", nullable: true),
                     Type = table.Column<int>(type: "INTEGER", nullable: false),
                     Message = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -1625,7 +1626,6 @@ namespace NadekoBot.Migrations.Sqlite
                     ClubId = table.Column<int>(type: "INTEGER", nullable: true),
                     IsClubAdmin = table.Column<bool>(type: "INTEGER", nullable: false, defaultValue: false),
                     TotalXp = table.Column<long>(type: "INTEGER", nullable: false, defaultValue: 0L),
-                    NotifyOnLevelUp = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
                     CurrencyAmount = table.Column<long>(type: "INTEGER", nullable: false, defaultValue: 0L),
                     DateAdded = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },

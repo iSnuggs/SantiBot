@@ -367,6 +367,7 @@ namespace NadekoBot.Migrations.PostgreSql
                     guildid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     channelid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     username = table.Column<string>(type: "text", nullable: true),
+                    prettyname = table.Column<string>(type: "text", nullable: true),
                     type = table.Column<int>(type: "integer", nullable: false),
                     message = table.Column<string>(type: "text", nullable: true)
                 },
@@ -1623,7 +1624,6 @@ namespace NadekoBot.Migrations.PostgreSql
                     clubid = table.Column<int>(type: "integer", nullable: true),
                     isclubadmin = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     totalxp = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
-                    notifyonlevelup = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     currencyamount = table.Column<long>(type: "bigint", nullable: false, defaultValue: 0L),
                     dateadded = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
