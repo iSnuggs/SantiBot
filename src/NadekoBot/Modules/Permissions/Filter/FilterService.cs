@@ -1,4 +1,4 @@
-﻿#nullable disable
+#nullable disable
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -255,8 +255,8 @@ public sealed class FilterService : IExecOnMessage, IReadyExecutor
         {
             FilterInvitesChannels = conf?.FilterInvitesChannelIds.Select(x => x.ChannelId).ToArray() ?? [],
             FilterLinksChannels = conf?.FilterLinksChannelIds.Select(x => x.ChannelId).ToArray() ?? [],
-            FilterInvitesEnabled = false,
-            FilterLinksEnabled = false,
+            FilterInvitesEnabled = conf?.FilterInvites ?? InviteFilteringServers.Contains(guildId),
+            FilterLinksEnabled = conf?.FilterLinks ?? LinkFilteringServers.Contains(guildId),
         };
     }
 
@@ -271,6 +271,7 @@ public sealed class FilterService : IExecOnMessage, IReadyExecutor
         }
         else
         {
+            LinkFilteringServers.TryRemove(guildId);
             fc.FilterLinks = false;
         }
 
@@ -313,6 +314,7 @@ public sealed class FilterService : IExecOnMessage, IReadyExecutor
             return true;
         }
 
+        InviteFilteringServers.TryRemove(guildId);
         fc.FilterInvites = false;
         await uow.SaveChangesAsync();
         return false;
@@ -352,6 +354,7 @@ public sealed class FilterService : IExecOnMessage, IReadyExecutor
             return true;
         }
 
+        WordFilteringServers.TryRemove(guildId);
         fc.FilterWords = false;
         await uow.SaveChangesAsync();
         return false;
