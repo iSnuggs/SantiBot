@@ -35,8 +35,6 @@ public class XpSvc : GrpcXp.GrpcXpBase, IGrpcSvc, INService
         if (guild is null)
             throw new RpcException(new Status(StatusCode.NotFound, "Guild not found"));
 
-        var isServerExcluded = false;
-
         var reply = new GetXpSettingsReply();
 
         var settings = await _xp.GetFullXpSettingsFor(request.GuildId);
