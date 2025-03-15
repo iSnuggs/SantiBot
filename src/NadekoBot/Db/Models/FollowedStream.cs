@@ -1,4 +1,3 @@
-#nullable disable
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,9 +17,10 @@ public class FollowedStream
     public int Id { get; set; }
     public ulong GuildId { get; set; }
     public ulong ChannelId { get; set; }
-    public string Username { get; set; }
+    public string Username { get; set; } = string.Empty;
+    public string? PrettyName { get; set; } = null;
     public FType Type { get; set; }
-    public string Message { get; set; }
+    public string? Message { get; set; } = null;
 
     protected bool Equals(FollowedStream other)
         => ChannelId == other.ChannelId

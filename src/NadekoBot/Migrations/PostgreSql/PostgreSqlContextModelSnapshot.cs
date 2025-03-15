@@ -834,12 +834,6 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasDefaultValue(false)
                         .HasColumnName("isclubadmin");
 
-                    b.Property<int>("NotifyOnLevelUp")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0)
-                        .HasColumnName("notifyonlevelup");
-
                     b.Property<long>("TotalXp")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
@@ -1084,6 +1078,10 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.Property<string>("Message")
                         .HasColumnType("text")
                         .HasColumnName("message");
+
+                    b.Property<string>("PrettyName")
+                        .HasColumnType("text")
+                        .HasColumnName("prettyname");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer")
