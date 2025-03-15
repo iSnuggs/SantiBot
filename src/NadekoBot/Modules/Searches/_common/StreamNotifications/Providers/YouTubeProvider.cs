@@ -83,9 +83,9 @@ public sealed partial class YouTubeProvider : Provider
 
             if (instances is not { Count: > 0 })
                 return null;
-            
+
             var invInstance = instances[_rng.Next(0, _scs.Data.InvidiousInstances.Count)];
-            
+
             using var client = _httpFactory.CreateClient();
             client.BaseAddress = new Uri(invInstance);
 
@@ -142,6 +142,9 @@ public sealed partial class YouTubeProvider : Provider
             isLive = true;
         }
 
+        if (vid is null)
+            return null;
+
         var avatarUrl = channel?.AuthorThumbnails?.Select(x => x.Url).LastOrDefault();
 
         return new StreamData()
@@ -175,7 +178,10 @@ public sealed partial class YouTubeProvider : Provider
             var streamData = await Task.WhenAll(group.Select(GetStreamDataAsync));
 
             foreach (var data in streamData)
-                results.Add(data);
+            {
+                if (data is not null)
+                    results.Add(data);
+            }
         }
 
         return results;

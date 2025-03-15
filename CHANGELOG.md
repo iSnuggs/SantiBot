@@ -2,6 +2,21 @@
 
 *a,c,f,r,o*
 
+## [6.0.6] - 15.03.2025
+
+### Added
+
+- Added youtube live stream notification support for `.streamadd`
+  - it only works by using an invidious instance (with a working api) from data/searches.yml
+
+### Fixed
+
+- Fixed `.hangman` not receiving input sometimes
+- Fixed `.sfl` and similar toggles not working
+- Fixed `.antialt` and other protection commands not properly turning on
+- Fixed `%bot.time%` and  `%bot.date%` placeholders showing wrong date.
+  - No longer a timestamp
+
 ## [6.0.5] - 14.03.2025
 
 ### Added
