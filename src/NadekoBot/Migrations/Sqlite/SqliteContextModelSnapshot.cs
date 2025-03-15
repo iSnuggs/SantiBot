@@ -29,9 +29,6 @@ namespace NadekoBot.Migrations.Sqlite
                     b.Property<int>("ActionDurationMinutes")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("GuildConfigId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");
 
@@ -114,9 +111,6 @@ namespace NadekoBot.Migrations.Sqlite
 
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("GuildConfigId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");

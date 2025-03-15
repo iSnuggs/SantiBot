@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NadekoBot.Migrations.PostgreSql
 {
     [DbContext(typeof(PostgreSqlContext))]
-    [Migration("20250315193847_init")]
+    [Migration("20250315225539_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -41,10 +41,6 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.Property<int>("ActionDurationMinutes")
                         .HasColumnType("integer")
                         .HasColumnName("actiondurationminutes");
-
-                    b.Property<int>("GuildConfigId")
-                        .HasColumnType("integer")
-                        .HasColumnName("guildconfigid");
 
                     b.Property<decimal>("GuildId")
                         .HasColumnType("numeric(20,0)")
@@ -157,10 +153,6 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("dateadded");
-
-                    b.Property<int>("GuildConfigId")
-                        .HasColumnType("integer")
-                        .HasColumnName("guildconfigid");
 
                     b.Property<decimal>("GuildId")
                         .HasColumnType("numeric(20,0)")

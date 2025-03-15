@@ -18,7 +18,6 @@ namespace NadekoBot.Migrations.PostgreSql
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    guildconfigid = table.Column<int>(type: "integer", nullable: false),
                     guildid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     minage = table.Column<TimeSpan>(type: "interval", nullable: false),
                     action = table.Column<int>(type: "integer", nullable: false),
@@ -54,7 +53,6 @@ namespace NadekoBot.Migrations.PostgreSql
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    guildconfigid = table.Column<int>(type: "integer", nullable: false),
                     guildid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     action = table.Column<int>(type: "integer", nullable: false),
                     messagethreshold = table.Column<int>(type: "integer", nullable: false),

@@ -39,10 +39,6 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasColumnType("integer")
                         .HasColumnName("actiondurationminutes");
 
-                    b.Property<int>("GuildConfigId")
-                        .HasColumnType("integer")
-                        .HasColumnName("guildconfigid");
-
                     b.Property<decimal>("GuildId")
                         .HasColumnType("numeric(20,0)")
                         .HasColumnName("guildid");
@@ -154,10 +150,6 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("dateadded");
-
-                    b.Property<int>("GuildConfigId")
-                        .HasColumnType("integer")
-                        .HasColumnName("guildconfigid");
 
                     b.Property<decimal>("GuildId")
                         .HasColumnType("numeric(20,0)")
