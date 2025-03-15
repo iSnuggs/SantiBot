@@ -570,10 +570,10 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         if (cdInMinutes <= float.Epsilon)
             return Task.FromResult(true);
 
-        if (_memCache.TryGetValue(userId, out _))
+        if (_memCache.TryGetValue("xp_gain:" + userId, out _))
             return Task.FromResult(false);
 
-        using var entry = _memCache.CreateEntry(userId);
+        using var entry = _memCache.CreateEntry("xp_gain:" + userId);
         entry.Value = true;
 
         entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(cdInMinutes);
