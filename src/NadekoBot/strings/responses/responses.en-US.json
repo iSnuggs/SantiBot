@@ -1165,7 +1165,7 @@
   "fish_quality": "Quality",
   "fish_spot": "Spot",
   "fish_waiting": "Fishing...",
-  "fish_weather": "Weather", 
+  "fish_weather": "Weather",
   "fish_weather_duration": "Each weather period lasts for {0} hours.",
   "fish_weather_current": "Current",
   "fish_weather_forecast": "Forecast",
@@ -1207,5 +1207,15 @@
   "userrole_icon_invalid": "The role icon cannot be empty.",
   "userrole_hierarchy_error": "You can't assign or modify roles that are higher than or equal to your, or bots highest role.",
   "userrole_role_not_exists": "That role doesn't exist.",
-  "whos_playing_game": "{0} users are playing {1}"
+  "whos_playing_game": "{0} users are playing {1}",
+  "schedule_list_title": "Scheduled Commands",
+  "schedule_list_none": "You don't have any scheduled commands.",
+  "schedule_list_for_user": "Scheduled Commands",
+  "schedule_deleted": "Scheduled command #{0} successfully deleted.",
+  "schedule_delete_error": "Error deleting scheduled command.",
+  "schedule_id": "ID",
+  "schedule_command": "Command",
+  "schedule_when": "Executes At",
+  "schedule_add_success": "Scheduled command successfully added.",
+  "schedule_add_error": "You already have 5 scheduled commands. Please delete some before adding more."
 }

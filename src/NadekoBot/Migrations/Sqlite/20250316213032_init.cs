@@ -858,6 +858,24 @@ namespace NadekoBot.Migrations.Sqlite
                 });
 
             migrationBuilder.CreateTable(
+                name: "ScheduledCommand",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    ChannelId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    MessageId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    Text = table.Column<string>(type: "TEXT", nullable: false),
+                    When = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ScheduledCommand", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ShopEntry",
                 columns: table => new
                 {
@@ -2051,6 +2069,21 @@ namespace NadekoBot.Migrations.Sqlite
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ScheduledCommand_GuildId",
+                table: "ScheduledCommand",
+                column: "GuildId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScheduledCommand_UserId",
+                table: "ScheduledCommand",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ScheduledCommand_When",
+                table: "ScheduledCommand",
+                column: "When");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ShopEntry_GuildId_Index",
                 table: "ShopEntry",
                 columns: new[] { "GuildId", "Index" },
@@ -2473,6 +2506,9 @@ namespace NadekoBot.Migrations.Sqlite
 
             migrationBuilder.DropTable(
                 name: "SarAutoDelete");
+
+            migrationBuilder.DropTable(
+                name: "ScheduledCommand");
 
             migrationBuilder.DropTable(
                 name: "ShopEntryItem");

@@ -1615,3 +1615,15 @@ userrolename:
 userroleicon:
   - userroleicon
   - uri
+schedulelist:
+  - schedulelist
+  - schl
+  - schli
+scheduledelete:
+  - scheduledelete
+  - schd
+  - schdel
+scheduleadd:
+  - scheduleadd
+  - scha
+  - schadd
