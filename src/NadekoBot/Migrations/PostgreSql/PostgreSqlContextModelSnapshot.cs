@@ -3435,6 +3435,55 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("userfishstats", (string)null);
                 });
 
+            modelBuilder.Entity("NadekoBot.Modules.Utility.Scheduled.ScheduledCommand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("ChannelId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("channelid");
+
+                    b.Property<decimal>("GuildId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("guildid");
+
+                    b.Property<decimal>("MessageId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("messageid");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("text");
+
+                    b.Property<decimal>("UserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("userid");
+
+                    b.Property<DateTime>("When")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("when");
+
+                    b.HasKey("Id")
+                        .HasName("pk_scheduledcommand");
+
+                    b.HasIndex("GuildId")
+                        .HasDatabaseName("ix_scheduledcommand_guildid");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_scheduledcommand_userid");
+
+                    b.HasIndex("When")
+                        .HasDatabaseName("ix_scheduledcommand_when");
+
+                    b.ToTable("scheduledcommand", (string)null);
+                });
+
             modelBuilder.Entity("NadekoBot.Modules.Utility.UserRole.UserRole", b =>
                 {
                     b.Property<decimal>("GuildId")

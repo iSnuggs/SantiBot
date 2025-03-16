@@ -856,6 +856,24 @@ namespace NadekoBot.Migrations.PostgreSql
                 });
 
             migrationBuilder.CreateTable(
+                name: "scheduledcommand",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    userid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    channelid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    guildid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    messageid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    text = table.Column<string>(type: "text", nullable: false),
+                    when = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_scheduledcommand", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "shopentry",
                 columns: table => new
                 {
@@ -2049,6 +2067,21 @@ namespace NadekoBot.Migrations.PostgreSql
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "ix_scheduledcommand_guildid",
+                table: "scheduledcommand",
+                column: "guildid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_scheduledcommand_userid",
+                table: "scheduledcommand",
+                column: "userid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_scheduledcommand_when",
+                table: "scheduledcommand",
+                column: "when");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_shopentry_guildid_index",
                 table: "shopentry",
                 columns: new[] { "guildid", "index" },
@@ -2471,6 +2504,9 @@ namespace NadekoBot.Migrations.PostgreSql
 
             migrationBuilder.DropTable(
                 name: "sarautodelete");
+
+            migrationBuilder.DropTable(
+                name: "scheduledcommand");
 
             migrationBuilder.DropTable(
                 name: "shopentryitem");
