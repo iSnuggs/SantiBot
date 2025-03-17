@@ -3952,13 +3952,20 @@ stock:
   params:
     - query:
         desc: "The ticker symbol or company name used to retrieve the stock's information."
+masskick:
+  desc: Kicks multiple users at once. Specify a space separated list of IDs of users who you wish to kick.
+  ex:
+    - 123123123 3333333333 444444444
+  params:
+    - users:
+        desc: "The list of user IDs to kick. Whitespace-separated string."
 massban:
   desc: Bans multiple users at once. Specify a space separated list of IDs of users who you wish to ban.
   ex:
     - 123123123 3333333333 444444444
   params:
-    - userStrings:
-        desc: "The list of user IDs to ban, provided as a comma-separated string."
+    - users:
+        desc: "The list of user IDs to ban. Whitespace-separated string."
 masskill:
   desc: Specify a new-line separated list of `userid reason`. You can use Username#discrim instead of UserId. Specified users will be banned from the current server, blacklisted from the bot, and have all of their currency taken away.
   ex:

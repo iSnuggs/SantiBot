@@ -1220,6 +1220,8 @@ crypto:
   - c
 massban:
   - massban
+masskick:
+  - masskick
 masskill:
   - masskill
 reroadd:
