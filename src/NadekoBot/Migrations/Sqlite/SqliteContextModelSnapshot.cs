@@ -1110,6 +1110,32 @@ namespace NadekoBot.Migrations.Sqlite
                     b.ToTable("ImageOnlyChannels");
                 });
 
+            modelBuilder.Entity("NadekoBot.Db.Models.LiveChannelConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("ChannelId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("GuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Template")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuildId");
+
+                    b.HasIndex("GuildId", "ChannelId")
+                        .IsUnique();
+
+                    b.ToTable("LiveChannelConfig");
+                });
+
             modelBuilder.Entity("NadekoBot.Db.Models.LogSetting", b =>
                 {
                     b.Property<int>("Id")

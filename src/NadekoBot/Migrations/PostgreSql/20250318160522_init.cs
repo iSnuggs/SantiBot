@@ -551,6 +551,21 @@ namespace NadekoBot.Migrations.PostgreSql
                 });
 
             migrationBuilder.CreateTable(
+                name: "livechannelconfig",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    guildid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    channelid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    template = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_livechannelconfig", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "logsettings",
                 columns: table => new
                 {
@@ -1985,6 +2000,17 @@ namespace NadekoBot.Migrations.PostgreSql
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "ix_livechannelconfig_guildid",
+                table: "livechannelconfig",
+                column: "guildid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_livechannelconfig_guildid_channelid",
+                table: "livechannelconfig",
+                columns: new[] { "guildid", "channelid" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "ix_logsettings_guildid",
                 table: "logsettings",
                 column: "guildid",
@@ -2474,6 +2500,9 @@ namespace NadekoBot.Migrations.PostgreSql
 
             migrationBuilder.DropTable(
                 name: "imageonlychannels");
+
+            migrationBuilder.DropTable(
+                name: "livechannelconfig");
 
             migrationBuilder.DropTable(
                 name: "musicplayersettings");

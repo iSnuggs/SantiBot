@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NadekoBot.Migrations.PostgreSql
 {
     [DbContext(typeof(PostgreSqlContext))]
-    [Migration("20250318113856_init")]
+    [Migration("20250318160522_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -1488,6 +1488,41 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasDatabaseName("ix_imageonlychannels_channelid");
 
                     b.ToTable("imageonlychannels", (string)null);
+                });
+
+            modelBuilder.Entity("NadekoBot.Db.Models.LiveChannelConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("ChannelId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("channelid");
+
+                    b.Property<decimal>("GuildId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("guildid");
+
+                    b.Property<string>("Template")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("template");
+
+                    b.HasKey("Id")
+                        .HasName("pk_livechannelconfig");
+
+                    b.HasIndex("GuildId")
+                        .HasDatabaseName("ix_livechannelconfig_guildid");
+
+                    b.HasIndex("GuildId", "ChannelId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_livechannelconfig_guildid_channelid");
+
+                    b.ToTable("livechannelconfig", (string)null);
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.LogSetting", b =>
