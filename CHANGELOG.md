@@ -2,6 +2,20 @@
 
 *a,c,f,r,o*
 
+## [6.0.8] - 18.03.2025
+
+### Added
+
+- Live channel commands
+  - `.lcha` adds a channel with a template message (supports placeholders, and works on category channels too!)
+    - Every 10 minutes, channel name will be updated
+    - example: `.lcha #my-channel --> Members: %server.members% <--` will display the number of members in the server as a channel name, updating once every 10 minutes
+  - `.lchl` lists all live channels (Up to 5)
+  - `.lchd <channel or channelId>` removed a live channel
+
+### Fixed
+- `.antispamignore` fixed
+
 ## [6.0.7] - 18.03.2025
 
 ### Added

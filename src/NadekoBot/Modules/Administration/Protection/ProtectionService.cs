@@ -10,7 +10,7 @@ namespace NadekoBot.Modules.Administration.Services;
 
 public class ProtectionService : IReadyExecutor, INService
 {
-    public event Func<PunishmentAction, ProtectionType, IGuildUser[], Task> OnAntiProtectionTriggered = delegate
+    public event Func<PunishmentAction, ProtectionType, IGuildUser[], Task> OnAntiProtectionTriggered = static delegate
     {
         return Task.CompletedTask;
     };
@@ -301,7 +301,7 @@ public class ProtectionService : IReadyExecutor, INService
     {
         if (_antiRaidGuilds.TryRemove(guildId, out _))
         {
-            using var uow = _db.GetDbContext();
+            await using var uow = _db.GetDbContext();
             await uow.GetTable<AntiRaidSetting>()
                 .Where(x => x.GuildId == guildId)
                 .DeleteAsync();
@@ -316,7 +316,7 @@ public class ProtectionService : IReadyExecutor, INService
     {
         if (_antiSpamGuilds.TryRemove(guildId, out _))
         {
-            using var uow = _db.GetDbContext();
+            await using var uow = _db.GetDbContext();
             await uow.GetTable<AntiSpamSetting>()
                 .Where(x => x.GuildId == guildId)
                 .DeleteAsync();
@@ -335,7 +335,9 @@ public class ProtectionService : IReadyExecutor, INService
         ulong? roleId)
     {
         var g = _client.GetGuild(guildId);
-        await _mute.GetMuteRole(g);
+        
+        if(action == PunishmentAction.Mute)
+            await _mute.GetMuteRole(g);
 
         if (!IsDurationAllowed(action))
             punishDurationMinutes = 0;
@@ -391,7 +393,7 @@ public class ProtectionService : IReadyExecutor, INService
         };
         
         await using var uow = _db.GetDbContext();
-        var spam = await uow.GetTable<AntiSpamSetting>()
+        var spam = await uow.Set<AntiSpamSetting>()
             .Include(x => x.IgnoredChannels)
             .Where(x => x.GuildId == guildId)
             .FirstOrDefaultAsyncEF();

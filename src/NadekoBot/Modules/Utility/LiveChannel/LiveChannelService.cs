@@ -83,7 +83,9 @@ public class LiveChannelService(
                         if (channel.Name != text)
                             await channel.ModifyAsync(x => x.Name = text);
                     }
-                    catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden)
+                    catch (HttpException ex) when (ex.HttpCode == HttpStatusCode.Forbidden
+                                                   || ex.DiscordCode == DiscordErrorCode.MissingPermissions
+                                                   || ex.HttpCode == HttpStatusCode.NotFound)
                     {
                         await RemoveLiveChannelAsync(config.GuildId, config.ChannelId);
                         Log.Warning(

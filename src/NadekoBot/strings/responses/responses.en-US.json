@@ -1230,6 +1230,7 @@
   "livechannel_not_found": "Channel was not found in the live channels list.",
   "livechannel_list_title": "Live Channels in {0}",
   "livechannel_list_empty": "No live channels configured for this server.",
+  "livechannel_please_wait": "Please allow up to 10 minutes for the changes to take effect",
   "template": "Template",
   "preview": "Preview"
 }
