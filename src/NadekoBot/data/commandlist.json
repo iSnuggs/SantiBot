@@ -4537,8 +4537,8 @@
       ],
       "Description": "Adds a channel as a live channel with the specified template.\nYou can see a full list of placeholders with `.phs` command.",
       "Usage": [
-        ".livechadd #general-chat Current Time: %server.time%",
-        ".livechadd #general-chat -- %server.members% members --"
+        ".livechadd #general Time: %server.time%",
+        ".livechadd #general -- %server.members% --"
       ],
       "Submodule": "LiveChannelCommands",
       "Module": "LiveChannelCommands",
@@ -4571,9 +4571,9 @@
         ".lchd",
         ".lchrm"
       ],
-      "Description": "Removes a channel from the live channels list.",
+      "Description": "Removes a live channel.",
       "Usage": [
-        ".livechremove #general-chat"
+        ".livechremove #general"
       ],
       "Submodule": "LiveChannelCommands",
       "Module": "LiveChannelCommands",

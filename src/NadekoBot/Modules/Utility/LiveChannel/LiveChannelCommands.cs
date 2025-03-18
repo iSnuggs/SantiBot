@@ -22,15 +22,18 @@ public partial class Utility
             var eb = CreateEmbed()
                 .WithOkColor()
                 .WithDescription(GetText(strs.livechannel_added(channel.Name)))
-                .AddField(GetText(strs.template), template)
+                .AddField(GetText(strs.template), template, true)
                 .AddField(GetText(strs.preview),
                     await repSvc.ReplaceAsync(template,
                         new(
                             client: ctx.Client as DiscordSocketClient,
                             guild: ctx.Guild
-                        )));
+                        )),
+                    true)
+                .WithFooter(GetText(strs.livechannel_please_wait));
+
             await Response()
-                .Confirm(strs.livechannel_added(channel.Name))
+                .Embed(eb)
                 .SendAsync();
             return;
         }
