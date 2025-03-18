@@ -11,7 +11,7 @@ using NadekoBot.Db;
 namespace NadekoBot.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20250316213032_init")]
+    [Migration("20250318113853_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -2426,6 +2426,30 @@ namespace NadekoBot.Migrations.Sqlite
                         .IsUnique();
 
                     b.ToTable("XpCurrencyReward");
+                });
+
+            modelBuilder.Entity("NadekoBot.Db.Models.XpExcludedItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("GuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("ItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemType")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("GuildId", "ItemType", "ItemId");
+
+                    b.HasIndex("GuildId");
+
+                    b.ToTable("XpExcludedItem");
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.XpRoleReward", b =>

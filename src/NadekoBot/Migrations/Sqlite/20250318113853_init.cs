@@ -1182,6 +1182,22 @@ namespace NadekoBot.Migrations.Sqlite
                 });
 
             migrationBuilder.CreateTable(
+                name: "XpExcludedItem",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    ItemType = table.Column<int>(type: "INTEGER", nullable: false),
+                    ItemId = table.Column<ulong>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_XpExcludedItem", x => x.Id);
+                    table.UniqueConstraint("AK_XpExcludedItem_GuildId_ItemType_ItemId", x => new { x.GuildId, x.ItemType, x.ItemId });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "XpSettings",
                 columns: table => new
                 {
@@ -2283,6 +2299,11 @@ namespace NadekoBot.Migrations.Sqlite
                 column: "XpSettingsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_XpExcludedItem_GuildId",
+                table: "XpExcludedItem",
+                column: "GuildId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_XpRoleReward_XpSettingsId_Level",
                 table: "XpRoleReward",
                 columns: new[] { "XpSettingsId", "Level" },
@@ -2575,6 +2596,9 @@ namespace NadekoBot.Migrations.Sqlite
 
             migrationBuilder.DropTable(
                 name: "XpCurrencyReward");
+
+            migrationBuilder.DropTable(
+                name: "XpExcludedItem");
 
             migrationBuilder.DropTable(
                 name: "XpRoleReward");

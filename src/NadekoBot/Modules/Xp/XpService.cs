@@ -40,7 +40,8 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
     private readonly INotifySubscriber _notifySub;
     private readonly IMemoryCache _memCache;
     private readonly XpTemplateService _templateService;
-    private readonly GuildConfigXpService _xpRateService;
+    private readonly XpRateService _xpRateRateService;
+    private readonly XpExclusionService _xpExcl;
 
     private readonly QueueRunner _levelUpQueue = new QueueRunner(0, 100);
 
@@ -60,7 +61,9 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         IMemoryCache memCache,
         ShardData shardData,
         XpTemplateService templateService,
-        GuildConfigXpService xpRateService)
+        XpRateService xpRateRateService,
+        XpExclusionService xpExcl
+    )
     {
         _db = db;
         _images = images;
@@ -72,7 +75,8 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         _notifySub = notifySub;
         _memCache = memCache;
         _templateService = templateService;
-        _xpRateService = xpRateService;
+        _xpRateRateService = xpRateRateService;
+        _xpExcl = xpExcl;
         _client = client;
         _ps = ps;
         _c = c;
@@ -143,7 +147,7 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                 if (!IsVoiceChannelActive(vc))
                     continue;
 
-                var rate = _xpRateService.GetXpRate(XpRateType.Voice, g.Id, vc.Id);
+                var rate = _xpRateRateService.GetXpRate(XpRateType.Voice, g.Id, vc.Id);
 
                 if (rate.IsExcluded())
                     continue;
@@ -151,6 +155,9 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                 foreach (var u in vc.ConnectedUsers)
                 {
                     if (!UserParticipatingInVoiceChannel(u))
+                        continue;
+
+                    if (IsUserExcluded(g, u))
                         continue;
 
                     if (oldBatch.Contains(u))
@@ -509,15 +516,18 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
 
         _ = Task.Run(async () =>
         {
+            if (IsUserExcluded(guild, user))
+                return;
+
             var isImage = arg.Attachments.Any(a => a.Height >= 16 && a.Width >= 16);
             var isText = arg.Content.Contains(' ') || arg.Content.Length >= 5;
 
-            var textRate = _xpRateService.GetXpRate(XpRateType.Text, guild.Id, gc.Id);
+            var textRate = _xpRateRateService.GetXpRate(XpRateType.Text, guild.Id, gc.Id);
 
             XpRate rate;
             if (isImage)
             {
-                var imageRate = _xpRateService.GetXpRate(XpRateType.Image, guild.Id, gc.Id);
+                var imageRate = _xpRateRateService.GetXpRate(XpRateType.Image, guild.Id, gc.Id);
                 if (imageRate.IsExcluded())
                     return;
 
@@ -542,6 +552,20 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         });
 
         return Task.CompletedTask;
+    }
+
+    private bool IsUserExcluded(IGuild guild, SocketGuildUser user)
+    {
+        if (_xpExcl.IsExcluded(guild.Id, XpExcludedItemType.User, user.Id))
+            return true;
+
+        foreach (var role in user.Roles)
+        {
+            if (_xpExcl.IsExcluded(guild.Id, XpExcludedItemType.Role, role.Id))
+                return true;
+        }
+
+        return false;
     }
 
     public async Task<int> AddXpToUsersAsync(ulong guildId, long amount, params ulong[] userIds)
