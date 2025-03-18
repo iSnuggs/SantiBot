@@ -2,6 +2,23 @@
 
 *a,c,f,r,o*
 
+## [6.0.7] - 18.03.2025
+
+### Added
+
+- Schedule commands!
+  - `.scha <time> <text>` adds the command to be excuted after the specified amount of time
+  - `.schd <id>` deletes the command with the specified id
+  - `.schl` lists your scheduled commands
+- `.masskick` added as massban and masskill already exist
+- `.xpex` and `.xpexl` are back, as there was no way to exclude specific users or roles with .xprate
+
+### Fix
+
+- `.xprate` will now (as exclusion did) respect parent channel xp rates in threads
+  - the xprate system will first check if a thread channel has a rate set
+  - if it doesn't it will try to use the parent channel's rate
+
 ## [6.0.6] - 15.03.2025
 
 ### Added
