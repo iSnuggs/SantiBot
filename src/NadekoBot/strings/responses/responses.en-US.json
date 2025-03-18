@@ -1221,5 +1221,15 @@
   "xp_exclusion_none": "There are no exclusions set for this server.",
   "xp_exclusion_title": "XP Exclusions",
   "xp_exclude_added": "{0}: {1} has been excluded from the XP system.",
-  "xp_exclude_removed": "{0}: {1} is no longer excluded from the XP system."
+  "xp_exclude_removed": "{0}: {1} is no longer excluded from the XP system.",
+  "livechannel_added": "Successfully added {0} as a live channel.",
+  "livechannel_template": "Template: `{0}`",
+  "livechannel_limit": "You can have at most {0} live channels per server.",
+  "livechannel_exists": "This channel is already configured as a live channel.",
+  "livechannel_removed": "Successfully removed {0} from live channels.",
+  "livechannel_not_found": "Channel was not found in the live channels list.",
+  "livechannel_list_title": "Live Channels in {0}",
+  "livechannel_list_empty": "No live channels configured for this server.",
+  "template": "Template",
+  "preview": "Preview"
 }

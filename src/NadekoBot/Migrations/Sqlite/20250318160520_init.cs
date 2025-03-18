@@ -551,6 +551,21 @@ namespace NadekoBot.Migrations.Sqlite
                 });
 
             migrationBuilder.CreateTable(
+                name: "LiveChannelConfig",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    ChannelId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    Template = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LiveChannelConfig", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LogSettings",
                 columns: table => new
                 {
@@ -1987,6 +2002,17 @@ namespace NadekoBot.Migrations.Sqlite
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_LiveChannelConfig_GuildId",
+                table: "LiveChannelConfig",
+                column: "GuildId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LiveChannelConfig_GuildId_ChannelId",
+                table: "LiveChannelConfig",
+                columns: new[] { "GuildId", "ChannelId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LogSettings_GuildId",
                 table: "LogSettings",
                 column: "GuildId",
@@ -2476,6 +2502,9 @@ namespace NadekoBot.Migrations.Sqlite
 
             migrationBuilder.DropTable(
                 name: "ImageOnlyChannels");
+
+            migrationBuilder.DropTable(
+                name: "LiveChannelConfig");
 
             migrationBuilder.DropTable(
                 name: "MusicPlayerSettings");

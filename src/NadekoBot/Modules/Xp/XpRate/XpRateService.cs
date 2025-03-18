@@ -173,7 +173,7 @@ public class XpRateService(DbService db, ShardData shardData, XpConfigService xc
             return (guildRate, false);
 
         var conf = xcs.Data;
-
+        
         var toReturn = type switch
         {
             XpRateType.Image => new XpRate(XpRateType.Image, conf.TextXpFromImage, conf.TextXpCooldown / 60.0f),

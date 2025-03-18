@@ -1635,3 +1635,16 @@ xpexclusion:
 xpexclude:
   - xpexclude
   - xpex
+livechadd:
+  - livechadd
+  - lcha
+  - lchadd
+livechlist:
+  - livechlist
+  - lchl
+  - lchli
+  - lchlist
+livechremove:
+  - livechremove
+  - lchd
+  - lchrm
