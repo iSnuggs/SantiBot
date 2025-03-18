@@ -147,7 +147,7 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                 if (!IsVoiceChannelActive(vc))
                     continue;
 
-                var rate = _xpRateRateService.GetXpRate(XpRateType.Voice, g.Id, vc.Id);
+                var (rate, _) = _xpRateRateService.GetXpRate(XpRateType.Voice, g.Id, vc.Id);
 
                 if (rate.IsExcluded())
                     continue;
@@ -522,12 +522,18 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
             var isImage = arg.Attachments.Any(a => a.Height >= 16 && a.Width >= 16);
             var isText = arg.Content.Contains(' ') || arg.Content.Length >= 5;
 
-            var textRate = _xpRateRateService.GetXpRate(XpRateType.Text, guild.Id, gc.Id);
+            // try to get a rate for this channel
+            // and if there is no specified rate, use thread rate
+            var (textRate, isItemRate) = _xpRateRateService.GetXpRate(XpRateType.Text, guild.Id, gc.Id);
+            if (!isItemRate && gc is SocketThreadChannel tc)
+            {
+                (textRate, _) = _xpRateRateService.GetXpRate(XpRateType.Text, guild.Id, tc.ParentChannel.Id);
+            }
 
             XpRate rate;
             if (isImage)
             {
-                var imageRate = _xpRateRateService.GetXpRate(XpRateType.Image, guild.Id, gc.Id);
+                var (imageRate, _) = _xpRateRateService.GetXpRate(XpRateType.Image, guild.Id, gc.Id);
                 if (imageRate.IsExcluded())
                     return;
 
