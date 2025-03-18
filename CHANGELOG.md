@@ -2,6 +2,17 @@
 
 *a,c,f,r,o*
 
+## [6.0.9] - 19.03.2025
+
+### Changed
+
+- `.cinfo` now also has a member list
+
+### Fixed
+
+- `.antispamignore` will now properly persist through restarts
+- livechannels and scheduled commands will now be inside utility module as they should
+
 ## [6.0.8] - 18.03.2025
 
 ### Added
@@ -14,6 +25,7 @@
   - `.lchd <channel or channelId>` removed a live channel
 
 ### Fixed
+
 - `.antispamignore` fixed
 
 ## [6.0.7] - 18.03.2025
