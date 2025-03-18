@@ -1180,6 +1180,22 @@ namespace NadekoBot.Migrations.PostgreSql
                 });
 
             migrationBuilder.CreateTable(
+                name: "xpexcludeditem",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    guildid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    itemtype = table.Column<int>(type: "integer", nullable: false),
+                    itemid = table.Column<decimal>(type: "numeric(20,0)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_xpexcludeditem", x => x.id);
+                    table.UniqueConstraint("ak_xpexcludeditem_guildid_itemtype_itemid", x => new { x.guildid, x.itemtype, x.itemid });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "xpsettings",
                 columns: table => new
                 {
@@ -2281,6 +2297,11 @@ namespace NadekoBot.Migrations.PostgreSql
                 column: "xpsettingsid");
 
             migrationBuilder.CreateIndex(
+                name: "ix_xpexcludeditem_guildid",
+                table: "xpexcludeditem",
+                column: "guildid");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_xprolereward_xpsettingsid_level",
                 table: "xprolereward",
                 columns: new[] { "xpsettingsid", "level" },
@@ -2573,6 +2594,9 @@ namespace NadekoBot.Migrations.PostgreSql
 
             migrationBuilder.DropTable(
                 name: "xpcurrencyreward");
+
+            migrationBuilder.DropTable(
+                name: "xpexcludeditem");
 
             migrationBuilder.DropTable(
                 name: "xprolereward");

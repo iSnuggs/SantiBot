@@ -9,7 +9,7 @@ namespace NadekoBot.Modules.Xp;
 
 using GuildXpRates = (IReadOnlyList<GuildXpConfig> GuildRates, IReadOnlyList<ChannelXpConfig> ChannelRates);
 
-public class GuildConfigXpService(DbService db, ShardData shardData, XpConfigService xcs) : IReadyExecutor, INService
+public class XpRateService(DbService db, ShardData shardData, XpConfigService xcs) : IReadyExecutor, INService
 {
     private ConcurrentDictionary<(XpRateType RateType, ulong GuildId), XpRate> _guildRates = new();
     private ConcurrentDictionary<ulong, ConcurrentDictionary<(XpRateType, ulong), XpRate>> _channelRates = new();

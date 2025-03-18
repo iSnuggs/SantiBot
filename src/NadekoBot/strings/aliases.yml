@@ -1629,3 +1629,9 @@ scheduleadd:
   - scheduleadd
   - scha
   - schadd
+xpexclusion:
+  - xpexclusion
+  - xpexl
+xpexclude:
+  - xpexclude
+  - xpex

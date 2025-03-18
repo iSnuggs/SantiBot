@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NadekoBot.Migrations.PostgreSql
 {
     [DbContext(typeof(PostgreSqlContext))]
-    [Migration("20250316213035_init")]
+    [Migration("20250318113856_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -3261,6 +3261,39 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasDatabaseName("ix_xpcurrencyreward_level_xpsettingsid");
 
                     b.ToTable("xpcurrencyreward", (string)null);
+                });
+
+            modelBuilder.Entity("NadekoBot.Db.Models.XpExcludedItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("GuildId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("guildid");
+
+                    b.Property<decimal>("ItemId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("itemid");
+
+                    b.Property<int>("ItemType")
+                        .HasColumnType("integer")
+                        .HasColumnName("itemtype");
+
+                    b.HasKey("Id")
+                        .HasName("pk_xpexcludeditem");
+
+                    b.HasAlternateKey("GuildId", "ItemType", "ItemId")
+                        .HasName("ak_xpexcludeditem_guildid_itemtype_itemid");
+
+                    b.HasIndex("GuildId")
+                        .HasDatabaseName("ix_xpexcludeditem_guildid");
+
+                    b.ToTable("xpexcludeditem", (string)null);
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.XpRoleReward", b =>
