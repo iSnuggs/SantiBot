@@ -161,24 +161,26 @@ public class XpRateService(DbService db, ShardData shardData, XpConfigService xc
         return deleted > 0;
     }
 
-    public XpRate GetXpRate(XpRateType type, ulong guildId, ulong channelId)
+    public (XpRate Rate, bool IsItemRate) GetXpRate(XpRateType type, ulong guildId, ulong channelId)
     {
         if (_channelRates.TryGetValue(guildId, out var guildChannelRates))
         {
             if (guildChannelRates.TryGetValue((type, channelId), out var rate))
-                return rate;
+                return (rate, true);
         }
 
         if (_guildRates.TryGetValue((type, guildId), out var guildRate))
-            return guildRate;
+            return (guildRate, false);
 
         var conf = xcs.Data;
 
-        return type switch
+        var toReturn = type switch
         {
             XpRateType.Image => new XpRate(XpRateType.Image, conf.TextXpFromImage, conf.TextXpCooldown / 60.0f),
             XpRateType.Voice => new XpRate(XpRateType.Voice, conf.VoiceXpPerMinute, 1.0f),
             _ => new XpRate(XpRateType.Text, conf.TextXpPerMessage, conf.TextXpCooldown / 60.0f),
         };
+
+        return (toReturn, false);
     }
 }
