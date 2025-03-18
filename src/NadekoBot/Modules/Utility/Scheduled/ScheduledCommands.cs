@@ -33,7 +33,7 @@ public partial class Utility
                     foreach (var cmd in pageCommands)
                     {
                         eb.AddField(
-                            $"`{GetText(strs.schedule_id)}:` {cmd.Id}",
+                            $"`{GetText(strs.schedule_id)}:` {(kwum)cmd.Id}",
                             $"""
                              `{GetText(strs.schedule_command)}:` {cmd.Text}
                              `{GetText(strs.schedule_when)}:` {TimestampTag.FromDateTime(cmd.When, TimestampTagStyles.Relative)}
@@ -47,7 +47,7 @@ public partial class Utility
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
-        public async Task ScheduleDelete([Leftover] int id)
+        public async Task ScheduleDelete([Leftover] kwum id)
         {
             var success = await scs.DeleteScheduledCommandAsync(id, ctx.Guild.Id, ctx.User.Id);
 
