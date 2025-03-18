@@ -1,6 +1,7 @@
 ﻿using NadekoBot.Common.TypeReaders.Models;
+using NadekoBot.Modules.Utility.Scheduled;
 
-namespace NadekoBot.Modules.Utility.Scheduled;
+namespace NadekoBot.Modules.Utility;
 
 public partial class Utility
 {

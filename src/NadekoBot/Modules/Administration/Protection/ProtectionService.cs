@@ -407,6 +407,7 @@ public class ProtectionService : IReadyExecutor, INService
             if (_antiSpamGuilds.TryGetValue(guildId, out var temp))
                 temp.AntiSpamSettings.IgnoredChannels.Add(obj); // add to local cache
 
+            spam.IgnoredChannels.Add(obj);
             added = true;
         }
         else

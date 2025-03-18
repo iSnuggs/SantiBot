@@ -1,4 +1,6 @@
-namespace NadekoBot.Modules.Utility.LiveChannel;
+using NadekoBot.Modules.Utility.LiveChannel;
+
+namespace NadekoBot.Modules.Utility;
 
 public partial class Utility
 {
