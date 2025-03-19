@@ -4,8 +4,12 @@
 
 ## [6.0.11] - 19.03.2025
 
+### Changed
+- wordfilter, invitefilter and linkfilter will now properly detect forwarded messages, as forwards were used to circumvent filtering.
+
 ### Fixed
-- `.dmc` fixed
+- `.dmc` fixed 
+- Fixed .streamremove - now showing proper youtube name when removing instead of channel id
 
 ## [6.0.10] - 19.03.2025
 
