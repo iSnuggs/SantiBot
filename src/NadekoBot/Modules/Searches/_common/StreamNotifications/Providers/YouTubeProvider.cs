@@ -1,12 +1,7 @@
-using System.Net;
 using NadekoBot.Db.Models;
-using NadekoBot.Services;
 using System.Text.RegularExpressions;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Xml.Linq;
-using AngleSharp.Browser;
 
 namespace NadekoBot.Modules.Searches.Common.StreamNotifications.Providers;
 
@@ -113,56 +108,65 @@ public sealed partial class YouTubeProvider : Provider
     /// <returns><see cref="StreamData"/> of the channel. Null if none found</returns>
     public override async Task<StreamData?> GetStreamDataAsync(string channelId)
     {
-        var instances = _scs.Data.InvidiousInstances;
-
-        if (instances is not { Count: > 0 })
-            return null;
-
-        var invInstance = instances[_rng.Next(0, instances.Count)];
-        var client = _httpFactory.CreateClient();
-        client.BaseAddress = new Uri(invInstance);
-
-        var channel = await client.GetFromJsonAsync<InvidiousChannelResponse>($"/api/v1/channels/{channelId}");
-        if (channel is null)
-            return null;
-
-        var response =
-            await client.GetFromJsonAsync<InvChannelStreamsResponse>($"/api/v1/channels/{channelId}/streams");
-        if (response is null)
-            return null;
-
-        var vid = response.Videos.FirstOrDefault(x => !x.IsUpcoming && x.LengthSeconds == 0);
-        var isLive = false;
-        if (vid is null)
+        try
         {
-            vid = response.Videos.FirstOrDefault(x => !x.IsUpcoming);
+            var instances = _scs.Data.InvidiousInstances;
+
+            if (instances is not { Count: > 0 })
+                return null;
+
+            var invInstance = instances[_rng.Next(0, instances.Count)];
+            var client = _httpFactory.CreateClient();
+            client.BaseAddress = new Uri(invInstance);
+
+            var channel = await client.GetFromJsonAsync<InvidiousChannelResponse>($"/api/v1/channels/{channelId}");
+            if (channel is null)
+                return null;
+
+            var response =
+                await client.GetFromJsonAsync<InvChannelStreamsResponse>($"/api/v1/channels/{channelId}/streams");
+            if (response is null)
+                return null;
+
+            var vid = response.Videos.FirstOrDefault(x => !x.IsUpcoming && x.LengthSeconds == 0);
+            var isLive = false;
+            if (vid is null)
+            {
+                vid = response.Videos.FirstOrDefault(x => !x.IsUpcoming);
+            }
+            else
+            {
+                isLive = true;
+            }
+
+            if (vid is null)
+                return null;
+
+            var avatarUrl = channel?.AuthorThumbnails?.Select(x => x.Url).LastOrDefault();
+
+            return new StreamData()
+            {
+                Game = "Livestream",
+                Name = vid.Author,
+                Preview = vid.Thumbnails
+                    .Skip(1)
+                    .Select(x => "https://i.ytimg.com/" + x.Url)
+                    .FirstOrDefault(),
+                Title = vid.Title,
+                Viewers = vid.ViewCount,
+                AvatarUrl = avatarUrl,
+                IsLive = isLive,
+                StreamType = FollowedStream.FType.Youtube,
+                StreamUrl = "https://youtube.com/watch?v=" + vid.VideoId,
+                UniqueName = vid.AuthorId,
+            };
         }
-        else
+        catch (Exception ex)
         {
-            isLive = true;
-        }
-
-        if (vid is null)
+            Log.Warning(ex, "Unable to get stream data for a youtube channel {ChannelId}", channelId);
+            _failingStreams.TryAdd(channelId, DateTime.UtcNow);
             return null;
-
-        var avatarUrl = channel?.AuthorThumbnails?.Select(x => x.Url).LastOrDefault();
-
-        return new StreamData()
-        {
-            Game = "Livestream",
-            Name = vid.Author,
-            Preview = vid.Thumbnails
-                .Skip(1)
-                .Select(x => "https://i.ytimg.com/" + x.Url)
-                .FirstOrDefault(),
-            Title = vid.Title,
-            Viewers = vid.ViewCount,
-            AvatarUrl = avatarUrl,
-            IsLive = isLive,
-            StreamType = FollowedStream.FType.Youtube,
-            StreamUrl = "https://youtube.com/watch?v=" + vid.VideoId,
-            UniqueName = vid.AuthorId,
-        };
+        }
     }
 
     /// <summary>
