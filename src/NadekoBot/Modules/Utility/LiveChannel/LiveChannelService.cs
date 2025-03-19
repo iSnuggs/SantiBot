@@ -17,7 +17,7 @@ public class LiveChannelService(
     IReplacementService repSvc,
     ShardData shardData) : IReadyExecutor, INService
 {
-    public const int MAX_LIVECHANNELS = 5;
+    public const int MAX_LIVECHANNELS = 1;
 
     private readonly ConcurrentDictionary<ulong, ConcurrentDictionary<ulong, LiveChannelConfig>> _liveChannels = new();
 
