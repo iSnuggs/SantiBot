@@ -48,7 +48,10 @@ public partial class Searches
                 return;
             }
 
-            await Response().Confirm(strs.stream_removed(Format.Bold(fs.Username), fs.Type)).SendAsync();
+            await Response()
+                .Confirm(strs.stream_removed(
+                    Format.Bold(string.IsNullOrWhiteSpace(fs.PrettyName) ? fs.Username : fs.PrettyName),
+                    fs.Type)).SendAsync();
         }
 
         [Cmd]
