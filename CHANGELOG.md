@@ -2,6 +2,19 @@
 
 *a,c,f,r,o*
 
+
+## [6.0.10] - 19.03.2025
+
+### Changed
+
+- Live channels `.lcha` is limited to 1 for now. It will be reverted back to 5 in a couple of days at most as some things need to be implemented.
+
+### Fixed
+
+- `.antispam` won't break if you have thread channels in the server anymore
+- `.ve` now works properly
+- selfhosters: `.yml` parsing errors will now tell you which .yml file is causing the issue and why.
+
 ## [6.0.9] - 19.03.2025
 
 ### Changed
