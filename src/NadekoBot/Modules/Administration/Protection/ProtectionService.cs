@@ -27,6 +27,7 @@ public class ProtectionService : IReadyExecutor, INService
     private readonly UserPunishService _punishService;
     private readonly INotifySubscriber _notifySub;
     private readonly ShardData _shardData;
+
     private readonly Channel<PunishQueueItem> _punishUserQueue =
         Channel.CreateUnbounded<PunishQueueItem>(new()
         {
@@ -176,10 +177,7 @@ public class ProtectionService : IReadyExecutor, INService
             try
             {
                 if (!_antiSpamGuilds.TryGetValue(channel.Guild.Id, out var spamSettings)
-                    || spamSettings.AntiSpamSettings.IgnoredChannels.Contains(new()
-                    {
-                        ChannelId = channel.Id
-                    }))
+                    || spamSettings.AntiSpamSettings.IgnoredChannels.Any(x => x.ChannelId == channel.Id))
                     return;
 
                 var stats = spamSettings.UserStats.AddOrUpdate(msg.Author.Id,
@@ -275,23 +273,25 @@ public class ProtectionService : IReadyExecutor, INService
         await using var uow = _db.GetDbContext();
 
         await uow.GetTable<AntiRaidSetting>()
-           .InsertOrUpdateAsync(() => new()
-           {
-               GuildId = guildId,
-               Action = action,
-               Seconds = seconds,
-               UserThreshold = userThreshold,
-               PunishDuration = minutesDuration
-           }, _ => new()
-           {
-               Action = action,
-               Seconds = seconds,
-               UserThreshold = userThreshold,
-               PunishDuration = minutesDuration
-           }, () => new()
-           {
-               GuildId = guildId
-           });
+            .InsertOrUpdateAsync(() => new()
+                {
+                    GuildId = guildId,
+                    Action = action,
+                    Seconds = seconds,
+                    UserThreshold = userThreshold,
+                    PunishDuration = minutesDuration
+                },
+                _ => new()
+                {
+                    Action = action,
+                    Seconds = seconds,
+                    UserThreshold = userThreshold,
+                    PunishDuration = minutesDuration
+                },
+                () => new()
+                {
+                    GuildId = guildId
+                });
 
 
         return stats;
@@ -335,8 +335,8 @@ public class ProtectionService : IReadyExecutor, INService
         ulong? roleId)
     {
         var g = _client.GetGuild(guildId);
-        
-        if(action == PunishmentAction.Mute)
+
+        if (action == PunishmentAction.Mute)
             await _mute.GetMuteRole(g);
 
         if (!IsDurationAllowed(action))
@@ -364,23 +364,25 @@ public class ProtectionService : IReadyExecutor, INService
         await using var uow = _db.GetDbContext();
         await uow.GetTable<AntiSpamSetting>()
             .InsertOrUpdateAsync(() => new()
-            {
-                GuildId = guildId,
-                Action = stats.AntiSpamSettings.Action,
-                MessageThreshold = stats.AntiSpamSettings.MessageThreshold,
-                MuteTime = stats.AntiSpamSettings.MuteTime,
-                RoleId = stats.AntiSpamSettings.RoleId
-            }, (old) => new()
-            {
-                GuildId = guildId,
-                Action = stats.AntiSpamSettings.Action,
-                MessageThreshold = stats.AntiSpamSettings.MessageThreshold,
-                MuteTime = stats.AntiSpamSettings.MuteTime,
-                RoleId = stats.AntiSpamSettings.RoleId
-            }, () => new()
-            {
-                GuildId = guildId
-            });
+                {
+                    GuildId = guildId,
+                    Action = stats.AntiSpamSettings.Action,
+                    MessageThreshold = stats.AntiSpamSettings.MessageThreshold,
+                    MuteTime = stats.AntiSpamSettings.MuteTime,
+                    RoleId = stats.AntiSpamSettings.RoleId
+                },
+                (old) => new()
+                {
+                    GuildId = guildId,
+                    Action = stats.AntiSpamSettings.Action,
+                    MessageThreshold = stats.AntiSpamSettings.MessageThreshold,
+                    MuteTime = stats.AntiSpamSettings.MuteTime,
+                    RoleId = stats.AntiSpamSettings.RoleId
+                },
+                () => new()
+                {
+                    GuildId = guildId
+                });
 
         return stats;
     }
@@ -391,13 +393,13 @@ public class ProtectionService : IReadyExecutor, INService
         {
             ChannelId = channelId
         };
-        
+
         await using var uow = _db.GetDbContext();
         var spam = await uow.Set<AntiSpamSetting>()
             .Include(x => x.IgnoredChannels)
             .Where(x => x.GuildId == guildId)
             .FirstOrDefaultAsyncEF();
-        
+
         if (spam is null)
             return null;
 
@@ -405,7 +407,7 @@ public class ProtectionService : IReadyExecutor, INService
         if (spam.IgnoredChannels.All(x => x.ChannelId != channelId))
         {
             if (_antiSpamGuilds.TryGetValue(guildId, out var temp))
-                temp.AntiSpamSettings.IgnoredChannels.Add(obj); // add to local cache
+                temp.AntiSpamSettings.IgnoredChannels.Add(obj);
 
             spam.IgnoredChannels.Add(obj);
             added = true;
@@ -417,7 +419,7 @@ public class ProtectionService : IReadyExecutor, INService
             uow.Set<AntiSpamIgnore>().Remove(toRemove);
 
             if (_antiSpamGuilds.TryGetValue(guildId, out var temp))
-                temp.AntiSpamSettings.IgnoredChannels.Remove(toRemove); // remove from local cache
+                temp.AntiSpamSettings.IgnoredChannels.RemoveAll(x => x.ChannelId == channelId);
 
             added = false;
         }
@@ -462,22 +464,24 @@ public class ProtectionService : IReadyExecutor, INService
 
         await uow.GetTable<AntiAltSetting>()
             .InsertOrUpdateAsync(() => new()
-            {
-                GuildId = guildId,
-                Action = action,
-                ActionDurationMinutes = actionDurationMinutes,
-                MinAge = TimeSpan.FromMinutes(minAgeMinutes),
-                RoleId = roleId
-            }, _ => new()
-            {
-                Action = action,
-                ActionDurationMinutes = actionDurationMinutes,
-                MinAge = TimeSpan.FromMinutes(minAgeMinutes),
-                RoleId = roleId
-            }, () => new()
-            {
-                GuildId = guildId
-            });
+                {
+                    GuildId = guildId,
+                    Action = action,
+                    ActionDurationMinutes = actionDurationMinutes,
+                    MinAge = TimeSpan.FromMinutes(minAgeMinutes),
+                    RoleId = roleId
+                },
+                _ => new()
+                {
+                    Action = action,
+                    ActionDurationMinutes = actionDurationMinutes,
+                    MinAge = TimeSpan.FromMinutes(minAgeMinutes),
+                    RoleId = roleId
+                },
+                () => new()
+                {
+                    GuildId = guildId
+                });
 
         _antiAltGuilds[guildId] = new(new()
         {
