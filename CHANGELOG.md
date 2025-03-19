@@ -2,6 +2,13 @@
 
 *a,c,f,r,o*
 
+## [6.0.12] - 19.03.2025
+
+### Fixed
+- `.antispamignore` fixed for the last time hopefully
+  - protection commands are some of the oldest commands, and they might get overhauled in future updates
+  - please report if you find any other weird issue with them
+
 ## [6.0.11] - 19.03.2025
 
 ### Changed
