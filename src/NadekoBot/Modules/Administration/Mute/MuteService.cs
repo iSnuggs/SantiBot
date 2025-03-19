@@ -269,6 +269,9 @@ public class MuteService : INService, IReadyExecutor
 
         foreach (var toOverwrite in await guild.GetTextChannelsAsync())
         {
+            if (toOverwrite is IThreadChannel)
+                continue;
+            
             try
             {
                 if (!toOverwrite.PermissionOverwrites.Any(x => x.TargetId == muteRole.Id
