@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "NadekoBot.GrpcApi";
+
+package greet;
+
+service GrpcXpShop {
+  rpc AddXpShopItem (AddXpShopItemRequest) returns (AddXpShopItemReply);
+}
+
+message AddXpShopItemRequest {
+  string Name = 1;
+  string Description = 2;
+  int64 Price = 3;
+  string FullUrl = 4;
+  string PreviewUrl = 5;
+  string Type = 6;
+}
+
+message AddXpShopItemReply {
+  
+}
