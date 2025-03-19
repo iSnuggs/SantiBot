@@ -63,20 +63,19 @@ public class NotifChecker
                                 .ToDictionary(x => x.Key.Name, x => x.Value));
 
                     var newStreamData = await oldStreamDataDict
-                        .Select(x =>
+                        .Select(async x =>
                         {
                             // get all stream data for the streams of this type
                             if (_streamProviders.TryGetValue(x.Key,
                                     out var provider))
                             {
-                                return provider.GetStreamDataAsync(x.Value
+                                return await provider.GetStreamDataAsync(x.Value
                                     .Select(entry => entry.Key)
                                     .ToList());
                             }
 
                             // this means there's no provider for this stream data, (and there was before?)
-                            return Task.FromResult<IReadOnlyCollection<StreamData>>(
-                                new List<StreamData>());
+                            return [];
                         })
                         .WhenAll();
 
