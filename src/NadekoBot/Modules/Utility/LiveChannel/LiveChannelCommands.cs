@@ -13,7 +13,7 @@ public partial class Utility
         [BotPerm(GuildPerm.ManageChannels)]
         public async Task LiveChAdd(IChannel channel, [Leftover] string template)
         {
-            if (!await svc.AddLiveChannelAsync(ctx.Guild.Id, channel, template))
+            if (!await svc.AddLiveChannelAsync(ctx.Guild.Id, channel.Id, template))
             {
                 await Response()
                     .Error(strs.livechannel_limit(LiveChannelService.MAX_LIVECHANNELS))
