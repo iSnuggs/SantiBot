@@ -2,6 +2,34 @@
 
 *a,c,f,r,o*
 
+## [6.0.12] - 19.03.2025
+
+### Fixed
+- `.antispamignore` fixed for the last time hopefully
+  - protection commands are some of the oldest commands, and they might get overhauled in future updates
+  - please report if you find any other weird issue with them
+
+## [6.0.11] - 19.03.2025
+
+### Changed
+- wordfilter, invitefilter and linkfilter will now properly detect forwarded messages, as forwards were used to circumvent filtering.
+
+### Fixed
+- `.dmc` fixed 
+- Fixed .streamremove - now showing proper youtube name when removing instead of channel id
+
+## [6.0.10] - 19.03.2025
+
+### Changed
+
+- Live channels `.lcha` is limited to 1 for now. It will be reverted back to 5 in a couple of days at most as some things need to be implemented.
+
+### Fixed
+
+- `.antispam` won't break if you have thread channels in the server anymore
+- `.ve` now works properly
+- selfhosters: `.yml` parsing errors will now tell you which .yml file is causing the issue and why.
+
 ## [6.0.9] - 19.03.2025
 
 ### Changed
