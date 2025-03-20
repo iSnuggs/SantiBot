@@ -119,16 +119,16 @@ public class LiveChannelService(
     /// Adds a new live channel configuration to the specified guild.
     /// </summary>
     /// <param name="guildId">ID of the guild</param>
-    /// <param name="channel">Channel to set as live</param>
+    /// <param name="channelId">ID of the channel</param>
     /// <param name="template">Template text to use for the channel</param>
     /// <returns>True if successfully added, false otherwise</returns>
-    public async Task<bool> AddLiveChannelAsync(ulong guildId, IChannel channel, string template)
+    public async Task<bool> AddLiveChannelAsync(ulong guildId, ulong channelId, string template)
     {
         var guildDict = _liveChannels.GetOrAdd(
             guildId,
             _ => new());
 
-        if (guildDict.Count >= MAX_LIVECHANNELS)
+        if (!guildDict.ContainsKey(channelId) && guildDict.Count >= MAX_LIVECHANNELS)
             return false;
 
         await using var uow = db.GetDbContext();
@@ -136,7 +136,7 @@ public class LiveChannelService(
             .InsertOrUpdateAsync(() => new()
                 {
                     GuildId = guildId,
-                    ChannelId = channel.Id,
+                    ChannelId = channelId,
                     Template = template
                 },
                 (_) => new()
@@ -146,18 +146,18 @@ public class LiveChannelService(
                 () => new()
                 {
                     GuildId = guildId,
-                    ChannelId = channel.Id
+                    ChannelId = channelId
                 });
 
         // Add to in-memory cache
         var newConfig = new LiveChannelConfig
         {
             GuildId = guildId,
-            ChannelId = channel.Id,
+            ChannelId = channelId,
             Template = template
         };
 
-        guildDict[channel.Id] = newConfig;
+        guildDict[channelId] = newConfig;
         return true;
     }
 
