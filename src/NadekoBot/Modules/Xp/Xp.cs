@@ -132,59 +132,6 @@ public partial class Xp : NadekoModule<XpService>
 
     [Cmd]
     [RequireContext(ContextType.Guild)]
-    public async Task XpGlobalLeaderboard(int page = 1, params string[] args)
-    {
-        if (--page < 0 || page > 99)
-            return;
-
-        var (opts, _) = OptionsParser.ParseFrom(new LbOpts(), args);
-
-        await ctx.Channel.TriggerTypingAsync();
-        if (opts.Clean)
-        {
-            await _tracker.EnsureUsersDownloadedAsync(ctx.Guild);
-        }
-
-        async Task<IReadOnlyCollection<DiscordUser>> GetPageItems(int curPage)
-        {
-            if (opts.Clean)
-            {
-                return await _service.GetGlobalUserXps(page, ((SocketGuild)ctx.Guild).Users.Select(x => x.Id).ToList());
-            }
-
-            return await _service.GetGlobalUserXps(curPage);
-        }
-
-        await Response()
-              .Paginated()
-              .PageItems(GetPageItems)
-              .PageSize(10)
-              .Page((users, curPage) =>
-              {
-                  var embed = CreateEmbed()
-                              .WithOkColor()
-                              .WithTitle(GetText(strs.global_leaderboard));
-
-                  if (!users.Any())
-                  {
-                      embed.WithDescription("-");
-                      return embed;
-                  }
-
-                  for (var i = 0; i < users.Count; i++)
-                  {
-                      var user = users[i];
-                      embed.AddField($"#{i + 1 + (curPage * 10)} {user}",
-                          $"{GetText(strs.level_x(new LevelStats(users[i].TotalXp).Level))} - {users[i].TotalXp}xp");
-                  }
-
-                  return embed;
-              })
-              .SendAsync();
-    }
-
-    [Cmd]
-    [RequireContext(ContextType.Guild)]
     [UserPerm(GuildPerm.Administrator)]
     [Priority(1)]
     public Task XpLevelSet(int level, IGuildUser user)

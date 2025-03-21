@@ -3574,13 +3574,6 @@ xpleaderboard:
         desc: "The number of pages to display in the leaderboard."
       params:
         desc: "The list of player names or IDs to filter the leaderboard by."
-xpgloballeaderboard:
-  desc: Shows the global xp leaderboard.
-  ex:
-    - ''
-  params:
-    - page:
-        desc: "The current page number for displaying the leaderboard results."
 xpadd:
   desc: Adds server XP to a single user or all users role on this server. This does not affect their global ranking. You can use negative values.
   ex:
