@@ -1116,9 +1116,6 @@ xpcurrencyreward:
 xpleaderboard:
   - xpleaderboard
   - xplb
-xpgloballeaderboard:
-  - xpgleaderboard
-  - xpglb
 xpadd:
   - xpadd
 xpshop:

@@ -465,29 +465,6 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
             .ToArrayAsyncLinqToDB();
     }
 
-    public async Task<IReadOnlyCollection<DiscordUser>> GetGlobalUserXps(int page)
-    {
-        await using var uow = _db.GetDbContext();
-
-        return await uow.GetTable<DiscordUser>()
-            .OrderByDescending(x => x.TotalXp)
-            .Skip(page * 10)
-            .Take(10)
-            .ToArrayAsyncLinqToDB();
-    }
-
-    public async Task<IReadOnlyCollection<DiscordUser>> GetGlobalUserXps(int page, List<ulong> users)
-    {
-        await using var uow = _db.GetDbContext();
-
-        return await uow.GetTable<DiscordUser>()
-            .Where(x => x.UserId.In(users))
-            .OrderByDescending(x => x.TotalXp)
-            .Skip(page * 10)
-            .Take(10)
-            .ToArrayAsyncLinqToDB();
-    }
-
     private bool IsVoiceChannelActive(SocketVoiceChannel channel)
     {
         var count = 0;
