@@ -6,6 +6,7 @@ package greet;
 
 service GrpcXpShop {
   rpc AddXpShopItem (AddXpShopItemRequest) returns (AddXpShopItemReply);
+  rpc GetShopItems (GetShopItemsRequest) returns (GetShopItemsReply);
 }
 
 message AddXpShopItemRequest {
@@ -19,4 +20,22 @@ message AddXpShopItemRequest {
 
 message AddXpShopItemReply {
   
+}
+
+message GetShopItemsRequest {
+  
+}
+
+message GetShopItemsReply {
+  repeated XpShopItem bgs = 1;
+  repeated XpShopItem frames = 2;
+}
+
+message XpShopItem {
+  string Name = 1;
+  string Description = 2;
+  int64 Price = 3;
+  string FullUrl = 4;
+  string PreviewUrl = 5;
+  string Type = 6;
 }
