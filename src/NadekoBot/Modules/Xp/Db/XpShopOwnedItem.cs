@@ -11,6 +11,6 @@ public class XpShopOwnedItem : DbEntity
 
 public enum XpShopItemType
 {
-    Background = 0,
+    Bg = 0,
     Frame = 1,
 }

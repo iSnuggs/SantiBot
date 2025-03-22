@@ -1,4 +1,5 @@
 #nullable disable warnings
+using System.Runtime.Serialization;
 using Cloneable;
 using NadekoBot.Common.Yml;
 using NadekoBot.Db.Models;
@@ -10,7 +11,7 @@ namespace NadekoBot.Modules.Xp;
 public sealed partial class XpConfig : ICloneable<XpConfig>
 {
     [Comment("""DO NOT CHANGE""")]
-    public int Version { get; set; } = 11;
+    public int Version { get; set; } = 12;
 
     [Comment("""How much XP will the users receive per message""")]
     public int TextXpPerMessage { get; set; } = 3;
@@ -37,15 +38,16 @@ public sealed partial class XpConfig : ICloneable<XpConfig>
         public bool IsEnabled { get; set; } = false;
 
         [Comment("""
-                 Frames available for sale. Keys are unique IDs.
-                 Do not change keys as they are not publicly visible. Only change properties (name, price, id)
-                 Removing a key which previously existed means that all previous purchases will also be unusable.
-                 To remove an item from the shop, but keep previous purchases, set the price to -1
+                 UNUSED
                  """)]
-        public Dictionary<string, ShopItemInfo>? Frames { get; set; } = new()
-        {
-            { "default", new() { Name = "No frame", Price = 0, Url = string.Empty } }
-        };
+        [Obsolete("Use Items instead")]
+        public Dictionary<string, ShopItemInfo>? Frames { get; set; } = null;
+
+        [Comment("""
+                 UNUSED
+                 """)]
+        [Obsolete("Use Items instead")]
+        public Dictionary<string, ShopItemInfo>? Bgs { get; set; } = null;
 
         [Comment("""
                  Backgrounds available for sale. Keys are unique IDs. 
@@ -53,16 +55,16 @@ public sealed partial class XpConfig : ICloneable<XpConfig>
                  Removing a key which previously existed means that all previous purchases will also be unusable.
                  To remove an item from the shop, but keep previous purchases, set the price to -1
                  """)]
-        public Dictionary<string, ShopItemInfo>? Bgs { get; set; } = new()
-        {
-            { "default", new() { Name = "Default Background", Price = 0, Url = string.Empty } }
-        };
+        public List<ShopItemInfo> Items { get; set; } = [];
     }
 
     public sealed class ShopItemInfo
     {
         [Comment("""Visible name of the item""")]
         public string Name { get; set; }
+
+        [Comment("""Unique name of the item""")]
+        public string UniqueName { get; set; }
 
         [Comment(
             """Price of the item. Set to -1 if you no longer want to sell the item but want the users to be able to keep their old purchase""")]
@@ -76,17 +78,14 @@ public sealed partial class XpConfig : ICloneable<XpConfig>
 
         [Comment("""Optional description of the item""")]
         public string Desc { get; set; }
+
+        [Comment(""" Type - bg or frame """)]
+        public XpShopItemType ItemType { get; set; }
     }
 }
 
 public static class XpShopConfigExtensions
 {
     public static string? GetItemUrl(this XpConfig.ShopConfig sc, XpShopItemType type, string key)
-        => (type switch
-        {
-            XpShopItemType.Background => sc.Bgs,
-            _ => sc.Frames
-        })?.TryGetValue(key, out var item) ?? false
-            ? item.Url
-            : null;
+        => sc.Items?.FirstOrDefault(x => x.ItemType == type && x.UniqueName == key)?.Url;
 }

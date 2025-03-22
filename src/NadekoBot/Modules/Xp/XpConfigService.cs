@@ -51,23 +51,63 @@ public sealed class XpConfigService : ConfigServiceBase<XpConfig>
     {
         if (data.Version < 11)
         {
-            ModifyConfig(c => { c.Version = 11; });
+            ModifyConfig(c =>
+            {
+                c.Version = 12;
+
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                if (c.Shop is null)
+                    c.Shop = new();
+
+                var shop = c.Shop;
+                shop.Items = [];
+
+#pragma warning disable CS0618 // Type or member is obsolete
+                if (shop.Bgs is not null)
+                {
+                    foreach (var (k, item) in shop.Bgs)
+                    {
+                        if (k == "default" || string.IsNullOrWhiteSpace(item.Url))
+                            continue;
+
+                        item.ItemType = XpShopItemType.Bg;
+                        item.UniqueName = k;
+                        shop.Items.Add(item);
+                    }
+                }
+
+                if (shop.Frames is not null)
+                {
+                    foreach (var (k, item) in shop.Frames)
+                    {
+                        if (k == "default" || string.IsNullOrWhiteSpace(item.Url))
+                            continue;
+
+                        item.ItemType = XpShopItemType.Frame;
+                        item.UniqueName = k;
+                        shop.Items.Add(item);
+                    }
+                }
+#pragma warning restore CS0618 // Type or member is obsolete
+            });
         }
     }
 
-    public async Task<bool> AddItemAsync(string uniqueName, XpShopItemType itemType, XpConfig.ShopItemInfo shopItemInfo)
+    public async Task<bool> AddItemAsync(XpConfig.ShopItemInfo shopItemInfo)
     {
         await Task.Yield();
-        
+
         var success = false;
         ModifyConfig(c =>
         {
-            var items = itemType == XpShopItemType.Background
-                ? c.Shop.Bgs
-                : c.Shop.Frames;
+            var items = c.Shop.Items;
 
-            if (items is not null)
-                success = items.TryAdd(uniqueName, shopItemInfo);
+
+            if (items.Any(x => x.UniqueName == shopItemInfo.UniqueName))
+                return;
+
+            items.Add(shopItemInfo);
+            success = true;
         });
 
         return success;

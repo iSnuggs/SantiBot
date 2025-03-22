@@ -49,7 +49,7 @@ public partial class Xp : NadekoModule<XpService>
     //     await ctx.Channel.TriggerTypingAsync();
     //     await ctx.Channel.SendMessageAsync(_templateService.GetXpText(xp));
     // }
-    
+
     [Cmd]
     [RequireContext(ContextType.Guild)]
     public async Task Experience([Leftover] IUser? user = null)
@@ -101,33 +101,33 @@ public partial class Xp : NadekoModule<XpService>
         }
 
         await Response()
-              .Paginated()
-              .PageItems(GetPageItems)
-              .PageSize(10)
-              .CurrentPage(page)
-              .Page((users, curPage) =>
-              {
-                  var embed = CreateEmbed().WithTitle(GetText(strs.server_leaderboard)).WithOkColor();
+            .Paginated()
+            .PageItems(GetPageItems)
+            .PageSize(10)
+            .CurrentPage(page)
+            .Page((users, curPage) =>
+            {
+                var embed = CreateEmbed().WithTitle(GetText(strs.server_leaderboard)).WithOkColor();
 
-                  if (!users.Any())
-                      return embed.WithDescription("-");
+                if (!users.Any())
+                    return embed.WithDescription("-");
 
-                  for (var i = 0; i < users.Count; i++)
-                  {
-                      var levelStats = new LevelStats(users[i].Xp);
-                      var user = ((SocketGuild)ctx.Guild).GetUser(users[i].UserId);
+                for (var i = 0; i < users.Count; i++)
+                {
+                    var levelStats = new LevelStats(users[i].Xp);
+                    var user = ((SocketGuild)ctx.Guild).GetUser(users[i].UserId);
 
-                      var userXpData = users[i];
+                    var userXpData = users[i];
 
-                      var awardStr = string.Empty;
+                    var awardStr = string.Empty;
 
-                      embed.AddField($"#{i + 1 + (curPage * 10)} {user?.ToString() ?? users[i].UserId.ToString()}",
-                          $"{GetText(strs.level_x(levelStats.Level))} - {levelStats.TotalXp}xp {awardStr}");
-                  }
+                    embed.AddField($"#{i + 1 + (curPage * 10)} {user?.ToString() ?? users[i].UserId.ToString()}",
+                        $"{GetText(strs.level_x(levelStats.Level))} - {levelStats.TotalXp}xp {awardStr}");
+                }
 
-                  return embed;
-              })
-              .SendAsync();
+                return embed;
+            })
+            .SendAsync();
     }
 
     [Cmd]
@@ -148,8 +148,8 @@ public partial class Xp : NadekoModule<XpService>
 
         await _service.SetLevelAsync(ctx.Guild.Id, userId, level);
         await Response()
-              .Confirm(strs.level_set($"<@{userId}>", Format.Bold(level.ToString())))
-              .SendAsync();
+            .Confirm(strs.level_set($"<@{userId}>", Format.Bold(level.ToString())))
+            .SendAsync();
     }
 
     [Cmd]
@@ -168,9 +168,9 @@ public partial class Xp : NadekoModule<XpService>
             amount,
             role.Members.Select(x => x.Id).ToArray());
         await Response()
-              .Confirm(
-                  strs.xpadd_users(Format.Bold(amount.ToString()), Format.Bold(count.ToString())))
-              .SendAsync();
+            .Confirm(
+                strs.xpadd_users(Format.Bold(amount.ToString()), Format.Bold(count.ToString())))
+            .SendAsync();
     }
 
     [Cmd]
@@ -216,8 +216,8 @@ public partial class Xp : NadekoModule<XpService>
     public async Task XpReset(ulong userId)
     {
         var embed = CreateEmbed()
-                    .WithTitle(GetText(strs.reset))
-                    .WithDescription(GetText(strs.reset_user_confirm));
+            .WithTitle(GetText(strs.reset))
+            .WithDescription(GetText(strs.reset_user_confirm));
 
         if (!await PromptUserConfirmAsync(embed))
             return;
@@ -233,8 +233,8 @@ public partial class Xp : NadekoModule<XpService>
     public async Task XpReset()
     {
         var embed = CreateEmbed()
-                    .WithTitle(GetText(strs.reset))
-                    .WithDescription(GetText(strs.reset_server_confirm));
+            .WithTitle(GetText(strs.reset))
+            .WithDescription(GetText(strs.reset_server_confirm));
 
         if (!await PromptUserConfirmAsync(embed))
             return;
@@ -267,12 +267,12 @@ public partial class Xp : NadekoModule<XpService>
         }
 
         await Response()
-              .Confirm(GetText(strs.available_commands),
-                  $"""
-                   `{prefix}xpshop bgs`
-                   `{prefix}xpshop frames`
-                   """)
-              .SendAsync();
+            .Confirm(GetText(strs.available_commands),
+                $"""
+                 `{prefix}xpshop bgs`
+                 `{prefix}xpshop frames`
+                 """)
+            .SendAsync();
     }
 
     [Cmd]
@@ -283,97 +283,91 @@ public partial class Xp : NadekoModule<XpService>
         if (page < 0)
             return;
 
-        var allItems = type == XpShopInputType.Backgrounds
-            ? await _service.GetShopBgs()
-            : await _service.GetShopFrames();
+        var allItems = (await _service.GetShopItems())
+            .Where(x => x.ItemType == (XpShopItemType)type)
+            .ToList();
 
-        if (allItems is null)
+        if (allItems.Count == 0)
         {
             await Response().Error(strs.xp_shop_disabled).SendAsync();
             return;
         }
 
-        if (allItems.Count == 0)
-        {
-            await Response().Error(strs.not_found).SendAsync();
-            return;
-        }
-
         await Response()
-              .Paginated()
-              .Items(allItems)
-              .PageSize(1)
-              .CurrentPage(page)
-              .AddFooter(false)
-              .Page((items, _) =>
-              {
-                  if (!items.Any())
-                      return CreateEmbed()
-                             .WithDescription(GetText(strs.not_found))
-                             .WithErrorColor();
+            .Paginated()
+            .Items(allItems)
+            .PageSize(1)
+            .CurrentPage(page)
+            .AddFooter(false)
+            .Page((items, _) =>
+            {
+                if (!items.Any())
+                    return CreateEmbed()
+                        .WithDescription(GetText(strs.not_found))
+                        .WithErrorColor();
 
-                  var (key, item) = items.FirstOrDefault();
+                var item = items.FirstOrDefault();
 
-                  var eb = CreateEmbed()
-                           .WithOkColor()
-                           .WithTitle(item.Name)
-                           .AddField(GetText(strs.price),
-                               CurrencyHelper.N(item.Price, Culture, _gss.GetCurrencySign()),
-                               true)
-                           .WithImageUrl(string.IsNullOrWhiteSpace(item.Preview)
-                               ? item.Url
-                               : item.Preview);
+                var eb = CreateEmbed()
+                    .WithOkColor()
+                    .WithTitle(item.Name)
+                    .AddField(GetText(strs.price),
+                        CurrencyHelper.N(item.Price, Culture, _gss.GetCurrencySign()),
+                        true)
+                    .WithImageUrl(string.IsNullOrWhiteSpace(item.Preview)
+                        ? item.Url
+                        : item.Preview);
 
-                  if (!string.IsNullOrWhiteSpace(item.Desc))
-                      eb.AddField(GetText(strs.desc), item.Desc);
+                if (!string.IsNullOrWhiteSpace(item.Desc))
+                    eb.AddField(GetText(strs.desc), item.Desc);
 
-                  return eb;
-              })
-              .Interaction(async current =>
-              {
-                  var (key, _) = allItems.Skip(current).First();
+                return eb;
+            })
+            .Interaction(async current =>
+            {
+                var item = allItems.Skip(current).First();
 
-                  var itemType = type == XpShopInputType.Backgrounds
-                      ? XpShopItemType.Background
-                      : XpShopItemType.Frame;
+                var itemType = type == XpShopInputType.Backgrounds
+                    ? XpShopItemType.Bg
+                    : XpShopItemType.Frame;
 
-                  var ownedItem = await _service.GetUserItemAsync(ctx.User.Id, itemType, key);
-                  if (ownedItem is not null)
-                  {
-                      var button = new ButtonBuilder(ownedItem.IsUsing
-                              ? GetText(strs.in_use)
-                              : GetText(strs.use),
-                          "xpshop:use",
-                          emote: Emoji.Parse("👐"),
-                          isDisabled: ownedItem.IsUsing);
+                var ownedItem = await _service.GetUserItemAsync(ctx.User.Id, itemType, item.UniqueName);
+                if (ownedItem is not null)
+                {
+                    var button = new ButtonBuilder(ownedItem.IsUsing
+                            ? GetText(strs.in_use)
+                            : GetText(strs.use),
+                        "xpshop:use",
+                        emote: Emoji.Parse("👐"),
+                        isDisabled: ownedItem.IsUsing);
 
-                      var inter = _inter.Create(
-                          ctx.User.Id,
-                          button,
-                          OnShopUse,
-                          (key, itemType),
-                          clearAfter: false);
+                    var inter = _inter.Create(
+                        ctx.User.Id,
+                        button,
+                        OnShopUse,
+                        (item.UniqueName, itemType),
+                        clearAfter: false);
 
-                      return inter;
-                  }
-                  else
-                  {
-                      var button = new ButtonBuilder(GetText(strs.buy),
-                          "xpshop:buy",
-                          emote: Emoji.Parse("💰"));
+                    return inter;
+                }
+                else
+                {
+                    var button = new ButtonBuilder(GetText(strs.buy),
+                        "xpshop:buy",
+                        emote: Emoji.Parse("💰"));
 
-                      var inter = _inter.Create(
-                          ctx.User.Id,
-                          button,
-                          OnShopBuy,
-                          (key, itemType),
-                          singleUse: true,
-                          clearAfter: false);
+                    var inter = _inter.Create(
+                        ctx.User.Id,
+                        button,
+                        OnShopBuy,
+                        (item.UniqueName, itemType),
+                        singleUse: true,
+                        clearAfter: false);
 
-                      return inter;
-                  }
-              })
-              .SendAsync();
+                    return inter;
+                }
+            })
+            .SendAsync();
     }
 
     [Cmd]
@@ -396,8 +390,8 @@ public partial class Xp : NadekoModule<XpService>
             {
                 BuyResult.XpShopDisabled => await Response().Error(strs.xp_shop_disabled).SendAsync(),
                 BuyResult.InsufficientFunds => await Response()
-                                                     .Error(strs.not_enough(_gss.GetCurrencySign()))
-                                                     .SendAsync(),
+                    .Error(strs.not_enough(_gss.GetCurrencySign()))
+                    .SendAsync(),
                 BuyResult.AlreadyOwned =>
                     await Response().Error(strs.xpshop_already_owned).Interaction(GetUseInteraction()).SendAsync(),
                 BuyResult.UnknownItem => await Response().Error(strs.xpshop_item_not_found).SendAsync(),
@@ -407,10 +401,10 @@ public partial class Xp : NadekoModule<XpService>
         }
 
         await Response()
-              .Confirm(strs.xpshop_buy_success(type.ToString().ToLowerInvariant(),
-                  key.ToLowerInvariant()))
-              .Interaction(GetUseInteraction())
-              .SendAsync();
+            .Confirm(strs.xpshop_buy_success(type.ToString().ToLowerInvariant(),
+                key.ToLowerInvariant()))
+            .Interaction(GetUseInteraction())
+            .SendAsync();
     }
 
     [Cmd]

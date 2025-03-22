@@ -40,8 +40,6 @@ enum BuyShopItemError {
 
 message AddXpShopItemRequest {
   XpShopItem item = 1;
-  string uniqueName = 2;
-  GrpcXpShopItemType itemType = 3;
 }
 
 message AddXpShopItemReply {
@@ -49,7 +47,7 @@ message AddXpShopItemReply {
 }
 
 message GetShopItemsRequest {
-  
+  uint64 userId = 1;
 }
 
 message GetShopItemsReply {
@@ -63,6 +61,9 @@ message XpShopItem {
   int64 Price = 3;
   string FullUrl = 4;
   string PreviewUrl = 5;
+  string uniqueName = 6;
+  GrpcXpShopItemType itemType = 7;
+  bool owned = 8;
 }
 
 enum GrpcXpShopItemType {

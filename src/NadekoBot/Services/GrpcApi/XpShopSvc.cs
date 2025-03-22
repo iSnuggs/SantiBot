@@ -10,6 +10,7 @@ public class XpShopSvc(XpService xp, XpConfigService xpConfig) : GrpcXpShop.Grpc
     public ServerServiceDefinition Bind()
         => GrpcXpShop.BindService(this);
 
+    [GrpcNoAuthRequired]
     public override async Task<BuyShopItemReply> BuyShopItem(BuyShopItemRequest request, ServerCallContext context)
     {
         var result = await xp.BuyShopItemAsync(request.UserId, (XpShopItemType)request.ItemType, request.UniqueName);
@@ -32,6 +33,7 @@ public class XpShopSvc(XpService xp, XpConfigService xpConfig) : GrpcXpShop.Grpc
         return res;
     }
 
+    [GrpcNoAuthRequired]
     public override async Task<UseShopItemReply> UseShopItem(UseShopItemRequest request, ServerCallContext context)
     {
         var result = await xp.UseShopItemAsync(request.UserId, (XpShopItemType)request.ItemType, request.UniqueName);
@@ -44,38 +46,45 @@ public class XpShopSvc(XpService xp, XpConfigService xpConfig) : GrpcXpShop.Grpc
         return res;
     }
 
+    [GrpcNoAuthRequired]
     public override async Task<GetShopItemsReply> GetShopItems(GetShopItemsRequest request, ServerCallContext context)
     {
-        var bgsTask = Task.Run(async () => await xp.GetShopBgs());
-        var frsTask = Task.Run(async () => await xp.GetShopFrames());
-
-        var bgs = await bgsTask.Fmap(x => x?.Map(y => MapItemToGrpcItem(y.Value, y.Key)) ?? []);
-        var frs = await frsTask.Fmap(z => z?.Map(y => MapItemToGrpcItem(y.Value, y.Key)) ?? []);
-
+        var userItems = await xp.GetUserItemsAsync(request.UserId);
+        try{
+        var items = await xp.GetShopItems();
         var res = new GetShopItemsReply();
-
-        res.Bgs.AddRange(bgs);
-        res.Frames.AddRange(frs);
+        res.Bgs.AddRange(items.Where(x => x.ItemType == XpShopItemType.Bg).Select(MapItemToGrpcItem));
+        res.Frames.AddRange(items.Where(x => x.ItemType == XpShopItemType.Frame).Select(MapItemToGrpcItem));
+        
 
         return res;
+        }
+        catch(Exception e){
+            Log.Error(e, "Error getting shop items");
+            throw;
+            }
 
-        static XpShopItem MapItemToGrpcItem(XpConfig.ShopItemInfo item, string uniqueName)
+        XpShopItem MapItemToGrpcItem(XpConfig.ShopItemInfo item)
         {
             return new XpShopItem()
             {
                 Name = item.Name,
                 Price = item.Price,
-                Description = item.Desc,
-                FullUrl = item.Url,
-                PreviewUrl = item.Preview,
+                Description = item.Desc ?? "",
+                FullUrl = item.Url ?? "",
+                PreviewUrl = item.Preview ?? "",
+                ItemType = (GrpcXpShopItemType)item.ItemType,
+                UniqueName = item.UniqueName,
+                Owned = userItems.Contains((item.ItemType, item.UniqueName))
             };
         }
     }
 
+    [GrpcNoAuthRequired]
     public override async Task<AddXpShopItemReply> AddXpShopItem(AddXpShopItemRequest request,
         ServerCallContext context)
     {
-        var result = await xpConfig.AddItemAsync(request.UniqueName, (XpShopItemType)request.ItemType,
+        var result = await xpConfig.AddItemAsync(
             new XpConfig.ShopItemInfo()
             {
                 Name = request.Item.Name,
@@ -83,6 +92,8 @@ public class XpShopSvc(XpService xp, XpConfigService xpConfig) : GrpcXpShop.Grpc
                 Desc = request.Item.Description,
                 Url = request.Item.FullUrl,
                 Preview = request.Item.PreviewUrl,
+                UniqueName = request.Item.UniqueName,
+                ItemType = (XpShopItemType)request.Item.ItemType,
             });
 
         return new AddXpShopItemReply()

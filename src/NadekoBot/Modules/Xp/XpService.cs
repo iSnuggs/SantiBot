@@ -823,13 +823,13 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
 
     private async Task<byte[]?> GetXpBackgroundAsync(ulong userId)
     {
-        var item = await GetItemInUse(userId, XpShopItemType.Background);
+        var item = await GetItemInUse(userId, XpShopItemType.Bg);
         if (item is null)
         {
             return await _images.GetXpBackgroundImageAsync();
         }
 
-        var url = _xpConfig.Data.Shop.GetItemUrl(XpShopItemType.Background, item.ItemKey);
+        var url = _xpConfig.Data.Shop.GetItemUrl(XpShopItemType.Bg, item.ItemKey);
         if (!string.IsNullOrWhiteSpace(url))
         {
             var data = await _images.GetImageDataAsync(new Uri(url));
@@ -961,25 +961,14 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
             .Where(x => x.GuildId == guildId)
             .DeleteAsync();
     }
-
-    public ValueTask<Dictionary<string, XpConfig.ShopItemInfo>?> GetShopBgs()
+    
+    public ValueTask<IReadOnlyCollection<XpConfig.ShopItemInfo>> GetShopItems()
     {
         var data = _xpConfig.Data;
         if (!data.Shop.IsEnabled)
-            return new(default(Dictionary<string, XpConfig.ShopItemInfo>));
-
-        return new(_xpConfig.Data.Shop.Bgs?.Where(x => x.Value.Price >= 0)
-            .ToDictionary(x => x.Key, x => x.Value));
-    }
-
-    public ValueTask<Dictionary<string, XpConfig.ShopItemInfo>?> GetShopFrames()
-    {
-        var data = _xpConfig.Data;
-        if (!data.Shop.IsEnabled)
-            return new(default(Dictionary<string, XpConfig.ShopItemInfo>));
-
-        return new(_xpConfig.Data.Shop.Frames?.Where(x => x.Value.Price >= 0)
-            .ToDictionary(x => x.Key, x => x.Value));
+            return new([]);
+        
+        return new(data.Shop.Items.ToList() ?? []);
     }
 
     public async Task<BuyResult> BuyShopItemAsync(ulong userId, XpShopItemType type, string key)
@@ -1024,26 +1013,13 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         }
     }
 
-    private XpConfig.ShopItemInfo? GetShopItem(XpShopItemType type, string key)
+    private XpConfig.ShopItemInfo? GetShopItem(XpShopItemType type, string uniqueName)
     {
         var data = _xpConfig.Data;
-        if (type == XpShopItemType.Background)
-        {
-            if (data.Shop.Bgs is { } bgs && bgs.TryGetValue(key, out var item))
-                return item;
 
-            return null;
-        }
-
-        if (type == XpShopItemType.Frame)
-        {
-            if (data.Shop.Frames is { } fs && fs.TryGetValue(key, out var item))
-                return item;
-
-            return null;
-        }
-
-        throw new ArgumentOutOfRangeException(nameof(type));
+        var item = data.Shop.Items?.FirstOrDefault(x => x.UniqueName == uniqueName && x.ItemType == type);
+        
+        return item;
     }
 
     public async Task<bool> OwnsItemAsync(
@@ -1070,6 +1046,16 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                                               && x.ItemType == itemType
                                               && x.ItemKey == key);
     }
+    
+    public async Task<IReadOnlySet<(XpShopItemType, string)>> GetUserItemsAsync(ulong userId){
+            await using var ctx = _db.GetDbContext();
+            var items = await ctx.GetTable<XpShopOwnedItem>()
+                .Where(x => x.UserId == userId)
+                .Select(x => new {x.ItemType, x.ItemKey })
+            .ToListAsyncLinqToDB();
+            
+            return items.Select(x => (x.ItemType, x.ItemKey)).ToHashSet();
+        }
 
     public async Task<XpShopOwnedItem?> GetItemInUse(
         ulong userId,
@@ -1085,15 +1071,10 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
     public async Task<bool> UseShopItemAsync(ulong userId, XpShopItemType itemType, string key)
     {
         var data = _xpConfig.Data;
-        XpConfig.ShopItemInfo? item = null;
-        if (itemType == XpShopItemType.Background)
-        {
-            data.Shop.Bgs?.TryGetValue(key, out item);
-        }
-        else
-        {
-            data.Shop.Frames?.TryGetValue(key, out item);
-        }
+        if(!data.Shop.IsEnabled)
+            return false;
+        
+        var item = data.Shop.Items?.FirstOrDefault(x => x.UniqueName == key && x.ItemType == itemType);
 
         if (item is null)
             return false;
