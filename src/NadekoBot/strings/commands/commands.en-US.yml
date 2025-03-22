@@ -5140,7 +5140,6 @@ livechadd:
         desc: "The channel to configure as a live channel."
     - template:
         desc: "The text template to use as a name for the live channel."
-
 livechlist:
   desc: |-
     Lists all live channels in the server.
@@ -5148,7 +5147,6 @@ livechlist:
     - ''
   params:
     - { }
-
 livechremove:
   desc: |-
     Removes a live channel.
@@ -5157,3 +5155,23 @@ livechremove:
   params:
     - channel:
         desc: "The channel to remove from live channels."
+linkfix:
+  desc: |-
+    Configures automatic link fixing from one site to another.
+    When a user posts a link containing the old domain, the bot will automatically fix it to use the new domain.
+    Provide no second domain to disable link fixing.
+  ex:
+    - 'twitter.com vxtwitter.com'
+    - 'x.com'
+  params:
+    - oldDomain:
+        desc: "The domain to be replaced."
+      newDomain:
+        desc: "The domain to replace with."
+linkfixlist:
+  desc: |-
+    Lists all configured link fixes for the server.
+  ex:
+    - ''
+  params:
+    - { }
