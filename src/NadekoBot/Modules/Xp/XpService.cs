@@ -989,18 +989,6 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         if (!conf.Shop.IsEnabled)
             return BuyResult.XpShopDisabled;
 
-        var req = type == XpShopItemType.Background
-            ? conf.Shop.BgsTierRequirement
-            : conf.Shop.FramesTierRequirement;
-
-        if (req != PatronTier.None && !_creds.IsOwner(userId))
-        {
-            var patron = await _ps.GetPatronAsync(userId);
-
-            if (patron is null || (int)patron.Value.Tier < (int)req)
-                return BuyResult.InsufficientPatronTier;
-        }
-
         await using var ctx = _db.GetDbContext();
         try
         {
@@ -1126,13 +1114,6 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
 
         return false;
     }
-
-    public PatronTier GetXpShopTierRequirement(Xp.XpShopInputType type)
-        => type switch
-        {
-            Xp.XpShopInputType.F => _xpConfig.Data.Shop.FramesTierRequirement,
-            _ => PatronTier.None,
-        };
 
     public bool IsShopEnabled()
         => _xpConfig.Data.Shop.IsEnabled;
