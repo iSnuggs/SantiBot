@@ -1610,9 +1610,9 @@
       "Aliases": [
         ".roleicon"
       ],
-      "Description": "?",
+      "Description": "Changes the icon of a role.",
       "Usage": [
-        ".roleicon"
+        ".roleicon @Role :server_emoji_here:"
       ],
       "Submodule": "RoleCommands",
       "Module": "Administration",
@@ -8264,7 +8264,7 @@
       ],
       "Description": "Changes the icon of your assigned role.",
       "Usage": [
-        ".userroleicon @Role :thumbsup:"
+        ".userroleicon @Role :server_emoji_here:"
       ],
       "Submodule": "UserRoleCommands",
       "Module": "Utility",
