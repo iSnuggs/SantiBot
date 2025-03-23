@@ -38,6 +38,7 @@ public partial class Administration
                 NotifyType.Protection => strs.notify_desc_protection,
                 NotifyType.AddRoleReward => strs.notify_desc_addrolerew,
                 NotifyType.RemoveRoleReward => strs.notify_desc_removerolerew,
+                NotifyType.NiceCatch => strs.notify_desc_nicecatch,
                 _ => strs.notify_desc_not_found
             };
 

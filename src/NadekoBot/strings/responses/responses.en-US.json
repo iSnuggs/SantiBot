@@ -1154,6 +1154,7 @@
   "notify_desc_protection": "Triggers when antialt, antispam or antiraid is triggered.",
   "notify_desc_addrolerew": "Triggers when a user gets a role as a reward for reaching a level (xprew).",
   "notify_desc_removerolerew": "Triggers when a user loses a role as a reward for reaching a level (xprew).",
+  "notify_desc_nicecatch": "Triggers when a user catches quality fish.",
   "notify_desc_not_found": "No description found for this notify event. Please report this.",
   "notify_placeholders": "Placeholders for '{0}' notify event",
   "winlb": "Biggest Wins Leaderboard",
@@ -1238,5 +1239,5 @@
   "linkfix_list_none": "No link fixes have been configured for this server.",
   "linkfix_list_title": "Link Fixes",
   "linkfix_removed": "Link fix for {0} has been removed.",
-  "linkfix_not_found": "No link fix found for {0}."
+  "linkfix_not_found": "No link fix found for {0}.",
 }
