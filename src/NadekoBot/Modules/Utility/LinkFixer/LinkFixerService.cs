@@ -30,8 +30,8 @@ public partial class LinkFixerService(DbService db) : IReadyExecutor, IExecNoCom
 
     public async Task ExecOnNoCommandAsync(IGuild guild, IUserMessage msg)
     {
-        if(guild is null)
-        return;
+        if (guild is null)
+            return;
 
         var guildId = guild.Id;
         if (!_guildLinkFixes.TryGetValue(guildId, out var guildDict))
@@ -52,7 +52,7 @@ public partial class LinkFixerService(DbService db) : IReadyExecutor, IExecNoCom
             if (string.IsNullOrWhiteSpace(domain))
                 continue;
 
-            if(!guildDict.TryGetValue(domain, out var newDomain))
+            if (!guildDict.TryGetValue(domain, out var newDomain))
                 continue;
 
             var newUrl = match.Groups["prefix"].Value + newDomain + match.Groups["suffix"].Value;
@@ -73,10 +73,10 @@ public partial class LinkFixerService(DbService db) : IReadyExecutor, IExecNoCom
     public async Task<bool> AddLinkFixAsync(ulong guildId, string oldDomain, string newDomain)
     {
         oldDomain = oldDomain.ToLowerInvariant();
-        
+
         var guildDict = _guildLinkFixes.GetOrAdd(guildId, _ => new ConcurrentDictionary<string, string>());
         guildDict[oldDomain] = newDomain;
-        
+
         await using var uow = db.GetDbContext();
         await uow.GetTable<LinkFix>()
             .InsertOrUpdateAsync(() => new LinkFix
@@ -107,7 +107,7 @@ public partial class LinkFixerService(DbService db) : IReadyExecutor, IExecNoCom
     public async Task<bool> RemoveLinkFixAsync(ulong guildId, string oldDomain)
     {
         oldDomain = oldDomain.ToLowerInvariant();
-        
+
         if (!_guildLinkFixes.TryGetValue(guildId, out var guildDict) || !guildDict.TryRemove(oldDomain, out _))
             return false;
 

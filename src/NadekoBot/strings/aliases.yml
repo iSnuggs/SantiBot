@@ -165,6 +165,8 @@ deleterole:
 rolecolor:
   - rolecolor
   - roleclr
+roleicon:
+  - roleicon
 ban:
   - ban
   - b

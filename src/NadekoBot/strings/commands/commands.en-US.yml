@@ -599,6 +599,20 @@ rolehoist:
   params:
     - role:
         desc: "The role that determines the visibility of the sidebar."
+roleicon:
+  desc: |-
+    Changes the icon of a role.
+  ex:
+    - '@Role :server_emoji_here:'
+  params:
+    - role:
+        desc: 'The role to change the icon of.'
+      imageUrl:
+        desc: 'The image url to be used as a new icon for the role.'
+    - role:
+        desc: 'The role to change the icon of.'
+      serverEmoji:
+        desc: 'The server emoji to be used as a new icon for the role.'
 createrole:
   desc: Creates a role with a given name.
   ex:
@@ -5055,7 +5069,7 @@ userroleicon:
   desc: |-
     Changes the icon of your assigned role.
   ex:
-    - '@Role :thumbsup:'
+    - '@Role :server_emoji_here:'
   params:
     - role:
         desc: 'The assigned role to change the icon of.'
