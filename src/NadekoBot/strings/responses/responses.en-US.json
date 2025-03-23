@@ -1240,4 +1240,5 @@
   "linkfix_list_title": "Link Fixes",
   "linkfix_removed": "Link fix for {0} has been removed.",
   "linkfix_not_found": "No link fix found for {0}.",
+  "notify_cant_set": "This event doesn't support origin channel. Please specify a channel."
 }

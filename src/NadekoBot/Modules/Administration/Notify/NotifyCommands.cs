@@ -8,7 +8,7 @@ public partial class Administration
     public class NotifyCommands : NadekoModule<NotifyService>
     {
         [Cmd]
-        [UserPerm(GuildPerm.Administrator)]
+        [UserPerm(GuildPerm.ManageMessages)]
         public async Task Notify()
         {
             await Response()
@@ -43,7 +43,7 @@ public partial class Administration
             };
 
         [Cmd]
-        [UserPerm(GuildPerm.Administrator)]
+        [UserPerm(GuildPerm.ManageMessages)]
         public async Task Notify(NotifyType nType)
         {
             // show msg 
@@ -77,12 +77,12 @@ public partial class Administration
         }
 
         [Cmd]
-        [UserPerm(GuildPerm.Administrator)]
+        [UserPerm(GuildPerm.ManageMessages)]
         public async Task Notify(NotifyType nType, [Leftover] string message)
             => await NotifyInternalAsync(nType, null, message);
 
         [Cmd]
-        [UserPerm(GuildPerm.Administrator)]
+        [UserPerm(GuildPerm.ManageMessages)]
         public async Task Notify(NotifyType nType, IMessageChannel channel, [Leftover] string message)
             => await NotifyInternalAsync(nType, channel, message);
 
@@ -90,6 +90,14 @@ public partial class Administration
         {
             var result = await _service.EnableAsync(ctx.Guild.Id, channel?.Id, nType, message);
 
+            if(!result)
+            {
+                await Response()
+                    .Error(strs.notify_cant_set)
+                    .SendAsync();
+                
+                return;
+            }
             var outChannel = channel is null ? "origin" : $"<#{channel.Id}>";
             await Response()
                 .Confirm(strs.notify_on(outChannel, Format.Bold(nType.ToString())))
@@ -97,7 +105,7 @@ public partial class Administration
         }
 
         [Cmd]
-        [UserPerm(GuildPerm.Administrator)]
+        [UserPerm(GuildPerm.ManageMessages)]
         public async Task NotifyPhs(NotifyType nType)
         {
             var data = _service.GetRegisteredModel(nType);
@@ -112,7 +120,7 @@ public partial class Administration
         }
 
         [Cmd]
-        [UserPerm(GuildPerm.Administrator)]
+        [UserPerm(GuildPerm.ManageMessages)]
         public async Task NotifyList(int page = 1)
         {
             if (--page < 0)
@@ -140,7 +148,7 @@ public partial class Administration
         }
 
         [Cmd]
-        [UserPerm(GuildPerm.Administrator)]
+        [UserPerm(GuildPerm.ManageMessages)]
         public async Task NotifyClear(NotifyType nType)
         {
             await _service.DisableAsync(ctx.Guild.Id, nType);

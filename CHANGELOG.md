@@ -2,10 +2,21 @@
 
 *a,c,f,r,o*
 
-## [6.0.14] - 23.03.2025
+## [6.0.14]
+
+### Added
+- Added `.notify <channel> nicecatch <message>` event
+  - It will show all rare fish/trash and all max star fish caught on any server
+  - You can use `.notifyphs nicecatch`  to see the list of placeholders you can use while setting a message
+  - Example: `.notify #fishfeed nicecatch %user% just caught a %event.fish.stars% %event.fish.name% %event.fish.emoji%`
+
+### Changed
+- .notify commands now require Manage Messages permission
+- .notify will now let you know if you can't set a notify message due to a missing channel
 
 ### Fixed
 - Fixed `.antispamignore` restart persistence
+- Fixed `.notify` events. Only levelup used to work 
 
 ## [6.0.13] - 23.03.2025
 
