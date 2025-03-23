@@ -12,8 +12,9 @@
 - Added a captcha option for `.fish`
 
 ### Fixed
-- fixed youtube stream notifications in case invalid channel was provided
+- Fixed youtube stream notifications in case invalid channel was provided
 - `.lcha` (live channel) will now let you override an existing channel template even if you're at the limit
+- Fixed `.shop` commands
 
 ### Removed
 - removed `.xpglb` as it is no longer used
