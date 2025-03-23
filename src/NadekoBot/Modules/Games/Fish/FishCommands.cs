@@ -105,7 +105,7 @@ public partial class Games
                     .WithOkColor()
                     .WithAuthor(ctx.User)
                     .WithDescription(desc)
-                    .AddField(GetText(strs.fish_quality), GetStarText(res.Stars, res.Fish.Stars), true)
+                    .AddField(GetText(strs.fish_quality), fs.GetStarText(res.Stars, res.Fish.Stars), true)
                     .AddField(GetText(strs.desc), res.Fish.Fluff, true)
                     .WithThumbnailUrl(res.Fish.Image))
                 .SendAsync();
@@ -150,7 +150,7 @@ public partial class Games
                 .Items(fishes)
                 .PageSize(9)
                 .CurrentPage(page)
-                .Page((fs, i) =>
+                .Page((fishes, i) =>
                 {
                     var eb = CreateEmbed()
                         .WithDescription($"🧠 **Skill:** {skill} / {maxSkill}")
@@ -158,7 +158,7 @@ public partial class Games
                         .WithTitle(GetText(strs.fish_list_title))
                         .WithOkColor();
 
-                    foreach (var f in fs)
+                    foreach (var f in fishes)
                     {
                         if (catchDict.TryGetValue(f.Id, out var c))
                         {
@@ -169,14 +169,14 @@ public partial class Games
                                 + GetTodEmoji(f.Time)
                                 + GetWeatherEmoji(f.Weather)
                                 + "\n"
-                                + GetStarText(c.MaxStars, f.Stars)
+                                + fs.GetStarText(c.MaxStars, f.Stars)
                                 + "\n"
                                 + Format.Italics(f.Fluff),
                                 true);
                         }
                         else
                         {
-                            eb.AddField("?", GetFishEmoji(null, 0) + "\n" + GetStarText(0, f.Stars), true);
+                            eb.AddField("?", GetFishEmoji(null, 0) + "\n" + fs.GetStarText(0, f.Stars), true);
                         }
                     }
 
@@ -225,31 +225,8 @@ public partial class Games
                 _ => ""
             };
 
-        private string GetStarText(int resStars, int fishStars)
-        {
-            if (resStars == fishStars)
-            {
-                return MultiplyStars(fcs.Data.StarEmojis[^1], fishStars);
-            }
+        
 
-            var c = fcs.Data;
-            var starsp1 = MultiplyStars(c.StarEmojis[resStars], resStars);
-            var starsp2 = MultiplyStars(c.StarEmojis[0], fishStars - resStars);
-
-            return starsp1 + starsp2;
-        }
-
-        private string MultiplyStars(string starEmoji, int count)
-        {
-            var sb = new StringBuilder();
-
-            for (var i = 0; i < count; i++)
-            {
-                sb.Append(starEmoji);
-            }
-
-            return sb.ToString();
-        }
     }
 }
 
