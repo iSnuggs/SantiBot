@@ -2,6 +2,11 @@
 
 *a,c,f,r,o*
 
+## [6.0.14] - 23.03.2025
+
+### Fixed
+- Fixed `.antispamignore` restart persistence
+
 ## [6.0.13] - 23.03.2025
 
 ### Added
