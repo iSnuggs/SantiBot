@@ -2,6 +2,22 @@
 
 *a,c,f,r,o*
 
+## [6.0.13] - 23.03.2025
+
+### Added
+- Added `.linkfix <old> <new>` command
+  - If bot sees a message with the old link, it will reply to the message with a fixed (new) link
+  - ex: `.linkfix twitter.com vxtwitter.com`
+- Added `.roleicon role <icon_url / server_emoji>` command to set the icon of a role
+- Added a captcha option for `.fish`
+
+### Fixed
+- fixed youtube stream notifications in case invalid channel was provided
+- `.lcha` (live channel) will now let you override an existing channel template even if you're at the limit
+
+### Removed
+- removed `.xpglb` as it is no longer used
+
 ## [6.0.12] - 19.03.2025
 
 ### Fixed

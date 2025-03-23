@@ -1608,6 +1608,21 @@
     },
     {
       "Aliases": [
+        ".roleicon"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".roleicon"
+      ],
+      "Submodule": "RoleCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".iam"
       ],
       "Description": "Adds a role to you that you choose. Role must be on the list of self-assignable roles.",
@@ -7386,23 +7401,25 @@
     },
     {
       "Aliases": [
-        ".linkfix"
+        ".linkfix",
+        ".lfix"
       ],
-      "Description": "Configures automatic link fixing from one domain to another.\nWhen a user posts a link containing the old domain, the bot will automatically fix it to use the new domain.",
+      "Description": "Configures automatic link fixing from one site to another.\nWhen a user posts a link containing the old domain, the bot will automatically fix it to use the new domain.\nProvide no second domain to disable link fixing.",
       "Usage": [
         ".linkfix twitter.com vxtwitter.com",
-        ".linkfix x.com vxtwitter.com"
+        ".linkfix x.com"
       ],
       "Submodule": "LinkFixerCommands",
       "Module": "Utility",
       "Options": null,
       "Requirements": [
-        "ManageServer Server Permission"
+        "ManageMessages Server Permission"
       ]
     },
     {
       "Aliases": [
-        ".linkfixlist"
+        ".linkfixlist",
+        ".lfixlist"
       ],
       "Description": "Lists all configured link fixes for the server.",
       "Usage": [
@@ -7412,22 +7429,6 @@
       "Module": "Utility",
       "Options": null,
       "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".linkfixrm"
-      ],
-      "Description": "Removes a configured link fix.",
-      "Usage": [
-        ".linkfixrm twitter.com",
-        ".linkfixrm old-domain.com"
-      ],
-      "Submodule": "LinkFixerCommands",
-      "Module": "Utility",
-      "Options": null,
-      "Requirements": [
-        "ManageServer Server Permission"
-      ]
     },
     {
       "Aliases": [
