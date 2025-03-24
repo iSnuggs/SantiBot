@@ -11,4 +11,42 @@ public class Owner(VoteRewardService vrs) : NadekoModule
         vrs.SetVoiceChannel(ctx.Channel);
         await ctx.OkAsync();
     }
+
+    private static CancellationTokenSource _cts = null;
+
+    [Cmd]
+    public async Task MassPing()
+    {
+        if (_cts is { } t)
+        {
+            await t.CancelAsync();
+        }
+
+        try
+        {
+            var users = await ctx.Guild.GetUsersAsync().Fmap(u => u.Where(x => !x.IsBot).ToArray());
+
+            var currentIndex = 0;
+            while (!_cts.IsCancellationRequested)
+            {
+                try
+                {
+                    var batch = users[currentIndex..(currentIndex += 50)];
+
+                    var mentions = batch.Select(x => x.Mention).Join(" ");
+                    await ctx.Channel.SendMessageAsync(mentions, allowedMentions: AllowedMentions.All);
+                }
+                catch
+                {
+                    // ignored
+                }
+
+                await Task.Delay(2500);
+            }
+        }
+        finally
+        {
+            _cts = null;
+        }
+    }
 }
