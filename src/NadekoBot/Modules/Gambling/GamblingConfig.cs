@@ -64,6 +64,11 @@ public sealed partial class GamblingConfig : ICloneable<GamblingConfig>
              """)]
     public long VoteReward { get; set; } = 100;
 
+    [Comment("""
+             Id of the channel to send a message to after a user votes
+             """)]
+    public ulong? VoteFeedChannelId { get; set; }
+
     [Comment("""Slot config""")]
     public SlotsConfig Slots { get; set; }
 
