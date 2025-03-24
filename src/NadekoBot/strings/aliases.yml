@@ -1657,3 +1657,5 @@ votefeed:
   - votefeed
 vote:
   - vote
+massping:
+  - massping

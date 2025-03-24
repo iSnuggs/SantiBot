@@ -5206,3 +5206,11 @@ vote:
     - ''
   params:
     - { }
+massping:
+  desc: |-
+    Mass pings all users in the server.
+    Run again to cancel.
+  ex:
+    - ''
+  params:
+    - { }
