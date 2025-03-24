@@ -124,6 +124,9 @@
             <Link>_common\CoordinatorProtos\coordinator.proto</Link>
             <GrpcServices>Client</GrpcServices>
         </Protobuf>
+        <Protobuf Include="../NadekoBot.VotesApi/Protos/*.proto">
+            <GrpcServices>Server</GrpcServices>
+        </Protobuf>
     </ItemGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'GlobalNadeko' ">
