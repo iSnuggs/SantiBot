@@ -974,7 +974,7 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": [
-        "Administrator Server Permission"
+        "ManageMessages Server Permission"
       ]
     },
     {
@@ -991,7 +991,7 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": [
-        "Administrator Server Permission"
+        "ManageMessages Server Permission"
       ]
     },
     {
@@ -1007,7 +1007,7 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": [
-        "Administrator Server Permission"
+        "ManageMessages Server Permission"
       ]
     },
     {
@@ -1025,7 +1025,7 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": [
-        "Administrator Server Permission"
+        "ManageMessages Server Permission"
       ]
     },
     {
@@ -2990,6 +2990,19 @@
     }
   ],
   "Gambling": [
+    {
+      "Aliases": [
+        ".vote"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vote"
+      ],
+      "Submodule": "Gambling",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
     {
       "Aliases": [
         ".timely"
@@ -5209,6 +5222,22 @@
         "Bot Owner Only",
         "No Public Bot"
       ]
+    }
+  ],
+  "Owner": [
+    {
+      "Aliases": [
+        ".votefeed"
+      ],
+      "Description": "Shows bot votes in real time in the specified channel.\nOmit channel to disable.",
+      "Usage": [
+        ".votefeed #votefeed",
+        ".votefeed"
+      ],
+      "Submodule": "Owner",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": []
     }
   ],
   "Permissions": [

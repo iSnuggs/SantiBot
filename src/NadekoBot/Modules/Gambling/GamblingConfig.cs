@@ -11,7 +11,7 @@ namespace NadekoBot.Modules.Gambling.Common;
 public sealed partial class GamblingConfig : ICloneable<GamblingConfig>
 {
     [Comment("""DO NOT CHANGE""")]
-    public int Version { get; set; } = 12;
+    public int Version { get; set; } = 13;
 
     [Comment("""Currency settings""")]
     public CurrencyConfig Currency { get; set; }
@@ -68,6 +68,15 @@ public sealed partial class GamblingConfig : ICloneable<GamblingConfig>
              Id of the channel to send a message to after a user votes
              """)]
     public ulong? VoteFeedChannelId { get; set; }
+
+    [Comment("""
+             List of platforms for which the bot will give currency rewards.
+             Format: PLATFORM|URL
+             Supported platforms: topgg, discords, discordbotlist
+             You will have to have VotesApi running on the same machine.
+             Format example: Top.gg|https://top.gg/bot/YOUR_BOT_ID/vote
+    """)]
+    public string[] VotePlatforms { get; set; } = [];
 
     [Comment("""Slot config""")]
     public SlotsConfig Slots { get; set; }
