@@ -167,15 +167,49 @@ public partial class Gambling : GamblingModule<GamblingService>
 
         var (amount, msg) = await _service.GetAmountAndMessage(ctx.User.Id, reward);
 
-        var prepend = GetText(strs.vote_suggest(N(amount)));
+        var prepend = GetText(strs.vote_suggest(Format.Bold(N(amount))));
         msg = prepend + "\n\n" + msg;
 
-        var inter = CreateRemindMeInteraction(6);
+        var inter = CreateRemindMeInteraction(6) as NadekoButtonInteractionHandler;
+        var eb = CreateEmbed()
+          .WithOkColor()
+          .WithDescription(msg);
 
-        await Response()
-            .Confirm(msg)
-            .Interaction(inter)
-            .SendAsync();
+        var cb = new ComponentBuilder();
+
+        // Add vote platform buttons if any are configured
+        if (Config.VotePlatforms.Length > 0)
+        {
+            var row = new ActionRowBuilder();
+            // Loop through each vote platform and create a URL button for it
+            foreach (var platform in Config.VotePlatforms)
+            {
+                // Create a URL button for each platform
+                // The platform string should be in format "Label|URL"
+                var parts = platform.Split('|', 2);
+                if (parts.Length == 2)
+                {
+                    var label = parts[0];
+                    var url = parts[1];
+
+                    // Add a URL button to the component builder
+                    row.WithButton(label, style: ButtonStyle.Link, url: url);
+                }
+            }
+            cb.AddRow(row);
+        }
+        if (!_service.UserHasTimelyReminder(ctx.User.Id))
+        {
+            var secondRow = new ActionRowBuilder();
+            secondRow.WithButton(inter.Button);
+            cb.AddRow(secondRow);
+            var sent = await ctx.Channel.SendMessageAsync(embed: eb.Build(), components: cb?.Build());
+            await inter.RunAsync(sent);
+        }
+        else
+        {
+            await ctx.Channel.SendMessageAsync(embed: eb.Build(), components: cb?.Build());
+        }
     }
 
     [Cmd]

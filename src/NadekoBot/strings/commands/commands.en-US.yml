@@ -5198,3 +5198,11 @@ votefeed:
     - ''
   params:
     - { }
+vote:
+  desc: |-
+    Shows instructions for voting for the bot in order to get rewards.
+    Will redirect user to timely if voting is not enabled.
+  ex:
+    - ''
+  params:
+    - { }
