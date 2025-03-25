@@ -4,6 +4,7 @@ using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Modules.Administration;
 using NadekoBot.Modules.Administration.Services;
+using NadekoBot.Modules.Games.Quests;
 
 namespace NadekoBot.Modules.Games.Fish;
 
@@ -11,7 +12,8 @@ public sealed class FishService(
     FishConfigService fcs,
     IBotCache cache,
     DbService db,
-    INotifySubscriber notify
+    INotifySubscriber notify,
+    QuestService quests
 )
     : INService
 {
@@ -89,6 +91,15 @@ public sealed class FishService(
                     GetStarText(result.Stars, result.Fish.Stars)
                 ));
             }
+
+            await quests.ReportActionAsync(userId,
+                QuestEventType.FishCaught,
+                new()
+                {
+                    { "fish", result.Fish.Name },
+                    { "type", typeRoll < nothingChance + fishChance ? "fish" : "trash" },
+                    { "stars", result.Stars.ToString() }
+                });
         }
 
         return result;

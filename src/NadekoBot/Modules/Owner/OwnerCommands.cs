@@ -12,7 +12,7 @@ public class Owner(VoteRewardService vrs) : NadekoModule
         await ctx.OkAsync();
     }
 
-    private static CancellationTokenSource _cts = null;
+    private static CancellationTokenSource? _cts = null;
 
     [Cmd]
     public async Task MassPing()
@@ -21,6 +21,7 @@ public class Owner(VoteRewardService vrs) : NadekoModule
         {
             await t.CancelAsync();
         }
+        _cts = new();
 
         try
         {

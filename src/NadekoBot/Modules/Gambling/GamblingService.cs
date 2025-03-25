@@ -6,6 +6,7 @@ using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
 using NadekoBot.Modules.Gambling.Common;
 using NadekoBot.Modules.Gambling.Common.Connect4;
+using NadekoBot.Modules.Games.Quests;
 using NadekoBot.Modules.Patronage;
 
 namespace NadekoBot.Modules.Gambling.Services;
@@ -19,6 +20,7 @@ public class GamblingService : INService, IReadyExecutor
     private readonly IBotCache _cache;
     private readonly GamblingConfigService _gcs;
     private readonly IPatronageService _ps;
+    private readonly QuestService _quests;
     private readonly NadekoRandom _rng;
 
     private static readonly TypedKey<long> _curDecayKey = new("currency:last_decay");
@@ -28,13 +30,15 @@ public class GamblingService : INService, IReadyExecutor
         DiscordSocketClient client,
         IBotCache cache,
         GamblingConfigService gcs,
-        IPatronageService ps)
+        IPatronageService ps,
+        QuestService quests)
     {
         _db = db;
         _client = client;
         _cache = cache;
         _gcs = gcs;
         _ps = ps;
+        _quests = quests;
         _rng = new NadekoRandom();
     }
 
@@ -230,10 +234,15 @@ public class GamblingService : INService, IReadyExecutor
         if (booster)
             originalAmount += gcsData.BoostBonus.BaseTimelyBonus;
 
+        var hasCompletedDailies = await _quests.UserCompletedDailies(userId);
+
+        if (hasCompletedDailies)
+            originalAmount = (long)(1.5 * originalAmount);
+
         var patron = await _ps.GetPatronAsync(userId);
         var percentBonus = (_ps.PercentBonus(patron) / 100f);
 
-        originalAmount += (int)(originalAmount * percentBonus);
+        originalAmount += (long)(originalAmount * percentBonus);
 
         var msg = $"**{N(originalAmount)}** base reward\n\n";
         if (boostGuilds.Count > 0)
@@ -252,6 +261,16 @@ public class GamblingService : INService, IReadyExecutor
             else
                 msg += $"\\❌ *+0 bonus for the [Patreon](https://patreon.com/nadekobot) pledge*\n";
         }
+
+        if (hasCompletedDailies)
+        {
+            msg += $"\\✅ *+50% bonus for completing daily quests*\n";
+        }
+        else
+        {
+            msg += $"\\❌ *+0 bonus for completing daily quests*\n";
+        }
+
 
         return (originalAmount, msg);
     }

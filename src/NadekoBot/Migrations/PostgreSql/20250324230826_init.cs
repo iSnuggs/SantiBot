@@ -1126,6 +1126,24 @@ namespace NadekoBot.Migrations.PostgreSql
                 });
 
             migrationBuilder.CreateTable(
+                name: "userquest",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    questnumber = table.Column<int>(type: "integer", nullable: false),
+                    userid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    questid = table.Column<int>(type: "integer", nullable: false),
+                    progress = table.Column<long>(type: "bigint", nullable: false),
+                    iscompleted = table.Column<bool>(type: "boolean", nullable: false),
+                    dateassigned = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_userquest", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "userrole",
                 columns: table => new
                 {
@@ -2240,6 +2258,17 @@ namespace NadekoBot.Migrations.PostgreSql
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "ix_userquest_userid",
+                table: "userquest",
+                column: "userid");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_userquest_userid_questnumber_dateassigned",
+                table: "userquest",
+                columns: new[] { "userid", "questnumber", "dateassigned" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "ix_userrole_guildid",
                 table: "userrole",
                 column: "guildid");
@@ -2623,6 +2652,9 @@ namespace NadekoBot.Migrations.PostgreSql
 
             migrationBuilder.DropTable(
                 name: "userfishstats");
+
+            migrationBuilder.DropTable(
+                name: "userquest");
 
             migrationBuilder.DropTable(
                 name: "userrole");

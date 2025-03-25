@@ -374,7 +374,6 @@ quoteadd:
   - qa
   - qadd
   - quadd
-  - .
 quoteedit:
   - quoteedit
   - qe
@@ -384,7 +383,6 @@ quoteprint:
   - quoteprint
   - qp
   - qup
-  - ..
   - qprint
 quoteshow:
   - quoteshow
@@ -1659,3 +1657,7 @@ vote:
   - vote
 massping:
   - massping
+questlog:
+  - questlog
+  - qlog
+  - myquests

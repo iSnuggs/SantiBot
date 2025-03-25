@@ -1,0 +1,27 @@
+﻿namespace NadekoBot.Modules.Games.Quests;
+
+public sealed class GiftWaifuQuest : IQuest
+{
+    public QuestIds QuestId
+        => QuestIds.WaifuGift;
+
+    public string Name
+        => "Generous Gifter";
+
+    public string Desc
+        => "Gift a waifu";
+
+    public string ProgDesc
+        => "waifus gifted";
+
+    public QuestEventType EventType
+        => QuestEventType.WaifuGiftSent;
+
+    public long RequiredAmount
+        => 1;
+
+    public long TryUpdateProgress(IDictionary<string, string> metadata, long oldProgress)
+    {
+        return oldProgress + 1;
+    }
+}
