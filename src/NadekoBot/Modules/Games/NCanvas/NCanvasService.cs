@@ -3,6 +3,7 @@ using LinqToDB.Data;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
+using NadekoBot.Modules.Games.Quests;
 using SixLabors.ImageSharp.ColorSpaces;
 using SixLabors.ImageSharp.ColorSpaces.Conversion;
 using SixLabors.ImageSharp.PixelFormats;
@@ -17,6 +18,7 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
     private readonly IBotCache _cache;
     private readonly DiscordSocketClient _client;
     private readonly ICurrencyService _cs;
+    private readonly QuestService _quests;
 
     public const int CANVAS_WIDTH = 500;
     public const int CANVAS_HEIGHT = 350;
@@ -26,12 +28,14 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
         DbService db,
         IBotCache cache,
         DiscordSocketClient client,
-        ICurrencyService cs)
+        ICurrencyService cs,
+        QuestService quests)
     {
         _db = db;
         _cache = cache;
         _client = client;
         _cs = cs;
+        _quests = quests;
     }
 
     public async Task OnReadyAsync()
@@ -59,23 +63,23 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
         }
 
         await uow.GetTable<NCPixel>()
-                 .BulkCopyAsync(toAdd.Select(x =>
-                 {
-                     var clr = ColorSpaceConverter.ToRgb(new Hsv(((float)Random.Shared.NextDouble() * 360),
-                                                      (float)(0.5 + (Random.Shared.NextDouble() * 0.49)),
-                                                      (float)(0.4 + (Random.Shared.NextDouble() / 5 + (x % 100 * 0.2)))))
-                                                  .ToVector3();
+            .BulkCopyAsync(toAdd.Select(x =>
+            {
+                var clr = ColorSpaceConverter.ToRgb(new Hsv(((float)Random.Shared.NextDouble() * 360),
+                        (float)(0.5 + (Random.Shared.NextDouble() * 0.49)),
+                        (float)(0.4 + (Random.Shared.NextDouble() / 5 + (x % 100 * 0.2)))))
+                    .ToVector3();
 
-                     var packed = new Rgba32(clr).PackedValue;
-                     return new NCPixel()
-                     {
-                         Color = packed,
-                         Price = 1,
-                         Position = x,
-                         Text = "",
-                         OwnerId = 0
-                     };
-                 }));
+                var packed = new Rgba32(clr).PackedValue;
+                return new NCPixel()
+                {
+                    Color = packed,
+                    Price = 1,
+                    Position = x,
+                    Text = "",
+                    OwnerId = 0
+                };
+            }));
     }
 
 
@@ -83,9 +87,9 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
     {
         await using var uow = _db.GetDbContext();
         var colors = await uow.GetTable<NCPixel>()
-                              .OrderBy(x => x.Position)
-                              .Select(x => x.Color)
-                              .ToArrayAsyncLinqToDB();
+            .OrderBy(x => x.Position)
+            .Select(x => x.Color)
+            .ToArrayAsyncLinqToDB();
 
         return colors;
     }
@@ -121,15 +125,15 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
         {
             await using var uow = _db.GetDbContext();
             var updates = await uow.GetTable<NCPixel>()
-                                   .Where(x => x.Position == position && x.Price <= price)
-                                   .UpdateAsync(old => new NCPixel()
-                                   {
-                                       Position = position,
-                                       Color = color,
-                                       Text = text,
-                                       OwnerId = userId,
-                                       Price = price + 1
-                                   });
+                .Where(x => x.Position == position && x.Price <= price)
+                .UpdateAsync(old => new NCPixel()
+                {
+                    Position = position,
+                    Color = color,
+                    Text = text,
+                    OwnerId = userId,
+                    Price = price + 1
+                });
             success = updates > 0;
         }
         catch
@@ -139,6 +143,10 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
         if (!success)
         {
             await wallet.Add(price, new("canvas", "pixel-refund", $"Refund pixel {new kwum(position)} purchase"));
+        }
+        else
+        {
+            await _quests.ReportActionAsync(userId, QuestEventType.PixelSet);
         }
 
         return success ? SetPixelResult.Success : SetPixelResult.InsufficientPayment;
@@ -152,14 +160,14 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
         await using var uow = _db.GetDbContext();
         await uow.GetTable<NCPixel>().DeleteAsync();
         await uow.GetTable<NCPixel>()
-                 .BulkCopyAsync(colors.Select((x, i) => new NCPixel()
-                 {
-                     Color = x,
-                     Price = INITIAL_PRICE,
-                     Position = i,
-                     Text = "",
-                     OwnerId = 0
-                 }));
+            .BulkCopyAsync(colors.Select((x, i) => new NCPixel()
+            {
+                Color = x,
+                Price = INITIAL_PRICE,
+                Position = i,
+                Text = "",
+                OwnerId = 0
+            }));
 
         return true;
     }
@@ -190,12 +198,12 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
 
         await using var uow = _db.GetDbContext();
         return await uow.GetTable<NCPixel>()
-                        .Where(x => x.Position % CANVAS_WIDTH >= (position % CANVAS_WIDTH) - 2
-                                    && x.Position % CANVAS_WIDTH <= (position % CANVAS_WIDTH) + 2
-                                    && x.Position / CANVAS_WIDTH >= (position / CANVAS_WIDTH) - 2
-                                    && x.Position / CANVAS_WIDTH <= (position / CANVAS_WIDTH) + 2)
-                        .OrderBy(x => x.Position)
-                        .ToArrayAsyncLinqToDB();
+            .Where(x => x.Position % CANVAS_WIDTH >= (position % CANVAS_WIDTH) - 2
+                        && x.Position % CANVAS_WIDTH <= (position % CANVAS_WIDTH) + 2
+                        && x.Position / CANVAS_WIDTH >= (position / CANVAS_WIDTH) - 2
+                        && x.Position / CANVAS_WIDTH <= (position / CANVAS_WIDTH) + 2)
+            .OrderBy(x => x.Position)
+            .ToArrayAsyncLinqToDB();
     }
 
     public int GetHeight()

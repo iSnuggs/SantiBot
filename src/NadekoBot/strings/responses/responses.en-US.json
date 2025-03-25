@@ -1244,5 +1244,9 @@
   "notify_cant_set": "This event doesn't support origin channel. Please specify a channel.",
   "vote_reward": "Thank you for voting! You've received {0}.",
   "vote_suggest": "Voting for the bot once every 6 hours will get you {0}!",
-  "vote_disabled": "Voting is disabled."
+  "vote_disabled": "Voting is disabled.",
+  "quest_log": "Quest Log",
+  "dailies_done": "You've completed your dailies!",
+  "dailies_reset": "Reset {0}",
+  "daily_completed": "You've completed a daily quest: {0}"
 }

@@ -14,6 +14,7 @@ using System.Text;
 using NadekoBot.Modules.Gambling.Rps;
 using NadekoBot.Common.TypeReaders;
 using NadekoBot.Modules.Games;
+using NadekoBot.Modules.Games.Quests;
 using NadekoBot.Modules.Patronage;
 
 namespace NadekoBot.Modules.Gambling;
@@ -36,6 +37,7 @@ public partial class Gambling : GamblingModule<GamblingService>
     private readonly IBotCache _cache;
     private readonly CaptchaService _captchaService;
     private readonly VoteRewardService _vrs;
+    private readonly QuestService _quests;
 
     public Gambling(
         IGamblingService gs,
@@ -52,7 +54,8 @@ public partial class Gambling : GamblingModule<GamblingService>
         RakebackService rb,
         IBotCache cache,
         CaptchaService captchaService,
-        VoteRewardService vrs)
+        VoteRewardService vrs,
+        QuestService quests)
         : base(configService)
     {
         _gs = gs;
@@ -68,6 +71,7 @@ public partial class Gambling : GamblingModule<GamblingService>
         _ps = patronage;
         _rng = new NadekoRandom();
         _vrs = vrs;
+        _quests = quests;
 
         _enUsCulture = new CultureInfo("en-US", false).NumberFormat;
         _enUsCulture.NumberDecimalDigits = 0;

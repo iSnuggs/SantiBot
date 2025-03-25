@@ -1128,6 +1128,24 @@ namespace NadekoBot.Migrations.Sqlite
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserQuest",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    QuestNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    QuestId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Progress = table.Column<long>(type: "INTEGER", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "INTEGER", nullable: false),
+                    DateAssigned = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserQuest", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserRole",
                 columns: table => new
                 {
@@ -2242,6 +2260,17 @@ namespace NadekoBot.Migrations.Sqlite
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserQuest_UserId",
+                table: "UserQuest",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserQuest_UserId_QuestNumber_DateAssigned",
+                table: "UserQuest",
+                columns: new[] { "UserId", "QuestNumber", "DateAssigned" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserRole_GuildId",
                 table: "UserRole",
                 column: "GuildId");
@@ -2625,6 +2654,9 @@ namespace NadekoBot.Migrations.Sqlite
 
             migrationBuilder.DropTable(
                 name: "UserFishStats");
+
+            migrationBuilder.DropTable(
+                name: "UserQuest");
 
             migrationBuilder.DropTable(
                 name: "UserRole");

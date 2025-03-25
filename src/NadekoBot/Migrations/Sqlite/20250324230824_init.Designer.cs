@@ -11,7 +11,7 @@ using NadekoBot.Db;
 namespace NadekoBot.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteContext))]
-    [Migration("20250322225843_init")]
+    [Migration("20250324230824_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -2225,6 +2225,40 @@ namespace NadekoBot.Migrations.Sqlite
                         .IsUnique();
 
                     b.ToTable("UnroleTimer");
+                });
+
+            modelBuilder.Entity("NadekoBot.Db.Models.UserQuest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateAssigned")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("Progress")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("QuestId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("QuestNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId", "QuestNumber", "DateAssigned")
+                        .IsUnique();
+
+                    b.ToTable("UserQuest");
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.UserXpStats", b =>

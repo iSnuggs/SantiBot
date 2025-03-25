@@ -2985,6 +2985,52 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("unroletimer", (string)null);
                 });
 
+            modelBuilder.Entity("NadekoBot.Db.Models.UserQuest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateAssigned")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("dateassigned");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("iscompleted");
+
+                    b.Property<long>("Progress")
+                        .HasColumnType("bigint")
+                        .HasColumnName("progress");
+
+                    b.Property<int>("QuestId")
+                        .HasColumnType("integer")
+                        .HasColumnName("questid");
+
+                    b.Property<int>("QuestNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("questnumber");
+
+                    b.Property<decimal>("UserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("userid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_userquest");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_userquest_userid");
+
+                    b.HasIndex("UserId", "QuestNumber", "DateAssigned")
+                        .IsUnique()
+                        .HasDatabaseName("ix_userquest_userid_questnumber_dateassigned");
+
+                    b.ToTable("userquest", (string)null);
+                });
+
             modelBuilder.Entity("NadekoBot.Db.Models.UserXpStats", b =>
                 {
                     b.Property<int>("Id")
