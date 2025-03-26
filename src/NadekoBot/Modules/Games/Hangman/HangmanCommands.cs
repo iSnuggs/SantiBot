@@ -26,7 +26,7 @@ public partial class Games
                     ```
                      ┌─────┐
                      │     {head}
-                     │   {leftArm} {torso} {rightArm}
+                     │   {leftArm}{torso}{rightArm}
                      │    {leftLeg} {rightLeg}
                     ─┴─
                     ```
