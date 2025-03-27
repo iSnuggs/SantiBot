@@ -152,29 +152,12 @@ public partial class Gambling : GamblingModule<GamblingService>
             return;
         }
 
-        if (await _vrs.LastVoted(ctx.User.Id) is { } remainder)
-        {
-            // Get correct time form remainder
-            var interaction = CreateRemindMeInteraction(remainder.TotalMilliseconds);
-
-            // Removes timely button if there is a timely reminder in DB
-            if (_service.UserHasTimelyReminder(ctx.User.Id))
-            {
-                interaction = null;
-            }
-
-            var now = DateTime.UtcNow;
-            var relativeTag = TimestampTag.FromDateTime(now.Add(remainder), TimestampTagStyles.Relative);
-            await Response().Pending(strs.vote_already_claimed(relativeTag)).Interaction(interaction).SendAsync();
-            return;
-        }
-
         var (amount, msg) = await _service.GetAmountAndMessage(ctx.User.Id, reward);
 
         var prepend = GetText(strs.vote_suggest(Format.Bold(N(amount))));
         msg = prepend + "\n\n" + msg;
 
-        var inter = CreateRemindMeInteraction(6) as NadekoButtonInteractionHandler;
+        var inter = CreateRemindMeInteraction(12) as NadekoButtonInteractionHandler;
         var eb = CreateEmbed()
           .WithOkColor()
           .WithDescription(msg);

@@ -10,15 +10,11 @@ public class VoteRewardService(
     GamblingConfigService gcs,
     GamblingService gs,
     CurrencyService cs,
-    IBotCache cache,
     DiscordSocketClient client,
     IMessageSenderService sender,
     IBotCreds creds
 ) : INService, IReadyExecutor
 {
-    private TypedKey<DateTime> VoteKey(ulong userId)
-        => new($"vote:{userId}");
-
     private Server? _app;
     private IMessageChannel? _voteFeedChannel;
 
@@ -63,13 +59,6 @@ public class VoteRewardService(
         if (reward <= 0)
             return;
 
-        var key = VoteKey(userId);
-        if (!await cache.AddAsync(key, DateTime.UtcNow, expiry: TimeSpan.FromHours(6)))
-        {
-            Log.Information("User {UserId} has already voted in the last 6 hours", userId);
-            return;
-        }
-
         (reward, var msg) = await gs.GetAmountAndMessage(userId, reward);
         await cs.AddAsync(userId, reward, new("vote", requestType.ToString()));
 
@@ -79,7 +68,8 @@ public class VoteRewardService(
             {
                 var user = await client.GetUserAsync(userId);
 
-                await sender.Response(user)
+                await sender
+                    .Response(user)
                     .Confirm(strs.vote_reward(N(reward)) + "\n\n" + msg)
                     .SendAsync();
             }
@@ -106,15 +96,6 @@ public class VoteRewardService(
                 }
             }
         });
-    }
-
-    public async Task<TimeSpan?> LastVoted(ulong userId)
-    {
-        var key = VoteKey(userId);
-        var last = await cache.GetAsync(key);
-        return last.Match(
-            static x => DateTime.UtcNow.Subtract(x),
-            static _ => default(TimeSpan?));
     }
 
     private string N(long amount)
