@@ -1,7 +1,6 @@
 using System.Globalization;
 using Grpc.Core;
 using NadekoBot.Common.ModuleBehaviors;
-using NadekoBot.GrpcApi;
 using NadekoBot.GrpcVotesApi;
 
 namespace NadekoBot.Modules.Gambling.Services;
@@ -12,7 +11,8 @@ public class VoteRewardService(
     CurrencyService cs,
     IBotCache cache,
     DiscordSocketClient client,
-    IMessageSenderService sender
+    IMessageSenderService sender,
+    IBotCreds creds
 ) : INService, IReadyExecutor
 {
     private TypedKey<DateTime> VoteKey(ulong userId)
@@ -26,6 +26,9 @@ public class VoteRewardService(
         if (shardData.ShardId != 0)
             return;
 
+        if (creds.Votes is null || creds.Votes.Host is null || creds.Votes.Port == 0)
+            return;
+
         var serverCreds = ServerCredentials.Insecure;
         var ssd = VoteService.BindService(new VotesGrpcService(this));
 
@@ -33,7 +36,7 @@ public class VoteRewardService(
         {
             Ports =
             {
-                new("127.0.0.1", 59384, serverCreds),
+                new(creds.Votes.Host, creds.Votes.Port, serverCreds),
             }
         };
 
@@ -44,8 +47,6 @@ public class VoteRewardService(
         {
             _voteFeedChannel = await client.GetChannelAsync(cid) as IMessageChannel;
         }
-
-        return;
     }
 
     public void SetVoiceChannel(IMessageChannel? channel)
@@ -118,7 +119,6 @@ public class VoteRewardService(
 public sealed class VotesGrpcService(VoteRewardService vrs)
     : VoteService.VoteServiceBase, INService
 {
-    [GrpcNoAuthRequired]
     public override async Task<GrpcVoteResult> VoteReceived(GrpcVoteData request, ServerCallContext context)
     {
         await vrs.UserVotedAsync(ulong.Parse(request.UserId), request.Type);
