@@ -5,9 +5,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["src/NadekoBot.VotesApi/NadekoBot.VotesApi.csproj", "NadekoBot.VotesApi/"]
-RUN dotnet restore "src/NadekoBot.VotesApi/NadekoBot.VotesApi.csproj"
-COPY . .
+COPY ["NadekoBot.VotesApi.csproj", "NadekoBot.VotesApi/"]
+RUN dotnet restore "NadekoBot.VotesApi/NadekoBot.VotesApi.csproj"
+COPY . "NadekoBot.VotesApi/"
 WORKDIR "/src/NadekoBot.VotesApi"
 RUN dotnet build "NadekoBot.VotesApi.csproj" -c Release -o /app/build
 
