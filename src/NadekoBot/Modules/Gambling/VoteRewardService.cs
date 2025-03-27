@@ -8,6 +8,7 @@ namespace NadekoBot.Modules.Gambling.Services;
 public class VoteRewardService(
     ShardData shardData,
     GamblingConfigService gcs,
+    GamblingService gs,
     CurrencyService cs,
     IBotCache cache,
     DiscordSocketClient client,
@@ -64,8 +65,12 @@ public class VoteRewardService(
 
         var key = VoteKey(userId);
         if (!await cache.AddAsync(key, DateTime.UtcNow, expiry: TimeSpan.FromHours(6)))
+        {
+            Log.Information("User {UserId} has already voted in the last 6 hours", userId);
             return;
+        }
 
+        (reward, var msg) = await gs.GetAmountAndMessage(userId, reward);
         await cs.AddAsync(userId, reward, new("vote", requestType.ToString()));
 
         _ = Task.Run(async () =>
@@ -75,7 +80,7 @@ public class VoteRewardService(
                 var user = await client.GetUserAsync(userId);
 
                 await sender.Response(user)
-                    .Confirm(strs.vote_reward(N(reward)))
+                    .Confirm(strs.vote_reward(N(reward)) + "\n\n" + msg)
                     .SendAsync();
             }
             catch (Exception ex)
