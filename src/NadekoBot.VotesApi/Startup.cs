@@ -25,7 +25,7 @@ namespace NadekoBot.VotesApi
 
             services.AddGrpcClient<VoteService.VoteServiceClient>(options =>
                 {
-                    options.Address = new Uri("http://127.0.0.1:59384");
+                    options.Address = new Uri(Configuration["BotGrpcHost"]!);
                 })
                 .ConfigureChannel((sp, c) =>
                 {
