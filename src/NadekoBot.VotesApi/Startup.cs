@@ -53,6 +53,11 @@ namespace NadekoBot.VotesApi
                     opts.AddPolicy(Policies.DiscordbotlistAuth,
                         static policy => policy.RequireClaim(AuthHandler.DiscordbotlistClaim));
                 });
+
+            services.AddCors(x => x.AddDefaultPolicy(cpb =>
+                cpb.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
