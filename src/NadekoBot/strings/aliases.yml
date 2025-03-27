@@ -1661,6 +1661,9 @@ questlog:
   - questlog
   - qlog
   - myquests
+  - quest
+  - quests
+  - dailies
 fishshop:
   - fishshop
   - fishop
