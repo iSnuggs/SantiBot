@@ -5265,3 +5265,11 @@ fishunequip:
   params:
     - index:
         desc: "The index of the item to unequip."
+fishlb:
+  desc: |-
+    Shows the top anglers.
+  ex:
+    - ''
+  params:
+    - page:
+        desc: "The optional page to display."

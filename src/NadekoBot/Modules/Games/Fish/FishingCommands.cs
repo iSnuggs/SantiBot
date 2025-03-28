@@ -1,4 +1,5 @@
 ﻿using NadekoBot.Modules.Games.Fish;
+using NadekoBot.Modules.Xp.Services;
 using Format = Discord.Format;
 
 namespace NadekoBot.Modules.Games;
@@ -10,6 +11,7 @@ public partial class Games
         FishItemService fis,
         FishConfigService fcs,
         IBotCache cache,
+        UserService us,
         CaptchaService captchaService) : NadekoModule
     {
         private static readonly NadekoRandom _rng = new();
@@ -18,6 +20,7 @@ public partial class Games
             => new($"fishingwhitelist:{userId}");
 
         [Cmd]
+        [RequireContext(ContextType.Guild)]
         public async Task Fish()
         {
             var cRes = await cache.GetAsync(FishingWhitelistKey(ctx.User.Id));
@@ -121,6 +124,7 @@ public partial class Games
         }
 
         [Cmd]
+        [RequireContext(ContextType.Guild)]
         public async Task FishSpot()
         {
             var ws = fs.GetWeatherForPeriods(7);
@@ -140,6 +144,7 @@ public partial class Games
         }
 
         [Cmd]
+        [RequireContext(ContextType.Guild)]
         public async Task FishList(int page = 1)
         {
             if (--page < 0)
@@ -154,8 +159,8 @@ public partial class Games
 
             var items = await fis.GetEquippedItemsAsync(ctx.User.Id);
             var desc = $"""
-                       🧠 {skill} / {maxSkill}
-                       """;
+                        🧠 {skill} / {maxSkill}
+                        """;
 
             foreach (var itemType in Enum.GetValues<FishItemType>())
             {
@@ -204,8 +209,43 @@ public partial class Games
                 })
                 .SendAsync();
         }
-        
-        
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task FishLb(int page = 1)
+        {
+            if (--page < 0)
+                return;
+
+            await Response()
+                .Paginated()
+                .PageItems(async p => await fs.GetFishLbAsync(p))
+                .PageSize(9)
+                .Page(async (items, page) =>
+                {
+                    var users = await us.GetUsersAsync(items.Select(x => x.UserId).ToArray());
+
+                    var eb = CreateEmbed()
+                        .WithTitle(GetText(strs.fish_lb_title))
+                        .WithOkColor();
+
+                    for (var i = 0; i < items.Count; i++)
+                    {
+                        var data = items[i];
+                        var user = users.TryGetValue(data.UserId, out var ud)
+                            ? ud.ToString()
+                            : data.UserId.ToString();
+
+                        eb.AddField("#" + (page * 9 + i + 1) + " | " + user,
+                            GetText(strs.fish_catches(Format.Bold(data.Catches.ToString()))),
+                            false);
+                    }
+
+                    return eb;
+                })
+                .SendAsync();
+        }
+
 
         private string GetFishEmoji(FishData? fish, int count)
         {

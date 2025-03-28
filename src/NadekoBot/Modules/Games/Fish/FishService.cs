@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using AngleSharp.Common;
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Modules.Administration;
@@ -468,6 +469,26 @@ public sealed class FishService(
         return catches;
     }
 
+    public async Task<IReadOnlyCollection<(ulong UserId, int Catches)>> GetFishLbAsync(int page)
+    {
+        await using var ctx = db.GetDbContext();
+
+        var result = await ctx.GetTable<FishCatch>()
+            .GroupBy(x => x.UserId)
+            .OrderByDescending(x => x.Sum(x => x.Count))
+            .Skip(page * 10)
+            .Take(10)
+            .Select(x => new
+            {
+                UserId = x.Key,
+                Catches = x.Sum(x => x.Count)
+            })
+            .ToListAsyncLinqToDB()
+            .Fmap(x => x.Map(y => (y.UserId, y.Catches)));
+
+        return result;
+    }
+
     public string GetStarText(int resStars, int fishStars)
     {
         if (resStars == fishStars)
@@ -493,4 +514,10 @@ public sealed class FishService(
 
         return sb.ToString();
     }
+}
+
+public sealed class IUserFishCatch
+{
+    public ulong UserId { get; set; }
+    public int Count { get; set; }
 }

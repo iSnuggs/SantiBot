@@ -1258,5 +1258,7 @@
   "fish_unequip_success": "Item unequipped successfully!",
   "fish_unequip_error": "Could not unequip item.",
   "fish_inv_title": "Fishing Inventory",
-  "fish_cant_uneq_potion": "You can't unequip a potion."
+  "fish_cant_uneq_potion": "You can't unequip a potion.",
+  "fish_lb_title": "Fishing Leaderboard",
+  "fish_catches": "{0} catches"
 }

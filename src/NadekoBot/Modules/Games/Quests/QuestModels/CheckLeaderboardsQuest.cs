@@ -9,7 +9,7 @@ public sealed class CheckLeaderboardsQuest : IQuest
         => "Leaderboard Enthusiast";
 
     public string Desc
-        => "Check lb, xplb and waifulb";
+        => "Check lb, xplb, fishlb and waifulb";
 
     public string ProgDesc
         => "";
@@ -18,7 +18,7 @@ public sealed class CheckLeaderboardsQuest : IQuest
         => QuestEventType.CommandUsed;
 
     public long RequiredAmount
-        => 0b111;
+        => 0b1111;
 
     public long TryUpdateProgress(IDictionary<string, string> metadata, long oldProgress)
     {
@@ -28,11 +28,13 @@ public sealed class CheckLeaderboardsQuest : IQuest
         var progress = oldProgress;
 
         if (name == "leaderboard")
-            progress |= 0b001;
+            progress |= 0b0001;
         else if (name == "xpleaderboard")
-            progress |= 0b010;
+            progress |= 0b0010;
         else if (name == "waifulb")
-            progress |= 0b100;
+            progress |= 0b0100;
+        else if (name == "fishlb")
+            progress |= 0b1000;
 
         return progress;
     }
@@ -42,22 +44,28 @@ public sealed class CheckLeaderboardsQuest : IQuest
         var msg = "";
 
         var emoji = IQuest.INCOMPLETE;
-        if ((progress & 0b001) == 0b001)
+        if ((progress & 0b0001) == 0b0001)
             emoji = IQuest.COMPLETED;
 
         msg += emoji + " flower lb seen\n";
 
         emoji = IQuest.INCOMPLETE;
-        if ((progress & 0b010) == 0b010)
+        if ((progress & 0b0010) == 0b0010)
             emoji = IQuest.COMPLETED;
             
         msg += emoji + " xp lb seen\n";
         
         emoji = IQuest.INCOMPLETE;
-        if ((progress & 0b100) == 0b100)
+        if ((progress & 0b0100) == 0b0100)
             emoji = IQuest.COMPLETED;
             
         msg += emoji + " waifu lb seen";
+        
+        emoji = IQuest.INCOMPLETE;
+        if ((progress & 0b1000) == 0b1000)
+            emoji = IQuest.COMPLETED;
+            
+        msg += "\n" + emoji + " fish lb seen";
         
         return msg;
     }
