@@ -12,6 +12,7 @@ namespace NadekoBot.Modules.Games;
 
 public partial class Games
 {
+    [RequireContext(ContextType.Guild)]
     public sealed class NCanvasCommands : NadekoModule
     {
         private readonly INCanvasService _service;
@@ -30,6 +31,10 @@ public partial class Games
             _fonts = fonts;
             _gcs = gcs;
         }
+
+        [Cmd]
+        public async Task NCanvas(kwum x)
+            => await NcPixel(x);
 
         [Cmd]
         public async Task NCanvas()
@@ -57,8 +62,17 @@ public partial class Games
             await using var stream = await image.ToStreamAsync();
 
             var hint = GetText(strs.nc_hint(prefix, _service.GetWidth(), _service.GetHeight()));
+
+            var rng = new NadekoRandom();
+            var inter = _inter.Create(ctx.User.Id,
+                new ButtonBuilder("Zoom to a Random Spot",
+                    Guid.NewGuid().ToString(),
+                    ButtonStyle.Secondary),
+                (_) => NCzoom(rng.Next(0, w), rng.Next(0, h)));
+
             await Response()
                 .File(stream, "ncanvas.png")
+                .Interaction(inter)
                 .Embed(CreateEmbed()
                     .WithDescription("""
                                      Draw pixels on the canvas!
@@ -96,10 +110,15 @@ public partial class Games
             var eb = CreateEmbed()
                 .WithOkColor()
                 .WithImageUrl($"attachment://zoom_{position}.png")
-                .WithFooter($"`.ncs code color` to set. (.ncs abc green)");
+                .WithFooter($"`.ncs code color` to set | ex: `.ncs {position} pink`");
 
             await Response()
                 .Embed(eb)
+                .Interaction(_inter.Create(ctx.User.Id,
+                    new ButtonBuilder("See Canvas",
+                        Guid.NewGuid().ToString(),
+                        ButtonStyle.Secondary),
+                    async (smc) => await NCanvas()))
                 .File(stream, $"zoom_{position}.png")
                 .SendAsync();
         }
@@ -117,7 +136,7 @@ public partial class Games
             const float fontSize = 30;
 
             var posFont = _fonts.NotoSans.CreateFont(fontSize, FontStyle.Bold);
-            var priceFont = _fonts.Symbola.CreateFont(25, FontStyle.Bold);
+            var priceFont = _fonts.Symbola.CreateFont(35, FontStyle.Regular);
 
             var size = TextMeasurer.MeasureSize("wwww", new TextOptions(posFont));
             var scale = 100f / size.Width;
@@ -222,6 +241,11 @@ public partial class Games
                     .WithOkColor()
                     .WithDescription(GetText(strs.nc_pixel_set(Format.Code(position.ToString()))))
                     .WithImageUrl($"attachment://zoom_{position}.png"))
+                .Interaction(_inter.Create(ctx.User.Id,
+                    new ButtonBuilder("See Canvas",
+                        Guid.NewGuid().ToString(),
+                        ButtonStyle.Secondary),
+                    async (smc) => await NCanvas()))
                 .File(stream, $"zoom_{position}.png")
                 .SendAsync();
         }
