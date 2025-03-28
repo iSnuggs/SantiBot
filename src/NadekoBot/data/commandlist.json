@@ -4285,7 +4285,9 @@
       "Aliases": [
         ".ncanvas",
         ".nc",
-        ".ncanv"
+        ".ncanv",
+        ".pixel",
+        ".pixels"
       ],
       "Description": "Shows the current nCanvas.\nThe canvas allows users to set each pixel's color and text using currency.",
       "Usage": [
@@ -7711,6 +7713,22 @@
       "Description": "-| Displays the quote with the specified ID number.",
       "Usage": [
         ".quoteid 123456"
+      ],
+      "Submodule": "QuoteCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quoteadd",
+        ".qa",
+        ".qadd",
+        ".quadd"
+      ],
+      "Description": "Adds a new quote with the specified name and message.",
+      "Usage": [
+        ".quoteadd sayhi Hi"
       ],
       "Submodule": "QuoteCommands",
       "Module": "Utility",

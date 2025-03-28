@@ -60,6 +60,12 @@ public partial class Games
             await Response()
                 .File(stream, "ncanvas.png")
                 .Embed(CreateEmbed()
+                    .WithDescription("""
+                                     Draw pixels on the canvas!
+                                     `.ncz x y` to zoom in to particular coordinates
+                                     `.ncs CODE color` to set a color
+                                     `.nc` to see the whole canvas
+                                     """)
                     .WithOkColor()
 #if GLOBAL_NADEKO
                                 .WithDescription("https://dashy.nadeko.bot/ncanvas")

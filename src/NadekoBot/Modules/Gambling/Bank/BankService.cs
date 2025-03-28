@@ -100,6 +100,13 @@ public sealed class BankService(
         if (rows > 0)
         {
             await _cur.AddAsync(userId, amount, new("bank", "withdraw"));
+            await quests.ReportActionAsync(userId,
+                QuestEventType.BankAction,
+                new()
+                {
+                    { "type", "withdraw" },
+                    { "amount", amount.ToString() }
+                });
             return true;
         }
 
@@ -114,6 +121,13 @@ public sealed class BankService(
                       .FirstOrDefaultAsync(x => x.UserId == userId))
                   ?.Balance
                   ?? 0;
+
+        await quests.ReportActionAsync(userId,
+            QuestEventType.BankAction,
+            new()
+            {
+                { "type", "balance" },
+            });
         return res;
     }
 }
