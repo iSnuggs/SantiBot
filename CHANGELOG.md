@@ -32,6 +32,7 @@
 - .notify will now let you know if you can't set a notify message due to a missing channel
 - `.say` will no longer reply
 - `.vote` and `.timely` will now show active bonuses
+- `.lcha` (live channel) limit increased to 5
 
 ### Fixed
 - Fixed `.antispamignore` restart persistence

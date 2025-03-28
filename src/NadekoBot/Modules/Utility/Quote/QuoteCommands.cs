@@ -236,7 +236,6 @@ public partial class Utility
         }
 
 
-        [Cmd]
         [RequireContext(ContextType.Guild)]
         public async Task QuoteAdd(string keyword, [Leftover] string text)
         {
