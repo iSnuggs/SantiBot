@@ -35,17 +35,22 @@ public partial class Games
         public async Task NCanvas()
         {
             var pixels = await _service.GetCanvas();
-            var image = new Image<Rgba32>(_service.GetWidth(), _service.GetHeight());
+            var w = _service.GetWidth();
+            var h = _service.GetHeight();
+            var image = new Image<Rgba32>(w * 2, h * 2);
 
             Parallel.For(0,
-                image.Height,
+                h * 2,
                 y =>
                 {
                     var pixelAccessor = image.DangerousGetPixelRowMemory(y);
                     var row = pixelAccessor.Span;
-                    for (int x = 0; x < image.Width; x++)
+                    for (var x = 0; x < image.Width; x += 2)
                     {
-                        row[x] = new Rgba32(pixels[(y * image.Width) + x]);
+                        var pi = pixels[(y / 2 * w) + x / 2];
+
+                        row[x] = new Rgba32(pi);
+                        row[x + 1] = new Rgba32(pi);
                     }
                 });
 
@@ -53,15 +58,15 @@ public partial class Games
 
             var hint = GetText(strs.nc_hint(prefix, _service.GetWidth(), _service.GetHeight()));
             await Response()
-                  .File(stream, "ncanvas.png")
-                  .Embed(CreateEmbed()
-                                .WithOkColor()
+                .File(stream, "ncanvas.png")
+                .Embed(CreateEmbed()
+                    .WithOkColor()
 #if GLOBAL_NADEKO
                                 .WithDescription("https://dashy.nadeko.bot/ncanvas")
 #endif
-                                .WithFooter(hint)
-                                .WithImageUrl("attachment://ncanvas.png"))
-                  .SendAsync();
+                    .WithFooter(hint)
+                    .WithImageUrl("attachment://ncanvas.png"))
+                .SendAsync();
         }
 
         [Cmd]
@@ -85,7 +90,7 @@ public partial class Games
             var eb = CreateEmbed()
                 .WithOkColor()
                 .WithImageUrl($"attachment://zoom_{position}.png")
-                .WithFooter($"`.ncs code color` to set. (.ncs abc green)" );
+                .WithFooter($"`.ncs code color` to set. (.ncs abc green)");
 
             await Response()
                 .Embed(eb)
@@ -106,11 +111,13 @@ public partial class Games
             const float fontSize = 30;
 
             var posFont = _fonts.NotoSans.CreateFont(fontSize, FontStyle.Bold);
+            var priceFont = _fonts.Symbola.CreateFont(25, FontStyle.Bold);
+
             var size = TextMeasurer.MeasureSize("wwww", new TextOptions(posFont));
             var scale = 100f / size.Width;
             if (scale < 1)
                 posFont = _fonts.NotoSans.CreateFont(fontSize * scale, FontStyle.Bold);
-            var outlinePen = new SolidPen(SixLabors.ImageSharp.Color.Black, 1f);
+            var outlinePen = new SolidPen(SixLabors.ImageSharp.Color.Black, 0.5f);
 
             Parallel.For(0,
                 pixels.Length,
@@ -131,9 +138,21 @@ public partial class Games
                             {
                                 HorizontalAlignment = HorizontalAlignment.Center,
                                 VerticalAlignment = VerticalAlignment.Center,
-                                Origin = new(startX + 50, startY + 50)
+                                Origin = new(startX + 50, startY + 30)
                             },
                             ((kwum)pix.Position).ToString().PadLeft(2, '2'),
+                            Brushes.Solid(SixLabors.ImageSharp.Color.White),
+                            outlinePen);
+
+                        x.DrawText(new RichTextOptions(priceFont)
+                            {
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                VerticalAlignment = VerticalAlignment.Center,
+                                Origin = new(startX + 50, startY + 80)
+                            },
+                            // "", Brushes.Solid(SixLabors.ImageSharp.Color.White), outlinePen);
+                            pix.Price + "🌸",
+                            // CurrencyHelper.N(pix.Price, Culture, _gcs.Data.Currency.Sign),
                             Brushes.Solid(SixLabors.ImageSharp.Color.White),
                             outlinePen);
                     });
@@ -165,15 +184,15 @@ public partial class Games
                     _gcs.Data.Currency.Sign))));
 
             if (!await PromptUserConfirmAsync(CreateEmbed()
-                                                     .WithPendingColor()
-                                                     .WithDescription(prompt)))
+                    .WithPendingColor()
+                    .WithDescription(prompt)))
             {
                 return;
             }
 
             var result = await _service.SetPixel(position, color.PackedValue, text, ctx.User.Id, pixel.Price);
 
-            if (result == SetPixelResult.NotEnoughMoney) 
+            if (result == SetPixelResult.NotEnoughMoney)
             {
                 await Response().Error(strs.not_enough(_gcs.Data.Currency.Sign)).SendAsync();
                 return;
@@ -193,12 +212,12 @@ public partial class Games
             await using var stream = await img.ToStreamAsync();
 
             await Response()
-                  .Embed(CreateEmbed()
-                                .WithOkColor()
-                                .WithDescription(GetText(strs.nc_pixel_set(Format.Code(position.ToString()))))
-                                .WithImageUrl($"attachment://zoom_{position}.png"))
-                  .File(stream, $"zoom_{position}.png")
-                  .SendAsync();
+                .Embed(CreateEmbed()
+                    .WithOkColor()
+                    .WithDescription(GetText(strs.nc_pixel_set(Format.Code(position.ToString()))))
+                    .WithImageUrl($"attachment://zoom_{position}.png"))
+                .File(stream, $"zoom_{position}.png")
+                .SendAsync();
         }
 
         [Cmd]
@@ -230,18 +249,18 @@ public partial class Games
 
             var pos = new kwum(pixel.Position);
             await Response()
-                  .File(stream, $"{pixel.Position}.png")
-                  .Embed(CreateEmbed()
-                                .WithOkColor()
-                                .WithDescription(string.IsNullOrWhiteSpace(pixel.Text) ? string.Empty : pixel.Text)
-                                .WithTitle(GetText(strs.nc_pixel(pos)))
-                                .AddField(GetText(strs.nc_position),
-                                    $"{pixel.Position % _service.GetWidth()} {pixel.Position / _service.GetWidth()}",
-                                    true)
-                                .AddField(GetText(strs.price), pixel.Price.ToString(), true)
-                                .AddField(GetText(strs.color), "#" + new Rgba32(pixel.Color).ToHex())
-                                .WithImageUrl($"attachment://{pixel.Position}.png"))
-                  .SendAsync();
+                .File(stream, $"{pixel.Position}.png")
+                .Embed(CreateEmbed()
+                    .WithOkColor()
+                    .WithDescription(string.IsNullOrWhiteSpace(pixel.Text) ? string.Empty : pixel.Text)
+                    .WithTitle(GetText(strs.nc_pixel(pos)))
+                    .AddField(GetText(strs.nc_position),
+                        $"{pixel.Position % _service.GetWidth()} {pixel.Position / _service.GetWidth()}",
+                        true)
+                    .AddField(GetText(strs.price), pixel.Price.ToString(), true)
+                    .AddField(GetText(strs.color), "#" + new Rgba32(pixel.Color).ToHex())
+                    .WithImageUrl($"attachment://{pixel.Position}.png"))
+                .SendAsync();
         }
 
         [Cmd]
@@ -264,9 +283,9 @@ public partial class Games
             }
 
             if (!await PromptUserConfirmAsync(CreateEmbed()
-                                                     .WithDescription(
-                                                         "This will reset the canvas to the specified image. All prices, text and colors will be reset.\n\n"
-                                                         + "Are you sure you want to continue?")))
+                    .WithDescription(
+                        "This will reset the canvas to the specified image. All prices, text and colors will be reset.\n\n"
+                        + "Are you sure you want to continue?")))
                 return;
 
             using var http = _http.CreateClient();
@@ -294,9 +313,9 @@ public partial class Games
             await _service.ResetAsync();
 
             if (!await PromptUserConfirmAsync(CreateEmbed()
-                                                     .WithDescription(
-                                                         "This will delete all pixels and reset the canvas.\n\n"
-                                                         + "Are you sure you want to continue?")))
+                    .WithDescription(
+                        "This will delete all pixels and reset the canvas.\n\n"
+                        + "Are you sure you want to continue?")))
                 return;
 
             await ctx.OkAsync();

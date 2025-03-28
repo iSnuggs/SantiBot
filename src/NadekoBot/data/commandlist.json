@@ -4315,7 +4315,8 @@
       "Aliases": [
         ".ncsetpixel",
         ".ncsp",
-        ".ncs"
+        ".ncs",
+        ".ncset"
       ],
       "Description": "Sets a pixel's color and text on the nCanvas.\nYou must specify the position of the pixel to set in alphanumeric format.\nYou can obtain alphanumeric position of the pixel by using `nczoom` or `ncp <x> <y>`",
       "Usage": [
