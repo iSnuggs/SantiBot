@@ -5,6 +5,7 @@ using SixLabors.ImageSharp.Advanced;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using Color = SixLabors.ImageSharp.Color;
 using Image = SixLabors.ImageSharp.Image;
 
 namespace NadekoBot.Modules.Games;
@@ -81,7 +82,15 @@ public partial class Games
 
             using var img = await GetZoomImage(position);
             await using var stream = await img.ToStreamAsync();
-            await ctx.Channel.SendFileAsync(stream, $"zoom_{position}.png");
+            var eb = CreateEmbed()
+                .WithOkColor()
+                .WithImageUrl($"attachment://zoom_{position}.png")
+                .WithFooter($"`.ncs code color` to set. (.ncs abc green)" );
+
+            await Response()
+                .Embed(eb)
+                .File(stream, $"zoom_{position}.png")
+                .SendAsync();
         }
 
         private async Task<Image<Rgba32>> GetZoomImage(kwum position)
@@ -135,20 +144,11 @@ public partial class Games
         }
 
         [Cmd]
-        public async Task NcSetPixel(kwum position, string colorHex, [Leftover] string text = "")
+        public async Task NcSetPixel(kwum position, Rgba32 color, [Leftover] string text = "")
         {
             if (position < 0 || position >= _service.GetWidth() * _service.GetHeight())
             {
                 await Response().Error(strs.invalid_input).SendAsync();
-                return;
-            }
-
-            if (colorHex.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
-                colorHex = colorHex[2..];
-
-            if (!Rgba32.TryParseHex(colorHex, out var clr))
-            {
-                await Response().Error(strs.invalid_color).SendAsync();
                 return;
             }
 
@@ -171,7 +171,7 @@ public partial class Games
                 return;
             }
 
-            var result = await _service.SetPixel(position, clr.PackedValue, text, ctx.User.Id, pixel.Price);
+            var result = await _service.SetPixel(position, color.PackedValue, text, ctx.User.Id, pixel.Price);
 
             if (result == SetPixelResult.NotEnoughMoney) 
             {
