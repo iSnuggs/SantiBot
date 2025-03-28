@@ -33,11 +33,13 @@
 - `.say` will no longer reply
 - `.vote` and `.timely` will now show active bonuses
 - `.lcha` (live channel) limit increased to 5
+- `.nc` will now show instructions
 
 ### Fixed
 - Fixed `.antispamignore` restart persistence
 - Fixed `.notify` events. Only levelup used to work 
 - Fixed `.hangman` misalignment
+- Fixed bank quest
 
 ## [6.0.13] - 23.03.2025
 
