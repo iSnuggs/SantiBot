@@ -4,9 +4,8 @@ using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
 using NadekoBot.Modules.Games.Quests;
-using SixLabors.ImageSharp.ColorSpaces;
-using SixLabors.ImageSharp.ColorSpaces.Conversion;
 using SixLabors.ImageSharp.PixelFormats;
+using Color = SixLabors.ImageSharp.Color;
 
 namespace NadekoBot.Modules.Games;
 
@@ -20,8 +19,8 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
     private readonly ICurrencyService _cs;
     private readonly QuestService _quests;
 
-    public const int CANVAS_WIDTH = 250;
-    public const int CANVAS_HEIGHT = 125;
+    public const int CANVAS_WIDTH = 200;
+    public const int CANVAS_HEIGHT = 100;
     public const int INITIAL_PRICE = 3;
 
     public NCanvasService(
@@ -49,32 +48,6 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
         if (count == CANVAS_WIDTH * CANVAS_HEIGHT)
             return;
 
-        var oldWidth = 500;
-        var oldHeight = 250;
-        if (count == oldWidth * oldHeight)
-        {
-            await uow.GetTable<NCPixel>()
-                .Where(x => x.Position % (oldWidth * 2) % 2 != 0 // x is odd
-                         || (x.Position / oldWidth) % 2 != 0)    // or y is odd
-                .DeleteAsync();
-
-            await uow.GetTable<NCPixel>()
-                .Where(x => x.Position % (oldWidth * 2) % 2 == 0
-                         && (x.Position / oldWidth) % 2 == 0)
-                .UpdateAsync(old => new()
-                {
-                    Position = (old.Position % oldWidth) / 2
-                            + ((old.Position / oldWidth) / 2) * CANVAS_WIDTH,
-                    Price = INITIAL_PRICE,
-                    Text = old.Text,
-                    OwnerId = old.OwnerId,
-                    Color = old.Color,
-                });
-
-                return;
-        }
-        
-
         await ResetAsync();
     }
 
@@ -92,12 +65,9 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
         await uow.GetTable<NCPixel>()
             .BulkCopyAsync(toAdd.Select(x =>
             {
-                var clr = ColorSpaceConverter.ToRgb(new Hsv(((float)Random.Shared.NextDouble() * 360),
-                        (float)(0.5 + (Random.Shared.NextDouble() * 0.49)),
-                        (float)(0.4 + (Random.Shared.NextDouble() / 5 + (x % 100 * 0.2)))))
-                    .ToVector3();
+                var clr = Color.Black;
 
-                var packed = new Rgba32(clr).PackedValue;
+                var packed = ((Rgba32)clr).PackedValue;
                 return new NCPixel()
                 {
                     Color = packed,
