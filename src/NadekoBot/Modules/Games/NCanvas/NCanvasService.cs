@@ -20,8 +20,8 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
     private readonly ICurrencyService _cs;
     private readonly QuestService _quests;
 
-    public const int CANVAS_WIDTH = 500;
-    public const int CANVAS_HEIGHT = 350;
+    public const int CANVAS_WIDTH = 250;
+    public const int CANVAS_HEIGHT = 125;
     public const int INITIAL_PRICE = 3;
 
     public NCanvasService(
@@ -45,8 +45,35 @@ public sealed class NCanvasService : INCanvasService, IReadyExecutor, INService
 
         await using var uow = _db.GetDbContext();
 
-        if (await uow.GetTable<NCPixel>().CountAsyncLinqToDB() > 0)
+        var count = await uow.GetTable<NCPixel>().CountAsyncLinqToDB();
+        if (count == CANVAS_WIDTH * CANVAS_HEIGHT)
             return;
+
+        var oldWidth = 500;
+        var oldHeight = 250;
+        if (count == oldWidth * oldHeight)
+        {
+            await uow.GetTable<NCPixel>()
+                .Where(x => x.Position % (oldWidth * 2) % 2 != 0 // x is odd
+                         || (x.Position / oldWidth) % 2 != 0)    // or y is odd
+                .DeleteAsync();
+
+            await uow.GetTable<NCPixel>()
+                .Where(x => x.Position % (oldWidth * 2) % 2 == 0
+                         && (x.Position / oldWidth) % 2 == 0)
+                .UpdateAsync(old => new()
+                {
+                    Position = (old.Position % oldWidth) / 2
+                            + ((old.Position / oldWidth) / 2) * CANVAS_WIDTH,
+                    Price = INITIAL_PRICE,
+                    Text = old.Text,
+                    OwnerId = old.OwnerId,
+                    Color = old.Color,
+                });
+
+                return;
+        }
+        
 
         await ResetAsync();
     }

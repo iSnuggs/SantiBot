@@ -1484,6 +1484,7 @@ ncsetpixel:
   - ncsetpixel
   - ncsp
   - ncs
+  - ncset
 nczoom:
   - nczoom
   - ncz
