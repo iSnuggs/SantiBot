@@ -4152,6 +4152,20 @@
     },
     {
       "Aliases": [
+        ".fishlb",
+        ".filb"
+      ],
+      "Description": "Shows the top anglers.",
+      "Usage": [
+        ".fishlb"
+      ],
+      "Submodule": "FishingCommands",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".fishshop",
         ".fishop"
       ],
@@ -5920,7 +5934,9 @@
       "Aliases": [
         ".questlog",
         ".qlog",
-        ".myquests"
+        ".quest",
+        ".quests",
+        ".dailies"
       ],
       "Description": "Shows your active quests and progress.",
       "Usage": [

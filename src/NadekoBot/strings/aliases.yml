@@ -1660,7 +1660,6 @@ massping:
 questlog:
   - questlog
   - qlog
-  - myquests
   - quest
   - quests
   - dailies
@@ -1686,3 +1685,6 @@ fishinv:
   - fishinv
   - finv
   - fiinv
+fishlb:
+  - fishlb
+  - filb
