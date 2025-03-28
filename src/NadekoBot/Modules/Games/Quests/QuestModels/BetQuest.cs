@@ -9,7 +9,7 @@ public sealed class BetQuest : IQuest
         => "High Roller";
 
     public string Desc
-        => "Place 10 bets";
+        => "Place 20 bets";
 
     public string ProgDesc
         => "bets placed";
@@ -18,7 +18,7 @@ public sealed class BetQuest : IQuest
         => QuestEventType.BetPlaced;
 
     public long RequiredAmount
-        => 10;
+        => 20;
 
     public long TryUpdateProgress(IDictionary<string, string> metadata, long oldProgress)
     {

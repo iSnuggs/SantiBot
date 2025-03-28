@@ -9,7 +9,7 @@ public sealed class GiftWaifuQuest : IQuest
         => "Generous Gifter";
 
     public string Desc
-        => "Gift a waifu";
+        => "Gift a waifu 2 times.";
 
     public string ProgDesc
         => "waifus gifted";
@@ -18,7 +18,7 @@ public sealed class GiftWaifuQuest : IQuest
         => QuestEventType.WaifuGiftSent;
 
     public long RequiredAmount
-        => 1;
+        => 2;
 
     public long TryUpdateProgress(IDictionary<string, string> metadata, long oldProgress)
     {

@@ -24,10 +24,10 @@ public interface IQuest
     /// <summary>
     /// Completed Emoji
     /// </summary>
-    public const string COMPLETED = "\\✅";
+    public const string COMPLETED = "✅";
 
     /// <summary>
     /// Incomplete Emoji
     /// </summary>
-    public const string INCOMPLETE = "\\❌";
+    public const string INCOMPLETE = "❌";
 }

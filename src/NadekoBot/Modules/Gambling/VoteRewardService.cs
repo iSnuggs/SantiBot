@@ -14,7 +14,6 @@ public sealed class ServerCountRewardService(
 )
     : INService, IReadyExecutor
 {
-    
     private Task dblTask = Task.CompletedTask;
     private Task discordsTask = Task.CompletedTask;
 
@@ -159,7 +158,7 @@ public class VoteRewardService(
 
                 await sender
                     .Response(user)
-                    .Confirm(strs.vote_reward(N(reward)) + "\n\n" + msg)
+                    .Confirm($"You've received{N(reward)} for voting!\n\n{msg}")
                     .SendAsync();
             }
             catch (Exception ex)
@@ -176,7 +175,7 @@ public class VoteRewardService(
                 {
                     var user = await client.GetUserAsync(userId);
                     await _voteFeedChannel.SendMessageAsync(
-                        $"{user} just received {strs.vote_reward(N(reward))} for voting!",
+                        $"**{user}** just received **{N(reward)}** for voting!",
                         allowedMentions: AllowedMentions.None);
                 }
                 catch (Exception ex)
