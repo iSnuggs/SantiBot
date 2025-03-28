@@ -7719,22 +7719,6 @@
     },
     {
       "Aliases": [
-        ".quoteadd",
-        ".qa",
-        ".qadd",
-        ".quadd"
-      ],
-      "Description": "Adds a new quote with the specified name and message.",
-      "Usage": [
-        ".quoteadd sayhi Hi"
-      ],
-      "Submodule": "QuoteCommands",
-      "Module": "Utility",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
         ".quoteedit",
         ".qe",
         ".que",
