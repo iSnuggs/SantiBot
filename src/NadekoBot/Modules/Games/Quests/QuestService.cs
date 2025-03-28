@@ -1,6 +1,5 @@
 ﻿using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
-using Microsoft.CodeAnalysis.Operations;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
 
@@ -46,44 +45,30 @@ public sealed class QuestService(
 
         _ = Task.Run(async () =>
         {
-            Log.Information("Action reported by {UserId}: {EventType} {Metadata}",
-                userId,
-                eventType,
-                metadata.ToJson());
             metadata ??= new();
             var now = DateTime.UtcNow;
 
-            Log.Information("done?");
             var alreadyDone = await botCache.GetAsync(UserCompletedDailiesKey(userId));
             if (alreadyDone.IsT0)
                 return;
-            
-            Log.Information("not done");
 
             var userQuests = await GetUserQuestsAsync(userId, now);
 
-            Log.Information("got quests");
             foreach (var (q, uq) in userQuests)
             {
                 // deleted quest
                 if (q is null)
                     continue;
-                
-                Log.Information("not deleted {QuestEventType} - {EventType}", q.EventType, eventType);
 
                 // user already completed or incorrect event
                 if (uq.IsCompleted || q.EventType != eventType)
                     continue;
-                
-                Log.Information("Gonna update progress");
 
                 var newProgress = q.TryUpdateProgress(metadata, uq.Progress);
 
                 // user already did that part of the quest
                 if (newProgress == uq.Progress)
                     continue;
-                
-                Log.Information("new progress");
 
                 var isCompleted = newProgress >= q.RequiredAmount;
 
@@ -95,7 +80,7 @@ public sealed class QuestService(
                     .UpdateAsync();
 
                 uq.IsCompleted = isCompleted;
-                
+
                 if (userQuests.All(x => x.UserQuest.IsCompleted))
                 {
                     var timeUntilTomorrow = now.Date.AddDays(1) - DateTime.UtcNow;

@@ -15,7 +15,7 @@ public class UserQuest
 
     public QuestIds QuestId { get; set; }
 
-    public int Progress { get; set; }
+    public long Progress { get; set; }
 
     public bool IsCompleted { get; set; }
 
