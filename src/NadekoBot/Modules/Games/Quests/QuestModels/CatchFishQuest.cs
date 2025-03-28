@@ -9,7 +9,7 @@ public sealed class CatchFishQuest : IQuest
         => "Fisherman";
 
     public string Desc
-        => "Catch 5 fish";
+        => "Catch 10 fish";
 
     public string ProgDesc
         => "fish caught";
@@ -18,7 +18,7 @@ public sealed class CatchFishQuest : IQuest
         => QuestEventType.FishCaught;
 
     public long RequiredAmount
-        => 5;
+        => 10;
 
     public long TryUpdateProgress(IDictionary<string, string> metadata, long oldProgress)
     {

@@ -35,7 +35,8 @@ public class Owner(VoteRewardService vrs) : NadekoModule
                     var batch = users[currentIndex..(currentIndex += 50)];
 
                     var mentions = batch.Select(x => x.Mention).Join(" ");
-                    await ctx.Channel.SendMessageAsync(mentions, allowedMentions: AllowedMentions.All);
+                    var msg = await ctx.Channel.SendMessageAsync(mentions, allowedMentions: AllowedMentions.All);
+                    msg.DeleteAfter(3);
                 }
                 catch
                 {

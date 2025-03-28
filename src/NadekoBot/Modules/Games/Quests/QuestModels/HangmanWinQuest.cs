@@ -9,7 +9,7 @@ public sealed class HangmanWinQuest : IQuest
         => "Hangman Champion";
 
     public string Desc
-        => "Win a game of Hangman";
+        => "Win 2 games of Hangman";
 
     public string ProgDesc
         => "hangman games won";
@@ -18,7 +18,7 @@ public sealed class HangmanWinQuest : IQuest
         => QuestEventType.GameWon;
 
     public long RequiredAmount
-        => 1;
+        => 2;
 
     public long TryUpdateProgress(IDictionary<string, string> metadata, long oldProgress)
     {

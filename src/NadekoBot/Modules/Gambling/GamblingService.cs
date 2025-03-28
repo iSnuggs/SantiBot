@@ -248,27 +248,27 @@ public class GamblingService : INService, IReadyExecutor
         if (boostGuilds.Count > 0)
         {
             if (booster)
-                msg += $"\\✅ *+{N(gcsData.BoostBonus.BaseTimelyBonus)} bonus for boosting {userInfo.guild}!*\n";
+                msg += $"✅ *+{N(gcsData.BoostBonus.BaseTimelyBonus)} bonus for boosting {userInfo.guild}!*\n";
             else
-                msg += $"\\❌ *+0 bonus for boosting {userInfo.guild}*\n";
+                msg += $"❌ *+0 bonus for boosting {userInfo.guild}*\n";
         }
 
         if (_ps.GetConfig().IsEnabled)
         {
             if (percentBonus > float.Epsilon)
                 msg +=
-                    $"\\✅ *+{percentBonus:P0} bonus for the [Patreon](https://patreon.com/nadekobot) pledge! <:hart:746995901758832712>*\n";
+                    $"✅ *+{percentBonus:P0} bonus for the [Patreon](https://patreon.com/nadekobot) pledge! <:hart:746995901758832712>*\n";
             else
-                msg += $"\\❌ *+0 bonus for the [Patreon](https://patreon.com/nadekobot) pledge*\n";
+                msg += $"❌ *+0 bonus for the [Patreon](https://patreon.com/nadekobot) pledge*\n";
         }
 
         if (hasCompletedDailies)
         {
-            msg += $"\\✅ *+50% bonus for completing daily quests*\n";
+            msg += $"✅ *+50% bonus for completing daily quests*\n";
         }
         else
         {
-            msg += $"\\❌ *+0 bonus for completing daily quests*\n";
+            msg += $"❌ *+0 bonus for completing daily quests*\n";
         }
 
 
