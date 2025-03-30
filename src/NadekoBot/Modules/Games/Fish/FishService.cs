@@ -469,22 +469,23 @@ public sealed class FishService(
         return catches;
     }
 
-    public async Task<IReadOnlyCollection<(ulong UserId, int Catches)>> GetFishLbAsync(int page)
+    public async Task<IReadOnlyCollection<(ulong UserId, int Catches, int Unique)>> GetFishLbAsync(int page)
     {
         await using var ctx = db.GetDbContext();
 
         var result = await ctx.GetTable<FishCatch>()
             .GroupBy(x => x.UserId)
-            .OrderByDescending(x => x.Sum(x => x.Count))
+            .OrderByDescending(x => x.Count())
             .Skip(page * 10)
             .Take(10)
             .Select(x => new
             {
                 UserId = x.Key,
-                Catches = x.Sum(x => x.Count)
+                Catches = x.Sum(x => x.Count),
+                Unique = x.Count()
             })
             .ToListAsyncLinqToDB()
-            .Fmap(x => x.Map(y => (y.UserId, y.Catches)));
+            .Fmap(x => x.Map(y => (y.UserId, y.Catches, y.Unique)));
 
         return result;
     }

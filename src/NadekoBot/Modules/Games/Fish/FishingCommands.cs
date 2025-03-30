@@ -236,8 +236,14 @@ public partial class Games
                             ? ud.ToString()
                             : data.UserId.ToString();
 
+                        var text =
+                            $"""
+                             {GetText(strs.fish_unique(Format.Bold(data.Unique.ToString())))}
+                               *{GetText(strs.fish_catches(data.Catches))}*
+                             """;
+
                         eb.AddField("#" + (page * 9 + i + 1) + " | " + user,
-                            GetText(strs.fish_catches(Format.Bold(data.Catches.ToString()))),
+                            text,
                             false);
                     }
 
