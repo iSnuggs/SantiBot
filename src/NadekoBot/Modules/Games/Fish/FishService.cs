@@ -475,7 +475,7 @@ public sealed class FishService(
 
         var result = await ctx.GetTable<FishCatch>()
             .GroupBy(x => x.UserId)
-            .OrderByDescending(x => x.Count())
+            .OrderByDescending(x => x.Count()).ThenByDescending(x => x.Sum(x => x.Count))
             .Skip(page * 10)
             .Take(10)
             .Select(x => new
