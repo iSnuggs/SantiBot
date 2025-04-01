@@ -21,7 +21,7 @@ public partial class Games
                 {
                     var eb = CreateEmbed()
                         .WithTitle(GetText(strs.fish_items_title))
-                        .WithFooter("`.fibuy <id>` to by an item")
+                        .WithFooter("`.fibuy <id>` to buy an item")
                         .WithOkColor();
 
                     foreach (var item in pageItems)
