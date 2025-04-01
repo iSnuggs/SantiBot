@@ -32,10 +32,11 @@ flowchart TD
     
     A[.fish] --> B[Catch Fish]
     B --> C["Show off with .fili"]
+    B --> G["Show up in fishfeed"] --> E
     B --> D["Complete the set"]:::todo
-    D --> E[Recognition]:::todo & F[Buff?]:::todo
+    D --> E[Recognition] & F[Buff?]:::todo
     F --> B
-    B --> X[Buy equipment]:::todo
-    X1[Modify Odds]:::todo --> B
+    B --> X[Buy equipment]
+    X1[Modify Odds] --> B
     X --> X1
 ```
