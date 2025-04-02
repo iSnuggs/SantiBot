@@ -4,9 +4,20 @@ namespace NadekoBot.Modules.Games.Hangman;
 
 public sealed class HangmanGame
 {
-    public enum GuessResult { NoAction, AlreadyTried, Incorrect, Guess, Win }
+    public enum GuessResult
+    {
+        NoAction,
+        AlreadyTried,
+        Incorrect,
+        Guess,
+        Win
+    }
 
-    public enum Phase { Running, Ended }
+    public enum Phase
+    {
+        Running,
+        Ended
+    }
 
     private Phase CurrentPhase { get; set; }
 
@@ -17,16 +28,21 @@ public sealed class HangmanGame
     private readonly string _word;
     private readonly string _imageUrl;
 
-    public HangmanGame(HangmanTerm term)
+    public string Category { get; }
+
+    public HangmanGame(HangmanTerm term, string cat)
     {
         _word = term.Word;
         _imageUrl = term.ImageUrl;
+        Category = cat;
 
         _remaining = _word.ToLowerInvariant().Where(x => char.IsLetter(x)).Select(char.ToLowerInvariant).ToHashSet();
     }
 
     public State GetState(GuessResult guessResult = GuessResult.NoAction)
-        => new(_incorrect.Count,
+        => new(
+            Category,
+            _incorrect.Count,
             CurrentPhase,
             CurrentPhase == Phase.Ended ? _word : GetScrambledWord(),
             guessResult,
@@ -99,6 +115,7 @@ public sealed class HangmanGame
     }
 
     public record State(
+        string Category,
         int Errors,
         Phase Phase,
         string Word,
