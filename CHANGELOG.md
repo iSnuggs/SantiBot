@@ -2,6 +2,12 @@
 
 *a,c,f,r,o*
 
+## [6.1.3] - 02.04.2025
+
+### Fixed
+
+- Bot will no longer fail to startup if ownerids are wrong
+
 ## [6.1.2] - 02.04.2025
 
 ### Fixed
