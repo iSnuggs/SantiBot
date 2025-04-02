@@ -10,7 +10,8 @@ public partial class Games
         [Cmd]
         [RequireContext(ContextType.Guild)]
         public async Task Hangmanlist()
-            => await Response().Confirm(GetText(strs.hangman_types(prefix)), _service.GetHangmanTypes().Join('\n'))
+            => await Response()
+                .Confirm(GetText(strs.hangman_types(prefix)), _service.GetHangmanTypes().Join('\n'))
                 .SendAsync();
 
         private static string Draw(HangmanGame.State state)
@@ -35,29 +36,25 @@ public partial class Games
 
         public static EmbedBuilder GetEmbed(IMessageSenderService sender, HangmanGame.State state)
         {
+            var eb = sender.CreateEmbed()
+                .WithOkColor()
+                .AddField("Hangman", Draw(state))
+                .AddField("Guess", Format.Code(state.Word));
+
             if (state.Phase == HangmanGame.Phase.Running)
             {
-                return sender.CreateEmbed()
-                    .WithOkColor()
-                    .AddField("Hangman", Draw(state))
-                    .AddField("Guess", Format.Code(state.Word))
-                    .WithFooter(state.MissedLetters.Join(' '));
+                return eb
+                    .WithFooter(state.MissedLetters.Join(' '))
+                    .WithAuthor(state.Category);
             }
 
             if (state.Phase == HangmanGame.Phase.Ended && state.Failed)
             {
-                return sender.CreateEmbed()
-                    .WithErrorColor()
-                    .AddField("Hangman", Draw(state))
-                    .AddField("Guess", Format.Code(state.Word))
+                return eb
                     .WithFooter(state.MissedLetters.Join(' '));
             }
 
-            return sender.CreateEmbed()
-                .WithOkColor()
-                .AddField("Hangman", Draw(state))
-                .AddField("Guess", Format.Code(state.Word))
-                .WithFooter(state.MissedLetters.Join(' '));
+            return eb.WithFooter(state.MissedLetters.Join(' '));
         }
 
         [Cmd]

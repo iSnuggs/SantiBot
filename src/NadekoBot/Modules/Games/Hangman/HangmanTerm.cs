@@ -1,4 +1,6 @@
 #nullable disable
+using YamlDotNet.Serialization;
+
 namespace NadekoBot.Modules.Games.Hangman;
 
 public sealed class HangmanTerm

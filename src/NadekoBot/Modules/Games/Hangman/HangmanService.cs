@@ -36,10 +36,10 @@ public sealed class HangmanService : IHangmanService, IExecNoCommand
     public bool StartHangman(ulong channelId, string? category, [NotNullWhen(true)] out HangmanGame.State? state)
     {
         state = null;
-        if (!_source.GetTerm(category, out var term))
+        if (!_source.GetTerm(category, out var termData))
             return false;
 
-        var game = new HangmanGame(term);
+        var game = new HangmanGame(termData.Value.Term, termData.Value.Category);
         lock (_locker)
         {
             var hc = _hangmanGames.GetOrAdd(channelId, game);

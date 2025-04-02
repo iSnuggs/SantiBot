@@ -44,7 +44,7 @@ public sealed class DefaultHangmanSource : IHangmanSource
     public IReadOnlyCollection<string> GetCategories()
         => termsDict.Keys.ToList();
 
-    public bool GetTerm(string? category, [NotNullWhen(true)] out HangmanTerm? term)
+    public bool GetTerm(string? category, [NotNullWhen(true)] out (HangmanTerm Term, string Category)? term)
     {
         if (category is null)
         {
@@ -54,7 +54,7 @@ public sealed class DefaultHangmanSource : IHangmanSource
 
         if (termsDict.TryGetValue(category, out var terms))
         {
-            term = terms[_rng.Next(0, terms.Length)];
+            term = (terms[_rng.Next(0, terms.Length)], category);
             return true;
         }
 
