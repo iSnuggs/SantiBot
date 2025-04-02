@@ -10,7 +10,7 @@ public partial class Searches
     public partial class FeedCommands : NadekoModule<FeedsService>
     {
         private static readonly Regex _ytChannelRegex =
-            new(@"youtube\.com\/(?:c\/|channel\/|user\/)?(?<channelid>[a-zA-Z0-9\-_]{1,})");
+            MyRegex();
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
@@ -146,5 +146,8 @@ public partial class Searches
                 })
                 .SendAsync();
         }
+
+        [GeneratedRegex(@"youtube\.com\/(?:c\/|channel\/|user\/)?(?<channelid>[a-zA-Z0-9\-_]{1,})")]
+        private static partial Regex MyRegex();
     }
 }

@@ -3,6 +3,7 @@ using System.Globalization;
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
+using NadekoBot.Common.TypeReaders;
 using NadekoBot.Db.Models;
 using NadekoBot.Modules.Gambling.Common;
 using NadekoBot.Modules.Gambling.Common.Connect4;
@@ -208,8 +209,9 @@ public class GamblingService : INService, IReadyExecutor
     private string N(long amount)
         => CurrencyHelper.N(amount, CultureInfo.InvariantCulture, _gcs.Data.Currency.Sign);
 
-    public async Task<(long val, string msg)> GetAmountAndMessage(ulong userId, long originalAmount)
+    public async Task<(long val, string msg)> GetAmountAndMessage(ulong userId, long baseAmount)
     {
+        var totalAmount = baseAmount;
         var gcsData = _gcs.Data;
         var boostGuilds = gcsData.BoostBonus.GuildIds ?? [];
         var guildUsers = await boostGuilds
@@ -232,19 +234,19 @@ public class GamblingService : INService, IReadyExecutor
         var booster = userInfo != default;
 
         if (booster)
-            originalAmount += gcsData.BoostBonus.BaseTimelyBonus;
+            totalAmount += gcsData.BoostBonus.BaseTimelyBonus;
 
         var hasCompletedDailies = await _quests.UserCompletedDailies(userId);
 
         if (hasCompletedDailies)
-            originalAmount = (long)(1.5 * originalAmount);
+            totalAmount = (long)(1.5 * totalAmount);
 
         var patron = await _ps.GetPatronAsync(userId);
         var percentBonus = (_ps.PercentBonus(patron) / 100f);
 
-        originalAmount += (long)(originalAmount * percentBonus);
+        totalAmount += (long)(totalAmount * percentBonus);
 
-        var msg = $"**{N(originalAmount)}** base reward\n\n";
+        var msg = $"**{N(baseAmount)}** base reward\n\n";
         if (boostGuilds.Count > 0)
         {
             if (booster)
@@ -272,6 +274,6 @@ public class GamblingService : INService, IReadyExecutor
         }
 
 
-        return (originalAmount, msg);
+        return (totalAmount, msg);
     }
 }
