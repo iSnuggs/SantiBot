@@ -81,13 +81,13 @@ public sealed class SelfService : IExecNoCommand, IReadyExecutor, INService
         await using var uow = _db.GetDbContext();
 
         autoCommands = uow.Set<AutoCommand>()
-                          .AsNoTracking()
-                          .Where(x => x.Interval >= 5)
-                          .AsEnumerable()
-                          .GroupBy(x => x.GuildId)
-                          .ToDictionary(x => x.Key,
-                              y => y.ToDictionary(x => x.Id, TimerFromAutoCommand).ToConcurrent())
-                          .ToConcurrent();
+            .AsNoTracking()
+            .Where(x => x.Interval >= 5)
+            .AsEnumerable()
+            .GroupBy(x => x.GuildId)
+            .ToDictionary(x => x.Key,
+                y => y.ToDictionary(x => x.Id, TimerFromAutoCommand).ToConcurrent())
+            .ToConcurrent();
 
         var startupCommands = uow.Set<AutoCommand>().AsNoTracking().Where(x => x.Interval == 0);
         foreach (var cmd in startupCommands)
@@ -101,8 +101,10 @@ public sealed class SelfService : IExecNoCommand, IReadyExecutor, INService
             }
         }
 
-        if (_client.ShardId == 0)
-            await LoadOwnerChannels();
+        if (_client.ShardId != 0)
+            return;
+
+        await LoadOwnerChannels();
     }
 
     private Timer TimerFromAutoCommand(AutoCommand x)
@@ -165,19 +167,27 @@ public sealed class SelfService : IExecNoCommand, IReadyExecutor, INService
 
     private async Task LoadOwnerChannels()
     {
-        var channels = await _creds.OwnerIds.Select(id =>
-                                   {
-                                       var user = _client.GetUser(id);
-                                       if (user is null)
-                                           return Task.FromResult<IDMChannel>(null);
+        var channels = await _creds.OwnerIds.Select(async id =>
+            {
+                var user = _client.GetUser(id);
+                if (user is null)
+                    return null;
 
-                                       return user.CreateDMChannelAsync();
-                                   })
-                                   .WhenAll();
+                try
+                {
+                    return await user.CreateDMChannelAsync();
+                }
+                catch (Exception)
+                {
+                    Log.Error("Unable to DM Owner {UserId} - please remove that id from the owner list", user.Id);
+                    return null;
+                }
+            })
+            .WhenAll();
 
         ownerChannels = channels.Where(x => x is not null)
-                                .ToDictionary(x => x.Recipient.Id, x => x)
-                                .ToImmutableDictionary();
+            .ToDictionary(x => x.Recipient.Id, x => x)
+            .ToImmutableDictionary();
 
         if (!ownerChannels.Any())
         {
@@ -401,41 +411,41 @@ public sealed class SelfService : IExecNoCommand, IReadyExecutor, INService
     {
         await using var ctx = _db.GetDbContext();
         var presentDbUsers = await ctx.GetTable<DiscordUser>()
-                                      .Select(x => new
-                                      {
-                                          x.UserId,
-                                          x.Username,
-                                      })
-                                      .Where(x => users.Select(y => y.Id).Contains(x.UserId))
-                                      .ToArrayAsyncEF();
+            .Select(x => new
+            {
+                x.UserId,
+                x.Username,
+            })
+            .Where(x => users.Select(y => y.Id).Contains(x.UserId))
+            .ToArrayAsyncEF();
 
         var usersToAdd = users
-                         .Where(x => !presentDbUsers.Select(x => x.UserId).Contains(x.Id))
-                         .Select(x => new DiscordUser()
-                         {
-                             UserId = x.Id,
-                             AvatarId = x.AvatarId,
-                             Username = x.Username,
-                         });
+            .Where(x => !presentDbUsers.Select(x => x.UserId).Contains(x.Id))
+            .Select(x => new DiscordUser()
+            {
+                UserId = x.Id,
+                AvatarId = x.AvatarId,
+                Username = x.Username,
+            });
 
         var added = (await ctx.BulkCopyAsync(usersToAdd)).RowsCopied;
         var toUpdateUserIds = presentDbUsers
-                              .Where(x => x.Username.StartsWith("??"))
-                              .Select(x => x.UserId)
-                              .ToArray();
+            .Where(x => x.Username.StartsWith("??"))
+            .Select(x => x.UserId)
+            .ToArray();
 
         foreach (var user in users.Where(x => toUpdateUserIds.Contains(x.Id)))
         {
             await ctx.GetTable<DiscordUser>()
-                     .Where(x => x.UserId == user.Id)
-                     .UpdateAsync(x => new DiscordUser()
-                     {
-                         Username = user.Username,
+                .Where(x => x.UserId == user.Id)
+                .UpdateAsync(x => new DiscordUser()
+                {
+                    Username = user.Username,
 
-                         // .award tends to set AvatarId and DateAdded to NULL, so account for that.
-                         AvatarId = user.AvatarId,
-                         DateAdded = x.DateAdded ?? DateTime.UtcNow
-                     });
+                    // .award tends to set AvatarId and DateAdded to NULL, so account for that.
+                    AvatarId = user.AvatarId,
+                    DateAdded = x.DateAdded ?? DateTime.UtcNow
+                });
         }
 
         return (added, toUpdateUserIds.Length);
