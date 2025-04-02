@@ -40,13 +40,13 @@ public class FeedsService : INService, IReadyExecutor
         await using (var uow = _db.GetDbContext())
         {
             var subs = await uow.Set<FeedSub>()
-                                .AsQueryable()
-                                .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
-                                .ToListAsyncLinqToDB();
+                .AsQueryable()
+                .Where(x => Queries.GuildOnShard(x.GuildId, _shardData.TotalShards, _shardData.ShardId))
+                .ToListAsyncLinqToDB();
             _subs = subs
-                    .GroupBy(x => x.Url.ToLower())
-                    .ToDictionary(x => x.Key, x => x.ToList())
-                    .ToConcurrent();
+                .GroupBy(x => x.Url.ToLower())
+                .ToDictionary(x => x.Key, x => x.ToList())
+                .ToConcurrent();
         }
 
         await TrackFeeds();
@@ -66,7 +66,7 @@ public class FeedsService : INService, IReadyExecutor
                 // remove from db
                 await using var ctx = _db.GetDbContext();
                 await ctx.GetTable<FeedSub>()
-                         .DeleteAsync(x => ids.Contains(x.Id));
+                    .DeleteAsync(x => ids.Contains(x.Id));
 
                 // remove from the local cache
                 _subs.TryRemove(url, out _);
@@ -163,12 +163,12 @@ public class FeedsService : INService, IReadyExecutor
                         if (!gotImage && feedItem.SpecificItem is AtomFeedItem afi)
                         {
                             var previewElement = afi.Element.Elements()
-                                                    .FirstOrDefault(x => x.Name.LocalName == "preview");
+                                .FirstOrDefault(x => x.Name.LocalName == "preview");
 
                             if (previewElement is null)
                             {
                                 previewElement = afi.Element.Elements()
-                                                    .FirstOrDefault(x => x.Name.LocalName == "thumbnail");
+                                    .FirstOrDefault(x => x.Name.LocalName == "thumbnail");
                             }
 
                             if (previewElement is not null)
@@ -201,11 +201,11 @@ public class FeedsService : INService, IReadyExecutor
                                 continue;
 
                             var sendTask = _sender.Response(ch)
-                                                  .Embed(embed)
-                                                  .Text(string.IsNullOrWhiteSpace(val.Message)
-                                                      ? string.Empty
-                                                      : val.Message)
-                                                  .SendAsync();
+                                .Embed(embed)
+                                .Text(string.IsNullOrWhiteSpace(val.Message)
+                                    ? string.Empty
+                                    : val.Message)
+                                .SendAsync();
                             tasks.Add(sendTask);
                         }
 
@@ -234,14 +234,16 @@ public class FeedsService : INService, IReadyExecutor
     public List<FeedSub> GetFeeds(ulong guildId)
     {
         using var uow = _db.GetDbContext();
-        
+
         return uow.GetTable<FeedSub>()
-                  .Where(x => x.GuildId == guildId)
-                  .OrderBy(x => x.Id)
-                  .ToList();
+            .Where(x => x.GuildId == guildId)
+            .OrderBy(x => x.Id)
+            .ToList();
     }
-        
-    public FeedAddResult AddFeed(
+
+    private const int MAX_FEEDS = 10;
+
+    public async Task<FeedAddResult> AddFeedAsync(
         ulong guildId,
         ulong channelId,
         string rssFeed,
@@ -249,30 +251,29 @@ public class FeedsService : INService, IReadyExecutor
     {
         ArgumentNullException.ThrowIfNull(rssFeed, nameof(rssFeed));
 
-        var fs = new FeedSub
-        {
-            ChannelId = channelId,
-            Url = rssFeed.Trim(),
-            Message = message
-        };
-
-        using var uow = _db.GetDbContext();
-        var feeds = uow.GetTable<FeedSub>()
-                       .Where(x => x.GuildId == guildId)
-                       .ToArray();
-
-        if (feeds.Any(x => x.Url.ToLower() == fs.Url.ToLower()))
+        await using var uow = _db.GetDbContext();
+        var feedUrl = rssFeed.Trim();
+        if (await uow.GetTable<FeedSub>().AnyAsyncLinqToDB(x => x.GuildId == guildId &&
+                                                                x.Url.ToLower() == feedUrl.ToLower()))
             return FeedAddResult.Duplicate;
-        if (feeds.Length >= 10)
+
+        var count = await uow.GetTable<FeedSub>().CountAsyncLinqToDB(x => x.GuildId == guildId);
+        if (count >= MAX_FEEDS)
             return FeedAddResult.LimitReached;
 
-        uow.Add(fs);
-        uow.SaveChanges();
-        
+        var fs = await uow.GetTable<FeedSub>()
+            .InsertWithOutputAsync(() => new FeedSub
+            {
+                GuildId = guildId,
+                ChannelId = channelId,
+                Url = feedUrl,
+                Message = message
+            });
+
         _subs.AddOrUpdate(fs.Url.ToLower(),
             [fs],
             (_, old) => old.Append(fs).ToList());
-        
+
         return FeedAddResult.Success;
     }
 
@@ -289,14 +290,11 @@ public class FeedsService : INService, IReadyExecutor
 
         if (items.Count <= index)
             return false;
-        
+
         var toRemove = items[index];
         _subs.AddOrUpdate(toRemove.Url.ToLower(),
             [],
-            (_, old) =>
-            {
-                return old.Where(x => x.Id != toRemove.Id).ToList();
-            });
+            (_, old) => { return old.Where(x => x.Id != toRemove.Id).ToList(); });
         uow.Remove(toRemove);
         uow.SaveChanges();
 

@@ -2,6 +2,11 @@
 
 *a,c,f,r,o*
 
+## [6.1.2] - 02.04.2025
+
+### Fixed
+- Fixed `.feed` not adding new feeds to the database
+
 ## [6.1.1] - 02.04.2025
 
 ### Added
