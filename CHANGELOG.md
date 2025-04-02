@@ -2,6 +2,16 @@
 
 *a,c,f,r,o*
 
+## [6.1.1] - 02.04.2025
+
+### Added
+- Added some config options for .conf fish
+
+### Fixed
+- Fixed a typo in fish shop
+- .fishlb will now compare unique fish caught, instead of total catches
+- hangman category now appears in .hangman output
+
 ## [6.1.0] - 28.03.2025
 
 ### Added
