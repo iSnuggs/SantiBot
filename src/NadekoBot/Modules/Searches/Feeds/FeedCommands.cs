@@ -53,6 +53,8 @@ public partial class Searches
         [Priority(1)]
         public async Task Feed(string url, ITextChannel? channel = null, [Leftover] string? message = null)
         {
+            await ctx.Channel.TriggerTypingAsync();
+            
             if (!Uri.TryCreate(url, UriKind.Absolute, out var uri)
                 || (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps))
             {
@@ -61,7 +63,7 @@ public partial class Searches
             }
 
             channel ??= (ITextChannel)ctx.Channel;
-            
+
             if (!((IGuildUser)ctx.User).GetPermissions(channel).MentionEveryone)
                 message = message?.SanitizeAllMentions();
 
@@ -79,7 +81,7 @@ public partial class Searches
             if (ctx.User is not IGuildUser gu || !gu.GuildPermissions.Administrator)
                 message = message?.SanitizeMentions(true);
 
-            var result = _service.AddFeed(ctx.Guild.Id, channel.Id, url, message);
+            var result = await _service.AddFeedAsync(ctx.Guild.Id, channel.Id, url, message);
             if (result == FeedAddResult.Success)
             {
                 await Response().Confirm(strs.feed_added).SendAsync();
@@ -117,32 +119,32 @@ public partial class Searches
         {
             if (--page < 0)
                 return;
-            
+
             var feeds = _service.GetFeeds(ctx.Guild.Id);
 
             if (!feeds.Any())
             {
                 await Response()
-                      .Embed(CreateEmbed().WithOkColor().WithDescription(GetText(strs.feed_no_feed)))
-                      .SendAsync();
+                    .Embed(CreateEmbed().WithOkColor().WithDescription(GetText(strs.feed_no_feed)))
+                    .SendAsync();
                 return;
             }
 
             await Response()
-                  .Paginated()
-                  .Items(feeds)
-                  .PageSize(10)
-                  .CurrentPage(page)
-                  .Page((items, cur) =>
-                  {
-                      var embed = CreateEmbed().WithOkColor();
-                      var i = 0;
-                      var fs = string.Join("\n",
-                          items.Select(x => $"`{(cur * 10) + ++i}.` <#{x.ChannelId}> {x.Url}"));
+                .Paginated()
+                .Items(feeds)
+                .PageSize(10)
+                .CurrentPage(page)
+                .Page((items, cur) =>
+                {
+                    var embed = CreateEmbed().WithOkColor();
+                    var i = 0;
+                    var fs = string.Join("\n",
+                        items.Select(x => $"`{(cur * 10) + ++i}.` <#{x.ChannelId}> {x.Url}"));
 
-                      return embed.WithDescription(fs);
-                  })
-                  .SendAsync();
+                    return embed.WithDescription(fs);
+                })
+                .SendAsync();
         }
     }
 }
