@@ -2,6 +2,13 @@
 
 *a,c,f,r,o*
 
+## [6.1.4] - 04.04.2025
+
+### Fixed
+
+- Fixed .timely awarding multiple times
+- Fixed .plant password - moved it down and right to avoid cutoff on phones
+
 ## [6.1.3] - 02.04.2025
 
 ### Fixed
