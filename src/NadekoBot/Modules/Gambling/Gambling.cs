@@ -216,7 +216,6 @@ public partial class Gambling : GamblingModule<GamblingService>
             return;
         }
 
-        await _cs.AddAsync(ctx.User.Id, val, new("timely", "claim"));
         if (Config.Timely.ProtType == TimelyProt.Button)
         {
             var interaction = CreateTimelyInteraction();
