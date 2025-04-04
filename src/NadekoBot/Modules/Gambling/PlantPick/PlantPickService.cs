@@ -135,10 +135,10 @@ public class PlantPickService(
 
             // fill the background with black, add 5 pixels on each side to make it look better
             x.FillPolygon(Color.ParseHex("00000080"),
-                new PointF(1, 1),
-                new PointF(size.Width + 5, 0),
-                new PointF(size.Width + 5, size.Height + 10),
-                new PointF(0, size.Height + 10));
+                new PointF(5, 5),
+                new PointF(size.Width + 10, 5),
+                new PointF(size.Width + 10, size.Height + 15),
+                new PointF(5, size.Height + 15));
 
             var strikeoutRun = new RichTextRun
             {
@@ -152,7 +152,7 @@ public class PlantPickService(
             // draw the password over the background
             x.DrawText(new RichTextOptions(font)
                 {
-                    Origin = new(0, 0),
+                    Origin = new(5, 5),
                     TextRuns =
                     [
                         strikeoutRun
