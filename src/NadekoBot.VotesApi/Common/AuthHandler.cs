@@ -28,6 +28,8 @@ namespace NadekoBot.VotesApi
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
+            await Task.Yield();
+            
             if (!Request.Headers.TryGetValue("Authorization", out var authHeader))
             {
                 return AuthenticateResult.Fail("Authorization header missing");
