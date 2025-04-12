@@ -1,6 +1,10 @@
-# Changelog
+﻿# Changelog
 
 *a,c,f,r,o*
+
+## [6.1.6] - 12.04.2025
+
+- QuestCommands no longer appear as a separate module
 
 ## [6.1.5] - 06.04.2025
 
@@ -72,7 +76,7 @@
 
 ### Fixed
 - Fixed `.antispamignore` restart persistence
-- Fixed `.notify` events. Only levelup used to work 
+- Fixed `.notify` events. Only levelup used to work
 - Fixed `.hangman` misalignment
 - Fixed bank quest
 
@@ -106,7 +110,7 @@
 - wordfilter, invitefilter and linkfilter will now properly detect forwarded messages, as forwards were used to circumvent filtering.
 
 ### Fixed
-- `.dmc` fixed 
+- `.dmc` fixed
 - Fixed .streamremove - now showing proper youtube name when removing instead of channel id
 
 ## [6.0.10] - 19.03.2025
@@ -186,7 +190,7 @@
 - Aded a title in `.whosplaying`
 - Added a crown emoji next to commands if -v 1 or -v2 option is specified
 
-### Changed 
+### Changed
 
 - `.remind` looks better
 - `.savechat` no longer owner only, up to 1000 messages - unlimited if ran by the bot owner
@@ -224,7 +228,7 @@
   - you have to update to latest v5 before updating to v6, otherwise migrations will fail
   - migration system was reworked
   - Xp card is now 500x245
-  - xp_template.json backed up to old_xp_template.json 
+  - xp_template.json backed up to old_xp_template.json
   - check pinned message in #dev channel to see full selfhoster announcement
   - Get bot version via --version
 
@@ -245,16 +249,16 @@
 
 ## [5.3.9] - 30.01.2025
 
-### Added  
+### Added
 
-- Added `.todo archive done <name>` 
-    - Creates an archive of only currently completed todos 
+- Added `.todo archive done <name>`
+    - Creates an archive of only currently completed todos
     - An alternative to ".todo archive add <name>" which moves all todos to an archive
 
 ### Changed
 
 - Increased todo and archive limits slightly
-- Global nadeko captcha patron ad will show 12.5% of the time now, down from 20%, and be smaller 
+- Global nadeko captcha patron ad will show 12.5% of the time now, down from 20%, and be smaller
 - `.remind` now has a 1 year max timeout, up from 2 months
 
 ### Fixed
