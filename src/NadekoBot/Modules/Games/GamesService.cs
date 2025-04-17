@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Caching.Memory;
 using NadekoBot.Modules.Games.Common;
 using NadekoBot.Modules.Games.Common.Acrophobia;
-using NadekoBot.Modules.Games.Common.Nunchi;
 using Newtonsoft.Json;
 
 namespace NadekoBot.Modules.Games.Services;
@@ -21,7 +20,7 @@ public class GamesService : INService
     public ConcurrentDictionary<ulong, AcrophobiaGame> AcrophobiaGames { get; } = new();
     public Dictionary<ulong, TicTacToe> TicTacToeGames { get; } = new();
     public ConcurrentDictionary<ulong, TypingGame> RunningContests { get; } = new();
-    public ConcurrentDictionary<ulong, NunchiGame> NunchiGames { get; } = new();
+    public ConcurrentDictionary<ulong, CountUpGame> Games { get; } = new();
 
     private readonly GamesConfigService _gamesConfig;
 
