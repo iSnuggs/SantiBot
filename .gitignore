@@ -1,4 +1,4 @@
-#Manually added files
+﻿#Manually added files
 
 src/NadekoBot/data/last_known_version.txt
 
@@ -367,6 +367,7 @@ site/
 ## AI
 
 .aider.*
+.roo/**
 PROMPT.md
 .*rules
 
