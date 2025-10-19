@@ -3,11 +3,11 @@ version: 11
 weatherSeed: w%29';^eGE)9oWHM(aI9I;%1[.r^z2ZS7ShV,l')o(e%#"hVzb>oxQq^`.&/7srh
 requireCaptcha: true
 starEmojis:
-  - <:emptystar:1326838565786877962>
-  - <:onestar:1326838456739168361>
-  - <:twostar:1326838508198957107>
-  - <:threestar:1326838525601251429>
-  - <:fourstar:1326838552520294462>
+  - ⚫
+  - ⭐
+  - ⭐
+  - ⭐
+  - ⭐
 spotEmojis:
   - <:ocean:1328519734953771120>
   - <:river:1328519754620862504>
