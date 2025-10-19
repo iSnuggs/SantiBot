@@ -1125,6 +1125,9 @@ xpshopbuy:
   - xpshopbuy
 xpshopuse:
   - xpshopuse
+xpowned:
+  - xpowned
+  - xpo
 xplevelset:
   - xplevelset
 clubcreate:
