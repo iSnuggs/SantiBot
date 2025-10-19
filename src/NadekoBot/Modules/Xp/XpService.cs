@@ -1045,7 +1045,13 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
                                    && x.ItemKey == key);
     }
 
-
+    public async Task<IReadOnlyList<XpShopOwnedItem>> GetUserOwnedItemsAsync(ulong userId)
+    {
+        await using var ctx = _db.GetDbContext();
+        return await ctx.GetTable<XpShopOwnedItem>()
+            .Where(x => x.UserId == userId)
+            .ToListAsyncLinqToDB();
+    }
     public async Task<XpShopOwnedItem?> GetUserItemAsync(
         ulong userId,
         XpShopItemType itemType,
