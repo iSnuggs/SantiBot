@@ -291,6 +291,7 @@ public partial class Administration : NadekoModule<AdministrationService>
         }
 
         await _service.EditMessage(ctx, channel, messageId, text);
+        await ctx.OkAsync();
     }
 
     [Cmd]
