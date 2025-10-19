@@ -1691,3 +1691,6 @@ fishinv:
 fishlb:
   - fishlb
   - filb
+fishstarslb:
+  - fishslb
+  - fislb
