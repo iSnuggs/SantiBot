@@ -2,6 +2,11 @@
 
 *a,c,f,r,o*
 
+## [6.1.21] - 05.12.2025
+
+### Fixed
+- Fixed the voice encryption error
+
 ## [6.1.20] - 11.11.2025
 
 ### Added
@@ -36,7 +41,7 @@
 - Fixed default xp bar length
 - Linkfix now considers subdomains a different site
 
-### Changed 
+### Changed
 
 - Nunchi renamed to CountUp - visual improvements
 
@@ -45,7 +50,7 @@
 - Fixed `.shopadd cmd`
 - Scheduled commands will now be cleaned up if they're too long
 
-### Removed 
+### Removed
 
 ## [6.1.7] - 14.04.2025
 
