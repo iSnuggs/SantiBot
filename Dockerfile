@@ -1,8 +1,7 @@
-# Build stage
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG TARGETARCH
 WORKDIR /source
 
-# Copy the .csproj files for each project
 COPY src/Nadeko.Medusa/*.csproj src/Nadeko.Medusa/
 COPY src/NadekoBot/*.csproj src/NadekoBot/
 COPY src/NadekoBot.Coordinator/*.csproj src/NadekoBot.Coordinator/
@@ -10,38 +9,31 @@ COPY src/NadekoBot.Generators/*.csproj src/NadekoBot.Generators/
 COPY src/NadekoBot.Voice/*.csproj src/NadekoBot.Voice/
 COPY src/NadekoBot.GrpcApiBase/*.csproj src/NadekoBot.GrpcApiBase/
 
-# Restore the dependencies for the NadekoBot project
-RUN dotnet restore src/NadekoBot/ -r linux-musl-x64
+RUN DOTNET_RID="linux-musl-$([ "$TARGETARCH" = "arm64" ] && echo "arm64" || echo "x64")" \
+    && echo "$DOTNET_RID" > /tmp/rid
+RUN dotnet restore src/NadekoBot/ -r $(cat /tmp/rid)
 
-# Copy the rest of the source code
 COPY . .
-
 WORKDIR /source/src/NadekoBot
 
-# Build for linux-musl-x64 runtime as the image is based on alpine
-RUN dotnet publish -c Release -o /app --self-contained -r linux-musl-x64 --no-restore \
+RUN dotnet publish -c Release -o /app --self-contained -r $(cat /tmp/rid) --no-restore \
     && mv /app/data /app/data_init \
     && chmod +x /app/NadekoBot
 
-# Final stage
 FROM alpine:3.20
+ARG TARGETARCH
 WORKDIR /app
 
-# Music dependencies
-ADD --chmod=755 https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux /usr/local/bin/yt-dlp
-RUN apk add --no-cache ffmpeg libsodium
+RUN apk add --no-cache ffmpeg libsodium opus yt-dlp
 
-# Required dependencies
-# icu-libs is required for globalization
-RUN apk update; \
-    apk add --no-cache libstdc++ libgcc icu-libs libc6-compat tzdata\
-    && rm -rf /var/cache/apk/*;
+RUN apk add --no-cache libstdc++ libgcc icu-libs libc6-compat tzdata
 
 COPY --from=build /app ./
 COPY docker-entrypoint.sh /usr/local/sbin/
 
-RUN rm /app/data_init/lib/libsodium.so \
-    && ln -s /usr/lib/libsodium.so.26 /app/data_init/lib/libsodium.so
+RUN rm -f /app/data_init/lib/libsodium.so /app/data_init/lib/opus.so \
+    && ln -sf /usr/lib/libsodium.so.26 /app/data_init/lib/libsodium.so \
+    && ln -sf /usr/lib/libopus.so.0 /app/data_init/lib/opus.so
 
 VOLUME [ "/app/data" ]
 
