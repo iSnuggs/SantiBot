@@ -2,6 +2,28 @@
 
 *a,c,f,r,o*
 
+## [6.1.24] - 08.02.2026
+
+### Fixed
+- Fixed yt-dlp in Docker
+
+## [6.1.23] - 07.02.2026
+
+### Changed
+- Better error message for missing guild permissions in role commands
+
+### Fixed
+- Fixed Steam API not loading all games
+- Docker should have proper music now and work on arm and x64
+
+## [6.1.22] - 01.02.2026
+
+### Added
+- If all image emoji slots are taken, the bot will suggest creating a 2 frame gif instead
+
+### Fixed
+- Potential fix for the Steam API
+
 ## [6.1.21] - 05.12.2025
 
 ### Fixed
