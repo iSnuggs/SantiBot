@@ -1,0 +1,63 @@
+btnroleadd:
+  - add
+  - a
+btnroleexclusive:
+  - excl
+  - e
+btnrolelist:
+  - list
+  - l
+  - ls
+btnroleremove:
+  - rem
+  - r
+  - rm
+btnroleremoveall:
+  - removeall
+  - rma
+createrole:
+  - createrole
+  - cr
+deleterole:
+  - deleterole
+  - dr
+removeallroles:
+  - removeallroles
+  - rar
+removerole:
+  - removerole
+  - rr
+renamerole:
+  - renamerole
+  - renr
+reroadd:
+  - reroadd
+  - reroa
+rerodeleteall:
+  - rerodeleteall
+  - rerodela
+rerolist:
+  - rerolist
+  - reroli
+reroremove:
+  - reroremove
+  - rerorm
+rerotransfer:
+  - rerotransfer
+  - rerot
+rolecolor:
+  - rolecolor
+  - roleclr
+rolehoist:
+  - rolehoist
+  - rh
+roleicon:
+  - roleicon
+setrole:
+  - setrole
+  - sr
+  - giverole
+stickyroles:
+  - stickyroles
+temprole:
+  - temprole

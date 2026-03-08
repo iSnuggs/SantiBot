@@ -2,6 +2,49 @@
 
 *a,c,f,r,o*
 
+## [7.0.0] -
+
+### Added
+
+- Added `.hands` command - see a list of currently raised hands in your stage channel, in the chronological order
+- Added `.lineup` commands - users can line-up with an optional reason
+  - Moderators commands:
+    - `.lineupcreate` - Creates a new lineup that users can join
+    - `.lineupnext` - Removes the next user from the lineup and sends a message with that user's name
+    - `.lineupclear` - Clears the lineup
+    - `.lineupremove` - Removes a user from the lineup
+  - User Commands:
+    - `.lineup` - join the line
+    - `.lineuplist` - see the current lineup
+    - `.lineupleave` - leave the lineup if you've previously joined
+- Added `.fishspotchange` command - use a Spot Coin to change the fishing spot of the current channel
+- Added `.questlog` / `.qlog` / `.quests` / `.dailies` command to view your active quests and progress
+- Added `.mereload` / `.medusareload` command - unloads and reloads a medusa in one step
+
+### Changed
+
+- Waifus reworked
+  - New backing system: fans delegate bank balance to waifus, earning returns each cycle
+  - Managers replace claimers -- buy the manager position to earn a cut of returns
+  - Mood and food stats with decay, improved by gifts and actions (hug/kiss/pat)
+  - Daily rotating gift shop (6 items across 6 price tiers)
+  - Gift tracking: all received gifts are persisted and displayed on the waifu card
+  - Cycle-based payout system with projected earnings on the card
+  - Waifus with price >= 5000 are automatically migrated from the old system; claimers become managers, gift history is preserved
+- Nunchi renamed to CountUp, with visual improvements
+- Fishing leaderboard now shows 10 entries per page instead of 9
+- Removed `.medusasearch` / `.mesearch` command
+
+### Fixed
+
+- Fixed mute role not being saved correctly in some cases
+
+### Dev
+
+- Strings now live next to each feature, they are merged in a pre-build msbuild task and sent to output
+- Responses, cmds and names (previously aliases) are now all .yml
+- Administration and Searches commands split into smaller submodules
+
 ## [6.1.24] - 08.02.2026
 
 ### Fixed

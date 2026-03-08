@@ -1,0 +1,42 @@
+iam:
+  - iam
+iamnot:
+  - iamnot
+  - iamn
+saradd:
+  - add
+  - a
+  - asar
+sarautodelete:
+  - ad
+  - autodel
+  - adsarm
+sarexclusive:
+  - exclusive
+  - ex
+  - excl
+  - tesar
+sargroupdelete:
+  - groupdelete
+  - gd
+  - gdel
+sargroupname:
+  - groupname
+  - gn
+  - sargn
+sargrouprolereq:
+  - grouprolereq
+  - grr
+sarlist:
+  - list
+  - l
+  - ls
+  - lsar
+sarremove:
+  - remove
+  - rm
+  - rem
+  - rsar
+sarrolelevelreq:
+  - rolelvlreq
+  - rlr

@@ -1,4 +1,3 @@
-using DryIoc.ImTools;
 using NadekoBot.Modules.Utility.LinkFixer;
 
 namespace NadekoBot.Modules.Utility;

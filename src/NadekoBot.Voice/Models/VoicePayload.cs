@@ -24,6 +24,18 @@ namespace Discord.Models.Gateway
         Resume = 7,
         Hello = 8,
         Resumed = 9,
+        ClientsConnect = 11,
         ClientDisconnect = 13,
+        DavePrepareTransition = 21,
+        DaveExecuteTransition = 22,
+        DaveTransitionReady = 23,
+        DavePrepareEpoch = 24,
+        DaveMlsExternalSender = 25,
+        DaveMlsKeyPackage = 26,
+        DaveMlsProposals = 27,
+        DaveMlsCommitWelcome = 28,
+        DaveMlsAnnounceCommitTransition = 29,
+        DaveMlsWelcome = 30,
+        DaveMlsInvalidCommitWelcome = 31,
     }
 }

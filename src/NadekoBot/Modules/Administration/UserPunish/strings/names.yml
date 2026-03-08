@@ -1,0 +1,52 @@
+ban:
+  - ban
+  - b
+banmessage:
+  - banmessage
+  - banmsg
+  - bantemplate
+  - bantemp
+banmessagetest:
+  - banmsgtest
+banmsgreset:
+  - banmsgreset
+banprune:
+  - banprune
+kick:
+  - kick
+  - k
+massban:
+  - massban
+masskick:
+  - masskick
+masskill:
+  - masskill
+softban:
+  - softban
+  - sb
+timeout:
+  - timeout
+unban:
+  - unban
+warn:
+  - warn
+warnclear:
+  - warnclear
+  - warnc
+warndelete:
+  - warndelete
+  - warnrm
+  - warnd
+warnexpire:
+  - warnexpire
+  - warne
+warnlog:
+  - warnlog
+warnlogall:
+  - warnlogall
+warnpunish:
+  - warnpunish
+  - warnp
+warnpunishlist:
+  - warnpunishlist
+  - warnpl

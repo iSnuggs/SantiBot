@@ -16,7 +16,7 @@ public sealed class OtherSvc : GrpcOther.GrpcOtherBase, IGrpcSvc, INService
     private readonly DiscordSocketClient _client;
     private readonly XpService _xp;
     private readonly ICurrencyService _cur;
-    private readonly WaifuService _waifus;
+    // private readonly WaifuService _waifus;
     private readonly IStatsService _stats;
     private readonly CommandHandler _cmdHandler;
 
@@ -24,14 +24,14 @@ public sealed class OtherSvc : GrpcOther.GrpcOtherBase, IGrpcSvc, INService
         DiscordSocketClient client,
         XpService xp,
         ICurrencyService cur,
-        WaifuService waifus,
+        // WaifuService waifus,
         IStatsService stats,
         CommandHandler cmdHandler)
     {
         _client = client;
         _xp = xp;
         _cur = cur;
-        _waifus = waifus;
+        // _waifus = waifus;
         _stats = stats;
         _cmdHandler = cmdHandler;
     }
@@ -114,16 +114,16 @@ public sealed class OtherSvc : GrpcOther.GrpcOtherBase, IGrpcSvc, INService
     [GrpcNoAuthRequired]
     public override async Task<WaifuLbReply> GetWaifuLb(GetLbRequest request, ServerCallContext context)
     {
-        var waifus = await _waifus.GetTopWaifusAtPage(request.Page, request.PerPage);
+        // var waifus = await _waifus.GetTopWaifusAtPage(request.Page, request.PerPage);
 
         var reply = new WaifuLbReply();
-        reply.Entries.AddRange(waifus.Select(x => new WaifuLbEntry()
-        {
-            ClaimedBy = x.ClaimerName ?? string.Empty,
-            IsMutual = x.ClaimerName == x.Affinity,
-            Value = x.Price,
-            User = x.WaifuName,
-        }));
+        // reply.Entries.AddRange(waifus.Select(x => new WaifuLbEntry()
+        // {
+        //     ClaimedBy = x.ClaimerName ?? string.Empty,
+        //     IsMutual = x.ClaimerName == x.Affinity,
+        //     Value = x.Price,
+        //     User = x.WaifuName,
+        // }));
         return reply;
     }
 

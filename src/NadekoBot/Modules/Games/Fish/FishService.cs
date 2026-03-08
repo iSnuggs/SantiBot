@@ -1,10 +1,10 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using AngleSharp.Common;
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Modules.Administration;
 using NadekoBot.Modules.Administration.Services;
+using NadekoBot.Modules.Games.Fish.Db;
 using NadekoBot.Modules.Games.Quests;
 
 namespace NadekoBot.Modules.Games.Fish;
@@ -185,7 +185,7 @@ public sealed class FishService(
     {
         var filteredItems = new List<FishData>();
 
-        var loc = GetSpot(channelId);
+        var loc = await GetSpotAsync(channelId);
         var time = GetTime();
         var w = GetWeather(DateTime.UtcNow);
 
@@ -281,7 +281,23 @@ public sealed class FishService(
         return null;
     }
 
-    public FishingSpot GetSpot(ulong channelId)
+    /// <summary>
+    /// Gets the fishing spot for a channel, checking for overrides first.
+    /// </summary>
+    public async Task<FishingSpot> GetSpotAsync(ulong channelId)
+    {
+        await using var ctx = db.GetDbContext();
+        var over = await ctx.GetTable<ChannelSpotOverride>()
+            .Where(x => x.ChannelId == channelId)
+            .FirstOrDefaultAsyncLinqToDB();
+
+        if (over is not null)
+            return over.Spot;
+
+        return GetDefaultSpot(channelId);
+    }
+
+    private static FishingSpot GetDefaultSpot(ulong channelId)
     {
         var cid = (channelId >> 22 >> 29) % 10;
 

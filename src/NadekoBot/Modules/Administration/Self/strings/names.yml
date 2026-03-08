@@ -1,0 +1,73 @@
+autocommandadd:
+  - acadd
+  - autocmdadd
+autocommandremove:
+  - acrm
+  - autocmdrm
+autocommandslist:
+  - aclist
+  - autolist
+  - autocommands
+  - autocmdlist
+cacheusers:
+  - cacheusers
+coordreload:
+  - coordreload
+deleteemptyservers:
+  - deleteemptyservers
+die:
+  - die
+doas:
+  - doas
+  - execas
+forwardmessages:
+  - forwardmessages
+  - fwmsgs
+forwardtoall:
+  - forwardtoall
+  - fwtoall
+forwardtochannel:
+  - forwardtochannel
+  - fwtoch
+  - fwtochannel
+leave:
+  - leave
+restart:
+  - restart
+restartshard:
+  - restartshard
+send:
+  - send
+setactivity:
+  - setactivity
+  - setgame
+setavatar:
+  - setavatar
+  - setav
+setbanner:
+  - setbanner
+setname:
+  - setname
+  - newnm
+setstatus:
+  - setstatus
+setstream:
+  - setstream
+shardstats:
+  - shardstats
+startupcommandadd:
+  - scadd
+  - startcmdadd
+startupcommandremove:
+  - scrm
+  - startcmdrm
+startupcommandsclear:
+  - scclear
+  - scclr
+startupcommandslist:
+  - sclist
+  - startcmdlist
+stringsreload:
+  - stringsreload
+wait:
+  - wait

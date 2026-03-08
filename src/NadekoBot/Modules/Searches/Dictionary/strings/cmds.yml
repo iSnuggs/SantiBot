@@ -1,0 +1,14 @@
+define:
+  desc: Finds a definition of a word.
+  ex:
+    - heresy
+  params:
+    - word:
+        desc: The word being searched for.
+urbandict:
+  desc: Searches Urban Dictionary for a word.
+  ex:
+    - Pineapple
+  params:
+    - query:
+        desc: The term being searched for in the dictionary.

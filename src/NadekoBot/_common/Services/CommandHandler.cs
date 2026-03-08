@@ -1,7 +1,6 @@
 #nullable disable
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.Configs;
-using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
 using ExecuteResult = Discord.Commands.ExecuteResult;
 using PreconditionResult = Discord.Commands.PreconditionResult;

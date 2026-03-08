@@ -1,7 +1,6 @@
 ﻿#nullable disable
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
 using NadekoBot.Modules.Games.Quests;

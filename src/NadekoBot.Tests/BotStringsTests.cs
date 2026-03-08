@@ -12,9 +12,9 @@ namespace NadekoBot.Tests
 {
     public class CommandStringsTests
     {
-        private const string responsesPath = "../../../../NadekoBot/strings/responses";
-        private const string commandsPath = "../../../../NadekoBot/strings/commands";
-        private const string aliasesPath = "../../../../NadekoBot/strings/aliases.yml";
+        private const string responsesPath = "strings/responses";
+        private const string commandsPath = "strings/commands";
+        private const string aliasesPath = "strings/names.yml";
 
         [Test]
         public void AllCommandNamesHaveStrings()
@@ -33,7 +33,7 @@ namespace NadekoBot.Tests
                 if (cmdStrings is null)
                 {
                     isSuccess = false;
-                    TestContext.Out.WriteLine($"{methodName} doesn't exist in commands.en-US.yml");
+                    TestContext.Out.WriteLine($"{methodName} doesn't exist in cmds.en-US.yml");
                 }
             }
 
@@ -89,7 +89,7 @@ namespace NadekoBot.Tests
 
                 if (!methodNames.Contains(methodName))
                 {
-                    TestContext.WriteLine($"'{methodName}' from aliases.yml doesn't have a matching command method.");
+                    TestContext.WriteLine($"'{methodName}' from strings/names.yml doesn't have a matching command method.");
                     isSuccess = false;
                 }
             }
@@ -97,7 +97,7 @@ namespace NadekoBot.Tests
             if (isSuccess)
                 Assert.Pass();
             else
-                Assert.Warn("There are some unused entries in strings/aliases.yml");
+                Assert.Warn("There are some unused entries in strings/names.yml");
         }
 
         [Test]

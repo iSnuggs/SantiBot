@@ -1,0 +1,10 @@
+typeadd:
+  - typeadd
+typedel:
+  - typedel
+typelist:
+  - typelist
+typestart:
+  - typestart
+typestop:
+  - typestop

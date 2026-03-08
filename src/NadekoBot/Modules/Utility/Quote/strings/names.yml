@@ -1,0 +1,54 @@
+quoteadd:
+  - quoteadd
+  - qa
+  - qadd
+  - quadd
+quotedelete:
+  - quotedelete
+  - qd
+  - qdel
+  - qdelete
+quotedeleteauthor:
+  - quotedeleteauthor
+  - qda
+  - qdelauth
+quoteedit:
+  - quoteedit
+  - qe
+  - que
+  - qedit
+quoteid:
+  - quoteid
+  - qid
+quotelist:
+  - quotelist
+  - qli
+  - quli
+  - qulist
+quoteprint:
+  - quoteprint
+  - qp
+  - qup
+  - qprint
+quotesdeleteall:
+  - quotesdeleteall
+  - qdall
+  - qdeleteall
+quotesearch:
+  - quotesearch
+  - qse
+  - qsearch
+quotesexport:
+  - quotesexport
+  - qex
+  - qexport
+quoteshow:
+  - quoteshow
+  - qsh
+  - qshow
+  - qushow
+quotesimport:
+  - quotesimport
+  - qim
+  - qimp
+  - qimport

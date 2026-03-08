@@ -1,0 +1,117 @@
+autodisconnect:
+  - autodisconnect
+  - autodc
+deleteplaylists:
+  - deleteplaylists
+destroy:
+  - destroy
+  - d
+join:
+  - join
+  - j
+  - move
+  - mv
+listqueue:
+  - listqueue
+  - lq
+local:
+  - local
+  - lo
+localplaylist:
+  - localplaylist
+  - lopl
+lyrics:
+  - lyrics
+musicquality:
+  - musicquality
+  - mquality
+next:
+  - next
+  - 'n'
+nowplaying:
+  - nowplaying
+  - np
+pause:
+  - pause
+play:
+  - play
+  - p
+  - start
+playlist:
+  - playlist
+  - pl
+playlistdelete:
+  - playlistdelete
+  - pldel
+  - plrm
+  - pldelete
+playlistload:
+  - playlistload
+  - pload
+  - plload
+  - pll
+playlists:
+  - playlists
+  - pls
+playlistsave:
+  - playlistsave
+  - plsave
+  - psave
+playlistshow:
+  - playlistshow
+  - plshow
+queue:
+  - queue
+  - q
+  - yq
+  - enqueue
+queueautoplay:
+  - queueautoplay
+  - qap
+queuefairplay:
+  - qfp
+queuenext:
+  - queuenext
+  - qn
+queuerepeat:
+  - queuerepeat
+  - qrp
+  - rpl
+queuesearch:
+  - queuesearch
+  - qs
+  - yqs
+queueshuffle:
+  - queueshuffle
+  - qsh
+  - qshuffle
+  - shuffle
+radio:
+  - radio
+  - ra
+setmusicchannel:
+  - setmusicchannel
+  - smch
+stop:
+  - stop
+  - s
+trackmove:
+  - trackmove
+  - tm
+  - movesong
+  - ms
+trackremove:
+  - songremove
+  - srm
+  - trackremove
+  - trm
+unsetmusicchannel:
+  - unsetmusicchannel
+  - usmch
+volume:
+  - volume
+  - vol
+  - defvol
+wrongsong:
+  - wrongsong
+  - wrongtrack

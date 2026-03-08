@@ -1,0 +1,11 @@
+game_started: Game started
+ttt_a_draw: A draw!
+ttt_against_yourself: You can't play against yourself.
+ttt_already_running: TicTacToe Game is already running in this channel.
+ttt_created: '{0} has created a game of TicTacToe.'
+ttt_has_won: '{0} has won!'
+ttt_matched_three: Matched three
+ttt_no_moves: No moves left!
+ttt_time_expired: Time expired!
+ttt_users_move: '{0}''s move'
+vs: '{0} vs {1}'

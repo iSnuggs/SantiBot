@@ -94,5 +94,10 @@ public enum FishItemType
     /// <summary>
     /// Potion that provides temporary effects.
     /// </summary>
-    Potion
+    Potion,
+    
+    /// <summary>
+    /// Coin that changes the fishing spot of a channel.
+    /// </summary>
+    SpotCoin
 }

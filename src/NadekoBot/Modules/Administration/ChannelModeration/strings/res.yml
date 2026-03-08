@@ -1,0 +1,6 @@
+imageonly_disable: This channel is no longer image-only.
+imageonly_enable: This channel is now image-only.
+linkonly_disable: This channel is no longer link-only.
+linkonly_enable: This channel is now link-only.
+nsfw_set_false: NSFW has been disabled on this channel.
+nsfw_set_true: NSFW has been enabled on this channel.

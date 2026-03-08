@@ -3,7 +3,11 @@ using System.CodeDom.Compiler;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
-using Newtonsoft.Json;
+using YamlDotNet.Core;
+using YamlDotNet.Serialization;
+
+// using YamlDotNet.Core;
+// using YamlDotNet.Serialization;
 
 namespace NadekoBot.Generators
 {
@@ -43,9 +47,19 @@ namespace NadekoBot.Generators
 
         public void Execute(GeneratorExecutionContext context)
         {
-            var file = context.AdditionalFiles.First(x => x.Path.EndsWith("responses.en-US.json"));
-
-            var fields = GetFields(file.GetText()?.ToString());
+            var mergedDict = new Dictionary<string, string>();
+            
+            foreach (var additionalFile in context.AdditionalFiles)
+            {
+                if (!additionalFile.Path.EndsWith(".yml"))
+                    continue;
+                
+                var fields = GetFields(additionalFile.GetText()?.ToString());
+                foreach (var field in fields)
+                {
+                    mergedDict[field.Name] = field.Value;
+                }
+            }
 
             using (var stringWriter = new StringWriter())
             using (var sw = new IndentedTextWriter(stringWriter))
@@ -59,7 +73,7 @@ namespace NadekoBot.Generators
                 sw.Indent++;
 
                 var typedParamStrings = new List<string>(10);
-                foreach (var field in fields)
+                foreach (var field in mergedDict)
                 {
                     var matches = Regex.Matches(field.Value, @"{(?<num>\d)[}:]");
                     var max = 0;
@@ -87,10 +101,10 @@ namespace NadekoBot.Generators
                     }
 
                     sw.WriteLine("public static LocStr {0}{1}{2} => new LocStr(\"{3}\"{4});",
-                        field.Name,
+                        field.Key,
                         typeParamStr,
                         sig,
-                        field.Name,
+                        field.Key,
                         passedParamString);
                 }
 
@@ -113,22 +127,29 @@ namespace NadekoBot.Generators
             Dictionary<string, string> data;
             try
             {
-                var output = JsonConvert.DeserializeObject<Dictionary<string, string>>(dataText!);
-                if (output is null)
-                    return new();
+                var deserializer = new DeserializerBuilder()
+                    .IgnoreUnmatchedProperties()
+                    .Build();
 
-                data = output;
+                data = deserializer.Deserialize<Dictionary<string, string>>(dataText!);
+                if (data is null)
+                    return new();
             }
-            catch
+            catch (YamlException ye)
             {
-                Debug.WriteLine("Failed parsing responses file.");
+                Debug.WriteLine($"YAML parsing error: {ye.Message}");
+                return new();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unexpected error reading YAML: {ex.Message}");
                 return new();
             }
 
             var list = new List<TranslationPair>();
             foreach (var entry in data)
             {
-                list.Add(new(
+                list.Add(new TranslationPair(
                     entry.Key,
                     entry.Value
                 ));

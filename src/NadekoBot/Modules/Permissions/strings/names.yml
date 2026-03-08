@@ -1,0 +1,55 @@
+allchnlmdls:
+  - allchnlmdls
+  - acm
+allrolemdls:
+  - allrolemdls
+  - arm
+allsrvrmdls:
+  - allsrvrmdls
+  - asm
+allusrmdls:
+  - allusrmdls
+  - aum
+chnlcmd:
+  - chnlcmd
+  - cc
+chnlmdl:
+  - chnlmdl
+  - cm
+listperms:
+  - listperms
+  - lp
+moveperm:
+  - moveperm
+  - mp
+permrole:
+  - permrole
+  - pr
+removeperm:
+  - removeperm
+  - rp
+resetglobalperms:
+  - resetglobalperms
+resetperms:
+  - resetperms
+rolecmd:
+  - rolecmd
+  - rc
+rolemdl:
+  - rolemdl
+  - rm
+srvrcmd:
+  - srvrcmd
+  - sc
+srvrmdl:
+  - srvrmdl
+  - sm
+usrcmd:
+  - usrcmd
+  - uc
+usrmdl:
+  - usrmdl
+  - um
+verbose:
+  - verbose
+  - v

@@ -121,10 +121,6 @@ waifu:
     # Default 0.95 (meaning 95%)
     # Example: If a waifu is worth 1000, and she receives a gift worth 100, her new value will be 1095)
     giftEffect: 0.95
-    # What percentage of the value of the gift will a waifu lose when she's gifted a gift marked as 'negative'.
-    # Default 0.5 (meaning 50%)
-    # Example: If a waifu is worth 1000, and she receives a negative gift worth 100, her new value will be 950)
-    negativeGiftEffect: 0.50
   # Settings for periodic waifu price decay.
   # Waifu price decays only if the waifu has no claimer.
   decay:
@@ -142,7 +138,6 @@ waifu:
     # For example if this value is set to 300, any waifu with the price 300 or less will not experience decay.
     minPrice: 300
   # List of items available for gifting.
-  # If negative is true, gift will instead reduce waifu value.
   items:
     - itemEmoji: "🥔"
       price: 5
@@ -252,18 +247,6 @@ waifu:
     - itemEmoji: "🌕"
       price: 50000
       name: Moon
-    - itemEmoji: "🥀"
-      price: 100
-      name: WiltedRose
-      negative: true
-    - itemEmoji: ✂️
-      price: 1000
-      name: Haircut
-      negative: true
-    - itemEmoji: "🧻"
-      price: 10000
-      name: ToiletPaper
-      negative: true
 # Amount of currency selfhosters will get PER pledged dollar CENT.
 # 1 = 100 currency per $. Used almost exclusively on public nadeko.
 patreonCurrencyPerCent: 1

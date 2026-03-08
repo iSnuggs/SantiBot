@@ -1,0 +1,20 @@
+xpexclude:
+  desc: |-
+    Toggles XP gain exclusion for a specified item.
+    Item types can be Role or User.
+  ex:
+    - '@CoolRole'
+    - '@User'
+    - role 123123123
+    - user 123123123
+  params:
+    - itemId:
+        desc: ID or mention of the item to exclude.
+      type:
+        desc: 'Type of the item to exclude: role or user'
+xpexclusion:
+  desc: Shows a list of all XP exclusions in the server.
+  ex:
+    - ''
+  params:
+    - {}

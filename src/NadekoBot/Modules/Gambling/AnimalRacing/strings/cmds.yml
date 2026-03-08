@@ -1,0 +1,17 @@
+joinrace:
+  desc: >-
+    Joins a new race. You can specify an amount of currency for betting
+    (optional). You will get YourBet*(participants-1) back if you win.
+  ex:
+    - ''
+    - 5
+  params:
+    - amount:
+        desc: The amount to be wagered on the race.
+race:
+  desc: Starts a new animal race.
+  ex:
+    - ''
+  params:
+    - params:
+        desc: The list of commands or actions for the animals in the race.

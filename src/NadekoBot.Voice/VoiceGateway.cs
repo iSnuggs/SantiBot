@@ -56,6 +56,10 @@ namespace NadekoBot.Voice
         public string MyIp { get; private set; } = string.Empty;
         public ushort MyPort { get; private set; }
         private bool _shouldResume;
+        private int _lastSeqAck = -1;
+
+        public int DaveProtocolVersion { get; private set; }
+        public DaveSessionManager? DaveManager { get; private set; }
         
         private readonly CancellationTokenSource _stopCancellationSource;
         private readonly CancellationToken _stopCancellationToken;
@@ -71,10 +75,7 @@ namespace NadekoBot.Voice
             this._token = token;
             this._endpoint = endpoint;
 
-            //Log.Information("g: {GuildId} u: {UserId} sess: {Session} tok: {Token} ep: {Endpoint}",
-            //    guildId, userId, session, token, endpoint);
-
-            this._websocketUrl = new($"wss://{_endpoint.Replace(":80", "")}?v=4");
+            this._websocketUrl = new($"wss://{_endpoint.Replace(":80", "")}?v=8");
             this._channel = Channel.CreateUnbounded<QueueItem>(new()
             {
                 SingleReader = true,
@@ -92,6 +93,7 @@ namespace NadekoBot.Voice
             _stopCancellationToken = _stopCancellationSource.Token;
 
             _ws.PayloadReceived += _ws_PayloadReceived;
+            _ws.BinaryPayloadReceived += _ws_BinaryPayloadReceived;
             _ws.WebsocketClosed += _ws_WebsocketClosed;
         }
 
@@ -105,7 +107,6 @@ namespace NadekoBot.Voice
                 try
                 {
                     var qi = await _channel.Reader.ReadAsync(_stopCancellationToken);
-                    //Log.Information("Sending payload with opcode {OpCode}", qi.Payload.OpCode);
 
                     var json = JsonConvert.SerializeObject(qi.Payload);
 
@@ -120,43 +121,50 @@ namespace NadekoBot.Voice
             }
         }
 
+        private void TrackSeqFromJson(JObject? root)
+        {
+            if (root != null && root.TryGetValue("seq", out var seqToken))
+            {
+                var seq = seqToken.Value<int>();
+                if (seq > _lastSeqAck)
+                    _lastSeqAck = seq;
+            }
+        }
+
         private async Task _ws_PayloadReceived(byte[] arg)
         {
-            var payload = JsonConvert.DeserializeObject<VoicePayload>(Encoding.UTF8.GetString(arg));
+            var jsonStr = Encoding.UTF8.GetString(arg);
+            var root = JsonConvert.DeserializeObject<JObject>(jsonStr);
+            if (root is null)
+                return;
+
+            TrackSeqFromJson(root);
+
+            var payload = root.ToObject<VoicePayload>();
             if (payload is null)
                 return;
             try
             {
-                //Log.Information("Received payload with opcode {OpCode}", payload.OpCode);
-
                 switch (payload.OpCode)
                 {
                     case VoiceOpCode.Identify:
-                        // sent, not received.
-                        break;
                     case VoiceOpCode.SelectProtocol:
-                        // sent, not received
+                    case VoiceOpCode.Heartbeat:
+                    case VoiceOpCode.Resume:
                         break;
                     case VoiceOpCode.Ready:
                         var ready = payload.Data.ToObject<VoiceReady>();
                         await HandleReadyAsync(ready!);
                         _shouldResume = true;
                         break;
-                    case VoiceOpCode.Heartbeat:
-                        // sent, not received
-                        break;
                     case VoiceOpCode.SessionDescription:
                         var sd = payload.Data.ToObject<VoiceSessionDescription>();
                         await HandleSessionDescription(sd!);
                         break;
                     case VoiceOpCode.Speaking:
-                        // ignore for now
                         break;
                     case VoiceOpCode.HeartbeatAck:
                         _receivedAck = true;
-                        break;
-                    case VoiceOpCode.Resume:
-                        // sent, not received
                         break;
                     case VoiceOpCode.Hello:
                         var hello = payload.Data.ToObject<VoiceHello>();
@@ -165,7 +173,20 @@ namespace NadekoBot.Voice
                     case VoiceOpCode.Resumed:
                         _shouldResume = true;
                         break;
+                    case VoiceOpCode.ClientsConnect:
+                        HandleClientsConnect(payload.Data);
+                        break;
                     case VoiceOpCode.ClientDisconnect:
+                        HandleClientDisconnect(payload.Data);
+                        break;
+                    case VoiceOpCode.DavePrepareTransition:
+                        HandleDavePrepareTransitionJson(payload.Data);
+                        break;
+                    case VoiceOpCode.DaveExecuteTransition:
+                        HandleDaveExecuteTransitionJson(payload.Data);
+                        break;
+                    case VoiceOpCode.DavePrepareEpoch:
+                        HandleDavePrepareEpochJson(payload.Data);
                         break;
                 }
             }
@@ -174,6 +195,196 @@ namespace NadekoBot.Voice
                 Log.Error(ex, "Error handling payload with opcode {OpCode}: {Message}", payload.OpCode, ex.Message);
             }
         }
+
+        private Task _ws_BinaryPayloadReceived(byte[] data)
+        {
+            if (data.Length < 3)
+                return Task.CompletedTask;
+
+            try
+            {
+                var seqNum = (ushort)((data[0] << 8) | data[1]);
+                if (seqNum > _lastSeqAck || (_lastSeqAck > 60000 && seqNum < 5000))
+                    _lastSeqAck = seqNum;
+
+                var opcode = (VoiceOpCode)data[2];
+                var payload = new byte[data.Length - 3];
+                if (payload.Length > 0)
+                    Buffer.BlockCopy(data, 3, payload, 0, payload.Length);
+
+                if (DaveManager is null)
+                    return Task.CompletedTask;
+
+                switch (opcode)
+                {
+                    case VoiceOpCode.DaveMlsExternalSender:
+                        DaveManager.OnExternalSender(payload);
+                        break;
+                    case VoiceOpCode.DaveMlsProposals:
+                        HandleDaveMlsProposals(payload);
+                        break;
+                    case VoiceOpCode.DaveMlsAnnounceCommitTransition:
+                        HandleDaveMlsAnnounceCommitTransition(payload);
+                        break;
+                    case VoiceOpCode.DaveMlsWelcome:
+                        HandleDaveMlsWelcome(payload);
+                        break;
+                    default:
+                        Log.Debug("Unhandled binary voice opcode: {Opcode}", opcode);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error handling binary voice payload: {Message}", ex.Message);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        private void HandleClientsConnect(JToken data)
+        {
+            if (DaveManager is null) return;
+            var userIds = data?["user_ids"];
+            if (userIds is null) return;
+            foreach (var uid in userIds)
+            {
+                var id = uid.Value<string>();
+                if (id != null)
+                    DaveManager.AddUser(id);
+            }
+        }
+
+        private void HandleClientDisconnect(JToken data)
+        {
+            if (DaveManager is null) return;
+            var userId = data?["user_id"]?.Value<string>();
+            if (userId != null)
+                DaveManager.RemoveUser(userId);
+        }
+
+        private void HandleDavePrepareTransitionJson(JToken data)
+        {
+            if (DaveManager is null) return;
+            var transitionId = data?["transition_id"]?.Value<int>() ?? 0;
+            var protocolVersion = data?["protocol_version"]?.Value<int>() ?? 0;
+            DaveManager.OnPrepareTransition(transitionId, protocolVersion);
+            SendDaveTransitionReady(transitionId);
+        }
+
+        private void HandleDaveExecuteTransitionJson(JToken data)
+        {
+            if (DaveManager is null) return;
+            var transitionId = data?["transition_id"]?.Value<int>() ?? 0;
+            DaveManager.OnExecuteTransition(transitionId);
+        }
+
+        private void HandleDavePrepareEpochJson(JToken data)
+        {
+            if (DaveManager is null) return;
+            var epoch = data?["epoch"]?.Value<uint>() ?? 0;
+            var protocolVersion = data?["protocol_version"]?.Value<int>() ?? 0;
+            var needsKeyPackage = DaveManager.OnPrepareEpoch(epoch, protocolVersion);
+
+            if (needsKeyPackage)
+            {
+                SendDaveMlsKeyPackage();
+            }
+        }
+
+        private void HandleDaveMlsProposals(byte[] payload)
+        {
+            var commitWelcome = DaveManager!.OnProposals(payload);
+            if (commitWelcome != null && commitWelcome.Length > 0)
+            {
+                SendDaveBinaryOpcode(VoiceOpCode.DaveMlsCommitWelcome, commitWelcome);
+            }
+        }
+
+        private void HandleDaveMlsAnnounceCommitTransition(byte[] payload)
+        {
+            if (payload.Length < 2)
+                return;
+
+            var transitionId = (ushort)((payload[0] << 8) | payload[1]);
+            var commit = new byte[payload.Length - 2];
+            if (commit.Length > 0)
+                Buffer.BlockCopy(payload, 2, commit, 0, commit.Length);
+
+            var success = DaveManager!.OnCommitTransition(transitionId, commit);
+            if (success)
+            {
+                SendDaveTransitionReady(transitionId);
+            }
+            else
+            {
+                SendDaveInvalidCommitWelcome(transitionId);
+                SendDaveMlsKeyPackage();
+            }
+        }
+
+        private void HandleDaveMlsWelcome(byte[] payload)
+        {
+            if (payload.Length < 2)
+                return;
+
+            var transitionId = (ushort)((payload[0] << 8) | payload[1]);
+            var welcome = new byte[payload.Length - 2];
+            if (welcome.Length > 0)
+                Buffer.BlockCopy(payload, 2, welcome, 0, welcome.Length);
+
+            var success = DaveManager!.OnWelcome(transitionId, welcome);
+            if (success)
+            {
+                SendDaveTransitionReady(transitionId);
+            }
+            else
+            {
+                SendDaveInvalidCommitWelcome(transitionId);
+                SendDaveMlsKeyPackage();
+            }
+        }
+
+        private void SendDaveTransitionReady(int transitionId)
+        {
+            if (transitionId != 0)
+            {
+                _ = SendCommandPayloadAsync(new()
+                {
+                    OpCode = VoiceOpCode.DaveTransitionReady,
+                    Data = JToken.FromObject(new { transition_id = transitionId })
+                });
+            }
+        }
+
+        private void SendDaveInvalidCommitWelcome(int transitionId)
+        {
+            _ = SendCommandPayloadAsync(new()
+            {
+                OpCode = VoiceOpCode.DaveMlsInvalidCommitWelcome,
+                Data = JToken.FromObject(new { transition_id = transitionId })
+            });
+        }
+
+        private void SendDaveMlsKeyPackage()
+        {
+            var keyPackage = DaveManager?.GetKeyPackage();
+            if (keyPackage != null && keyPackage.Length > 0)
+            {
+                SendDaveBinaryOpcode(VoiceOpCode.DaveMlsKeyPackage, keyPackage);
+            }
+        }
+
+        private void SendDaveBinaryOpcode(VoiceOpCode opcode, byte[] payload)
+        {
+            var message = new byte[1 + payload.Length];
+            message[0] = (byte)opcode;
+            if (payload.Length > 0)
+                Buffer.BlockCopy(payload, 0, message, 1, payload.Length);
+
+            _ = _ws.SendBulkAsync(message);
+        }
+
         private Task _ws_WebsocketClosed(string arg)
         {
             if (!string.IsNullOrWhiteSpace(arg))
@@ -193,9 +404,13 @@ namespace NadekoBot.Voice
             
             _ws.WebsocketClosed -= _ws_WebsocketClosed;
             _ws.PayloadReceived -= _ws_PayloadReceived;
+            _ws.BinaryPayloadReceived -= _ws_BinaryPayloadReceived;
             
             if(!_stopCancellationToken.IsCancellationRequested)
                 _stopCancellationSource.Cancel();
+
+            DaveManager?.Dispose();
+            DaveManager = null;
 
             return this.OnClosed(this);
         }
@@ -207,6 +422,14 @@ namespace NadekoBot.Voice
         {
             SecretKey = sd.SecretKey;
             Mode = sd.Mode;
+            DaveProtocolVersion = sd.DaveProtocolVersion;
+
+            if (DaveProtocolVersion > 0 && DaveManager != null)
+            {
+                var needsKeyPackage = DaveManager.OnSessionDescription(DaveProtocolVersion);
+                if (needsKeyPackage)
+                    SendDaveMlsKeyPackage();
+            }
 
             _ = Task.Run(() => ConnectingFinished.TrySetResult(true));
 
@@ -224,6 +447,7 @@ namespace NadekoBot.Voice
                     ServerId = this._guildId.ToString(),
                     SessionId = this._sessionId,
                     Token = this._token,
+                    SeqAck = this._lastSeqAck,
                 })
             });
         }
@@ -231,8 +455,6 @@ namespace NadekoBot.Voice
         private async Task HandleReadyAsync(VoiceReady ready)
         {
             Ssrc = ready.Ssrc;
-
-            //Log.Information("Received ready {GuildId}, {Session}, {Token}", guildId, session, token);
 
             _udpEp = new(IPAddress.Parse(ready.Ip), ready.Port);
 
@@ -251,19 +473,13 @@ namespace NadekoBot.Voice
 
                 if (buffer.Length == 74)
                 {
-                    //Log.Information("Received IP discovery data.");
-
                     var myIp = Encoding.UTF8.GetString(buffer, 8, buffer.Length - 10);
                     MyIp = myIp.TrimEnd('\0');
                     MyPort = (ushort)((buffer[^2] << 8) | buffer[^1]);
 
-                    //Log.Information("{MyIp}:{MyPort}", MyIp, MyPort);
-
                     await SelectProtocol();
                     return;
                 }
-
-                //Log.Information("Received voice data");
             }
         }
 
@@ -280,6 +496,9 @@ namespace NadekoBot.Voice
                 return ResumeAsync();
             }
 
+            DaveManager?.Dispose();
+            DaveManager = new DaveSessionManager(_guildId, _userId);
+
             return IdentifyAsync();
         }
 
@@ -293,6 +512,7 @@ namespace NadekoBot.Voice
                     SessionId = _sessionId,
                     Token = _token,
                     UserId = _userId.ToString(),
+                    MaxDaveProtocolVersion = 1,
                 })
             });
 
@@ -327,7 +547,11 @@ namespace NadekoBot.Voice
             await SendCommandPayloadAsync(new()
             {
                 OpCode = VoiceOpCode.Heartbeat,
-                Data = JToken.FromObject(_rng.Next())
+                Data = JToken.FromObject(new
+                {
+                    t = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+                    seq_ack = _lastSeqAck,
+                })
             });
         }
 

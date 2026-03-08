@@ -1,0 +1,39 @@
+clubaccept:
+  - clubaccept
+clubadmin:
+  - clubadmin
+clubapply:
+  - clubapply
+clubapps:
+  - clubapps
+clubban:
+  - clubban
+clubbanner:
+  - clubbanner
+clubbans:
+  - clubbans
+clubcreate:
+  - clubcreate
+clubdescription:
+  - clubdesc
+clubdisband:
+  - clubdisband
+clubicon:
+  - clubicon
+clubinformation:
+  - clubinfo
+clubkick:
+  - clubkick
+clubleaderboard:
+  - clublb
+  - clubs
+clubleave:
+  - clubleave
+clubreject:
+  - clubreject
+clubrename:
+  - clubrename
+clubtransfer:
+  - clubtransfer
+clubunban:
+  - clubunban

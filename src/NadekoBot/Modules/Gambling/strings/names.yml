@@ -1,0 +1,65 @@
+award:
+  - award
+betroll:
+  - betroll
+  - br
+betstats:
+  - betstats
+  - bs
+betstatsreset:
+  - betstatsreset
+  - bsr
+  - bsreset
+bettest:
+  - bettest
+cash:
+  - cash
+  - $
+  - currency
+  - $$
+  - $$$
+  - cur
+currencytransaction:
+  - curtr
+currencytransactions:
+  - curtrs
+gamblestats:
+  - gamblestats
+  - gs
+gamblestatsreset:
+  - gamblestatsreset
+  - gsr
+  - gsreset
+give:
+  - give
+leaderboard:
+  - leaderboard
+  - lb
+luckyladder:
+  - luckyladder
+  - lula
+  - wheel
+  - wof
+raffle:
+  - raffle
+raffleany:
+  - raffleany
+rakeback:
+  - rakeback
+  - rb
+rps:
+  - rps
+take:
+  - take
+  - seize
+timely:
+  - timely
+timelyreset:
+  - timelyreset
+timelyset:
+  - timelyset
+vote:
+  - vote
+winlb:
+  - winlb
+  - wins

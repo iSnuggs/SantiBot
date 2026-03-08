@@ -1,5 +1,4 @@
 ﻿#nullable enable
-using Cloneable;
 using NadekoBot.Common.Yml;
 
 namespace NadekoBot.Medusa;

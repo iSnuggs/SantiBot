@@ -1,0 +1,306 @@
+autodisconnect:
+  desc: >-
+    Toggles whether the bot should disconnect from the voice channel once it's
+    done playing all of the songs and queue repeat option is set to `none`.
+  ex:
+    - ''
+  params:
+    - {}
+deleteplaylists:
+  desc: Deletes everything from MusicPlaylists.
+  ex:
+    - ''
+  params:
+    - {}
+destroy:
+  desc: >-
+    Completely stops the music and unbinds the bot from the channel. (may cause
+    weird behaviour)
+  ex:
+    - ''
+  params:
+    - {}
+join:
+  desc: Makes the bot join your voice channel.
+  ex:
+    - ''
+  params:
+    - {}
+listqueue:
+  desc: Lists 10 currently queued songs per page. Default page is 1.
+  ex:
+    - ''
+    - 2
+  params:
+    - {}
+    - page:
+        desc: The current page number for the song queue listing.
+local:
+  desc: Queues a local file by specifying a full path.
+  ex:
+    - C:/music/mysong.mp3
+  params:
+    - path:
+        desc: The directory or location where the file is stored.
+localplaylist:
+  desc: Queues all songs from a directory.
+  ex:
+    - C:/music/classical
+  params:
+    - dirPath:
+        desc: The path to the directory containing the songs to be queued.
+lyrics:
+  desc: Looks up lyrics for a song. Very hit or miss.
+  ex:
+    - biri biri
+  params:
+    - song:
+        desc: The song to look up lyrics for.
+musicquality:
+  desc: >-
+    Gets or sets the default music player quality. Available settings: Highest,
+    High, Medium, Low. Default is **Highest**. Provide no argument to see
+    current setting.
+  ex:
+    - ''
+    - High
+    - Low
+  params:
+    - {}
+    - preset:
+        desc: >-
+          The selected preset determines the level of audio compression and
+          processing applied to the music playback.
+next:
+  desc: >-
+    Goes to the next song in the queue. You have to be in the same voice channel
+    as the bot
+  ex:
+    - ''
+  params:
+    - {}
+nowplaying:
+  desc: Shows the song that the bot is currently playing.
+  ex:
+    - ''
+  params:
+    - {}
+pause:
+  desc: Pauses or Unpauses the song.
+  ex:
+    - ''
+  params:
+    - {}
+play:
+  desc: >-
+    Queues up and plays a song or video based on a search query, song name,
+    artist name or youtube link.
+
+    If no parameters are specified, it will skip the current song.
+
+    If you specify a song number, it will jump to that song.
+
+    If you specify a search query, acts as a `{0}q` command
+
+    **You must be in a voice channel**.
+  ex:
+    - ''
+    - 5
+    - Dream Of Venice
+  params:
+    - {}
+    - index:
+        desc: The index of the desired song or search result to navigate to.
+    - query:
+        desc: >-
+          The search query is used to find and play songs matching the specified
+          criteria.
+playlist:
+  desc: >-
+    Queues up to 500 songs from a youtube playlist specified by a link, or
+    keywords.
+  ex:
+    - <youtube_playlist_link>
+  params:
+    - playlistQuery:
+        desc: The search query used to find the YouTube playlist.
+playlistdelete:
+  desc: Deletes a saved playlist using its ID. Works only on playlists saved by you.
+  ex:
+    - 5
+  params:
+    - id:
+        desc: The identifier for the playlist to be deleted.
+playlistload:
+  desc: >-
+    Loads a saved playlist using its ID. Use `{0}pls` to list all saved
+    playlists and `{0}save` to save new ones.
+  ex:
+    - 5
+  params:
+    - id:
+        desc: The id of the playlist to be loaded.
+playlists:
+  desc: Lists all playlists. Paginated, 20 per page.
+  ex:
+    - 1
+  params:
+    - num:
+        desc: The number of pages to retrieve.
+playlistsave:
+  desc: >-
+    Saves a playlist under a certain name. Playlist name must be no longer than
+    20 characters and must not contain dashes.
+  ex:
+    - classical1
+  params:
+    - name:
+        desc: The name provided is used to uniquely identify the saved playlist.
+playlistshow:
+  desc: Lists all songs in a playlist specified by its id. Paginated, 20 per page.
+  ex:
+    - 1
+  params:
+    - id:
+        desc: The id of the playlist to retrieve songs from.
+      page:
+        desc: The current page number for the pagination.
+queue:
+  desc: >-
+    Queues up and plays a song or video based on a search query, song name,
+    artist name, search query or youtube link.
+
+    Bot will join your voice channel. 
+
+    **You must be in a voice channel**.
+  ex:
+    - Dream Of Venice
+  params:
+    - query:
+        desc: The search term used to identify the song to be queued.
+queueautoplay:
+  desc: >-
+    Toggles autoplay - When the song is finished, automatically queue a related
+    Youtube song. (Works only for Youtube songs)
+  ex:
+    - ''
+  params:
+    - {}
+queuefairplay:
+  desc: >-
+    Triggers fairplay. The song queue will be re-ordered in a fair manner. No
+    effect on newly added songs.
+  ex:
+    - ''
+  params:
+    - {}
+queuenext:
+  desc: >-
+    Works the same as `{0}queue` command, except it enqueues the new song after
+    the current one. **You must be in a voice channel**.
+  ex:
+    - Dream Of Venice
+  params:
+    - query:
+        desc: The title or name of the next song to be played.
+queuerepeat:
+  desc: |-
+    Sets music player repeat strategy for this server.
+    - `n` / `no` - player will stop once it reaches the end of the queue
+    - `s` / `song` - player will repeat current song
+    - `q` / `queue` or empty - player will repeat entire music queue
+  ex:
+    - ''
+    - 'n'
+    - song
+  params:
+    - type:
+        desc: The type of repeat strategy to be set.
+queuesearch:
+  desc: >-
+    Search for top 5 youtube song result using keywords, and type the index of
+    the song to play that song. Bot will join your voice channel. **You must be
+    in a voice channel**.
+  ex:
+    - Dream Of Venice
+  params:
+    - query:
+        desc: The search query used to find relevant YouTube songs.
+queueshuffle:
+  desc: Shuffles the current playlist.
+  ex:
+    - ''
+  params:
+    - {}
+radio:
+  desc: >-
+    Queues a radio stream from a link. It can be a direct mp3 radio stream,
+    .m3u, .pls .asx or .xspf (Usage Video: <https://streamable.com/al54>)
+  ex:
+    - radio link here
+  params:
+    - radioLink:
+        desc: The URL of the radio station to be played.
+setmusicchannel:
+  desc: >-
+    Sets the current channel as the default music output channel. This will
+    output playing, finished, paused and removed songs to that channel instead
+    of the channel where the first song was queued in. Persistent server
+    setting.
+  ex:
+    - ''
+  params:
+    - {}
+stop:
+  desc: Stops the music and preserves the current song index. Stays in the channel.
+  ex:
+    - ''
+  params:
+    - {}
+trackmove:
+  desc: Moves a song from one position to another.
+  ex:
+    - 5 3
+  params:
+    - from:
+        desc: The starting position of the song in the playlist.
+      to:
+        desc: The destination index in the playlist where the song should be moved.
+trackremove:
+  desc: >-
+    Remove a song by its # in the queue, or 'all' (or provide no parameter) to
+    remove all songs from the queue.
+  ex:
+    - 5
+    - all
+    - ''
+  params:
+    - index:
+        desc: The position of the song to be removed from the playlist.
+    - _:
+        desc: The number of items to be removed from the list.
+unsetmusicchannel:
+  desc: >-
+    Bot will output playing, finished, paused and removed songs to the channel
+    where the first song was queued in. Persistent server setting.
+  ex:
+    - ''
+  params:
+    - {}
+volume:
+  desc: >-
+    Sets the music playback volume (0-100%). Persistent server setting. Default
+    100
+  ex:
+    - 50
+  params:
+    - vol:
+        desc: The level at which the music is played back.
+wrongsong:
+  desc: |-
+    Removes the last queued song.
+    If the queue was shuffled or fairly re-ordered the song will not be removed.
+  ex:
+    - ''
+  params:
+    - {}

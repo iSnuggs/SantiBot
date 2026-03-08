@@ -1,5 +1,3 @@
-using NadekoBot.Db.Models;
-
 namespace Nadeko.Common;
 
 public static class Extensions

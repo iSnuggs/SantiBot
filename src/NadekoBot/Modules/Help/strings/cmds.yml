@@ -1,0 +1,60 @@
+commands:
+  desc: >-
+    List all of the bot's commands in the specified module.
+
+    You can either specify the full name or only the first few letters of the
+    module name.
+
+    Specifying no module will show the list of modules instead.
+  ex:
+    - Admin
+    - Admin --view 1
+    - ''
+  params:
+    - module:
+        desc: The name of the module to retrieve commands from.
+      params:
+        desc: How to display the list of commands.
+donate:
+  desc: Provides instructions for helping the project financially.
+  ex:
+    - ''
+  params:
+    - {}
+gencmdlist:
+  desc: Generates a json of the commands list and sends it to the chat.
+  ex:
+    - ''
+  params:
+    - {}
+guide:
+  desc: Sends a readme and a guide links to the channel.
+  ex:
+    - ''
+  params:
+    - {}
+h:
+  desc: >-
+    Shows help for a single command.
+
+    Command help contains instructions on how to use the command with examples
+    and a list of parameters.
+
+    DMs you helpful links if no parameters are specified.
+  ex:
+    - '{0}cmds'
+    - ''
+  params:
+    - com:
+        desc: The command that help is being requested for.
+    - fail:
+        desc: Fallback parameter if the command is not found.
+modules:
+  desc: |-
+    List all of the bot's modules.
+    Each module contains commands that you can use.
+  ex:
+    - ''
+  params:
+    - page:
+        desc: The page number to display in the list of modules.

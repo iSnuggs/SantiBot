@@ -1,0 +1,43 @@
+agerestricttoggle:
+  desc: Toggles whether the current channel is age-restricted.
+  ex:
+    - ''
+  params:
+    - {}
+imageonlychannel:
+  desc: >-
+    Toggles whether the channel only allows images.
+
+    Users who send more than a few non-image messages will be banned from using
+    the channel. 
+  ex:
+    - ''
+  params:
+    - time:
+        desc: >-
+          The amount of time before banning users for sending non-image
+          messages.
+linkonlychannel:
+  desc: |-
+    Toggles whether the channel only allows links.
+
+    Users who send more than a few non-link messages will be banned from using
+    the channel. 
+  ex:
+    - ''
+  params:
+    - time:
+        desc: >-
+          The amount of time before a user is banned for sending non-link
+          messages.
+slowmode:
+  desc: >-
+    Toggles slowmode on the current channel with the specified amount of time.
+    Provide no parameters to disable.
+  ex:
+    - ''
+    - 27s
+    - 3h15m5s
+  params:
+    - time:
+        desc: The duration for which the slowmode should be enabled.

@@ -2,9 +2,7 @@
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
-using NadekoBot.Generators;
 using NadekoBot.Modules.Administration.Services;
-using NadekoBot.Modules.Gambling;
 using NadekoBot.Modules.Xp.Services;
 
 namespace NadekoBot.Modules.Administration;

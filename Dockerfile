@@ -31,12 +31,19 @@ RUN YT_DLP_BIN="yt-dlp_musllinux$([ "$TARGETARCH" = "arm64" ] && echo "_aarch64"
 RUN apk add --no-cache ffmpeg libsodium opus deno
 RUN apk add --no-cache libstdc++ libgcc icu-libs libc6-compat tzdata
 
+RUN DAVE_ARCH="$([ "$TARGETARCH" = "arm64" ] && echo "ARM64" || echo "X64")" \
+    && wget -O /tmp/libdave.zip "https://github.com/discord/libdave/releases/download/v1.1.1%2Fcpp/libdave-Linux-${DAVE_ARCH}-boringssl.zip" \
+    && mkdir -p /tmp/libdave \
+    && unzip -o /tmp/libdave.zip -d /tmp/libdave \
+    && rm /tmp/libdave.zip
+
 COPY --from=build /app ./
 COPY docker-entrypoint.sh /usr/local/sbin/
 
 RUN rm -f /app/data_init/lib/libsodium.so /app/data_init/lib/opus.so \
     && ln -sf /usr/lib/libsodium.so.26 /app/data_init/lib/libsodium.so \
-    && ln -sf /usr/lib/libopus.so.0 /app/data_init/lib/opus.so
+    && ln -sf /usr/lib/libopus.so.0 /app/data_init/lib/opus.so \
+    && find /tmp/libdave -name "libdave.so" -exec cp {} /app/data_init/lib/libdave.so \;
 
 VOLUME [ "/app/data" ]
 

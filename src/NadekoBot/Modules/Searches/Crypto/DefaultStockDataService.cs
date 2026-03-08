@@ -1,8 +1,4 @@
-﻿using AngleSharp;
-using CsvHelper;
-using CsvHelper.Configuration;
-using System.Globalization;
-using System.Net;
+﻿using System.Globalization;
 using System.Net.Http.Json;
 using System.Text.Json;
 

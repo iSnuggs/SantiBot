@@ -1,0 +1,7 @@
+weather:
+  desc: Shows current weather data for the specified city.
+  ex:
+    - Moscow, RU
+  params:
+    - query:
+        desc: The name of the place or city for which to show the weather data.

@@ -14,6 +14,12 @@ public partial class Utility
         [RequireContext(ContextType.Guild)]
         public async Task StreamRole(IRole fromRole, IRole addRole)
         {
+            if (!await CheckRoleHierarchy(addRole))
+            {
+                await Response().Error(strs.hierarchy).SendAsync();
+                return;
+            }
+
             await _service.SetStreamRole(fromRole, addRole);
 
             await Response().Confirm(strs.stream_role_enabled(Format.Bold(fromRole.ToString()),

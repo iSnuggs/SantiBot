@@ -1,6 +1,4 @@
-﻿using NadekoBot.Db.Models;
-
-namespace NadekoBot.Modules.Games.Quests;
+﻿namespace NadekoBot.Modules.Games.Quests;
 
 public interface IQuest
 {

@@ -1,0 +1,9 @@
+channelblacklist:
+  - channelblacklist
+  - cbl
+serverblacklist:
+  - serverblacklist
+  - sbl
+userblacklist:
+  - userblacklist
+  - ubl

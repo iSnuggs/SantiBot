@@ -1,0 +1,17 @@
+wiki:
+  desc: Gives you back a wikipedia link
+  ex:
+    - query
+  params:
+    - query:
+        desc: The search term or phrase to look up on Wikipedia.
+wikia:
+  desc: Gives you back a fandom link
+  ex:
+    - mtg Vigilance
+    - mlp Dashy
+  params:
+    - query:
+        desc: The search term or phrase to look for on the wiki.
+      target:
+        desc: The URL or title of the fandom being linked.

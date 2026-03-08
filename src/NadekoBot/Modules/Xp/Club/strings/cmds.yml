@@ -1,0 +1,163 @@
+clubaccept:
+  desc: Accept a user who applied to your club.
+  ex:
+    - user#1337
+  params:
+    - user:
+        desc: The identity of the person being accepted into the club.
+    - userName:
+        desc: The username of the person being accepted into the club.
+clubadmin:
+  desc: >-
+    Assigns (or unassigns) staff role to the member of the club. Admins can ban,
+    kick and accept applications.
+  ex:
+    - '@Someone'
+  params:
+    - toAdmin:
+        desc: The user who is being assigned or unassigned as an admin.
+clubapply:
+  desc: >-
+    Apply to join a club. You must meet that club's minimum level requirement,
+    and not be on its ban list.
+  ex:
+    - My Brand New Club#23
+  params:
+    - clubName:
+        desc: The name of the club you are trying to join.
+clubapps:
+  desc: >-
+    Shows the list of users who have applied to your club. Paginated. You must
+    be club owner to use this command.
+  ex:
+    - 2
+  params:
+    - page:
+        desc: The number of pages to display in the result set.
+clubban:
+  desc: >-
+    Bans the user from the club. You must be the club owner. They will not be
+    able to apply again.
+  ex:
+    - user#1337
+  params:
+    - user:
+        desc: The user who is being banned.
+    - userName:
+        desc: The username of the user to ban from the club.
+clubbanner:
+  desc: |-
+    Sets an image as a club banner.
+    The banner will be displayed when club information is shown.
+  ex:
+    - https://i.imgur.com/example.png
+    - ''
+  params:
+    - {}
+    - url:
+        desc: URL to the image to set as a club banner.
+clubbans:
+  desc: >-
+    Shows the list of users who have banned from your club. Paginated. You must
+    be club owner to use this command.
+  ex:
+    - 2
+  params:
+    - page:
+        desc: The number of pages to retrieve in the result set.
+clubcreate:
+  desc: Creates a club. You must be at least level 5 and not be in the club already.
+  ex:
+    - My Brand New Club
+  params:
+    - clubName:
+        desc: The name of the new club being created.
+clubdescription:
+  desc: Sets the club description. Maximum 150 characters. Club owner only.
+  ex:
+    - This is the best club please join.
+  params:
+    - desc:
+        desc: The brief summary of the club's purpose and activities.
+clubdisband:
+  desc: Disbands the club you're the owner of. This action is irreversible.
+  ex:
+    - ''
+  params:
+    - {}
+clubicon:
+  desc: Sets the club icon.
+  ex:
+    - https://i.imgur.com/htfDMfU.png
+  params:
+    - url:
+        desc: The URL of an image file to use as the club icon.
+clubinformation:
+  desc: Shows information about the club.
+  ex:
+    - My Brand New Club#23
+  params:
+    - user:
+        desc: The identity of the person requesting the club information.
+    - clubName:
+        desc: The name of a specific club being queried for information.
+clubkick:
+  desc: >-
+    Kicks the user from the club. You must be the club owner. They will be able
+    to apply again.
+  ex:
+    - user#1337
+  params:
+    - user:
+        desc: The current member being kicked from the club.
+    - userName:
+        desc: The username of the user to be kicked from the club.
+clubleaderboard:
+  desc: Shows club rankings on the specified page.
+  ex:
+    - 2
+  params:
+    - page:
+        desc: >-
+          The page number to display, allowing users to navigate through
+          multiple pages of club rankings.
+clubleave:
+  desc: Leaves the club you're currently in.
+  ex:
+    - ''
+  params:
+    - {}
+clubreject:
+  desc: Reject a user who applied to your club.
+  ex:
+    - user#1337
+  params:
+    - user:
+        desc: The identity of the person being rejected from the club.
+    - userName:
+        desc: The username of the user being rejected from the club.
+clubrename:
+  desc: Renames your club. Requires you club ownership or club-admin status.
+  ex:
+    - New cool club name
+  params:
+    - clubName:
+        desc: The name of the new club that will replace the current one.
+clubtransfer:
+  desc: Transfers the ownership of the club to another member of the club.
+  ex:
+    - '@Someone'
+  params:
+    - newOwner:
+        desc: The user who will take over the management of the club.
+clubunban:
+  desc: Unbans the previously banned user from the club. You must be the club owner.
+  ex:
+    - user#1337
+  params:
+    - user:
+        desc: >-
+          The user who was previously banned is being restored to membership in
+          the club.
+    - userName:
+        desc: The username of the user being unbanned from the club.

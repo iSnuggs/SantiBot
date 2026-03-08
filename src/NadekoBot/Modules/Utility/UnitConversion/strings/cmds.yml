@@ -1,0 +1,19 @@
+convert:
+  desc: >-
+    Convert quantities. Use `{0}convertlist` to see supported dimensions and
+    currencies.
+  ex:
+    - m km 1000
+  params:
+    - origin:
+        desc: The location or source from which the quantity originates.
+      target:
+        desc: The target unit or currency for the conversion.
+      value:
+        desc: The value to be converted.
+convertlist:
+  desc: List of the convertible dimensions and currencies.
+  ex:
+    - ''
+  params:
+    - {}

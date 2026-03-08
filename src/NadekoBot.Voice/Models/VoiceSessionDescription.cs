@@ -9,5 +9,8 @@ namespace NadekoBot.Voice.Models
 
         [JsonProperty("secret_key")]
         public byte[] SecretKey { get; set; }
+
+        [JsonProperty("dave_protocol_version")]
+        public int DaveProtocolVersion { get; set; }
     }
 }

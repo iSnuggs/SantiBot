@@ -1,0 +1,49 @@
+todoadd:
+  - add
+  - a
+todoarchiveadd:
+  - add
+  - create
+  - new
+todoarchivedelete:
+  - delete
+  - del
+  - remove
+  - rm
+todoarchivedone:
+  - done
+  - compelete
+  - finish
+  - completed
+todoarchivelist:
+  - list
+  - ls
+todoarchiveshow:
+  - show
+todoclear:
+  - clear
+  - clr
+  - cls
+todocomplete:
+  - complete
+  - done
+  - finish
+tododelete:
+  - delete
+  - del
+  - remove
+  - rm
+todoedit:
+  - edit
+  - change
+todolist:
+  - list
+  - ls
+todoshow:
+  - show
+  - sh
+  - see
+todouncomplete:
+  - uncomplete
+  - undone
+  - unfinish

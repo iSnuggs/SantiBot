@@ -1,0 +1,11 @@
+streamrole:
+  - streamrole
+streamroleblacklist:
+  - streamroleblacklist
+  - srbl
+streamrolekeyword:
+  - streamrolekeyword
+  - srkw
+streamrolewhitelist:
+  - streamrolewhitelist
+  - srwl

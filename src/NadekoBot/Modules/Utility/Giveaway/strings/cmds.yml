@@ -1,0 +1,46 @@
+giveawaycancel:
+  desc: >-
+    Cancels a giveaway. Specify the ID of the giveaway to cancel. The winner
+    will not be chosen.
+  ex:
+    - ab3
+  params:
+    - id:
+        desc: The identifier for the giveaway being cancelled.
+giveawayend:
+  desc: >-
+    Prematurely ends a giveaway and selects a winner. Specify the ID of the
+    giveaway to end.
+  ex:
+    - ab3
+  params:
+    - id:
+        desc: The identifier for the giveaway that is being terminated.
+giveawaylist:
+  desc: Lists all active giveaways.
+  ex:
+    - ''
+  params:
+    - {}
+giveawayreroll:
+  desc: >-
+    Rerolls a giveaway. Specify the ID of the giveaway to reroll. This is only
+    active within 24h after the giveaway has ended or until the bot restarts.
+  ex:
+    - cd3
+  params:
+    - id:
+        desc: The identifier for the specific giveaway being rerolled.
+giveawaystart:
+  desc: >-
+    Starts a giveaway. Specify the duration (between 1 minute and 30 days)
+    followed by the prize.
+  ex:
+    - 12h We are giving away one copy of our latest album!
+    - 15m Quick giveaway for a free course!
+    - 1d Join to win 1000$!
+  params:
+    - duration:
+        desc: The length of time for which the giveaway will be active.
+      message:
+        desc: The description of the prize being awarded in this giveaway.

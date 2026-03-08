@@ -1,0 +1,63 @@
+lineup:
+  desc: |-
+    Adds you to the lineup for the current channel.
+    You can optionally specify a reason.
+  ex:
+    - ''
+    - 'Ready to play'
+  params:
+    - {}
+    - reason:
+        desc: "Reason for joining the lineup (max 200 chars)."
+
+lineupleave:
+  desc: |-
+    Removes you from the lineup for the current channel.
+  ex:
+    - ''
+  params:
+    - {}
+
+lineuplist:
+  desc: |-
+    Lists all users currently in the lineup for the current channel.
+  ex:
+    - ''
+  params:
+    - {}
+
+lineupnext:
+  desc: |-
+    Calls the next user in the lineup for the current channel.
+    Removes the called user from the lineup.
+  ex:
+    - ''
+  params:
+    - {}
+
+lineupcreate:
+  desc: |-
+    Initializes the lineup feature in the current channel.
+    This command usually doesn't need to be run manually.
+  ex:
+    - ''
+  params:
+    - {}
+
+lineupremove:
+  desc: |-
+    Removes a specified user from the lineup.
+  ex:
+    - '@User'
+    - '123456789012345678'
+  params:
+    - userToRemove:
+        desc: "The user to remove from the lineup."
+
+lineupclear:
+  desc: |-
+    Clears the entire lineup for the current channel.
+  ex:
+    - ''
+  params:
+    - {}

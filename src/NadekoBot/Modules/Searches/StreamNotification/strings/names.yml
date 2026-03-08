@@ -1,0 +1,32 @@
+streamadd:
+  - streamadd
+  - sta
+  - stadd
+streamcheck:
+  - streamcheck
+  - stc
+streamlist:
+  - streamlist
+  - stl
+  - streamslist
+streammessage:
+  - streammsg
+  - stm
+  - stmsg
+streammessageall:
+  - streammsgall
+  - stma
+  - stmsga
+streamoffline:
+  - streamoffline
+  - sto
+  - stoff
+streamonlinedelete:
+  - streamonlinedelete
+  - stondel
+streamremove:
+  - streamremove
+  - strm
+streamsclear:
+  - streamsclear
+  - stclear

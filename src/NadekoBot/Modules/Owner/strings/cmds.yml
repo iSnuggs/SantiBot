@@ -1,0 +1,17 @@
+massping:
+  desc: |-
+    Mass pings all users in the server.
+    Run again to cancel.
+  ex:
+    - ''
+  params:
+    - {}
+votefeed:
+  desc: |-
+    Shows bot votes in real time in the specified channel.
+    Omit channel to disable.
+  ex:
+    - '#votefeed'
+    - ''
+  params:
+    - {}

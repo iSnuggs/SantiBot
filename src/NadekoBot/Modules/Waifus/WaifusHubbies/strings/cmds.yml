@@ -1,0 +1,115 @@
+waifu:
+  desc: |-
+    Shows waifu/hubby information including stats, fans, and returns.
+    If you're a fan and use it without arguments, it shows your target waifu's card.
+  ex:
+    - ''
+    - '@user'
+  params:
+    - {}
+    - user:
+        desc: "The user to check."
+waifufans:
+  desc: |-
+    Shows all fans backing a waifu and their bank balances.
+  ex:
+    - ''
+    - '@user'
+  params:
+    - {}
+    - user:
+        desc: "The waifu to check."
+waifuleaderboard:
+  desc: |-
+    Shows top waifus ranked by realized return rate over the last 8 cycles.
+  ex:
+    - ''
+  params:
+    - {}
+waifuoptin:
+  desc: |-
+    Opts you into the waifu system. Costs 10,000.
+    You must not be backing anyone to opt in.
+  ex:
+    - ''
+  params:
+    - {}
+waifuoptout:
+  desc: |-
+    Opts you out of the waifu system. You must have no fans backing you.
+  ex:
+    - ''
+  params:
+    - {}
+waifuback:
+  desc: |-
+    Toggle fan backing. With a user argument, backs that waifu (or switches).
+    Without arguments, stops backing (with confirmation).
+    Waifus can't back other waifus.
+  ex:
+    - '@user'
+    - ''
+  params:
+    - user:
+        desc: "The waifu to back."
+    - {}
+waifubuy:
+  desc: |-
+    Buys the manager position for a waifu. Must be a fan of the target.
+    Costs 115% of the current price. Only available in the first 18h of a cycle.
+    90% goes to old manager, 5% to waifu, 5% burned.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The waifu to manage."
+waifufee:
+  desc: |-
+    Sets your waifu fee (1-5%). You must be opted in as a waifu.
+  ex:
+    - '3'
+  params:
+    - percent:
+        desc: "The fee percentage (1-5)."
+hug:
+  desc: |-
+    Hugs a waifu to improve their mood.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The waifu to hug."
+kiss:
+  desc: |-
+    Kisses a waifu to improve their mood.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The waifu to kiss."
+pat:
+  desc: |-
+    Pats a waifu to improve their mood.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The waifu to pat."
+waifugiftshop:
+  desc: |-
+    Shows today's available gift items. Items rotate daily at 00:00 UTC.
+  ex:
+    - ''
+  params:
+    - {}
+waifugift:
+  desc: |-
+    Give a gift to a waifu to increase their mood or food stats.
+  ex:
+    - 'cookie @user'
+    - '3x rose @user'
+  params:
+    - item:
+        desc: "Item name (optionally prefixed with count, e.g., '3x cookie')"
+      user:
+        desc: "The waifu to gift."

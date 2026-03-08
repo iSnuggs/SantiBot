@@ -1,8 +1,6 @@
 #nullable disable warnings
-using Cloneable;
 using NadekoBot.Common.Yml;
 using NadekoBot.Db.Models;
-using NadekoBot.Modules.Patronage;
 
 namespace NadekoBot.Modules.Xp;
 

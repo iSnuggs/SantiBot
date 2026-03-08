@@ -1,0 +1,38 @@
+gencurlist:
+  desc: >-
+    Shows the list of server and channel ids where gc is enabled. Paginated with
+    9 per page.
+  ex:
+    - ''
+  params:
+    - page:
+        desc: The current page number for pagination.
+gencurrency:
+  desc: Toggles currency generation on this channel. Every posted message will have chance to spawn currency. Chance is specified by the Bot Owner. (default is 2%)
+  ex:
+    - ''
+  params:
+    - { }
+pick:
+  desc: >-
+    Picks the currency planted in this channel. If the plant has a password, you
+    need to specify it.
+  ex:
+    - ''
+    - passwd
+  params:
+    - pass:
+        desc: The password required for accessing the plant's contents.
+plant:
+  desc: >-
+    Spend an amount of currency to plant it in this channel. Default is 1. You
+    can specify the password after the amount. Password has to be alphanumeric
+    and it will be trimmed down to 10 characters if it's longer.
+  ex:
+    - 5
+    - 10 meow
+  params:
+    - amount:
+        desc: The number of units or quantity of something being planted.
+      pass:
+        desc: The password for secure planting of the item in this channel.

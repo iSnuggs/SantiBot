@@ -79,7 +79,7 @@ public partial class Games
 
             var currentWeather = fs.GetCurrentWeather();
             var currentTod = fs.GetTime();
-            var spot = fs.GetSpot(ctx.Channel.Id);
+            var spot = await fs.GetSpotAsync(ctx.Channel.Id);
 
             var msg = await Response()
                 .Embed(CreateEmbed()
@@ -128,7 +128,7 @@ public partial class Games
         public async Task FishSpot()
         {
             var ws = fs.GetWeatherForPeriods(7);
-            var spot = fs.GetSpot(ctx.Channel.Id);
+            var spot = await fs.GetSpotAsync(ctx.Channel.Id);
             var time = fs.GetTime();
 
             await Response()
@@ -141,6 +141,26 @@ public partial class Games
                         ws.Select(x => GetWeatherEmoji(x)).Join(""),
                         true))
                 .SendAsync();
+        }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task FishSpotChange()
+        {
+            var result = await fis.UseSpotCoinAsync(ctx.User.Id, ctx.Channel.Id);
+
+            if (result == UseSpotCoinResult.NotOwned)
+            {
+                await Response().Error(strs.fish_spot_coin_none).SendAsync();
+                return;
+            }
+
+            if (result is UseSpotCoinResult.Success success)
+            {
+                await Response()
+                    .Confirm(strs.fish_spot_changed(GetSpotEmoji(success.NewSpot) + " " + success.NewSpot))
+                    .SendAsync();
+            }
         }
 
         [Cmd]
@@ -220,7 +240,7 @@ public partial class Games
             await Response()
                 .Paginated()
                 .PageItems(async p => await fs.GetFishLbAsync(p))
-                .PageSize(9)
+                .PageSize(10)
                 .Page(async (items, page) =>
                 {
                     var users = await us.GetUsersAsync(items.Select(x => x.UserId).ToArray());
@@ -242,7 +262,7 @@ public partial class Games
                                *{GetText(strs.fish_catches(data.Catches))}*
                              """;
 
-                        eb.AddField("#" + (page * 9 + i + 1) + " | " + user,
+                        eb.AddField("#" + (page * 10 + i + 1) + " | " + user,
                             text,
                             false);
                     }
@@ -262,7 +282,7 @@ public partial class Games
             await Response()
                 .Paginated()
                 .PageItems(async p => await fs.GetFishStarsLbAsync(p))
-                .PageSize(9)
+                .PageSize(10)
                 .Page(async (items, page) =>
                 {
                     var users = await us.GetUsersAsync(items.Select(x => x.UserId).ToArray());
@@ -283,7 +303,7 @@ public partial class Games
                              {GetText(strs.fish_stars(Format.Bold(data.Stars.ToString()), fs.GetStarText(1, 1)))}
                              """;
 
-                        eb.AddField("#" + (page * 9 + i + 1) + " | " + user,
+                        eb.AddField("#" + (page * 10 + i + 1) + " | " + user,
                             text,
                             false);
                     }

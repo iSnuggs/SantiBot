@@ -1,0 +1,35 @@
+typeadd:
+  desc: Adds a new article to the typing contest.
+  ex:
+    - wordswords
+  params:
+    - text:
+        desc: The title or name of the article being added.
+typedel:
+  desc: Deletes a typing article given the ID.
+  ex:
+    - 3
+  params:
+    - index:
+        desc: The identifier for the typing article to be deleted.
+typelist:
+  desc: Lists added typing articles with their IDs. 15 per page.
+  ex:
+    - ''
+    - 3
+  params:
+    - page:
+        desc: The current page number for the list of typing articles.
+typestart:
+  desc: Starts a typing contest.
+  ex:
+    - ''
+  params:
+    - params:
+        desc: The list of words or phrases for the contestants to type.
+typestop:
+  desc: Stops a typing contest on the current channel.
+  ex:
+    - ''
+  params:
+    - {}

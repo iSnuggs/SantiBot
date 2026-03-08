@@ -1,0 +1,35 @@
+xprate:
+  desc: |-
+    Sets the xp rate for the server or the specified channel.
+    First specify the type, amount, and then the cooldown in minutes.
+    Provide no parameters to see the current rates.
+    Cooldown has no effect on voice xp, as any amount is gained per minute.
+  ex:
+    - ''
+    - text 3 5
+    - '#channel voice 50 1'
+  params:
+    - {}
+    - amount:
+        desc: The amount of xp to give per message.
+      minutes:
+        desc: The cooldown in minutes. Allows decimal values.
+      type:
+        desc: 'The type of rate to set. One of: text, voice or image.'
+    - amount:
+        desc: The amount of xp to give per message.
+      channel:
+        desc: The channel to set the rate for.
+      minutes:
+        desc: The cooldown in minutes. Allows decimal values.
+      type:
+        desc: 'The type of rate to set. One of: text, voice or image.'
+xpratereset:
+  desc: Resets the xp rate for the server or the specified channel.
+  ex:
+    - ''
+    - '#channel'
+  params:
+    - {}
+    - channel:
+        desc: The channel to reset the rate for.

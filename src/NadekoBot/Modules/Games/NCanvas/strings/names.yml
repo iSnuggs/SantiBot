@@ -1,0 +1,23 @@
+ncanvas:
+  - ncanvas
+  - nc
+  - ncanv
+  - pixel
+  - pixels
+ncpixel:
+  - ncpixel
+  - ncp
+  - ncgp
+ncreset:
+  - ncreset
+ncsetimg:
+  - ncsetimg
+  - ncsi
+ncsetpixel:
+  - ncsetpixel
+  - ncsp
+  - ncs
+  - ncset
+nczoom:
+  - nczoom
+  - ncz

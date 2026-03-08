@@ -1,0 +1,12 @@
+animal_race: Animal race
+animal_race_already_started: Animal Race is already running.
+animal_race_failed: Failed to start since there was not enough participants.
+animal_race_full: Race is full! Starting immediately.
+animal_race_join: '{0} joined as a {1}'
+animal_race_join_bet: '{0} joined as a {1} and bet {2}!'
+animal_race_join_instr: Type {0}jr to join the race.
+animal_race_starting: Starting in {0} seconds or when the room is full.
+animal_race_starting_with_x: Starting with {0} participants.
+animal_race_won: '{0} as {1} Won the race!'
+animal_race_won_money: '{0} as {1} Won the race and {2}!'
+race_not_exist: No race exists on this server

@@ -1,7 +1,6 @@
 #nullable disable
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.ComponentModel.DataAnnotations;
 
 namespace NadekoBot.Db.Models;
 

@@ -1,9 +1,6 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NadekoBot.Db;
-using NadekoBot.Modules.Games.Fish;
 
 namespace NadekoBot.Modules.Games.Fish.Db;
 

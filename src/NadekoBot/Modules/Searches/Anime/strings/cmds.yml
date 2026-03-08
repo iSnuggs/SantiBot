@@ -1,0 +1,14 @@
+anime:
+  desc: Queries anilist for an anime and shows the first result.
+  ex:
+    - aquarion evol
+  params:
+    - query:
+        desc: The search term used to find a specific anime on Anilist.
+manga:
+  desc: Queries anilist for a manga and shows the first result.
+  ex:
+    - Shingeki no kyojin
+  params:
+    - query:
+        desc: The title or keywords to search for in Anilist's database.

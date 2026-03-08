@@ -1,5 +1,4 @@
 ﻿#nullable disable
-using System.Net;
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
@@ -110,10 +109,20 @@ public class MuteService : INService, IReadyExecutor
     public async Task SetMuteRoleAsync(ulong guildId, string name)
     {
         await using var uow = _db.GetDbContext();
-        var config = uow.GetTable<GuildConfig>()
-            .Where(x => x.GuildId == guildId)
-            .FirstOrDefault();
-        config.MuteRoleName = name;
+        await uow.GetTable<GuildConfig>()
+            .InsertOrUpdateAsync(() => new()
+                {
+                    GuildId = guildId,
+                    MuteRoleName = name,
+                },
+                _ => new()
+                {
+                    MuteRoleName = name
+                },
+                () => new()
+                {
+                    GuildId = guildId
+                });
         _guildMuteRoles.AddOrUpdate(guildId, name, (_, _) => name);
         await uow.SaveChangesAsync();
     }

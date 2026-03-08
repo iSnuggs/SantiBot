@@ -13,16 +13,26 @@ namespace NadekoBot.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    private static readonly string _responsesPath = "strings/responses";
+    private static readonly string _commandsPath = "strings/commands";
+
     public static IContainer AddBotStringsServices(this IContainer svcs, BotCacheImplemenation botCache)
     {
+        var curLoc = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var res = Path.Combine(curLoc, _responsesPath);
+        var cmd = Path.Combine(curLoc, _commandsPath);
+
+        svcs.AddSingleton<IStringsSource>(new LocalFileStringsSource(
+            res,
+            cmd
+        ));
+        
         if (botCache == BotCacheImplemenation.Memory)
         {
-            svcs.AddSingleton<IStringsSource, LocalFileStringsSource>();
             svcs.AddSingleton<IBotStringsProvider, MemoryBotStringsProvider>();
         }
         else
         {
-            svcs.AddSingleton<IStringsSource, LocalFileStringsSource>();
             svcs.AddSingleton<IBotStringsProvider, RedisBotStringsProvider>();
         }
 
@@ -33,15 +43,14 @@ public static class ServiceCollectionExtensions
 
     public static IContainer AddConfigServices(this IContainer svcs, Assembly a)
     {
-        
         foreach (var type in a.GetTypes()
-                           .Where(x => !x.IsAbstract && x.IsAssignableToGenericType(typeof(ConfigServiceBase<>))))
+                     .Where(x => !x.IsAbstract && x.IsAssignableToGenericType(typeof(ConfigServiceBase<>))))
         {
             svcs.RegisterMany([type],
                 getServiceTypes: type => type.GetImplementedTypes(ReflectionTools.AsImplementedType.SourceType),
                 getImplFactory: type => ReflectionFactory.Of(type, Reuse.Singleton));
         }
-        
+
         return svcs;
     }
 
@@ -85,19 +94,19 @@ public static class ServiceCollectionExtensions
         IServiceCollection proxySvcs = new ServiceCollection();
         proxySvcs.AddHttpClient();
         proxySvcs.AddHttpClient("memelist")
-                 .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-                 {
-                     AllowAutoRedirect = false
-                 });
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+            {
+                AllowAutoRedirect = false
+            });
 
         proxySvcs.AddHttpClient("google:search")
-                 .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
-                 {
-                     AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
-                 });
+            .ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            });
 
         var prov = proxySvcs.BuildServiceProvider();
-        
+
         svcs.RegisterDelegate<IHttpClientFactory>(_ => prov.GetRequiredService<IHttpClientFactory>());
         svcs.RegisterDelegate<HttpClient>(_ => prov.GetRequiredService<HttpClient>());
 
@@ -115,13 +124,14 @@ public static class ServiceCollectionExtensions
             typeof(IInputTransformer),
             typeof(INService)
         ];
-        
+
         foreach (var svc in a.GetTypes()
-                           .Where(type => type.IsClass && types.Any(t => type.IsAssignableTo(t)) && !type.HasAttribute<DIIgnoreAttribute>()
+                     .Where(type => type.IsClass && types.Any(t => type.IsAssignableTo(t)) &&
+                                    !type.HasAttribute<DIIgnoreAttribute>()
 #if GLOBAL_NADEKO
                             && !type.HasAttribute<NoPublicBotAttribute>()
 #endif
-                           ))
+                     ))
         {
             svcs.RegisterMany([svc],
                 getServiceTypes: type => type.GetImplementedTypes(ReflectionTools.AsImplementedType.SourceType),

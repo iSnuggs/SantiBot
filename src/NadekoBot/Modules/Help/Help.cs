@@ -87,31 +87,34 @@ public sealed partial class Help : NadekoModule<HelpService>
                 topLevelModules.Add(m);
         }
 
-        var menu = new SelectMenuBuilder()
-            .WithPlaceholder("Select a module to see its commands")
-            .WithCustomId("cmds:modules_select");
+        NadekoInteractionBase inter = null;
+        if (topLevelModules.Count <= 25)
+        {
+            var menu = new SelectMenuBuilder()
+                .WithPlaceholder("Select a module to see its commands")
+                .WithCustomId("cmds:modules_select");
 
-        foreach (var m in topLevelModules)
-            menu.AddOption(m.Name, m.Name, GetModuleEmoji(m.Name));
+            foreach (var m in topLevelModules)
+                menu.AddOption(m.Name, m.Name, GetModuleEmoji(m.Name));
 
-        var inter = _inter.Create(ctx.User.Id,
-            menu,
-            async (smc) =>
-            {
-                await smc.DeferAsync();
-                var val = smc.Data.Values.FirstOrDefault();
-                if (val is null)
-                    return;
+            inter = _inter.Create(ctx.User.Id,
+                menu,
+                async (smc) =>
+                {
+                    await smc.DeferAsync();
+                    var val = smc.Data.Values.FirstOrDefault();
+                    if (val is null)
+                        return;
 
-                await Commands(val);
-            });
+                    await Commands(val);
+                });
+        }
 
-        await Response()
+        var paginated = Response()
             .Paginated()
             .Items(topLevelModules)
             .PageSize(12)
             .CurrentPage(page)
-            .Interaction(inter)
             .AddFooter(false)
             .Page((items, _) =>
             {
@@ -132,8 +135,12 @@ public sealed partial class Help : NadekoModule<HelpService>
                         true));
 
                 return embed;
-            })
-            .SendAsync();
+            });
+
+        if (inter is not null)
+            paginated.Interaction(inter);
+
+        await paginated.SendAsync();
     }
 
     private string GetModuleDescription(string moduleName)
@@ -184,6 +191,8 @@ public sealed partial class Help : NadekoModule<HelpService>
                 return strs.module_description_medusa;
             case "patronage":
                 return strs.module_description_patronage;
+            case "owner":
+                return strs.module_description_owner;
             default:
                 return strs.module_description_missing;
         }
@@ -216,6 +225,8 @@ public sealed partial class Help : NadekoModule<HelpService>
                 return "📝";
             case "patronage":
                 return "💝";
+            case "owner":
+                return "👑";
             default:
                 return "📖";
         }

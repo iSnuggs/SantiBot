@@ -1,0 +1,4 @@
+createtextchan: Text channel {0} created.
+deltextchan: Text channel {0} deleted.
+set_channel_name: New channel name set.
+set_topic: New channel topic set.

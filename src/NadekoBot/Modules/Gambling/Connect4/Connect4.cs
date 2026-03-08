@@ -1,6 +1,5 @@
 ﻿#nullable disable
 using CommandLine;
-using System.Collections.Immutable;
 
 namespace NadekoBot.Modules.Gambling.Common.Connect4;
 

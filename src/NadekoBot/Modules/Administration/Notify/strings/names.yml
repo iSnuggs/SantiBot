@@ -1,0 +1,15 @@
+notify:
+  - notify
+  - nfy
+notifyclear:
+  - notifyclear
+  - notifyremove
+  - notifyrm
+  - notifclr
+notifylist:
+  - notifylist
+  - notifyl
+notifyphs:
+  - notifyphs
+  - notifyph
+  - notifyplaceholders

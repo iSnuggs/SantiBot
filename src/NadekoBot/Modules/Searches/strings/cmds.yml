@@ -1,0 +1,30 @@
+chucknorris:
+  desc: Shows a random Chuck Norris joke.
+  ex:
+    - ''
+  params:
+    - {}
+magicitem:
+  desc: Shows a random magic item with its description.
+  ex:
+    - ''
+  params:
+    - {}
+randjoke:
+  desc: Shows a random joke.
+  ex:
+    - ''
+  params:
+    - {}
+wowjoke:
+  desc: Get one of penultimate WoW jokes.
+  ex:
+    - ''
+  params:
+    - {}
+yomama:
+  desc: Shows a random yomama joke.
+  ex:
+    - ''
+  params:
+    - {}

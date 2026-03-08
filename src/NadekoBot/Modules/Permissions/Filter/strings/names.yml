@@ -1,0 +1,29 @@
+chnlfilterinv:
+  - chnlfilterinv
+  - cfi
+chnlfilterlin:
+  - chnlfilterlin
+  - cfl
+chnlfilterwords:
+  - chnlfilterwords
+  - cfw
+filterlist:
+  - filterlist
+  - fl
+filterword:
+  - filterword
+  - fw
+fwclear:
+  - fwclear
+lstfilterwords:
+  - lstfilterwords
+  - lfw
+srvrfilterinv:
+  - srvrfilterinv
+  - sfi
+srvrfilterlin:
+  - srvrfilterlin
+  - sfl
+srvrfilterwords:
+  - srvrfilterwords
+  - sfw

@@ -1,13 +1,9 @@
 using LinqToDB;
-using LinqToDB.Data;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Services.Currency;
 using NadekoBot.Db.Models;
-using NadekoBot.Modules.Gambling;
 using System.Collections.Concurrent;
-using NadekoBot.Modules.Administration;
-using NadekoBot.Modules.Gambling.Services;
 using NadekoBot.Modules.Games.Quests;
 
 namespace NadekoBot.Services;

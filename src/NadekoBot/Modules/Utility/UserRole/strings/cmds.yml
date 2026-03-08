@@ -1,0 +1,64 @@
+userroleassign:
+  desc: Assigns a role to a user that can later be modified by that user.
+  ex:
+    - '@User @Role'
+  params:
+    - role:
+        desc: The role to assign.
+      user:
+        desc: The user to assign the role to.
+userrolecolor:
+  desc: Changes the color of your assigned role.
+  ex:
+    - '@Role #ff0000'
+  params:
+    - color:
+        desc: The new color for the role in hex format.
+      role:
+        desc: The assigned role to change the color of.
+userroleicon:
+  desc: Changes the icon of your assigned role.
+  ex:
+    - '@Role :server_emoji_here:'
+  params:
+    - imageUrl:
+        desc: The image url to be used as a new icon for the role.
+      role:
+        desc: The assigned role to change the icon of.
+    - role:
+        desc: The assigned role to change the icon of.
+      serverEmoji:
+        desc: The server emoji to be used as a new icon for the role.
+userrolelist:
+  desc: Lists all user roles in the server, or for a specific user.
+  ex:
+    - ''
+    - '@User'
+  params:
+    - {}
+    - user:
+        desc: The user whose roles to list.
+userrolemy:
+  desc: Lists all of the user roles assigned to you.
+  ex:
+    - ''
+  params:
+    - {}
+userrolename:
+  desc: Changes the name of your assigned role.
+  ex:
+    - '@Role New Role Name'
+  params:
+    - name:
+        desc: The new name for the role.
+      role:
+        desc: The assigned role to rename.
+userroleremove:
+  desc: Removes a previously assigned role from a user.
+  ex:
+    - '@User @Role'
+  params:
+    - role:
+        desc: The role to remove.
+      user:
+        desc: The user to remove the role from.

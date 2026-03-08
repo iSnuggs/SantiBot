@@ -1,0 +1,14 @@
+setnick:
+  desc: >-
+    Changes the nickname of the bot on this server. You can also target other
+    users to change their nickname.
+  ex:
+    - BotNickname
+    - '@SomeUser New Nickname'
+  params:
+    - newNick:
+        desc: The new nickname to be displayed for the bot or targeted user.
+    - gu:
+        desc: The guild user that is being targeted for a nickname change.
+      newNick:
+        desc: The new nickname to be displayed for the bot or targeted user.

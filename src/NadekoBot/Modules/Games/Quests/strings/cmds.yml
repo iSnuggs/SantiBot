@@ -1,0 +1,6 @@
+questlog:
+  desc: Shows your active quests and progress.
+  ex:
+    - ''
+  params:
+    - {}

@@ -1,5 +1,4 @@
-﻿using AngleSharp.Common;
-using LinqToDB;
+﻿using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;

@@ -1,0 +1,22 @@
+hangman:
+  desc: >-
+    Starts a game of hangman in the channel. You can optionally select a
+    category `{0}hangmanlist` to see a list of available categories.
+  ex:
+    - ''
+    - movies
+  params:
+    - type:
+        desc: The language or theme of the word to be guessed.
+hangmanlist:
+  desc: Shows a list of hangman question categories.
+  ex:
+    - ''
+  params:
+    - {}
+hangmanstop:
+  desc: Stops the active hangman game on this channel if it exists.
+  ex:
+    - ''
+  params:
+    - {}

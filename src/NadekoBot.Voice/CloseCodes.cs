@@ -21,7 +21,8 @@ namespace Ayu.Discord.Gateway
                 { 4011, ("Sharding required", "The session would have handled too many guilds - you are required to shard your connection in order to connect.")},
                 { 4012, ("Invalid API version", "You sent an invalid version for the gateway.")},
                 { 4013, ("Invalid intent(s)", "You sent an invalid intent for a Gateway Intent. You may have incorrectly calculated the bitwise value.")},
-                { 4014, ("Disallowed intent(s)", "You sent a disallowed intent for a Gateway Intent. You may have tried to specify an intent that you have not enabled or are not whitelisted for.")}
+                { 4014, ("Disallowed intent(s)", "You sent a disallowed intent for a Gateway Intent. You may have tried to specify an intent that you have not enabled or are not whitelisted for.")},
+                { 4017, ("E2EE required", "End-to-end encryption (DAVE protocol) is required for voice connections. Update your client to support DAVE.")}
             });
 
         public static (string Error, string Message) GetErrorCodeMessage(int closeCode)

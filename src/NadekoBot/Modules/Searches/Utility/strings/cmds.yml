@@ -1,0 +1,26 @@
+color:
+  desc: >-
+    Shows you pictures of colors which correspond to the inputted hex values.
+    Max 10.
+  ex:
+    - 00ff00
+    - f00 0f0 00f
+  params:
+    - colors:
+        desc: The array of colors to display as images.
+lmgtfy:
+  desc: Google something for a baka.
+  ex:
+    - How to eat a banana
+  params:
+    - smh:
+        desc: The search query to be entered into the search engine.
+shorten:
+  desc: Attempts to shorten an URL, if it fails, returns the input URL.
+  ex:
+    - https://google.com
+  params:
+    - query:
+        desc: >-
+          The search term or identifier used to retrieve a shortened version of
+          the URL from a database or service.

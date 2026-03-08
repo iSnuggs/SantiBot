@@ -1,0 +1,19 @@
+{
+  "shop_none": "The shop is currently empty. Add some items to get started!",
+  "shop": "Shop",
+  "shop_item_not_found": "Item not found in the shop.",
+  "shop_item_req_role_not_found": "The role required for this item was not found.",
+  "shop_item_req_role_unfulfilled": "You need the role {0} to purchase this item.",
+  "shop_role_not_found": "The role for this item was not found.",
+  "shop_role_already_bought": "You already have this role.",
+  "shop_item_add": "Item added to shop",
+  "shop_item_rm": "Item removed from shop",
+  "shop_list_item_added": "Item added to list",
+  "shop_list_item_not_unique": "Item already exists in the list.",
+  "name": "Name",
+  "price": "Price",
+  "type": "Type",
+  "random_unique_item": "Random Unique Item",
+  "shop_item_role_no_req": "No role requirement set for item {0}",
+  "shop_item_role_req": "Role requirement set for item {0}: {1}"
+}

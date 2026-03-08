@@ -1,0 +1,10 @@
+alias:
+  - alias
+  - cmdmap
+aliasesclear:
+  - aliasesclear
+  - aliasclear
+aliaslist:
+  - aliaslist
+  - cmdmaplist
+  - aliases

@@ -1,0 +1,8 @@
+feed_added: Feed added.
+feed_cant_parse: Unable to access or parse that feed url's contents.
+feed_duplicate: You're already following that feed on this server.
+feed_invalid_url: Invalid feed url. It must be an absolute http or https url.
+feed_limit_reached: You've reached the maximum number of feeds allowed per server.
+feed_no_feed: You haven't subscribed to any feeds on this server.
+feed_out_of_range: Index out of range.
+feed_removed: Feed removed.

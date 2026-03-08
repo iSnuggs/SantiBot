@@ -16,5 +16,7 @@ namespace NadekoBot.Voice.Models
         [JsonProperty("token")]
         public string Token { get; set; }
 
+        [JsonProperty("max_dave_protocol_version")]
+        public int MaxDaveProtocolVersion { get; set; } = 1;
     }
 }

@@ -1,6 +1,7 @@
-﻿using LinqToDB;
+using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Db.Models;
+using NadekoBot.Modules.Waifus.WaifusHubbies.Db;
 
 namespace NadekoBot.Modules.Gambling;
 
@@ -16,28 +17,39 @@ public class GamblingCleanupService : IGamblingCleanupService, INService
     public async Task DeleteWaifus()
     {
         await using var ctx = _db.GetDbContext();
-        await ctx.GetTable<WaifuItem>().DeleteAsync();
-        await ctx.GetTable<WaifuUpdate>().DeleteAsync();
+        await ctx.GetTable<WaifuCycleSnapshot>().DeleteAsync();
+        await ctx.GetTable<WaifuCycle>().DeleteAsync();
+        await ctx.GetTable<WaifuFan>().DeleteAsync();
         await ctx.GetTable<WaifuInfo>().DeleteAsync();
     }
 
     public async Task DeleteWaifu(ulong userId)
     {
         await using var ctx = _db.GetDbContext();
-        await ctx.GetTable<WaifuUpdate>()
-            .Where(x => x.User.UserId == userId)
+        
+        // Remove fans of this waifu
+        await ctx.GetTable<WaifuFan>()
+            .Where(x => x.WaifuUserId == userId)
             .DeleteAsync();
-        await ctx.GetTable<WaifuItem>()
-            .Where(x => x.WaifuInfo.Waifu.UserId == userId)
+        
+        // Remove this user's backing
+        await ctx.GetTable<WaifuFan>()
+            .Where(x => x.UserId == userId)
             .DeleteAsync();
+        
+        // Remove cycle snapshots
+        await ctx.GetTable<WaifuCycleSnapshot>()
+            .Where(x => x.WaifuUserId == userId)
+            .DeleteAsync();
+        
+        // Remove cycles
+        await ctx.GetTable<WaifuCycle>()
+            .Where(x => x.WaifuUserId == userId)
+            .DeleteAsync();
+        
+        // Remove waifu
         await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.Claimer.UserId == userId)
-            .UpdateAsync(old => new WaifuInfo()
-            {
-                ClaimerId = null,
-            });
-        await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.Waifu.UserId == userId)
+            .Where(x => x.UserId == userId)
             .DeleteAsync();
     }
     

@@ -2,349 +2,17 @@
   "Administration": [
     {
       "Aliases": [
-        ".imageonlychannel",
-        ".imageonly",
-        ".imagesonly"
-      ],
-      "Description": "Toggles whether the channel only allows images.\nUsers who send more than a few non-image messages will be banned from using the channel. ",
-      "Usage": [
-        ".imageonlychannel"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "Administrator Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".linkonlychannel",
-        ".linkonly",
-        ".linkssonly"
-      ],
-      "Description": "Toggles whether the channel only allows links.\nUsers who send more than a few non-link messages will be banned from using the channel. ",
-      "Usage": [
-        ".linkonlychannel"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "Administrator Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".slowmode"
-      ],
-      "Description": "Toggles slowmode on the current channel with the specified amount of time. Provide no parameters to disable.",
-      "Usage": [
-        ".slowmode",
-        ".slowmode 27s",
-        ".slowmode 3h15m5s"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageChannels Channel Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".delmsgoncmd",
-        ".dmc"
-      ],
-      "Description": "Toggles the automatic deletion of the user's successful command message to prevent chat flood. You can use it either as a server toggle, channel whitelist, or channel blacklist, as channel option has 3 settings: Enable (always do it on this channel), Disable (never do it on this channel), and Inherit (respect server setting). Use `list` parameter to see the current states.",
-      "Usage": [
-        ".delmsgoncmd",
-        ".delmsgoncmd channel enable",
-        ".delmsgoncmd ch inherit",
-        ".delmsgoncmd list"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "Administrator Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".deafen",
-        ".deaf"
-      ],
-      "Description": "Deafens mentioned user or users.",
-      "Usage": [
-        ".deafen \"@Someguy\"",
-        ".deafen \"@Someguy\" \"@Someguy\""
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "DeafenMembers Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".undeafen",
-        ".undef"
-      ],
-      "Description": "Undeafens mentioned user or users.",
-      "Usage": [
-        ".undeafen \"@Someguy\"",
-        ".undeafen \"@Someguy\" \"@Someguy\""
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "DeafenMembers Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".delvoichanl",
-        ".dvch"
-      ],
-      "Description": "Deletes a voice channel with a given name.",
-      "Usage": [
-        ".delvoichanl VoiceChannelName"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageChannels Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".creatvoichanl",
-        ".cvch"
-      ],
-      "Description": "Creates a new voice channel with a given name.",
-      "Usage": [
-        ".creatvoichanl VoiceChannelName"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageChannels Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".deltxtchanl",
-        ".dtch"
-      ],
-      "Description": "Deletes a text channel with a given name.",
-      "Usage": [
-        ".deltxtchanl TextChannelName"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageChannels Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".creatxtchanl",
-        ".ctch"
-      ],
-      "Description": "Creates a new text channel with a given name.",
-      "Usage": [
-        ".creatxtchanl TextChannelName"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageChannels Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".settopic",
-        ".st"
-      ],
-      "Description": "Sets a topic on the current channel.",
-      "Usage": [
-        ".settopic My new topic"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageChannels Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".setchanlname",
-        ".schn"
-      ],
-      "Description": "Changes the name of the current channel.",
-      "Usage": [
-        ".setchanlname NewName"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageChannels Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".nsfwtoggle",
-        ".artoggle"
-      ],
-      "Description": "Toggles whether the current channel is age-restricted.",
-      "Usage": [
-        ".nsfwtoggle"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageChannels Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".edit"
-      ],
-      "Description": "Edits bot's message, you have to specify message ID and new text. You can optionally specify target channel.\nSupports [embeds](https://eb.nadeko.bot/)",
-      "Usage": [
-        ".edit 7479498384 Hi :^)",
-        ".edit #other-channel 771562360594628608 New message!",
-        ".edit #other-channel 771562360594628608 {\"description\":\"hello\"}"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageMessages Channel Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".delete",
-        ".del"
-      ],
-      "Description": "Deletes a single message given the channel and message ID, or a message link.\nIf channel is omitted, message will be searched for in the current channel.\nYou can also specify time parameter after which the message will be deleted (up to 7 days).\nThis timer won't persist through bot restarts.",
-      "Usage": [
-        ".delete #chat 771562360594628608",
-        ".delete 771562360594628608",
-        ".delete 771562360594628608 5m"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageMessages Channel Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".threadcreate",
-        ".thcr"
-      ],
-      "Description": "Create a public thread with the specified title. You may optionally reply to a message to have it as a starting point.",
-      "Usage": [
-        ".threadcreate Q&A"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "CreatePublicThreads Channel Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".threaddelete",
-        ".thdel",
-        ".thrm"
-      ],
-      "Description": "Delete a thread with the specified name in this channel. Case insensitive.",
-      "Usage": [
-        ".threaddelete Q&A"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageThreads Channel Permission"
-      ]
-    },
-    {
-      "Aliases": [
         ".autopublish"
       ],
       "Description": "Make the bot automatically publish all messages posted in the news channel this command was executed in.",
       "Usage": [
         ".autopublish"
       ],
-      "Submodule": "Administration",
+      "Submodule": "AnnouncementCommands",
       "Module": "Administration",
       "Options": null,
       "Requirements": [
         "ManageMessages Channel Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".setnick"
-      ],
-      "Description": "Changes the nickname of the bot on this server. You can also target other users to change their nickname.",
-      "Usage": [
-        ".setnick BotNickname",
-        ".setnick @SomeUser New Nickname"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageNicknames Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".setserverbanner",
-        ".serverbanner"
-      ],
-      "Description": "Sets a new banner image for the current server. Parameter is a direct link to an image.",
-      "Usage": [
-        ".setserverbanner https://i.imgur.com/xTG3a1I.jpg"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageServer Server Permission"
-      ]
-    },
-    {
-      "Aliases": [
-        ".setservericon",
-        ".servericon"
-      ],
-      "Description": "Sets a new icon image for the current server. Parameter is a direct link to an image.",
-      "Usage": [
-        ".setservericon https://i.imgur.com/xTG3a1I.jpg"
-      ],
-      "Submodule": "Administration",
-      "Module": "Administration",
-      "Options": null,
-      "Requirements": [
-        "ManageServer Server Permission"
       ]
     },
     {
@@ -366,17 +34,85 @@
     },
     {
       "Aliases": [
+        ".imageonlychannel",
+        ".imageonly",
+        ".imagesonly"
+      ],
+      "Description": "Toggles whether the channel only allows images.\nUsers who send more than a few non-image messages will be banned from using the channel. ",
+      "Usage": [
+        ".imageonlychannel"
+      ],
+      "Submodule": "ChannelModerationCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".linkonlychannel",
+        ".linkonly",
+        ".linkssonly"
+      ],
+      "Description": "Toggles whether the channel only allows links.\n\nUsers who send more than a few non-link messages will be banned from using\nthe channel. ",
+      "Usage": [
+        ".linkonlychannel"
+      ],
+      "Submodule": "ChannelModerationCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".slowmode"
+      ],
+      "Description": "Toggles slowmode on the current channel with the specified amount of time. Provide no parameters to disable.",
+      "Usage": [
+        ".slowmode",
+        ".slowmode 27s",
+        ".slowmode 3h15m5s"
+      ],
+      "Submodule": "ChannelModerationCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Channel Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".nsfwtoggle",
+        ".artoggle"
+      ],
+      "Description": "Toggles whether the current channel is age-restricted.",
+      "Usage": [
+        ".nsfwtoggle"
+      ],
+      "Submodule": "ChannelModerationCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".cleanupguilddata"
       ],
       "Description": "Deletes data for all servers bot is no longer a member of from the database.\nThis is a highly destructive and irreversible command.",
       "Usage": [
         ".cleanupguilddata"
       ],
-      "Submodule": "CleanupCommands",
+      "Submodule": "DangerousCommands",
       "Module": "Administration",
       "Options": null,
       "Requirements": [
-        "Bot Owner Only"
+        "Bot Owner Only",
+        "No Public Bot"
       ]
     },
     {
@@ -505,6 +241,25 @@
       "Requirements": [
         "Bot Owner Only",
         "No Public Bot"
+      ]
+    },
+    {
+      "Aliases": [
+        ".delmsgoncmd",
+        ".dmc"
+      ],
+      "Description": "Toggles the automatic deletion of the user's successful command message to prevent chat flood. You can use it either as a server toggle, channel whitelist, or channel blacklist, as channel option has 3 settings: Enable (always do it on this channel), Disable (never do it on this channel), and Inherit (respect server setting). Use `list` parameter to see the current states.",
+      "Usage": [
+        ".delmsgoncmd",
+        ".delmsgoncmd channel enable",
+        ".delmsgoncmd ch inherit",
+        ".delmsgoncmd list"
+      ],
+      "Submodule": "DelMsgOnCmdCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
       ]
     },
     {
@@ -815,6 +570,41 @@
     },
     {
       "Aliases": [
+        ".edit"
+      ],
+      "Description": "Edits bot's message, you have to specify message ID and new text. You can optionally specify target channel.\nSupports [embeds](https://eb.nadeko.bot/)",
+      "Usage": [
+        ".edit 7479498384 Hi :^)",
+        ".edit #other-channel 771562360594628608 New message!",
+        ".edit #other-channel 771562360594628608 {\"description\":\"hello\"}"
+      ],
+      "Submodule": "MessageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Channel Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".delete",
+        ".del"
+      ],
+      "Description": "Deletes a single message given the channel and message ID, or a message link.\nIf channel is omitted, message will be searched for in the current channel.\nYou can also specify time parameter after which the message will be deleted (up to 7 days).\nThis timer won't persist through bot restarts.",
+      "Usage": [
+        ".delete #chat 771562360594628608",
+        ".delete 771562360594628600",
+        ".delete 771562360594628608 5m"
+      ],
+      "Submodule": "MessageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Channel Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".muterole",
         ".setmuterole"
       ],
@@ -929,6 +719,22 @@
       "Options": null,
       "Requirements": [
         "MuteMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".setnick"
+      ],
+      "Description": "Changes the nickname of the bot on this server. You can also target other users to change their nickname.",
+      "Usage": [
+        ".setnick BotNickname",
+        ".setnick @SomeUser New Nickname"
+      ],
+      "Submodule": "NicknameCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageNicknames Server Permission"
       ]
     },
     {
@@ -1375,7 +1181,7 @@
       ],
       "Description": "Remove all reaction roles from message specified by the id",
       "Usage": [
-        ".reroremove 971276352684691466"
+        ".reroremove 971276352684691500"
       ],
       "Submodule": "ReactionRoleCommands",
       "Module": "Administration",
@@ -2222,6 +2028,38 @@
     },
     {
       "Aliases": [
+        ".setserverbanner",
+        ".serverbanner"
+      ],
+      "Description": "Sets a new banner image for the current server. Parameter is a direct link to an image.",
+      "Usage": [
+        ".setserverbanner https://i.imgur.com/xTG3a1I.jpg"
+      ],
+      "Submodule": "ServerAppearanceCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".setservericon",
+        ".servericon"
+      ],
+      "Description": "Sets a new icon image for the current server. Parameter is a direct link to an image.",
+      "Usage": [
+        ".setservericon https://i.imgur.com/xTG3a1I.jpg"
+      ],
+      "Submodule": "ServerAppearanceCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".logserver"
       ],
       "Description": "Enables or Disables ALL log events. If enabled, all log events will log to this channel.",
@@ -2290,6 +2128,103 @@
         "Bot Owner Only",
         "No Public Bot",
         "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".deltxtchanl",
+        ".dtch"
+      ],
+      "Description": "Deletes a text channel with a given name.",
+      "Usage": [
+        ".deltxtchanl TextChannelName"
+      ],
+      "Submodule": "TextChannelCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".creatxtchanl",
+        ".ctch"
+      ],
+      "Description": "Creates a new text channel with a given name.",
+      "Usage": [
+        ".creatxtchanl TextChannelName"
+      ],
+      "Submodule": "TextChannelCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".settopic",
+        ".st"
+      ],
+      "Description": "Sets a topic on the current channel.",
+      "Usage": [
+        ".settopic My new topic"
+      ],
+      "Submodule": "TextChannelCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".setchanlname",
+        ".schn"
+      ],
+      "Description": "Changes the name of the current channel.",
+      "Usage": [
+        ".setchanlname NewName"
+      ],
+      "Submodule": "TextChannelCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".threadcreate",
+        ".thcr"
+      ],
+      "Description": "Create a public thread with the specified title. You may optionally reply to a message to have it as a starting point.",
+      "Usage": [
+        ".threadcreate Q&A"
+      ],
+      "Submodule": "ThreadCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "CreatePublicThreads Channel Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".threaddelete",
+        ".thdel",
+        ".thrm"
+      ],
+      "Description": "Delete a thread with the specified name in this channel. Case insensitive.",
+      "Usage": [
+        ".threaddelete Q&A"
+      ],
+      "Submodule": "ThreadCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageThreads Channel Permission"
       ]
     },
     {
@@ -2691,6 +2626,72 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".deafen",
+        ".deaf"
+      ],
+      "Description": "Deafens mentioned user or users.",
+      "Usage": [
+        ".deafen \"@Someguy\"",
+        ".deafen \"@Someguy\" \"@Someguy\""
+      ],
+      "Submodule": "VoiceCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "DeafenMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".undeafen",
+        ".undef"
+      ],
+      "Description": "Undeafens mentioned user or users.",
+      "Usage": [
+        ".undeafen \"@Someguy\"",
+        ".undeafen \"@Someguy\" \"@Someguy\""
+      ],
+      "Submodule": "VoiceCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "DeafenMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".delvoichanl",
+        ".dvch"
+      ],
+      "Description": "Deletes a voice channel with a given name.",
+      "Usage": [
+        ".delvoichanl VoiceChannelName"
+      ],
+      "Submodule": "VoiceCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".creatvoichanl",
+        ".cvch"
+      ],
+      "Description": "Creates a new voice channel with a given name.",
+      "Usage": [
+        ".creatvoichanl VoiceChannelName"
+      ],
+      "Submodule": "VoiceCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
     }
   ],
   "Expressions": [
@@ -3866,136 +3867,6 @@
       "Module": "Gambling",
       "Options": null,
       "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".waifureset"
-      ],
-      "Description": "Resets your waifu stats, except current waifus.",
-      "Usage": [
-        ".waifureset"
-      ],
-      "Submodule": "WaifuClaimCommands",
-      "Module": "Gambling",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".waifuclaims",
-        ".claims",
-        ".wcs"
-      ],
-      "Description": "Shows all of your currently claimed waifus.",
-      "Usage": [
-        ".waifuclaims"
-      ],
-      "Submodule": "WaifuClaimCommands",
-      "Module": "Gambling",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".waifuclaim",
-        ".claim",
-        ".wc"
-      ],
-      "Description": "Claim a waifu for yourself by spending currency.  You must spend at least 10% more than her current value unless she set `.affinity` towards you.",
-      "Usage": [
-        ".waifuclaim 50 @Himesama"
-      ],
-      "Submodule": "WaifuClaimCommands",
-      "Module": "Gambling",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".waifutransfer"
-      ],
-      "Description": "Transfer the ownership of one of your waifus to another user. You must pay 10%  of your waifu's value unless that waifu has affinity towards you, in which case you must pay 60% fee. Transferred waifu's price will be reduced by the fee amount.",
-      "Usage": [
-        ".waifutransfer @ExWaifu @NewOwner"
-      ],
-      "Submodule": "WaifuClaimCommands",
-      "Module": "Gambling",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".divorce"
-      ],
-      "Description": "Releases your claim on a specific waifu. You will get 50% of that waifu's value back, unless that waifu has an affinity towards you, in which case they will be reimbursed instead. 6 hours cooldown.",
-      "Usage": [
-        ".divorce @CheatingSloot"
-      ],
-      "Submodule": "WaifuClaimCommands",
-      "Module": "Gambling",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".affinity",
-        ".waifuaff"
-      ],
-      "Description": "Sets your affinity towards someone you want to be claimed by. Setting affinity will reduce their `.claim` on you by 20%. Provide no parameters to clear your affinity. 30 minutes cooldown.",
-      "Usage": [
-        ".affinity @MyHusband",
-        ".affinity"
-      ],
-      "Submodule": "WaifuClaimCommands",
-      "Module": "Gambling",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".waifulb",
-        ".waifus"
-      ],
-      "Description": "Shows top 9 waifus. You can specify another page to show other waifus.",
-      "Usage": [
-        ".waifulb",
-        ".waifulb 3"
-      ],
-      "Submodule": "WaifuClaimCommands",
-      "Module": "Gambling",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".waifuinfo",
-        ".waifustats"
-      ],
-      "Description": "Shows waifu stats for a target person. Defaults to you if no user is provided.",
-      "Usage": [
-        ".waifuinfo @MyCrush",
-        ".waifuinfo"
-      ],
-      "Submodule": "WaifuClaimCommands",
-      "Module": "Gambling",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".waifugift",
-        ".gift",
-        ".gifts"
-      ],
-      "Description": "Gift an item to a waifu user.\nThe waifu's value will be increased by the percentage of the gift's value.\nYou can optionally prefix the gift with a multiplier to gift the item that many times.\nFor example, 3xRose will give the waifu 3 roses, 10xBread will give the waifu 10 breads. Do not use plural forms.\nNegative gifts will not show up in waifuinfo. \nProvide no parameters to see a list of items that you can gift.",
-      "Usage": [
-        ".waifugift",
-        ".waifugift Rose @Himesama"
-      ],
-      "Submodule": "WaifuClaimCommands",
-      "Module": "Gambling",
-      "Options": null,
-      "Requirements": []
     }
   ],
   "Games": [
@@ -4106,6 +3977,20 @@
     },
     {
       "Aliases": [
+        ".fishspotchange",
+        ".fispch"
+      ],
+      "Description": "Uses a spot change coin to change the fishing spot of this channel.\nThe new spot is random and affects everyone fishing in this channel.",
+      "Usage": [
+        ".fishspotchange"
+      ],
+      "Submodule": "FishingCommands",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".fishlist",
         ".fili",
         ".fishes",
@@ -4136,12 +4021,13 @@
     },
     {
       "Aliases": [
-        ".fishslb",
-        ".fislb"
+        ".fishstarslb",
+        ".fislb",
+        ".fistarslb"
       ],
-      "Description": "Shows the top anglers based on total stars.",
+      "Description": "Shows the fish stars leaderboard.",
       "Usage": [
-        ".fishslb"
+        ".fishstarslb"
       ],
       "Submodule": "FishingCommands",
       "Module": "Games",
@@ -4649,96 +4535,6 @@
       "Requirements": [
         "Bot Owner Only",
         "Only Public Bot"
-      ]
-    }
-  ],
-  "Medusa": [
-    {
-      "Aliases": [
-        ".medusaload",
-        ".meload"
-      ],
-      "Description": "Loads a medusa with the specified name from the data/medusae/ folder.\nProvide no name to see the list of loadable medusae.",
-      "Usage": [
-        ".medusaload mycoolmedusa",
-        ".medusaload"
-      ],
-      "Submodule": "Medusa",
-      "Module": "Medusa",
-      "Options": null,
-      "Requirements": [
-        "Bot Owner Only",
-        "No Public Bot"
-      ]
-    },
-    {
-      "Aliases": [
-        ".medusaunload",
-        ".meunload"
-      ],
-      "Description": "Unloads the previously loaded medusa.\nProvide no name to see the list of unloadable medusae. ",
-      "Usage": [
-        ".medusaunload mycoolmedusa",
-        ".medusaunload"
-      ],
-      "Submodule": "Medusa",
-      "Module": "Medusa",
-      "Options": null,
-      "Requirements": [
-        "Bot Owner Only",
-        "No Public Bot"
-      ]
-    },
-    {
-      "Aliases": [
-        ".medusalist",
-        ".melist"
-      ],
-      "Description": "Lists all loaded and unloaded medusae.",
-      "Usage": [
-        ".medusalist"
-      ],
-      "Submodule": "Medusa",
-      "Module": "Medusa",
-      "Options": null,
-      "Requirements": [
-        "Bot Owner Only",
-        "No Public Bot"
-      ]
-    },
-    {
-      "Aliases": [
-        ".medusainfo",
-        ".meinfo"
-      ],
-      "Description": "Shows information about the specified medusa such as the author, name, description, list of sneks, number of commands etc.\nProvide no name to see the basic information about all loaded medusae. ",
-      "Usage": [
-        ".medusainfo mycoolmedusa",
-        ".medusainfo"
-      ],
-      "Submodule": "Medusa",
-      "Module": "Medusa",
-      "Options": null,
-      "Requirements": [
-        "Bot Owner Only",
-        "No Public Bot"
-      ]
-    },
-    {
-      "Aliases": [
-        ".medusasearch",
-        ".mesearchw"
-      ],
-      "Description": "Searches for medusae online given the search term",
-      "Usage": [
-        ".medusasearch shrine"
-      ],
-      "Submodule": "Medusa",
-      "Module": "Medusa",
-      "Options": null,
-      "Requirements": [
-        "Bot Owner Only",
-        "No Public Bot"
       ]
     }
   ],
@@ -5347,6 +5143,94 @@
       "Module": "Owner",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".medusaload",
+        ".meload"
+      ],
+      "Description": "Loads a medusa with the specified name from the data/medusae/ folder.\nProvide no name to see the list of loadable medusae.",
+      "Usage": [
+        ".medusaload mycoolmedusa",
+        ".medusaload"
+      ],
+      "Submodule": "Medusa",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only",
+        "No Public Bot"
+      ]
+    },
+    {
+      "Aliases": [
+        ".medusaunload",
+        ".meunload"
+      ],
+      "Description": "Unloads the previously loaded medusa.\nProvide no name to see the list of unloadable medusae. ",
+      "Usage": [
+        ".medusaunload mycoolmedusa",
+        ".medusaunload"
+      ],
+      "Submodule": "Medusa",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only",
+        "No Public Bot"
+      ]
+    },
+    {
+      "Aliases": [
+        ".medusalist",
+        ".melist"
+      ],
+      "Description": "Lists all loaded and unloaded medusae.",
+      "Usage": [
+        ".medusalist"
+      ],
+      "Submodule": "Medusa",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only",
+        "No Public Bot"
+      ]
+    },
+    {
+      "Aliases": [
+        ".medusainfo",
+        ".meinfo"
+      ],
+      "Description": "Shows information about the specified medusa such as the author, name, description, list of sneks, number of commands etc.\nProvide no name to see the basic information about all loaded medusae. ",
+      "Usage": [
+        ".medusainfo mycoolmedusa",
+        ".medusainfo"
+      ],
+      "Submodule": "Medusa",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only",
+        "No Public Bot"
+      ]
+    },
+    {
+      "Aliases": [
+        ".medusasearch",
+        ".mesearchw"
+      ],
+      "Description": "Searches for medusae online given the search term",
+      "Usage": [
+        ".medusasearch shrine"
+      ],
+      "Submodule": "Medusa",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only",
+        "No Public Bot"
+      ]
     }
   ],
   "Permissions": [
@@ -5937,284 +5821,6 @@
   "Searches": [
     {
       "Aliases": [
-        ".weather",
-        ".we"
-      ],
-      "Description": "Shows current weather data for the specified city.",
-      "Usage": [
-        ".weather Moscow, RU"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".time"
-      ],
-      "Description": "Shows the current time and timezone in the specified location.",
-      "Usage": [
-        ".time London, UK"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".movie",
-        ".omdb",
-        ".imdb"
-      ],
-      "Description": "Queries omdb for movies or series, show first result.",
-      "Usage": [
-        ".movie Batman vs Superman"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".randomcat",
-        ".meow"
-      ],
-      "Description": "Shows a random cat image.",
-      "Usage": [
-        ".randomcat"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".randomdog",
-        ".woof"
-      ],
-      "Description": "Shows a random dog image.",
-      "Usage": [
-        ".randomdog"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".randomfood",
-        ".yum"
-      ],
-      "Description": "Shows a random food image.",
-      "Usage": [
-        ".randomfood"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".randombird",
-        ".birb",
-        ".bird"
-      ],
-      "Description": "Shows a random bird image.",
-      "Usage": [
-        ".randombird"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".lmgtfy"
-      ],
-      "Description": "Google something for a baka.",
-      "Usage": [
-        ".lmgtfy How to eat a banana"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".shorten"
-      ],
-      "Description": "Attempts to shorten an URL, if it fails, returns the input URL.",
-      "Usage": [
-        ".shorten https://google.com"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".magicthegathering",
-        ".mtg"
-      ],
-      "Description": "Searches for a Magic The Gathering card.",
-      "Usage": [
-        ".magicthegathering about face"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".hearthstone",
-        ".hs"
-      ],
-      "Description": "Searches for a Hearthstone card and shows its image. Takes a while to complete.",
-      "Usage": [
-        ".hearthstone Ysera"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".urbandict",
-        ".ud"
-      ],
-      "Description": "Searches Urban Dictionary for a word.",
-      "Usage": [
-        ".urbandict Pineapple"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".define",
-        ".def"
-      ],
-      "Description": "Finds a definition of a word.",
-      "Usage": [
-        ".define heresy"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".catfact"
-      ],
-      "Description": "Shows a random fact about cats.",
-      "Usage": [
-        ".catfact"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".wiki",
-        ".wikipedia"
-      ],
-      "Description": "Gives you back a wikipedia link",
-      "Usage": [
-        ".wiki query"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".color",
-        ".clr"
-      ],
-      "Description": "Shows you pictures of colors which correspond to the inputted hex values. Max 10.",
-      "Usage": [
-        ".color 00ff00",
-        ".color f00 0f0 00f"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".avatar",
-        ".av"
-      ],
-      "Description": "Shows a mentioned person's avatar.",
-      "Usage": [
-        ".avatar @Someone"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".banner"
-      ],
-      "Description": "Shows a mentioned person's banner.",
-      "Usage": [
-        ".banner @Someone"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".wikia",
-        ".fandom"
-      ],
-      "Description": "Gives you back a fandom link",
-      "Usage": [
-        ".wikia mtg Vigilance",
-        ".wikia mlp Dashy"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".steam"
-      ],
-      "Description": "Returns a store link for a steam game with the specified name. It doesn't work very well because bundles.",
-      "Usage": [
-        ".steam Sakura Agent"
-      ],
-      "Submodule": "Searches",
-      "Module": "Searches",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
         ".anime",
         ".ani",
         ".aq"
@@ -6291,6 +5897,47 @@
     },
     {
       "Aliases": [
+        ".urbandict",
+        ".ud"
+      ],
+      "Description": "Searches Urban Dictionary for a word.",
+      "Usage": [
+        ".urbandict Pineapple"
+      ],
+      "Submodule": "DictionaryCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".define",
+        ".def"
+      ],
+      "Description": "Finds a definition of a word.",
+      "Usage": [
+        ".define heresy"
+      ],
+      "Submodule": "DictionaryCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".catfact"
+      ],
+      "Description": "Shows a random fact about cats.",
+      "Usage": [
+        ".catfact"
+      ],
+      "Submodule": "FactsCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".ytuploadnotif",
         ".yun"
       ],
@@ -6356,6 +6003,47 @@
       "Requirements": [
         "ManageMessages Server Permission"
       ]
+    },
+    {
+      "Aliases": [
+        ".magicthegathering",
+        ".mtg"
+      ],
+      "Description": "Searches for a Magic The Gathering card.",
+      "Usage": [
+        ".magicthegathering about face"
+      ],
+      "Submodule": "GamesCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".hearthstone",
+        ".hs"
+      ],
+      "Description": "Searches for a Hearthstone card and shows its image. Takes a while to complete.",
+      "Usage": [
+        ".hearthstone Ysera"
+      ],
+      "Submodule": "GamesCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".steam"
+      ],
+      "Description": "Returns a store link for a steam game with the specified name. It doesn't work very well because bundles.",
+      "Usage": [
+        ".steam Sakura Agent"
+      ],
+      "Submodule": "GamesCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
     },
     {
       "Aliases": [
@@ -6428,6 +6116,21 @@
     },
     {
       "Aliases": [
+        ".movie",
+        ".omdb",
+        ".imdb"
+      ],
+      "Description": "Queries omdb for movies or series, show first result.",
+      "Usage": [
+        ".movie Batman vs Superman"
+      ],
+      "Submodule": "MovieCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".osu"
       ],
       "Description": "Shows osu! stats for a player.",
@@ -6491,6 +6194,90 @@
         ".pokemonability overgrow"
       ],
       "Submodule": "PokemonSearchCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".avatar",
+        ".av"
+      ],
+      "Description": "Shows a mentioned person's avatar.",
+      "Usage": [
+        ".avatar @Someone"
+      ],
+      "Submodule": "ProfileCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".banner"
+      ],
+      "Description": "Shows a mentioned person's banner.",
+      "Usage": [
+        ".banner @Someone"
+      ],
+      "Submodule": "ProfileCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".randomcat",
+        ".meow"
+      ],
+      "Description": "Shows a random cat image.",
+      "Usage": [
+        ".randomcat"
+      ],
+      "Submodule": "RandomImageCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".randomdog",
+        ".woof"
+      ],
+      "Description": "Shows a random dog image.",
+      "Usage": [
+        ".randomdog"
+      ],
+      "Submodule": "RandomImageCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".randomfood",
+        ".yum"
+      ],
+      "Description": "Shows a random food image.",
+      "Usage": [
+        ".randomfood"
+      ],
+      "Submodule": "RandomImageCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".randombird",
+        ".birb",
+        ".bird"
+      ],
+      "Description": "Shows a random bird image.",
+      "Usage": [
+        ".randombird"
+      ],
+      "Submodule": "RandomImageCommands",
       "Module": "Searches",
       "Options": null,
       "Requirements": []
@@ -6714,6 +6501,19 @@
     },
     {
       "Aliases": [
+        ".time"
+      ],
+      "Description": "Shows the current time and timezone in the specified location.",
+      "Usage": [
+        ".time London, UK"
+      ],
+      "Submodule": "TimeCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".translate",
         ".trans"
       ],
@@ -6789,6 +6589,90 @@
       "Requirements": [
         "ManageChannels Channel Permission"
       ]
+    },
+    {
+      "Aliases": [
+        ".lmgtfy"
+      ],
+      "Description": "Google something for a baka.",
+      "Usage": [
+        ".lmgtfy How to eat a banana"
+      ],
+      "Submodule": "UtilityCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".shorten"
+      ],
+      "Description": "Attempts to shorten an URL, if it fails, returns the input URL.",
+      "Usage": [
+        ".shorten https://google.com"
+      ],
+      "Submodule": "UtilityCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".color",
+        ".clr"
+      ],
+      "Description": "Shows you pictures of colors which correspond to the inputted hex values. Max 10.",
+      "Usage": [
+        ".color 00ff00",
+        ".color f00 0f0 00f"
+      ],
+      "Submodule": "UtilityCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".weather",
+        ".we"
+      ],
+      "Description": "Shows current weather data for the specified city.",
+      "Usage": [
+        ".weather Moscow, RU"
+      ],
+      "Submodule": "WeatherCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".wiki",
+        ".wikipedia"
+      ],
+      "Description": "Gives you back a wikipedia link",
+      "Usage": [
+        ".wiki query"
+      ],
+      "Submodule": "WikiCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".wikia",
+        ".fandom"
+      ],
+      "Description": "Gives you back a fandom link",
+      "Usage": [
+        ".wikia mtg Vigilance",
+        ".wikia mlp Dashy"
+      ],
+      "Submodule": "WikiCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
     },
     {
       "Aliases": [
@@ -7148,6 +7032,20 @@
         ".snipe"
       ],
       "Submodule": "Utility",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".hands",
+        ".raisedhands"
+      ],
+      "Description": "Shows currently raised hands in chronological order from your current voice channel.",
+      "Usage": [
+        ".hands"
+      ],
+      "Submodule": "HandsCommands",
       "Module": "Utility",
       "Options": null,
       "Requirements": []
@@ -7535,6 +7433,121 @@
       "Options": null,
       "Requirements": [
         "ManageChannels Channel Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lineup",
+        ".ljoin",
+        ".linejoin"
+      ],
+      "Description": "Adds you to the lineup for the current channel.\nYou can optionally specify a reason.",
+      "Usage": [
+        ".lineup",
+        ".lineup Ready to play"
+      ],
+      "Submodule": "LineUpCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lineupleave",
+        ".lleave",
+        ".lineleave"
+      ],
+      "Description": "Removes you from the lineup for the current channel.",
+      "Usage": [
+        ".lineupleave"
+      ],
+      "Submodule": "LineUpCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lineuplist",
+        ".llist",
+        ".linelist"
+      ],
+      "Description": "Lists all users currently in the lineup for the current channel.",
+      "Usage": [
+        ".lineuplist"
+      ],
+      "Submodule": "LineUpCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lineupnext",
+        ".lnext",
+        ".linenext"
+      ],
+      "Description": "Calls the next user in the lineup for the current channel.\nRemoves the called user from the lineup.",
+      "Usage": [
+        ".lineupnext"
+      ],
+      "Submodule": "LineUpCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lineupcreate",
+        ".lcreate",
+        ".linecreate"
+      ],
+      "Description": "Initializes the lineup feature in the current channel.\nThis command usually doesn't need to be run manually.",
+      "Usage": [
+        ".lineupcreate"
+      ],
+      "Submodule": "LineUpCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lineupremove",
+        ".lrem",
+        ".lineremove"
+      ],
+      "Description": "Removes a specified user from the lineup.",
+      "Usage": [
+        ".lineupremove @User",
+        ".lineupremove 123456789012345678"
+      ],
+      "Submodule": "LineUpCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lineupclear",
+        ".lclear",
+        ".lineclear"
+      ],
+      "Description": "Clears the entire lineup for the current channel.",
+      "Usage": [
+        ".lineupclear"
+      ],
+      "Submodule": "LineUpCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
       ]
     },
     {
@@ -8408,6 +8421,193 @@
       "Requirements": []
     }
   ],
+  "WnHCommands": [
+    {
+      "Aliases": [
+        ".waifu",
+        ".w"
+      ],
+      "Description": "Shows waifu/hubby information including stats, fans, and returns.\nIf you're a fan and use it without arguments, it shows your target waifu's card.",
+      "Usage": [
+        ".waifu",
+        ".waifu @user"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifufans",
+        ".wfans"
+      ],
+      "Description": "Shows all fans backing a waifu and their bank balances.",
+      "Usage": [
+        ".waifufans",
+        ".waifufans @user"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifuleaderboard",
+        ".wlb"
+      ],
+      "Description": "Shows top waifus ranked by realized return rate over the last 8 cycles.",
+      "Usage": [
+        ".waifuleaderboard"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifuoptin",
+        ".woptin"
+      ],
+      "Description": "Opts you into the waifu system. Costs 10,000.\nYou must not be backing anyone to opt in.",
+      "Usage": [
+        ".waifuoptin"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifuoptout",
+        ".woptout"
+      ],
+      "Description": "Opts you out of the waifu system. You must have no fans backing you.",
+      "Usage": [
+        ".waifuoptout"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifuback",
+        ".wback"
+      ],
+      "Description": "Toggle fan backing. With a user argument, backs that waifu (or switches).\nWithout arguments, stops backing (with confirmation).\nWaifus can't back other waifus.",
+      "Usage": [
+        ".waifuback @user",
+        ".waifuback"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifubuy",
+        ".wbuy"
+      ],
+      "Description": "Buys the manager position for a waifu. Must be a fan of the target.\nCosts 115% of the current price. Only available in the first 18h of a cycle.\n90% goes to old manager, 5% to waifu, 5% burned.",
+      "Usage": [
+        ".waifubuy @user"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifufee",
+        ".wfee"
+      ],
+      "Description": "Sets your waifu fee (1-5%). You must be opted in as a waifu.",
+      "Usage": [
+        ".waifufee 3"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".hug"
+      ],
+      "Description": "Hugs a waifu to improve their mood.",
+      "Usage": [
+        ".hug @user"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".kiss"
+      ],
+      "Description": "Kisses a waifu to improve their mood.",
+      "Usage": [
+        ".kiss @user"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pat"
+      ],
+      "Description": "Pats a waifu to improve their mood.",
+      "Usage": [
+        ".pat @user"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifugiftshop",
+        ".wgiftshop",
+        ".wgs"
+      ],
+      "Description": "Shows today's available gift items. Items rotate daily at 00:00 UTC.",
+      "Usage": [
+        ".waifugiftshop"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifugift",
+        ".wgift",
+        ".wg"
+      ],
+      "Description": "Give a gift to a waifu to increase their mood or food stats.",
+      "Usage": [
+        ".waifugift cookie @user",
+        ".waifugift 3x rose @user"
+      ],
+      "Submodule": "WnHCommands",
+      "Module": "WnHCommands",
+      "Options": null,
+      "Requirements": []
+    }
+  ],
   "Xp": [
     {
       "Aliases": [
@@ -8520,10 +8720,9 @@
     },
     {
       "Aliases": [
-        ".xpowned",
-        ".xpo"
+        ".xpowned"
       ],
-      "Description": "Shows a list of your owned xp backgrounds and frames.",
+      "Description": "Shows all xp shop items you currently own.",
       "Usage": [
         ".xpowned"
       ],

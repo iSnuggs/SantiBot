@@ -1,0 +1,13 @@
+feed:
+  - feed
+  - feedadd
+feedlist:
+  - feedlist
+  - feeds
+feedremove:
+  - feedremove
+  - feedrm
+  - feeddel
+ytuploadnotif:
+  - ytuploadnotif
+  - yun

@@ -12,6 +12,7 @@ namespace Ayu.Discord.Gateway
         private ClientWebSocket? _ws;
 
         public event Func<byte[], Task>? PayloadReceived = delegate { return Task.CompletedTask; };
+        public event Func<byte[], Task>? BinaryPayloadReceived = delegate { return Task.CompletedTask; };
         public event Func<string, Task>? WebsocketClosed = delegate { return Task.CompletedTask; };
 
         const int CHUNK_SIZE = 1024 * 16;
@@ -40,13 +41,20 @@ namespace Ayu.Discord.Gateway
 
                         if (result.EndOfMessage)
                         {
-                            var pr = PayloadReceived;
                             var data = bufferWriter.WrittenMemory.ToArray();
                             bufferWriter.Clear();
 
-                            if (pr is not null)
+                            if (result.MessageType == WebSocketMessageType.Binary)
                             {
-                                await pr.Invoke(data);
+                                var bpr = BinaryPayloadReceived;
+                                if (bpr is not null)
+                                    await bpr.Invoke(data);
+                            }
+                            else
+                            {
+                                var pr = PayloadReceived;
+                                if (pr is not null)
+                                    await pr.Invoke(data);
                             }
                         }
                     }
@@ -143,6 +151,7 @@ namespace Ayu.Discord.Gateway
         public void Dispose()
         {
             PayloadReceived = null;
+            BinaryPayloadReceived = null;
             WebsocketClosed = null;
             var ws = _ws;
             if (ws is null)

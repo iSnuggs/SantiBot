@@ -1,6 +1,5 @@
 ﻿#nullable disable
 using NadekoBot.Common.Yml;
-using Cloneable;
 
 namespace NadekoBot.Common;
 

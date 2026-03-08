@@ -1,0 +1,3 @@
+bot_nick: Bot's nickname changed to {0}
+nick_removed: Nickname of the user {0} was removed.
+user_nick: Nickname of the user {0} changed to {1}

@@ -3,10 +3,8 @@ using CodeHollow.FeedReader;
 using CodeHollow.FeedReader.Feeds;
 using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
-using System.Collections.Concurrent;
 
 namespace NadekoBot.Modules.Searches.Services;
 

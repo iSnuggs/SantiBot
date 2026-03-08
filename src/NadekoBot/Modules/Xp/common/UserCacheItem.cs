@@ -1,6 +1,4 @@
 #nullable disable warnings
-using Cloneable;
-
 namespace NadekoBot.Modules.Xp.Services;
 
 [Cloneable]

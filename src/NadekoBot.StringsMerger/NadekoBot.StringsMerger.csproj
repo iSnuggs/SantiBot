@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+<!--        <OutputPath>$(MSBuildThisFileDirectory)/../src/NadekoBot/merger</OutputPath>-->
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="Microsoft.Build.Framework" Version="17.13.9" />
+        <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.13.9" />
+        <PackageReference Include="YamlDotNet" Version="15.1.6" />
+    </ItemGroup>
+    
+</Project>

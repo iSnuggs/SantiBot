@@ -1,0 +1,16 @@
+pokemon:
+  desc: Searches for a pokemon.
+  ex:
+    - Sylveon
+  params:
+    - pokemon:
+        desc: The name of the Pokémon to search for.
+pokemonability:
+  desc: Searches for a pokemon ability.
+  ex:
+    - overgrow
+  params:
+    - ability:
+        desc: >-
+          The type of the Pokémon's special power or trait that can be used in
+          battle.

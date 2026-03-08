@@ -121,7 +121,7 @@ public class AdministrationService : INService, IReadyExecutor
         return gc.DeleteMessageOnCommand;
     }
 
-    public async Task SetDelMsgOnCmdState(ulong guildId, ulong chId, Administration.State newState)
+    public async Task SetDelMsgOnCmdState(ulong guildId, ulong chId, State newState)
     {
         await using (var uow = _db.GetDbContext())
         {
@@ -129,7 +129,7 @@ public class AdministrationService : INService, IReadyExecutor
                 .Where(x => x.GuildId == guildId && x.ChannelId == chId)
                 .FirstOrDefaultAsyncLinqToDB();
 
-            if (newState == Administration.State.Inherit)
+            if (newState == State.Inherit)
             {
                 if (old is not null)
                 {
@@ -144,22 +144,22 @@ public class AdministrationService : INService, IReadyExecutor
                     {
                         GuildId = guildId,
                         ChannelId = chId,
-                        State = newState == Administration.State.Enable
+                        State = newState == State.Enable
                     };
                     uow.Add(old);
                 }
 
-                old.State = newState == Administration.State.Enable;
-                _delMsgOnCmdChannels[chId] = newState == Administration.State.Enable;
+                old.State = newState ==  State.Enable;
+                _delMsgOnCmdChannels[chId] = newState == State.Enable;
             }
 
             await uow.SaveChangesAsync();
         }
 
-        if (newState == Administration.State.Disable)
+        if (newState == State.Disable)
         {
         }
-        else if (newState == Administration.State.Enable)
+        else if (newState == State.Enable)
         {
             _delMsgOnCmdChannels[chId] = true;
         }

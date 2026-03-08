@@ -1,0 +1,19 @@
+repeat:
+  - repeat
+repeatinvoke:
+  - repeatinvoke
+  - repinv
+repeatlist:
+  - repeatlist
+  - replst
+  - replist
+  - repli
+repeatredundant:
+  - repeatredun
+  - repred
+repeatremove:
+  - repeatremove
+  - reprm
+repeatskip:
+  - repeatskip
+  - repski

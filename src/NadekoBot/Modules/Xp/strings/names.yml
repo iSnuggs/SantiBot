@@ -1,0 +1,38 @@
+experience:
+  - experience
+  - xp
+xpadd:
+  - xpadd
+xpcurrencyreward:
+  - xpcurreward
+  - xpcr
+xpleaderboard:
+  - xpleaderboard
+  - xplb
+xplevelset:
+  - xplevelset
+xpleveluprewards:
+  - xplvluprewards
+  - xprews
+  - xpcrs
+  - xprrs
+  - xprolerewards
+  - xpcurrewards
+xpreset:
+  - xpreset
+xprewsreset:
+  - xprewsreset
+xprolereward:
+  - xprolereward
+  - xprr
+xpshop:
+  - xpshop
+xpshopbuy:
+  - xpshopbuy
+xpshopuse:
+  - xpshopuse
+xpowned:
+  - xpowned
+xptemplatereload:
+  - xptempreload
+  - xptr

@@ -8,10 +8,6 @@ namespace NadekoBot.Services;
 
 public class Localization : ILocalization, IReadyExecutor, INService
 {
-    private static readonly Dictionary<string, CommandData> _commandData =
-        JsonConvert.DeserializeObject<Dictionary<string, CommandData>>(
-            File.ReadAllText("./strings/commands/commands.en-US.json"));
-
     private ConcurrentDictionary<ulong, CultureInfo> _guildCultureInfos = [];
 
     public IDictionary<ulong, CultureInfo> GuildCultureInfos
@@ -84,23 +80,6 @@ public class Localization : ILocalization, IReadyExecutor, INService
             return _bss.Data.DefaultLocale;
 
         return info;
-    }
-
-    public static CommandData LoadCommand(string key)
-    {
-        _commandData.TryGetValue(key, out var toReturn);
-
-        if (toReturn is null)
-        {
-            return new()
-            {
-                Cmd = key,
-                Desc = key,
-                Usage = [key]
-            };
-        }
-
-        return toReturn;
     }
 
     public async Task OnReadyAsync()

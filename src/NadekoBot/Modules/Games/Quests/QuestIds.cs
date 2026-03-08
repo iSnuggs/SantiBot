@@ -12,5 +12,6 @@ public enum QuestIds
     CheckBetting,
     PlantPick,
     GiveFlowers,
-    WellInformed
+    WellInformed,
+    BetFlowers,
 }

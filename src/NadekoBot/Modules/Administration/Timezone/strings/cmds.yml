@@ -1,0 +1,18 @@
+timezone:
+  desc: >-
+    Sets this guilds timezone. This affects bot's time output in this server
+    (logs, etc..) **Setting timezone requires Administrator server permission.**
+  ex:
+    - ''
+    - GMT Standard Time
+  params:
+    - {}
+    - id:
+        desc: The identifier for a specific timezone region.
+timezones:
+  desc: Lists all timezones available on the system to be used with `{0}timezone`.
+  ex:
+    - ''
+  params:
+    - page:
+        desc: The number of pages to retrieve from the list of available timezones.

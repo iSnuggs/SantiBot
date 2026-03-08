@@ -1,0 +1,34 @@
+dmcommand:
+  desc: Toggles whether a command can be used in DMs.
+  ex:
+    - '{0}stats'
+  params:
+    - cmd:
+        desc: The command or expression being toggled.
+dmmodule:
+  desc: Toggles whether a module can be used in DMs.
+  ex:
+    - Gambling
+  params:
+    - module:
+        desc: The module being toggled.
+globalcommand:
+  desc: Toggles whether a command can be used on any server.
+  ex:
+    - '{0}stats'
+  params:
+    - cmd:
+        desc: The command or expression being toggled.
+globalmodule:
+  desc: Toggles whether a module can be used on any server.
+  ex:
+    - Gambling
+  params:
+    - module:
+        desc: The module being toggled.
+globalpermlist:
+  desc: Lists global permissions set by the bot owner.
+  ex:
+    - ''
+  params:
+    - {}
