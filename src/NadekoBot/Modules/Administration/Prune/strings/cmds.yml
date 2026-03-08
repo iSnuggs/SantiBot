@@ -1,0 +1,49 @@
+prune:
+  desc: >-
+    `{0}prune` removes all Nadeko's messages in the last 100 messages. `{0}prune
+    X` removes last `X` number of messages from the channel (up to 100).
+    `{0}prune @Someone` removes all Someone's messages in the last 100 messages.
+    `{0}prune @Someone X` removes last `X` number of 'Someone's' messages in the
+    channel.
+  ex:
+    - ''
+    - '-s'
+    - 5
+    - 5 --safe
+    - '@Someone'
+    - '@Someone --safe'
+    - '@Someone X'
+    - '@Someone X -s'
+  params:
+    - params:
+        desc: >-
+          The list of users, channels or message counts to be removed from the
+          conversation history.
+    - count:
+        desc: The number of messages to remove from the channel or user's messages.
+      params:
+        desc: >-
+          The list of users, channels or message counts to be removed from the
+          conversation history.
+    - count:
+        desc: The number of messages to remove from the channel or user's messages.
+      params:
+        desc: >-
+          The list of users, channels or message counts to be removed from the
+          conversation history.
+      user:
+        desc: The user whose messages are to be removed from the channel.
+    - count:
+        desc: The number of messages to remove from the channel or user's messages.
+      params:
+        desc: >-
+          The list of users, channels or message counts to be removed from the
+          conversation history.
+      userId:
+        desc: The ID of a user to filter messages by.
+prunecancel:
+  desc: Cancels an active prune if there is any.
+  ex:
+    - ''
+  params:
+    - {}

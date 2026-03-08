@@ -3,7 +3,7 @@
 namespace NadekoBot.Modules.Owner;
 
 [OwnerOnly]
-public class Owner(VoteRewardService vrs) : NadekoModule
+public partial class Owner(VoteRewardService vrs) : NadekoModule
 {
     [Cmd]
     public async Task VoteFeed()

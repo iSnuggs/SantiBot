@@ -1,0 +1,6 @@
+catfact:
+  desc: Shows a random fact about cats.
+  ex:
+    - ''
+  params:
+    - {}

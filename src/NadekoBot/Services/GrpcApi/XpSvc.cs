@@ -1,9 +1,4 @@
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using NadekoBot.Db.Models;
-using NadekoBot.Modules.Gambling.Bank;
-using NadekoBot.Modules.NadekoExpressions;
-using NadekoBot.Modules.Utility;
 using NadekoBot.Modules.Xp.Services;
 
 namespace NadekoBot.GrpcApi;

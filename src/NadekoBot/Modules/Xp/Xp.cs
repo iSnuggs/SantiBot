@@ -1,7 +1,6 @@
 #nullable disable warnings
 using NadekoBot.Modules.Xp.Services;
 using NadekoBot.Db.Models;
-using NadekoBot.Modules.Patronage;
 
 namespace NadekoBot.Modules.Xp;
 

@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace NadekoBot.Modules.Searches;
+﻿namespace NadekoBot.Modules.Searches;
 
 public sealed class NasdaqSummaryResponse
 {

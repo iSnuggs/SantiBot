@@ -1,0 +1,116 @@
+quoteadd:
+  desc: Adds a new quote with the specified name and message.
+  ex:
+    - sayhi Hi
+  params:
+    - keyword:
+        desc: The name of the quote used to retrieve the quote.
+      text:
+        desc: The message of the quote.
+quotedelete:
+  desc: >-
+    Deletes a quote with the specified ID. You have to either have the Manage
+    Messages permission or be the creator of the quote to delete it.
+  ex:
+    - 123456
+  params:
+    - quoteId:
+        desc: The id of the quote being deleted.
+quotedeleteauthor:
+  desc: >-
+    Deletes all quotes by the specified author. If the author is not you, then
+    ManageMessage server permission is required.
+  ex:
+    - '@QuoteSpammer'
+  params:
+    - user:
+        desc: The user whose quotes are to be deleted.
+    - userId:
+        desc: The ID of the user whose quotes are to be deleted.
+quoteedit:
+  desc: Edits a quote with the specified ID.
+  ex:
+    - 55 This is the new response.
+  params:
+    - quoteId:
+        desc: The ID of the quote being edited.
+      text:
+        desc: The new message of the quote.
+quoteid:
+  desc: '-| Displays the quote with the specified ID number.'
+  ex:
+    - 123456
+  params:
+    - quoteId:
+        desc: The id of the quote to be displayed.
+quotelist:
+  desc: Lists all quotes on the server ordered alphabetically or by ID. 15 Per page.
+  ex:
+    - 3
+    - 3 id
+  params:
+    - order:
+        desc: >-
+          The order parameter determines how the quotes are sorted and
+          displayed, allowing users to choose between alphabetical or ID-based
+          ordering.
+    - order:
+        desc: >-
+          The order parameter determines how the quotes are sorted and
+          displayed, allowing users to choose between alphabetical or ID-based
+          ordering.
+      page:
+        desc: The current page number for pagination.
+quoteprint:
+  desc: Prints a random quote with a specified name.
+  ex:
+    - abc
+  params:
+    - keyword:
+        desc: The author or origin of the quote being printed.
+quotesdeleteall:
+  desc: Deletes all quotes with the specified keyword.
+  ex:
+    - kek
+  params:
+    - keyword:
+        desc: The keyword/trigger of the quotes to be deleted.
+quotesearch:
+  desc: >-
+    Shows a random quote given a search query. Partially matches in several
+    ways: 1) Only content of any quote, 2) only by author, 3) keyword and
+    content, 3) or keyword and author
+  ex:
+    - '"find this long text"'
+    - AuthorName
+    - keyword some text
+    - keyword AuthorName
+  params:
+    - textOrAuthor:
+        desc: The search term to find a matching quote.
+    - keyword:
+        desc: The search term to look for in the quote's content.
+      textOrAuthor:
+        desc: The search term to find a matching quote.
+quotesexport:
+  desc: Exports quotes from the current server into a .yml file
+  ex:
+    - ''
+  params:
+    - {}
+quoteshow:
+  desc: Shows information about a quote with the specified ID.
+  ex:
+    - 123
+  params:
+    - quoteId:
+        desc: The id of the quote being queried.
+quotesimport:
+  desc: >-
+    Upload the file or send the raw .yml data with this command to import all
+    quotes from the specified string or file into the current server.
+  ex:
+    - <upload .yml file>
+  params:
+    - input:
+        desc: The path to a file containing the YAML data to be imported.

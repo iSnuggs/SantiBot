@@ -1,3 +1,4 @@
+using System.Reflection;
 using NadekoBot.Common.Yml;
 using YamlDotNet.Serialization;
 
@@ -10,9 +11,10 @@ public static class CommandNameLoadHelper
     private static readonly Lazy<Dictionary<string, string[]>> _lazyCommandAliases
         = new(() => LoadAliases());
 
-    public static Dictionary<string, string[]> LoadAliases(string aliasesFilePath = "strings/aliases.yml")
+    public static Dictionary<string, string[]> LoadAliases(string aliasesFilePath = "strings/names.yml")
     {
-        var text = File.ReadAllText(aliasesFilePath);
+        var loc = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+        var text = File.ReadAllText(Path.Combine(loc, aliasesFilePath));
         return _deserializer.Deserialize<Dictionary<string, string[]>>(text);
     }
 

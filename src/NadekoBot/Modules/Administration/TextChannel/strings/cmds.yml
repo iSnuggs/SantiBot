@@ -1,0 +1,28 @@
+creatxtchanl:
+  desc: Creates a new text channel with a given name.
+  ex:
+    - TextChannelName
+  params:
+    - channelName:
+        desc: The name of the new channel to be created.
+deltxtchanl:
+  desc: Deletes a text channel with a given name.
+  ex:
+    - TextChannelName
+  params:
+    - toDelete:
+        desc: The channel to be deleted, specified by its object reference.
+setchanlname:
+  desc: Changes the name of the current channel.
+  ex:
+    - NewName
+  params:
+    - name:
+        desc: The new name for the channel.
+settopic:
+  desc: Sets a topic on the current channel.
+  ex:
+    - My new topic
+  params:
+    - topic:
+        desc: The new topic for discussion on the channel.

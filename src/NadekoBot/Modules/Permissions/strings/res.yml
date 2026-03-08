@@ -1,0 +1,31 @@
+acm_disable: Disabled usage of ALL MODULES on channel {0}.
+acm_enable: Enabled usage of ALL MODULES on channel {0}.
+arm_disable: Disabled usage of ALL MODULES for role {0}.
+arm_enable: Enabled usage of ALL MODULES for role {0}.
+asm_disable: Disabled usage of ALL MODULES on this server.
+asm_enable: Enabled usage of ALL MODULES on this server.
+aum_disable: Disabled usage of ALL MODULES for user {0}.
+aum_enable: Enabled usage of ALL MODULES for user {0}.
+cx_disable: Disabled usage of {0} {1} on channel {2}.
+cx_enable: Enabled usage of {0} {1} on channel {2}.
+global_perms_reset: Global permissions have been reset.
+moved_permission: 'Moved permission {0} from #{1} to #{2}'
+of_command: command
+of_module: module
+perm_not_found: 'Can''t find permission at index #{0}'
+perm_out_of_range: No permission found on that index.
+permrole: Current permissions role is {0}.
+permrole_changed: Users now require {0} role in order to edit permissions.
+permrole_not_set: Permission role is not set.
+permrole_reset: Permission role is reset.
+perms_reset: Permissions for this server are reset.
+removed: 'removed permission #{0} - {1}'
+rx_disable: Disabled usage of {0} {1} for {2} role.
+rx_enable: Enabled usage of {0} {1} for {2} role.
+sx_disable: Disabled usage of {0} {1} on this server.
+sx_enable: Enabled usage of {0} {1} on this server.
+uneditable: uneditable
+ux_disable: Disabled usage of {0} {1} for {2} user.
+ux_enable: Enabled usage of {0} {1} for {2} user.
+verbose_false: I will no longer show permission warnings.
+verbose_true: I will now show permission warnings.

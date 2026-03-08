@@ -333,8 +333,6 @@ public sealed class MedusaLoaderService : IMedusaLoaderService, IReadyExecutor, 
         strings = MedusaStrings.CreateDefault(dir);
         var ctx = new MedusaAssemblyLoadContext(path);
         var a = ctx.LoadFromAssemblyPath(Path.GetFullPath(path));
-        // ctx.LoadDependencies(a);
-
         iocModule = null;
         // load services
         try
@@ -661,8 +659,6 @@ public sealed class MedusaLoaderService : IMedusaLoaderService, IReadyExecutor, 
                     si.Instance.Name);
             }
         }
-
-        // medusae = null;
     }
 
     [MethodImpl(MethodImplOptions.NoInlining)]
@@ -696,10 +692,6 @@ public sealed class MedusaLoaderService : IMedusaLoaderService, IReadyExecutor, 
     }
 
     private static readonly Type _snekType = typeof(Snek);
-
-    // [MethodImpl(MethodImplOptions.NoInlining)]
-    // private MedusaIoCKernelModule LoadMedusaServicesInternal(string name, Assembly a)
-    //     => new MedusaIoCKernelModule(name, a);
 
 
     [MethodImpl(MethodImplOptions.NoInlining)]

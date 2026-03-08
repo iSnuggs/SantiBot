@@ -1,0 +1,18 @@
+setserverbanner:
+  desc: >-
+    Sets a new banner image for the current server. Parameter is a direct link
+    to an image.
+  ex:
+    - https://i.imgur.com/xTG3a1I.jpg
+  params:
+    - img:
+        desc: The URL of the image file to be displayed as the bot's banner.
+setservericon:
+  desc: >-
+    Sets a new icon image for the current server. Parameter is a direct link to
+    an image.
+  ex:
+    - https://i.imgur.com/xTG3a1I.jpg
+  params:
+    - img:
+        desc: The URL of the image file to be displayed as the bot's banner.

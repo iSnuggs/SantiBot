@@ -1,0 +1,16 @@
+filter_word_add: Added word {0} to the list of filtered words.
+filter_word_list: List of filtered words
+filter_word_remove: Removed word {0} from the list of filtered words.
+fw_cleared: Removed all filtered words and filtered words channel settings.
+invite_filter_channel_off: Invite filtering disabled on this channel.
+invite_filter_channel_on: Invite filtering enabled on this channel.
+invite_filter_server_off: Invite filtering disabled on this server.
+invite_filter_server_on: Invite filtering enabled on this server.
+link_filter_channel_off: Link filtering disabled on this channel.
+link_filter_channel_on: Link filtering enabled on this channel.
+link_filter_server_off: Link filtering disabled on this server.
+link_filter_server_on: Link filtering enabled on this server.
+word_filter_channel_off: Word filtering disabled on this channel.
+word_filter_channel_on: Word filtering enabled on this channel.
+word_filter_server_off: Word filtering disabled on this server.
+word_filter_server_on: Word filtering enabled on this server.

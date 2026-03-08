@@ -12,5 +12,8 @@ namespace NadekoBot.Voice.Models
 
         [JsonProperty("token")]
         public string Token { get; set; }
+
+        [JsonProperty("seq_ack")]
+        public int SeqAck { get; set; } = -1;
     }
 }

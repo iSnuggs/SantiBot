@@ -1,0 +1,34 @@
+lineup:
+  - lineup
+  - ljoin
+  - linejoin
+
+lineupleave:
+  - lineupleave
+  - lleave
+  - lineleave
+
+lineuplist:
+  - lineuplist
+  - llist
+  - linelist
+
+lineupnext:
+  - lineupnext
+  - lnext
+  - linenext
+
+lineupcreate:
+  - lineupcreate
+  - lcreate
+  - linecreate
+
+lineupremove:
+  - lineupremove
+  - lrem
+  - lineremove
+
+lineupclear:
+  - lineupclear
+  - lclear
+  - lineclear

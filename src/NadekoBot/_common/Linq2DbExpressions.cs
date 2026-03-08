@@ -1,6 +1,5 @@
 ﻿#nullable disable
 using LinqToDB;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace NadekoBot.Common;

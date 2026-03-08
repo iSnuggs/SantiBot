@@ -1,0 +1,7 @@
+time:
+  desc: Shows the current time and timezone in the specified location.
+  ex:
+    - London, UK
+  params:
+    - query:
+        desc: The city or region for which to display the current time and timezone.

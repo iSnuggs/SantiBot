@@ -1,0 +1,52 @@
+afk_set: AFK message set. Type a message in any channel to clear.
+author: Author
+botid: Bot ID
+channel_topic: Channel topic
+channelid: '{0} of this channel is {1}'
+commands_ran: Commands ran
+config_edit_fail: Failed setting {0} to the value {1}
+config_list: Config list
+config_not_found: Configuration {0} not found
+config_prop_not_found: Property {0} not found on {1} configuration
+emoji_add_error: >-
+  Error adding emoji. You either ran out of emoji slots, or image size is
+  inadequate.
+emoji_added: 'Added a new emoji: {0}'
+emoji_slots_full_retry_gif: All image emoji slots are full. Would you like to retry as an animated GIF instead?
+emoji_not_removed: 'The following emojis were not removed: {0}'
+inrole_list: List of users in {0} role ({1})
+invalid_emoji_link: Specified link is either not an image or exceeds 256KB.
+listservers: |-
+  ID: {0}
+  Members: {1}
+  Owner ID: {2}
+listservers_none: No servers found on that page.
+memory: Memory
+messages: Messages
+no_roles_on_page: No roles on this page.
+no_topic_set: No topic set.
+nobody_playing_game: Nobody is playing that game.
+owner_ids: Owner IDs
+presence: Presence
+presence_txt: |-
+  {0} Servers
+  {1} Text Channels
+  {2} Voice Channels
+roleid: '{0} of the role {1} is {2}'
+roles_all_page: 'Page #{0} of all roles on this server:'
+roles_page: 'Page #{0} of roles for {1}'
+server_color_set: Successfully set a new server color.
+serverid: '{0} of this server is {1}'
+shard: Shard
+showemojis: '**Name:** {0} **Link:** {1}'
+showemojis_none: No special emojis found.
+sniped_by: Sniped by {0}
+sticker_error: >-
+  You must either send a sticker along with this command, or upload a 300x300
+  .png or .apng image. Up to 512KB in size.
+uptime: Uptime
+user_afk: User {0} is AFK.
+userid: '{0} of the user {1} is {2}'
+verbose_errors_disabled: Incorrectly used commands will no longer show errors.
+verbose_errors_enabled: Incorrectly used commands will now show errors.
+whos_playing_game: '{0} users are playing {1}'

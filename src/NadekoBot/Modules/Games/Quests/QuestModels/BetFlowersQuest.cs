@@ -3,7 +3,7 @@
 public sealed class BetFlowersQuest : IQuest
 {
     public QuestIds QuestId
-        => QuestIds.Bet;
+        => QuestIds.BetFlowers;
 
     public string Name
         => "Flower Gambler";

@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
 using NadekoBot.Modules.Patronage;
-using Newtonsoft.Json.Linq;
 
 namespace NadekoBot.Modules.Utility.LiveChannel;
 

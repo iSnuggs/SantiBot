@@ -1,0 +1,23 @@
+channelinfo:
+  - channelinfo
+  - cinfo
+invitecreate:
+  - invitecreate
+  - invcr
+invitedelete:
+  - invitedelete
+  - invrm
+  - invdel
+invitelist:
+  - invitelist
+  - invlist
+  - invlst
+roleinfo:
+  - roleinfo
+  - rinfo
+serverinfo:
+  - serverinfo
+  - sinfo
+userinfo:
+  - userinfo
+  - uinfo

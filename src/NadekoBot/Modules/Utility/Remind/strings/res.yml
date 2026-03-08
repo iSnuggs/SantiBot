@@ -1,0 +1,14 @@
+cant_read_or_send: You can't read from or send messages to that channel.
+date2: Date
+remind_invalid: >-
+  Not a valid remind format. Remind must have a target, timer and a reason.
+  Check the command list.
+remind_too_long: Remind time has exceeded maximum.
+reminder_created: Reminder Created
+reminder_deleted: 'Reminder #{0} was deleted.'
+reminder_list: List of reminders
+reminder_not_exist: Reminder at that index does not exist.
+reminder_server_list: List of server reminders
+reminders_none: No reminder on this page.
+when: When
+who_where: Who / Where

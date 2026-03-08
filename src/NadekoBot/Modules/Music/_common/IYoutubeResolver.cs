@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace NadekoBot.Modules.Music;
+﻿namespace NadekoBot.Modules.Music;
 
 public interface IYoutubeResolver : IPlatformQueryResolver
 {

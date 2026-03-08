@@ -242,6 +242,62 @@ public sealed class FishItemService(
             .Where(x => x.UserId == userId && x.ExpiresAt.HasValue && x.ExpiresAt < now)
             .DeleteAsync();
     }
+
+    /// <summary>
+    /// Uses a spot coin to change the fishing spot of a channel.
+    /// </summary>
+    public async Task<UseSpotCoinResult> UseSpotCoinAsync(ulong userId, ulong channelId)
+    {
+        await using var ctx = db.GetDbContext();
+        await using var tr = await ctx.Database.BeginTransactionAsync();
+        try
+        {
+            var userItem = await ctx.GetTable<UserFishItem>()
+                .Where(x => x.UserId == userId && x.ItemType == FishItemType.SpotCoin)
+                .FirstOrDefaultAsyncLinqToDB();
+
+            if (userItem is null)
+                return UseSpotCoinResult.NotOwned;
+
+            var currentSpot = await ctx.GetTable<ChannelSpotOverride>()
+                .Where(x => x.ChannelId == channelId)
+                .Select(x => (FishingSpot?)x.Spot)
+                .FirstOrDefaultAsyncLinqToDB();
+
+            var spots = Enum.GetValues<FishingSpot>()
+                .Where(s => s != currentSpot)
+                .ToList();
+
+            var newSpot = spots[Random.Shared.Next(spots.Count)];
+
+            await ctx.GetTable<ChannelSpotOverride>()
+                .InsertOrUpdateAsync(
+                    () => new ChannelSpotOverride { ChannelId = channelId, Spot = newSpot },
+                    _ => new ChannelSpotOverride { Spot = newSpot },
+                    () => new ChannelSpotOverride { ChannelId = channelId });
+
+            if (userItem.UsesLeft is > 1)
+            {
+                await ctx.GetTable<UserFishItem>()
+                    .Where(x => x.Id == userItem.Id)
+                    .Set(x => x.UsesLeft, x => x.UsesLeft - 1)
+                    .UpdateAsync();
+            }
+            else
+            {
+                await ctx.GetTable<UserFishItem>()
+                    .DeleteAsync(x => x.Id == userItem.Id);
+            }
+
+            await tr.CommitAsync();
+            return new UseSpotCoinResult.Success(newSpot);
+        }
+        catch
+        {
+            await tr.RollbackAsync();
+            throw;
+        }
+    }
 }
 
 /// <summary>
@@ -261,6 +317,17 @@ public enum UnequipResult
     Success,
     NotFound,
     Potion
+}
+
+/// <summary>
+/// Represents the result of using a spot coin.
+/// </summary>
+public abstract record UseSpotCoinResult
+{
+    public static readonly UseSpotCoinResult NotOwned = new NotOwnedResult();
+    
+    private sealed record NotOwnedResult : UseSpotCoinResult;
+    public sealed record Success(FishingSpot NewSpot) : UseSpotCoinResult;
 }
 
 /// <summary>

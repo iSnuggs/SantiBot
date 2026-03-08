@@ -1,5 +1,4 @@
 #nullable disable
-using Cloneable;
 using NadekoBot.Common.Yml;
 using SixLabors.ImageSharp.PixelFormats;
 using YamlDotNet.Serialization;
@@ -70,12 +69,12 @@ public sealed partial class GamblingConfig : ICloneable<GamblingConfig>
     public ulong? VoteFeedChannelId { get; set; }
 
     [Comment("""
-             List of platforms for which the bot will give currency rewards.
-             Format: PLATFORM|URL
-             Supported platforms: topgg, discords, discordbotlist
-             You will have to have VotesApi running on the same machine.
-             Format example: Top.gg|https://top.gg/bot/YOUR_BOT_ID/vote
-    """)]
+                      List of platforms for which the bot will give currency rewards.
+                      Format: PLATFORM|URL
+                      Supported platforms: topgg, discords, discordbotlist
+                      You will have to have VotesApi running on the same machine.
+                      Format example: Top.gg|https://top.gg/bot/YOUR_BOT_ID/vote
+             """)]
     public string[] VotePlatforms { get; set; } = [];
 
     [Comment("""Slot config""")]
@@ -259,49 +258,30 @@ public sealed partial class WaifuConfig
 
     [Comment("""
              List of items available for gifting.
-             If negative is true, gift will instead reduce waifu value.
              """)]
     public List<WaifuItemModel> Items { get; set; } = [];
 
     public WaifuConfig()
         => Items =
         [
-            new("🥔", 5, "Potato"),
-            new("🍪", 10, "Cookie"),
-            new("🥖", 20, "Bread"),
-            new("🍭", 30, "Lollipop"),
-            new("🌹", 50, "Rose"),
-            new("🍺", 70, "Beer"),
-            new("🌮", 85, "Taco"),
-            new("💌", 100, "LoveLetter"),
-            new("🥛", 125, "Milk"),
-            new("🍕", 150, "Pizza"),
-            new("🍫", 200, "Chocolate"),
-            new("🍦", 250, "Icecream"),
-            new("🍣", 300, "Sushi"),
-            new("🍚", 400, "Rice"),
-            new("🍉", 500, "Watermelon"),
-            new("🍱", 600, "Bento"),
-            new("🎟", 800, "MovieTicket"),
-            new("🍰", 1000, "Cake"),
-            new("📔", 1500, "Book"),
-            new("🐱", 2000, "Cat"),
-            new("🐶", 2001, "Dog"),
-            new("🐼", 2500, "Panda"),
-            new("💄", 3000, "Lipstick"),
-            new("👛", 3500, "Purse"),
-            new("📱", 4000, "iPhone"),
-            new("👗", 4500, "Dress"),
-            new("💻", 5000, "Laptop"),
-            new("🎻", 7500, "Violin"),
-            new("🎹", 8000, "Piano"),
-            new("🚗", 9000, "Car"),
-            new("💍", 10000, "Ring"),
-            new("🛳", 12000, "Ship"),
-            new("🏠", 15000, "House"),
-            new("🚁", 20000, "Helicopter"),
-            new("🚀", 30000, "Spaceship"),
-            new("🌕", 50000, "Moon")
+            new("🍪", 10, "Cookie", hunger: 1),
+            new("🥖", 20, "Bread", hunger: 2),
+            new("🌹", 50, "Rose", happy: 1),
+            new("💌", 100, "LoveLetter", happy: 2),
+            new("🍕", 150, "Pizza", hunger: 10),
+            new("🍫", 200, "Chocolate", happy: 1, hunger: 5),
+            new("🍚", 400, "Rice", hunger: 20),
+            new("🎟", 800, "MovieTicket", happy: 4),
+            new("🍰", 1000, "Cake", hunger: 40),
+            new("🐱", 2000, "Cat", happy: 8),
+            new("🐶", 2001, "Dog", happy: 8),
+            new("📱", 4000, "iPhone", happy: 15),
+            new("👗", 4500, "Dress", happy: 15),
+            new("💻", 5000, "Laptop", happy: 20),
+            new("🎹", 8000, "Piano", happy: 30),
+            new("🛳", 15000, "Yacht", happy: 50),
+            new("🚀", 30000, "Spaceship", happy: 100),
+            new("🌕", 50000, "Moon", happy: 150)
         ];
 
     public class WaifuDecayConfig
@@ -377,13 +357,6 @@ public sealed partial class MultipliersData
              Example: If a waifu is worth 1000, and she receives a gift worth 100, her new value will be 1095)
              """)]
     public decimal GiftEffect { get; set; } = 0.95M;
-
-    [Comment("""
-             What percentage of the value of the gift will a waifu lose when she's gifted a gift marked as 'negative'.
-             Default 0.5 (meaning 50%)
-             Example: If a waifu is worth 1000, and she receives a negative gift worth 100, her new value will be 950)
-             """)]
-    public decimal NegativeGiftEffect { get; set; } = 0.50M;
 }
 
 public sealed class SlotsConfig
@@ -400,7 +373,9 @@ public sealed partial class WaifuItemModel
     public string Name { get; set; }
 
     [YamlMember(DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
-    public bool Negative { get; set; }
+    public int Happy { get; set; }
+    [YamlMember(DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
+    public int Hunger { get; set; }
 
     public WaifuItemModel()
     {
@@ -410,12 +385,14 @@ public sealed partial class WaifuItemModel
         string itemEmoji,
         long price,
         string name,
-        bool negative = false)
+        int happy = 0,
+        int hunger = 0)
     {
         ItemEmoji = itemEmoji;
         Price = price;
         Name = name;
-        Negative = negative;
+        Happy = 0;
+        Hunger = 0;
     }
 
 

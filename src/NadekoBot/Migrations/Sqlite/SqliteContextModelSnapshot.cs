@@ -2236,7 +2236,7 @@ namespace NadekoBot.Migrations.Sqlite
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Progress")
+                    b.Property<long>("Progress")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("QuestId")
@@ -2314,98 +2314,6 @@ namespace NadekoBot.Migrations.Sqlite
                         .IsUnique();
 
                     b.ToTable("VcRoleInfo");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("AffinityId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("ClaimerId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("Price")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("WaifuId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AffinityId");
-
-                    b.HasIndex("ClaimerId");
-
-                    b.HasIndex("Price");
-
-                    b.HasIndex("WaifuId")
-                        .IsUnique();
-
-                    b.ToTable("WaifuInfo");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ItemEmoji")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("WaifuInfoId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WaifuInfoId");
-
-                    b.ToTable("WaifuItem");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuUpdate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("NewId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("OldId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UpdateType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NewId");
-
-                    b.HasIndex("OldId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("WaifuUpdates");
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.Warning", b =>
@@ -2613,6 +2521,20 @@ namespace NadekoBot.Migrations.Sqlite
                     b.ToTable("XpShopOwnedItem");
                 });
 
+            modelBuilder.Entity("NadekoBot.Modules.Games.Fish.Db.ChannelSpotOverride", b =>
+                {
+                    b.Property<ulong>("ChannelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Spot")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ChannelId");
+
+                    b.ToTable("ChannelSpotOverride");
+                });
+
             modelBuilder.Entity("NadekoBot.Modules.Games.Fish.Db.UserFishItem", b =>
                 {
                     b.Property<int>("Id")
@@ -2689,6 +2611,33 @@ namespace NadekoBot.Migrations.Sqlite
                     b.ToTable("UserFishStats");
                 });
 
+            modelBuilder.Entity("NadekoBot.Modules.Utility.LineUp.LineUpUser", b =>
+                {
+                    b.Property<ulong>("GuildId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("ChannelId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("GuildId", "ChannelId", "UserId");
+
+                    b.HasIndex("GuildId", "ChannelId", "DateAdded");
+
+                    b.HasIndex("GuildId", "ChannelId", "UserId");
+
+                    b.ToTable("LineUpUser");
+                });
+
             modelBuilder.Entity("NadekoBot.Modules.Utility.Scheduled.ScheduledCommand", b =>
                 {
                     b.Property<int>("Id")
@@ -2743,6 +2692,185 @@ namespace NadekoBot.Migrations.Sqlite
                     b.HasIndex("GuildId", "UserId");
 
                     b.ToTable("UserRole");
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuCycle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CycleNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("FanPool")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FoodSnapshot")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("ManagerEarnings")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("ManagerUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MoodSnapshot")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ProcessedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("TotalBacked")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("TotalReturns")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("WaifuEarnings")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("WaifuUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WaifuUserId", "CycleNumber")
+                        .IsUnique();
+
+                    b.ToTable("WaifuCycle");
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuCycleSnapshot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CycleNumber")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("SnapshotBalance")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("WaifuUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CycleNumber", "WaifuUserId");
+
+                    b.HasIndex("CycleNumber", "WaifuUserId", "UserId")
+                        .IsUnique();
+
+                    b.ToTable("WaifuCycleSnapshot");
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuFan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DelegatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("LeftAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("WaifuUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.HasIndex("WaifuUserId");
+
+                    b.ToTable("WaifuFan");
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuGiftCount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("GiftItemId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("WaifuUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WaifuUserId", "GiftItemId")
+                        .IsUnique();
+
+                    b.ToTable("WaifuGiftCount");
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CustomAvatarUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Food")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsHubby")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastDecayTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong?>("ManagerUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Mood")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Quote")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("ReturnsCap")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("TotalProduced")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("WaifuFeePercent")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("WaifuInfo");
                 });
 
             modelBuilder.Entity("NadekoBot.Modules.Xp.ChannelXpConfig", b =>
@@ -3078,61 +3206,6 @@ namespace NadekoBot.Migrations.Sqlite
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuInfo", b =>
-                {
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "Affinity")
-                        .WithMany()
-                        .HasForeignKey("AffinityId");
-
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "Claimer")
-                        .WithMany()
-                        .HasForeignKey("ClaimerId");
-
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "Waifu")
-                        .WithOne()
-                        .HasForeignKey("NadekoBot.Db.Models.WaifuInfo", "WaifuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Affinity");
-
-                    b.Navigation("Claimer");
-
-                    b.Navigation("Waifu");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuItem", b =>
-                {
-                    b.HasOne("NadekoBot.Db.Models.WaifuInfo", "WaifuInfo")
-                        .WithMany("Items")
-                        .HasForeignKey("WaifuInfoId");
-
-                    b.Navigation("WaifuInfo");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuUpdate", b =>
-                {
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "New")
-                        .WithMany()
-                        .HasForeignKey("NewId");
-
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "Old")
-                        .WithMany()
-                        .HasForeignKey("OldId");
-
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("New");
-
-                    b.Navigation("Old");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("NadekoBot.Db.Models.XpCurrencyReward", b =>
                 {
                     b.HasOne("NadekoBot.Db.Models.XpSettings", null)
@@ -3221,11 +3294,6 @@ namespace NadekoBot.Migrations.Sqlite
                     b.Navigation("Blacklist");
 
                     b.Navigation("Whitelist");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuInfo", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.XpSettings", b =>

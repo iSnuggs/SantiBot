@@ -1,0 +1,6 @@
+alias_added: Typing {0} will now be an alias of {1}.
+alias_list: List of aliases
+alias_remove_fail: Trigger {0} didn't have an alias.
+alias_removed: Trigger {0} no longer has an alias.
+aliases_cleared: All {0} aliases on this server have been removed.
+aliases_none: No alias found

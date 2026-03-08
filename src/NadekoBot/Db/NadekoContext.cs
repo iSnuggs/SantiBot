@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 using NadekoBot.Db.Models;
+using NadekoBot.Modules.Waifus.WaifusHubbies.Db;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
@@ -23,8 +24,6 @@ public abstract class NadekoContext : DbContext
     public DbSet<MusicPlaylist> MusicPlaylists { get; set; }
     public DbSet<NadekoExpression> Expressions { get; set; }
     public DbSet<CurrencyTransaction> CurrencyTransactions { get; set; }
-    public DbSet<WaifuUpdate> WaifuUpdates { get; set; }
-    public DbSet<WaifuItem> WaifuItem { get; set; }
     public DbSet<Warning> Warnings { get; set; }
     public DbSet<UserXpStats> UserXpStats { get; set; }
     public DbSet<ClubInfo> Clubs { get; set; }
@@ -255,14 +254,7 @@ public abstract class NadekoContext : DbContext
 
         #region Waifus
 
-        var wi = modelBuilder.Entity<WaifuInfo>();
-        wi.HasOne(x => x.Waifu).WithOne();
-
-        wi.HasIndex(x => x.Price);
-        wi.HasIndex(x => x.ClaimerId);
-        // wi.HasMany(x => x.Items)
-        //     .WithOne()
-        //     .OnDelete(DeleteBehavior.Cascade);
+        // WaifuInfo, WaifuFan, WaifuPeriod configured via IEntityTypeConfiguration
 
         #endregion
 

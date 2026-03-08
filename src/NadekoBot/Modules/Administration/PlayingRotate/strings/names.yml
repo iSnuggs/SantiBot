@@ -1,0 +1,12 @@
+addplaying:
+  - addplaying
+  - adpl
+listplaying:
+  - listplaying
+  - lipl
+removeplaying:
+  - removeplaying
+  - rmpl
+rotateplaying:
+  - rotateplaying
+  - ropl

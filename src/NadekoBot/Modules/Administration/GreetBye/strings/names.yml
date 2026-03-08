@@ -1,0 +1,31 @@
+boost:
+  - boost
+boostdel:
+  - boostdel
+boostmsg:
+  - boostmsg
+boosttest:
+  - boosttest
+bye:
+  - bye
+byedel:
+  - byedel
+byemsg:
+  - byemsg
+byetest:
+  - byetest
+greet:
+  - greet
+greetdel:
+  - greetdel
+  - grdel
+greetdm:
+  - greetdm
+greetdmmsg:
+  - greetdmmsg
+greetdmtest:
+  - greetdmtest
+greetmsg:
+  - greetmsg
+greettest:
+  - greettest

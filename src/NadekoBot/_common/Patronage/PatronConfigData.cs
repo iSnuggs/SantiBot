@@ -1,5 +1,4 @@
 ﻿using NadekoBot.Common.Yml;
-using Cloneable;
 
 namespace NadekoBot.Modules.Patronage;
 

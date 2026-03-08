@@ -1,0 +1,7 @@
+discordpermoverride:
+  - dpo
+discordpermoverridelist:
+  - dpol
+  - dpoli
+discordpermoverridereset:
+  - dpor

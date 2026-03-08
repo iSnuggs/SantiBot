@@ -1,9 +1,7 @@
 ﻿using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
-using LinqToDB.SqlQuery;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
-using NCalc;
 
 namespace NadekoBot.Modules.Administration.Services;
 

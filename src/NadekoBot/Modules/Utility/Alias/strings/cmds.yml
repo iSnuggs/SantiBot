@@ -1,0 +1,27 @@
+alias:
+  desc: >-
+    Create a custom alias for a certain Nadeko command. Provide no alias to
+    remove the existing one.
+  ex:
+    - allin {0}bf all h
+  params:
+    - mapping:
+        desc: >-
+          The name or nickname that will be used as an alternative to invoke the
+          original command.
+      trigger:
+        desc: The trigger string that will activate this custom alias.
+aliasesclear:
+  desc: Deletes all aliases on this server.
+  ex:
+    - ''
+  params:
+    - {}
+aliaslist:
+  desc: Shows the list of currently set aliases. Paginated.
+  ex:
+    - ''
+    - 3
+  params:
+    - page:
+        desc: The number of pages to display in the result set.

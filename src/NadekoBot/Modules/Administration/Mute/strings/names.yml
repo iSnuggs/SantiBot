@@ -1,0 +1,15 @@
+chatmute:
+  - chatmute
+chatunmute:
+  - chatunmute
+mute:
+  - mute
+muterole:
+  - muterole
+  - setmuterole
+unmute:
+  - unmute
+voicemute:
+  - voicemute
+voiceunmute:
+  - voiceunmute

@@ -1,8 +1,6 @@
 ﻿#nullable disable
-using Google.Protobuf.WellKnownTypes;
 using NadekoBot.Common.TypeReaders.Models;
 using SixLabors.ImageSharp.PixelFormats;
-using Color = SixLabors.ImageSharp.Color;
 
 namespace NadekoBot.Modules.Administration;
 
@@ -167,6 +165,9 @@ public partial class Administration
         [BotPerm(GuildPerm.ManageRoles)]
         public async Task RoleHoist([Leftover] IRole role)
         {
+            if (!await CheckRoleHierarchy(role))
+                return;
+
             var newHoisted = !role.IsHoisted;
             await role.ModifyAsync(r => r.Hoist = newHoisted);
             if (newHoisted)
@@ -188,6 +189,9 @@ public partial class Administration
         [Priority(0)]
         public async Task RoleColor(Rgba32 color, [Leftover] IRole role)
         {
+            if (!await CheckRoleHierarchy(role))
+                return;
+
             try
             {
                 await role.ModifyAsync(r => r.Color = new Discord.Color(color.R, color.G, color.B));

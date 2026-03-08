@@ -1,8 +1,6 @@
 ﻿#nullable disable
-using Microsoft.EntityFrameworkCore;
 using NadekoBot.Common.TypeReaders;
 using NadekoBot.Modules.Permissions.Services;
-using NadekoBot.Db.Models;
 
 namespace NadekoBot.Modules.Permissions;
 

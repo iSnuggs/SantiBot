@@ -1,0 +1,6 @@
+allcmdcooldowns:
+  - allcmdcooldowns
+  - cmdcds
+cmdcooldown:
+  - cmdcooldown
+  - cmdcd

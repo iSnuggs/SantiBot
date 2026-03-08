@@ -1,0 +1,13 @@
+tictactoe:
+  desc: >-
+    Starts a game of tic tac toe.
+
+    Another user must run the command in the same channel in order to accept the
+    challenge.
+
+    Use numbers 1-9 to play.
+  ex:
+    - ''
+  params:
+    - params:
+        desc: The coordinates for placing an X or O on the board.

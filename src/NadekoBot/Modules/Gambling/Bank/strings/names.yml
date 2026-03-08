@@ -1,0 +1,17 @@
+bankaward:
+  - award
+bankbalance:
+  - balance
+  - b
+  - bal
+bankdeposit:
+  - deposit
+  - d
+  - dep
+banktake:
+  - take
+  - seize
+bankwithdraw:
+  - withdraw
+  - w
+  - with

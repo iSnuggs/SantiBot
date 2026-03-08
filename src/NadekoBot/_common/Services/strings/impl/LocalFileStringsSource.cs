@@ -1,20 +1,21 @@
 #nullable disable
-using Newtonsoft.Json;
+using NadekoBot.Common.Yml;
 using YamlDotNet.Serialization;
 
 namespace NadekoBot.Services;
 
 /// <summary>
-///     Loads strings from the local default filepath <see cref="_responsesPath" />
+///     Loads strings from the local default filepath
 /// </summary>
 public class LocalFileStringsSource : IStringsSource
 {
-    private readonly string _responsesPath = "strings/responses";
-    private readonly string _commandsPath = "strings/commands";
+    private readonly string _responsesPath;
+    private readonly string _commandsPath;
 
     public LocalFileStringsSource(
-        string responsesPath = "strings/responses",
-        string commandsPath = "strings/commands")
+        string responsesPath,
+        string commandsPath
+    )
     {
         _responsesPath = responsesPath;
         _commandsPath = commandsPath;
@@ -27,7 +28,7 @@ public class LocalFileStringsSource : IStringsSource
         {
             try
             {
-                var langDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(file));
+                var langDict = Yaml.Deserializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(file));
                 var localeName = GetLocaleName(file);
                 outputDict[localeName] = langDict;
             }

@@ -1,0 +1,30 @@
+creatvoichanl:
+  desc: Creates a new voice channel with a given name.
+  ex:
+    - VoiceChannelName
+  params:
+    - channelName:
+        desc: The name of the new voice channel being created.
+deafen:
+  desc: Deafens mentioned user or users.
+  ex:
+    - '"@Someguy"'
+    - '"@Someguy" "@Someguy"'
+  params:
+    - users:
+        desc: The list of users to be affected by the deafening action.
+delvoichanl:
+  desc: Deletes a voice channel with a given name.
+  ex:
+    - VoiceChannelName
+  params:
+    - voiceChannel:
+        desc: The voice channel being deleted.
+undeafen:
+  desc: Undeafens mentioned user or users.
+  ex:
+    - '"@Someguy"'
+    - '"@Someguy" "@Someguy"'
+  params:
+    - users:
+        desc: The list of users to undeafen.

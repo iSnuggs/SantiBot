@@ -1,0 +1,13 @@
+calcops:
+  desc: Shows all available operations in the `{0}calc` command
+  ex:
+    - ''
+  params:
+    - {}
+calculate:
+  desc: Evaluate a mathematical expression.
+  ex:
+    - 1+1
+  params:
+    - expression:
+        desc: The input string represents the mathematical formula to be evaluated.

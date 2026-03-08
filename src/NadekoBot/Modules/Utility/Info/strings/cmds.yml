@@ -1,0 +1,63 @@
+channelinfo:
+  desc: >-
+    Shows info about the channel. If no channel is supplied, it defaults to
+    current one.
+  ex:
+    - '#some-channel'
+  params:
+    - channel:
+        desc: >-
+          The channel where the information will be retrieved from or displayed
+          in.
+invitecreate:
+  desc: Creates a new invite which has infinite max uses and never expires.
+  ex:
+    - ''
+  params:
+    - params:
+        desc: The recipient's email addresses or usernames.
+invitedelete:
+  desc: >-
+    Deletes an invite on the specified index. Use `{0}invitelist` to see the
+    list of invites.
+  ex:
+    - 2
+  params:
+    - index:
+        desc: The index at which the invite is located in the invite list.
+invitelist:
+  desc: Lists all invites for this channel. Paginated with 9 per page.
+  ex:
+    - ''
+    - 3
+  params:
+    - ch:
+        desc: The channel in which the invite list is being retrieved.
+      page:
+        desc: The page number to retrieve, starting from 1.
+roleinfo:
+  desc: Shows info about the specified role.
+  ex:
+    - Gamers
+  params:
+    - role:
+        desc: The type of user account associated with the role.
+serverinfo:
+  desc: >-
+    Shows info about the server with the specified ID. The bot has to be on that
+    server. If no server is supplied, it defaults to current one.
+  ex:
+    - 123123132233
+  params:
+    - guildId:
+        desc: The ID of a server for which to retrieve information.
+    - {}
+userinfo:
+  desc: >-
+    Shows info about the user. If no user is supplied, it defaults a user
+    running the command.
+  ex:
+    - '@SomeUser'
+  params:
+    - usr:
+        desc: The guild user that the information is being retrieved for.

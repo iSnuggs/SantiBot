@@ -1,0 +1,7 @@
+threadcreate:
+  - threadcreate
+  - thcr
+threaddelete:
+  - threaddelete
+  - thdel
+  - thrm

@@ -1,0 +1,13 @@
+lineup_added_at: Added at {0:HH:mm}
+lineup_already_active: The lineup in this channel is already active.
+lineup_already_in: '{0} is already in the lineup at position {1}.'
+lineup_cleared: Lineup cleared ({0} users removed).
+lineup_created: Lineup feature is now active in this channel.
+lineup_empty: The lineup is empty.
+lineup_join_success: '{0} has joined the lineup at position {1}.'
+lineup_leave_success: You have left the lineup.
+lineup_list_title: 'Lineup for #{0}'
+lineup_next_user: 'Next up: {0}'
+lineup_not_in: You are not in the lineup.
+lineup_remove_fail: '{0} is not in the lineup.'
+lineup_removed: '{0} has been removed from the lineup.'

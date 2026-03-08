@@ -1,0 +1,12 @@
+giveaway_cancelled: Giveaway cancelled.
+giveaway_duration_invalid: Giveaway may not be shorter than 1 minute or longer than 30 days
+giveaway_ended: Giveaway ended
+giveaway_list: List of active giveways
+giveaway_max_amount_reached: You've reached the maximum amount of giveaways you can have on this server.
+giveaway_not_found: Giveaway not found.
+giveaway_started: Giveaway Started!
+giveaway_starting: Starting giveaway...
+lasts_until: Lasts Until
+no_givaways: There are no active giveaways on this server.
+winner: Winner
+winners_count: Winners

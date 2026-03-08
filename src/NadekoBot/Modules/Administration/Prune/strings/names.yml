@@ -1,0 +1,6 @@
+prune:
+  - prune
+  - clear
+prunecancel:
+  - prunecancel
+  - prunec

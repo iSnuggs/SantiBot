@@ -1,0 +1,25 @@
+hearthstone:
+  desc: >-
+    Searches for a Hearthstone card and shows its image. Takes a while to
+    complete.
+  ex:
+    - Ysera
+  params:
+    - name:
+        desc: The name of the Hearthstone card to search for.
+magicthegathering:
+  desc: Searches for a Magic The Gathering card.
+  ex:
+    - about face
+  params:
+    - search:
+        desc: The query string used to search for the desired card.
+steam:
+  desc: >-
+    Returns a store link for a steam game with the specified name. It doesn't
+    work very well because bundles.
+  ex:
+    - Sakura Agent
+  params:
+    - query:
+        desc: The name of the game to search for.

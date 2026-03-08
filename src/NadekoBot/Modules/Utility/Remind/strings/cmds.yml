@@ -1,0 +1,61 @@
+remind:
+  desc: >-
+    Sets a reminder which will be sent to you or to the targeted channel after
+    certain amount of time (max 2 months).
+
+    First parameter is `me` / `here` / 'channelname'
+
+    Second parameter is time in a descending order (mo>w>d>h>m) example:
+    1w5d3h10m.
+
+    Third parameter is a (multiword) message.
+
+    Requires ManageMessages server permission if you're targeting a different
+    channel.
+  ex:
+    - me 1d5h Do something
+    - '#general 1m Start now!'
+  params:
+    - meorhere:
+        desc: >-
+          The enum value of 'me' if the user wants to be reminded, or 'here' if
+          the user wants to be reminded in the current channel.
+      remindString:
+        desc: >-
+          The reminder duration and message to be sent. The message must start
+          with a short time string in the form of 5d1h30m for example.
+    - channel:
+        desc: >-
+          The name of the channel to send the reminder to, or 'here' for the
+          current channel.
+      remindString:
+        desc: The reminder message to be sent.
+reminddelete:
+  desc: >-
+    Deletes a reminder on the specified index. You can specify 'server' option
+    if you're an Administrator, and you want to delete a reminder on this server
+    created by someone else. 
+  ex:
+    - 3
+    - server 2
+  params:
+    - _:
+        desc: The server where the reminder was created or is stored.
+      index:
+        desc: The index of the reminder to be deleted.
+    - index:
+        desc: The index of the reminder to be deleted.
+remindlist:
+  desc: >-
+    Lists all reminders you created. You can specify 'server' option if you're
+    an Administrator to list all reminders created on this server. Paginated.
+  ex:
+    - 1
+    - server 2
+  params:
+    - _:
+        desc: The server where the reminders are stored or being retrieved from.
+      page:
+        desc: The number of the page to display in the result set.
+    - page:
+        desc: The number of the page to display in the result set.

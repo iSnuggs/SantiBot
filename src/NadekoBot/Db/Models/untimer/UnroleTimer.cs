@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace NadekoBot.Db.Models;
 
-// todo UN* remove unroletimer in favor of temprole
 public class UnroleTimer : DbEntity
 {
     public ulong GuildId { get; set; }

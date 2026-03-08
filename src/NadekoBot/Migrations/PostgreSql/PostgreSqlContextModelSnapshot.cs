@@ -3002,8 +3002,8 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasColumnType("boolean")
                         .HasColumnName("iscompleted");
 
-                    b.Property<int>("Progress")
-                        .HasColumnType("integer")
+                    b.Property<long>("Progress")
+                        .HasColumnType("bigint")
                         .HasColumnName("progress");
 
                     b.Property<int>("QuestId")
@@ -3108,132 +3108,6 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasDatabaseName("ix_vcroleinfo_guildid_voicechannelid");
 
                     b.ToTable("vcroleinfo", (string)null);
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AffinityId")
-                        .HasColumnType("integer")
-                        .HasColumnName("affinityid");
-
-                    b.Property<int?>("ClaimerId")
-                        .HasColumnType("integer")
-                        .HasColumnName("claimerid");
-
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("dateadded");
-
-                    b.Property<long>("Price")
-                        .HasColumnType("bigint")
-                        .HasColumnName("price");
-
-                    b.Property<int>("WaifuId")
-                        .HasColumnType("integer")
-                        .HasColumnName("waifuid");
-
-                    b.HasKey("Id")
-                        .HasName("pk_waifuinfo");
-
-                    b.HasIndex("AffinityId")
-                        .HasDatabaseName("ix_waifuinfo_affinityid");
-
-                    b.HasIndex("ClaimerId")
-                        .HasDatabaseName("ix_waifuinfo_claimerid");
-
-                    b.HasIndex("Price")
-                        .HasDatabaseName("ix_waifuinfo_price");
-
-                    b.HasIndex("WaifuId")
-                        .IsUnique()
-                        .HasDatabaseName("ix_waifuinfo_waifuid");
-
-                    b.ToTable("waifuinfo", (string)null);
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("dateadded");
-
-                    b.Property<string>("ItemEmoji")
-                        .HasColumnType("text")
-                        .HasColumnName("itememoji");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.Property<int?>("WaifuInfoId")
-                        .HasColumnType("integer")
-                        .HasColumnName("waifuinfoid");
-
-                    b.HasKey("Id")
-                        .HasName("pk_waifuitem");
-
-                    b.HasIndex("WaifuInfoId")
-                        .HasDatabaseName("ix_waifuitem_waifuinfoid");
-
-                    b.ToTable("waifuitem", (string)null);
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuUpdate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("DateAdded")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("dateadded");
-
-                    b.Property<int?>("NewId")
-                        .HasColumnType("integer")
-                        .HasColumnName("newid");
-
-                    b.Property<int?>("OldId")
-                        .HasColumnType("integer")
-                        .HasColumnName("oldid");
-
-                    b.Property<int>("UpdateType")
-                        .HasColumnType("integer")
-                        .HasColumnName("updatetype");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
-                        .HasColumnName("userid");
-
-                    b.HasKey("Id")
-                        .HasName("pk_waifuupdates");
-
-                    b.HasIndex("NewId")
-                        .HasDatabaseName("ix_waifuupdates_newid");
-
-                    b.HasIndex("OldId")
-                        .HasDatabaseName("ix_waifuupdates_oldid");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_waifuupdates_userid");
-
-                    b.ToTable("waifuupdates", (string)null);
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.Warning", b =>
@@ -3513,6 +3387,23 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("xpshopowneditem", (string)null);
                 });
 
+            modelBuilder.Entity("NadekoBot.Modules.Games.Fish.Db.ChannelSpotOverride", b =>
+                {
+                    b.Property<decimal>("ChannelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("channelid");
+
+                    b.Property<int>("Spot")
+                        .HasColumnType("integer")
+                        .HasColumnName("spot");
+
+                    b.HasKey("ChannelId")
+                        .HasName("pk_channelspotoverride");
+
+                    b.ToTable("channelspotoverride", (string)null);
+                });
+
             modelBuilder.Entity("NadekoBot.Modules.Games.Fish.Db.UserFishItem", b =>
                 {
                     b.Property<int>("Id")
@@ -3616,6 +3507,41 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("userfishstats", (string)null);
                 });
 
+            modelBuilder.Entity("NadekoBot.Modules.Utility.LineUp.LineUpUser", b =>
+                {
+                    b.Property<decimal>("GuildId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("guildid");
+
+                    b.Property<decimal>("ChannelId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("channelid");
+
+                    b.Property<decimal>("UserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("userid");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("dateadded");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("reason");
+
+                    b.HasKey("GuildId", "ChannelId", "UserId")
+                        .HasName("pk_lineupuser");
+
+                    b.HasIndex("GuildId", "ChannelId", "DateAdded")
+                        .HasDatabaseName("ix_lineupuser_guildid_channelid_dateadded");
+
+                    b.HasIndex("GuildId", "ChannelId", "UserId")
+                        .HasDatabaseName("ix_lineupuser_guildid_channelid_userid");
+
+                    b.ToTable("lineupuser", (string)null);
+                });
+
             modelBuilder.Entity("NadekoBot.Modules.Utility.Scheduled.ScheduledCommand", b =>
                 {
                     b.Property<int>("Id")
@@ -3689,6 +3615,247 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasDatabaseName("ix_userrole_guildid_userid");
 
                     b.ToTable("userrole", (string)null);
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuCycle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CycleNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("cyclenumber");
+
+                    b.Property<long>("FanPool")
+                        .HasColumnType("bigint")
+                        .HasColumnName("fanpool");
+
+                    b.Property<int>("FoodSnapshot")
+                        .HasColumnType("integer")
+                        .HasColumnName("foodsnapshot");
+
+                    b.Property<long>("ManagerEarnings")
+                        .HasColumnType("bigint")
+                        .HasColumnName("managerearnings");
+
+                    b.Property<decimal>("ManagerUserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("manageruserid");
+
+                    b.Property<int>("MoodSnapshot")
+                        .HasColumnType("integer")
+                        .HasColumnName("moodsnapshot");
+
+                    b.Property<DateTime>("ProcessedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("processedat");
+
+                    b.Property<long>("TotalBacked")
+                        .HasColumnType("bigint")
+                        .HasColumnName("totalbacked");
+
+                    b.Property<long>("TotalReturns")
+                        .HasColumnType("bigint")
+                        .HasColumnName("totalreturns");
+
+                    b.Property<long>("WaifuEarnings")
+                        .HasColumnType("bigint")
+                        .HasColumnName("waifuearnings");
+
+                    b.Property<decimal>("WaifuUserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("waifuuserid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_waifucycle");
+
+                    b.HasIndex("WaifuUserId", "CycleNumber")
+                        .IsUnique()
+                        .HasDatabaseName("ix_waifucycle_waifuuserid_cyclenumber");
+
+                    b.ToTable("waifucycle", (string)null);
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuCycleSnapshot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CycleNumber")
+                        .HasColumnType("integer")
+                        .HasColumnName("cyclenumber");
+
+                    b.Property<long>("SnapshotBalance")
+                        .HasColumnType("bigint")
+                        .HasColumnName("snapshotbalance");
+
+                    b.Property<decimal>("UserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("userid");
+
+                    b.Property<decimal>("WaifuUserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("waifuuserid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_waifucyclesnapshot");
+
+                    b.HasIndex("CycleNumber", "WaifuUserId")
+                        .HasDatabaseName("ix_waifucyclesnapshot_cyclenumber_waifuuserid");
+
+                    b.HasIndex("CycleNumber", "WaifuUserId", "UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_waifucyclesnapshot_cyclenumber_waifuuserid_userid");
+
+                    b.ToTable("waifucyclesnapshot", (string)null);
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuFan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DelegatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("delegatedat");
+
+                    b.Property<DateTime?>("LeftAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("leftat");
+
+                    b.Property<decimal>("UserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("userid");
+
+                    b.Property<decimal>("WaifuUserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("waifuuserid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_waifufan");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_waifufan_userid");
+
+                    b.HasIndex("WaifuUserId")
+                        .HasDatabaseName("ix_waifufan_waifuuserid");
+
+                    b.ToTable("waifufan", (string)null);
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuGiftCount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer")
+                        .HasColumnName("count");
+
+                    b.Property<Guid>("GiftItemId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("giftitemid");
+
+                    b.Property<decimal>("WaifuUserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("waifuuserid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_waifugiftcount");
+
+                    b.HasIndex("WaifuUserId", "GiftItemId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_waifugiftcount_waifuuserid_giftitemid");
+
+                    b.ToTable("waifugiftcount", (string)null);
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CustomAvatarUrl")
+                        .HasColumnType("text")
+                        .HasColumnName("customavatarurl");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<int>("Food")
+                        .HasColumnType("integer")
+                        .HasColumnName("food");
+
+                    b.Property<bool>("IsHubby")
+                        .HasColumnType("boolean")
+                        .HasColumnName("ishubby");
+
+                    b.Property<DateTime>("LastDecayTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("lastdecaytime");
+
+                    b.Property<decimal?>("ManagerUserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("manageruserid");
+
+                    b.Property<int>("Mood")
+                        .HasColumnType("integer")
+                        .HasColumnName("mood");
+
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint")
+                        .HasColumnName("price");
+
+                    b.Property<string>("Quote")
+                        .HasColumnType("text")
+                        .HasColumnName("quote");
+
+                    b.Property<long>("ReturnsCap")
+                        .HasColumnType("bigint")
+                        .HasColumnName("returnscap");
+
+                    b.Property<long>("TotalProduced")
+                        .HasColumnType("bigint")
+                        .HasColumnName("totalproduced");
+
+                    b.Property<decimal>("UserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("userid");
+
+                    b.Property<int>("WaifuFeePercent")
+                        .HasColumnType("integer")
+                        .HasColumnName("waifufeepercent");
+
+                    b.HasKey("Id")
+                        .HasName("pk_waifuinfo");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_waifuinfo_userid");
+
+                    b.ToTable("waifuinfo", (string)null);
                 });
 
             modelBuilder.Entity("NadekoBot.Modules.Xp.ChannelXpConfig", b =>
@@ -4093,68 +4260,6 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasConstraintName("fk_todos_todosarchive_archiveid");
                 });
 
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuInfo", b =>
-                {
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "Affinity")
-                        .WithMany()
-                        .HasForeignKey("AffinityId")
-                        .HasConstraintName("fk_waifuinfo_discorduser_affinityid");
-
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "Claimer")
-                        .WithMany()
-                        .HasForeignKey("ClaimerId")
-                        .HasConstraintName("fk_waifuinfo_discorduser_claimerid");
-
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "Waifu")
-                        .WithOne()
-                        .HasForeignKey("NadekoBot.Db.Models.WaifuInfo", "WaifuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_waifuinfo_discorduser_waifuid");
-
-                    b.Navigation("Affinity");
-
-                    b.Navigation("Claimer");
-
-                    b.Navigation("Waifu");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuItem", b =>
-                {
-                    b.HasOne("NadekoBot.Db.Models.WaifuInfo", "WaifuInfo")
-                        .WithMany("Items")
-                        .HasForeignKey("WaifuInfoId")
-                        .HasConstraintName("fk_waifuitem_waifuinfo_waifuinfoid");
-
-                    b.Navigation("WaifuInfo");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuUpdate", b =>
-                {
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "New")
-                        .WithMany()
-                        .HasForeignKey("NewId")
-                        .HasConstraintName("fk_waifuupdates_discorduser_newid");
-
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "Old")
-                        .WithMany()
-                        .HasForeignKey("OldId")
-                        .HasConstraintName("fk_waifuupdates_discorduser_oldid");
-
-                    b.HasOne("NadekoBot.Db.Models.DiscordUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_waifuupdates_discorduser_userid");
-
-                    b.Navigation("New");
-
-                    b.Navigation("Old");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("NadekoBot.Db.Models.XpCurrencyReward", b =>
                 {
                     b.HasOne("NadekoBot.Db.Models.XpSettings", null)
@@ -4245,11 +4350,6 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.Navigation("Blacklist");
 
                     b.Navigation("Whitelist");
-                });
-
-            modelBuilder.Entity("NadekoBot.Db.Models.WaifuInfo", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("NadekoBot.Db.Models.XpSettings", b =>

@@ -1,6 +1,7 @@
 ﻿#Manually added files
 
 src/NadekoBot/data/last_known_version.txt
+**/DESIGN.md
 
 # medusa stuff
 src/NadekoBot/data/medusae/
@@ -19,6 +20,8 @@ src/NadekoBot/data/NadekoBot.db*
 ### VisualStudioCode ###
 .vscode/
 .vscode/*
+.idea/
+.idea/**
 # !.vscode/settings.json
 # !.vscode/tasks.json
 # !.vscode/launch.json
@@ -366,9 +369,11 @@ site/
 
 ## AI
 
-.aider.*
-.roo/**
 PROMPT.md
+AGENTS.md
+AGENT.md
+agent/
+.factory/
 .*rules
 
 ## Python pip/env files

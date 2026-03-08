@@ -1,0 +1,10 @@
+acrophobia:
+  desc: Starts an Acrophobia game.
+  ex:
+    - ''
+    - '-s 30'
+  params:
+    - params:
+        desc: >-
+          The list of command-line arguments passed to the game, which may
+          include options or settings for customizing the gameplay experience.

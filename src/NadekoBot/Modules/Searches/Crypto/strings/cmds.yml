@@ -1,0 +1,37 @@
+coins:
+  desc: >-
+    Shows a list of 10 crypto currencies ordered by market cap.
+
+    Shows their price, change in the last24h, market cap and circulating and
+    total supply.
+
+    Paginated with 10 per page.
+  ex:
+    - ''
+    - '2'
+  params:
+    - page:
+        desc: Page number to show. Starts at 1.
+crypto:
+  desc: >-
+    Shows basic stats about a cryptocurrency from coinmarketcap.com. You can use
+    either a name or an abbreviation of the currency.
+  ex:
+    - btc
+    - bitcoin
+  params:
+    - name:
+        desc: >-
+          The symbol or abbreviated name of the cryptocurrency to retrieve
+          statistics for.
+stock:
+  desc: Shows basic information about a stock. You can use a symbol or company name
+  ex:
+    - tsla
+    - advanced micro devices
+    - amd
+  params:
+    - query:
+        desc: >-
+          The ticker symbol or company name used to retrieve the stock's
+          information.

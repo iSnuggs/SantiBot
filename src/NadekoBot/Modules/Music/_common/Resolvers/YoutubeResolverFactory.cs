@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NadekoBot.Modules.Searches;
-using NadekoBot.Modules.Searches.Services;
 
 namespace NadekoBot.Modules.Music.Resolvers;
 

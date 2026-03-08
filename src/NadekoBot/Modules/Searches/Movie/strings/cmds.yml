@@ -1,0 +1,7 @@
+movie:
+  desc: Queries omdb for movies or series, show first result.
+  ex:
+    - Batman vs Superman
+  params:
+    - query:
+        desc: The title of the movie or TV series being searched for.

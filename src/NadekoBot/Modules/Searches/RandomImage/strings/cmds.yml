@@ -1,0 +1,24 @@
+randombird:
+  desc: Shows a random bird image.
+  ex:
+    - ''
+  params:
+    - {}
+randomcat:
+  desc: Shows a random cat image.
+  ex:
+    - ''
+  params:
+    - {}
+randomdog:
+  desc: Shows a random dog image.
+  ex:
+    - ''
+  params:
+    - {}
+randomfood:
+  desc: Shows a random food image.
+  ex:
+    - ''
+  params:
+    - {}

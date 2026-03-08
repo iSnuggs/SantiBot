@@ -1,0 +1,24 @@
+buy:
+  - shopbuy
+  - buy
+shop:
+  - shop
+shopadd:
+  - shopadd
+shopchangename:
+  - shopchangename
+  - shopname
+shopchangeprice:
+  - shopchangeprice
+  - shopprice
+shoplistadd:
+  - shoplistadd
+shopmove:
+  - shopmove
+shopremove:
+  - shopremove
+  - shoprm
+shopreq:
+  - shopreq
+shopswap:
+  - shopswap

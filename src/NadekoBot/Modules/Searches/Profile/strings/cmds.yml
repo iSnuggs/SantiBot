@@ -1,0 +1,14 @@
+avatar:
+  desc: Shows a mentioned person's avatar.
+  ex:
+    - '@Someone'
+  params:
+    - usr:
+        desc: The user whose avatar is being displayed.
+banner:
+  desc: Shows a mentioned person's banner.
+  ex:
+    - '@Someone'
+  params:
+    - usr:
+        desc: The user whose banner is being displayed.

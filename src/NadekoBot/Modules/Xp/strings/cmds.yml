@@ -1,0 +1,161 @@
+experience:
+  desc: Shows your xp stats. Specify the user to show that user's stats instead.
+  ex:
+    - ''
+    - '@someguy'
+  params:
+    - user:
+        desc: Optional name, mention or ID of the user
+xpadd:
+  desc: >-
+    Adds server XP to a single user or all users role on this server. This does
+    not affect their global ranking. You can use negative values.
+  ex:
+    - 100 @Someone
+    - 500 SomeRoleName
+  params:
+    - amount:
+        desc: The total experience points to be added.
+      role:
+        desc: >-
+          The type of account or group that the XP is being added to, such as an
+          administrator or moderator.
+    - amount:
+        desc: The total experience points to be added.
+      userId:
+        desc: The ID of the player whose experience points are being modified.
+    - amount:
+        desc: The total experience points to be added.
+      user:
+        desc: The ID of the user whose XP is being added or modified.
+xpcurrencyreward:
+  desc: >-
+    Sets a currency reward on a specified level. Provide no amount in order to
+    remove the reward.
+  ex:
+    - 3 50
+  params:
+    - amount:
+        desc: The amount of currency to be rewarded when completing this level.
+      level:
+        desc: The level at which the currency reward is set or removed.
+xpleaderboard:
+  desc: Shows current server's xp leaderboard.
+  ex:
+    - ''
+  params:
+    - params:
+        desc: The list of player names or IDs to filter the leaderboard by.
+    - page:
+        desc: The number of pages to display in the leaderboard.
+      params:
+        desc: The list of player names or IDs to filter the leaderboard by.
+xplevelset:
+  desc: Sets the level of the user you specify.
+  ex:
+    - 10 @User
+  params:
+    - level:
+        desc: The level to set the user to.
+    - user:
+        desc: The user to set the level of.
+xpleveluprewards:
+  desc: Shows currently set level up rewards.
+  ex:
+    - ''
+  params:
+    - page:
+        desc: The page number for which the level up rewards are being displayed.
+xpreset:
+  desc: >-
+    Resets specified user's XP, or the XP of all users in the server. You can't
+    reverse this action.
+  ex:
+    - '@Someone'
+    - ''
+  params:
+    - user:
+        desc: The ID of a specific guild member whose XP is being reset.
+    - userId:
+        desc: The ID of a specific player whose experience points are being reset.
+    - {}
+xprewsreset:
+  desc: Resets all currently set xp level up rewards.
+  ex:
+    - ''
+  params:
+    - {}
+xprolereward:
+  desc: |-
+    Add or remove a role from the user who reaches the specified level.
+    Provide no action and role name in order to remove the role reward.
+  ex:
+    - 1 rm Newbie
+    - 3 add Social
+    - 5 add Member
+    - 5
+  params:
+    - level:
+        desc: The level at which the user should be rewarded with the role.
+    - action:
+        desc: >-
+          The type of operation to perform on the user's roles, either adding or
+          removing one.
+      level:
+        desc: The level at which the user should be rewarded with the role.
+      role:
+        desc: The type of authority or privilege being granted or revoked.
+xpshop:
+  desc: >-
+    Access the xp shop (if enabled). You can purchase either xp card frames or
+    backgrounds. You can optionally provide a page number
+  ex:
+    - bgs
+    - frames
+    - bgs 3
+  params:
+    - {}
+    - page:
+        desc: The page number to display in the XP shop.
+      type:
+        desc: >-
+          The type of item to be purchased, such as an XP card frame or
+          background.
+xpshopbuy:
+  desc: Buy an item from the xp shop by specifying the type and the key of the item.
+  ex:
+    - bg open_sea
+    - fr gold
+  params:
+    - key:
+        desc: The id of the item being purchased.
+      type:
+        desc: The type of item to purchase, such as a skill or a cosmetic.
+xpshopuse:
+  desc: >-
+    Use a previously purchased item from the xp shop by specifying the type and
+    the key of the item.
+  ex:
+    - bg synth
+    - fr default
+  params:
+    - key:
+        desc: The id of the item in the XP shop that you want to use.
+      type:
+        desc: >-
+          The type of item to be used, such as an experience point or a skill
+          upgrade.
+xpowned:
+  desc: Shows all xp shop items you currently own.
+  ex:
+    - ''
+  params:
+    - {}
+xptemplatereload:
+  desc: >-
+    Reloads the xp template file. Xp template file allows you to customize the
+    position and color of elements on the `{0}xp` card.
+  ex:
+    - ''
+  params:
+    - {}

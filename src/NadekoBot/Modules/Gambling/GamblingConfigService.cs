@@ -114,12 +114,6 @@ public sealed class GamblingConfigService : ConfigServiceBase<GamblingConfig>
             ConfigPrinters.ToString,
             val => val >= 0);
 
-        AddParsedProp("waifu.multi.negative_gift_effect",
-            gs => gs.Waifu.Multipliers.NegativeGiftEffect,
-            decimal.TryParse,
-            ConfigPrinters.ToString,
-            val => val >= 0);
-
         AddParsedProp("decay.percent",
             gs => gs.Decay.Percent,
             decimal.TryParse,

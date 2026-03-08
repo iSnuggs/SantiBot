@@ -1,0 +1,24 @@
+userroleassign:
+  - userroleassign
+  - ura
+  - uradd
+userrolecolor:
+  - userrolecolor
+  - urc
+userroleicon:
+  - userroleicon
+  - uri
+userrolelist:
+  - userrolelist
+  - url
+userrolemy:
+  - userrolemy
+  - urm
+userrolename:
+  - userrolename
+  - urn
+userroleremove:
+  - userroleremove
+  - urr
+  - urdel
+  - urrm

@@ -1,12 +1,10 @@
 ﻿#nullable enable
 using System.CodeDom.Compiler;
 using System.Collections.Immutable;
-using System.Diagnostics;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using Newtonsoft.Json;
 
 namespace NadekoBot.Generators
 {
@@ -147,38 +145,6 @@ namespace NadekoBot.Generators
                 sw.Flush();
                 ctx.AddSource("GrpcApiInterceptor.g.cs", stringWriter.ToString());
             }
-        }
-
-        private List<TranslationPair> GetFields(string? dataText)
-        {
-            if (string.IsNullOrWhiteSpace(dataText))
-                return new();
-
-            Dictionary<string, string> data;
-            try
-            {
-                var output = JsonConvert.DeserializeObject<Dictionary<string, string>>(dataText!);
-                if (output is null)
-                    return new();
-
-                data = output;
-            }
-            catch
-            {
-                Debug.WriteLine("Failed parsing responses file.");
-                return new();
-            }
-
-            var list = new List<TranslationPair>();
-            foreach (var entry in data)
-            {
-                list.Add(new(
-                    entry.Key,
-                    entry.Value
-                ));
-            }
-
-            return list;
         }
     }
 }

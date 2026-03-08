@@ -28,3 +28,6 @@ global using TypeReaderResult = NadekoBot.Common.TypeReaders.TypeReaderResult;
 
 // non-essential
 global using JetBrains.Annotations;
+
+// source gen
+global using Cloneable;

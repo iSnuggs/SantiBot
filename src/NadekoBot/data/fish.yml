@@ -82,3 +82,11 @@ items:
   price: 3000
   fishingSpeedMultiplier: 1.201
   maxStarMultiplier: 1.1
+
+- id: 51
+  itemType: SpotCoin
+  name: "Spot Change Coin"
+  emoji: "🪙"
+  description: "Changes the fishing spot of the channel for everyone."
+  price: 5000
+  uses: 1

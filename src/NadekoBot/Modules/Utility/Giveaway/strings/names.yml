@@ -1,0 +1,10 @@
+giveawaycancel:
+  - cancel
+giveawayend:
+  - end
+giveawaylist:
+  - list
+giveawayreroll:
+  - reroll
+giveawaystart:
+  - start

@@ -18,11 +18,5 @@ public interface IMedusaStringsProvider
     /// </summary>
     void Reload();
 
-    // /// <summary>
-    // ///     Gets command arg examples and description
-    // /// </summary>
-    // /// <param name="localeName">Language name</param>
-    // /// <param name="commandName">Command name</param>
-    // CommandStrings GetCommandStrings(string localeName, string commandName);
     CommandStrings? GetCommandStrings(string localeName, string commandName);
 }

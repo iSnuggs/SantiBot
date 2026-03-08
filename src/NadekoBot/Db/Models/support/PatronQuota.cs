@@ -1,6 +1,4 @@
 ﻿#nullable disable
-using System.ComponentModel.DataAnnotations;
-
 namespace NadekoBot.Db.Models;
 
 public class PatronUser

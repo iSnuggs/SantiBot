@@ -1,0 +1,25 @@
+tl:
+  desc: Shows a current trivia leaderboard.
+  ex:
+    - ''
+  params:
+    - {}
+tq:
+  desc: Quits current trivia after current question.
+  ex:
+    - ''
+  params:
+    - {}
+trivia:
+  desc: |-
+    Starts a game of trivia.
+    First player to get to 10 points wins by default.
+    30 seconds per question.
+  ex:
+    - ''
+    - '--timeout 5 -p -w 3 -q 10'
+  params:
+    - params:
+        desc: >-
+          Options. --timeout <number>, --pokemon, --win <number> --question
+          <number>

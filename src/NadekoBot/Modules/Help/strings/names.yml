@@ -1,0 +1,16 @@
+commands:
+  - commands
+  - cmds
+donate:
+  - donate
+gencmdlist:
+  - gencmdlist
+guide:
+  - guide
+  - readme
+h:
+  - h
+  - help
+modules:
+  - modules
+  - mdls

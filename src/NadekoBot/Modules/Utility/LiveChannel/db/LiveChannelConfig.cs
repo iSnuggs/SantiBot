@@ -1,10 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NadekoBot.Common.TypeReaders.Models;
-using NadekoBot.Db;
-using NadekoBot.Db.Models;
 
 namespace NadekoBot.Db.Models;
 

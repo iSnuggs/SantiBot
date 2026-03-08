@@ -1,0 +1,86 @@
+afk:
+  - afk
+channelid:
+  - channelid
+  - cid
+channeltopic:
+  - channeltopic
+  - ct
+checkperms:
+  - checkperms
+config:
+  - config
+  - conf
+configreload:
+  - configreload
+  - creload
+  - confreload
+  - crel
+emojiadd:
+  - emojiadd
+  - ea
+emojiremove:
+  - emojiremove
+  - emojirm
+  - er
+  - ed
+  - emojidel
+  - emojidelete
+eval:
+  - eval
+inrole:
+  - inrole
+ping:
+  - ping
+roleid:
+  - roleid
+  - rid
+roles:
+  - roles
+savechat:
+  - savechat
+say:
+  - say
+servercolorerror:
+  - error
+  - fail
+  - err
+servercolorok:
+  - ok
+  - success
+servercolorpending:
+  - pending
+  - warn
+  - warning
+  - pend
+servercolorsshow:
+  - show
+  - list
+  - l
+serverid:
+  - serverid
+  - sid
+serverlist:
+  - listservers
+showembed:
+  - showembed
+showemojis:
+  - showemojis
+  - se
+snipe:
+  - snipe
+  - sn
+stats:
+  - stats
+stickeradd:
+  - stickeradd
+  - sa
+userid:
+  - userid
+  - uid
+verboseerror:
+  - verboseerror
+  - ve
+whosplaying:
+  - whosplaying
+  - whpl

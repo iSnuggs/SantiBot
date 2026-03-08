@@ -1,0 +1,65 @@
+exprad:
+  - exprad
+  - exad
+expradd:
+  - expradd
+  - exadd
+  - exa
+  - acr
+expraddserver:
+  - expradds
+  - exadds
+  - exas
+  - expraddserver
+exprat:
+  - exprat
+  - exat
+exprca:
+  - exprca
+  - exca
+exprclear:
+  - exprclear
+  - exc
+  - exclear
+exprdelete:
+  - exprdel
+  - exd
+  - exdel
+  - dcr
+exprdeleteserver:
+  - exprdelserv
+  - exds
+  - exdelserv
+exprdm:
+  - exprdm
+  - exdm
+expredit:
+  - expredit
+  - exe
+  - exedit
+  - ecr
+exprlist:
+  - exprlist
+  - exl
+  - exprli
+  - exlist
+  - exli
+  - lcr
+exprreact:
+  - exreact
+  - exr
+exprsexport:
+  - exexport
+exprshow:
+  - exprshow
+  - exs
+  - exshow
+  - scr
+exprsimport:
+  - eximport
+exprsreload:
+  - expreload
+  - exrel
+exprtoggleglobal:
+  - exprtoggleglobal
+  - extg

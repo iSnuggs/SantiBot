@@ -1,0 +1,31 @@
+betflip:
+  desc: >-
+    Bet on the coin flip.
+
+    The result can be heads or tails.
+
+    Guessing correctly rewards you with 1.95x of the currency you've bet
+    (rounded up).
+
+    Multiplier can be changed by the bot owner.
+
+    You can specify 'all', 'half' or 'X%' instead of the amount to bet that part
+    of your current balance.
+  ex:
+    - 5 heads
+    - 3 t
+  params:
+    - amount:
+        desc: The amount of money to be wagered on the bet.
+      guess:
+        desc: >-
+          The user's prediction about whether the next coin flip will result in
+          heads or tails.
+flip:
+  desc: Flips coin(s) - heads or tails, and shows an image.
+  ex:
+    - ''
+    - 3
+  params:
+    - count:
+        desc: The number of times the coin is flipped.

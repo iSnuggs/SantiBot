@@ -1,0 +1,72 @@
+channelblacklist:
+  desc: >-
+    Either [add]s or [rem]oves a channel or channels specified an ID from a
+    blacklist.
+
+    Specify no argument or a page number to list blacklisted channels.
+  ex:
+    - add 12312312312 66666666666
+    - rem 12312312312
+    - ''
+    - 3
+  params:
+    - page:
+        desc: The page number for pagination of the blacklisted channels list.
+    - action:
+        desc: >-
+          The type of operation to perform on the channel, either adding it to
+          the blacklist or removing it from it.
+      id:
+        desc: The id of the channel being added, removed, or listed.
+serverblacklist:
+  desc: >-
+    Either [add]s or [rem]oves a server, or servers specified by an ID from a
+    blacklist.
+
+    Specify no argument or a page number to list blacklisted servers.
+  ex:
+    - add 12312321312
+    - rem 12312321312
+    - ''
+    - 2
+  params:
+    - page:
+        desc: The page number for pagination of the blacklist listing.
+    - action:
+        desc: >-
+          The type of operation to perform on the server(s). It can be either
+          adding or removing them from the blacklist.
+      id:
+        desc: The id of the server being added, removed, or listed.
+    - action:
+        desc: >-
+          The type of operation to perform on the server(s). It can be either
+          adding or removing them from the blacklist.
+      guild:
+        desc: The guild for which the server blacklist is being managed.
+userblacklist:
+  desc: >-
+    Either [add]s or [rem]oves a user or users specified by a Mention or an ID
+    from a blacklist.
+
+    Specify no argument or a page number to list blacklisted users.
+  ex:
+    - add @SomeUser @SomeUser2 @SomeUser3
+    - rem 12312312313
+    - ''
+    - 4
+  params:
+    - page:
+        desc: The page number for pagination of the listed blacklisted users.
+    - action:
+        desc: >-
+          The type of operation to perform on the user, either adding or
+          removing them from the blacklist.
+      id:
+        desc: The id of the user to be added, removed, or listed.
+    - action:
+        desc: >-
+          The type of operation to perform on the user, either adding or
+          removing them from the blacklist.
+      usr:
+        desc: The ID of the user to be added, removed, or listed.

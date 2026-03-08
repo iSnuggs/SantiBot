@@ -1,0 +1,5 @@
+card_not_found: Couldn't find that card.
+cost: Cost
+mashape_api_missing: Bot owner didn't specify RapidApi api key. You can't use this functionality.
+steam_api_missing: Bot owner didn't specify SteamApiKey. You can't use this functionality.
+store_url: Store url

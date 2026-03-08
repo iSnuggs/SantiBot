@@ -72,6 +72,41 @@ namespace NadekoBot.Voice
             if (secretKey is null || secretKey.Length != Sodium.KEY_SIZE)
                 return (int) SendPcmError.SecretKeyUnavailable;
 
+            byte[] audioPayload;
+            int audioPayloadLength;
+
+            var daveManager = gw.DaveManager;
+            if (daveManager != null && daveManager.HasKeyRatchet)
+            {
+                daveManager.AssignSsrcToCodec(gw.Ssrc);
+                var maxEncSize = daveManager.GetMaxCiphertextSize(count);
+                var encryptedFrame = _arrayPool.Rent(maxEncSize);
+                try
+                {
+                    var encLen = daveManager.Encrypt(gw.Ssrc, data, count, encryptedFrame, maxEncSize);
+                    if (encLen <= 0)
+                    {
+                        audioPayload = data;
+                        audioPayloadLength = count;
+                    }
+                    else
+                    {
+                        audioPayload = new byte[encLen];
+                        Buffer.BlockCopy(encryptedFrame, 0, audioPayload, 0, encLen);
+                        audioPayloadLength = encLen;
+                    }
+                }
+                finally
+                {
+                    _arrayPool.Return(encryptedFrame);
+                }
+            }
+            else
+            {
+                audioPayload = data;
+                audioPayloadLength = count;
+            }
+
             // RTP header: 12 bytes
             const int RtpHeaderLength = 12;
             var header = new byte[RtpHeaderLength];
@@ -110,11 +145,11 @@ namespace NadekoBot.Voice
             gw.NonceSequence++;
 
             // Encrypt: ciphertext = encrypted audio + 16-byte tag
-            var encryptedLength = count + Sodium.TAG_SIZE;
+            var encryptedLength = audioPayloadLength + Sodium.TAG_SIZE;
             var encryptedBytes = new byte[encryptedLength];
 
             Sodium.Encrypt(
-                data, offset, count,
+                audioPayload, 0, audioPayloadLength,
                 encryptedBytes, 0,
                 header, RtpHeaderLength,
                 nonce,

@@ -1,0 +1,51 @@
+bankaward:
+  desc: Award the specified amount of currency to a user's bank
+  ex:
+    - 99999 @Bestie
+  params:
+    - amount:
+        desc: The total value of the award being given.
+      user:
+        desc: The user who is receiving the award.
+bankbalance:
+  desc: >-
+    Shows how much currency is in your bank account.
+
+    This differs from your cash amount, as the cash amount is publicly
+    available, but only you have access to your bank balance.
+
+    However, you have to withdraw it first in order to use it.
+
+    Bot Owner can also check another user's bank balance.
+  ex:
+    - ''
+    - '@User'
+  params:
+    - {}
+bankdeposit:
+  desc: Deposits the specified amount of currency into the bank for later use.
+  ex:
+    - 50
+  params:
+    - amount:
+        desc: The total value of funds being transferred or added to the account.
+banktake:
+  desc: Takes the specified amount of currency from a user's bank
+  ex:
+    - 500 @MoniLaunder
+  params:
+    - amount:
+        desc: The total value of funds being withdrawn.
+      user:
+        desc: The account holder whose funds are being accessed.
+    - amount:
+        desc: The total value of funds being withdrawn.
+      userId:
+        desc: The id of the user whose account is being accessed.
+bankwithdraw:
+  desc: Withdraws the specified amount of currency from the bank if available.
+  ex:
+    - 49
+  params:
+    - amount:
+        desc: The amount of money to be withdrawn.
