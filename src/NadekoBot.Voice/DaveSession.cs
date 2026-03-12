@@ -202,7 +202,7 @@ namespace NadekoBot.Voice
 
         private static void OnMlsFailure(string source, string reason, IntPtr userData)
         {
-            Log.Error("DAVE MLS failure: {Source} - {Reason}", source, reason);
+            Log.Debug("DAVE MLS failure: {Source} - {Reason}", source, reason);
         }
 
         private static IntPtr[] MarshalStringArray(string[] strings)

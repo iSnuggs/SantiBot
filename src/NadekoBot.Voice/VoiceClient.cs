@@ -1,5 +1,6 @@
 using System;
 using System.Buffers;
+using System.Buffers.Binary;
 
 namespace NadekoBot.Voice
 {
@@ -15,6 +16,12 @@ namespace NadekoBot.Voice
 
         public LibOpusEncoder Encoder { get; }
         private readonly ArrayPool<byte> _arrayPool;
+
+        // pre-allocated buffers to avoid per-packet heap allocations
+        private readonly byte[] _rtpHeader = new byte[RtpHeaderLength];
+        private readonly byte[] _nonce = new byte[Sodium.NONCE_SIZE];
+        private const int RtpHeaderLength = 12;
+        private const int NonceSuffixSize = 4;
 
         public int BitDepth => bitDepth * 8;
         public int Delay => frameDelay;
@@ -46,6 +53,10 @@ namespace NadekoBot.Voice
             };
 
             _arrayPool = ArrayPool<byte>.Shared;
+
+            // static RTP header fields
+            _rtpHeader[0] = 0x80; // version + flags
+            _rtpHeader[1] = 0x78; // payload type
         }
 
         public int SendPcmFrame(VoiceGateway gw, Span<byte> data, int offset, int count)
@@ -107,66 +118,36 @@ namespace NadekoBot.Voice
                 audioPayloadLength = count;
             }
 
-            // RTP header: 12 bytes
-            const int RtpHeaderLength = 12;
-            var header = new byte[RtpHeaderLength];
+            // Write RTP header fields into pre-allocated buffer
+            BinaryPrimitives.WriteUInt16BigEndian(_rtpHeader.AsSpan(2), gw.Sequence);
+            BinaryPrimitives.WriteUInt32BigEndian(_rtpHeader.AsSpan(4), gw.Timestamp);
+            BinaryPrimitives.WriteUInt32BigEndian(_rtpHeader.AsSpan(8), gw.Ssrc);
 
-            header[0] = 0x80; // version + flags
-            header[1] = 0x78; // payload type
-
-            // Sequence (big-endian)
-            var seqBytes = BitConverter.GetBytes(gw.Sequence);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(seqBytes);
-            Buffer.BlockCopy(seqBytes, 0, header, 2, 2);
-
-            // Timestamp (big-endian)
-            var timestampBytes = BitConverter.GetBytes(gw.Timestamp);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(timestampBytes);
-            Buffer.BlockCopy(timestampBytes, 0, header, 4, 4);
-
-            // SSRC (big-endian)
-            var ssrcBytes = BitConverter.GetBytes(gw.Ssrc);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(ssrcBytes);
-            Buffer.BlockCopy(ssrcBytes, 0, header, 8, 4);
-
-            // Increment counters for next packet
             gw.Timestamp += (uint) FrameSizePerChannel;
             gw.Sequence++;
 
-            // Build 24-byte nonce: 4-byte counter (big-endian) + 20 zero bytes
-            var nonce = new byte[Sodium.NONCE_SIZE];
-            var nonceCounterBytes = BitConverter.GetBytes(gw.NonceSequence);
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(nonceCounterBytes);
-            Buffer.BlockCopy(nonceCounterBytes, 0, nonce, 0, 4);
+            // Write 4-byte counter into pre-allocated nonce (remaining bytes are already zero)
+            BinaryPrimitives.WriteUInt32BigEndian(_nonce.AsSpan(0), gw.NonceSequence);
             gw.NonceSequence++;
 
             // Encrypt: ciphertext = encrypted audio + 16-byte tag
             var encryptedLength = audioPayloadLength + Sodium.TAG_SIZE;
-            var encryptedBytes = new byte[encryptedLength];
-
-            Sodium.Encrypt(
-                audioPayload, 0, audioPayloadLength,
-                encryptedBytes, 0,
-                header, RtpHeaderLength,
-                nonce,
-                secretKey);
-
-            // Final packet: RTP header + encrypted data + tag + 4-byte nonce suffix
-            const int NonceSuffixSize = 4;
             var rtpDataLength = RtpHeaderLength + encryptedLength + NonceSuffixSize;
             var rtpData = _arrayPool.Rent(rtpDataLength);
             try
             {
+                // Encrypt directly into the rtpData buffer after the header
+                Sodium.Encrypt(
+                    audioPayload, 0, audioPayloadLength,
+                    rtpData, RtpHeaderLength,
+                    _rtpHeader, RtpHeaderLength,
+                    _nonce,
+                    secretKey);
+
                 // Copy RTP header
-                Buffer.BlockCopy(header, 0, rtpData, 0, RtpHeaderLength);
-                // Copy encrypted audio + tag
-                Buffer.BlockCopy(encryptedBytes, 0, rtpData, RtpHeaderLength, encryptedLength);
-                // Copy 4-byte nonce suffix (big-endian)
-                Buffer.BlockCopy(nonceCounterBytes, 0, rtpData, RtpHeaderLength + encryptedLength, NonceSuffixSize);
+                Buffer.BlockCopy(_rtpHeader, 0, rtpData, 0, RtpHeaderLength);
+                // Copy 4-byte nonce suffix (already big-endian in _nonce)
+                Buffer.BlockCopy(_nonce, 0, rtpData, RtpHeaderLength + encryptedLength, NonceSuffixSize);
 
                 gw.SendRtpData(rtpData, rtpDataLength);
 

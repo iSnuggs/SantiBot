@@ -59,6 +59,7 @@ public sealed class TwitchHelixProvider : Provider
 
     private readonly Lazy<TwitchAPI> _api;
     private readonly string _clientId;
+    private bool _warned;
 
     public TwitchHelixProvider(IHttpClientFactory httpClientFactory, IBotCredsProvider credsProvider)
     {
@@ -124,7 +125,12 @@ public sealed class TwitchHelixProvider : Provider
 
         if (token is null)
         {
-            Log.Warning("Twitch client id and client secret key are not added to data/creds.yml or incorrect");
+            if (!_warned)
+            {
+                Log.Warning("Twitch client id and client secret key are not added to data/creds.yml or incorrect");
+                _warned = true;
+            }
+
             return Array.Empty<StreamData>();
         }
 

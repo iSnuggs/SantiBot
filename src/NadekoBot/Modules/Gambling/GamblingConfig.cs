@@ -48,9 +48,6 @@ public sealed partial class GamblingConfig : ICloneable<GamblingConfig>
     [Comment("""Settings for LuckyLadder command""")]
     public LuckyLadderSettings LuckyLadder { get; set; }
 
-    [Comment("""Settings related to waifus""")]
-    public WaifuConfig Waifu { get; set; }
-
     [Comment("""
              Amount of currency selfhosters will get PER pledged dollar CENT.
              1 = 100 currency per $. Used almost exclusively on public nadeko.
@@ -88,7 +85,6 @@ public sealed partial class GamblingConfig : ICloneable<GamblingConfig>
     public GamblingConfig()
     {
         BetRoll = new();
-        Waifu = new();
         Currency = new();
         BetFlip = new();
         Generation = new();
@@ -242,162 +238,10 @@ public partial class LuckyLadderSettings
         => Multipliers = [2.4M, 1.7M, 1.5M, 1.1M, 0.5M, 0.3M, 0.2M, 0.1M];
 }
 
-[Cloneable]
-public sealed partial class WaifuConfig
-{
-    [Comment("""Minimum price a waifu can have""")]
-    public long MinPrice { get; set; } = 50;
-
-    public MultipliersData Multipliers { get; set; } = new();
-
-    [Comment("""
-             Settings for periodic waifu price decay.
-             Waifu price decays only if the waifu has no claimer.
-             """)]
-    public WaifuDecayConfig Decay { get; set; } = new();
-
-    [Comment("""
-             List of items available for gifting.
-             """)]
-    public List<WaifuItemModel> Items { get; set; } = [];
-
-    public WaifuConfig()
-        => Items =
-        [
-            new("🍪", 10, "Cookie", hunger: 1),
-            new("🥖", 20, "Bread", hunger: 2),
-            new("🌹", 50, "Rose", happy: 1),
-            new("💌", 100, "LoveLetter", happy: 2),
-            new("🍕", 150, "Pizza", hunger: 10),
-            new("🍫", 200, "Chocolate", happy: 1, hunger: 5),
-            new("🍚", 400, "Rice", hunger: 20),
-            new("🎟", 800, "MovieTicket", happy: 4),
-            new("🍰", 1000, "Cake", hunger: 40),
-            new("🐱", 2000, "Cat", happy: 8),
-            new("🐶", 2001, "Dog", happy: 8),
-            new("📱", 4000, "iPhone", happy: 15),
-            new("👗", 4500, "Dress", happy: 15),
-            new("💻", 5000, "Laptop", happy: 20),
-            new("🎹", 8000, "Piano", happy: 30),
-            new("🛳", 15000, "Yacht", happy: 50),
-            new("🚀", 30000, "Spaceship", happy: 100),
-            new("🌕", 50000, "Moon", happy: 150)
-        ];
-
-    public class WaifuDecayConfig
-    {
-        [Comment("""
-                 Unclaimed waifus will decay by this percentage (0 - 100).
-                 Default is 0 (disabled)
-                 For example if a waifu has a price of 500$, setting this value to 10 would reduce the waifu value by 10% (50$)
-                 """)]
-        public int UnclaimedDecayPercent { get; set; } = 0;
-
-        [Comment("""
-                 Claimed waifus will decay by this percentage (0 - 100).
-                 Default is 0 (disabled)
-                 For example if a waifu has a price of 500$, setting this value to 10 would reduce the waifu value by 10% (50$)
-                 """)]
-        public int ClaimedDecayPercent { get; set; } = 0;
-
-        [Comment("""How often to decay waifu values, in hours""")]
-        public int HourInterval { get; set; } = 24;
-
-        [Comment("""
-                 Minimum waifu price required for the decay to be applied.
-                 For example if this value is set to 300, any waifu with the price 300 or less will not experience decay.
-                 """)]
-        public long MinPrice { get; set; } = 300;
-    }
-}
-
-[Cloneable]
-public sealed partial class MultipliersData
-{
-    [Comment("""
-             Multiplier for waifureset. Default 150.
-             Formula (at the time of writing this): 
-             price = (waifu_price * 1.25f) + ((number_of_divorces + changes_of_heart + 2) * WaifuReset) rounded up
-             """)]
-    public int WaifuReset { get; set; } = 150;
-
-    [Comment("""
-             The minimum amount of currency that you have to pay 
-             in order to buy a waifu who doesn't have a crush on you.
-             Default is 1.1
-             Example: If a waifu is worth 100, you will have to pay at least 100 * NormalClaim currency to claim her.
-             (100 * 1.1 = 110)
-             """)]
-    public decimal NormalClaim { get; set; } = 1.1m;
-
-    [Comment("""
-             The minimum amount of currency that you have to pay 
-             in order to buy a waifu that has a crush on you.
-             Default is 0.88
-             Example: If a waifu is worth 100, you will have to pay at least 100 * CrushClaim currency to claim her.
-             (100 * 0.88 = 88)
-             """)]
-    public decimal CrushClaim { get; set; } = 0.88M;
-
-    [Comment("""
-             When divorcing a waifu, her new value will be her current value multiplied by this number.
-             Default 0.75 (meaning will lose 25% of her value)
-             """)]
-    public decimal DivorceNewValue { get; set; } = 0.75M;
-
-    [Comment("""
-             All gift prices will be multiplied by this number.
-             Default 1 (meaning no effect)
-             """)]
-    public decimal AllGiftPrices { get; set; } = 1.0M;
-
-    [Comment("""
-             What percentage of the value of the gift will a waifu gain when she's gifted.
-             Default 0.95 (meaning 95%)
-             Example: If a waifu is worth 1000, and she receives a gift worth 100, her new value will be 1095)
-             """)]
-    public decimal GiftEffect { get; set; } = 0.95M;
-}
-
 public sealed class SlotsConfig
 {
     [Comment("""Hex value of the color which the numbers on the slot image will have.""")]
     public Rgba32 CurrencyFontColor { get; set; } = Color.Red;
-}
-
-[Cloneable]
-public sealed partial class WaifuItemModel
-{
-    public string ItemEmoji { get; set; }
-    public long Price { get; set; }
-    public string Name { get; set; }
-
-    [YamlMember(DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
-    public int Happy { get; set; }
-    [YamlMember(DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
-    public int Hunger { get; set; }
-
-    public WaifuItemModel()
-    {
-    }
-
-    public WaifuItemModel(
-        string itemEmoji,
-        long price,
-        string name,
-        int happy = 0,
-        int hunger = 0)
-    {
-        ItemEmoji = itemEmoji;
-        Price = price;
-        Name = name;
-        Happy = 0;
-        Hunger = 0;
-    }
-
-
-    public override string ToString()
-        => Name;
 }
 
 [Cloneable]

@@ -6,18 +6,17 @@
 
 CREATE TEMP TABLE _old_waifus AS
 SELECT wi.id AS old_id, du_waifu.userid AS discord_user_id, wi.price AS old_price,
-       du_claimer.userid AS claimer_discord_user_id
+       du_claimer.userid AS claimer_discord_user_id, du_affinity.userid AS affinity_discord_user_id
 FROM waifuinfo wi
 INNER JOIN discorduser du_waifu ON du_waifu.id = wi.waifuid
 LEFT JOIN discorduser du_claimer ON du_claimer.id = wi.claimerid
-WHERE wi.price >= 5000;
+LEFT JOIN discorduser du_affinity ON du_affinity.id = wi.affinityid;
 
 CREATE TEMP TABLE _old_gifts AS
 SELECT du_waifu.userid AS waifu_discord_user_id, LOWER(item.name) AS item_name, COUNT(*) AS cnt
 FROM waifuitem item
 INNER JOIN waifuinfo wi ON wi.id = item.waifuinfoid
 INNER JOIN discorduser du_waifu ON du_waifu.id = wi.waifuid
-WHERE wi.price >= 5000
 GROUP BY du_waifu.userid, LOWER(item.name);
 
 -- ============================================================
@@ -203,6 +202,27 @@ WHERE item_name IN (
     'flower', 'ribbon', 'rose', 'loveletter', 'teddy', 'gift',
     'diamond', 'dress', 'piano', 'kitten', 'house', 'moon'
 );
+
+-- Merge unmapped gift items into a single Legacy gift per waifu
+INSERT INTO waifugiftcount (waifuuserid, giftitemid, count)
+SELECT waifu_discord_user_id, '019479a1-ffff-7000-8000-ffffffffffff'::uuid, SUM(cnt)
+FROM _old_gifts
+WHERE item_name NOT IN (
+    'cookie', 'donut', 'bread', 'onigiri', 'pizza', 'burger',
+    'bento', 'pasta', 'cake', 'sushi', 'lobster', 'feast',
+    'flower', 'ribbon', 'rose', 'loveletter', 'teddy', 'gift',
+    'diamond', 'dress', 'piano', 'kitten', 'house', 'moon'
+)
+GROUP BY waifu_discord_user_id;
+
+-- Migrate affinity relationships as fan records
+-- discord_user_id = the fan (the user who set affinity)
+-- affinity_discord_user_id = the waifu they're a fan of
+INSERT INTO waifufan (userid, waifuuserid, delegatedat)
+SELECT ow.discord_user_id, ow.affinity_discord_user_id, now() AT TIME ZONE 'UTC'
+FROM _old_waifus ow
+WHERE ow.affinity_discord_user_id IS NOT NULL
+AND EXISTS (SELECT 1 FROM _old_waifus w2 WHERE w2.discord_user_id = ow.affinity_discord_user_id);
 
 DROP TABLE _old_waifus;
 DROP TABLE _old_gifts;

@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Discord.Commands;
@@ -125,6 +127,35 @@ namespace NadekoBot.Tests
             }
 
             Assert.That(isSuccess, Is.True, "There are some unused command strings in strings/commands.en-US.yml");
+        }
+
+        [Test]
+        public void NoOrphanedResponseStrings()
+        {
+            var stringsSource = new LocalFileStringsSource(responsesPath, commandsPath);
+            var allKeys = stringsSource.GetResponseStrings()["en-US"].Keys.ToHashSet();
+
+            var usedKeys = new HashSet<string>();
+            var srcPath = Path.GetFullPath(Path.Combine("../../../..", "NadekoBot"));
+            var csFiles = Directory.GetFiles(srcPath, "*.cs", SearchOption.AllDirectories);
+            var strsPattern = new System.Text.RegularExpressions.Regex(@"strs\.(\w+)");
+
+            foreach (var file in csFiles)
+            {
+                var content = File.ReadAllText(file);
+                foreach (System.Text.RegularExpressions.Match match in strsPattern.Matches(content))
+                    usedKeys.Add(match.Groups[1].Value);
+            }
+
+            var orphaned = allKeys.Except(usedKeys).OrderBy(x => x).ToList();
+            if (orphaned.Count > 0)
+            {
+                foreach (var key in orphaned)
+                    TestContext.Out.WriteLine($"'{key}' in res.yml is never used in code.");
+            }
+
+            Assert.That(orphaned, Is.Empty,
+                $"Found {orphaned.Count} orphaned response string(s) in res.yml");
         }
     }
 }

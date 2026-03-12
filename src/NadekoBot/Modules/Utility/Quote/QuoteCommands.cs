@@ -118,12 +118,11 @@ public partial class Utility
             var modal = new ModalBuilder()
                         .WithCustomId("quote:edit_modal")
                         .WithTitle($"Edit expression {id}")
-                        .AddTextInput(new TextInputBuilder()
-                                      .WithLabel(GetText(strs.response))
-                                      .WithValue(found.Text)
-                                      .WithMinLength(1)
-                                      .WithCustomId("quote:edit_modal:response")
-                                      .WithStyle(TextInputStyle.Paragraph));
+                        .AddTextInput(GetText(strs.response),
+                            "quote:edit_modal:response",
+                            TextInputStyle.Paragraph,
+                            minLength: 1,
+                            value: found.Text);
 
             var inter = _inter.Create(ctx.User.Id,
                 new ButtonBuilder()
