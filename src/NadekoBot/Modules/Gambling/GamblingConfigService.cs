@@ -72,48 +72,6 @@ public sealed class GamblingConfigService : ConfigServiceBase<GamblingConfig>
             ConfigPrinters.ToString,
             val => val >= 1);
 
-        AddParsedProp("waifu.min_price",
-            gs => gs.Waifu.MinPrice,
-            long.TryParse,
-            ConfigPrinters.ToString,
-            val => val >= 0);
-
-        AddParsedProp("waifu.multi.reset",
-            gs => gs.Waifu.Multipliers.WaifuReset,
-            int.TryParse,
-            ConfigPrinters.ToString,
-            val => val >= 0);
-
-        AddParsedProp("waifu.multi.crush_claim",
-            gs => gs.Waifu.Multipliers.CrushClaim,
-            decimal.TryParse,
-            ConfigPrinters.ToString,
-            val => val >= 0);
-
-        AddParsedProp("waifu.multi.normal_claim",
-            gs => gs.Waifu.Multipliers.NormalClaim,
-            decimal.TryParse,
-            ConfigPrinters.ToString,
-            val => val > 0);
-
-        AddParsedProp("waifu.multi.divorce_value",
-            gs => gs.Waifu.Multipliers.DivorceNewValue,
-            decimal.TryParse,
-            ConfigPrinters.ToString,
-            val => val > 0);
-
-        AddParsedProp("waifu.multi.all_gifts",
-            gs => gs.Waifu.Multipliers.AllGiftPrices,
-            decimal.TryParse,
-            ConfigPrinters.ToString,
-            val => val > 0);
-
-        AddParsedProp("waifu.multi.gift_effect",
-            gs => gs.Waifu.Multipliers.GiftEffect,
-            decimal.TryParse,
-            ConfigPrinters.ToString,
-            val => val >= 0);
-
         AddParsedProp("decay.percent",
             gs => gs.Decay.Percent,
             decimal.TryParse,

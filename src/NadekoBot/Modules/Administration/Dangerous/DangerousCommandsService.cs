@@ -3,7 +3,7 @@ using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NadekoBot.Db.Models;
-using NadekoBot.Modules.Waifus.WaifusHubbies.Db;
+using NadekoBot.Modules.Waifus.Waifu.Db;
 
 namespace NadekoBot.Modules.Administration.Services;
 

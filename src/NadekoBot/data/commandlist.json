@@ -725,10 +725,9 @@
       "Aliases": [
         ".setnick"
       ],
-      "Description": "Changes the nickname of the bot on this server. You can also target other users to change their nickname.",
+      "Description": "Changes the nickname of the bot on this server.",
       "Usage": [
-        ".setnick BotNickname",
-        ".setnick @SomeUser New Nickname"
+        ".setnick BotNickname"
       ],
       "Submodule": "NicknameCommands",
       "Module": "Administration",
@@ -5217,12 +5216,12 @@
     },
     {
       "Aliases": [
-        ".medusasearch",
-        ".mesearchw"
+        ".medusareload",
+        ".mereload"
       ],
-      "Description": "Searches for medusae online given the search term",
+      "Description": "Unloads and then reloads the specified medusa.",
       "Usage": [
-        ".medusasearch shrine"
+        ".medusareload mycoolmedusa"
       ],
       "Submodule": "Medusa",
       "Module": "Owner",
@@ -8421,7 +8420,21 @@
       "Requirements": []
     }
   ],
-  "WnHCommands": [
+  "Waifus": [
+    {
+      "Aliases": [
+        ".waifuhelp",
+        ".whelp"
+      ],
+      "Description": "Shows a brief overview of the waifu system: roles, commands, and cycle mechanics.",
+      "Usage": [
+        ".waifuhelp"
+      ],
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
+      "Options": null,
+      "Requirements": []
+    },
     {
       "Aliases": [
         ".waifu",
@@ -8432,8 +8445,8 @@
         ".waifu",
         ".waifu @user"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8442,13 +8455,13 @@
         ".waifufans",
         ".wfans"
       ],
-      "Description": "Shows all fans backing a waifu and their bank balances.",
+      "Description": "Shows all fans backing a waifu and their last cycle earnings.",
       "Usage": [
         ".waifufans",
         ".waifufans @user"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8461,8 +8474,8 @@
       "Usage": [
         ".waifuleaderboard"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8471,12 +8484,12 @@
         ".waifuoptin",
         ".woptin"
       ],
-      "Description": "Opts you into the waifu system. Costs 10,000.\nYou must not be backing anyone to opt in.",
+      "Description": "Opts you into the waifu system. Costs 10,000.",
       "Usage": [
         ".waifuoptin"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8489,37 +8502,41 @@
       "Usage": [
         ".waifuoptout"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
     {
       "Aliases": [
         ".waifuback",
-        ".wback"
+        ".wback",
+        ".waffinity",
+        ".wfan"
       ],
-      "Description": "Toggle fan backing. With a user argument, backs that waifu (or switches).\nWithout arguments, stops backing (with confirmation).\nWaifus can't back other waifus.",
+      "Description": "Toggle fan backing. With a user argument, backs that waifu (or switches).\nWithout arguments, stops backing (with confirmation).",
       "Usage": [
         ".waifuback @user",
         ".waifuback"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
     {
       "Aliases": [
         ".waifubuy",
-        ".wbuy"
+        ".wbuy",
+        ".wclaim",
+        ".wc"
       ],
-      "Description": "Buys the manager position for a waifu. Must be a fan of the target.\nCosts 115% of the current price. Only available in the first 18h of a cycle.\n90% goes to old manager, 5% to waifu, 5% burned.",
+      "Description": "Buys the manager position for a waifu.\nCosts 115% of the current price. Only available in the first 18h of a cycle.\n90% goes to old manager, 5% to waifu, 5% burned.",
       "Usage": [
         ".waifubuy @user"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8532,8 +8549,8 @@
       "Usage": [
         ".waifufee 3"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8545,8 +8562,8 @@
       "Usage": [
         ".hug @user"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8558,8 +8575,8 @@
       "Usage": [
         ".kiss @user"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8571,8 +8588,8 @@
       "Usage": [
         ".pat @user"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8586,8 +8603,8 @@
       "Usage": [
         ".waifugiftshop"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     },
@@ -8602,8 +8619,55 @@
         ".waifugift cookie @user",
         ".waifugift 3x rose @user"
       ],
-      "Submodule": "WnHCommands",
-      "Module": "WnHCommands",
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifuresign",
+        ".wresign",
+        ".wdivorce"
+      ],
+      "Description": "Resign from managing a specific waifu. Triggers manager exit with financial consequences\n(50% refund, 10% to waifu, 35% to fans, 5% burned).",
+      "Usage": [
+        ".waifuresign @user"
+      ],
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifulist",
+        ".wlist",
+        ".waifus",
+        ".ws"
+      ],
+      "Description": "Shows all waifus you (or the specified user) are currently managing.",
+      "Usage": [
+        ".waifulist",
+        ".waifulist @user"
+      ],
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".waifupayout",
+        ".wpayout",
+        ".wp"
+      ],
+      "Description": "Shows your pending waifu payouts and lets you collect them.",
+      "Usage": [
+        ".waifupayout"
+      ],
+      "Submodule": "WaifuCommands",
+      "Module": "Waifus",
       "Options": null,
       "Requirements": []
     }

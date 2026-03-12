@@ -1,11 +1,12 @@
 ﻿# Changelog
 
-*a,c,f,r,o*
+*a,c,f,r,o,d*
 
-## [7.0.0] -
+## [7.0.0] - 13.03.2026
 
 ### Added
 
+- DAVE protocol support for Discord voice end-to-end encryption (E2EE)
 - Added `.hands` command - see a list of currently raised hands in your stage channel, in the chronological order
 - Added `.lineup` commands - users can line-up with an optional reason
   - Moderators commands:
@@ -18,29 +19,51 @@
     - `.lineuplist` - see the current lineup
     - `.lineupleave` - leave the lineup if you've previously joined
 - Added `.fishspotchange` command - use a Spot Coin to change the fishing spot of the current channel
-- Added `.questlog` / `.qlog` / `.quests` / `.dailies` command to view your active quests and progress
 - Added `.mereload` / `.medusareload` command - unloads and reloads a medusa in one step
 
 ### Changed
 
+- Waifus are now a separate top-level module (moved out of Gambling)
+- Owner commands are now a separate top-level module in `.mdls`
 - Waifus reworked
   - New backing system: fans delegate bank balance to waifus, earning returns each cycle
-  - Managers replace claimers -- buy the manager position to earn a cut of returns
+  - Managers replace claimers - buy the manager position to earn a cut of returns
+  - Managers can manage any number of waifus; fan backing limited to one waifu
+  - New `.waifuhelp` / `.whelp` command - shows an overview of the waifu system, roles, commands, and cycle mechanics
+  - New `.waifuoptin` / `.woptin` command - opt into the waifu system (costs currency)
+  - New `.waifuoptout` / `.woptout` command - opt out of the waifu system
+  - New `.waifuback` / `.wback` / `.wfan` command - become a fan of a waifu (toggle backing on/off, or switch)
+  - New `.waifubuy` / `.wbuy` / `.wclaim` command - buy the manager position for a waifu
+  - New `.waifufee` / `.wfee` command - set your waifu fee percentage (1-5%)
+  - New `.waifufans` / `.wfans` command - show all fans backing a waifu and their last cycle earnings
+  - New `.waifugiftshop` / `.wgs` command - shows today's rotating gift shop items
+  - New `.waifuleaderboard` / `.wlb` command - leaderboard ranked by realized return rate
+  - New `.waifuresign` command to resign from managing a specific waifu
+  - Use `.wpayout` or the Collect button on `.w` to claim currency
+  - New `.waifulist` / `.wlist` command to view all waifus you manage
   - Mood and food stats with decay, improved by gifts and actions (hug/kiss/pat)
   - Daily rotating gift shop (6 items across 6 price tiers)
   - Gift tracking: all received gifts are persisted and displayed on the waifu card
   - Cycle-based payout system with projected earnings on the card
-  - Waifus with price >= 5000 are automatically migrated from the old system; claimers become managers, gift history is preserved
+  - Waifus with price >= 1000 are automatically migrated from the old system; claimers become managers, gift history is preserved
+  - New `data/waifu.yml` config file for selfhosters to configure the waifu economy (cycle length, rates, fees, caps, etc.)
 - Nunchi renamed to CountUp, with visual improvements
-- Fishing leaderboard now shows 10 entries per page instead of 9
-- Removed `.medusasearch` / `.mesearch` command
+- Fishing leaderboard and stars leaderboard now show 10 entries per page instead of 9
+- Music player: improved packet timing to prevent audio drift, sends silence frames between tracks to avoid Opus artifacts
 
 ### Fixed
 
 - Fixed mute role not being saved correctly in some cases
 
+### Removed
+
+- Removed `.medusasearch` / `.mesearch` command
+- Removed old waifu commands: `.waifureset`, `.waifuclaims`, `.waifuclaim`, `.waifutransfer`, `.divorce`, `.affinity` (replaced by the new waifu system)
+
 ### Dev
 
+- DAVE (Discord Audio/Video Encryption) native library (`libdave.so` / `libdave.dll`) shipped with the bot
+- Voice client: pre-allocated RTP/nonce buffers, reduced per-packet heap allocations
 - Strings now live next to each feature, they are merged in a pre-build msbuild task and sent to output
 - Responses, cmds and names (previously aliases) are now all .yml
 - Administration and Searches commands split into smaller submodules

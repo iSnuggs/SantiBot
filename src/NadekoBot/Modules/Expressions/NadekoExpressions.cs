@@ -181,12 +181,11 @@ public sealed class NadekoExpressions(IBotCreds creds, IHttpClientFactory client
         var modal = new ModalBuilder()
             .WithCustomId("expr:edit_modal")
             .WithTitle($"Edit expression {id}")
-            .AddTextInput(new TextInputBuilder()
-                .WithLabel(GetText(strs.response))
-                .WithValue(found.Response)
-                .WithMinLength(1)
-                .WithCustomId("expr:edit_modal:response")
-                .WithStyle(TextInputStyle.Paragraph));
+            .AddTextInput(GetText(strs.response),
+                "expr:edit_modal:response",
+                TextInputStyle.Paragraph,
+                minLength: 1,
+                value: found.Response);
 
         var inter = _inter.Create(ctx.User.Id,
             new ButtonBuilder()

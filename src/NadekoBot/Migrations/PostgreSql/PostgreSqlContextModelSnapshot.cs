@@ -3536,9 +3536,6 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.HasIndex("GuildId", "ChannelId", "DateAdded")
                         .HasDatabaseName("ix_lineupuser_guildid_channelid_dateadded");
 
-                    b.HasIndex("GuildId", "ChannelId", "UserId")
-                        .HasDatabaseName("ix_lineupuser_guildid_channelid_userid");
-
                     b.ToTable("lineupuser", (string)null);
                 });
 
@@ -3617,7 +3614,7 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("userrole", (string)null);
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuCycle", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuCycle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3680,7 +3677,7 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("waifucycle", (string)null);
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuCycleSnapshot", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuCycleSnapshot", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3718,7 +3715,7 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("waifucyclesnapshot", (string)null);
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuFan", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuFan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3730,10 +3727,6 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.Property<DateTime>("DelegatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("delegatedat");
-
-                    b.Property<DateTime?>("LeftAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("leftat");
 
                     b.Property<decimal>("UserId")
                         .HasColumnType("numeric(20,0)")
@@ -3756,7 +3749,7 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("waifufan", (string)null);
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuGiftCount", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuGiftCount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3787,7 +3780,7 @@ namespace NadekoBot.Migrations.PostgreSql
                     b.ToTable("waifugiftcount", (string)null);
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuInfo", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3856,6 +3849,33 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasDatabaseName("ix_waifuinfo_userid");
 
                     b.ToTable("waifuinfo", (string)null);
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuPendingPayout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric")
+                        .HasColumnName("amount");
+
+                    b.Property<decimal>("UserId")
+                        .HasColumnType("numeric(20,0)")
+                        .HasColumnName("userid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_waifupendingpayout");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_waifupendingpayout_userid");
+
+                    b.ToTable("waifupendingpayout", (string)null);
                 });
 
             modelBuilder.Entity("NadekoBot.Modules.Xp.ChannelXpConfig", b =>

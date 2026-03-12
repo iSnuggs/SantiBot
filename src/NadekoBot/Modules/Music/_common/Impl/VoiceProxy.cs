@@ -48,6 +48,24 @@ public sealed class VoiceProxy : IVoiceProxy
         }
     }
 
+    public bool SendOpusFrame(VoiceClient vc, byte[] data, int length)
+    {
+        try
+        {
+            var gw = gateway;
+            if (gw is null || gw.Stopped || !gw.Started)
+                return false;
+
+            vc.SendOpusFrame(gw, data, 0, length);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Couldn't send opus frame: {Message}", ex.Message);
+            return false;
+        }
+    }
+
     public async Task<bool> RunGatewayAction(Func<VoiceGateway, Task> action)
     {
         var errorCount = 0;

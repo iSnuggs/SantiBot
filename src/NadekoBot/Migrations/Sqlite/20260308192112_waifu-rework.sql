@@ -1,25 +1,28 @@
-﻿BEGIN TRANSACTION;
+PRAGMA foreign_keys = 0;
+
+BEGIN TRANSACTION;
 
 -- ============================================================
 -- STEP 0: Save old waifu data before destructive schema changes
 -- ============================================================
 
--- Save qualifying waifus (price >= 5000) with resolved Discord User IDs
+-- Save all waifus with resolved Discord User IDs
 CREATE TABLE "_old_waifus" (
     "OldId" INTEGER,
     "DiscordUserId" INTEGER,
     "OldPrice" INTEGER,
-    "ClaimerDiscordUserId" INTEGER
+    "ClaimerDiscordUserId" INTEGER,
+    "AffinityDiscordUserId" INTEGER
 );
 
-INSERT INTO "_old_waifus" ("OldId", "DiscordUserId", "OldPrice", "ClaimerDiscordUserId")
-SELECT wi."Id", du_waifu."UserId", wi."Price", du_claimer."UserId"
+INSERT INTO "_old_waifus" ("OldId", "DiscordUserId", "OldPrice", "ClaimerDiscordUserId", "AffinityDiscordUserId")
+SELECT wi."Id", du_waifu."UserId", wi."Price", du_claimer."UserId", du_affinity."UserId"
 FROM "WaifuInfo" wi
 INNER JOIN "DiscordUser" du_waifu ON du_waifu."Id" = wi."WaifuId"
 LEFT JOIN "DiscordUser" du_claimer ON du_claimer."Id" = wi."ClaimerId"
-WHERE wi."Price" >= 5000;
+LEFT JOIN "DiscordUser" du_affinity ON du_affinity."Id" = wi."AffinityId";
 
--- Save gift items grouped by waifu + item name
+-- Save gift items grouped by waifu + item name (all waifus)
 CREATE TABLE "_old_gifts" (
     "WaifuDiscordUserId" INTEGER,
     "ItemName" TEXT,
@@ -31,7 +34,6 @@ SELECT du_waifu."UserId", LOWER(item."Name"), COUNT(*)
 FROM "WaifuItem" item
 INNER JOIN "WaifuInfo" wi ON wi."Id" = item."WaifuInfoId"
 INNER JOIN "DiscordUser" du_waifu ON du_waifu."Id" = wi."WaifuId"
-WHERE wi."Price" >= 5000
 GROUP BY du_waifu."UserId", LOWER(item."Name");
 
 -- ============================================================
@@ -74,7 +76,6 @@ ALTER TABLE "WaifuInfo" ADD "TotalProduced" INTEGER NOT NULL DEFAULT 0;
 
 ALTER TABLE "WaifuInfo" ADD "UserId" INTEGER NOT NULL DEFAULT 0;
 
--- Clear all rows before temp table rebuild (data is saved in _old_waifus)
 DELETE FROM "WaifuInfo";
 
 CREATE TABLE "ChannelSpotOverride" (
@@ -166,41 +167,24 @@ INSERT INTO "ef_temp_WaifuInfo" ("Id", "CustomAvatarUrl", "Description", "Food",
 SELECT "Id", "CustomAvatarUrl", "Description", "Food", "IsHubby", "LastDecayTime", "ManagerUserId", "Mood", "Price", "Quote", "ReturnsCap", "TotalProduced", "UserId", "WaifuFeePercent"
 FROM "WaifuInfo";
 
-COMMIT;
-
-PRAGMA foreign_keys = 0;
-
-BEGIN TRANSACTION;
 DROP TABLE "WaifuInfo";
 
 ALTER TABLE "ef_temp_WaifuInfo" RENAME TO "WaifuInfo";
 
-COMMIT;
-
-PRAGMA foreign_keys = 1;
-
-BEGIN TRANSACTION;
 CREATE UNIQUE INDEX "IX_WaifuInfo_UserId" ON "WaifuInfo" ("UserId");
-
-COMMIT;
 
 -- ============================================================
 -- STEP 2: Restore migrated waifu data
 -- ============================================================
 
-BEGIN TRANSACTION;
-
--- Clear any junk rows left by the column renames (old WaifuId values are now in WaifuFeePercent, etc.)
 DELETE FROM "WaifuInfo";
 
--- Insert migrated waifus with correct column values
 INSERT INTO "WaifuInfo" ("UserId", "Mood", "Food", "WaifuFeePercent", "Price", "ManagerUserId",
                           "ReturnsCap", "IsHubby", "LastDecayTime", "TotalProduced")
 SELECT "DiscordUserId", 500, 500, 5, "OldPrice", "ClaimerDiscordUserId",
        1000000, 0, datetime('now'), 0
 FROM "_old_waifus";
 
--- Insert gift counts with name-to-GUID mapping
 INSERT INTO "WaifuGiftCount" ("WaifuUserId", "GiftItemId", "Count")
 SELECT "WaifuDiscordUserId",
     CASE "ItemName"
@@ -238,11 +222,31 @@ WHERE "ItemName" IN (
     'diamond', 'dress', 'piano', 'kitten', 'house', 'moon'
 );
 
+-- Merge unmapped gift items into a single Legacy gift per waifu
+INSERT INTO "WaifuGiftCount" ("WaifuUserId", "GiftItemId", "Count")
+SELECT "WaifuDiscordUserId", '019479a1-ffff-7000-8000-ffffffffffff', SUM("Cnt")
+FROM "_old_gifts"
+WHERE "ItemName" NOT IN (
+    'cookie', 'donut', 'bread', 'onigiri', 'pizza', 'burger',
+    'bento', 'pasta', 'cake', 'sushi', 'lobster', 'feast',
+    'flower', 'ribbon', 'rose', 'loveletter', 'teddy', 'gift',
+    'diamond', 'dress', 'piano', 'kitten', 'house', 'moon'
+)
+GROUP BY "WaifuDiscordUserId";
+
+-- Migrate affinity relationships as fan records
+INSERT INTO "WaifuFan" ("UserId", "WaifuUserId", "DelegatedAt")
+SELECT ow."DiscordUserId", ow."AffinityDiscordUserId", datetime('now')
+FROM "_old_waifus" ow
+WHERE ow."AffinityDiscordUserId" IS NOT NULL
+AND EXISTS (SELECT 1 FROM "_old_waifus" w2 WHERE w2."DiscordUserId" = ow."AffinityDiscordUserId");
+
 DROP TABLE "_old_waifus";
 DROP TABLE "_old_gifts";
 
 COMMIT;
 
+PRAGMA foreign_keys = 1;
+
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20260308192112_waifu-rework', '9.0.1');
-

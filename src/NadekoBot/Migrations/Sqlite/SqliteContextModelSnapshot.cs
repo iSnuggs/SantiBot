@@ -2633,8 +2633,6 @@ namespace NadekoBot.Migrations.Sqlite
 
                     b.HasIndex("GuildId", "ChannelId", "DateAdded");
 
-                    b.HasIndex("GuildId", "ChannelId", "UserId");
-
                     b.ToTable("LineUpUser");
                 });
 
@@ -2694,7 +2692,7 @@ namespace NadekoBot.Migrations.Sqlite
                     b.ToTable("UserRole");
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuCycle", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuCycle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2741,7 +2739,7 @@ namespace NadekoBot.Migrations.Sqlite
                     b.ToTable("WaifuCycle");
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuCycleSnapshot", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuCycleSnapshot", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2769,16 +2767,13 @@ namespace NadekoBot.Migrations.Sqlite
                     b.ToTable("WaifuCycleSnapshot");
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuFan", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuFan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DelegatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("LeftAt")
                         .HasColumnType("TEXT");
 
                     b.Property<ulong>("UserId")
@@ -2797,7 +2792,7 @@ namespace NadekoBot.Migrations.Sqlite
                     b.ToTable("WaifuFan");
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuGiftCount", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuGiftCount", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2820,7 +2815,7 @@ namespace NadekoBot.Migrations.Sqlite
                     b.ToTable("WaifuGiftCount");
                 });
 
-            modelBuilder.Entity("NadekoBot.Modules.Waifus.WaifusHubbies.Db.WaifuInfo", b =>
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuInfo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2871,6 +2866,26 @@ namespace NadekoBot.Migrations.Sqlite
                         .IsUnique();
 
                     b.ToTable("WaifuInfo");
+                });
+
+            modelBuilder.Entity("NadekoBot.Modules.Waifus.Waifu.Db.WaifuPendingPayout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("WaifuPendingPayout");
                 });
 
             modelBuilder.Entity("NadekoBot.Modules.Xp.ChannelXpConfig", b =>

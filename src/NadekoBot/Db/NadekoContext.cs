@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 using NadekoBot.Db.Models;
-using NadekoBot.Modules.Waifus.WaifusHubbies.Db;
+using NadekoBot.Modules.Waifus.Waifu.Db;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 

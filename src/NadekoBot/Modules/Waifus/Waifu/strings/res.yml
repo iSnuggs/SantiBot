@@ -1,0 +1,80 @@
+waifu_not_opted_in: "That person hasn't joined the waifu world yet."
+waifu_already_opted_in: "You're already a waifu!"
+waifu_opted_in: "Welcome to the waifu world! You're now registered.\n*Find a manager to start earning {0}.*"
+waifu_opted_out: "You've left the waifu world. Until next time!"
+waifu_insufficient_funds: "You don't have enough funds for that."
+waifu_has_fans: "You still have fans backing you! Ask them to leave before you can opt out."
+waifu_self_not_allowed: "You can't do that to yourself!"
+waifu_no_actions_left: "You've used all your actions for today. Come back tomorrow!"
+waifu_not_found: "That waifu doesn't exist."
+waifu_hugged: "You gave {0} a warm hug! (+{1} mood)"
+waifu_kissed: "You kissed {0}! (+{1} mood)"
+waifu_patted: "You gently patted {0}. (+{1} mood)"
+waifu_pending_payout: "You have {0} in uncollected payouts."
+waifu_no_pending_payout: "You have no pending payouts."
+waifu_payout_claimed: "You've collected {0}!"
+waifu_already_backing: "You're already a fan of this waifu."
+waifu_not_backing: "You're not backing anyone right now."
+waifu_stopped_backing: "You've stopped being a fan."
+waifu_invalid_fee: "Fee must be between {0}% and {1}%."
+waifu_fee_set: "Fee updated to {0}%."
+waifu_no_fans: "No fans yet."
+waifu_fans_title: "Fans of {0}"
+waifu_manager: "Manager"
+waifu_projected_payout: "Projected Payout"
+waifu_total: "Total"
+waifu_label: "Waifu"
+waifu_fan_pool: "Fan Pool"
+waifu_lb_title: "🏆 Waifu Leaderboard"
+waifu_lb_empty: "No waifus with cycle history yet."
+waifu_gift_shop_title: "🎁 Today's Gift Shop"
+waifu_shop_refreshes: "Refreshes in {0}"
+waifu_item_not_found: "That item isn't available today. Use `{0}wgiftshop` to see what's in stock."
+waifu_gifted: "You gave {0}x {1} {2} to {3}! (+{4} {5})"
+waifu_stat_food: "food"
+waifu_stat_mood: "mood"
+waifu_stop_backing_confirm: "Are you sure you want to stop being a fan? You won't earn from payouts anymore."
+waifu_switch_confirm: "You're currently a fan of {0}. Switch your support to {1} instead?"
+waifu_manager_exit_title: "Manager Resignation"
+waifu_manager_exit_warning: "Resigning will have the following financial consequences:"
+waifu_refund: "Your Refund (50%)"
+waifu_goes_to_waifu: "Goes to Waifu (10%)"
+waifu_goes_to_fans: "Distributed to Fans (35%)"
+waifu_burned: "Burned (5%)"
+waifu_new_price: "New Waifu Price"
+waifu_outside_buy_window: "Manager purchases are only available during the first 18 hours of a cycle."
+waifu_price_too_low: "The price is too low."
+waifu_bought_manager_title: "🏢 Manager Position Acquired!"
+waifu_bought_manager: "You are now the manager of {0} for {1:N0}!"
+waifu_old_manager_payout: "Old Manager (90%)"
+waifu_over_cap: "over cap"
+waifu_no_manager_title: "Needs a Manager!"
+waifu_no_manager_payout: "Not earning anything yet. Without a manager, price drops {0}% each cycle. Be the first to manage!"
+waifu_last_payout: "Last payout"
+waifu_pending_fans: "(+{0} joining, -{1} leaving)"
+waifu_fan_pending: "⏳ pending"
+waifu_fan_last_earned: "last earned: {0}"
+waifu_now_backing_hint: "You're now a fan of {0}!\n*Your bank balance is your backing power -- the more you hold, the more you earn.*"
+waifu_bank_balance: "Your bank balance: {0}"
+waifu_not_participating_title: "🎀 Waifu System"
+waifu_not_participating: |-
+  Become a **Waifu** or support one as a **Fan** to earn currency!
+
+  **How it works**
+  `{0}woptin` — register as a waifu
+  `{0}wback @user` — back a waifu with your bank balance
+  `{0}wbuy @user` — become a waifu's manager
+
+  **Roles**
+  🎀 **Waifu** — earns a fee from every payout cycle
+  🏢 **Manager** — buys the position, earns a cut of the waifu fee
+  👥 **Fan** — backs a waifu with bank balance, earns from the fan pool
+
+  **Cycle**
+  Every 3.5 days, returns are generated from backed funds and split between the waifu, manager, and fans. Keep your waifu's mood 😊 and food 🍔 high for better payouts!
+waifu_fan_not_waifu: "You're not a waifu -- you're a fan of **{0}**."
+waifu_gifts_received: "Gifts Received"
+waifu_resigned_manager: "You've resigned as manager of {0}."
+waifu_not_managing: "You're not managing this waifu."
+waifu_managing_title: "Waifus managed by {0}"
+waifu_managing_empty: "Not managing any waifus."

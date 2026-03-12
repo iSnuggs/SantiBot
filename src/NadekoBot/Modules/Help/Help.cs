@@ -193,6 +193,8 @@ public sealed partial class Help : NadekoModule<HelpService>
                 return strs.module_description_patronage;
             case "owner":
                 return strs.module_description_owner;
+            case "waifus":
+                return strs.module_description_waifus;
             default:
                 return strs.module_description_missing;
         }
@@ -227,6 +229,8 @@ public sealed partial class Help : NadekoModule<HelpService>
                 return "💝";
             case "owner":
                 return "👑";
+            case "waifus":
+                return "🎀";
             default:
                 return "📖";
         }
@@ -320,6 +324,20 @@ public sealed partial class Help : NadekoModule<HelpService>
             else
                 await Response().Error(strs.module_not_found_or_cant_exec).SendAsync();
             return;
+        }
+
+        if (cmdsWithGroup.Count == 1)
+        {
+            var singleModule = _cmds.Modules.FirstOrDefault(x
+                => string.Equals(x.Name.Replace("Commands", ""),
+                    cmdsWithGroup[0].Key,
+                    StringComparison.InvariantCultureIgnoreCase));
+
+            if (singleModule is not null)
+            {
+                await Group(singleModule);
+                return;
+            }
         }
 
         var sb = new SelectMenuBuilder()

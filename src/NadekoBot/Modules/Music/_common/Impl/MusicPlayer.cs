@@ -188,18 +188,16 @@ public sealed class MusicPlayer : IMusicPlayer
                 //         await Task.Delay(1000, cancelToken);
                 // }
 
-                // start sending data
-                var ticksPerMs = 1000f / Stopwatch.Frequency;
-                sw.Start();
-                Thread.Sleep(2);
+                // start sending data with absolute timing to prevent drift
+                var ticksPerFrame = (long)(Stopwatch.Frequency * _vc.Delay / 1000.0);
 
-                var delay = sw.ElapsedTicks * ticksPerMs > 3f ? _vc.Delay - 16 : _vc.Delay - 3;
+                sw.Start();
+                var nextFrameTick = sw.ElapsedTicks;
 
                 var errorCount = 0;
+                var songFinished = false;
                 while (!IsStopped && !IsKilled)
                 {
-                    // doing the skip this way instead of in the condition
-                    // ensures that a song will for sure be skipped
                     if (skipped)
                     {
                         skipped = false;
@@ -209,18 +207,20 @@ public sealed class MusicPlayer : IMusicPlayer
                     if (IsPaused)
                     {
                         await Task.Delay(200);
+                        // re-anchor timing after pause to avoid burst of catch-up frames
+                        nextFrameTick = sw.ElapsedTicks;
                         continue;
                     }
 
-                    sw.Restart();
-                    var ticks = sw.ElapsedTicks;
                     try
                     {
                         var result = CopyChunkToOutput(_songBuffer, _vc);
 
-                        // if song is finished
                         if (result is null)
+                        {
+                            songFinished = true;
                             break;
+                        }
 
                         if (result is true)
                         {
@@ -230,13 +230,15 @@ public sealed class MusicPlayer : IMusicPlayer
                                 errorCount = 0;
                             }
 
-                            // FUTURE windows multimedia api
+                            nextFrameTick += ticksPerFrame;
 
-                            // wait for slightly less than the latency
-                            Thread.Sleep(delay);
+                            // coarse sleep for most of the wait
+                            var remainingMs = (nextFrameTick - sw.ElapsedTicks) * 1000.0 / Stopwatch.Frequency;
+                            if (remainingMs > 3.0)
+                                Thread.Sleep((int)(remainingMs - 2.0));
 
-                            // and then spin out the rest
-                            while ((sw.ElapsedTicks - ticks) * ticksPerMs <= _vc.Delay - 0.1f)
+                            // spin-wait for precise timing
+                            while (sw.ElapsedTicks < nextFrameTick)
                                 Thread.SpinWait(100);
                         }
                         else
@@ -248,22 +250,26 @@ public sealed class MusicPlayer : IMusicPlayer
                             if (++errorCount <= 15)
                             {
                                 await Task.Delay(200);
+                                nextFrameTick = sw.ElapsedTicks;
                                 continue;
                             }
 
                             Log.Warning("Can't send data to voice channel");
 
                             IsStopped = true;
-                            // if errors are happening for more than 3 seconds
-                            // Stop the player
                             break;
                         }
                     }
                     catch (Exception ex)
                     {
                         Log.Warning(ex, "Something went wrong sending voice data: {ErrorMessage}", ex.Message);
+                        nextFrameTick = sw.ElapsedTicks;
                     }
                 }
+
+                // send 5 silence frames as required by Discord to avoid Opus interpolation artifacts
+                if (songFinished)
+                    SendSilenceFrames(_vc, 5);
             }
             catch (Win32Exception)
             {
@@ -324,6 +330,24 @@ public sealed class MusicPlayer : IMusicPlayer
             return sti.StreamUrl;
 
         return await _ytResolverFactory.GetYoutubeResolver().GetStreamUrl(track.TrackInfo.Id);
+    }
+
+    private static readonly byte[] OpusSilenceFrame = { 0xF8, 0xFF, 0xFE };
+
+    private void SendSilenceFrames(VoiceClient vc, int count)
+    {
+        for (var i = 0; i < count; i++)
+        {
+            try
+            {
+                _proxy.SendOpusFrame(vc, OpusSilenceFrame, OpusSilenceFrame.Length);
+                Thread.Sleep(_vc.Delay);
+            }
+            catch
+            {
+                break;
+            }
+        }
     }
 
     private bool? CopyChunkToOutput(ISongBuffer sb, VoiceClient vc)

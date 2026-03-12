@@ -1,0 +1,182 @@
+# DO NOT CHANGE
+version: 2
+# Minimum price a waifu can have. Default 1000
+minPrice: 1000
+# Cost to opt into the waifu system. Default 10000
+optInCost: 10000
+# Price decay percentage per cycle for waifus without a manager (0-100). Default 10
+managerlessDecayPercent: 10
+# Hours per cycle. Default 84 (3.5 days)
+cycleHours: 84
+# Annual return rate as a decimal. Default 0.17 (17%)
+baseReturnRate: 0.17
+# Default max backed amount for computing returns. Default 1000000
+defaultReturnsCap: 1000000
+# Hours after cycle start when manager purchases are allowed. Default 18
+buyWindowHours: 18
+# Base mood points gained from a hug action. Default 50
+baseMoodIncrease: 50
+# Max mood/food actions per user per day. Default 2
+maxDailyActions: 2
+# Max items in a single gift command. Default 100
+maxGiftCount: 100
+# Premium over current price to buy manager position (0.0-1.0). Default 0.15 (15%)
+managerBuyPremium: 0.15
+# Fraction of buy price paid to the old manager (0.0-1.0). Default 0.90. Remainder is burned
+managerOldPayout: 0.9
+# Fraction of buy price paid to the waifu (0.0-1.0). Default 0.05. Remainder is burned
+managerWaifuPayout: 0.05
+# Fraction of manager price refunded on resign (0.0-1.0). Default 0.50
+managerExitRefund: 0.5
+# Fraction of manager price paid to the waifu on resign (0.0-1.0). Default 0.10
+managerExitWaifu: 0.1
+# Fraction of manager price distributed to fans on resign (0.0-1.0). Default 0.35. Remainder is burned
+managerExitFans: 0.35
+# Manager's cut of the waifu fee on cycle payouts (0.0-1.0). Default 0.15 (15%)
+managerCutPercent: 0.15
+# List of gift items available in the shop
+items:
+  - id: 019479a1-0001-7000-8000-000000000001
+    emoji: "🍪"
+    name: Cookie
+    price: 10
+    type: Food
+    effect: 5
+  - id: 019479a1-0002-7000-8000-000000000002
+    emoji: "🍩"
+    name: Donut
+    price: 10
+    type: Food
+    effect: 5
+  - id: 019479a1-0003-7000-8000-000000000003
+    emoji: "🥖"
+    name: Bread
+    price: 50
+    type: Food
+    effect: 15
+  - id: 019479a1-0004-7000-8000-000000000004
+    emoji: "🍙"
+    name: Onigiri
+    price: 50
+    type: Food
+    effect: 15
+  - id: 019479a1-0005-7000-8000-000000000005
+    emoji: "🍕"
+    name: Pizza
+    price: 250
+    type: Food
+    effect: 40
+  - id: 019479a1-0006-7000-8000-000000000006
+    emoji: "🍔"
+    name: Burger
+    price: 250
+    type: Food
+    effect: 40
+  - id: 019479a1-0007-7000-8000-000000000007
+    emoji: "🍱"
+    name: Bento
+    price: 1000
+    type: Food
+    effect: 80
+  - id: 019479a1-0008-7000-8000-000000000008
+    emoji: "🍝"
+    name: Pasta
+    price: 1000
+    type: Food
+    effect: 80
+  - id: 019479a1-0009-7000-8000-000000000009
+    emoji: "🍰"
+    name: Cake
+    price: 2500
+    type: Food
+    effect: 150
+  - id: 019479a1-000a-7000-8000-000000000010
+    emoji: "🍣"
+    name: Sushi
+    price: 2500
+    type: Food
+    effect: 150
+  - id: 019479a1-000b-7000-8000-000000000011
+    emoji: "🦞"
+    name: Lobster
+    price: 5000
+    type: Food
+    effect: 250
+  - id: 019479a1-000c-7000-8000-000000000012
+    emoji: "🍖"
+    name: Feast
+    price: 5000
+    type: Food
+    effect: 250
+  - id: 019479a1-1001-7000-8000-000000000101
+    emoji: "🌸"
+    name: Flower
+    price: 10
+    type: Mood
+    effect: 5
+  - id: 019479a1-1002-7000-8000-000000000102
+    emoji: "🎀"
+    name: Ribbon
+    price: 10
+    type: Mood
+    effect: 5
+  - id: 019479a1-1003-7000-8000-000000000103
+    emoji: "🌹"
+    name: Rose
+    price: 50
+    type: Mood
+    effect: 15
+  - id: 019479a1-1004-7000-8000-000000000104
+    emoji: "💌"
+    name: LoveLetter
+    price: 50
+    type: Mood
+    effect: 15
+  - id: 019479a1-1005-7000-8000-000000000105
+    emoji: "🧸"
+    name: Teddy
+    price: 250
+    type: Mood
+    effect: 40
+  - id: 019479a1-1006-7000-8000-000000000106
+    emoji: "🎁"
+    name: Gift
+    price: 250
+    type: Mood
+    effect: 40
+  - id: 019479a1-1007-7000-8000-000000000107
+    emoji: "💎"
+    name: Diamond
+    price: 1000
+    type: Mood
+    effect: 80
+  - id: 019479a1-1008-7000-8000-000000000108
+    emoji: "👗"
+    name: Dress
+    price: 1000
+    type: Mood
+    effect: 80
+  - id: 019479a1-1009-7000-8000-000000000109
+    emoji: "🎹"
+    name: Piano
+    price: 2500
+    type: Mood
+    effect: 150
+  - id: 019479a1-100a-7000-8000-000000000110
+    emoji: "🐱"
+    name: Kitten
+    price: 2500
+    type: Mood
+    effect: 150
+  - id: 019479a1-100b-7000-8000-000000000111
+    emoji: "🏠"
+    name: House
+    price: 5000
+    type: Mood
+    effect: 250
+  - id: 019479a1-100c-7000-8000-000000000112
+    emoji: "🌙"
+    name: Moon
+    price: 5000
+    type: Mood
+    effect: 250
