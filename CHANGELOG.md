@@ -54,6 +54,7 @@
 ### Fixed
 
 - Fixed mute role not being saved correctly in some cases
+- Fixed .vcrole resetting on bot restarts
 
 ### Removed
 
