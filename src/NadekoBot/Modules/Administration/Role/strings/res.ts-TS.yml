@@ -1,0 +1,28 @@
+btnrole_exclusive: Users can only pick one role from that message now... I-I set it up perfectly, of course!
+btnrole_message_max: L-limit reached! You can have up to 25 button roles per message... d-don't blame me!
+btnrole_multiple: Users can pick any number of button roles from that message now. I-it's not like I did this for you!
+btnrole_none: T-there are no button roles on this page... *blushes*
+btnrole_not_found: N-no button role found on that message, b-baka!
+btnrole_removeall_not_found: B-button role removed but the message wasn't found... n-not my fault!
+btnrole_removed: Button role removed! ...I-it's not like I enjoyed helping!
+cr: 'S-successfully created role {0}... you''re welcome, I guess!'
+dr: 'Role {0} has been deleted. D-don''t you dare thank me!'
+invalid_message_id: T-that message ID is invalid, b-baka!
+invalid_message_link: The message link must be this Bot's message... I-I can't add buttons to other users' messages, obviously!
+rar: 'I-I removed all roles from user {0}... d-don''t make me do it again!'
+rar_err: F-failed to remove roles... I-I don't have enough permissions! It's not my fault!
+rc: 'I changed the color of {0} role... i-it''s not like I picked a nice one for you! *blushes*'
+rc_perms: An error occurred... i-invalid color or insufficient permissions, b-baka!
+remrole: 'S-successfully removed role {0} from user {1}!'
+remrole_err: F-failed to remove role... I don't have enough permissions! H-hmph!
+renrole: Role renamed... i-it's not like I care what you call it!
+renrole_err: F-failed to rename role... insufficient permissions!
+renrole_perms: Y-you can't edit roles higher than yours or mine, b-baka!
+rero_message_not_found: T-the specified message wasn't found... make sure you specified the message from this channel, dummy!
+rolehoist_disabled: 'Role {0} is no longer displayed separately from online members. I-I just did what you asked!'
+rolehoist_enabled: 'Role {0} is now displayed separately from online members... n-not that I set it up nicely for you!'
+setrole: 'S-successfully added role {0} to user {1}... d-don''t get the wrong idea!'
+setrole_err: F-failed to add role... insufficient permissions! I-it's not my fault!
+sticky_roles_disabled: Sticky roles disabled. I-it's not like I wanted them on anyway!
+sticky_roles_enabled: S-sticky roles enabled! Leaving users' roles will be restored when they rejoin... I-I'm just being thorough!
+temp_role_added: 'User {0} has been given {1} role temporarily. It expires {2}... I-I''ll be watching! *blushes*'

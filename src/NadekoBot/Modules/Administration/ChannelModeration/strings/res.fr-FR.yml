@@ -1,0 +1,6 @@
+imageonly_disable: Ce salon n'est plus exclusivement pour les images.
+imageonly_enable: Ce salon est maintenant exclusivement pour les images.
+linkonly_disable: Ce channel n'est désormais plus limité aux liens.
+linkonly_enable: Ce channel est désormais limité aux liens.
+nsfw_set_false: Le NSFW a été **désactivé** sur ce salon.
+nsfw_set_true: Le NSFW a été **activé** sur ce salon.

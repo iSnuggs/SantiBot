@@ -1,0 +1,31 @@
+acm_disable: 'I-I disabled ALL MODULES on channel {0}! D-Don''t blame me!'
+acm_enable: 'I enabled ALL MODULES on channel {0}. I-It''s not like I did this for you!'
+arm_disable: 'Disabled ALL MODULES for role {0}. H-Hmph!'
+arm_enable: 'Enabled ALL MODULES for role {0}. D-Don''t make a big deal out of it!'
+asm_disable: I disabled ALL MODULES on this server. B-Baka, don''t look at me like that!
+asm_enable: I-I enabled ALL MODULES on this server. Y-You better appreciate it!
+aum_disable: 'Disabled ALL MODULES for user {0}. I-It had to be done!'
+aum_enable: 'Enabled ALL MODULES for user {0}. *blushes* D-Don''t read into it!'
+cx_disable: 'D-Disabled usage of {0} {1} on channel {2}. I-I was just following orders!'
+cx_enable: 'E-Enabled usage of {0} {1} on channel {2}. N-Not because you asked nicely!'
+global_perms_reset: G-Global permissions have been reset! I-It''s not like I was worried about the mess!
+moved_permission: 'I-I moved permission {0} from #{1} to #{2}... it was getting on my nerves!'
+of_command: command
+of_module: module
+perm_not_found: 'B-Baka! I can''t find any permission at index #{0}!'
+perm_out_of_range: N-No permission found at that index! Check properly next time!
+permrole: 'The current permissions role is {0}. D-Don''t forget it!'
+permrole_changed: 'Users now need the {0} role to edit permissions. I-I set it up properly, obviously!'
+permrole_not_set: P-Permission role isn''t set. It''s not my fault, b-baka!
+permrole_reset: Permission role has been reset. H-Hmph!
+perms_reset: P-Permissions for this server are reset! *blushes* S-Start fresh, I guess!
+removed: 'R-Removed permission #{0} - {1}... d-don''t make me do this again!'
+rx_disable: 'Disabled usage of {0} {1} for {2} role. I-I''m just doing my job!'
+rx_enable: 'Enabled usage of {0} {1} for {2} role. D-Don''t thank me!'
+sx_disable: 'Disabled usage of {0} {1} on this server. W-Whatever!'
+sx_enable: 'Enabled usage of {0} {1} on this server. I-It''s not a favor or anything!'
+uneditable: uneditable
+ux_disable: 'Disabled usage of {0} {1} for {2} user. I-I had my reasons!'
+ux_enable: 'Enabled usage of {0} {1} for {2} user. *blushes* J-Just this once!'
+verbose_false: I-I''ll stop showing permission warnings. F-Fine by me!
+verbose_true: I-I''ll show permission warnings now! S-Someone has to keep you informed, b-baka!

@@ -1,0 +1,27 @@
+item: Item
+out_of_stock: Out of stock! Y-you were too slow, b-baka!
+random_unique_item: Random unique item. I-it's special, okay?!
+shop: Shop
+shop_buy_error: Error DMing item. You've been refunded. I-it wasn't my fault!
+shop_command_invalid_context: Unable to retrieve user, channel or server. Wh-what did you even do?!
+shop_item_add: Shop item added! I-I did it perfectly, as always.
+shop_item_not_found: No item on that index found. C-can't you pick a valid one, b-baka?!
+shop_item_purchase: Item purchase successful! I-it's not like I'm happy for you... *blushes*
+shop_item_req_role_not_found: The required role for this item doesn't exist anymore. T-tell the admin, not me!
+shop_item_req_role_unfulfilled: 'You don''t have the required role ''{0}'' to buy this. D-don''t blame me!'
+shop_item_requires_role: 'Requires {0} role to purchase. I-I don''t make the rules!'
+shop_item_rm: Shop item removed. G-gone forever, hmph!
+shop_item_role_no_req: 'Shop item #{0} will no longer require a role. I-it''s not like I made it easier for you!'
+shop_item_role_req: 'Shop item #{0} will now require users to have a {1} role to purchase it. D-deal with it!'
+shop_item_wrong_type: That shop entry does not support item adding! R-read the instructions, b-baka!
+shop_list_item_added: Item successfully added! I-I guess you did something right for once...
+shop_list_item_not_unique: That item is already added! P-pay attention, will you?!
+shop_none: No shop items found on this page. H-how empty... not that I'm sad about it!
+shop_purchase: 'Purchase on {0} server'
+shop_role: 'You will get {0} role. I-it''s not like it''s a big deal!'
+shop_role_already_bought: You already bought this role! D-do you have memory problems?!
+shop_role_not_found: Role which is being sold no longer exists. I-it's not my fault it disappeared!
+shop_role_purchase: 'You''ve successfully purchased {0} role. D-don''t thank me or anything... *blushes*'
+shop_role_purchase_error: Error assigning role. Your purchase has been refunded. I-I tried my best, okay?!
+type: Type
+unique_items_left: '{0} unique items left. H-hurry before they''re gone!'

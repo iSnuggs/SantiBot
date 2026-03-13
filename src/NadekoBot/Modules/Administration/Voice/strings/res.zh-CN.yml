@@ -1,0 +1,4 @@
+createvoich: '成功創建語音頻道 {0}'
+deafen: 成功拒聽
+delvoich: '語音頻道 {0} 已刪除。'
+undeafen: 成功解除拒聽

@@ -1,0 +1,6 @@
+alias_added: 'F-fine! Typing {0} will now work as an alias for {1}. I-it''s not like I did this for you!'
+alias_list: List of aliases
+alias_remove_fail: 'H-hmph! Trigger {0} didn''t even have an alias! Check before you ask, b-baka!'
+alias_removed: 'I removed the alias for trigger {0}. D-don''t make me regret it!'
+aliases_cleared: 'I-I removed all {0} aliases on this server! That was a lot of work... N-not that I''m complaining!'
+aliases_none: No aliases found... H-hmph!

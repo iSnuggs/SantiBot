@@ -1,9 +1,11 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using Discord.Commands;
 using NadekoBot.Common;
 using NadekoBot.Common.Attributes;
@@ -156,6 +158,115 @@ namespace NadekoBot.Tests
 
             Assert.That(orphaned, Is.Empty,
                 $"Found {orphaned.Count} orphaned response string(s) in res.yml");
+        }
+
+        [Test]
+        public void AllLocaleStringsHaveSamePlaceholderCount()
+        {
+            var stringsSource = new LocalFileStringsSource(responsesPath, commandsPath);
+            var allStrings = stringsSource.GetResponseStrings();
+
+            if (!allStrings.TryGetValue("en-US", out var enUs))
+            {
+                Assert.Fail("en-US response strings not found.");
+                return;
+            }
+
+            var placeholderRegex = new Regex(@"\{(\d+)[}:]");
+            int GetMaxPlaceholder(string val)
+            {
+                var matches = placeholderRegex.Matches(val);
+                if (matches.Count == 0) return -1;
+                var max = -1;
+                foreach (Match m in matches)
+                    max = Math.Max(max, int.Parse(m.Groups[1].Value));
+                return max;
+            }
+
+            var isSuccess = true;
+            foreach (var (locale, dict) in allStrings)
+            {
+                if (locale == "en-US") continue;
+                foreach (var (key, val) in dict)
+                {
+                    if (!enUs.TryGetValue(key, out var enVal)) continue;
+                    if (string.IsNullOrEmpty(val)) continue;
+
+                    var expected = GetMaxPlaceholder(enVal);
+                    var actual = GetMaxPlaceholder(val);
+                    if (actual < expected)
+                    {
+                        TestContext.Out.WriteLine(
+                            $"{locale}/{key}: expects {expected + 1} placeholder(s), has {actual + 1}");
+                        isSuccess = false;
+                    }
+                }
+            }
+
+            Assert.That(isSuccess, Is.True,
+                "Some locale strings are missing placeholders. See output for details.");
+        }
+
+        [Test]
+        public void AllLocaleStringsHaveAllKeys()
+        {
+            var stringsSource = new LocalFileStringsSource(responsesPath, commandsPath);
+            var allStrings = stringsSource.GetResponseStrings();
+
+            if (!allStrings.TryGetValue("en-US", out var enUs))
+            {
+                Assert.Fail("en-US response strings not found.");
+                return;
+            }
+
+            var enUsKeys = enUs.Keys.ToHashSet();
+            var isSuccess = true;
+
+            foreach (var (locale, dict) in allStrings)
+            {
+                if (locale == "en-US") continue;
+
+                var missing = enUsKeys.Except(dict.Keys).OrderBy(x => x).ToList();
+                foreach (var key in missing)
+                {
+                    TestContext.Out.WriteLine($"{locale}: missing key '{key}'");
+                    isSuccess = false;
+                }
+            }
+
+            Assert.That(isSuccess, Is.True,
+                "Some locale files are missing keys. See output for details.");
+        }
+
+        [Test]
+        public void OnlySupportedLocalesHaveStrings()
+        {
+            var locCmdType = typeof(Bot).Assembly
+                .GetTypes()
+                .First(t => t.Name == "LocalizationCommands");
+
+            var field = locCmdType.GetField("_supportedLocales",
+                BindingFlags.NonPublic | BindingFlags.Static)!;
+
+            var supported = ((IReadOnlyDictionary<string, string>)field.GetValue(null)!).Keys.ToHashSet();
+
+            var stringsSource = new LocalFileStringsSource(responsesPath, commandsPath);
+            var allLocales = stringsSource.GetResponseStrings().Keys.ToHashSet();
+
+            var unsupported = allLocales
+                .Where(l => l != "en-US" && !supported.Contains(l))
+                .OrderBy(x => x)
+                .ToList();
+
+            if (unsupported.Count > 0)
+            {
+                foreach (var locale in unsupported)
+                    TestContext.Out.WriteLine(
+                        $"'{locale}' has string files but is not in the supported locales list.");
+            }
+
+            Assert.That(unsupported, Is.Empty,
+                $"Found {unsupported.Count} locale(s) with string files that are not in the supported locales list.");
         }
     }
 }

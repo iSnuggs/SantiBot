@@ -1,0 +1,28 @@
+cmd_group_commands: '''{0}'' command group'
+command_not_found: I-I can''t find that command! D-don''t blame me, just make sure it actually exists before trying again, b-baka!
+commandlist_regen: Commandlist regenerated... I-I did it because I wanted to, not for you!
+commands_instr: 'Type `{0}h CommandName` to see the help for that command. E-e.g. `{0}h {0}8ball`... I-it''s not like I wrote this just for you!'
+guide: |-
+  **List of commands**: <{0}>
+  **Hosting guides and docs**: <{1}>
+  ...I-it''s not like I prepared these links for you or anything! *blushes*
+list_of_modules: L-list of modules... here, just take it already!
+module_description_administration: Moderation, punish troublemakers, setup self-assignable roles and greet messages... I-I set this all up myself, b-baka!
+module_description_expressions: S-setup custom bot responses to certain words or phrases... not that I care what you make me say!
+module_description_gambling: B-bet on dice rolls, blackjack, slots, coinflips and more... d-don''t lose all your money, idiot!
+module_description_games: Play trivia, countup, hangman, connect4 and other games... I-I''ll totally crush you though!
+module_description_help: G-get command help, descriptions and usage examples... it''s not like you need my help!
+module_description_medusa: '**Bot Owner only.** L-load, unload and handle dynamic modules... d-don''t break anything!'
+module_description_missing: Hmph, the description is missing for this module... i-it''s not my fault!
+module_description_music: Play music from YouTube, local files and radio streams... I-I have great taste, just so you know!
+module_description_owner: '**Bot Owner only.** Bot management, dynamic modules, vote feed... d-don''t mess things up!'
+module_description_patronage: C-commands related to supporting the bot... n-not that I need your support or anything! *blushes*
+module_description_permissions: Setup perms for commands, filter words and set up command cooldowns... s-someone has to keep order around here!
+module_description_searches: Search for jokes, animal images, anime and manga... f-fine, I''ll help you look stuff up!
+module_description_utility: Manage custom quotes, repeating messages and check server facts... I-I just organized all this, okay?!
+module_description_waifus: B-back waifus, manage them, send gifts and earn returns... i-it''s not like I want anyone to claim me!
+module_description_xp: Gain xp based on chat activity, check users'' xp cards... n-not that I''m tracking your progress!
+module_footer: '{0}cmds {1}'
+module_not_found: Th-that module doesn''t exist, b-baka! Check again!
+module_not_found_or_cant_exec: E-either the module doesn''t exist, or you can''t run any commands in it... d-don''t look at me like that!
+module_page_empty: N-no module on this page... it''s empty, obviously!

@@ -1,0 +1,3 @@
+time_new: Zaman
+timezone: Saat dilimi
+timezone_db_api_key: TimezoneDB API anahtarını etkinleştirmen gerekiyor. Bunu, API anahtarınla birlikte e-posta ile gelen bağlantıya tıklayarak yapabilirsin.

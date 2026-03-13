@@ -51,7 +51,7 @@ namespace NadekoBot.Generators
             
             foreach (var additionalFile in context.AdditionalFiles)
             {
-                if (!additionalFile.Path.EndsWith(".yml"))
+                if (Path.GetFileName(additionalFile.Path) != "res.yml")
                     continue;
                 
                 var fields = GetFields(additionalFile.GetText()?.ToString());

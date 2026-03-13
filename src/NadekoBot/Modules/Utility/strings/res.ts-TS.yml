@@ -1,0 +1,48 @@
+afk_set: F-fine, I set your AFK message! Just type something in any channel to clear it... N-not that I'll miss you! *blushes*
+author: Author
+botid: Bot ID
+channel_topic: Channel topic
+channelid: '{0} of this channel is {1}'
+commands_ran: Commands ran
+config_edit_fail: 'I-I couldn''t set {0} to {1}... I-it''s not my fault, the value is probably wrong, b-baka!'
+config_list: Config list
+config_not_found: 'C-configuration {0} wasn''t found! D-did you even spell it right?!'
+config_prop_not_found: 'Property {0} doesn''t exist on {1} configuration... I-I''m not going to help you figure it out! *blushes*'
+emoji_add_error: I-I couldn't add that emoji! You're probably out of slots or the image is wrong... B-baka!
+emoji_added: 'I added a new emoji: {0}... I-it''s not like I wanted to help you decorate or anything!'
+emoji_slots_full_retry_gif: A-all the image emoji slots are full! W-would you want me to retry it as an animated GIF? N-not that I care!
+emoji_not_removed: 'These emojis wouldn''t go away: {0}... I-it''s not my fault, okay?!'
+inrole_list: 'H-here are the users in {0} role ({1})... I-I didn''t compile this list for you or anything!'
+invalid_emoji_link: That link isn't an image or it's over 256KB, b-baka! C-check before you send it next time!
+listservers: |-
+  ID: {0}
+  Members: {1}
+  Owner ID: {2}
+listservers_none: N-no servers on that page... I-it's not like I searched thoroughly for you!
+memory: Memory
+messages: Messages
+no_roles_on_page: There are no roles on this page, dummy! D-don't make me look for nothing!
+no_topic_set: N-no topic is set... I-it's not my problem!
+nobody_playing_game: Nobody's playing that game... H-how lonely. N-not that I care!
+owner_ids: Owner IDs
+presence: Presence
+presence_txt: |-
+  {0} Servers
+  {1} Text Channels
+  {2} Voice Channels
+roleid: '{0} of the role {1} is {2}'
+roles_all_page: 'Page #{0} of all roles on this server:'
+roles_page: 'Page #{0} of roles for {1}'
+server_color_set: F-fine, I set the new server color! I-it's not like I picked it because it's pretty... *blushes*
+serverid: '{0} of this server is {1}'
+shard: Shard
+showemojis: '**Name:** {0} **Link:** {1}'
+showemojis_none: N-no special emojis here... I-it's not like I was hoping to find cute ones!
+sniped_by: 'Sniped by {0}'
+sticker_error: Y-you need to send a sticker with the command or upload a 300x300 .png or .apng under 512KB! I-is that so hard to understand, b-baka?!
+uptime: Uptime
+user_afk: '{0} is AFK right now... I-it''s not like I''m keeping track of them for you!'
+userid: '{0} of the user {1} is {2}'
+verbose_errors_disabled: I-I turned off error messages for bad commands. D-don't get used to me cleaning up after you!
+verbose_errors_enabled: Error messages for bad commands are on now. I-I'm not doing this so you can learn, b-baka!
+whos_playing_game: '{0} users are playing {1}... N-not that I was watching or anything!'

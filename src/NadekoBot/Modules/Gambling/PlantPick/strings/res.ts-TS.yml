@@ -1,0 +1,8 @@
+curgen_disabled: Currency generation has been disabled on this channel. I-it's not like I care...
+curgen_enabled: Currency generation has been enabled on this channel. Y-you're welcome... not that I did it for you!
+curgen_pl: '{0} random {1} appeared! G-go get them already!'
+curgen_sn: 'A random {0} appeared! I-it''s not like I put it there for you!'
+pick_pl: 'Pick them up by typing `{0}pick`... h-hurry before someone else does, b-baka!'
+pick_sn: 'Pick it up by typing `{0}pick`... i-if you even want it!'
+picked: '{1} picked {0}. H-hmph, good for you...'
+planted: '{0} planted {1}. I-it''s not like that''s generous or anything!'

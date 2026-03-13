@@ -1,0 +1,31 @@
+available_commands: Available Commands
+buy: Buy
+cur_reward_added: 'Users who reach level {0} will receive {1}. I-it''s not like I set up rewards because I care about you leveling up!'
+cur_reward_cleared: 'Reaching level {0} will no longer reward any {1}. I-I had my reasons, okay?!'
+in_use: In use
+level_set: 'Level of user {0} set to {1} on this server. D-don''t get the wrong idea, I was just doing my job!'
+level_up_rewards: Level Up Rewards
+level_x: 'Level {0}'
+modified: 'Modified server XP of the user {0} by {1}. I-it''s not like I did this for you or anything... b-baka!'
+no_level_up_rewards: No level up reward on this page. D-don't look at me like that, it's not my fault!
+reset: Xp Reset
+reset_server: XP of all users on the server has been reset. I-I didn't do it because you told me to... I just felt like it!
+reset_server_confirm: Are you sure that you want to reset the XP of all users on the server? D-don't blame me if you regret it, b-baka!
+reset_user: 'User with id {0} has had their XP reset on this server. H-hmph, they probably deserved it...'
+reset_user_confirm: Are you sure that you want to reset specified user's XP on this server? I-I'm only asking because I have to, not because I care!
+role_not_found: 'Role not found: {0}. I-it''s not my fault you can''t type properly! *blushes*'
+server_leaderboard: Server XP Leaderboard
+template_reloaded: Xp template has been reloaded. I-I was going to do it anyway, so don't act all grateful!
+use: Use
+xp_lose_role: 'Lose {0} role.'
+xp_receive_role: 'Receive {0} role.'
+xp_role_reward_add_role: 'Users who reach level {0} will receive {1} role. I-it''s not like I set that up for anyone special!'
+xp_role_reward_cleared: 'Reaching level {0} will no longer reward a role. D-don''t look at me like that...'
+xp_role_reward_remove_role: 'Users who reach level {0} will lose {1} role. H-hmph, rules are rules!'
+xp_shop_disabled: Xp shop is disabled by the owner, or there are no items for sale. D-don't blame me, b-baka!
+xp_shop_item_cant_use: You can't use this item as it doesn't exist or you don't own it. H-how is that my problem?! *blushes*
+xpadd_users: 'Added {0} server XP to {1} users. I-I didn''t do it because you asked... I just felt like being generous!'
+xprewsreset_confirm: Are you sure you want to delete ALL xp level up rewards from this server? This action is irreversible. D-don't come crying to me if you mess up, b-baka!
+xpshop_already_owned: You already own this item. W-were you not paying attention?! *blushes*
+xpshop_buy_success: 'Successfully purchased `{0}/{1}`. I-it''s not like I''m happy you got something nice... b-baka!'
+xpshop_item_not_found: An item with that key doesn't exist. D-did you even check before asking me?!

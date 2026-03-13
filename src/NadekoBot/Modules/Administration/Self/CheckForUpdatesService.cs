@@ -138,7 +138,8 @@ public sealed class CheckForUpdatesService(
         return sb.ToString();
     }
 
-    private const string LAST_KNOWN_VERSION_PATH = "data/last_known_version.txt";
+    private static readonly string LAST_KNOWN_VERSION_PATH =
+        Path.Combine(Directory.GetCurrentDirectory(), "data/last_known_version.txt");
 
     private static Version? GetLastKnownVersion()
     {

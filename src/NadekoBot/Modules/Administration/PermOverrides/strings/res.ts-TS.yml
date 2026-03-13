@@ -1,0 +1,6 @@
+perm_override: 'Users will need {0} permission to run {1}. I-I''m just enforcing the rules, b-baka!'
+perm_override_all: All discord permission overrides have been cleared! I-it's not like I did a thorough job or anything...
+perm_override_all_confirm: A-are you SURE you want to remove **ALL** discord permission overrides?! This can't be undone, b-baka! Don't come crying to me later!
+perm_override_page_none: N-no overrides on this page... it's empty, okay?! Don't blame me!
+perm_override_reset: Discord Permission Overrides cleared for this command. I-I didn't do it because you asked!
+perm_overrides: Discord Permission Overrides

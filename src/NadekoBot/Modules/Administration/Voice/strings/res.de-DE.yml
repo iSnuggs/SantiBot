@@ -1,0 +1,4 @@
+createvoich: 'Sprachkanal {0} wurde erstellt.'
+deafen: Erfolgreich taub gestellt.
+delvoich: 'Sprachkanal {0} gelöscht.'
+undeafen: Erfolgreiches entfernen der Hörunfähigkeit.

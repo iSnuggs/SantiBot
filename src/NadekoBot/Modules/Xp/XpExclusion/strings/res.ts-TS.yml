@@ -1,0 +1,4 @@
+xp_exclude_added: '{0}: {1} has been excluded from the XP system. I-it''s not like I wanted to protect them or anything!'
+xp_exclude_removed: '{0}: {1} is no longer excluded from the XP system. D-don''t think I did this because you asked, b-baka!'
+xp_exclusion_none: There are no exclusions set for this server. N-not that I checked for your sake or anything...
+xp_exclusion_title: XP Exclusions

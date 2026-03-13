@@ -1,0 +1,6 @@
+imageonly_disable: 이 채널의 이미지 전용 모드가 해제되었습니다.
+imageonly_enable: 이 채널이 이미지 전용 모드로 설정되었습니다.
+linkonly_disable: 이 채널의 링크 전용 모드가 해제되었습니다.
+linkonly_enable: 이 채널이 링크 전용 모드로 설정되었습니다.
+nsfw_set_false: 이 채널에서 NSFW가 비활성화되었습니다.
+nsfw_set_true: 이 채널에서 NSFW가 활성화되었습니다.

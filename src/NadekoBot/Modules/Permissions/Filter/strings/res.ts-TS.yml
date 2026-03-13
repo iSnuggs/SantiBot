@@ -1,0 +1,16 @@
+filter_word_add: 'I-I added word {0} to the filtered words list... *blushes* I''m just keeping things clean!'
+filter_word_list: L-List of filtered words
+filter_word_remove: 'F-Fine, I removed word {0} from the filtered words list. Happy now?!'
+fw_cleared: I-I removed all filtered words and channel settings! D-Don''t look at me like that!
+invite_filter_channel_off: Invite filtering disabled on this channel. I-It''s not like I care!
+invite_filter_channel_on: Invite filtering enabled on this channel! I-I''m just protecting you, b-baka!
+invite_filter_server_off: Invite filtering disabled on this server. W-Whatever!
+invite_filter_server_on: Invite filtering enabled on this server! D-Don''t thank me!
+link_filter_channel_off: Link filtering disabled on this channel. I-I wasn''t worried about you clicking bad links!
+link_filter_channel_on: Link filtering enabled on this channel! *blushes* J-Just being careful!
+link_filter_server_off: Link filtering disabled on this server. Hmph!
+link_filter_server_on: Link filtering enabled on this server! I-It''s for everyone''s safety, okay?!
+word_filter_channel_off: Word filtering disabled on this channel. D-Do what you want!
+word_filter_channel_on: Word filtering enabled on this channel! I-I''m keeping things proper, that''s all!
+word_filter_server_off: Word filtering disabled on this server. I-It''s not my problem anymore!
+word_filter_server_on: Word filtering enabled on this server! S-Someone has to keep order around here!

@@ -1,0 +1,5 @@
+connect4_created: Created a Connect4 game. Waiting for a player to join... h-hurry up already!
+connect4_draw: Connect4 game ended in a draw. Hmph, h-how anticlimactic...
+connect4_failed_to_start: Connect4 game failed to start because nobody joined. I-it's not like I wanted to watch anyway!
+connect4_player_to_move: 'Player to move: {0}. D-don''t take forever!'
+connect4_won: '{0} won the game of Connect4 against {1}. I-I knew that would happen... probably.'

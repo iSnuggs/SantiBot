@@ -1,0 +1,18 @@
+commands_count: 'Commands ({0})'
+list_of_medusae: L-list of Medusae... h-here!
+list_of_unloaded: List of Available Medusae
+loaded_medusae: Loaded Medusae
+medusa_already_loaded: 'Medusa {0} is already loaded, b-baka! Pay attention!'
+medusa_empty: Th-the Medusa wasn''t loaded because it didn''t contain any Sneks... not my problem!
+medusa_info: Medusa Information
+medusa_invalid_not_found: C-couldn''t find a Medusa with that name, or the file was invalid... d-don''t blame me!
+medusa_loaded: 'Medusa {0} has been loaded... I-I did it because I felt like it!'
+medusa_name_not_found: A Medusa with that name doesn''t exist or isn''t loaded... h-how many times do I have to tell you?!
+medusa_not_loaded: Th-that Medusa isn''t loaded, b-baka!
+medusa_possibly_cant_unload: Th-the Medusa probably isn''t fully unloaded... r-restart the bot if things get weird, okay?! *blushes*
+medusa_reload_failed: 'F-failed to reload medusa {0}... t-try loading it manually, I guess!'
+medusa_reloaded: 'Medusa {0} has been reloaded! I-it''s not like I did it for you or anything!'
+medusa_unloaded: 'Medusa {0} has been unloaded... d-don''t ask me why!'
+no_medusa_available: N-no medusa available... there''s nothing I can do about it!
+no_medusa_loaded: Th-there are no loaded medusae right now... hmph!
+sneks_count: 'Sneks ({0})'

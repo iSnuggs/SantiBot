@@ -1,0 +1,9 @@
+livechannel_added: 'S-Successfully added {0} as a live channel... *blushes* you''re welcome!'
+livechannel_limit: 'Y-You can have at most {0} live channels per server... I didn''t make the rules, b-baka!'
+livechannel_list_empty: No live channels configured... h-how empty... NOT THAT I CARE!
+livechannel_list_title: 'Live Channels in {0}'
+livechannel_not_found: That channel wasn''t found in the live channels list... d-did you type it wrong?!
+livechannel_please_wait: P-Please allow up to 10 minutes for changes to take effect... b-be patient!
+livechannel_removed: 'S-Successfully removed {0} from live channels. I only did it because you asked!'
+preview: Preview
+template: Template

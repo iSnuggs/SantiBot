@@ -1,0 +1,11 @@
+category: Category
+trivia_already_running: There's already a trivia game running on this server! B-be patient!
+trivia_ended: Trivia game ended... i-it's not like I had fun or anything!
+trivia_game: Trivia Game
+trivia_guess: '{0} got it right... I-it''s not like I''m impressed or anything! The answer was: {1}'
+trivia_none: Th-there''s no trivia running on this server, b-baka! Did you even check?!
+trivia_points: '{0} has {1} points... n-not that I was keeping track!'
+trivia_quit: 'Y-you can stop trivia by typing {0}... not that I care if you quit!'
+trivia_stopping: F-fine, I''ll stop after this question... *blushes*
+trivia_times_up: 'Time''s up! The answer was {0}... I-I knew it the whole time, obviously!'
+trivia_win: '{0} guessed it and WON! I-it''s not like I''m happy for you or anything! The answer was: {1}'

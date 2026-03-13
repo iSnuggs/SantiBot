@@ -1,0 +1,6 @@
+imageonly_disable: Bu kanal artık yalnızca resim kanalı değil.
+imageonly_enable: Bu kanal artık yalnızca resim kanalı.
+linkonly_disable: Bu kanal artık yalnızca link kanalı değil.
+linkonly_enable: Bu kanal artık yalnızca link kanalı.
+nsfw_set_false: Bu kanalda NSFW devre dışı bırakıldı.
+nsfw_set_true: Bu kanalda NSFW etkinleştirildi.

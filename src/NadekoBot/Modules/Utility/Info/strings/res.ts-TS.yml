@@ -1,0 +1,15 @@
+channels: Channels
+created_at: Created at
+custom_emojis: Custom emojis
+features: F-Features... not that I care what they are!
+hoisted: Hoisted
+inv_expire: 'E-Expires in:'
+inv_uses: 'Uses:'
+invite_deleted: 'I-I deleted invite {0}... it''s not like I wanted to help you clean up or anything!'
+mentionable: Mentionable
+nickname: Nickname
+no_invites: There are no invites on this page... d-don''t look at me like that!
+roles: Roles
+server_info: S-Server info... I guess I''ll show you *blushes*
+text_channels: 'Text: {0}'
+voice_channels: 'Voice: {0}'

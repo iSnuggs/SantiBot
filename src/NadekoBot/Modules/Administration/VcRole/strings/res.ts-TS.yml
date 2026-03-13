@@ -1,0 +1,5 @@
+no_vcroles: T-there are no voice channel roles! I-I checked thoroughly, okay?!
+vc_role_list: Voice channel roles
+vcrole_added: 'Users who join {0} voice channel will get {1} role. I-I set it up perfectly, obviously!'
+vcrole_not_found: T-that voice channel doesn't have a VcRole! D-don't blame me!
+vcrole_removed: 'Users who join {0} voice channel will no longer get a role. I-it''s not like I wanted to remove it...'

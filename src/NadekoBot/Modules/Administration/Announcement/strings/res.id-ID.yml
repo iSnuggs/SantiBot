@@ -1,0 +1,3 @@
+autopublish_disable: Pesan di channel ini tidak akan lagi dipublikasikan secara otomatis.
+autopublish_enable: Semua pesan yang dikirim di channel ini akan dipublikasikan secara otomatis.
+req_announcement_channel: Perintah ini harus dijalankan di channel Pengumuman.

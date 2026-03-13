@@ -1,0 +1,35 @@
+acrm_fail: Nie znaleziono automatycznej komendy pod podanym indeksem.
+autocmd_add: 'Komenda {0} będzie wykonywana co {1}s na tym kanale.'
+autocmdlist_none: Brak automatycznych komend na tej stronie.
+bot_name: 'Nazwa bota zmieniona na {0}'
+bot_status: 'Status bota zmieniony na {0}'
+bot_strings_reloaded: Ciągi tekstowe bota zostały przeładowane.
+cache_users_done: 'Dodano {0} użytkowników i zaktualizowano {1} użytkowników.'
+cache_users_pending: Aktualizowanie użytkowników, proszę czekać...
+command_text: Tekst komendy
+deleted_x_servers: 'Usunięto {0} serwerów.'
+dm_from: Wiadomość prywatna od
+fwall_start: Będę przekazywać wiadomości prywatne do wszystkich właścicieli.
+fwall_stop: Będę przekazywać wiadomości prywatne tylko do pierwszego właściciela.
+fwch_start: Każda wiadomość wysłana do bota w DM będzie przekazywana na ten kanał.
+fwch_stop: Wiadomości wysłane do bota w DM nie będą już przekazywane na ten kanał.
+fwdm_start: Od teraz będę przekazywać wiadomości prywatne.
+fwdm_stop: Od teraz przestanę przekazywać wiadomości prywatne.
+interval: Interwał
+invalid_format: Nieprawidłowy format danych wejściowych.
+no_shard_id: Nie znaleziono sharda o takim ID.
+no_shards_on_page: Brak shardów na tej stronie.
+restart_fail: Musisz ustawić RestartCommand w swoim creds.yml
+restarting: Restartowanie.
+scadd: Dodano nową komendę startową.
+scrm: Komenda startowa pomyślnie usunięta.
+scrm_fail: Nie znaleziono komendy startowej.
+server: Serwer
+set_activity: Nowa aktywność ustawiona!
+set_avatar: Nowy avatar ustawiony!
+set_banner: Nowy baner ustawiony!
+set_stream: Nowy stream ustawiony!
+shard_reconnecting: 'Shard {0} ponownie się łączy.'
+shutting_down: Wyłączanie
+startcmdlist_none: Brak komend startowych na tej stronie.
+startcmds_cleared: Wyczyszczono wszystkie komendy startowe.

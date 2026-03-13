@@ -1,0 +1,11 @@
+created_by: 'Created by {0}'
+quote_added_new: 'Q-Quote #{0} added! I-it''s not like I saved it because I liked it...'
+quote_deleted: 'Quote #{0} deleted... g-gone forever! *blushes*'
+quote_edited: Q-Quote Edited... I hope you''re happy now!
+quote_id: 'Quote {0}'
+quotes_deleted: 'D-Deleted all quotes with {0} keyword. Don''t say I never do anything for you!'
+quotes_deleted_count: 'Deleted {0} quotes... t-that was a lot of work, b-baka!'
+quotes_notfound: N-No quotes found matching that ID... d-did you make it up?!
+quotes_page: 'Page {0} of quotes'
+quotes_page_none: No quotes found on that page... h-how disappointing... NOT THAT I CARE!
+quotes_remove_none: No quotes found that you can remove... d-don''t look at me like that!

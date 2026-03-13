@@ -1,0 +1,6 @@
+betflip_guess: You guessed it! D-don't get too full of yourself... *blushes*
+flip_invalid: 'Invalid number specified. You can flip 1 to {0} coins. L-learn to count, b-baka!'
+flip_results: 'Flipped {0} coins. {1} heads, {2} tails. I-I counted them perfectly!'
+flipped: 'Flipped {0}'
+heads: Head
+tails: Tail

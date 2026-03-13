@@ -1,0 +1,16 @@
+executes_in_colon: 'E-Executes in:'
+index_out_of_range: Index out of range, b-baka! Learn to count!
+interval_colon: 'Interval:'
+list_of_repeaters: L-List of repeaters... I organized them for you, n-not that I wanted to!
+message_colon: 'Message:'
+no_redundant: W-Won''t post duplicate messages... I''m not stupid, b-baka!
+repeat_invoke_none: No repeating messages found on this server... h-how quiet.
+repeater_created: R-Repeater Created! I-it''s not like I did this for you! *blushes*
+repeater_dont_skip_next: F-Fine! Next trigger of this repeater won''t be skipped.
+repeater_exceed_limit: 'Y-You can''t have more than {0} repeaters per server! D-don''t be greedy!'
+repeater_redundant_no: 'Repeater **#{0}** won''t post redundant messages anymore. Y-you''re welcome!'
+repeater_redundant_yes: 'Repeater **#{0}** will post redundant messages from now on... i-if that''s what you want!'
+repeater_remove_fail: F-Failed removing that repeater! Either the index is wrong or it was executing... t-try again in a few seconds, b-baka!
+repeater_removed: 'Repeater #{0} Removed... I-I only did it because you asked!'
+repeater_skip_next: Next trigger of this repeater will be skipped. D-don''t ask me why!
+repeaters_none: No repeaters running on this server... i-it''s so quiet... NOT THAT I MIND!

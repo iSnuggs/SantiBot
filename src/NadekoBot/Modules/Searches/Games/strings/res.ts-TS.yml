@@ -1,0 +1,5 @@
+card_not_found: I-I couldn't find that card, okay?! It's not my fault!
+cost: Cost
+mashape_api_missing: Hmph, the bot owner didn't bother setting up a RapidApi key. D-don't look at me, I can't do anything about it!
+steam_api_missing: The bot owner forgot to set the SteamApiKey... I-it's not like I care, but you can't use this right now!
+store_url: Store url

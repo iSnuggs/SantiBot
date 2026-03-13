@@ -1,0 +1,14 @@
+expr_deleted: 표현식 삭제됨
+expr_edited: 표현식 수정됨
+expr_global_disabled: 이 서버에서 글로벌 표현식이 비활성화되었어요.
+expr_global_enabled: 이 서버에서 글로벌 표현식이 더 이상 비활성화되지 않아요.
+expr_insuff_perms: 권한이 부족해요. 글로벌 표현식에는 봇 소유자 권한이, 서버 표현식에는 관리자 권한이 필요해요.
+expr_new: 새 표현식
+expr_no_found: 표현식을 찾을 수 없어요.
+expr_reset: 'ID {0}의 표현식이 더 이상 반응을 추가하지 않아요.'
+expr_set: 'ID {0}의 표현식이 응답 메시지에 다음 반응을 추가해요: {1}'
+expressions: 표현식
+exprs_cleared: '이 서버의 모든 표현식 {0}개가 삭제되었어요.'
+invalid_emojis: 지정한 이모지가 모두 유효하지 않아요.
+option_disabled: 'ID {1}의 표현식에서 {0} 옵션이 비활성화되었어요.'
+option_enabled: 'ID {1}의 표현식에서 {0} 옵션이 활성화되었어요.'
