@@ -21,7 +21,7 @@
 
     <UsingTask
         TaskName="MergeStringsTask"
-        AssemblyFile="$(TargetDir)NadekoBot.StringsMerger.dll"/>
+        AssemblyFile="$(MSBuildThisFileDirectory)../NadekoBot.StringsMerger/bin/$(Configuration)/netstandard2.0/NadekoBot.StringsMerger.dll"/>
 
     <ItemGroup>
         <ResToMerge Include="../NadekoBot/Modules/**/strings/*.yml"/>

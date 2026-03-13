@@ -127,6 +127,7 @@ public class VcRoleService : INService, IReadyExecutor
             uow.Remove(toDelete);
         uow.Set<VcRoleInfo>().Add(new()
         {
+            GuildId = guildId,
             VoiceChannelId = vcId,
             RoleId = role.Id
         }); // add new one
