@@ -25,8 +25,8 @@ public class WaifuCycleTests
     private TestDbService _db = null!;
     private FakeTimeProvider _time = null!;
 
-    private const double CYCLE_HOURS = 5.0 / 60.0;
-    private const double BASE_RETURN_RATE = 0.17 * (84.0 / CYCLE_HOURS);
+    private const double CYCLE_HOURS = 84.0;
+    private const double BASE_RETURN_RATE = 0.17;
     private static readonly double CYCLES_PER_YEAR = 365.25 * 24 / CYCLE_HOURS;
     private static readonly DateTime Epoch = new(2025, 1, 7, 0, 0, 0, DateTimeKind.Utc);
 
@@ -51,13 +51,13 @@ public class WaifuCycleTests
         Assert.That(_svc.GetCurrentCycle(), Is.EqualTo(0));
         Assert.That(_svc.GetCycleStartTime(0), Is.EqualTo(Epoch));
         Assert.That(_svc.GetCycleProgressFraction(), Is.EqualTo(0.0).Within(0.001));
-        Assert.That(_svc.GetTimeUntilPayout().TotalMinutes, Is.EqualTo(5.0).Within(0.01));
+        Assert.That(_svc.GetTimeUntilPayout().TotalHours, Is.EqualTo(84.0).Within(0.01));
 
-        _time.SetUtcNow(new(Epoch.AddMinutes(2.5), TimeSpan.Zero));
+        _time.SetUtcNow(new(Epoch.AddHours(42), TimeSpan.Zero));
         Assert.That(_svc.GetCurrentCycle(), Is.EqualTo(0));
         Assert.That(_svc.GetCycleProgressFraction(), Is.EqualTo(0.5).Within(0.01));
 
-        _time.SetUtcNow(new(Epoch.AddMinutes(5), TimeSpan.Zero));
+        _time.SetUtcNow(new(Epoch.AddHours(84), TimeSpan.Zero));
         Assert.That(_svc.GetCurrentCycle(), Is.EqualTo(1));
     }
 
