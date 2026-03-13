@@ -1,6 +1,7 @@
 ﻿#Manually added files
 
 src/NadekoBot/data/last_known_version.txt
+scripts/
 **/DESIGN.md
 
 # medusa stuff

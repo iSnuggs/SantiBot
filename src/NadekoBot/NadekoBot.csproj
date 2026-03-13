@@ -149,4 +149,8 @@
     <Target Name="MergeStringsTask" BeforeTargets="AfterBuild">
         <MergeStringsTask InputYmls="@(ResToMerge)" OutputDir="$(TargetDir)strings" />
     </Target>
+
+    <Target Name="MergeStringsTaskPublish" AfterTargets="Publish">
+        <MergeStringsTask InputYmls="@(ResToMerge)" OutputDir="$(PublishDir)strings" />
+    </Target>
 </Project>
