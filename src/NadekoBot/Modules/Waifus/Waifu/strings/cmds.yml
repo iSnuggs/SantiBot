@@ -28,11 +28,14 @@ waifufans:
         desc: "The waifu to check."
 waifuleaderboard:
   desc: |-
-    Shows top waifus ranked by realized return rate over the last 8 cycles.
+    Shows top waifus. Default is sorted by backing; use 'price' to sort by price.
   ex:
     - ''
+    - 'price'
   params:
     - {}
+    - order:
+        desc: "Sort order: 'price' to sort by price. Default is by backing."
 waifuoptin:
   desc: |-
     Opts you into the waifu system. Costs 10,000.
