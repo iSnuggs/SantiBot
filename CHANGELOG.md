@@ -2,6 +2,17 @@
 
 *a,c,f,r,o,d*
 
+## [7.0.5] - 13.03.2026
+
+### Changed
+
+- Waifu card layout and localization improvements
+
+### Fixed
+
+- Fixed Docker builds
+- Fixed publish strings merger
+
 ## [7.0.0] - 13.03.2026
 
 ### Added
