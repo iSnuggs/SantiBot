@@ -7,6 +7,7 @@
 ### Changed
 
 - Waifu card layout and localization improvements
+- `.wlb` now sorts by backing by default; use `.wlb price` for price-based ranking
 
 ### Fixed
 

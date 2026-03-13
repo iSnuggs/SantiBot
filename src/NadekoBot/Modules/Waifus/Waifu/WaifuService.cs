@@ -398,9 +398,9 @@ public sealed class WaifuService(
     }
 
     /// <summary>
-    /// Gets leaderboard of all waifus ordered by price, with efficiency and annualized returns.
+    /// Gets leaderboard of all waifus ordered by the specified criteria.
     /// </summary>
-    public async Task<List<LeaderboardEntryDto>> GetLeaderboardAsync()
+    public async Task<List<LeaderboardEntryDto>> GetLeaderboardAsync(WaifuLbOrder order = WaifuLbOrder.Backing)
     {
         await using var ctx = db.GetDbContext();
         var currentCycle = GetCurrentCycle();
@@ -452,7 +452,7 @@ public sealed class WaifuService(
                 SnapshotTotalBacked = r.sa?.TotalBacked ?? 0,
                 HasManager = r.wi.ManagerUserId is not null
             };
-        }).OrderByDescending(x => x.Price).ToList();
+        }).OrderByDescending(x => order == WaifuLbOrder.Price ? x.Price : x.SnapshotTotalBacked).ToList();
     }
 
     /// <summary>
@@ -1462,6 +1462,15 @@ public sealed class ManagedWaifuDto
     public string? Username { get; init; }
     public long Price { get; init; }
     public long TotalBacked { get; init; }
+}
+
+/// <summary>
+/// Sort order for the waifu leaderboard.
+/// </summary>
+public enum WaifuLbOrder
+{
+    Backing,
+    Price
 }
 
 #endregion

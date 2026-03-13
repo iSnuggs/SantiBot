@@ -319,9 +319,19 @@ public partial class Waifus
     }
 
     [Cmd]
-    public async Task WaifuLeaderboard()
+    public Task WaifuLeaderboard()
+        => WaifuLeaderboardInternalAsync(WaifuLbOrder.Backing);
+
+    [Cmd]
+    public Task WaifuLeaderboard([Leftover] string order)
+        => WaifuLeaderboardInternalAsync(
+            order.Equals("price", StringComparison.OrdinalIgnoreCase)
+                ? WaifuLbOrder.Price
+                : WaifuLbOrder.Backing);
+
+    private async Task WaifuLeaderboardInternalAsync(WaifuLbOrder order)
     {
-        var entries = await svc.GetLeaderboardAsync();
+        var entries = await svc.GetLeaderboardAsync(order);
         if (entries.Count == 0)
         {
             await Response().Error(strs.waifu_lb_empty).SendAsync();
@@ -329,6 +339,9 @@ public partial class Waifus
         }
 
         var currSign = cp.GetCurrencySign();
+        var title = order == WaifuLbOrder.Price
+            ? GetText(strs.waifu_lb_title)
+            : GetText(strs.waifu_lb_title_backed);
 
         await Response()
             .Paginated()
@@ -338,7 +351,7 @@ public partial class Waifus
             {
                 var eb = CreateEmbed()
                     .WithOkColor()
-                    .WithTitle(GetText(strs.waifu_lb_title));
+                    .WithTitle(title);
 
                 foreach (var (e, i) in items.Select((e, i) => (e, i)))
                 {
