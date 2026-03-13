@@ -44,7 +44,7 @@ public partial class Waifus
     private NadekoInteractionBase CreateOptInInteraction()
         => _inter.Create(ctx.User.Id,
             new ButtonBuilder(
-                label: "Opt In",
+                label: GetText(strs.waifu_btn_opt_in),
                 customId: "waifu:opt_in",
                 emote: new Emoji("🎀"),
                 style: ButtonStyle.Success),
@@ -52,15 +52,15 @@ public partial class Waifus
             {
                 var res = await svc.OptInAsync(ctx.User.Id);
                 await res.Match(
-                    _ => smc.RespondConfirmAsync(_sender, "You're already a waifu!"),
-                    _ => smc.RespondAsync(_sender, "Not enough funds!", MsgType.Error),
-                    _ => smc.RespondConfirmAsync(_sender, $"You are now a waifu! Use `{prefix}waifu` to see your card."));
+                    _ => smc.RespondConfirmAsync(_sender, GetText(strs.waifu_optin_already)),
+                    _ => smc.RespondAsync(_sender, GetText(strs.waifu_optin_no_funds), MsgType.Error),
+                    _ => smc.RespondConfirmAsync(_sender, GetText(strs.waifu_optin_success(prefix))));
             });
 
     private NadekoInteractionBase CreateCollectPayoutInteraction()
         => _inter.Create(ctx.User.Id,
             new ButtonBuilder(
-                label: "Collect",
+                label: GetText(strs.waifu_btn_collect),
                 customId: "waifu:collect_payout",
                 emote: new Emoji("💰"),
                 style: ButtonStyle.Success),
@@ -123,6 +123,8 @@ public partial class Waifus
         if (sb.Length > 0)
             sb.AppendLine();
 
+        sb.AppendLine(GetText(strs.waifu_earned(CurrencyHelper.N(info.TotalProduced, Culture, currSign))));
+        sb.AppendLine();
         sb.AppendLine($"😊 `{BuildProgressBar(moodPercent / 100.0, 10, '▰', '▱')}` {moodPercent}%");
         sb.AppendLine($"🍔 `{BuildProgressBar(foodPercent / 100.0, 10, '▰', '▱')}` {foodPercent}%");
 
@@ -140,9 +142,9 @@ public partial class Waifus
         sb.AppendLine(efficiencyText);
         sb.AppendLine();
 
-        sb.AppendLine($"**Cycle #{cycleNum}**");
+        sb.AppendLine(GetText(strs.waifu_cycle_title(cycleNum)));
         sb.AppendLine($"`{BuildProgressBar(cycleProgress, 20)}` {cyclePercent}%");
-        sb.AppendLine($"Payout <t:{payoutUnix}:R>");
+        sb.AppendLine($"{GetText(strs.waifu_payout_time($"<t:{payoutUnix}:R>"))}");
         sb.AppendLine();
 
         if (info.ManagerId is null)
@@ -161,34 +163,32 @@ public partial class Waifus
         }
 
         var backedBySb = new StringBuilder();
-        backedBySb.Append($"{info.FanCount} fans");
+        backedBySb.Append(GetText(strs.waifu_fan_count(info.FanCount)));
         if (snapshotBacked > 0)
             backedBySb.Append($" ({CurrencyHelper.N(snapshotBacked, Culture, currSign)})");
         if (info.PendingJoins > 0 || info.PendingLeaves > 0)
             backedBySb.Append($"\n{GetText(strs.waifu_pending_fans(info.PendingJoins, info.PendingLeaves))}");
-        if (info.LastCycleReturns > 0)
-            backedBySb.Append($"\n{GetText(strs.waifu_last_payout)}: {CurrencyHelper.N(info.LastCycleReturns, Culture, currSign)}");
+
 
         var displayName = targetUser?.ToString() ?? targetUserId.ToString();
         var eb = CreateEmbed()
             .WithColor(GetConditionColor(condition))
             .WithAuthor(displayName, targetUser?.GetAvatarUrl() ?? targetUser?.GetDefaultAvatarUrl())
             .WithDescription(sb.ToString())
-            .AddField("👥 Backed By", backedBySb.ToString(), true)
-            .AddField("🏢 Manager", manager?.ToString() ?? "-", true)
-            .AddField("💎 Price", CurrencyHelper.N(info.Price, Culture, currSign), true);
+            .AddField(GetText(strs.waifu_field_backed_by), backedBySb.ToString(), true)
+            .AddField(GetText(strs.waifu_field_manager), manager?.ToString() ?? "-", true)
+            .AddField(GetText(strs.waifu_field_price), CurrencyHelper.N(info.Price, Culture, currSign), true);
 
         var isOwnCard = targetUserId == ctx.User.Id;
         var footerParts = new List<string>
         {
-            $"Fee: {info.WaifuFeePercent}%",
-            $"Earned: {CurrencyHelper.N(info.TotalProduced, Culture, currSign)}"
+            GetText(strs.waifu_footer_fee(info.WaifuFeePercent))
         };
 
         if (isOwnCard)
         {
             var remaining = await svc.GetRemainingActionsAsync(ctx.User.Id);
-            footerParts.Add($"Actions: {remaining}/{svc.MaxActions}");
+            footerParts.Add(GetText(strs.waifu_footer_actions(remaining, svc.MaxActions)));
         }
 
         eb.WithFooter(string.Join(" | ", footerParts));
@@ -222,7 +222,7 @@ public partial class Waifus
             .WithOkColor()
             .WithTitle(GetText(strs.waifu_not_participating_title))
             .WithDescription(GetText(strs.waifu_not_participating(prefix)))
-            .WithFooter($"Use {prefix}cmds waifu for a list of commands");
+            .WithFooter(GetText(strs.waifu_help_footer(prefix)));
 
         await Response().Embed(eb).SendAsync();
     }
@@ -363,7 +363,7 @@ public partial class Waifus
                               + $"⚡ {efficiency}%\n"
                               + $"💰 {CurrencyHelper.N(e.SnapshotTotalBacked, Culture, currSign)}";
 
-                    eb.AddField($"#{globalRank} {e.Username ?? "Unknown"}", value, true);
+                    eb.AddField($"#{globalRank} {e.Username ?? GetText(strs.waifu_unknown)}", value, true);
                 }
 
                 return eb;
@@ -651,9 +651,9 @@ public partial class Waifus
 
                 var desc = string.Join("\n", items.Select((m, i) =>
                 {
-                    var name = m.Username ?? "Unknown";
+                    var name = m.Username ?? GetText(strs.waifu_unknown);
                     var rank = page * 10 + i + 1;
-                    return $"`{rank}.` `{m.WaifuUserId}` {name}\n　　{CurrencyHelper.N(m.Price, Culture, currSign)} | {CurrencyHelper.N(m.TotalBacked, Culture, currSign)} backed";
+                    return $"`{rank}.` `{m.WaifuUserId}` {name}\n　　{CurrencyHelper.N(m.Price, Culture, currSign)} | {CurrencyHelper.N(m.TotalBacked, Culture, currSign)} {GetText(strs.waifu_backed_label)}";
                 }));
 
                 return eb.WithDescription(desc);
