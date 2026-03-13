@@ -27,8 +27,8 @@ public class WaifuQueryTests
     private IBotCache _cache = null!;
     private TestDbService _db = null!;
 
-    private const double CYCLE_HOURS = 5.0 / 60.0;
-    private const double BASE_RETURN_RATE = 0.17 * (84.0 / CYCLE_HOURS);
+    private const double CYCLE_HOURS = 84.0;
+    private const double BASE_RETURN_RATE = 0.17;
     private static readonly double CYCLES_PER_YEAR = 365.25 * 24 / CYCLE_HOURS;
 
     [SetUp]

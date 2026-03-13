@@ -100,13 +100,8 @@ public sealed class WaifuService(
 {
     private readonly TimeProvider _timeProvider = timeProvider ?? TimeProvider.System;
 
-#if DEBUG
-    private double CycleHours => 5.0 / 60.0;
-    private double BaseReturnRate => configService.Data.BaseReturnRate * (configService.Data.CycleHours / CycleHours);
-#else
     private double CycleHours => configService.Data.CycleHours;
     private double BaseReturnRate => configService.Data.BaseReturnRate;
-#endif
     private double CyclesPerYear => 365.25 * 24 / CycleHours;
 
     /// <summary>
