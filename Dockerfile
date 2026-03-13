@@ -8,6 +8,7 @@ COPY src/NadekoBot.Coordinator/*.csproj src/NadekoBot.Coordinator/
 COPY src/NadekoBot.Generators/*.csproj src/NadekoBot.Generators/
 COPY src/NadekoBot.Voice/*.csproj src/NadekoBot.Voice/
 COPY src/NadekoBot.GrpcApiBase/*.csproj src/NadekoBot.GrpcApiBase/
+COPY src/NadekoBot.StringsMerger/*.csproj src/NadekoBot.StringsMerger/
 
 RUN DOTNET_RID="linux-musl-$([ "$TARGETARCH" = "arm64" ] && echo "arm64" || echo "x64")" \
     && echo "$DOTNET_RID" > /tmp/rid
