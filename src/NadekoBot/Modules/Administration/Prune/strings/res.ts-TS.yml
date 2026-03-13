@@ -1,0 +1,5 @@
+prune_already_running: A prune is already running on this server... be patient, b-baka!
+prune_cancelled: P-pruning was cancelled. I-it's not like I wanted to do it anyway!
+prune_not_found: N-no active prune was found on this server... don't look at me!
+prune_patron: 'D-deleting messages 2 weeks old or older requires [Patron Tier X](https://patreon.com/join/nadekobot) or higher... i-it''s not my rule!'
+prune_progress: 'P-pruning... {0}/{1} messages deleted. I-I''m working on it, okay?!'

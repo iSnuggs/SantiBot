@@ -1,0 +1,14 @@
+expr_deleted: 式が削除されました
+expr_edited: 式が編集されました
+expr_global_disabled: このサーバーでグローバル式が無効になりました。
+expr_global_enabled: このサーバーでグローバル式が無効ではなくなりました。
+expr_insuff_perms: 権限が不足しています。グローバル式にはBot所有者権限、サーバー式には管理者権限が必要です。
+expr_new: 新しい式
+expr_no_found: 式が見つかりません。
+expr_reset: 'ID {0}の式はリアクションを追加しなくなります。'
+expr_set: 'ID {0}の式は応答メッセージに以下のリアクションを追加します: {1}'
+expressions: 式
+exprs_cleared: 'このサーバーの{0}個の式がすべて削除されました。'
+invalid_emojis: 指定されたすべての絵文字が無効です。
+option_disabled: 'ID {1}の式の{0}オプションが無効になりました。'
+option_enabled: 'ID {1}の式の{0}オプションが有効になりました。'

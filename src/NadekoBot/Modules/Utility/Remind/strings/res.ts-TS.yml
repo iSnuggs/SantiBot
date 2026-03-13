@@ -1,0 +1,12 @@
+cant_read_or_send: Y-You can''t read from or send messages to that channel, b-baka!
+date2: Date
+remind_invalid: T-That''s not a valid remind format! You need a target, timer and a reason... d-do I have to explain everything?!
+remind_too_long: R-Remind time has exceeded the maximum... b-be reasonable!
+reminder_created: R-Reminder Created... I-it''s not like I''ll remember for you! *blushes*
+reminder_deleted: 'Reminder #{0} was deleted... g-gone! I-it''s not like I cared about it!'
+reminder_list: L-List of reminders... I kept track of all of them, okay?!
+reminder_not_exist: That reminder doesn''t exist, b-baka! Check the index!
+reminder_server_list: L-List of server reminders
+reminders_none: No reminders on this page... h-how forgetful... NOT THAT I''M WORRIED!
+when: When
+who_where: Who / Where

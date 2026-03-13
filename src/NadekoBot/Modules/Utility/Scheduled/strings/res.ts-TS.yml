@@ -1,0 +1,9 @@
+schedule_add_error: Y-You already have 5 scheduled commands! Delete some first, b-baka!
+schedule_add_success: S-Scheduled command added... I-it''s not like I''m helping you or anything! *blushes*
+schedule_command: Command
+schedule_delete_error: E-Error deleting that scheduled command... d-don''t look at me, it''s not my fault!
+schedule_deleted: 'Scheduled command #{0} deleted! G-good riddance!'
+schedule_id: ID
+schedule_list_none: You don''t have any scheduled commands... h-how lazy... N-NOT THAT I CARE!
+schedule_list_title: Scheduled Commands
+schedule_when: Executes At

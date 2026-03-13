@@ -8470,9 +8470,10 @@
         ".waifuleaderboard",
         ".wlb"
       ],
-      "Description": "Shows top waifus ranked by realized return rate over the last 8 cycles.",
+      "Description": "Shows top waifus. Default is sorted by backing; use 'price' to sort by price.",
       "Usage": [
-        ".waifuleaderboard"
+        ".waifuleaderboard",
+        ".waifuleaderboard price"
       ],
       "Submodule": "WaifuCommands",
       "Module": "Waifus",

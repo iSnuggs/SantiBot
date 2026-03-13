@@ -57,6 +57,18 @@ public partial class Waifus
                     _ => smc.RespondConfirmAsync(_sender, GetText(strs.waifu_optin_success(prefix))));
             });
 
+    private NadekoInteractionBase CreateWaifuListInteraction()
+        => _inter.Create(ctx.User.Id,
+            new ButtonBuilder(
+                label: GetText(strs.waifu_btn_my_waifus),
+                customId: "waifu:my_waifus",
+                emote: new Emoji("📋")),
+            async smc =>
+            {
+                await WaifuListInternalAsync(ctx.User.Id);
+                await smc.DeferAsync();
+            });
+
     private NadekoInteractionBase CreateCollectPayoutInteraction()
         => _inter.Create(ctx.User.Id,
             new ButtonBuilder(
@@ -251,16 +263,20 @@ public partial class Waifus
             return;
         }
 
+        var isManager = await svc.IsManagerAsync(ctx.User.Id);
+
         // Check if caller is a fan
         var backing = await svc.GetBackingAsync(ctx.User.Id);
         if (backing.HasValue)
         {
             var backedUser = await ctx.Client.GetUserAsync(backing.Value);
             var backedName = backedUser?.ToString() ?? backing.Value.ToString();
-            await Response()
+            var resp = Response()
                 .Error(strs.waifu_fan_not_waifu(backedName))
-                .Interaction(CreateOptInInteraction())
-                .SendAsync();
+                .Interaction(CreateOptInInteraction());
+            if (isManager)
+                resp = resp.Interaction(CreateWaifuListInteraction());
+            await resp.SendAsync();
             return;
         }
 
@@ -269,10 +285,12 @@ public partial class Waifus
             .WithTitle(GetText(strs.waifu_not_participating_title))
             .WithDescription(GetText(strs.waifu_not_participating(prefix)));
 
-        await Response()
+        var notParticipatingResp = Response()
             .Embed(eb)
-            .Interaction(CreateOptInInteraction())
-            .SendAsync();
+            .Interaction(CreateOptInInteraction());
+        if (isManager)
+            notParticipatingResp = notParticipatingResp.Interaction(CreateWaifuListInteraction());
+        await notParticipatingResp.SendAsync();
     }
 
     [Cmd]

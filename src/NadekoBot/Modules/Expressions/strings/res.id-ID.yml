@@ -1,0 +1,14 @@
+expr_deleted: Ekspresi dihapus
+expr_edited: Ekspresi Diedit
+expr_global_disabled: Ekspresi global sekarang dinonaktifkan di server ini.
+expr_global_enabled: Ekspresi global tidak lagi dinonaktifkan di server ini.
+expr_insuff_perms: Izin tidak cukup. Membutuhkan kepemilikan Bot untuk ekspresi global, dan Administrator untuk ekspresi server.
+expr_new: Ekspresi Baru
+expr_no_found: Ekspresi tidak ditemukan.
+expr_reset: 'Ekspresi dengan id {0} tidak akan lagi menambahkan reaksi.'
+expr_set: 'Ekspresi dengan id {0} akan menambahkan reaksi berikut ke pesan respons: {1}'
+expressions: Ekspresi
+exprs_cleared: 'Semua {0} ekspresi di server ini telah dihapus.'
+invalid_emojis: Semua emoji yang kamu tentukan tidak valid.
+option_disabled: 'Opsi {0} sekarang dinonaktifkan untuk ekspresi dengan id {1}.'
+option_enabled: 'Opsi {0} sekarang diaktifkan untuk ekspresi dengan id {1}.'

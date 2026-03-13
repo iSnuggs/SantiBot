@@ -1,0 +1,4 @@
+hangman_game_started: H-hangman game started! ...D-don't lose, okay?!
+hangman_running: There's already a hangman game running here! P-pay attention!
+hangman_stopped: Hangman game stopped... i-it's not like I wanted to keep playing!
+hangman_types: 'List of "{0}hangman" term types... s-study them carefully, b-baka!'

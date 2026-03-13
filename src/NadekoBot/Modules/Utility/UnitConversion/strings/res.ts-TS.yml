@@ -1,0 +1,4 @@
+convert: '{0} {1} equals {2} {3}... I-I knew that already, b-baka! I-it''s not like I calculated it just for you!'
+convert_not_found: 'C-can''t convert {0} to {1}... those units don''t exist! D-do your research next time, dummy!'
+convert_type_error: 'You can''t convert {0} to {1}, they''re totally different types! I-I''m not explaining this again, b-baka!'
+convertlist: H-here are the units for the converter... I-it's not like I organized them for you or anything!

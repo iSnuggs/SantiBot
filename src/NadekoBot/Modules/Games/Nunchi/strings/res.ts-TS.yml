@@ -1,0 +1,10 @@
+countup_created: C-CountUp game created... w-waiting for users to join. Hurry up!
+countup_ended: 'CountUp game ended. {0} won! ...T-they were just lucky!'
+countup_ended_no_winner: CountUp ended with no winner... y-you're all hopeless, b-baka!
+countup_failed_to_start: CountUp couldn't start because not enough people joined! I-it's your fault for being lazy!
+countup_joined: 'J-joined CountUp! {0} users so far... m-more would be nice, I guess.'
+countup_next_number: 'Number registered. Last number was {0}... k-keep going!'
+countup_round_ended: 'CountUp round ended. {0} is out! ...D-don''t feel too bad about it.'
+countup_round_ended_boot: 'Round ended because some people were too slow! These users are still in: {0} ...h-hurry up next time!'
+countup_round_started: 'CountUp round started with {0} users! Start counting from {1}... d-don''t mess up!'
+countup_started: 'CountUp started with {0} participants! ...I-I''m not excited or anything!'

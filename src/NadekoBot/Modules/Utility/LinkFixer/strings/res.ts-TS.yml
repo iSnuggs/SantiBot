@@ -1,0 +1,7 @@
+linkfix_added: 'F-Fine! Links from {0} will now be fixed to {1}. You''re welcome... NOT!'
+linkfix_already_exists: 'A link fix for {0} already exists, b-baka! Check before you ask!'
+linkfix_invalid_domains: B-Both old and new domains must be valid... even I know that!
+linkfix_list_none: No link fixes configured for this server... n-not that I looked for your sake!
+linkfix_list_title: Link Fixes
+linkfix_not_found: 'N-No link fix found for {0}... d-don''t blame me!'
+linkfix_removed: 'Link fix for {0} has been removed. I-it''s not like I wanted to help!'

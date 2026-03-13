@@ -9,7 +9,8 @@ cp -R -n $data_init/* $data
 cp -n "$data_init/creds_example.yml" "$data/creds.yml"
 
 # Always overwrite native libraries to ensure updates are applied
-cp -f "$data_init/lib/"*.so "$data/lib/" 2>/dev/null || true
+mkdir -p "$data/lib"
+cp -fL "$data_init/lib/"*.so "$data/lib/"
 
 yt-dlp -U || true
 

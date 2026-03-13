@@ -1,0 +1,15 @@
+channels: Canais
+created_at: Criado em
+custom_emojis: Emojis personalizados
+features: Atributos
+hoisted: Destacado
+inv_expire: 'Expira em:'
+inv_uses: 'Usos:'
+invite_deleted: 'O convite {0} foi excluído.'
+mentionable: Mencionável
+nickname: Apelido
+no_invites: Não há convites nessa página.
+roles: Cargos
+server_info: Informações do servidor
+text_channels: Canais de texto
+voice_channels: Canais de voz

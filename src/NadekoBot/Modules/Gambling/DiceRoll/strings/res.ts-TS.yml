@@ -1,0 +1,6 @@
+dice_invalid_number: 'Invalid number specified. You can roll {0}-{1} dice at once. C-can''t you read?!'
+dice_rolled: 'rolled {0}... n-not bad, I suppose.'
+dice_rolled_num: 'Dice rolled: {0}'
+rolls: Rolls
+second_larger_than_first: Second number must be larger than the first one! I-it's basic math, b-baka!
+total: Total

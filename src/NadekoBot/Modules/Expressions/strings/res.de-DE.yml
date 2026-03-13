@@ -1,0 +1,14 @@
+expr_deleted: ''
+expr_edited: ''
+expr_global_disabled: Globale Ausdrücke sind auf diesem Server jetzt deaktiviert.
+expr_global_enabled: Globale Ausdrücke sind auf diesem Server nicht mehr deaktiviert.
+expr_insuff_perms: ''
+expr_new: ''
+expr_no_found: ''
+expr_reset: ''
+expr_set: ''
+expressions: ''
+exprs_cleared: ''
+invalid_emojis: Alle Emojis die ausgewählt wurden sind ungültig.
+option_disabled: '{0} Option ist nun deaktiviert für Ausdrücke mit id {1}'
+option_enabled: '{0} Option ist jetzt aktiviert für den Ausdruck mit der ID {1}. '

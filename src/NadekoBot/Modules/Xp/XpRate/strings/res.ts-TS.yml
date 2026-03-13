@@ -1,0 +1,10 @@
+xp_rate_amount_invalid: Amount must be between 0 and 1000. H-how could you not know that?! *blushes*
+xp_rate_channel_reset: 'Channel {0} xp rate has been reset. I-I just felt like doing it, okay?!'
+xp_rate_channel_set: 'Channel **{0}** xp rate set to **{1}** xp per every **{2}** min. I-it''s not like I configured it just for you!'
+xp_rate_channels: Channel xp rates
+xp_rate_cooldown_invalid: Cooldown must be between 0 and 1440. G-get it right next time, b-baka!
+xp_rate_none: No xp rate overrides on this server. I-I didn't forget to set them, there just aren't any!
+xp_rate_server: Server xp rates
+xp_rate_server_reset: Server xp rate has been reset to global defaults. D-don't thank me or anything... *blushes*
+xp_rate_server_set: 'Server xp rate set to **{0}** xp per every **{1}** min. I-I only did it because it needed doing!'
+xp_rate_str: '`{0}:` {1} xp every {2} min.'

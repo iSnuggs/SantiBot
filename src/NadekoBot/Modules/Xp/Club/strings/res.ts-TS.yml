@@ -1,0 +1,46 @@
+club_accept_invalid_applicant: T-that user hasn't even applied to your club... check properly, b-baka!
+club_accepted: 'Accepted user {0} to the club... I-I guess they''re okay.'
+club_admin_add: '{0} is now a club admin... d-don''t let it go to your head!'
+club_admin_invalid_target: Y-you can't target yourself or the club owner, b-baka!
+club_admin_perms: You must be a club admin or owner to do this... I-I don't make the rules!
+club_admin_remove: '{0} is no longer club admin... hmph!'
+club_already_applied: Y-you've already applied to that club... so impatient!
+club_already_in: You're already in a club, b-baka! One is enough!
+club_applied: 'Y-you''ve applied for membership in {0} club... g-good luck, I guess.'
+club_apps_for: 'Applicants for {0} club'
+club_ban_fail_unbannable: O-only the club owner can ban club admins... those are the rules!
+club_ban_fail_user_not_found: T-that user isn't in your club or applied to it... look more carefully!
+club_banner_reset: Club banner has been reset... n-not that I cared about the old one!
+club_banner_set: N-new club banner set! ...it looks okay, I guess. *blushes*
+club_bans_for: 'Bans for {0} club'
+club_create_insuff_lvl: Y-you don't meet the minimum level to create a club... go level up first, b-baka!
+club_created: 'Club {0} successfully created! ...I-it''s not like I''m happy for you or anything!'
+club_desc_update: Club Description Updated... h-hopefully it's decent.
+club_desc_update_failed: F-failed changing club description... d-don't blame me!
+club_disband_error: E-error! You're either not in a club, or you're not the owner... get your facts straight!
+club_disbanded: 'Club {0} has been disbanded... g-gone forever, hmph.'
+club_icon_invalid_filetype: T-that image has an invalid filetype, b-baka! Make sure you're using a direct image url!
+club_icon_set: N-new club icon set! ...it's acceptable, I suppose.
+club_icon_too_large: I-image is too large! Compress it or something!
+club_icon_url_format: You must specify an absolute image url... I-I shouldn't have to explain this!
+club_join_banned: Y-you're banned from that club... don't look at me, you did something!
+club_kick_hierarchy: Only the club owner can kick club admins. The owner can't be kicked... t-those are the rules!
+club_leaderboard: 'Club leaderboard - page {0}'
+club_left: Y-you've left the club... n-not that anyone will miss you! *blushes*
+club_name_taken: A club with that name already exists... be more creative, b-baka!
+club_name_too_long: C-club name is too long! Keep it shorter!
+club_not_exists: T-that club doesn't exist... did you make it up?!
+club_not_in_a_club: Y-you're not in a club... maybe join one already!
+club_owner_cant_leave: The club owner can't leave! Transfer ownership or disband it... I-I'm just stating the rules!
+club_owner_only: O-only the club owner can do this... don't overstep, b-baka!
+club_rejected: 'The application by {0} has been rejected... h-harsh but fair!'
+club_renamed: 'Club has been renamed to {0}... I-I hope you picked a good name!'
+club_target_not_member: T-that user isn't a member of your club... pay attention!
+club_transfered: 'Ownership of club {0} has been transferred to {1}... t-take good care of it!'
+club_unban_fail_user_not_found: T-that user isn't banned in this club... check the ban list, b-baka!
+club_user_banned: 'Banned user {0} from {1} club... t-they deserved it, probably!'
+club_user_kick: 'User {0} kicked from {1} club... d-don''t cause trouble next time!'
+club_user_not_in_club: '{0} is not in a club... l-leave them alone!'
+club_user_unbanned: 'Unbanned user {0} in {1} club... I-I guess everyone deserves another chance. *blushes*'
+level_req: ''
+rank: Rank

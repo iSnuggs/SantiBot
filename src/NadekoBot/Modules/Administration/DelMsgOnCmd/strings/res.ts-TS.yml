@@ -1,0 +1,7 @@
+channel_delmsgoncmd: Channel-Specific Settings
+delmsg_channel_inherit: I-I'll only auto-delete successful command messages here if the server setting says so... d-don't expect me to think for myself or anything!
+delmsg_channel_off: Hmph! I will NEVER auto-delete command messages on this channel. N-not because you told me, I just decided!
+delmsg_channel_on: F-fine! I'll always auto-delete successful command messages here, no matter what the server says... i-it's not like I'm being thorough for you!
+delmsg_off: I-I won't auto-delete successful command messages on this server anymore... d-don't read into it!
+delmsg_on: I'll auto-delete messages after commands work on this server. I-it's not like I'm trying to keep things clean for YOU... *blushes*
+server_delmsgoncmd: Server Setting

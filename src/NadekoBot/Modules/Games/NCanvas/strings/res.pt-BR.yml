@@ -1,0 +1,9 @@
+invalid_img_size: 'A imagem deve ter {0}x{1} pixels.'
+nc_hint: 'Use o comando `{0}nczoom x y` para dar zoom. A imagem tem {1}x{2} pixels.'
+nc_insuff_payment: Pagamento inválido.
+nc_pixel: 'Pixel {0}'
+nc_pixel_not_found: Pixel não encontrado
+nc_pixel_set: 'Pixel {0} definido com sucesso!'
+nc_pixel_set_confirm: 'Tem certeza de que deseja definir o pixel {0}? Vai custar {1}'
+nc_position: Posição
+no_attach_found: Nenhum anexo encontrado. Por favor, envie a imagem junto com este comando.

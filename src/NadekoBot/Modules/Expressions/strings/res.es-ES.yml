@@ -1,0 +1,14 @@
+expr_deleted: Expresión eliminada
+expr_edited: Expresión editada.
+expr_global_disabled: Las expresiones globales están desactivadas en este servidor.
+expr_global_enabled: Las expresiones globales ya no están desactivadas en este servidor.
+expr_insuff_perms: Permisos insuficientes. Requiere ser dueño del bot para las expresiones globales, y de administrador para las expresiones del servidor.
+expr_new: Nueva expresión
+expr_no_found: No encontré expresiones.
+expr_reset: 'Las expresiones con la ID {0} ya no agregarán reacciones.'
+expr_set: 'La expresión con la ID {0} añadirá las siguientes reacciones al mensaje de respuesta: {1}'
+expressions: Expresiones
+exprs_cleared: 'Se han eliminado las {0} expresiones de este servidor.'
+invalid_emojis: Los emojis especificados no son válidos.
+option_disabled: 'La opción {0} ahora está desactivada para la expresión con la ID {1}.'
+option_enabled: 'La opción {0} ahora está activada para la expresión con la ID {1}.'

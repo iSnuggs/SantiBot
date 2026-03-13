@@ -1,0 +1,4 @@
+defprefix_current: 'T-the default bot prefix is {0}... I-I knew that already!'
+defprefix_new: 'I-I changed the default bot prefix from {0} to {1}... d-don''t make a big deal out of it!'
+prefix_current: 'The prefix on this server is {0}... n-not that I memorized it for you or anything!'
+prefix_new: 'F-fine, I changed the prefix on this server from {0} to {1}. You''re welcome... b-baka!'
