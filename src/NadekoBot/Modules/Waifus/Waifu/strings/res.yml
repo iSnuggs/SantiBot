@@ -61,14 +61,14 @@ waifu_not_participating: |-
   Become a **Waifu** or support one as a **Fan** to earn currency!
 
   **How it works**
-  `{0}woptin` — register as a waifu
-  `{0}wback @user` — back a waifu with your bank balance
-  `{0}wbuy @user` — become a waifu's manager
+  `{0}woptin` - register as a waifu
+  `{0}wback @user` - back a waifu with your bank balance
+  `{0}wbuy @user` - become a waifu's manager
 
   **Roles**
-  🎀 **Waifu** — earns a fee from every payout cycle
-  🏢 **Manager** — buys the position, earns a cut of the waifu fee
-  👥 **Fan** — backs a waifu with bank balance, earns from the fan pool
+  🎀 **Waifu** - earns a fee from every payout cycle
+  🏢 **Manager** - buys the position, earns a cut of the waifu fee
+  👥 **Fan** - backs a waifu with bank balance, earns from the fan pool
 
   **Cycle**
   Every 3.5 days, returns are generated from backed funds and split between the waifu, manager, and fans. Keep your waifu's mood 😊 and food 🍔 high for better payouts!

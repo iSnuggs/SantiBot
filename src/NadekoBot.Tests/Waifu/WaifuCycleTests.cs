@@ -294,6 +294,58 @@ public class WaifuCycleTests
     }
 
     [Test]
+    public async Task CatchUp_ProcessesMissedCycle()
+    {
+        // Simulate: cycle 0 was snapshotted but never processed, now we're in cycle 1
+        _time.SetUtcNow(new(Epoch.AddHours(CYCLE_HOURS), TimeSpan.Zero));
+
+        await using (var ctx = _db.GetDbContext())
+        {
+            await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 1000, food: 1000, fee: 5,
+                managerId: 2001, returnsCap: 500_000_000);
+            await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
+            await WaifuTestHelper.CreateCycleSnapshot(ctx, 0, 1001, 2001, 100_000_000);
+        }
+
+        Assert.That(_svc.GetCurrentCycle(), Is.EqualTo(1));
+
+        await _svc.CatchUpMissedCyclesInternalAsync();
+
+        await using (var ctx = _db.GetDbContext())
+        {
+            var cycle = await ctx.GetTable<WaifuCycle>()
+                .FirstOrDefaultAsyncLinqToDB(x => x.WaifuUserId == 1001 && x.CycleNumber == 0);
+            Assert.That(cycle, Is.Not.Null);
+            Assert.That(cycle!.TotalReturns, Is.GreaterThan(0));
+        }
+    }
+
+    [Test]
+    public async Task CatchUp_SkipsAlreadyProcessedCycle()
+    {
+        _time.SetUtcNow(new(Epoch.AddHours(CYCLE_HOURS), TimeSpan.Zero));
+
+        await using (var ctx = _db.GetDbContext())
+        {
+            await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 1000, food: 1000, fee: 5,
+                managerId: 2001, returnsCap: 500_000_000);
+            await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
+            await WaifuTestHelper.CreateCycleSnapshot(ctx, 0, 1001, 2001, 100_000_000);
+            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 0, 2001, 100_000_000, 1000, 42, 6, 952);
+        }
+
+        _cs.ClearReceivedCalls();
+        await _svc.CatchUpMissedCyclesInternalAsync();
+
+        // No new payouts should have been added
+        await using (var ctx = _db.GetDbContext())
+        {
+            var payouts = await ctx.GetTable<WaifuPendingPayout>().ToListAsyncLinqToDB();
+            Assert.That(payouts, Is.Empty);
+        }
+    }
+
+    [Test]
     public async Task CycleProcessing_ManagerlessWaifu_PriceDecays()
     {
         var cycleNumber = _svc.GetCurrentCycle();

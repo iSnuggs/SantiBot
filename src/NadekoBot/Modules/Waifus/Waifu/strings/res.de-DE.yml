@@ -65,14 +65,14 @@ waifu_not_participating: |-
   Werde eine **Waifu** oder unterstütze eine als **Fan**, um Währung zu verdienen!
   
   **So funktioniert es**
-  `{0}woptin` — registriere dich als Waifu
-  `{0}wback @user` — unterstütze eine Waifu mit deinem Bankguthaben
-  `{0}wbuy @user` — werde Manager einer Waifu
+  `{0}woptin` - registriere dich als Waifu
+  `{0}wback @user` - unterstütze eine Waifu mit deinem Bankguthaben
+  `{0}wbuy @user` - werde Manager einer Waifu
   
   **Rollen**
-  🎀 **Waifu** — verdient eine Gebühr aus jedem Auszahlungszyklus
-  🏢 **Manager** — kauft die Position, verdient einen Anteil der Waifu-Gebühr
-  👥 **Fan** — unterstützt eine Waifu mit Bankguthaben, verdient aus dem Fan-Pool
+  🎀 **Waifu** - verdient eine Gebühr aus jedem Auszahlungszyklus
+  🏢 **Manager** - kauft die Position, verdient einen Anteil der Waifu-Gebühr
+  👥 **Fan** - unterstützt eine Waifu mit Bankguthaben, verdient aus dem Fan-Pool
   
   **Zyklus**
   Alle 3,5 Tage werden Erträge aus den unterstützten Mitteln generiert und zwischen Waifu, Manager und Fans aufgeteilt. Halte die Stimmung 😊 und das Essen 🍔 deiner Waifu hoch für bessere Auszahlungen!

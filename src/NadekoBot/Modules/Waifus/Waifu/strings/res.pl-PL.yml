@@ -65,14 +65,14 @@ waifu_not_participating: |-
   Zostań **Waifu** lub wspieraj jedną jako **Fan**, żeby zarabiać walutę!
   
   **Jak to działa**
-  `{0}woptin` — zarejestruj się jako waifu
-  `{0}wback @user` — wesprzyj waifu swoim saldem bankowym
-  `{0}wbuy @user` — zostań managerem waifu
+  `{0}woptin` - zarejestruj się jako waifu
+  `{0}wback @user` - wesprzyj waifu swoim saldem bankowym
+  `{0}wbuy @user` - zostań managerem waifu
   
   **Role**
-  🎀 **Waifu** — zarabia prowizję z każdego cyklu wypłat
-  🏢 **Manager** — kupuje pozycję, zarabia część prowizji waifu
-  👥 **Fan** — wspiera waifu saldem bankowym, zarabia z puli fanów
+  🎀 **Waifu** - zarabia prowizję z każdego cyklu wypłat
+  🏢 **Manager** - kupuje pozycję, zarabia część prowizji waifu
+  👥 **Fan** - wspiera waifu saldem bankowym, zarabia z puli fanów
   
   **Cykl**
   Co 3,5 dnia generowane są zyski ze wspieranych funduszy, dzielone między waifu, managera i fanów. Dbaj o humor 😊 i jedzenie 🍔 swojej waifu, żeby wypłaty były wyższe!

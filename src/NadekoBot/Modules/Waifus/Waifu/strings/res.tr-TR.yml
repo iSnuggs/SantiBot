@@ -65,14 +65,14 @@ waifu_not_participating: |-
   **Waifu** ol veya bir tanesini **Fan** olarak destekle ve para kazan!
   
   **Nasıl çalışır**
-  `{0}woptin` — waifu olarak kayıt ol
-  `{0}wback @kullanıcı` — banka bakiyenle bir waifu'yu destekle
-  `{0}wbuy @kullanıcı` — bir waifu'nun yöneticisi ol
+  `{0}woptin` - waifu olarak kayıt ol
+  `{0}wback @kullanıcı` - banka bakiyenle bir waifu'yu destekle
+  `{0}wbuy @kullanıcı` - bir waifu'nun yöneticisi ol
   
   **Roller**
-  🎀 **Waifu** — her ödeme döngüsünden ücret kazanır
-  🏢 **Yönetici** — pozisyonu satın alır, waifu ücretinden pay alır
-  👥 **Fan** — banka bakiyesiyle waifu'yu destekler, fan havuzundan kazanır
+  🎀 **Waifu** - her ödeme döngüsünden ücret kazanır
+  🏢 **Yönetici** - pozisyonu satın alır, waifu ücretinden pay alır
+  👥 **Fan** - banka bakiyesiyle waifu'yu destekler, fan havuzundan kazanır
   
   **Döngü**
   Her 3.5 günde bir, desteklenen fonlardan getiri oluşturulur ve waifu, yönetici ile fanlar arasında paylaştırılır. Daha iyi ödemeler için waifu'nun ruh halini 😊 ve yemeğini 🍔 yüksek tut!

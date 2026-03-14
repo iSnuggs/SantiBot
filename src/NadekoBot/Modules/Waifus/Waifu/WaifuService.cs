@@ -1130,6 +1130,8 @@ public sealed class WaifuService(
 
     private async Task CycleLoopAsync()
     {
+        await CatchUpMissedCyclesInternalAsync();
+
         while (true)
         {
             try
@@ -1154,6 +1156,31 @@ public sealed class WaifuService(
                 Log.Error(ex, "Error in waifu cycle loop");
                 await Task.Delay(TimeSpan.FromSeconds(30));
             }
+        }
+    }
+
+    /// <summary>
+    /// Processes any past cycles that were snapshotted but never paid out (e.g. bot was down at cycle boundary).
+    /// </summary>
+    internal async Task CatchUpMissedCyclesInternalAsync()
+    {
+        await using var ctx = db.GetDbContext();
+        var currentCycle = GetCurrentCycle();
+
+        var missedCycles = await ctx.GetTable<WaifuCycleSnapshot>()
+            .Where(x => x.CycleNumber < currentCycle
+                        && !ctx.GetTable<WaifuCycle>()
+                            .Any(wc => wc.CycleNumber == x.CycleNumber
+                                       && wc.WaifuUserId == x.WaifuUserId))
+            .Select(x => x.CycleNumber)
+            .Distinct()
+            .OrderBy(x => x)
+            .ToListAsyncLinqToDB();
+
+        foreach (var cycle in missedCycles)
+        {
+            Log.Warning("Catching up missed waifu cycle #{Cycle}", cycle);
+            await ProcessCycleInternalAsync(ctx, cycle);
         }
     }
 

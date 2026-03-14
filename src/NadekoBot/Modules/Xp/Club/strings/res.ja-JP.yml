@@ -31,7 +31,7 @@ club_name_taken: その名前のクラブは既に存在します。
 club_name_too_long: クラブ名が長すぎます。
 club_not_exists: そのクラブは存在しません。
 club_not_in_a_club: あなたはクラブに所属していません。
-club_owner_cant_leave: クラブオーナーは退出できません——所有権を移転するか、クラブを解散する必要があります。
+club_owner_cant_leave: クラブオーナーは退出できません--所有権を移転するか、クラブを解散する必要があります。
 club_owner_only: このアクションはクラブオーナーのみが実行できます。
 club_rejected: '{0}の応募が却下されました。'
 club_renamed: 'クラブ名が{0}に変更されました'

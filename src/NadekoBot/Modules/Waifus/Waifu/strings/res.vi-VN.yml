@@ -65,14 +65,14 @@ waifu_not_participating: |-
   Trở thành **Waifu** hoặc ủng hộ một waifu với tư cách **Fan** để kiếm tiền!
   
   **Cách hoạt động**
-  `{0}woptin` — đăng ký làm waifu
-  `{0}wback @user` — ủng hộ waifu bằng số dư ngân hàng
-  `{0}wbuy @user` — trở thành quản lý của waifu
+  `{0}woptin` - đăng ký làm waifu
+  `{0}wback @user` - ủng hộ waifu bằng số dư ngân hàng
+  `{0}wbuy @user` - trở thành quản lý của waifu
   
   **Vai trò**
-  🎀 **Waifu** — nhận phí từ mỗi đợt trả thưởng
-  🏢 **Quản lý** — mua vị trí, nhận một phần phí waifu
-  👥 **Fan** — ủng hộ waifu bằng số dư ngân hàng, kiếm từ quỹ fan
+  🎀 **Waifu** - nhận phí từ mỗi đợt trả thưởng
+  🏢 **Quản lý** - mua vị trí, nhận một phần phí waifu
+  👥 **Fan** - ủng hộ waifu bằng số dư ngân hàng, kiếm từ quỹ fan
   
   **Chu kỳ**
   Mỗi 3.5 ngày, lợi nhuận được tạo từ quỹ ủng hộ và chia cho waifu, quản lý và fan. Giữ tâm trạng 😊 và đồ ăn 🍔 của waifu cao để nhận thưởng tốt hơn!

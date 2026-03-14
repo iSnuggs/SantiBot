@@ -58,25 +58,25 @@ waifu_fan_pending: ⏳ 待確認
 waifu_fan_last_earned: '上次獲得：{0}'
 waifu_now_backing_hint: |-
   你現在是 {0} 的粉絲了！
-  *你的銀行餘額就是你的支持力——持有越多，賺得越多。*
+  *你的銀行餘額就是你的支持力--持有越多，賺得越多。*
 waifu_bank_balance: '你的銀行餘額：{0}'
 waifu_not_participating_title: 🎀 老婆系統
 waifu_not_participating: |-
   成為**老婆**或作為**粉絲**支持一位來賺取貨幣！
   
   **運作方式**
-  `{0}woptin` — 註冊成為老婆
-  `{0}wback @user` — 用你的銀行餘額支持一位老婆
-  `{0}wbuy @user` — 成為老婆的經理
+  `{0}woptin` - 註冊成為老婆
+  `{0}wback @user` - 用你的銀行餘額支持一位老婆
+  `{0}wbuy @user` - 成為老婆的經理
   
   **角色**
-  🎀 **老婆** — 每個收益週期獲得費用
-  🏢 **經理** — 購買職位，獲得老婆費用的一部分
-  👥 **粉絲** — 用銀行餘額支持老婆，從粉絲池中獲利
+  🎀 **老婆** - 每個收益週期獲得費用
+  🏢 **經理** - 購買職位，獲得老婆費用的一部分
+  👥 **粉絲** - 用銀行餘額支持老婆，從粉絲池中獲利
   
   **週期**
   每 3.5 天，從支持的資金中產生收益，並在老婆、經理和粉絲之間分配。保持你的老婆心情 😊 和食物 🍔 高，以獲得更好的收益！
-waifu_fan_not_waifu: '你不是老婆——你是 **{0}** 的粉絲。'
+waifu_fan_not_waifu: '你不是老婆--你是 **{0}** 的粉絲。'
 waifu_gifts_received: 收到的禮物
 waifu_resigned_manager: '你已辭去 {0} 的經理職位。'
 waifu_not_managing: 你沒有管理這位老婆。
