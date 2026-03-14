@@ -2,6 +2,21 @@
 
 *a,c,f,r,o,d*
 
+## [7.0.6] - 14.03.2026
+
+### Added
+
+- Translations for 16 languages
+- `.wlb` now sorts by backing by default; use `.wlb price` for price-based ranking
+
+### Fixed
+
+- Fixed version update notification being re-sent on every bot restart
+
+### Dev
+
+- Added tests for locale string validation
+
 ## [7.0.5] - 13.03.2026
 
 ### Changed
