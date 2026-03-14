@@ -65,14 +65,14 @@ waifu_not_participating: |-
   Jadi **Waifu** atau dukung salah satu sebagai **Fan** untuk dapat mata uang!
   
   **Cara kerjanya**
-  `{0}woptin` — daftar sebagai waifu
-  `{0}wback @user` — dukung waifu dengan saldo bankmu
-  `{0}wbuy @user` — jadi manajer waifu
+  `{0}woptin` - daftar sebagai waifu
+  `{0}wback @user` - dukung waifu dengan saldo bankmu
+  `{0}wbuy @user` - jadi manajer waifu
   
   **Peran**
-  🎀 **Waifu** — dapat bayaran dari setiap siklus pembagian
-  🏢 **Manajer** — membeli posisi, dapat bagian dari biaya waifu
-  👥 **Fan** — mendukung waifu dengan saldo bank, dapat dari pool fan
+  🎀 **Waifu** - dapat bayaran dari setiap siklus pembagian
+  🏢 **Manajer** - membeli posisi, dapat bagian dari biaya waifu
+  👥 **Fan** - mendukung waifu dengan saldo bank, dapat dari pool fan
   
   **Siklus**
   Setiap 3,5 hari, keuntungan dihasilkan dari dana dukungan dan dibagi antara waifu, manajer, dan fan. Jaga mood 😊 dan makanan 🍔 waifumu tetap tinggi untuk pembagian yang lebih besar!

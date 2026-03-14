@@ -12,6 +12,7 @@
 ### Fixed
 
 - Fixed version update notification being re-sent on every bot restart
+- Fixed missed waifu cycle payouts when the bot restarts across a cycle boundary
 
 ### Dev
 

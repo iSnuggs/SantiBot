@@ -4,7 +4,7 @@ bandm: |-
   您已被 {0} 封鎖
   原因: {1}
 banmsg_default: 沒有設置禁止消息。將使用默認行為。
-banmsg_disabled: 禁止消息被禁用。您可以通過將 banmsg 設置為“-”以外的內容來啟用它們。
+banmsg_disabled: 禁止消息被禁用。您可以通過將 banmsg 設置為"-"以外的內容來啟用它們。
 banned_user: 用戶已被封鎖
 cant_apply_punishment: 不能適用處罰。請確保我有足夠的權限，並且我的身分組高於伺服器設置中的任何其他身分組。
 duration: 期間

@@ -65,14 +65,14 @@ waifu_not_participating: |-
   ¡Conviértete en una **Waifu** o apoya una como **Fan** para ganar monedas!
   
   **Cómo funciona**
-  `{0}woptin` — regístrate como waifu
-  `{0}wback @user` — apoya una waifu con tu saldo bancario
-  `{0}wbuy @user` — conviértete en manager de una waifu
+  `{0}woptin` - regístrate como waifu
+  `{0}wback @user` - apoya una waifu con tu saldo bancario
+  `{0}wbuy @user` - conviértete en manager de una waifu
   
   **Roles**
-  🎀 **Waifu** — gana una tarifa de cada ciclo de pago
-  🏢 **Manager** — compra la posición, gana una parte de la tarifa de la waifu
-  👥 **Fan** — apoya una waifu con saldo bancario, gana del pool de fans
+  🎀 **Waifu** - gana una tarifa de cada ciclo de pago
+  🏢 **Manager** - compra la posición, gana una parte de la tarifa de la waifu
+  👥 **Fan** - apoya una waifu con saldo bancario, gana del pool de fans
   
   **Ciclo**
   Cada 3,5 días, se generan retornos de los fondos apoyados y se dividen entre la waifu, manager y fans. ¡Mantén el humor 😊 y la comida 🍔 de tu waifu altos para mejores pagos!

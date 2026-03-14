@@ -31,7 +31,7 @@ club_name_taken: 該名稱的社團已經存在。
 club_name_too_long: 社團名稱超過長度上限
 club_not_exists: 那個公會不存在。
 club_not_in_a_club: 你不在任何社團中。
-club_owner_cant_leave: 社團擁有者不能離開社團——你必須轉讓擁有權或解散社團。
+club_owner_cant_leave: 社團擁有者不能離開社團--你必須轉讓擁有權或解散社團。
 club_owner_only: 此操作只能由社團擁有者執行。
 club_rejected: '{0} 的申請已被拒絕。'
 club_renamed: '社團已更名為 {0}'

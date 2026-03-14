@@ -31,7 +31,7 @@ club_name_taken: 해당 이름의 클럽이 이미 존재해요.
 club_name_too_long: 클럽 이름이 너무 길어요.
 club_not_exists: 해당 클럽이 존재하지 않아요.
 club_not_in_a_club: 클럽에 소속되어 있지 않아요.
-club_owner_cant_leave: 클럽 소유자는 클럽을 떠날 수 없어요 — 소유권을 양도하거나 클럽을 해체해야 해요.
+club_owner_cant_leave: 클럽 소유자는 클럽을 떠날 수 없어요 - 소유권을 양도하거나 클럽을 해체해야 해요.
 club_owner_only: 이 작업은 클럽 소유자만 수행할 수 있어요.
 club_rejected: '{0}의 가입 신청이 거절되었어요.'
 club_renamed: '클럽 이름이 {0}(으)로 변경되었어요'

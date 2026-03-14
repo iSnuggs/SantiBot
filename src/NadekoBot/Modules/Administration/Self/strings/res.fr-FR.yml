@@ -14,7 +14,7 @@ fwall_stop: Je transmettrai les MPs uniquement au premier propriétaire.
 fwch_start: Tout message envoyé dans les DMs du bot sera transféré vers ce salon.
 fwch_stop: Les messages envoyés dans les DMs du bot ne seront plus transférés vers ce salon.
 fwdm_start: Je transmettrai les MPs dès maintenant.
-fwdm_stop: J’arrête de transmettre les MPs dès maintenant.
+fwdm_stop: J'arrête de transmettre les MPs dès maintenant.
 interval: Intervalle
 invalid_format: Format d'entrée invalide.
 no_shard_id: Aucun fragment avec cet ID n'a été trouvée.

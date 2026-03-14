@@ -10,7 +10,7 @@ repeater_dont_skip_next: Następne wyzwolenie tego powtarzacza nie zostanie pomi
 repeater_exceed_limit: 'Nie możesz mieć więcej niż {0} powtarzaczy na serwerze.'
 repeater_redundant_no: 'Powtarzacz **#{0}** nie będzie już wysyłał zbędnych wiadomości.'
 repeater_redundant_yes: 'Powtarzacz **#{0}** będzie od teraz wysyłał zbędne wiadomości.'
-repeater_remove_fail: Nie udało się usunąć powtarzacza o tym indeksie. Albo podałeś nieprawidłowy indeks, albo powtarzacz był w trakcie wykonywania — spróbuj ponownie za kilka sekund.
+repeater_remove_fail: Nie udało się usunąć powtarzacza o tym indeksie. Albo podałeś nieprawidłowy indeks, albo powtarzacz był w trakcie wykonywania - spróbuj ponownie za kilka sekund.
 repeater_removed: 'Powtarzacz #{0} usunięty'
 repeater_skip_next: Następne wyzwolenie tego powtarzacza zostanie pominięte.
 repeaters_none: Na tym serwerze nie działa żaden powtarzacz.
