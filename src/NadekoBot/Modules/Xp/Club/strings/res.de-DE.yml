@@ -41,6 +41,6 @@ club_unban_fail_user_not_found: Dieser Benutzer ist in diesem Club nicht gebannt
 club_user_banned: 'Nutzer {0} wurde vom Club {1} gebannt.'
 club_user_kick: 'Nutzer {0} wurde vom Club {1} gekickt.'
 club_user_not_in_club: '{0} ist in keinem Club.'
-club_user_unbanned: 'Nutzer {0} wurde von deinem Club entbannt.'
+club_user_unbanned: 'Nutzer {0} wurde im Club {1} entbannt.'
 level_req: ''
 rank: Rang

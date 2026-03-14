@@ -11,5 +11,5 @@ nickname: Spitzname
 no_invites: Keine Einladungen auf dieser Seite.
 roles: Rollen
 server_info: Server Informationen
-text_channels: Textkanäle
-voice_channels: Sprachkanäle
+text_channels: 'Text: {0}'
+voice_channels: 'Sprache: {0}'

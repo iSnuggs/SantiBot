@@ -1,5 +1,5 @@
 available_tests: ''
-awarded: 'le regaló {0} a {1}'
+awarded: '{2} le otorgó {0} a {1}'
 bank_balance: ''
 bet: Apuesta
 betroll_win: '¡Felicidades! Sacaste por encima de {0}'
@@ -7,7 +7,7 @@ better_luck: Mejor suerte la próxima.
 curtr_award: 'Regaladas por el dueño del bot {0} [{1}]'
 curtr_gift: 'Regalo de {0} [{1}]'
 curtr_take: 'Retiradas por el dueño del bot {0} [{1}]'
-gifted: 'le regaló {0} a {1}'
+gifted: '{2} le regaló {0} a {1}'
 has: '{0} tiene {1}.'
 mass_award: 'Regalados {0} a {1} usuarios en el rol {2}.'
 mass_take: 'Tomado {0} de {1} usuarios en el rol {2}.'

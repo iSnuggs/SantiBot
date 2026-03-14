@@ -1,5 +1,5 @@
 available_tests: ''
-awarded: '已將 {0} 授予 {1}'
+awarded: '{2} 已将 {0} 授予 {1}'
 bank_balance: ''
 bet: 下注
 betroll_win: '恭喜！你擲出了高於 {0} 的點數'
@@ -7,7 +7,7 @@ better_luck: 下次好運 ^_^
 curtr_award: '由機器人所有者 {0} [{1}] 授予'
 curtr_gift: '{0} [{1}] 的禮物'
 curtr_take: '由機器人所有者 {0} [{1}] 拍攝'
-gifted: '已將 {0} 贈送給 {1}'
+gifted: '{2} 已将 {0} 赠送给 {1}'
 has: '{0} 擁有 {1}'
 mass_award: '獎勵了 {0} 予 {2} 身分組中的 {1} 位使用者'
 mass_take: '已從身分組 {2} 中的使用者 {1} 上取走 {0}'

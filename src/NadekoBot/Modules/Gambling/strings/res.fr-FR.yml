@@ -1,5 +1,5 @@
 available_tests: Tests disponibles
-awarded: 'donne la récompense de {0} à {1}'
+awarded: '{2} a attribué {0} à {1}'
 bank_balance: 'Vous disposez de {0} sur votre compte bancaire.'
 bet: Mise
 betroll_win: 'Félicitations ! Vous avez lancé au-dessus de {0}'
@@ -7,7 +7,7 @@ better_luck: Vous aurez plus de chance la prochaine fois ^_^
 curtr_award: 'Récompensé par le propriétaire du bot {0} [{1}]'
 curtr_gift: 'Cadeau de {0} [{1}]'
 curtr_take: 'Pris par le propriétaire du bot {0} [{1}]'
-gifted: 'a offert {0} à {1}'
+gifted: '{2} a offert {0} à {1}'
 has: '{0} a {1}'
 mass_award: 'Une récompense de {0} sera accordée aux {1} utilisateurs disposant du rôle {2}.'
 mass_take: 'Pris {0} de {1} utilisateurs du rôle {2}.'

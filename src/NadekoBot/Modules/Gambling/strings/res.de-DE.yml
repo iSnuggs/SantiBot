@@ -1,5 +1,5 @@
 available_tests: ''
-awarded: '{1} wurde mit {0} belohnt'
+awarded: '{2} hat {1} mit {0} belohnt'
 bank_balance: ''
 bet: Einsatz
 betroll_win: 'Herzlichen Glückwunsch! Du hast über {0} gewürfelt'
@@ -7,7 +7,7 @@ better_luck: Viel Glück beim nächsten Mal ^-^
 curtr_award: ''
 curtr_gift: ''
 curtr_take: ''
-gifted: 'Hat {0} and {1} verschenkt'
+gifted: '{2} hat {0} an {1} verschenkt'
 has: '{0} hat {1}'
 mass_award: 'Es wurden {0} an {1} Nutzer von der Rolle {2} verteilt'
 mass_take: 'Habe {0} von {1} Nutzern in {2} Rolle genommen.'

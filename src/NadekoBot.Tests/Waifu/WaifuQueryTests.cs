@@ -164,7 +164,7 @@ public class WaifuQueryTests
                 totalBacked: 20000, totalReturns: 200, waifuEarnings: 8, managerEarnings: 2, fanPool: 190);
         }
 
-        var result = await _svc.GetLeaderboardAsync();
+        var result = await _svc.GetLeaderboardAsync(WaifuLbOrder.Price);
         Assert.That(result, Has.Count.EqualTo(2));
         Assert.That(result[0].UserId, Is.EqualTo(2001), "Higher price should be first");
         Assert.That(result[0].Price, Is.EqualTo(10000));

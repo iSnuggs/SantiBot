@@ -1,5 +1,5 @@
 available_tests: ''
-awarded: 'premiou {0} para {1}'
+awarded: '{2} premiou {0} para {1}'
 bank_balance: ''
 bet: Aposta
 betroll_win: 'Parabéns! Você rolou acima de {0}'
@@ -7,7 +7,7 @@ better_luck: Melhor sorte na próxima vez ^-^
 curtr_award: 'Premiado pelo dono do bot {0} [{1}]'
 curtr_gift: 'Presente de {0} [{1}]'
 curtr_take: 'Levado pelo dono do bot {0} [{1}]'
-gifted: 'presenteou {0} para {1}'
+gifted: '{2} presenteou {0} para {1}'
 has: '{0} tem {1}'
 mass_award: 'Concedeu {0} a {1} usuários do cargo {2}.'
 mass_take: '{0} tirados de {1} usuários com cargo {2}.'

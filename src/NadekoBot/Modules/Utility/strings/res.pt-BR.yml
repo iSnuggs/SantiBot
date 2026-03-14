@@ -12,7 +12,7 @@ emoji_add_error: Erro ao adicionar emoji. O servidor não possui mais slots de e
 emoji_added: 'Novo emoji adicionado: {0}'
 emoji_slots_full_retry_gif: Todos os slots de emoji de imagem estão cheios. Deseja tentar novamente como GIF animado?
 emoji_not_removed: 'Os seguintes emojis não foram removidos: {0}'
-inrole_list: 'Lista de usuários no cargo {0}'
+inrole_list: 'Lista de usuários no cargo {0} ({1})'
 invalid_emoji_link: O link especificado não retorna para uma imagem ou excede 256KB.
 listservers: |-
   ID: {0}

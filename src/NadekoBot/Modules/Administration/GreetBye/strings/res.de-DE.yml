@@ -18,9 +18,9 @@ greetdel_off: Automatisches Löschen der Willkommensnachrichten wurde deaktivier
 greetdel_on: 'Willkommensnachrichten werden nach {0} Sekunden gelöscht.'
 greetdm_off: DM Willkommensnachricht deaktiviert.
 greetdm_on: DM Willkommensnachricht aktiviert.
-greetdmmsg_cur: Derzeite DM Willkommensnachricht.
+greetdmmsg_cur: 'Derzeitige DM Willkommensnachricht: {0}'
 greetdmmsg_enable: 'Aktiviere DM Willkommensnachrichten durch das Schreiben von {0}'
 greetdmmsg_new: Neue DM Willkommensnachricht gesetzt
-greetmsg_cur: Derzeite Willkommensnachricht
+greetmsg_cur: 'Derzeitige Willkommensnachricht: {0}'
 greetmsg_enable: 'Aktiviere Willkommensnachrichten durch das Schreiben von {0}'
 greetmsg_new: Neue Willkommensnachricht gesetzt

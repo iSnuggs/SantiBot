@@ -10,7 +10,7 @@ sar_group_not_found: Gruppe mit dieser Nummer existiert nicht.
 self_assign_already: 'Du hast schon die {0} Rolle.'
 self_assign_excl: Selbst hinzufügbare Rollen sind nun exklusiv
 self_assign_group_role_req: 'Benutzer können sich jetzt nur eine Rolle aus Gruppe {0} zuweisen, wenn sie die Rolle {1} haben.'
-self_assign_level_req: 'Selbst zuweisbare Rolle {0} benötigt mindestens server level {1].'
+self_assign_level_req: 'Selbst zuweisbare Rolle {0} benötigt mindestens Server-Level {1}.'
 self_assign_list: 'Es gibt {0} selbst hinzufügbare Rollen'
 self_assign_no_excl: Selbst hinzufügbare Rollen sind nun nicht exklusiv
 self_assign_not: Diese Rolle kann man sich nicht selbst hinzufügen

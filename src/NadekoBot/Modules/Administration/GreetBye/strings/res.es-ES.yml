@@ -18,9 +18,9 @@ greetdel_off: Eliminación automática de mensajes de bienvenida desactivada.
 greetdel_on: 'Los mensajes de bienvenida serán eliminados luego de {0} segundos.'
 greetdm_off: Anuncios de bienvenida privados desactivados.
 greetdm_on: Anuncios de bienvenida privados habilitados.
-greetdmmsg_cur: 'Mensaje de bienvenida privado actual:'
+greetdmmsg_cur: 'Mensaje de bienvenida privado actual: {0}'
 greetdmmsg_enable: 'Habilita los mensajes de bienvenida privados escribiendo {0}'
 greetdmmsg_new: Nuevo mensaje de bienvenida privado configurado.
-greetmsg_cur: 'Mensaje de bienvenida actual:'
+greetmsg_cur: 'Mensaje de bienvenida actual: {0}'
 greetmsg_enable: 'Habilita los mensajes de bienvenida escribiendo {0}'
 greetmsg_new: Nuevo mensaje de bienvenida configurado.

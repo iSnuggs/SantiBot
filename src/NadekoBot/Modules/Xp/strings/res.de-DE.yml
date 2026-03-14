@@ -13,7 +13,7 @@ reset_server: XP von allen Nutzern auf diesem Server wurde zurückgesetzt.
 reset_server_confirm: Bist du sicher, dass du die XP von allen Nutzern auf diesem Server zurücksetzen möchtest?
 reset_user: 'Nutzer mit der ID {0} wurde die XP auf diesem Server zurückgesetzt.'
 reset_user_confirm: Bist du sicher, dass du die XP vom definierten Nutzer auf diesem Server zurücksetzen möchtest?
-role_not_found: Rolle nicht gefunden.
+role_not_found: 'Rolle nicht gefunden: {0}'
 server_leaderboard: Server XP Rangliste
 template_reloaded: Xp Vorlage wurde neu geladen.
 use: ''

@@ -11,5 +11,5 @@ nickname: 暱稱
 no_invites: 此頁面上沒有邀請。
 roles: 身分組
 server_info: 伺服器資訊
-text_channels: 文字頻道
-voice_channels: 語音頻道
+text_channels: '文字频道：{0}'
+voice_channels: '语音频道：{0}'
