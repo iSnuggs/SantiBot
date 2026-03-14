@@ -9,7 +9,7 @@ bye_off: 已停用離開訊息功能
 bye_on: 此頻道已開啟離開通知。
 byedel_off: 離開訊息將不再被自動刪除
 byedel_on: '離開訊息訊息過 {0} 秒後將被自動刪除'
-byemsg_cur: 當前離開訊息
+byemsg_cur: '当前离开消息：{0}'
 byemsg_enable: '使用 {0} 指令來開啟離開訊息'
 byemsg_new: 新的離開訊息已被設定。
 greet_off: 已關閉歡迎訊息

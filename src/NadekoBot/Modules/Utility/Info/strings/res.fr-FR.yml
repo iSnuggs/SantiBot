@@ -11,5 +11,5 @@ nickname: Surnom
 no_invites: Aucune invitation sur cette page.
 roles: Rôles
 server_info: Info du serveur
-text_channels: Salons textuels
-voice_channels: Salons vocaux
+text_channels: 'Textuels : {0}'
+voice_channels: 'Vocaux : {0}'

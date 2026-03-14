@@ -1,6 +1,6 @@
 created_by: 'Создано {0}'
 quote_added_new: 'Цитата #{0} добавлена.'
-quote_deleted: Цитата удалена
+quote_deleted: 'Цитата #{0} удалена.'
 quote_edited: Цитата Отредактирована
 quote_id: 'Цитата {0}'
 quotes_deleted: 'Удалены все цитаты с ключевым словом {0}.'

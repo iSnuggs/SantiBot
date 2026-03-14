@@ -13,7 +13,7 @@ reset_server: La EXP de todos los usuarios en el servidor ha sido reiniciada.
 reset_server_confirm: ¿Seguro que desea restablecer la EXP de todos los usuarios del servidor?
 reset_user: 'La EXP del usuario con ID {0} ha sido restablecida en este servidor.'
 reset_user_confirm: ¿Seguro que desea restablecer la EXP del usuario especificado en este servidor?
-role_not_found: Rol no encontrado.
+role_not_found: 'Rol no encontrado: {0}'
 server_leaderboard: Marcador de EXP del servidor
 template_reloaded: La plantilla de EXP ha sido recargada.
 use: ''

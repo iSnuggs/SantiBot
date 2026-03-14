@@ -11,5 +11,5 @@ nickname: Псевдоним
 no_invites: Нет приглашений на этой странице.
 roles: Роли
 server_info: Информация о сервере
-text_channels: Текстовые каналы
-voice_channels: Голосовые каналы
+text_channels: 'Текстовые: {0}'
+voice_channels: 'Голосовые: {0}'

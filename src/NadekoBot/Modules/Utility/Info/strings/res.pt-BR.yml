@@ -11,5 +11,5 @@ nickname: Apelido
 no_invites: Não há convites nessa página.
 roles: Cargos
 server_info: Informações do servidor
-text_channels: Canais de texto
-voice_channels: Canais de voz
+text_channels: 'Texto: {0}'
+voice_channels: 'Voz: {0}'

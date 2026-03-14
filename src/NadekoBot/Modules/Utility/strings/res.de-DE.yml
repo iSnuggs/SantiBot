@@ -12,7 +12,7 @@ emoji_add_error: Fehler beim hinzufügen des Emoji. Es sind keine Emoji slots me
 emoji_added: 'Neuen Emoji hinzugefügt: {0}'
 emoji_slots_full_retry_gif: Alle Bild-Emoji-Slots sind voll. Möchtest du es als animiertes GIF erneut versuchen?
 emoji_not_removed: 'Die folgenden Emojis wurden nicht entfernt: {0}'
-inrole_list: 'Liste der Nutzer in der Rolle {0}'
+inrole_list: 'Liste der Nutzer in der Rolle {0} ({1})'
 invalid_emoji_link: Der angegebene Link is entweder kein Bild, oder größer als 256KB.
 listservers: |-
   ID: {0}

@@ -31,7 +31,7 @@ timeoutdm: |-
 unable_to_dm_user: Direktnachricht an den Benutzer fehlgeschlagen.
 unbanned_user: 'Nutzer {0} wurde entbannt.'
 user_warned: 'Benutzer {0} wurde verwarnt.'
-user_warned_and_punished: 'Benutzer {0} wurde verwarnt'
+user_warned_and_punished: 'Benutzer {0} wurde verwarnt und die Strafe {1} wurde angewandt.'
 username: Benutzername
 warn_cleared_by: 'Gelöscht von {0}'
 warn_count: '{0} momentan, {1} insgesamt'
@@ -44,7 +44,7 @@ warn_punish_set: 'Ich werde {0} Bestrafungen ausführen an Nutzern mit {1} Warnu
 warn_punish_set_timed: 'Ich werde {0} Strafen für {2} an Nutzern mit {1} Warnungen anwenden.'
 warn_weight: 'Gewicht: {0}'
 warned_on: 'Gewarnt auf {0} Server'
-warned_on_by: 'Am {0} um {1} von {1}'
+warned_on_by: 'Am {0} um {1} von {2}'
 warning_clear_fail: Warnung wurde nicht gelöscht. Entweder gibt es die Warnung mit diesem Index nicht, oder sie wurde bereits gelöscht.
 warning_cleared: 'Warnung {0} wurde für {1} entfernt.'
 warning_deleted: 'Warnung {0} wurde gelöscht.'

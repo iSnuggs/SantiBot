@@ -1,6 +1,6 @@
 created_by: 'Erstellt von {0}'
 quote_added_new: 'Zitat #{0} wurde hinzugefügt.'
-quote_deleted: Zitat gelöscht
+quote_deleted: 'Zitat #{0} gelöscht.'
 quote_edited: Zitat Bearbeitet
 quote_id: 'Zitat {0}'
 quotes_deleted: 'Alle Zitate mit dem Stichwort {0} wurden gelöscht.'

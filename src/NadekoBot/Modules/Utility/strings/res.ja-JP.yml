@@ -12,7 +12,7 @@ emoji_add_error: 絵文字の追加中にエラーが発生しました。絵文
 emoji_added: '新しい絵文字を追加しました: {0}'
 emoji_slots_full_retry_gif: すべての画像絵文字スロットが満杯です。アニメーションGIFとして再試行しますか？
 emoji_not_removed: '以下の絵文字は削除されませんでした: {0}'
-inrole_list: '役割《{0}》のユーザー一覧'
+inrole_list: '役割《{0}》のユーザー一覧（{1}）'
 invalid_emoji_link: 指定されたリンクは画像ではないか、256KBを超えています。
 listservers: |-
   ID: {0}

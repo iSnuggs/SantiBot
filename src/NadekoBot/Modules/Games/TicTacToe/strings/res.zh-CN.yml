@@ -2,7 +2,7 @@ game_started: 遊戲開始
 ttt_a_draw: 平手!
 ttt_against_yourself: 你不能和自己玩
 ttt_already_running: 目前已有一個井字遊戲在此頻道執行。
-ttt_created: 井字遊戲開始
+ttt_created: '{0} 创建了一场井字游戏。'
 ttt_has_won: '{0} 獲勝了'
 ttt_matched_three: 連線成功
 ttt_no_moves: 沒有空間了!

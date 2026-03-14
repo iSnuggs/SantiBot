@@ -11,5 +11,5 @@ nickname: ニックネーム
 no_invites: このページに招待はありません。
 roles: 役割
 server_info: サーバー情報
-text_channels: テキストチャンネル
-voice_channels: ボイスチャンネル
+text_channels: 'テキスト: {0}'
+voice_channels: 'ボイス: {0}'
