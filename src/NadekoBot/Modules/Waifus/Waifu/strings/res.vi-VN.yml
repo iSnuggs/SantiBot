@@ -20,11 +20,9 @@ waifu_not_backing: Bạn hiện không ủng hộ ai.
 waifu_stopped_backing: Bạn đã ngừng làm fan.
 waifu_invalid_fee: 'Phí phải từ {0}% đến {1}%.'
 waifu_fee_set: 'Phí đã cập nhật thành {0}%.'
-waifu_no_fans: Chưa có fan nào.
 waifu_fans_title: 'Fan của {0}'
 waifu_lb_title: 🏆 Bảng xếp hạng Waifu (theo giá)
 waifu_lb_title_backed: 🏆 Bảng xếp hạng Waifu (theo ủng hộ)
-waifu_lb_empty: Chưa có waifu nào có lịch sử chu kỳ.
 waifu_gift_shop_title: 🎁 Cửa hàng quà tặng hôm nay
 waifu_shop_refreshes: 'Làm mới sau {0}'
 waifu_item_not_found: 'Món đồ đó hôm nay không có. Dùng `{0}wgiftshop` để xem có gì trong cửa hàng.'
@@ -34,16 +32,14 @@ waifu_stat_mood: tâm trạng
 waifu_stop_backing_confirm: Bạn có chắc muốn ngừng làm fan không? Bạn sẽ không nhận được tiền từ các đợt trả thưởng nữa.
 waifu_switch_confirm: 'Bạn đang là fan của {0}. Chuyển sang ủng hộ {1} thay thế?'
 waifu_manager_exit_title: Từ chức quản lý
-waifu_manager_exit_warning: 'Từ chức sẽ có những hậu quả tài chính sau:'
-waifu_refund: Hoàn tiền cho bạn (90%)
-waifu_goes_to_waifu: Cho Waifu (5%)
-waifu_burned: Đốt (5%)
-waifu_new_price: Giá Waifu mới
+waifu_manager_exit_confirm: 'Ban có chắc muốn từ chức quản lý của {0}? Giá waifu sẽ giảm xuống mức tối thiểu.'
+waifu_goes_to_waifu: Cho Waifu
+waifu_burned: Đã đốt
 waifu_outside_buy_window: Chỉ có thể mua vị trí quản lý trong 18 giờ đầu của chu kỳ.
-waifu_price_too_low: Giá quá thấp.
+waifu_price_too_low: Giá đặt của bạn quá thấp. Giá tối thiểu là 115% giá waifu hiện tại.
 waifu_bought_manager_title: 🏢 Đã nhận vị trí quản lý!
 waifu_bought_manager: 'Bạn giờ là quản lý của {0} với giá {1:N0}!'
-waifu_old_manager_payout: Quản lý cũ (90%)
+waifu_old_manager_payout: Quản lý cũ
 waifu_over_cap: vượt giới hạn
 waifu_no_manager_title: Cần một quản lý!
 waifu_no_manager_payout: 'Chưa kiếm được gì. Nếu không có quản lý, giá sẽ giảm {0}% mỗi chu kỳ. Hãy là người đầu tiên quản lý!'

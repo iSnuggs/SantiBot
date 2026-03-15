@@ -20,11 +20,9 @@ waifu_not_backing: Você não está apoiando ninguém no momento.
 waifu_stopped_backing: Você parou de ser fã.
 waifu_invalid_fee: 'A taxa deve ser entre {0}% e {1}%.'
 waifu_fee_set: 'Taxa atualizada para {0}%.'
-waifu_no_fans: Nenhum fã ainda.
 waifu_fans_title: 'Fãs de {0}'
 waifu_lb_title: 🏆 Ranking de Waifus (por preço)
 waifu_lb_title_backed: 🏆 Ranking de Waifus (por apoio)
-waifu_lb_empty: Nenhuma waifu com histórico de ciclo ainda.
 waifu_gift_shop_title: 🎁 Loja de Presentes de Hoje
 waifu_shop_refreshes: 'Atualiza em {0}'
 waifu_item_not_found: 'Esse item não está disponível hoje. Use `{0}wgiftshop` para ver o que está em estoque.'
@@ -34,16 +32,14 @@ waifu_stat_mood: humor
 waifu_stop_backing_confirm: Tem certeza de que deseja parar de ser fã? Você não vai mais ganhar com os pagamentos.
 waifu_switch_confirm: 'Você é atualmente fã de {0}. Mudar seu apoio para {1}?'
 waifu_manager_exit_title: Renúncia de Manager
-waifu_manager_exit_warning: 'Renunciar terá as seguintes consequências financeiras:'
-waifu_refund: Seu Reembolso (90%)
-waifu_goes_to_waifu: Vai para a Waifu (5%)
-waifu_burned: Queimado (5%)
-waifu_new_price: Novo Preço da Waifu
+waifu_manager_exit_confirm: 'Tem certeza que quer renunciar ao cargo de manager de {0}? O preco da waifu cairá ao minimo.'
+waifu_goes_to_waifu: Para a Waifu
+waifu_burned: Queimado
 waifu_outside_buy_window: Compras de manager só estão disponíveis durante as primeiras 18 horas de um ciclo.
-waifu_price_too_low: O preço é muito baixo.
+waifu_price_too_low: Sua oferta é muito baixa. O preco minimo é 115% do preco atual da waifu.
 waifu_bought_manager_title: 🏢 Posição de Manager Adquirida!
 waifu_bought_manager: 'Você agora é o manager de {0} por {1:N0}!'
-waifu_old_manager_payout: Manager Anterior (90%)
+waifu_old_manager_payout: Manager Anterior
 waifu_over_cap: acima do limite
 waifu_no_manager_title: Precisa de um Manager!
 waifu_no_manager_payout: 'Não está ganhando nada ainda. Sem um manager, o preço cai {0}% a cada ciclo. Seja o primeiro a gerenciar!'

@@ -20,11 +20,9 @@ waifu_not_backing: أنت لا تدعم أي شخص حاليًا.
 waifu_stopped_backing: لقد توقفت عن كونك معجبًا.
 waifu_invalid_fee: 'يجب أن تكون الرسوم بين {0}% و {1}%.'
 waifu_fee_set: 'تم تحديث الرسوم إلى {0}%.'
-waifu_no_fans: لا يوجد معجبون بعد.
 waifu_fans_title: 'معجبو {0}'
 waifu_lb_title: 🏆 لوحة متصدري الوايفو (حسب السعر)
 waifu_lb_title_backed: 🏆 لوحة متصدري الوايفو (حسب الدعم)
-waifu_lb_empty: لا توجد وايفو لديها سجل دورات بعد.
 waifu_gift_shop_title: 🎁 متجر الهدايا اليوم
 waifu_shop_refreshes: 'يتجدد خلال {0}'
 waifu_item_not_found: 'هذا العنصر غير متوفر اليوم. استخدم `{0}wgiftshop` لرؤية ما هو متاح.'
@@ -34,16 +32,14 @@ waifu_stat_mood: مزاج
 waifu_stop_backing_confirm: هل أنت متأكد أنك تريد التوقف عن الدعم؟ لن تكسب من التوزيعات بعد الآن.
 waifu_switch_confirm: 'أنت حاليًا من معجبي {0}. هل تريد تحويل دعمك إلى {1} بدلاً من ذلك؟'
 waifu_manager_exit_title: استقالة المدير
-waifu_manager_exit_warning: 'ستترتب على الاستقالة العواقب المالية التالية:'
-waifu_refund: استردادك (90%)
-waifu_goes_to_waifu: يذهب للوايفو (5%)
-waifu_burned: محروق (5%)
-waifu_new_price: سعر الوايفو الجديد
+waifu_manager_exit_confirm: 'هل أنت متأكد أنك تريد الاستقالة من إدارة {0}؟ سينخفض سعر الوايفو إلى الحد الأدنى.'
+waifu_goes_to_waifu: يذهب للوايفو
+waifu_burned: محروق
 waifu_outside_buy_window: شراء منصب المدير متاح فقط خلال أول 18 ساعة من الدورة.
-waifu_price_too_low: السعر منخفض جدًا.
+waifu_price_too_low: عرضك منخفض جدا. الحد الأدنى للسعر هو 115% من سعر الوايفو الحالي.
 waifu_bought_manager_title: 🏢 تم الحصول على منصب المدير!
 waifu_bought_manager: 'أنت الآن مدير {0} مقابل {1:N0}!'
-waifu_old_manager_payout: المدير السابق (90%)
+waifu_old_manager_payout: المدير السابق
 waifu_over_cap: تجاوز الحد
 waifu_no_manager_title: بحاجة إلى مدير!
 waifu_no_manager_payout: 'لا أرباح بعد. بدون مدير، ينخفض السعر بنسبة {0}% كل دورة. كن أول من يدير!'

@@ -64,8 +64,6 @@ public sealed class WaifuConfigService : ConfigServiceBase<WaifuConfig>
                 c.ManagerBuyPremium = 0.15;
                 c.ManagerOldPayout = 0.90;
                 c.ManagerWaifuPayout = 0.05;
-                c.ManagerExitRefund = 0.50;
-                c.ManagerExitWaifu = 0.10;
                 c.ManagerCutPercent = 0.15;
             });
         }
@@ -77,13 +75,11 @@ public sealed class WaifuConfigService : ConfigServiceBase<WaifuConfig>
                 c.CycleHours = 24.0;
             });
         }
-        if (data.Version < 4)
+        if (data.Version < 5)
         {
             ModifyConfig(c =>
             {
-                c.Version = 4;
-                c.ManagerExitRefund = 0.90;
-                c.ManagerExitWaifu = 0.05;
+                c.Version = 5;
             });
         }
     }

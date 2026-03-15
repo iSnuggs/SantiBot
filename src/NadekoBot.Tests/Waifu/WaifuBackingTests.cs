@@ -44,7 +44,7 @@ public class WaifuBackingTests
             await WaifuTestHelper.CreateWaifu(ctx, 1001);
 
         var result = await _svc.BecomeFanAsync(2001, 1001);
-        Assert.That(result.IsT2, Is.True, "Expected Success");
+        Assert.That(result.IsT3, Is.True, "Expected Success");
 
         await using (var ctx = _db.GetDbContext())
         {
@@ -65,7 +65,7 @@ public class WaifuBackingTests
         }
 
         var result = await _svc.BecomeFanAsync(2001, 1002);
-        Assert.That(result.IsT2, Is.True, "Expected Success");
+        Assert.That(result.IsT3, Is.True, "Expected Success");
 
         await using (var ctx = _db.GetDbContext())
         {
@@ -86,7 +86,7 @@ public class WaifuBackingTests
         }
 
         var result = await _svc.BecomeFanAsync(2001, 1002);
-        Assert.That(result.IsT2, Is.True, "Expected Success");
+        Assert.That(result.IsT3, Is.True, "Expected Success");
 
         await using (var ctx = _db.GetDbContext())
         {

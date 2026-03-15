@@ -20,11 +20,9 @@ waifu_not_backing: No estás apoyando a nadie en este momento.
 waifu_stopped_backing: Has dejado de ser fan.
 waifu_invalid_fee: 'La tarifa debe ser entre {0}% y {1}%.'
 waifu_fee_set: 'Tarifa actualizada a {0}%.'
-waifu_no_fans: Ningún fan todavía.
 waifu_fans_title: 'Fans de {0}'
 waifu_lb_title: 🏆 Ranking de Waifus (por precio)
 waifu_lb_title_backed: 🏆 Ranking de Waifus (por apoyo)
-waifu_lb_empty: Ninguna waifu con historial de ciclo aún.
 waifu_gift_shop_title: 🎁 Tienda de Regalos de Hoy
 waifu_shop_refreshes: 'Se actualiza en {0}'
 waifu_item_not_found: 'Ese artículo no está disponible hoy. Usa `{0}wgiftshop` para ver qué hay en stock.'
@@ -34,16 +32,14 @@ waifu_stat_mood: humor
 waifu_stop_backing_confirm: ¿Estás seguro de que quieres dejar de ser fan? Ya no ganarás de los pagos.
 waifu_switch_confirm: '¿Actualmente eres fan de {0}. Cambiar tu apoyo a {1}?'
 waifu_manager_exit_title: Renuncia de Manager
-waifu_manager_exit_warning: 'Renunciar tendrá las siguientes consecuencias financieras:'
-waifu_refund: Tu Reembolso (90%)
-waifu_goes_to_waifu: Va para la Waifu (5%)
-waifu_burned: Quemado (5%)
-waifu_new_price: Nuevo Precio de la Waifu
+waifu_manager_exit_confirm: 'Seguro que quieres renunciar como manager de {0}? El precio de la waifu bajará al minimo.'
+waifu_goes_to_waifu: Para la Waifu
+waifu_burned: Quemado
 waifu_outside_buy_window: Las compras de manager solo están disponibles durante las primeras 18 horas de un ciclo.
-waifu_price_too_low: El precio es demasiado bajo.
+waifu_price_too_low: Tu oferta es demasiado baja. El precio minimo es el 115% del precio actual de la waifu.
 waifu_bought_manager_title: 🏢 ¡Posición de Manager Adquirida!
 waifu_bought_manager: '¡Ahora eres el manager de {0} por {1:N0}!'
-waifu_old_manager_payout: Manager Anterior (90%)
+waifu_old_manager_payout: Manager Anterior
 waifu_over_cap: sobre el límite
 waifu_no_manager_title: ¡Necesita un Manager!
 waifu_no_manager_payout: 'No está ganando nada aún. Sin un manager, el precio baja {0}% cada ciclo. ¡Sé el primero en gestionar!'

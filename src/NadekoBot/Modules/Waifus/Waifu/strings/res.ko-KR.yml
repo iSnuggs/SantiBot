@@ -20,11 +20,9 @@ waifu_not_backing: 현재 누구도 후원하고 있지 않아요.
 waifu_stopped_backing: 팬 활동을 중단했어요.
 waifu_invalid_fee: '수수료는 {0}%에서 {1}% 사이여야 해요.'
 waifu_fee_set: '수수료가 {0}%로 업데이트되었어요.'
-waifu_no_fans: 아직 팬이 없어요.
 waifu_fans_title: '{0}의 팬'
 waifu_lb_title: 🏆 와이푸 리더보드 (가격순)
 waifu_lb_title_backed: 🏆 와이푸 리더보드 (후원 기준)
-waifu_lb_empty: 아직 사이클 기록이 있는 와이푸가 없어요.
 waifu_gift_shop_title: 🎁 오늘의 선물 가게
 waifu_shop_refreshes: '{0} 후 갱신'
 waifu_item_not_found: '오늘은 해당 아이템이 없어요. `{0}wgiftshop`으로 현재 판매 중인 아이템을 확인하세요.'
@@ -34,16 +32,14 @@ waifu_stat_mood: 기분
 waifu_stop_backing_confirm: 정말 팬을 그만두시겠어요? 더 이상 정산 수익을 받을 수 없게 돼요.
 waifu_switch_confirm: '현재 {0}의 팬이에요. 대신 {1}에게 지지를 변경하시겠어요?'
 waifu_manager_exit_title: 매니저 사임
-waifu_manager_exit_warning: '사임하면 다음과 같은 금전적 결과가 발생해요:'
-waifu_refund: 환불 금액 (90%)
-waifu_goes_to_waifu: 와이푸에게 (5%)
-waifu_burned: 소각 (5%)
-waifu_new_price: 새 와이푸 가격
+waifu_manager_exit_confirm: '정말 {0}의 매니저를 그만두시겠어요? waifu 가격이 최소로 떨어져요.'
+waifu_goes_to_waifu: Waifu에게
+waifu_burned: 소각
 waifu_outside_buy_window: 매니저 구매는 사이클 시작 후 18시간 이내에만 가능해요.
-waifu_price_too_low: 가격이 너무 낮아요.
+waifu_price_too_low: 입찰 금액이 너무 낮아요. 최소 가격은 현재 waifu 가격의 115%예요.
 waifu_bought_manager_title: 🏢 매니저 자리 획득!
 waifu_bought_manager: '이제 {0}의 매니저예요! 가격: {1:N0}'
-waifu_old_manager_payout: 이전 매니저 (90%)
+waifu_old_manager_payout: 이전 매니저
 waifu_over_cap: 한도 초과
 waifu_no_manager_title: 매니저가 필요해요!
 waifu_no_manager_payout: '아직 수익이 없어요. 매니저가 없으면 매 사이클마다 가격이 {0}%씩 떨어져요. 첫 매니저가 되어보세요!'
