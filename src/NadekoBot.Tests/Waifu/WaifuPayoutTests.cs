@@ -128,14 +128,11 @@ public class WaifuPayoutTests
             await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 1000, food: 1000, fee: 5,
                 managerId: 2001, returnsCap: 500_000_000);
             await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, cycleNumber, 1001, 2001, 100_000_000);
+            await WaifuTestHelper.SetBankBalance(ctx, 2001, 100_000_000);
         }
 
-        await using (var ctx = _db.GetDbContext())
-        {
-            var waifu = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
-            await _svc.ProcessWaifuCycleInternalAsync(ctx, waifu, cycleNumber);
-        }
+        await _svc.SnapshotCycleInternalAsync(cycleNumber);
+        await _svc.ProcessCycleInternalAsync(cycleNumber);
 
         await _cs.DidNotReceive().AddAsync(Arg.Any<ulong>(), Arg.Any<long>(), Arg.Any<TxData?>());
 

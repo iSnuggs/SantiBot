@@ -85,8 +85,10 @@ public static class WaifuTestHelper
     /// </summary>
     public static WaifuConfigService CreateConfigService()
     {
-        Directory.CreateDirectory("data");
-        return new WaifuConfigService(new YamlSeria(), Substitute.For<IPubSub>());
+        var tmpDir = Path.Combine(Path.GetTempPath(), "nadeko_test_" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(tmpDir);
+        var tmpPath = Path.Combine(tmpDir, "waifu.yml");
+        return new WaifuConfigService(tmpPath, new YamlSeria(), Substitute.For<IPubSub>());
     }
 
     /// <summary>
@@ -200,12 +202,11 @@ public static class WaifuTestHelper
         int cycleNumber,
         ulong managerUserId,
         long totalBacked,
-        long totalReturns,
-        long waifuEarnings,
-        long managerEarnings,
-        long fanPool,
-        int moodSnapshot = 500,
-        int foodSnapshot = 500)
+        int waifuFeePercent = 5,
+        long returnsCap = 1_000_000_000,
+        double managerCutPercent = 0.15,
+        long price = 1000,
+        bool processed = true)
     {
         await ctx.GetTable<WaifuCycle>()
             .InsertAsync(() => new WaifuCycle
@@ -213,13 +214,12 @@ public static class WaifuTestHelper
                 WaifuUserId = waifuUserId,
                 CycleNumber = cycleNumber,
                 ManagerUserId = managerUserId,
+                WaifuFeePercent = waifuFeePercent,
+                ReturnsCap = returnsCap,
+                ManagerCutPercent = managerCutPercent,
+                Price = price,
                 TotalBacked = totalBacked,
-                TotalReturns = totalReturns,
-                WaifuEarnings = waifuEarnings,
-                ManagerEarnings = managerEarnings,
-                FanPool = fanPool,
-                MoodSnapshot = moodSnapshot,
-                FoodSnapshot = foodSnapshot,
+                Processed = processed,
                 ProcessedAt = DateTime.UtcNow
             });
     }

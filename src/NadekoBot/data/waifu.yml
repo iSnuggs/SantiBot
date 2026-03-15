@@ -1,13 +1,13 @@
 # DO NOT CHANGE
-version: 2
+version: 4
 # Minimum price a waifu can have. Default 1000
 minPrice: 1000
 # Cost to opt into the waifu system. Default 10000
 optInCost: 10000
 # Price decay percentage per cycle for waifus without a manager (0-100). Default 10
 managerlessDecayPercent: 10
-# Hours per cycle. Default 84 (3.5 days)
-cycleHours: 84
+# Hours per cycle. Default 24 (1 day)
+cycleHours: 24
 # Annual return rate as a decimal. Default 0.17 (17%)
 baseReturnRate: 0.17
 # Default max backed amount for computing returns. Default 1000000
@@ -26,12 +26,10 @@ managerBuyPremium: 0.15
 managerOldPayout: 0.9
 # Fraction of buy price paid to the waifu (0.0-1.0). Default 0.05. Remainder is burned
 managerWaifuPayout: 0.05
-# Fraction of manager price refunded on resign (0.0-1.0). Default 0.50
-managerExitRefund: 0.5
-# Fraction of manager price paid to the waifu on resign (0.0-1.0). Default 0.10
-managerExitWaifu: 0.1
-# Fraction of manager price distributed to fans on resign (0.0-1.0). Default 0.35. Remainder is burned
-managerExitFans: 0.35
+# Fraction of manager price refunded on resign (0.0-1.0). Default 0.90
+managerExitRefund: 0.9
+# Fraction of manager price paid to the waifu on resign as pending payout (0.0-1.0). Default 0.05
+managerExitWaifu: 0.05
 # Manager's cut of the waifu fee on cycle payouts (0.0-1.0). Default 0.15 (15%)
 managerCutPercent: 0.15
 # List of gift items available in the shop

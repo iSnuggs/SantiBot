@@ -6,7 +6,7 @@ namespace NadekoBot.Modules.Waifus.Waifu;
 public sealed partial class WaifuConfig : ICloneable<WaifuConfig>
 {
     [Comment("DO NOT CHANGE")]
-    public int Version { get; set; } = 2;
+    public int Version { get; set; } = 4;
 
     [Comment("Minimum price a waifu can have. Default 1000")]
     public long MinPrice { get; set; } = 1_000;
@@ -17,8 +17,8 @@ public sealed partial class WaifuConfig : ICloneable<WaifuConfig>
     [Comment("Price decay percentage per cycle for waifus without a manager (0-100). Default 10")]
     public int ManagerlessDecayPercent { get; set; } = 10;
 
-    [Comment("Hours per cycle. Default 84 (3.5 days)")]
-    public double CycleHours { get; set; } = 84.0;
+    [Comment("Hours per cycle. Default 24 (1 day)")]
+    public double CycleHours { get; set; } = 24.0;
 
     [Comment("Annual return rate as a decimal. Default 0.17 (17%)")]
     public double BaseReturnRate { get; set; } = 0.17;
@@ -47,14 +47,11 @@ public sealed partial class WaifuConfig : ICloneable<WaifuConfig>
     [Comment("Fraction of buy price paid to the waifu (0.0-1.0). Default 0.05. Remainder is burned")]
     public double ManagerWaifuPayout { get; set; } = 0.05;
 
-    [Comment("Fraction of manager price refunded on resign (0.0-1.0). Default 0.50")]
-    public double ManagerExitRefund { get; set; } = 0.50;
+    [Comment("Fraction of manager price refunded on resign (0.0-1.0). Default 0.90")]
+    public double ManagerExitRefund { get; set; } = 0.90;
 
-    [Comment("Fraction of manager price paid to the waifu on resign (0.0-1.0). Default 0.10")]
-    public double ManagerExitWaifu { get; set; } = 0.10;
-
-    [Comment("Fraction of manager price distributed to fans on resign (0.0-1.0). Default 0.35. Remainder is burned")]
-    public double ManagerExitFans { get; set; } = 0.35;
+    [Comment("Fraction of manager price paid to the waifu on resign as pending payout (0.0-1.0). Default 0.05")]
+    public double ManagerExitWaifu { get; set; } = 0.05;
 
     [Comment("Manager's cut of the waifu fee on cycle payouts (0.0-1.0). Default 0.15 (15%)")]
     public double ManagerCutPercent { get; set; } = 0.15;

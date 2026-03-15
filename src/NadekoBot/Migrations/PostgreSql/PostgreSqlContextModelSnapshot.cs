@@ -371,6 +371,10 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("dateadded");
 
+                    b.Property<bool>("DisableUnban")
+                        .HasColumnType("boolean")
+                        .HasColumnName("disableunban");
+
                     b.Property<decimal>("GuildId")
                         .HasColumnType("numeric(20,0)")
                         .HasColumnName("guildid");
@@ -3627,41 +3631,37 @@ namespace NadekoBot.Migrations.PostgreSql
                         .HasColumnType("integer")
                         .HasColumnName("cyclenumber");
 
-                    b.Property<long>("FanPool")
-                        .HasColumnType("bigint")
-                        .HasColumnName("fanpool");
-
-                    b.Property<int>("FoodSnapshot")
-                        .HasColumnType("integer")
-                        .HasColumnName("foodsnapshot");
-
-                    b.Property<long>("ManagerEarnings")
-                        .HasColumnType("bigint")
-                        .HasColumnName("managerearnings");
+                    b.Property<double>("ManagerCutPercent")
+                        .HasColumnType("double precision")
+                        .HasColumnName("managercutpercent");
 
                     b.Property<decimal>("ManagerUserId")
                         .HasColumnType("numeric(20,0)")
                         .HasColumnName("manageruserid");
 
-                    b.Property<int>("MoodSnapshot")
-                        .HasColumnType("integer")
-                        .HasColumnName("moodsnapshot");
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint")
+                        .HasColumnName("price");
 
-                    b.Property<DateTime>("ProcessedAt")
+                    b.Property<bool>("Processed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("processed");
+
+                    b.Property<DateTime?>("ProcessedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("processedat");
+
+                    b.Property<long>("ReturnsCap")
+                        .HasColumnType("bigint")
+                        .HasColumnName("returnscap");
 
                     b.Property<long>("TotalBacked")
                         .HasColumnType("bigint")
                         .HasColumnName("totalbacked");
 
-                    b.Property<long>("TotalReturns")
-                        .HasColumnType("bigint")
-                        .HasColumnName("totalreturns");
-
-                    b.Property<long>("WaifuEarnings")
-                        .HasColumnType("bigint")
-                        .HasColumnName("waifuearnings");
+                    b.Property<int>("WaifuFeePercent")
+                        .HasColumnType("integer")
+                        .HasColumnName("waifufeepercent");
 
                     b.Property<decimal>("WaifuUserId")
                         .HasColumnType("numeric(20,0)")
@@ -3669,6 +3669,9 @@ namespace NadekoBot.Migrations.PostgreSql
 
                     b.HasKey("Id")
                         .HasName("pk_waifucycle");
+
+                    b.HasIndex("CycleNumber", "Processed")
+                        .HasDatabaseName("ix_waifucycle_cyclenumber_processed");
 
                     b.HasIndex("WaifuUserId", "CycleNumber")
                         .IsUnique()
@@ -3843,6 +3846,9 @@ namespace NadekoBot.Migrations.PostgreSql
 
                     b.HasKey("Id")
                         .HasName("pk_waifuinfo");
+
+                    b.HasIndex("ManagerUserId")
+                        .HasDatabaseName("ix_waifuinfo_manageruserid");
 
                     b.HasIndex("UserId")
                         .IsUnique()

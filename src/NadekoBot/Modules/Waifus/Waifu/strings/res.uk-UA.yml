@@ -22,11 +22,6 @@ waifu_invalid_fee: 'Комісія має бути від {0}% до {1}%.'
 waifu_fee_set: 'Комісію оновлено до {0}%.'
 waifu_no_fans: Фанатів поки немає.
 waifu_fans_title: 'Фанати {0}'
-waifu_manager: Менеджер
-waifu_projected_payout: Очікувана виплата
-waifu_total: Всього
-waifu_label: Вайфу
-waifu_fan_pool: Фан-пул
 waifu_lb_title: 🏆 Рейтинг вайфу (за ціною)
 waifu_lb_title_backed: 🏆 Рейтинг вайфу (за підтримкою)
 waifu_lb_empty: Ще немає вайфу з історією циклів.
@@ -40,9 +35,8 @@ waifu_stop_backing_confirm: Ти впевнений(-а), що хочеш пер
 waifu_switch_confirm: 'Ти зараз фанат {0}. Переключити підтримку на {1}?'
 waifu_manager_exit_title: Відставка менеджера
 waifu_manager_exit_warning: 'Відставка матиме такі фінансові наслідки:'
-waifu_refund: Твоє повернення (50%)
-waifu_goes_to_waifu: Переходить вайфу (10%)
-waifu_goes_to_fans: Розподіляється між фанатами (35%)
+waifu_refund: Твоє повернення (90%)
+waifu_goes_to_waifu: Переходить вайфу (5%)
 waifu_burned: Спалено (5%)
 waifu_new_price: Нова ціна вайфу
 waifu_outside_buy_window: Купівля менеджера доступна лише протягом перших 18 годин циклу.
@@ -53,9 +47,6 @@ waifu_old_manager_payout: Старий менеджер (90%)
 waifu_over_cap: понад ліміт
 waifu_no_manager_title: Потрібен менеджер!
 waifu_no_manager_payout: 'Поки що нічого не заробляє. Без менеджера ціна падає на {0}% кожен цикл. Стань першим менеджером!'
-waifu_pending_fans: '(+{0} приєднуються, -{1} йдуть)'
-waifu_fan_pending: ⏳ очікування
-waifu_fan_last_earned: 'останній заробіток: {0}'
 waifu_now_backing_hint: |-
   Тепер ти фанат {0}!
   *Баланс твого банку - це твоя сила підтримки. Чим більше маєш, тим більше заробляєш.*

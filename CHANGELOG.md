@@ -12,6 +12,7 @@
 
 - Antispam now detects repeated attachment spam (images, files) in addition to text-only spam
 - Fixed YouTube RSS feed thumbnails not showing in embeds
+- Waifu system code reworked, again. More scalable
 
 ### Changed
 

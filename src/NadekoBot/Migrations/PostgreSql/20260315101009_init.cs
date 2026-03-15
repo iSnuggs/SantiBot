@@ -141,6 +141,7 @@ namespace NadekoBot.Migrations.PostgreSql
                     guildid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     text = table.Column<string>(type: "text", nullable: true),
                     prunedays = table.Column<int>(type: "integer", nullable: true),
+                    disableunban = table.Column<bool>(type: "boolean", nullable: false),
                     dateadded = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
@@ -1240,14 +1241,13 @@ namespace NadekoBot.Migrations.PostgreSql
                     waifuuserid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
                     cyclenumber = table.Column<int>(type: "integer", nullable: false),
                     manageruserid = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    waifufeepercent = table.Column<int>(type: "integer", nullable: false),
+                    returnscap = table.Column<long>(type: "bigint", nullable: false),
+                    managercutpercent = table.Column<double>(type: "double precision", nullable: false),
+                    price = table.Column<long>(type: "bigint", nullable: false),
                     totalbacked = table.Column<long>(type: "bigint", nullable: false),
-                    totalreturns = table.Column<long>(type: "bigint", nullable: false),
-                    waifuearnings = table.Column<long>(type: "bigint", nullable: false),
-                    managerearnings = table.Column<long>(type: "bigint", nullable: false),
-                    fanpool = table.Column<long>(type: "bigint", nullable: false),
-                    moodsnapshot = table.Column<int>(type: "integer", nullable: false),
-                    foodsnapshot = table.Column<int>(type: "integer", nullable: false),
-                    processedat = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    processed = table.Column<bool>(type: "boolean", nullable: false),
+                    processedat = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2380,6 +2380,11 @@ namespace NadekoBot.Migrations.PostgreSql
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "ix_waifucycle_cyclenumber_processed",
+                table: "waifucycle",
+                columns: new[] { "cyclenumber", "processed" });
+
+            migrationBuilder.CreateIndex(
                 name: "ix_waifucycle_waifuuserid_cyclenumber",
                 table: "waifucycle",
                 columns: new[] { "waifuuserid", "cyclenumber" },
@@ -2412,6 +2417,11 @@ namespace NadekoBot.Migrations.PostgreSql
                 table: "waifugiftcount",
                 columns: new[] { "waifuuserid", "giftitemid" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_waifuinfo_manageruserid",
+                table: "waifuinfo",
+                column: "manageruserid");
 
             migrationBuilder.CreateIndex(
                 name: "ix_waifuinfo_userid",

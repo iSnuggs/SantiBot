@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace NadekoBot.Modules.Waifus.Waifu.Db;
 
 /// <summary>
-/// Records a payout cycle for a waifu.
+/// Per-waifu cycle record. Created at cycle start as a snapshot of frozen fields,
+/// then updated with computed results after payout processing.
 /// </summary>
 public class WaifuCycle
 {
@@ -23,50 +24,49 @@ public class WaifuCycle
     /// </summary>
     public int CycleNumber { get; set; }
 
+    // --- Snapshot fields (frozen at cycle start) ---
+
     /// <summary>
-    /// Manager for this cycle.
+    /// Manager at snapshot time. 0 if no manager.
     /// </summary>
     public ulong ManagerUserId { get; set; }
 
     /// <summary>
-    /// Total backed amount snapshot.
+    /// Waifu fee percent at snapshot time.
+    /// </summary>
+    public int WaifuFeePercent { get; set; }
+
+    /// <summary>
+    /// Returns cap at snapshot time.
+    /// </summary>
+    public long ReturnsCap { get; set; }
+
+    /// <summary>
+    /// Manager cut percent at snapshot time (from config).
+    /// </summary>
+    public double ManagerCutPercent { get; set; }
+
+    /// <summary>
+    /// Waifu price at snapshot time (for managerless decay).
+    /// </summary>
+    public long Price { get; set; }
+
+    // --- Result fields (filled after processing) ---
+
+    /// <summary>
+    /// Total backed amount from fan snapshots (set at snapshot time).
     /// </summary>
     public long TotalBacked { get; set; }
 
     /// <summary>
-    /// Total returns this cycle.
+    /// Whether this cycle has been processed (payouts computed and applied).
     /// </summary>
-    public long TotalReturns { get; set; }
+    public bool Processed { get; set; }
 
     /// <summary>
-    /// Waifu's earnings (after manager cut).
+    /// When this cycle was processed. Null if not yet processed.
     /// </summary>
-    public long WaifuEarnings { get; set; }
-
-    /// <summary>
-    /// Manager's earnings.
-    /// </summary>
-    public long ManagerEarnings { get; set; }
-
-    /// <summary>
-    /// Total distributed to fans.
-    /// </summary>
-    public long FanPool { get; set; }
-
-    /// <summary>
-    /// Mood at cycle start.
-    /// </summary>
-    public int MoodSnapshot { get; set; }
-
-    /// <summary>
-    /// Food at cycle start.
-    /// </summary>
-    public int FoodSnapshot { get; set; }
-
-    /// <summary>
-    /// When this cycle was processed.
-    /// </summary>
-    public DateTime ProcessedAt { get; set; } = DateTime.UtcNow;
+    public DateTime? ProcessedAt { get; set; }
 }
 
 /// <summary>
@@ -77,5 +77,6 @@ public class WaifuCycleEntityConfiguration : IEntityTypeConfiguration<WaifuCycle
     public void Configure(EntityTypeBuilder<WaifuCycle> builder)
     {
         builder.HasIndex(x => new { x.WaifuUserId, x.CycleNumber }).IsUnique();
+        builder.HasIndex(x => new { x.CycleNumber, x.Processed });
     }
 }

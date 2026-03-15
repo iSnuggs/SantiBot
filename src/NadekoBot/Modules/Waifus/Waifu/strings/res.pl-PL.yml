@@ -22,11 +22,6 @@ waifu_invalid_fee: 'Prowizja musi wynosić od {0}% do {1}%.'
 waifu_fee_set: 'Prowizja ustawiona na {0}%.'
 waifu_no_fans: Jeszcze brak fanów.
 waifu_fans_title: 'Fani {0}'
-waifu_manager: Menedżer
-waifu_projected_payout: Przewidywana Wypłata
-waifu_total: Łącznie
-waifu_label: Waifu
-waifu_fan_pool: Pula Fanów
 waifu_lb_title: 🏆 Ranking Waifu (wg ceny)
 waifu_lb_title_backed: 🏆 Ranking Waifu (wg wsparcia)
 waifu_lb_empty: Brak waifu z historią cykli.
@@ -40,9 +35,8 @@ waifu_stop_backing_confirm: Na pewno chcesz przestać być fanem? Nie będziesz 
 waifu_switch_confirm: 'Aktualnie wspierasz {0}. Chcesz przerzucić wsparcie na {1}?'
 waifu_manager_exit_title: Rezygnacja Managera
 waifu_manager_exit_warning: 'Rezygnacja będzie miała następujące konsekwencje finansowe:'
-waifu_refund: Twój zwrot (50%)
-waifu_goes_to_waifu: Trafia do Waifu (10%)
-waifu_goes_to_fans: Rozdzielone między Fanów (35%)
+waifu_refund: Twój zwrot (90%)
+waifu_goes_to_waifu: Trafia do Waifu (5%)
 waifu_burned: Spalone (5%)
 waifu_new_price: Nowa Cena Waifu
 waifu_outside_buy_window: Zakup pozycji managera jest dostępny tylko przez pierwsze 18 godzin cyklu.
@@ -53,9 +47,6 @@ waifu_old_manager_payout: Poprzedni Manager (90%)
 waifu_over_cap: ponad limit
 waifu_no_manager_title: Potrzebuje Managera!
 waifu_no_manager_payout: 'Jeszcze nic nie zarabia. Bez managera cena spada o {0}% co cykl. Zostań pierwszym managerem!'
-waifu_pending_fans: '(+{0} dołącza, -{1} odchodzi)'
-waifu_fan_pending: ⏳ oczekuje
-waifu_fan_last_earned: 'ostatnio zarobiono: {0}'
 waifu_now_backing_hint: |-
   Jesteś teraz fanem {0}!
   *Twoje saldo bankowe to twoja siła wsparcia -- im więcej masz, tym więcej zarabiasz.*

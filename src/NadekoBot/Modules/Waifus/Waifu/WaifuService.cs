@@ -1,4 +1,5 @@
 using LinqToDB;
+using LinqToDB.Data;
 using LinqToDB.EntityFrameworkCore;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Db.Models;
@@ -78,7 +79,6 @@ public sealed class ManagerExitInfo
 {
     public long Refund { get; init; }
     public long WaifuCut { get; init; }
-    public long FanDistribution { get; init; }
     public long Burned { get; init; }
     public long NewPrice { get; init; }
 }
@@ -103,11 +103,6 @@ public sealed class WaifuService(
     private double CycleHours => configService.Data.CycleHours;
     private double BaseReturnRate => configService.Data.BaseReturnRate;
     private double CyclesPerYear => 365.25 * 24 / CycleHours;
-
-    /// <summary>
-    /// Gets the managerless price decay percentage (0-100) from config.
-    /// </summary>
-    public int ManagerlessDecayPercent => configService.Data.ManagerlessDecayPercent;
 
     /// <summary>
     /// Gets the maximum number of mood/food actions per user per day.
@@ -201,66 +196,39 @@ public sealed class WaifuService(
 
     /// <summary>
     /// Gets waifu info for display, using cycle snapshots for backed amounts.
+    /// All aggregates are computed server-side in a single query.
     /// </summary>
     public async Task<WaifuInfoDto?> GetWaifuInfoAsync(ulong userId)
     {
         await using var ctx = db.GetDbContext();
-
-        var wi = await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.UserId == userId)
-            .FirstOrDefaultAsyncLinqToDB();
-
-        if (wi is null)
-            return null;
-
         var currentCycle = GetCurrentCycle();
 
-        var activeFanIds = await ctx.GetTable<WaifuFan>()
-            .Where(x => x.WaifuUserId == userId)
-            .Select(x => x.UserId)
-            .ToListAsyncLinqToDB();
+        var fans = ctx.GetTable<WaifuFan>().Where(f => f.WaifuUserId == userId);
+        var wc = ctx.GetTable<WaifuCycle>()
+            .Where(c => c.WaifuUserId == userId && c.CycleNumber == currentCycle);
 
-        var snapshotFanIds = await ctx.GetTable<WaifuCycleSnapshot>()
-            .Where(x => x.WaifuUserId == userId && x.CycleNumber == currentCycle)
-            .Select(x => x.UserId)
-            .ToListAsyncLinqToDB();
-
-        var snapshotTotalBacked = await ctx.GetTable<WaifuCycleSnapshot>()
-            .Where(x => x.WaifuUserId == userId && x.CycleNumber == currentCycle)
-            .SumAsyncLinqToDB(x => x.SnapshotBalance);
-
-        var snapshotSet = snapshotFanIds.ToHashSet();
-        var activeSet = activeFanIds.ToHashSet();
-
-        var snapshotExists = snapshotFanIds.Count > 0;
-        var pendingJoins = snapshotExists ? activeSet.Count(id => !snapshotSet.Contains(id)) : 0;
-        var pendingLeaves = snapshotExists ? snapshotSet.Count(id => !activeSet.Contains(id)) : 0;
-
-        var lastCycleReturns = await ctx.GetTable<WaifuCycle>()
-            .Where(x => x.WaifuUserId == userId && x.CycleNumber == currentCycle - 1)
-            .Select(x => x.TotalReturns)
+        var result = await ctx.GetTable<WaifuInfo>()
+            .Where(x => x.UserId == userId)
+            .Select(wi => new WaifuInfoDto
+            {
+                UserId = wi.UserId,
+                Mood = wi.Mood,
+                Food = wi.Food,
+                WaifuFeePercent = wi.WaifuFeePercent,
+                Price = wi.Price,
+                TotalProduced = wi.TotalProduced,
+                ReturnsCap = wi.ReturnsCap,
+                ManagerId = wi.ManagerUserId,
+                IsHubby = wi.IsHubby,
+                CustomAvatarUrl = wi.CustomAvatarUrl,
+                Description = wi.Description,
+                Quote = wi.Quote,
+                FanCount = fans.Count(),
+                SnapshotTotalBacked = wc.Select(c => (long?)c.TotalBacked).FirstOrDefault() ?? 0
+            })
             .FirstOrDefaultAsyncLinqToDB();
 
-        return new WaifuInfoDto
-        {
-            UserId = wi.UserId,
-            Mood = wi.Mood,
-            Food = wi.Food,
-            WaifuFeePercent = wi.WaifuFeePercent,
-            Price = wi.Price,
-            TotalProduced = wi.TotalProduced,
-            ReturnsCap = wi.ReturnsCap,
-            FanCount = activeFanIds.Count,
-            SnapshotTotalBacked = snapshotTotalBacked,
-            LastCycleReturns = lastCycleReturns,
-            PendingJoins = pendingJoins,
-            PendingLeaves = pendingLeaves,
-            ManagerId = wi.ManagerUserId,
-            IsHubby = wi.IsHubby,
-            CustomAvatarUrl = wi.CustomAvatarUrl,
-            Description = wi.Description,
-            Quote = wi.Quote
-        };
+        return result;
     }
 
     /// <summary>
@@ -321,70 +289,38 @@ public sealed class WaifuService(
             return null;
 
         var price = wi.Price;
+        var refund = (long)(price * conf.ManagerExitRefund);
+        var waifuCut = (long)(price * conf.ManagerExitWaifu);
         return new ManagerExitInfo
         {
-            Refund = (long)(price * conf.ManagerExitRefund),
-            WaifuCut = (long)(price * conf.ManagerExitWaifu),
-            FanDistribution = (long)(price * conf.ManagerExitFans),
-            Burned = (long)(price * (1.0 - conf.ManagerExitRefund - conf.ManagerExitWaifu - conf.ManagerExitFans)),
-            NewPrice = (long)(price * conf.ManagerExitRefund)
+            Refund = refund,
+            WaifuCut = waifuCut,
+            Burned = price - refund - waifuCut,
+            NewPrice = conf.MinPrice
         };
     }
 
     /// <summary>
-    /// Gets all fans of a waifu with their last cycle earnings and pending status.
+    /// Gets a page of fans for a waifu, ordered by backing date.
     /// </summary>
-    public async Task<List<FanInfoDto>> GetFansAsync(ulong waifuUserId)
+    public async Task<List<FanInfoDto>> GetFansAsync(ulong waifuUserId, int page = 0, int pageSize = 10)
     {
         await using var ctx = db.GetDbContext();
-        var currentCycle = GetCurrentCycle();
-        var lastCycle = currentCycle - 1;
 
-        var fans = await ctx.GetTable<WaifuFan>()
-            .Where(x => x.WaifuUserId == waifuUserId)
+        return await ctx.GetTable<WaifuFan>()
+            .Where(f => f.WaifuUserId == waifuUserId)
+            .LeftJoin(ctx.GetTable<DiscordUser>(),
+                (f, du) => f.UserId == du.UserId,
+                (f, du) => new FanInfoDto
+                {
+                    UserId = f.UserId,
+                    Username = du.Username,
+                    BackedAt = f.DelegatedAt
+                })
+            .OrderBy(x => x.BackedAt)
+            .Skip(page * pageSize)
+            .Take(pageSize)
             .ToListAsyncLinqToDB();
-
-        var snapshotFanIds = await ctx.GetTable<WaifuCycleSnapshot>()
-            .Where(x => x.WaifuUserId == waifuUserId && x.CycleNumber == currentCycle)
-            .Select(x => x.UserId)
-            .ToListAsyncLinqToDB();
-
-        var snapshotSet = snapshotFanIds.ToHashSet();
-
-        var lastCycleData = await ctx.GetTable<WaifuCycle>()
-            .Where(x => x.WaifuUserId == waifuUserId && x.CycleNumber == lastCycle)
-            .FirstOrDefaultAsyncLinqToDB();
-
-        var lastCycleSnapshots = lastCycleData is not null
-            ? await ctx.GetTable<WaifuCycleSnapshot>()
-                .Where(x => x.WaifuUserId == waifuUserId && x.CycleNumber == lastCycle)
-                .ToListAsyncLinqToDB()
-            : [];
-
-        var lastCycleTotalBacked = lastCycleSnapshots.Sum(x => x.SnapshotBalance);
-
-        var result = new List<FanInfoDto>();
-        foreach (var fan in fans)
-        {
-            long lastEarnings = 0;
-
-            if (lastCycleData is not null && lastCycleTotalBacked > 0)
-            {
-                var fanSnapshot = lastCycleSnapshots.FirstOrDefault(x => x.UserId == fan.UserId);
-                if (fanSnapshot is not null)
-                    lastEarnings = (long)(lastCycleData.FanPool * ((double)fanSnapshot.SnapshotBalance / lastCycleTotalBacked));
-            }
-
-            result.Add(new FanInfoDto
-            {
-                UserId = fan.UserId,
-                LastCycleEarnings = lastEarnings,
-                IsPending = !snapshotSet.Contains(fan.UserId),
-                BackedAt = fan.DelegatedAt
-            });
-        }
-
-        return result.OrderByDescending(x => x.LastCycleEarnings).ToList();
     }
 
     /// <summary>
@@ -400,136 +336,43 @@ public sealed class WaifuService(
     /// <summary>
     /// Gets leaderboard of all waifus ordered by the specified criteria.
     /// </summary>
-    public async Task<List<LeaderboardEntryDto>> GetLeaderboardAsync(WaifuLbOrder order = WaifuLbOrder.Backing)
+    public async Task<List<LeaderboardEntryDto>> GetLeaderboardAsync(
+        WaifuLbOrder order = WaifuLbOrder.Backing,
+        int page = 0,
+        int pageSize = 9)
     {
         await using var ctx = db.GetDbContext();
         var currentCycle = GetCurrentCycle();
-        var startCycle = currentCycle - 8;
-
-        var cycleAgg = ctx.GetTable<WaifuCycle>()
-            .Where(x => x.CycleNumber > startCycle)
-            .GroupBy(x => x.WaifuUserId)
-            .Select(g => new
-            {
-                WaifuUserId = g.Key,
-                TotalReturns = g.Sum(x => x.TotalReturns),
-                AvgBacked = g.Average(x => (double)x.TotalBacked),
-                CyclesActive = g.Count()
-            });
-
-        var snapAgg = ctx.GetTable<WaifuCycleSnapshot>()
-            .Where(x => x.CycleNumber == currentCycle)
-            .GroupBy(x => x.WaifuUserId)
-            .Select(g => new
-            {
-                WaifuUserId = g.Key,
-                TotalBacked = g.Sum(x => x.SnapshotBalance)
-            });
 
         var query = ctx.GetTable<WaifuInfo>()
-            .LeftJoin(cycleAgg, (wi, ca) => wi.UserId == ca.WaifuUserId, (wi, ca) => new { wi, ca })
-            .LeftJoin(snapAgg, (x, sa) => x.wi.UserId == sa.WaifuUserId, (x, sa) => new { x.wi, x.ca, sa })
-            .LeftJoin(ctx.GetTable<DiscordUser>(), (x, du) => x.wi.UserId == du.UserId, (x, du) => new { x.wi, x.ca, x.sa, du });
+            .LeftJoin(
+                ctx.GetTable<WaifuCycle>().Where(wc => wc.CycleNumber == currentCycle),
+                (wi, wc) => wi.UserId == wc.WaifuUserId,
+                (wi, wc) => new { wi, wc })
+            .LeftJoin(ctx.GetTable<DiscordUser>(),
+                (x, du) => x.wi.UserId == du.UserId,
+                (x, du) => new { x.wi, x.wc, du });
 
-        var rows = await query.ToListAsyncLinqToDB();
+        var ordered = order == WaifuLbOrder.Price
+            ? query.OrderByDescending(x => x.wi.Price)
+            : query.OrderByDescending(x => x.wc != null ? x.wc.TotalBacked : 0);
 
-        return rows.Select(r =>
-        {
-            var totalReturns = r.ca?.TotalReturns ?? 0;
-            var avgBacked = r.ca?.AvgBacked ?? 0;
-            return new LeaderboardEntryDto
-            {
-                UserId = r.wi.UserId,
-                Username = r.du?.Username,
-                Price = r.wi.Price,
-                Mood = r.wi.Mood,
-                Food = r.wi.Food,
-                ReturnsCap = r.wi.ReturnsCap,
-                RealizedReturnRate = avgBacked > 0 ? (totalReturns / avgBacked) * CyclesPerYear : 0,
-                TotalReturns = totalReturns,
-                AvgBacked = (long)avgBacked,
-                CyclesActive = r.ca?.CyclesActive ?? 0,
-                SnapshotTotalBacked = r.sa?.TotalBacked ?? 0,
-                HasManager = r.wi.ManagerUserId is not null
-            };
-        }).OrderByDescending(x => order == WaifuLbOrder.Price ? x.Price : x.SnapshotTotalBacked).ToList();
-    }
-
-    /// <summary>
-    /// Projects the payout for the current cycle using snapshot balances and current stats.
-    /// Falls back to live data if no snapshot exists yet.
-    /// </summary>
-    public async Task<PayoutProjectionDto?> GetProjectedPayoutAsync(ulong waifuUserId)
-    {
-        await using var ctx = db.GetDbContext();
-
-        var wi = await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.UserId == waifuUserId)
-            .FirstOrDefaultAsyncLinqToDB();
-
-        if (wi is null)
-            return null;
-
-        if (wi.ManagerUserId is null)
-            return new PayoutProjectionDto();
-
-        var currentCycle = GetCurrentCycle();
-
-        var snapshotRows = await ctx.GetTable<WaifuCycleSnapshot>()
-            .Where(x => x.WaifuUserId == waifuUserId && x.CycleNumber == currentCycle)
+        var rows = await ordered
+            .Skip(page * pageSize)
+            .Take(pageSize)
             .ToListAsyncLinqToDB();
 
-        long totalBacked;
-
-        if (snapshotRows.Count > 0)
+        return rows.Select(r => new LeaderboardEntryDto
         {
-            totalBacked = snapshotRows.Sum(x => x.SnapshotBalance);
-        }
-        else
-        {
-            // Fallback: no snapshot yet (first cycle or bot just started)
-            var fanIds = await ctx.GetTable<WaifuFan>()
-                .Where(x => x.WaifuUserId == waifuUserId)
-                .Select(x => x.UserId)
-                .ToListAsyncLinqToDB();
-
-            totalBacked = 0;
-            foreach (var fanId in fanIds)
-            {
-                var balance = await ctx.GetTable<BankUser>()
-                    .Where(x => x.UserId == fanId)
-                    .Select(x => x.Balance)
-                    .FirstOrDefaultAsyncLinqToDB();
-
-                totalBacked += balance;
-            }
-        }
-
-        if (totalBacked <= 0)
-            return new PayoutProjectionDto();
-
-        var effectiveRate = BaseReturnRate;
-        var cycleRate = effectiveRate / CyclesPerYear;
-        var statMultiplier = (wi.Mood + wi.Food) / 2000.0;
-        var cappedBacked = Math.Min(totalBacked, wi.ReturnsCap);
-        var returns = (long)(cappedBacked * cycleRate * statMultiplier);
-
-        if (returns <= 0)
-            return new PayoutProjectionDto { EffectiveRate = effectiveRate };
-
-        var waifuCut = (long)(returns * wi.WaifuFeePercent / 100.0);
-        var managerCut = (long)(waifuCut * configService.Data.ManagerCutPercent);
-        var waifuNet = waifuCut - managerCut;
-        var fanPool = returns - waifuCut;
-
-        return new PayoutProjectionDto
-        {
-            TotalReturns = returns,
-            WaifuCut = waifuNet,
-            ManagerCut = managerCut,
-            FanPool = fanPool,
-            EffectiveRate = effectiveRate
-        };
+            UserId = r.wi.UserId,
+            Username = r.du?.Username,
+            Price = r.wi.Price,
+            Mood = r.wi.Mood,
+            Food = r.wi.Food,
+            ReturnsCap = r.wi.ReturnsCap,
+            SnapshotTotalBacked = r.wc?.TotalBacked ?? 0,
+            HasManager = r.wi.ManagerUserId is not null
+        }).ToList();
     }
 
     #endregion
@@ -661,46 +504,22 @@ public sealed class WaifuService(
         var price = waifu.Price;
         var refund = (long)(price * conf.ManagerExitRefund);
         var waifuCut = (long)(price * conf.ManagerExitWaifu);
-        var fanDistribution = (long)(price * conf.ManagerExitFans);
 
-        // Refund manager
+        await using var tx = await ctx.Database.BeginTransactionAsync();
+
         if (refund > 0)
             await cs.AddAsync(managerUserId, refund, new("waifu", "manager-exit-refund"));
 
-        // Pay waifu
         if (waifuCut > 0)
-            await cs.AddAsync(waifu.UserId, waifuCut, new("waifu", "manager-exit-waifu"));
+            await AddPendingPayoutInternalAsync(ctx, waifu.UserId, waifuCut);
 
-        // Distribute to other fans
-        if (fanDistribution > 0)
-        {
-            var fanBalances = await ctx.GetTable<WaifuFan>()
-                .Where(x => x.WaifuUserId == waifu.UserId && x.UserId != managerUserId)
-                .LeftJoin(ctx.GetTable<BankUser>(),
-                    (f, b) => f.UserId == b.UserId,
-                    (f, b) => new { f.UserId, Balance = b != null ? b.Balance : 0L })
-                .ToListAsyncLinqToDB();
-
-            var totalOtherBacked = fanBalances.Sum(x => x.Balance);
-
-            if (totalOtherBacked > 0)
-            {
-                foreach (var fan in fanBalances)
-                {
-                    var share = (long)(fanDistribution * ((double)fan.Balance / totalOtherBacked));
-                    if (share > 0)
-                        await cs.AddAsync(fan.UserId, share, new("waifu", "manager-exit-dist"));
-                }
-            }
-        }
-
-        // Drop price and remove manager
-        var newPrice = Math.Max(conf.MinPrice, refund);
         await ctx.GetTable<WaifuInfo>()
             .Where(x => x.Id == waifu.Id)
             .Set(x => x.ManagerUserId, (ulong?)null)
-            .Set(x => x.Price, newPrice)
+            .Set(x => x.Price, conf.MinPrice)
             .UpdateAsync();
+
+        await tx.CommitAsync();
     }
 
     #endregion
@@ -734,19 +553,15 @@ public sealed class WaifuService(
         await using var ctx = db.GetDbContext();
         var currentCycle = GetCurrentCycle();
 
-        var snapAgg = ctx.GetTable<WaifuCycleSnapshot>()
-            .Where(x => x.CycleNumber == currentCycle)
-            .GroupBy(x => x.WaifuUserId)
-            .Select(g => new
-            {
-                WaifuUserId = g.Key,
-                TotalBacked = g.Sum(x => x.SnapshotBalance)
-            });
-
         var query = ctx.GetTable<WaifuInfo>()
             .Where(x => x.ManagerUserId == userId)
-            .LeftJoin(snapAgg, (wi, sa) => wi.UserId == sa.WaifuUserId, (wi, sa) => new { wi, sa })
-            .LeftJoin(ctx.GetTable<DiscordUser>(), (x, du) => x.wi.UserId == du.UserId, (x, du) => new { x.wi, x.sa, du });
+            .LeftJoin(
+                ctx.GetTable<WaifuCycle>().Where(wc => wc.CycleNumber == currentCycle),
+                (wi, wc) => wi.UserId == wc.WaifuUserId,
+                (wi, wc) => new { wi, wc })
+            .LeftJoin(ctx.GetTable<DiscordUser>(),
+                (x, du) => x.wi.UserId == du.UserId,
+                (x, du) => new { x.wi, x.wc, du });
 
         var rows = await query.ToListAsyncLinqToDB();
 
@@ -755,7 +570,7 @@ public sealed class WaifuService(
             WaifuUserId = r.wi.UserId,
             Username = r.du?.Username,
             Price = r.wi.Price,
-            TotalBacked = r.sa?.TotalBacked ?? 0
+            TotalBacked = r.wc?.TotalBacked ?? 0
         }).OrderByDescending(x => x.Price).ToList();
     }
 
@@ -1093,79 +908,74 @@ public sealed class WaifuService(
 
     private async Task CycleLoopAsync()
     {
-        await CatchUpMissedCyclesInternalAsync();
-
+        var currentCycle = 0;
         while (true)
         {
             try
             {
-                var currentCycle = GetCurrentCycle();
+                currentCycle = GetCurrentCycle();
                 var cycleEnd = GetCycleStartTime(currentCycle + 1);
 
-                Log.Information("Waifu cycle #{Cycle} started. Snapshotting. Next payout at {CycleEnd}",
-                    currentCycle, cycleEnd);
+                Log.Information("Waifu cycle #{Cycle}. Payout at {CycleEnd}", currentCycle, cycleEnd);
 
                 await SnapshotCycleInternalAsync(currentCycle);
+
+                var prevCycle = currentCycle - 1;
+                if (prevCycle >= 0)
+                    await ProcessCycleInternalAsync(prevCycle);
+
+                await CleanupOldCycleDataInternalAsync(currentCycle);
 
                 var delay = cycleEnd - _timeProvider.GetUtcNow().UtcDateTime;
                 if (delay > TimeSpan.Zero)
                     await Task.Delay(delay);
-
-                await using var ctx = db.GetDbContext();
-                await ProcessCycleInternalAsync(ctx, currentCycle);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Error in waifu cycle loop");
+                Log.Error(ex, "Error in waifu cycle loop (cycle {Cycle})", currentCycle);
                 await Task.Delay(TimeSpan.FromSeconds(30));
             }
         }
     }
 
     /// <summary>
-    /// Processes any past cycles that were snapshotted but never paid out (e.g. bot was down at cycle boundary).
-    /// </summary>
-    internal async Task CatchUpMissedCyclesInternalAsync()
-    {
-        await using var ctx = db.GetDbContext();
-        var currentCycle = GetCurrentCycle();
-
-        var missedCycles = await ctx.GetTable<WaifuCycleSnapshot>()
-            .Where(x => x.CycleNumber < currentCycle
-                        && !ctx.GetTable<WaifuCycle>()
-                            .Any(wc => wc.CycleNumber == x.CycleNumber
-                                       && wc.WaifuUserId == x.WaifuUserId))
-            .Select(x => x.CycleNumber)
-            .Distinct()
-            .OrderBy(x => x)
-            .ToListAsyncLinqToDB();
-
-        foreach (var cycle in missedCycles)
-        {
-            Log.Warning("Catching up missed waifu cycle #{Cycle}", cycle);
-            await ProcessCycleInternalAsync(ctx, cycle);
-        }
-    }
-
-    /// <summary>
-    /// Takes a snapshot of fan lists and bank balances for a cycle.
-    /// Called once at cycle start. If rows already exist (bot restarted mid-cycle), skips.
+    /// Snapshots all waifus and their fan balances for a cycle.
+    /// Creates WaifuCycle records (waifu-level snapshot) and WaifuCycleSnapshot records (fan balances).
+    /// Skips if already snapshotted.
     /// </summary>
     internal async Task SnapshotCycleInternalAsync(int cycleNumber)
     {
         await using var ctx = db.GetDbContext();
 
-        // Get waifus that already have snapshots for this cycle
-        var alreadySnapshotted = await ctx.GetTable<WaifuCycleSnapshot>()
-            .Where(x => x.CycleNumber == cycleNumber)
-            .Select(x => x.WaifuUserId)
-            .Distinct()
-            .ToListAsyncLinqToDB();
+        var alreadyExists = await ctx.GetTable<WaifuCycle>()
+            .AnyAsyncLinqToDB(x => x.CycleNumber == cycleNumber);
 
-        var alreadySet = alreadySnapshotted.ToHashSet();
+        if (alreadyExists)
+            return;
 
-        // Get all fans with their bank balances in one join query
-        var fanBalances = await ctx.GetTable<WaifuFan>()
+        var conf = configService.Data;
+        var managerCutPercent = conf.ManagerCutPercent;
+
+        await using var lctx = ctx.CreateLinqToDBConnection();
+
+        await lctx.ExecuteAsync($"""
+            INSERT INTO WaifuCycle
+                (WaifuUserId, CycleNumber, ManagerUserId, WaifuFeePercent,
+                 ReturnsCap, ManagerCutPercent, Price, Processed, TotalBacked)
+            SELECT
+                w.UserId, {cycleNumber}, w.ManagerUserId, w.WaifuFeePercent,
+                w.ReturnsCap, {managerCutPercent}, w.Price, 0, fb.TotalBacked
+            FROM WaifuInfo w
+            INNER JOIN (
+                SELECT f.WaifuUserId, SUM(COALESCE(b.Balance, 0)) AS TotalBacked
+                FROM WaifuFan f
+                LEFT JOIN BankUsers b ON b.UserId = f.UserId
+                GROUP BY f.WaifuUserId
+            ) fb ON fb.WaifuUserId = w.UserId
+            WHERE w.ManagerUserId IS NOT NULL AND fb.TotalBacked > 0;
+            """);
+
+        await ctx.GetTable<WaifuFan>()
             .LeftJoin(ctx.GetTable<BankUser>(),
                 (f, b) => f.UserId == b.UserId,
                 (f, b) => new
@@ -1174,101 +984,110 @@ public sealed class WaifuService(
                     FanUserId = f.UserId,
                     Balance = b != null ? b.Balance : 0L
                 })
-            .ToListAsyncLinqToDB();
-
-        foreach (var fb in fanBalances)
-        {
-            if (alreadySet.Contains(fb.WaifuUserId))
-                continue;
-
-            await ctx.GetTable<WaifuCycleSnapshot>()
-                .InsertAsync(() => new()
-                {
-                    CycleNumber = cycleNumber,
-                    WaifuUserId = fb.WaifuUserId,
-                    UserId = fb.FanUserId,
-                    SnapshotBalance = fb.Balance
-                });
-        }
-    }
-
-    internal async Task ProcessCycleInternalAsync(NadekoContext ctx, int cycleNumber)
-    {
-        var conf = configService.Data;
-        var nextCycle = cycleNumber + 1;
-        var nextCycleStart = GetCycleStartTime(nextCycle);
-
-        Log.Information("Processing waifu cycle #{Cycle}. Next cycle #{NextCycle} starts at {NextStart}",
-            cycleNumber, nextCycle, nextCycleStart);
-
-        var waifus = await ctx.GetTable<WaifuInfo>()
-            .ToListAsyncLinqToDB();
-
-        foreach (var waifu in waifus)
-        {
-            try
+            .InsertAsync(ctx.GetTable<WaifuCycleSnapshot>(), fb => new WaifuCycleSnapshot
             {
-                var alreadyProcessed = await ctx.GetTable<WaifuCycle>()
-                    .AnyAsyncLinqToDB(x => x.WaifuUserId == waifu.UserId && x.CycleNumber == cycleNumber);
-
-                if (alreadyProcessed)
-                    continue;
-
-                if (waifu.ManagerUserId is null)
-                {
-                    var decay = conf.ManagerlessDecayPercent / 100.0;
-                    var newPrice = Math.Max(conf.MinPrice, (long)(waifu.Price * (1 - decay)));
-                    if (newPrice != waifu.Price)
-                    {
-                        await ctx.GetTable<WaifuInfo>()
-                            .Where(x => x.Id == waifu.Id)
-                            .Set(x => x.Price, newPrice)
-                            .UpdateAsync();
-                    }
-
-                    Log.Information("Waifu {UserId} has no manager. Price decayed {OldPrice} -> {NewPrice}",
-                        waifu.UserId, waifu.Price, newPrice);
-
-                    await ctx.GetTable<WaifuCycle>()
-                        .InsertAsync(() => new()
-                        {
-                            WaifuUserId = waifu.UserId,
-                            CycleNumber = cycleNumber,
-                            ManagerUserId = 0,
-                            TotalBacked = 0,
-                            TotalReturns = 0,
-                            WaifuEarnings = 0,
-                            ManagerEarnings = 0,
-                            FanPool = 0,
-                            MoodSnapshot = waifu.Mood,
-                            FoodSnapshot = waifu.Food,
-                            ProcessedAt = _timeProvider.GetUtcNow().UtcDateTime
-                        });
-
-                    continue;
-                }
-
-                await ProcessWaifuCycleInternalAsync(ctx, waifu, cycleNumber);
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Error processing cycle {Cycle} for waifu {UserId}", cycleNumber, waifu.UserId);
-            }
-        }
-
-        Log.Information("Waifu cycle #{Cycle} processing complete", cycleNumber);
-
-        await CleanupOldCycleDataInternalAsync(ctx, cycleNumber);
+                CycleNumber = cycleNumber,
+                WaifuUserId = fb.WaifuUserId,
+                UserId = fb.FanUserId,
+                SnapshotBalance = fb.Balance
+            });
     }
 
     /// <summary>
-    /// Deletes snapshot and cycle records older than 10 cycles.
+    /// Processes a cycle's unprocessed waifu snapshots: computes payouts, distributes earnings,
+    /// and marks snapshots as processed. All computation is done server-side in SQL.
     /// </summary>
-    internal async Task CleanupOldCycleDataInternalAsync(NadekoContext ctx, int currentCycle)
+    internal async Task ProcessCycleInternalAsync(int cycleNumber)
     {
-        var cutoff = currentCycle - 10;
+        await using var ctx = db.GetDbContext();
+
+        var unprocessedCount = await ctx.GetTable<WaifuCycle>()
+            .CountAsyncLinqToDB(x => x.CycleNumber == cycleNumber && !x.Processed);
+
+        if (unprocessedCount == 0)
+            return;
+
+        Log.Information("Processing waifu cycle #{Cycle}, {Count} waifus", cycleNumber, unprocessedCount);
+
+        var now = _timeProvider.GetUtcNow().UtcDateTime;
+        var cycleRate = BaseReturnRate / CyclesPerYear;
+
+        await using var tx = await ctx.Database.BeginTransactionAsync();
+        await using var lctx = ctx.CreateLinqToDBConnection();
+
+        // Step 1: All payouts (fan shares + waifu net + manager cut) in one query
+        await lctx.ExecuteAsync($"""
+            WITH waifuCalc AS (
+                SELECT wc.Id, wc.WaifuUserId, wc.ManagerUserId, wc.WaifuFeePercent,
+                    wc.ManagerCutPercent, wc.TotalBacked,
+                    CASE WHEN wc.TotalBacked > 0
+                         THEN MIN(wc.TotalBacked, wc.ReturnsCap)
+                              * {cycleRate} * (wi.Mood + wi.Food) / 2000.0
+                         ELSE 0.0 END AS Returns
+                FROM WaifuCycle wc
+                JOIN WaifuInfo wi ON wi.UserId = wc.WaifuUserId
+                WHERE wc.CycleNumber = {cycleNumber} AND NOT wc.Processed AND wc.ManagerUserId != 0
+            ),
+            waifuSplits AS (
+                SELECT Id, WaifuUserId, ManagerUserId, TotalBacked, Returns,
+                    Returns * WaifuFeePercent / 100.0 * ManagerCutPercent AS ManagerCut,
+                    Returns * WaifuFeePercent / 100.0
+                        - Returns * WaifuFeePercent / 100.0 * ManagerCutPercent AS WaifuNet,
+                    Returns - Returns * WaifuFeePercent / 100.0 AS FanPool
+                FROM waifuCalc
+                WHERE Returns >= 1.0
+            )
+            INSERT INTO WaifuPendingPayout (UserId, Amount)
+            SELECT UserId, SUM(Amount) FROM (
+                SELECT cs.UserId, ws.FanPool * cs.SnapshotBalance * 1.0 / ws.TotalBacked AS Amount
+                FROM waifuSplits ws
+                JOIN WaifuCycleSnapshot cs
+                    ON cs.WaifuUserId = ws.WaifuUserId AND cs.CycleNumber = {cycleNumber}
+                WHERE ws.TotalBacked > 0
+                UNION ALL
+                SELECT ws.WaifuUserId, ws.WaifuNet FROM waifuSplits ws WHERE ws.WaifuNet > 0
+                UNION ALL
+                SELECT ws.ManagerUserId, ws.ManagerCut FROM waifuSplits ws WHERE ws.ManagerCut > 0
+            ) grouped
+            GROUP BY UserId
+            ON CONFLICT (UserId) DO UPDATE
+            SET Amount = WaifuPendingPayout.Amount + EXCLUDED.Amount;
+            """);
+
+        // Mark all cycles as processed
+        await ctx.GetTable<WaifuCycle>()
+            .Where(wc => wc.CycleNumber == cycleNumber && !wc.Processed)
+            .Set(wc => wc.Processed, true)
+            .Set(wc => wc.ProcessedAt, now)
+            .UpdateAsync();
+
+        // Update TotalProduced on WaifuInfo
+        await ctx.GetTable<WaifuInfo>()
+            .InnerJoin(
+                ctx.GetTable<WaifuCycle>().Where(wc => wc.CycleNumber == cycleNumber && wc.TotalBacked > 0),
+                (wi, wc) => wi.UserId == wc.WaifuUserId,
+                (wi, wc) => new { wi, wc })
+            .Set(x => x.wi.TotalProduced,
+                x => x.wi.TotalProduced
+                     + (long)((x.wc.TotalBacked < x.wc.ReturnsCap ? x.wc.TotalBacked : x.wc.ReturnsCap)
+                              * cycleRate * (x.wi.Mood + x.wi.Food) / 2000.0))
+            .UpdateAsync();
+
+        await tx.CommitAsync();
+
+        Log.Information("Waifu cycle #{Cycle} complete", cycleNumber);
+    }
+
+    /// <summary>
+    /// Deletes snapshot and cycle records older than 8 cycles.
+    /// </summary>
+    internal async Task CleanupOldCycleDataInternalAsync(int currentCycle)
+    {
+        var cutoff = currentCycle - 8;
         if (cutoff < 0)
             return;
+
+        await using var ctx = db.GetDbContext();
 
         var deletedSnapshots = await ctx.GetTable<WaifuCycleSnapshot>()
             .Where(x => x.CycleNumber < cutoff)
@@ -1283,109 +1102,6 @@ public sealed class WaifuService(
             Log.Information("Cleaned up old cycle data: {Snapshots} snapshots, {Cycles} cycle records (before cycle #{Cutoff})",
                 deletedSnapshots, deletedCycles, cutoff);
         }
-    }
-
-    internal async Task ProcessWaifuCycleInternalAsync(NadekoContext ctx, WaifuInfo waifu, int cycleNumber)
-    {
-        var snapshotRows = await ctx.GetTable<WaifuCycleSnapshot>()
-            .Where(x => x.WaifuUserId == waifu.UserId && x.CycleNumber == cycleNumber)
-            .ToListAsyncLinqToDB();
-
-        if (snapshotRows.Count == 0)
-        {
-            Log.Information("Waifu {UserId} cycle #{Cycle}: no snapshot rows, skipping", waifu.UserId, cycleNumber);
-            return;
-        }
-
-        var snapshots = snapshotRows.Select(x => (x.UserId, Balance: x.SnapshotBalance)).ToList();
-        var totalBacked = snapshots.Sum(x => x.Balance);
-
-        if (totalBacked <= 0)
-        {
-            Log.Information("Waifu {UserId} cycle #{Cycle}: {FanCount} fans but 0 total backed, skipping",
-                waifu.UserId, cycleNumber, snapshots.Count);
-            return;
-        }
-
-        var managerId = waifu.ManagerUserId!.Value;
-
-        var effectiveRate = BaseReturnRate;
-        var cycleRate = effectiveRate / CyclesPerYear;
-        var statMultiplier = (waifu.Mood + waifu.Food) / 2000.0;
-        var cappedBacked = Math.Min(totalBacked, waifu.ReturnsCap);
-
-        var returnsD = (decimal)(cappedBacked * cycleRate * statMultiplier);
-        if (returnsD < 1m)
-        {
-            Log.Information("Waifu {UserId} cycle #{Cycle}: returns<1 (mood={Mood}, food={Food}, backed={Backed})",
-                waifu.UserId, cycleNumber, waifu.Mood, waifu.Food, totalBacked);
-            return;
-        }
-
-        var waifuCutD = returnsD * waifu.WaifuFeePercent / 100m;
-        var managerCutD = waifuCutD * (decimal)configService.Data.ManagerCutPercent;
-        var waifuNetD = waifuCutD - managerCutD;
-        var fanPoolD = returnsD - waifuCutD;
-
-        var returns = (long)returnsD;
-        var waifuCut = (long)waifuCutD;
-        var managerCut = (long)managerCutD;
-        var waifuNet = (long)waifuNetD;
-        var fanPool = (long)fanPoolD;
-
-        Log.Information(
-            "Waifu {UserId} cycle #{Cycle}: backed={TotalBacked} capped={Capped} rate={Rate:P2} stats={Stats:P0} returns={Returns} | waifu={WaifuNet} manager={ManagerCut} fanPool={FanPool} fee={Fee}%",
-            waifu.UserId, cycleNumber, totalBacked, cappedBacked, effectiveRate, statMultiplier,
-            returns, waifuNet, managerCut, fanPool, waifu.WaifuFeePercent);
-
-        if (waifuNetD > 0)
-            await AddPendingPayoutInternalAsync(ctx, waifu.UserId, waifuNetD);
-
-        var managerFanShareD = 0m;
-        var managerSnapshot = snapshots.FirstOrDefault(x => x.UserId == managerId);
-        if (managerSnapshot.Balance > 0 && totalBacked > 0)
-            managerFanShareD = fanPoolD * managerSnapshot.Balance / totalBacked;
-
-        var totalManagerPayD = managerCutD + managerFanShareD;
-        if (totalManagerPayD > 0)
-            await AddPendingPayoutInternalAsync(ctx, managerId, totalManagerPayD);
-
-        Log.Information("  Manager {ManagerId}: cut={ManagerCut} + fanShare={FanShare} = {Total}",
-            managerId, (long)managerCutD, (long)managerFanShareD, (long)totalManagerPayD);
-
-        foreach (var (fanId, balance) in snapshots)
-        {
-            if (fanId == managerId)
-                continue;
-
-            var shareD = fanPoolD * balance / totalBacked;
-            if (shareD > 0)
-                await AddPendingPayoutInternalAsync(ctx, fanId, shareD);
-
-            Log.Information("  Fan {FanId}: balance={Balance} share={Share}",
-                fanId, balance, (long)shareD);
-        }
-
-        await ctx.GetTable<WaifuCycle>()
-            .InsertAsync(() => new()
-            {
-                WaifuUserId = waifu.UserId,
-                CycleNumber = cycleNumber,
-                ManagerUserId = managerId,
-                TotalBacked = totalBacked,
-                TotalReturns = returns,
-                WaifuEarnings = waifuNet,
-                ManagerEarnings = managerCut,
-                FanPool = fanPool,
-                MoodSnapshot = waifu.Mood,
-                FoodSnapshot = waifu.Food,
-                ProcessedAt = _timeProvider.GetUtcNow().UtcDateTime
-            });
-
-        await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.Id == waifu.Id)
-            .Set(x => x.TotalProduced, x => x.TotalProduced + returns)
-            .UpdateAsync();
     }
 
     #endregion
@@ -1417,38 +1133,11 @@ public sealed class WaifuInfoDto
     /// </summary>
     public long SnapshotTotalBacked { get; init; }
 
-    /// <summary>
-    /// Total returns from the last completed cycle.
-    /// </summary>
-    public long LastCycleReturns { get; init; }
-
-    /// <summary>
-    /// Number of fans who joined after the current cycle's snapshot was taken.
-    /// </summary>
-    public int PendingJoins { get; init; }
-
-    /// <summary>
-    /// Number of fans who left after the current cycle's snapshot was taken.
-    /// </summary>
-    public int PendingLeaves { get; init; }
-
     public ulong? ManagerId { get; init; }
     public bool IsHubby { get; init; }
     public string? CustomAvatarUrl { get; init; }
     public string? Description { get; init; }
     public string? Quote { get; init; }
-}
-
-/// <summary>
-/// DTO for projected cycle payout.
-/// </summary>
-public sealed class PayoutProjectionDto
-{
-    public long TotalReturns { get; init; }
-    public long WaifuCut { get; init; }
-    public long ManagerCut { get; init; }
-    public long FanPool { get; init; }
-    public double EffectiveRate { get; init; }
 }
 
 /// <summary>
@@ -1459,14 +1148,9 @@ public sealed class FanInfoDto
     public ulong UserId { get; init; }
 
     /// <summary>
-    /// Earnings from the last completed cycle (0 if no history).
+    /// Cached username from the DiscordUser table.
     /// </summary>
-    public long LastCycleEarnings { get; init; }
-
-    /// <summary>
-    /// Whether this fan joined after the current cycle's snapshot (pending for next cycle).
-    /// </summary>
-    public bool IsPending { get; init; }
+    public string? Username { get; init; }
 
     public DateTime BackedAt { get; init; }
 }
@@ -1482,10 +1166,6 @@ public sealed class LeaderboardEntryDto
     public int Mood { get; init; }
     public int Food { get; init; }
     public long ReturnsCap { get; init; }
-    public double RealizedReturnRate { get; init; }
-    public long TotalReturns { get; init; }
-    public long AvgBacked { get; init; }
-    public int CyclesActive { get; init; }
     public long SnapshotTotalBacked { get; init; }
     public bool HasManager { get; init; }
 }

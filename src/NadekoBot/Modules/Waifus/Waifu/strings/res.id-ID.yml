@@ -22,11 +22,6 @@ waifu_invalid_fee: 'Biaya harus antara {0}% dan {1}%.'
 waifu_fee_set: 'Biaya diperbarui menjadi {0}%.'
 waifu_no_fans: Belum ada fans.
 waifu_fans_title: 'Fans dari {0}'
-waifu_manager: Manager
-waifu_projected_payout: Proyeksi Pembayaran
-waifu_total: Total
-waifu_label: Waifu
-waifu_fan_pool: Kumpulan Fans
 waifu_lb_title: 🏆 Papan Peringkat Waifu (berdasarkan harga)
 waifu_lb_title_backed: 🏆 Papan Peringkat Waifu (berdasarkan dukungan)
 waifu_lb_empty: Belum ada waifu dengan riwayat siklus.
@@ -40,9 +35,8 @@ waifu_stop_backing_confirm: Kamu yakin mau berhenti jadi fan? Kamu nggak akan da
 waifu_switch_confirm: 'Kamu saat ini jadi fan dari {0}. Pindah dukungan ke {1}?'
 waifu_manager_exit_title: Pengunduran Diri Manajer
 waifu_manager_exit_warning: 'Mengundurkan diri akan memiliki konsekuensi finansial berikut:'
-waifu_refund: Pengembalianmu (50%)
-waifu_goes_to_waifu: Ke Waifu (10%)
-waifu_goes_to_fans: Dibagikan ke Fan (35%)
+waifu_refund: Pengembalianmu (90%)
+waifu_goes_to_waifu: Ke Waifu (5%)
 waifu_burned: Dibakar (5%)
 waifu_new_price: Harga Waifu Baru
 waifu_outside_buy_window: Pembelian manajer hanya tersedia selama 18 jam pertama dalam satu siklus.
@@ -53,9 +47,6 @@ waifu_old_manager_payout: Manajer Lama (90%)
 waifu_over_cap: melebihi batas
 waifu_no_manager_title: Butuh Manajer!
 waifu_no_manager_payout: 'Belum menghasilkan apa-apa. Tanpa manajer, harga turun {0}% setiap siklus. Jadilah yang pertama mengelola!'
-waifu_pending_fans: '(+{0} bergabung, -{1} keluar)'
-waifu_fan_pending: ⏳ tertunda
-waifu_fan_last_earned: 'terakhir dapat: {0}'
 waifu_now_backing_hint: |-
   Kamu sekarang fan dari {0}!
   *Saldo bankmu adalah kekuatan dukunganmu -- semakin banyak yang kamu simpan, semakin banyak yang kamu dapat.*
