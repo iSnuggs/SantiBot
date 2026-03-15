@@ -5,7 +5,8 @@ namespace NadekoBot.Modules.Waifus.Waifu.Db;
 
 /// <summary>
 /// Stores unclaimed cycle payouts for a user. Amount is decimal to preserve
-/// fractional earnings across multiple cycles; only whole units are claimable.
+/// fractional earnings across multiple cycles. Claiming floors to whole units,
+/// deletes the row, and discards any fractional remainder.
 /// </summary>
 public class WaifuPendingPayout
 {
