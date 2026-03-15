@@ -12,7 +12,8 @@ emoji_add_error: Błąd podczas dodawania emoji. Albo skończyły się sloty na 
 emoji_added: 'Dodano nowe emoji: {0}'
 emoji_slots_full_retry_gif: Wszystkie sloty na statyczne emoji są pełne. Chcesz spróbować ponownie jako animowany GIF?
 emoji_not_removed: 'Następujące emoji nie zostały usunięte: {0}'
-inrole_list: 'Lista użytkowników z rolą {0} ({1})'
+inrole_users: Użytkownicy
+inrole_nobody: Nie znaleziono użytkowników
 invalid_emoji_link: Podany link nie jest obrazem lub przekracza 256KB.
 listservers: |-
   ID: {0}

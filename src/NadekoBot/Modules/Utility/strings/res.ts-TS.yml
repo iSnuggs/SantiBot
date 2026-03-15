@@ -12,7 +12,8 @@ emoji_add_error: I-I couldn't add that emoji! You're probably out of slots or th
 emoji_added: 'I added a new emoji: {0}... I-it''s not like I wanted to help you decorate or anything!'
 emoji_slots_full_retry_gif: A-all the image emoji slots are full! W-would you want me to retry it as an animated GIF? N-not that I care!
 emoji_not_removed: 'These emojis wouldn''t go away: {0}... I-it''s not my fault, okay?!'
-inrole_list: 'H-here are the users in {0} role ({1})... I-I didn''t compile this list for you or anything!'
+inrole_users: U-users... not that I was counting them!
+inrole_nobody: N-nobody's here... I-it's not like I wanted to find anyone!
 invalid_emoji_link: That link isn't an image or it's over 256KB, b-baka! C-check before you send it next time!
 listservers: |-
   ID: {0}

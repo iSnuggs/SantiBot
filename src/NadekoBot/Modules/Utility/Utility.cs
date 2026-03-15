@@ -157,7 +157,7 @@ public partial class Utility : NadekoModule
     [Cmd]
     [RequireContext(ContextType.Guild)]
     [Priority(0)]
-    public async Task InRole(int page, [Leftover] IRole? role = null)
+    public async Task InRole(int page, params IRole[] roles)
     {
         if (--page < 0)
             return;
@@ -169,18 +169,23 @@ public partial class Utility : NadekoModule
             CacheMode.CacheOnly
         );
 
-        users = (role is null
-                ? users
-                : users.Where(u => u.RoleIds.Contains(role.Id)))
+        var roleIds = roles.Select(r => r.Id).ToHashSet();
+
+        users = (roleIds.Count == 0
+                ? users.Where(u => u.RoleIds.Count <= 1)
+                : users.Where(u => roleIds.IsSubsetOf(u.RoleIds)))
             .OrderBy(x => x.DisplayName)
             .ToList();
-
 
         var roleUsers = new List<string>(users.Count);
         foreach (var u in users)
         {
-            roleUsers.Add($"{u.Mention} {Format.Spoiler(Format.Code(u.Username))}");
+            roleUsers.Add($"{u.Mention} `{u.Id}`");
         }
+
+        var rolesText = roleIds.Count == 0
+            ? "No Role"
+            : string.Join(" ", roles.Select(r => Format.Bold(r.Name)));
 
         await Response()
             .Paginated()
@@ -189,15 +194,16 @@ public partial class Utility : NadekoModule
             .CurrentPage(page)
             .Page((pageUsers, _) =>
             {
-                if (pageUsers.Count == 0)
-                    return CreateEmbed().WithOkColor().WithDescription(GetText(strs.no_user_on_this_page));
-
-                var roleName = Format.Bold(role?.Name ?? "No Role");
-
-                return CreateEmbed()
+                var eb = CreateEmbed()
                     .WithOkColor()
-                    .WithTitle(GetText(strs.inrole_list(role?.GetIconUrl() + roleName, roleUsers.Count)))
-                    .WithDescription(string.Join("\n", pageUsers));
+                    .WithTitle($"{rolesText} ({roleUsers.Count})");
+
+                if (pageUsers.Count == 0)
+                    eb.AddField(GetText(strs.inrole_users), GetText(strs.inrole_nobody));
+                else
+                    eb.AddField(GetText(strs.inrole_users), string.Join("\n", pageUsers));
+
+                return eb;
             })
             .SendAsync();
     }
@@ -205,8 +211,8 @@ public partial class Utility : NadekoModule
     [Cmd]
     [RequireContext(ContextType.Guild)]
     [Priority(1)]
-    public Task InRole([Leftover] IRole? role = null)
-        => InRole(1, role);
+    public Task InRole(params IRole[] roles)
+        => InRole(1, roles);
 
     [Cmd]
     [RequireContext(ContextType.Guild)]

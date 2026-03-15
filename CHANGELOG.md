@@ -11,6 +11,15 @@
 ### Fixed
 
 - Antispam now detects repeated attachment spam (images, files) in addition to text-only spam
+- Fixed YouTube RSS feed thumbnails not showing in embeds
+
+### Changed
+
+- `.inrole` now accepts multiple roles and shows users who have all of them
+
+### Dev
+
+- Waifu system code cleanup and improvements
 
 ## [7.0.6] - 14.03.2026
 

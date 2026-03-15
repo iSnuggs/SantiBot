@@ -12,7 +12,8 @@ emoji_add_error: Emoji eklenirken hata oluştu. Ya emoji slotların doldu ya da 
 emoji_added: 'Yeni bir emoji eklendi: {0}'
 emoji_slots_full_retry_gif: Tüm resim emoji slotları dolu. Animasyonlu GIF olarak tekrar denemek ister misin?
 emoji_not_removed: 'Şu emojiler kaldırılamadı: {0}'
-inrole_list: '{0} rolündeki kullanıcıların listesi ({1})'
+inrole_users: Kullanıcılar
+inrole_nobody: Kullanıcı bulunamadı
 invalid_emoji_link: Belirtilen bağlantı ya bir resim değil ya da 256KB sınırını aşıyor.
 listservers: |-
   ID: {0}

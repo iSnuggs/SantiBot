@@ -554,7 +554,7 @@ public sealed class WaifuService(
             return new ErrInsufficientFunds();
 
         await ctx.GetTable<WaifuInfo>()
-            .InsertAsync(() => new WaifuInfo
+            .InsertAsync(() => new()
             {
                 UserId = userId,
                 IsHubby = isHubby,
@@ -625,7 +625,7 @@ public sealed class WaifuService(
             return new ErrWaifuNotFound();
 
         await ctx.GetTable<WaifuFan>()
-            .InsertAsync(() => new WaifuFan
+            .InsertAsync(() => new()
             {
                 UserId = userId,
                 WaifuUserId = waifuUserId,
@@ -674,35 +674,22 @@ public sealed class WaifuService(
         // Distribute to other fans
         if (fanDistribution > 0)
         {
-            var otherFans = await ctx.GetTable<WaifuFan>()
+            var fanBalances = await ctx.GetTable<WaifuFan>()
                 .Where(x => x.WaifuUserId == waifu.UserId && x.UserId != managerUserId)
-                .Select(x => x.UserId)
+                .LeftJoin(ctx.GetTable<BankUser>(),
+                    (f, b) => f.UserId == b.UserId,
+                    (f, b) => new { f.UserId, Balance = b != null ? b.Balance : 0L })
                 .ToListAsyncLinqToDB();
 
-            if (otherFans.Count > 0)
+            var totalOtherBacked = fanBalances.Sum(x => x.Balance);
+
+            if (totalOtherBacked > 0)
             {
-                long totalOtherBacked = 0;
-                var fanBalances = new List<(ulong UserId, long Balance)>();
-
-                foreach (var fanId in otherFans)
+                foreach (var fan in fanBalances)
                 {
-                    var balance = await ctx.GetTable<BankUser>()
-                        .Where(x => x.UserId == fanId)
-                        .Select(x => x.Balance)
-                        .FirstOrDefaultAsyncLinqToDB();
-
-                    fanBalances.Add((fanId, balance));
-                    totalOtherBacked += balance;
-                }
-
-                if (totalOtherBacked > 0)
-                {
-                    foreach (var (fanId, balance) in fanBalances)
-                    {
-                        var share = (long)(fanDistribution * ((double)balance / totalOtherBacked));
-                        if (share > 0)
-                            await cs.AddAsync(fanId, share, new("waifu", "manager-exit-dist"));
-                    }
+                    var share = (long)(fanDistribution * ((double)fan.Balance / totalOtherBacked));
+                    if (share > 0)
+                        await cs.AddAsync(fan.UserId, share, new("waifu", "manager-exit-dist"));
                 }
             }
         }
@@ -804,6 +791,32 @@ public sealed class WaifuService(
         var waifuPayout = (long)(requiredPrice * conf.ManagerWaifuPayout);
         var burned = requiredPrice - oldManagerPayout - waifuPayout;
 
+        // Atomic update: only succeed if manager hasn't changed since we read
+        int updated;
+        if (oldManagerId.HasValue)
+        {
+            updated = await ctx.GetTable<WaifuInfo>()
+                .Where(x => x.Id == wi.Id && x.ManagerUserId == oldManagerId.Value)
+                .Set(x => x.ManagerUserId, buyerUserId)
+                .Set(x => x.Price, requiredPrice)
+                .UpdateAsync();
+        }
+        else
+        {
+            updated = await ctx.GetTable<WaifuInfo>()
+                .Where(x => x.Id == wi.Id && x.ManagerUserId == null)
+                .Set(x => x.ManagerUserId, buyerUserId)
+                .Set(x => x.Price, requiredPrice)
+                .UpdateAsync();
+        }
+
+        if (updated == 0)
+        {
+            // Another buyer won the race - refund
+            await cs.AddAsync(buyerUserId, requiredPrice, new("waifu", "manager-buy-refund"));
+            return new ErrPriceTooLow();
+        }
+
         // Pay old manager (if exists)
         if (oldManagerId.HasValue && oldManagerPayout > 0)
             await cs.AddAsync(oldManagerId.Value, oldManagerPayout, new("waifu", "manager-buyout"));
@@ -816,13 +829,6 @@ public sealed class WaifuService(
         // Pay waifu
         if (waifuPayout > 0)
             await cs.AddAsync(waifuUserId, waifuPayout, new("waifu", "manager-buy-fee"));
-
-        // Update waifu with new manager and price
-        await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.Id == wi.Id)
-            .Set(x => x.ManagerUserId, buyerUserId)
-            .Set(x => x.Price, requiredPrice)
-            .UpdateAsync();
 
         return new Success<BuyManagerInfo>(new BuyManagerInfo
         {
@@ -928,48 +934,43 @@ public sealed class WaifuService(
 
         await using var ctx = db.GetDbContext();
 
-        var wi = await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.UserId == waifuUserId)
-            .FirstOrDefaultAsyncLinqToDB();
+        var totalEffect = item.Effect * count;
+        int updated;
 
-        if (wi is null)
+        if (item.Type == GiftItemType.Food)
+        {
+            updated = await ctx.GetTable<WaifuInfo>()
+                .Where(x => x.UserId == waifuUserId)
+                .Set(x => x.Food, x => x.Food + totalEffect > 1000 ? 1000 : x.Food + totalEffect)
+                .UpdateAsync();
+        }
+        else
+        {
+            updated = await ctx.GetTable<WaifuInfo>()
+                .Where(x => x.UserId == waifuUserId)
+                .Set(x => x.Mood, x => x.Mood + totalEffect > 1000 ? 1000 : x.Mood + totalEffect)
+                .UpdateAsync();
+        }
+
+        if (updated == 0)
         {
             await cs.AddAsync(fromUserId, totalCost, new("waifu", "gift-refund"));
             return new ErrWaifuNotFound();
         }
 
-        var totalEffect = item.Effect * count;
-
-        if (item.Type == GiftItemType.Food)
-        {
-            var newFood = Math.Min(1000, wi.Food + totalEffect);
-            await ctx.GetTable<WaifuInfo>()
-                .Where(x => x.Id == wi.Id)
-                .Set(x => x.Food, newFood)
-                .UpdateAsync();
-        }
-        else
-        {
-            var newMood = Math.Min(1000, wi.Mood + totalEffect);
-            await ctx.GetTable<WaifuInfo>()
-                .Where(x => x.Id == wi.Id)
-                .Set(x => x.Mood, newMood)
-                .UpdateAsync();
-        }
-
         // Persist gift count
         await ctx.GetTable<WaifuGiftCount>()
-            .InsertOrUpdateAsync(() => new WaifuGiftCount
+            .InsertOrUpdateAsync(() => new()
                 {
                     WaifuUserId = waifuUserId,
                     GiftItemId = item.Id,
                     Count = count
                 },
-                old => new WaifuGiftCount
+                old => new()
                 {
                     Count = old.Count + count
                 },
-                () => new WaifuGiftCount
+                () => new()
                 {
                     WaifuUserId = waifuUserId,
                     GiftItemId = item.Id
@@ -1013,20 +1014,11 @@ public sealed class WaifuService(
     /// </summary>
     internal async Task AddPendingPayoutInternalAsync(NadekoContext ctx, ulong userId, decimal amount)
     {
-        var updated = await ctx.GetTable<WaifuPendingPayout>()
-            .Where(x => x.UserId == userId)
-            .Set(x => x.Amount, x => x.Amount + amount)
-            .UpdateAsync();
-
-        if (updated == 0)
-        {
-            await ctx.GetTable<WaifuPendingPayout>()
-                .InsertAsync(() => new WaifuPendingPayout
-                {
-                    UserId = userId,
-                    Amount = amount
-                });
-        }
+        await ctx.GetTable<WaifuPendingPayout>()
+            .InsertOrUpdateAsync(
+                () => new () { UserId = userId, Amount = amount },
+                old => new() { Amount = old.Amount + amount },
+                () => new () { UserId = userId });
     }
 
     /// <summary>
@@ -1162,39 +1154,41 @@ public sealed class WaifuService(
     internal async Task SnapshotCycleInternalAsync(int cycleNumber)
     {
         await using var ctx = db.GetDbContext();
-        var cycleStartTime = GetCycleStartTime(cycleNumber);
 
-        var waifus = await ctx.GetTable<WaifuInfo>()
+        // Get waifus that already have snapshots for this cycle
+        var alreadySnapshotted = await ctx.GetTable<WaifuCycleSnapshot>()
+            .Where(x => x.CycleNumber == cycleNumber)
+            .Select(x => x.WaifuUserId)
+            .Distinct()
             .ToListAsyncLinqToDB();
 
-        foreach (var waifu in waifus)
-        {
-            var alreadySnapshotted = await ctx.GetTable<WaifuCycleSnapshot>()
-                .AnyAsyncLinqToDB(x => x.WaifuUserId == waifu.UserId && x.CycleNumber == cycleNumber);
+        var alreadySet = alreadySnapshotted.ToHashSet();
 
-            if (alreadySnapshotted)
+        // Get all fans with their bank balances in one join query
+        var fanBalances = await ctx.GetTable<WaifuFan>()
+            .LeftJoin(ctx.GetTable<BankUser>(),
+                (f, b) => f.UserId == b.UserId,
+                (f, b) => new
+                {
+                    f.WaifuUserId,
+                    FanUserId = f.UserId,
+                    Balance = b != null ? b.Balance : 0L
+                })
+            .ToListAsyncLinqToDB();
+
+        foreach (var fb in fanBalances)
+        {
+            if (alreadySet.Contains(fb.WaifuUserId))
                 continue;
 
-            var fans = await ctx.GetTable<WaifuFan>()
-                .Where(x => x.WaifuUserId == waifu.UserId)
-                .ToListAsyncLinqToDB();
-
-            foreach (var fan in fans)
-            {
-                var balance = await ctx.GetTable<BankUser>()
-                    .Where(x => x.UserId == fan.UserId)
-                    .Select(x => x.Balance)
-                    .FirstOrDefaultAsyncLinqToDB();
-
-                await ctx.GetTable<WaifuCycleSnapshot>()
-                    .InsertAsync(() => new WaifuCycleSnapshot
-                    {
-                        CycleNumber = cycleNumber,
-                        WaifuUserId = waifu.UserId,
-                        UserId = fan.UserId,
-                        SnapshotBalance = balance
-                    });
-            }
+            await ctx.GetTable<WaifuCycleSnapshot>()
+                .InsertAsync(() => new()
+                {
+                    CycleNumber = cycleNumber,
+                    WaifuUserId = fb.WaifuUserId,
+                    UserId = fb.FanUserId,
+                    SnapshotBalance = fb.Balance
+                });
         }
     }
 
@@ -1236,7 +1230,7 @@ public sealed class WaifuService(
                         waifu.UserId, waifu.Price, newPrice);
 
                     await ctx.GetTable<WaifuCycle>()
-                        .InsertAsync(() => new WaifuCycle
+                        .InsertAsync(() => new()
                         {
                             WaifuUserId = waifu.UserId,
                             CycleNumber = cycleNumber,
@@ -1263,6 +1257,32 @@ public sealed class WaifuService(
         }
 
         Log.Information("Waifu cycle #{Cycle} processing complete", cycleNumber);
+
+        await CleanupOldCycleDataInternalAsync(ctx, cycleNumber);
+    }
+
+    /// <summary>
+    /// Deletes snapshot and cycle records older than 10 cycles.
+    /// </summary>
+    internal async Task CleanupOldCycleDataInternalAsync(NadekoContext ctx, int currentCycle)
+    {
+        var cutoff = currentCycle - 10;
+        if (cutoff < 0)
+            return;
+
+        var deletedSnapshots = await ctx.GetTable<WaifuCycleSnapshot>()
+            .Where(x => x.CycleNumber < cutoff)
+            .DeleteAsync();
+
+        var deletedCycles = await ctx.GetTable<WaifuCycle>()
+            .Where(x => x.CycleNumber < cutoff)
+            .DeleteAsync();
+
+        if (deletedSnapshots > 0 || deletedCycles > 0)
+        {
+            Log.Information("Cleaned up old cycle data: {Snapshots} snapshots, {Cycles} cycle records (before cycle #{Cutoff})",
+                deletedSnapshots, deletedCycles, cutoff);
+        }
     }
 
     internal async Task ProcessWaifuCycleInternalAsync(NadekoContext ctx, WaifuInfo waifu, int cycleNumber)
@@ -1347,7 +1367,7 @@ public sealed class WaifuService(
         }
 
         await ctx.GetTable<WaifuCycle>()
-            .InsertAsync(() => new WaifuCycle
+            .InsertAsync(() => new()
             {
                 WaifuUserId = waifu.UserId,
                 CycleNumber = cycleNumber,

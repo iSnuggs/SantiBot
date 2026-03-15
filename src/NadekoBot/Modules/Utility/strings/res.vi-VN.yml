@@ -12,7 +12,8 @@ emoji_add_error: Lỗi khi thêm emoji. Bạn có thể đã hết chỗ emoji, 
 emoji_added: 'Đã thêm emoji mới: {0}'
 emoji_slots_full_retry_gif: Tất cả chỗ emoji ảnh đã đầy. Bạn có muốn thử lại dưới dạng GIF động không?
 emoji_not_removed: 'Các emoji sau không được xóa: {0}'
-inrole_list: 'Danh sách người dùng trong vai trò {0} ({1})'
+inrole_users: Người dùng
+inrole_nobody: Không tìm thấy người dùng
 invalid_emoji_link: Liên kết được chỉ định không phải là ảnh hoặc vượt quá 256KB.
 listservers: |-
   ID: {0}

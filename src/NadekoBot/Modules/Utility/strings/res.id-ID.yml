@@ -12,7 +12,8 @@ emoji_add_error: Gagal menambahkan emoji. Slot emoji habis, atau ukuran gambar t
 emoji_added: 'Emoji baru ditambahkan: {0}'
 emoji_slots_full_retry_gif: Semua slot emoji gambar sudah penuh. Mau coba lagi sebagai GIF animasi?
 emoji_not_removed: 'Emoji berikut tidak bisa dihapus: {0}'
-inrole_list: 'Daftar pengguna di role {0} ({1})'
+inrole_users: Pengguna
+inrole_nobody: Tidak ada pengguna ditemukan
 invalid_emoji_link: Link yang ditentukan bukan gambar atau melebihi 256KB.
 listservers: |-
   ID: {0}

@@ -12,7 +12,8 @@ emoji_add_error: Erreur lors de l'ajout d'emoji. Soit vous n'avez plus d'emplace
 emoji_added: 'Nouveau emoji ajouté: {0}'
 emoji_slots_full_retry_gif: Tous les emplacements d'emoji image sont pleins. Voulez-vous réessayer en GIF animé ?
 emoji_not_removed: 'Les emojis suivants n''ont pas été supprimés : {0}'
-inrole_list: 'Liste des utilisateurs ayant le rôle {0} ({1})'
+inrole_users: Utilisateurs
+inrole_nobody: Aucun utilisateur trouvé
 invalid_emoji_link: Le lien spécifié n'est pas une image ou excède 256KB.
 listservers: |-
   ID: {0}

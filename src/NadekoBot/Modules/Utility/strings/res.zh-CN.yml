@@ -12,7 +12,8 @@ emoji_add_error: 添加表情符號時出錯。您可能已經用完了表情符
 emoji_added: '添加了一個新的表情符號：{0}'
 emoji_slots_full_retry_gif: 所有圖片表情符號位置已滿。要以動態 GIF 重試嗎？
 emoji_not_removed: '以下表情符號未被移除：{0}'
-inrole_list: '於 {0} 身分組中的用戶列表 ({1})'
+inrole_users: 用户
+inrole_nobody: 未找到用户
 invalid_emoji_link: 指定的連結不是圖像或超過 256KB。
 listservers: |-
   ID: {0}

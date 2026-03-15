@@ -12,7 +12,8 @@ emoji_add_error: Error al agregar emoji. Ya no hay espacio para más, o el tama�
 emoji_added: 'Se agregó un emoji nuevo: {0}'
 emoji_slots_full_retry_gif: ¿Todos los slots de emoji de imagen están llenos. Quieres reintentar como GIF animado?
 emoji_not_removed: 'Los siguientes emojis no fueron eliminados: {0}'
-inrole_list: 'Lista de usuarios en el rol {0} ({1})'
+inrole_users: Usuarios
+inrole_nobody: No se encontraron usuarios
 invalid_emoji_link: La liga especificada o no es una imagen, o se excede de los 256KB.
 listservers: |-
   ID: {0}
