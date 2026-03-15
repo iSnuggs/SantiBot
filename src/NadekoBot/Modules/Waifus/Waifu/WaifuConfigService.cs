@@ -11,7 +11,10 @@ public sealed class WaifuConfigService : ConfigServiceBase<WaifuConfig>
         => "waifu";
 
     public WaifuConfigService(IConfigSeria serializer, IPubSub pubSub)
-        : base(FILE_PATH, serializer, pubSub, _changeKey)
+        : this(FILE_PATH, serializer, pubSub) { }
+
+    internal WaifuConfigService(string filePath, IConfigSeria serializer, IPubSub pubSub)
+        : base(filePath, serializer, pubSub, _changeKey)
     {
         AddParsedProp("minprice",
             c => c.MinPrice,
@@ -63,8 +66,24 @@ public sealed class WaifuConfigService : ConfigServiceBase<WaifuConfig>
                 c.ManagerWaifuPayout = 0.05;
                 c.ManagerExitRefund = 0.50;
                 c.ManagerExitWaifu = 0.10;
-                c.ManagerExitFans = 0.35;
                 c.ManagerCutPercent = 0.15;
+            });
+        }
+        if (data.Version < 3)
+        {
+            ModifyConfig(c =>
+            {
+                c.Version = 3;
+                c.CycleHours = 24.0;
+            });
+        }
+        if (data.Version < 4)
+        {
+            ModifyConfig(c =>
+            {
+                c.Version = 4;
+                c.ManagerExitRefund = 0.90;
+                c.ManagerExitWaifu = 0.05;
             });
         }
     }

@@ -87,5 +87,6 @@ public class WaifuInfoEntityConfiguration : IEntityTypeConfiguration<WaifuInfo>
     public void Configure(EntityTypeBuilder<WaifuInfo> builder)
     {
         builder.HasIndex(x => x.UserId).IsUnique();
+        builder.HasIndex(x => x.ManagerUserId);
     }
 }

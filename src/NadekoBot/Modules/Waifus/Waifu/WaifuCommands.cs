@@ -107,7 +107,6 @@ public partial class Waifus
 
         var targetUser = await ctx.Client.GetUserAsync(targetUserId);
 
-        var projection = await svc.GetProjectedPayoutAsync(targetUserId);
         var manager = info.ManagerId.HasValue
             ? await ctx.Client.GetUserAsync(info.ManagerId.Value)
             : null;
@@ -161,25 +160,18 @@ public partial class Waifus
 
         if (info.ManagerId is null)
         {
-            var decayPercent = svc.ManagerlessDecayPercent;
             sb.AppendLine($"⚠\uFE0F **{GetText(strs.waifu_no_manager_title)}**");
-            sb.AppendLine(GetText(strs.waifu_no_manager_payout(decayPercent)));
+            sb.AppendLine(GetText(strs.waifu_no_manager_payout));
         }
-        else if (projection is not null && projection.TotalReturns > 0)
+        else
         {
-            sb.AppendLine($"💰 **{GetText(strs.waifu_projected_payout)}**");
-            sb.AppendLine($"  {GetText(strs.waifu_total)}: {CurrencyHelper.N(projection.TotalReturns, Culture, currSign)}");
-            sb.AppendLine($"  ├ 🎀 {GetText(strs.waifu_label)}: {CurrencyHelper.N(projection.WaifuCut, Culture, currSign)}");
-            sb.AppendLine($"  ├ 🏢 {GetText(strs.waifu_manager)}: {CurrencyHelper.N(projection.ManagerCut, Culture, currSign)}");
-            sb.AppendLine($"  └ 👥 {GetText(strs.waifu_fan_pool)}: {CurrencyHelper.N(projection.FanPool, Culture, currSign)}");
+            sb.AppendLine();
         }
 
         var backedBySb = new StringBuilder();
         backedBySb.Append(GetText(strs.waifu_fan_count(info.FanCount)));
         if (snapshotBacked > 0)
             backedBySb.Append($" ({CurrencyHelper.N(snapshotBacked, Culture, currSign)})");
-        if (info.PendingJoins > 0 || info.PendingLeaves > 0)
-            backedBySb.Append($"\n{GetText(strs.waifu_pending_fans(info.PendingJoins, info.PendingLeaves))}");
 
 
         var displayName = targetUser?.ToString() ?? targetUserId.ToString();
@@ -303,19 +295,13 @@ public partial class Waifus
 
     private async Task WaifuFansInternalAsync(ulong targetUserId)
     {
-        var fans = await svc.GetFansAsync(targetUserId);
-        if (fans.Count == 0)
-        {
-            await Response().Error(strs.waifu_no_fans).SendAsync();
-            return;
-        }
-
         var targetUser = await ctx.Client.GetUserAsync(targetUserId);
         var targetName = targetUser?.ToString() ?? targetUserId.ToString();
 
         await Response()
             .Paginated()
-            .Items(fans)
+            .PageItems(async page =>
+                (IReadOnlyCollection<FanInfoDto>)await svc.GetFansAsync(targetUserId, page, 10))
             .PageSize(10)
             .Page((items, page) =>
             {
@@ -326,9 +312,8 @@ public partial class Waifus
                 var desc = string.Join("\n", items.Select((f, i) =>
                 {
                     var rank = page * 10 + i + 1;
-                    if (f.IsPending)
-                        return $"`{rank}.` <@{f.UserId}> - {GetText(strs.waifu_fan_pending)}";
-                    return $"`{rank}.` <@{f.UserId}> - {GetText(strs.waifu_fan_last_earned(f.LastCycleEarnings.ToString("N0")))}";
+                    var name = f.Username ?? f.UserId.ToString();
+                    return $"`{rank}.` {name}\n - `{f.UserId}`";
                 }));
 
                 return eb.WithDescription(desc);
@@ -349,13 +334,6 @@ public partial class Waifus
 
     private async Task WaifuLeaderboardInternalAsync(WaifuLbOrder order)
     {
-        var entries = await svc.GetLeaderboardAsync(order);
-        if (entries.Count == 0)
-        {
-            await Response().Error(strs.waifu_lb_empty).SendAsync();
-            return;
-        }
-
         var currSign = cp.GetCurrencySign();
         var title = order == WaifuLbOrder.Price
             ? GetText(strs.waifu_lb_title)
@@ -363,7 +341,8 @@ public partial class Waifus
 
         await Response()
             .Paginated()
-            .Items(entries)
+            .PageItems(async page =>
+                (IReadOnlyCollection<LeaderboardEntryDto>)await svc.GetLeaderboardAsync(order, page, 9))
             .PageSize(9)
             .Page((items, page) =>
             {
@@ -634,7 +613,6 @@ public partial class Waifus
             .WithDescription(GetText(strs.waifu_manager_exit_warning))
             .AddField(GetText(strs.waifu_refund), $"{exitInfo.Refund:N0}", true)
             .AddField(GetText(strs.waifu_goes_to_waifu), $"{exitInfo.WaifuCut:N0}", true)
-            .AddField(GetText(strs.waifu_goes_to_fans), $"{exitInfo.FanDistribution:N0}", true)
             .AddField(GetText(strs.waifu_burned), $"{exitInfo.Burned:N0}", true)
             .AddField(GetText(strs.waifu_new_price), $"{exitInfo.NewPrice:N0}", true);
 

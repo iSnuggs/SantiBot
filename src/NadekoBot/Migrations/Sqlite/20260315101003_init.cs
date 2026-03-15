@@ -140,6 +140,7 @@ namespace NadekoBot.Migrations.Sqlite
                     GuildId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     Text = table.Column<string>(type: "TEXT", nullable: true),
                     PruneDays = table.Column<int>(type: "INTEGER", nullable: true),
+                    DisableUnban = table.Column<bool>(type: "INTEGER", nullable: false),
                     DateAdded = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -1243,14 +1244,13 @@ namespace NadekoBot.Migrations.Sqlite
                     WaifuUserId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     CycleNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     ManagerUserId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    WaifuFeePercent = table.Column<int>(type: "INTEGER", nullable: false),
+                    ReturnsCap = table.Column<long>(type: "INTEGER", nullable: false),
+                    ManagerCutPercent = table.Column<double>(type: "REAL", nullable: false),
+                    Price = table.Column<long>(type: "INTEGER", nullable: false),
                     TotalBacked = table.Column<long>(type: "INTEGER", nullable: false),
-                    TotalReturns = table.Column<long>(type: "INTEGER", nullable: false),
-                    WaifuEarnings = table.Column<long>(type: "INTEGER", nullable: false),
-                    ManagerEarnings = table.Column<long>(type: "INTEGER", nullable: false),
-                    FanPool = table.Column<long>(type: "INTEGER", nullable: false),
-                    MoodSnapshot = table.Column<int>(type: "INTEGER", nullable: false),
-                    FoodSnapshot = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProcessedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Processed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ProcessedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2383,6 +2383,11 @@ namespace NadekoBot.Migrations.Sqlite
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_WaifuCycle_CycleNumber_Processed",
+                table: "WaifuCycle",
+                columns: new[] { "CycleNumber", "Processed" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WaifuCycle_WaifuUserId_CycleNumber",
                 table: "WaifuCycle",
                 columns: new[] { "WaifuUserId", "CycleNumber" },
@@ -2415,6 +2420,11 @@ namespace NadekoBot.Migrations.Sqlite
                 table: "WaifuGiftCount",
                 columns: new[] { "WaifuUserId", "GiftItemId" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WaifuInfo_ManagerUserId",
+                table: "WaifuInfo",
+                column: "ManagerUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WaifuInfo_UserId",

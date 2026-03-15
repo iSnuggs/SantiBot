@@ -275,6 +275,9 @@ namespace NadekoBot.Migrations.Sqlite
                     b.Property<DateTime?>("DateAdded")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("DisableUnban")
+                        .HasColumnType("INTEGER");
+
                     b.Property<ulong>("GuildId")
                         .HasColumnType("INTEGER");
 
@@ -2701,37 +2704,36 @@ namespace NadekoBot.Migrations.Sqlite
                     b.Property<int>("CycleNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("FanPool")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("FoodSnapshot")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("ManagerEarnings")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("ManagerCutPercent")
+                        .HasColumnType("REAL");
 
                     b.Property<ulong>("ManagerUserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("MoodSnapshot")
+                    b.Property<long>("Price")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("ProcessedAt")
+                    b.Property<bool>("Processed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("ProcessedAt")
                         .HasColumnType("TEXT");
+
+                    b.Property<long>("ReturnsCap")
+                        .HasColumnType("INTEGER");
 
                     b.Property<long>("TotalBacked")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("TotalReturns")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("WaifuEarnings")
+                    b.Property<int>("WaifuFeePercent")
                         .HasColumnType("INTEGER");
 
                     b.Property<ulong>("WaifuUserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CycleNumber", "Processed");
 
                     b.HasIndex("WaifuUserId", "CycleNumber")
                         .IsUnique();
@@ -2861,6 +2863,8 @@ namespace NadekoBot.Migrations.Sqlite
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerUserId");
 
                     b.HasIndex("UserId")
                         .IsUnique();

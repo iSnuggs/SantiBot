@@ -71,8 +71,7 @@ public class WaifuIntegrationTests
         await _svc.SnapshotCycleInternalAsync(cycleNumber);
         _cs.ClearReceivedCalls();
 
-        await using (var ctx = _db.GetDbContext())
-            await _svc.ProcessCycleInternalAsync(ctx, cycleNumber);
+        await _svc.ProcessCycleInternalAsync(cycleNumber);
 
         // Verify cycle record created with non-zero returns
         await using (var ctx = _db.GetDbContext())
@@ -80,11 +79,10 @@ public class WaifuIntegrationTests
             var cycle = await ctx.GetTable<WaifuCycle>()
                 .FirstOrDefaultAsyncLinqToDB(x => x.WaifuUserId == 1001 && x.CycleNumber == cycleNumber);
             Assert.That(cycle, Is.Not.Null);
-            Assert.That(cycle!.TotalReturns, Is.GreaterThan(0));
-            Assert.That(cycle.TotalBacked, Is.EqualTo(100_000_000));
+            Assert.That(cycle!.TotalBacked, Is.EqualTo(100_000_000));
 
             var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
-            Assert.That(wi.TotalProduced, Is.EqualTo(cycle.TotalReturns));
+            Assert.That(wi.TotalProduced, Is.GreaterThan(0));
         }
     }
 
@@ -100,20 +98,20 @@ public class WaifuIntegrationTests
             await WaifuTestHelper.SetBankBalance(ctx, 2001, 5_000);
         }
 
-        // Manager resigns -> price drops to 5000
+        // Manager resigns -> price drops to MinPrice (1000)
         await _svc.ResignManagerAsync(3001, 1001);
         await using (var ctx = _db.GetDbContext())
         {
             var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
-            Assert.That(wi.Price, Is.EqualTo(5000));
+            Assert.That(wi.Price, Is.EqualTo(1000));
             Assert.That(wi.ManagerUserId, Is.Null);
         }
 
-        // User B buys at reduced price: ceil(5000*1.15)=5750
+        // User B buys at reduced price: ceil(1000*1.15)=1150
         _cs.ClearReceivedCalls();
         var buy = await _svc.BuyManagerAsync(2001, 1001);
         Assert.That(buy.IsT4, Is.True);
-        Assert.That(buy.AsT4.Value.PricePaid, Is.EqualTo(5750));
+        Assert.That(buy.AsT4.Value.PricePaid, Is.EqualTo(1150));
 
         await using (var ctx = _db.GetDbContext())
         {

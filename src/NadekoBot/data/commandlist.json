@@ -6724,11 +6724,13 @@
       "Aliases": [
         ".inrole"
       ],
-      "Description": "Lists every person from the specified role on this server. You can specify a page before the role to jump to that page. Provide no role to list users who have no roles",
+      "Description": "Lists every person from the specified role(s) on this server. When multiple roles are specified, shows users who have ALL of them. You can specify a page number as the first argument. Provide no role to list users who have no roles.",
       "Usage": [
         ".inrole RoleName",
         ".inrole 5 RoleName",
-        ".inrole"
+        ".inrole",
+        ".inrole @Moderator @VIP",
+        ".inrole 5 @Moderator @VIP"
       ],
       "Submodule": "Utility",
       "Module": "Utility",

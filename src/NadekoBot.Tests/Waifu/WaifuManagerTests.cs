@@ -104,9 +104,9 @@ public class WaifuManagerTests
     }
 
     [Test]
-    public async Task ResignManager_WithFans_CorrectDistribution()
+    public async Task ResignManager_CorrectDistribution()
     {
-        // Price=10000: refund=5000, waifuCut=1000, fanDist=3500
+        // Price=10000: refund=9000, waifuCut=500, burned=500
         await using (var ctx = _db.GetDbContext())
         {
             await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 10000, managerId: 2001);
@@ -119,22 +119,25 @@ public class WaifuManagerTests
         var result = await _svc.ResignManagerAsync(2001, 1001);
         Assert.That(result.IsT1, Is.True, "Expected Success");
 
-        await _cs.Received(1).AddAsync(2001, 5000, Arg.Any<TxData?>());
-        await _cs.Received(1).AddAsync(1001, 1000, Arg.Any<TxData?>());
-        await _cs.Received(1).AddAsync(3001, 3500, Arg.Any<TxData?>());
+        await _cs.Received(1).AddAsync(2001, 9000, Arg.Any<TxData?>());
 
         await using (var ctx = _db.GetDbContext())
         {
             var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
             Assert.That(wi.ManagerUserId, Is.Null);
-            Assert.That(wi.Price, Is.EqualTo(5000));
+            Assert.That(wi.Price, Is.EqualTo(1000));
+
+            var payout = await ctx.GetTable<WaifuPendingPayout>()
+                .FirstOrDefaultAsyncLinqToDB(x => x.UserId == 1001);
+            Assert.That(payout, Is.Not.Null);
+            Assert.That(payout!.Amount, Is.EqualTo(500));
         }
     }
 
     [Test]
-    public async Task ResignManager_PriceBelowFloor_ClampsToMinimum()
+    public async Task ResignManager_PriceAlwaysDropsToMinPrice()
     {
-        // Price=1500, refund=750 -> newPrice=max(1000,750)=1000
+        // Price=1500: refund=1350, waifuCut=75, price always -> MinPrice=1000
         await using (var ctx = _db.GetDbContext())
         {
             await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 1500, managerId: 2001);
@@ -147,7 +150,7 @@ public class WaifuManagerTests
             var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
             Assert.That(wi.Price, Is.EqualTo(1000));
         }
-        await _cs.Received(1).AddAsync(2001, 750, Arg.Any<TxData?>());
+        await _cs.Received(1).AddAsync(2001, 1350, Arg.Any<TxData?>());
     }
 
     [Test]

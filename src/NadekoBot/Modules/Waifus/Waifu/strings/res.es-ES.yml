@@ -22,11 +22,6 @@ waifu_invalid_fee: 'La tarifa debe ser entre {0}% y {1}%.'
 waifu_fee_set: 'Tarifa actualizada a {0}%.'
 waifu_no_fans: Ningún fan todavía.
 waifu_fans_title: 'Fans de {0}'
-waifu_manager: Manager
-waifu_projected_payout: Pago Proyectado
-waifu_total: Total
-waifu_label: Waifu
-waifu_fan_pool: Pool de Fans
 waifu_lb_title: 🏆 Ranking de Waifus (por precio)
 waifu_lb_title_backed: 🏆 Ranking de Waifus (por apoyo)
 waifu_lb_empty: Ninguna waifu con historial de ciclo aún.
@@ -40,9 +35,8 @@ waifu_stop_backing_confirm: ¿Estás seguro de que quieres dejar de ser fan? Ya 
 waifu_switch_confirm: '¿Actualmente eres fan de {0}. Cambiar tu apoyo a {1}?'
 waifu_manager_exit_title: Renuncia de Manager
 waifu_manager_exit_warning: 'Renunciar tendrá las siguientes consecuencias financieras:'
-waifu_refund: Tu Reembolso (50%)
-waifu_goes_to_waifu: Va para la Waifu (10%)
-waifu_goes_to_fans: Distribuido a Fans (35%)
+waifu_refund: Tu Reembolso (90%)
+waifu_goes_to_waifu: Va para la Waifu (5%)
 waifu_burned: Quemado (5%)
 waifu_new_price: Nuevo Precio de la Waifu
 waifu_outside_buy_window: Las compras de manager solo están disponibles durante las primeras 18 horas de un ciclo.
@@ -53,9 +47,6 @@ waifu_old_manager_payout: Manager Anterior (90%)
 waifu_over_cap: sobre el límite
 waifu_no_manager_title: ¡Necesita un Manager!
 waifu_no_manager_payout: 'No está ganando nada aún. Sin un manager, el precio baja {0}% cada ciclo. ¡Sé el primero en gestionar!'
-waifu_pending_fans: '(+{0} entrando, -{1} saliendo)'
-waifu_fan_pending: ⏳ pendiente
-waifu_fan_last_earned: 'último ganado: {0}'
 waifu_now_backing_hint: |-
   ¡Ahora eres fan de {0}!
   *Tu saldo bancario es tu poder de apoyo -- cuanto más tengas, más ganarás.*

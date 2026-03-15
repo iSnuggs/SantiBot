@@ -25,7 +25,7 @@ public class WaifuCycleTests
     private TestDbService _db = null!;
     private FakeTimeProvider _time = null!;
 
-    private const double CYCLE_HOURS = 84.0;
+    private const double CYCLE_HOURS = 24.0;
     private const double BASE_RETURN_RATE = 0.17;
     private static readonly double CYCLES_PER_YEAR = 365.25 * 24 / CYCLE_HOURS;
     private static readonly DateTime Epoch = new(2025, 1, 7, 0, 0, 0, DateTimeKind.Utc);
@@ -51,24 +51,24 @@ public class WaifuCycleTests
         Assert.That(_svc.GetCurrentCycle(), Is.EqualTo(0));
         Assert.That(_svc.GetCycleStartTime(0), Is.EqualTo(Epoch));
         Assert.That(_svc.GetCycleProgressFraction(), Is.EqualTo(0.0).Within(0.001));
-        Assert.That(_svc.GetTimeUntilPayout().TotalHours, Is.EqualTo(84.0).Within(0.01));
+        Assert.That(_svc.GetTimeUntilPayout().TotalHours, Is.EqualTo(24.0).Within(0.01));
 
-        _time.SetUtcNow(new(Epoch.AddHours(42), TimeSpan.Zero));
+        _time.SetUtcNow(new(Epoch.AddHours(12), TimeSpan.Zero));
         Assert.That(_svc.GetCurrentCycle(), Is.EqualTo(0));
         Assert.That(_svc.GetCycleProgressFraction(), Is.EqualTo(0.5).Within(0.01));
 
-        _time.SetUtcNow(new(Epoch.AddHours(84), TimeSpan.Zero));
+        _time.SetUtcNow(new(Epoch.AddHours(24), TimeSpan.Zero));
         Assert.That(_svc.GetCurrentCycle(), Is.EqualTo(1));
     }
 
     [Test]
-    public async Task Snapshot_CapturesActiveFanBalances()
+    public async Task Snapshot_CapturesWaifuAndFanData()
     {
         var cycleNumber = _svc.GetCurrentCycle();
 
         await using (var ctx = _db.GetDbContext())
         {
-            await WaifuTestHelper.CreateWaifu(ctx, 1001);
+            await WaifuTestHelper.CreateWaifu(ctx, 1001, fee: 5, managerId: 2001, returnsCap: 500_000_000);
             await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
             await WaifuTestHelper.SetBankBalance(ctx, 2001, 5000);
         }
@@ -77,13 +77,20 @@ public class WaifuCycleTests
 
         await using (var ctx = _db.GetDbContext())
         {
-            var snapshots = await ctx.GetTable<WaifuCycleSnapshot>()
+            var waifuSnap = await ctx.GetTable<WaifuCycle>()
+                .FirstOrDefaultAsyncLinqToDB(x => x.WaifuUserId == 1001 && x.CycleNumber == cycleNumber);
+            Assert.That(waifuSnap, Is.Not.Null);
+            Assert.That(waifuSnap!.ManagerUserId, Is.EqualTo(2001));
+            Assert.That(waifuSnap.WaifuFeePercent, Is.EqualTo(5));
+            Assert.That(waifuSnap.ReturnsCap, Is.EqualTo(500_000_000));
+            Assert.That(waifuSnap.Processed, Is.False);
+
+            var fanSnaps = await ctx.GetTable<WaifuCycleSnapshot>()
                 .Where(x => x.WaifuUserId == 1001 && x.CycleNumber == cycleNumber)
                 .ToListAsyncLinqToDB();
-
-            Assert.That(snapshots, Has.Count.EqualTo(1));
-            Assert.That(snapshots[0].UserId, Is.EqualTo(2001));
-            Assert.That(snapshots[0].SnapshotBalance, Is.EqualTo(5000));
+            Assert.That(fanSnaps, Has.Count.EqualTo(1));
+            Assert.That(fanSnaps[0].UserId, Is.EqualTo(2001));
+            Assert.That(fanSnaps[0].SnapshotBalance, Is.EqualTo(5000));
         }
     }
 
@@ -110,24 +117,21 @@ public class WaifuCycleTests
             await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 1000, food: 1000, fee: 5,
                 managerId: 2001, returnsCap: returnsCap);
             await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, cycleNumber, 1001, 2001, totalBacked);
+            await WaifuTestHelper.SetBankBalance(ctx, 2001, totalBacked);
         }
 
-        await using (var ctx = _db.GetDbContext())
-        {
-            var waifu = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
-            await _svc.ProcessWaifuCycleInternalAsync(ctx, waifu, cycleNumber);
-        }
+        // Snapshot creates WaifuCycle + WaifuCycleSnapshot records
+        await _svc.SnapshotCycleInternalAsync(cycleNumber);
+
+        await _svc.ProcessCycleInternalAsync(cycleNumber);
 
         await using (var ctx = _db.GetDbContext())
         {
             var cycle = await ctx.GetTable<WaifuCycle>()
                 .FirstAsyncLinqToDB(x => x.WaifuUserId == 1001 && x.CycleNumber == cycleNumber);
 
-            Assert.That(cycle.TotalReturns, Is.EqualTo(expectedReturns));
-            Assert.That(cycle.WaifuEarnings, Is.EqualTo(waifuNet));
-            Assert.That(cycle.ManagerEarnings, Is.EqualTo(managerCut));
-            Assert.That(cycle.FanPool, Is.EqualTo(fanPool));
+            Assert.That(cycle.Processed, Is.True);
+            Assert.That(cycle.TotalBacked, Is.EqualTo(totalBacked));
 
             var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
             Assert.That(wi.TotalProduced, Is.EqualTo(expectedReturns));
@@ -143,25 +147,19 @@ public class WaifuCycleTests
         {
             await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 0, food: 0, managerId: 2001, returnsCap: 500_000_000);
             await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, cycleNumber, 1001, 2001, 100_000_000);
+            await WaifuTestHelper.SetBankBalance(ctx, 2001, 100_000_000);
         }
 
-        await using (var ctx = _db.GetDbContext())
-        {
-            var waifu = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
-            await _svc.ProcessWaifuCycleInternalAsync(ctx, waifu, cycleNumber);
-        }
+        await _svc.SnapshotCycleInternalAsync(cycleNumber);
+        await _svc.ProcessCycleInternalAsync(cycleNumber);
 
         await using (var ctx = _db.GetDbContext())
         {
             var cycle = await ctx.GetTable<WaifuCycle>()
                 .FirstOrDefaultAsyncLinqToDB(x => x.WaifuUserId == 1001 && x.CycleNumber == cycleNumber);
-            Assert.That(cycle, Is.Null);
-        }
-        await _cs.DidNotReceive().AddAsync(Arg.Any<ulong>(), Arg.Any<long>(), Arg.Any<TxData?>());
+            Assert.That(cycle, Is.Not.Null);
+            Assert.That(cycle!.Processed, Is.True);
 
-        await using (var ctx = _db.GetDbContext())
-        {
             var payouts = await ctx.GetTable<WaifuPendingPayout>().ToListAsyncLinqToDB();
             Assert.That(payouts, Is.Empty);
         }
@@ -174,14 +172,12 @@ public class WaifuCycleTests
 
         await using (var ctx = _db.GetDbContext())
         {
-            // Normal waifu: stats should decrement
             await ctx.GetTable<WaifuInfo>().InsertAsync(() => new WaifuInfo
             {
                 UserId = 1001, Mood = 500, Food = 500, WaifuFeePercent = 5, Price = 1000,
                 ReturnsCap = 1_000_000, IsHubby = false,
                 LastDecayTime = new DateTime(2025, 1, 7, 0, 0, 0, DateTimeKind.Utc), TotalProduced = 0
             });
-            // Zero-stat waifu: should floor at 0
             await ctx.GetTable<WaifuInfo>().InsertAsync(() => new WaifuInfo
             {
                 UserId = 1002, Mood = 0, Food = 0, WaifuFeePercent = 5, Price = 1000,
@@ -213,14 +209,14 @@ public class WaifuCycleTests
         {
             await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 1000, food: 1000, managerId: 2001, returnsCap: 500_000_000);
             await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, cycleNumber, 1001, 2001, 50_000_000);
+            await WaifuTestHelper.SetBankBalance(ctx, 2001, 50_000_000);
         }
 
-        await using (var ctx = _db.GetDbContext())
-            await _svc.ProcessCycleInternalAsync(ctx, cycleNumber);
+        await _svc.SnapshotCycleInternalAsync(cycleNumber);
+        await _svc.ProcessCycleInternalAsync(cycleNumber);
+
         _cs.ClearReceivedCalls();
-        await using (var ctx = _db.GetDbContext())
-            await _svc.ProcessCycleInternalAsync(ctx, cycleNumber);
+        await _svc.ProcessCycleInternalAsync(cycleNumber);
 
         await _cs.DidNotReceive().AddAsync(Arg.Any<ulong>(), Arg.Any<long>(), Arg.Any<TxData?>());
     }
@@ -228,8 +224,6 @@ public class WaifuCycleTests
     [Test]
     public async Task CycleProcessing_MultiBackerPayout_CorrectDistribution()
     {
-        // Manager=500M (50%), FanA=300M (30%), FanB=200M (20%), total=1B
-        // Full stats, fee=5%, returnsCap=5B
         var cycleNumber = _svc.GetCurrentCycle();
         long manager = 500_000_000, fanA = 300_000_000, fanB = 200_000_000;
 
@@ -242,19 +236,16 @@ public class WaifuCycleTests
                 .InsertAsync(() => new WaifuFan { UserId = 3001, WaifuUserId = 1001, DelegatedAt = DateTime.UtcNow });
             await ctx.GetTable<WaifuFan>()
                 .InsertAsync(() => new WaifuFan { UserId = 4001, WaifuUserId = 1001, DelegatedAt = DateTime.UtcNow });
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, cycleNumber, 1001, 2001, manager);
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, cycleNumber, 1001, 3001, fanA);
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, cycleNumber, 1001, 4001, fanB);
+            await WaifuTestHelper.SetBankBalance(ctx, 2001, manager);
+            await WaifuTestHelper.SetBankBalance(ctx, 3001, fanA);
+            await WaifuTestHelper.SetBankBalance(ctx, 4001, fanB);
         }
+
+        await _svc.SnapshotCycleInternalAsync(cycleNumber);
 
         _cs.ClearReceivedCalls();
-        await using (var ctx = _db.GetDbContext())
-        {
-            var waifu = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
-            await _svc.ProcessWaifuCycleInternalAsync(ctx, waifu, cycleNumber);
-        }
+        await _svc.ProcessCycleInternalAsync(cycleNumber);
 
-        // total=1B, cap=5B, fee=5%, full stats
         var cycleRate = BASE_RETURN_RATE / CYCLES_PER_YEAR;
         var expReturnsD = (decimal)(1_000_000_000 * cycleRate * 1.0);
         var expWaifuCutD = expReturnsD * 5 / 100m;
@@ -270,16 +261,8 @@ public class WaifuCycleTests
         {
             var cycle = await ctx.GetTable<WaifuCycle>()
                 .FirstAsyncLinqToDB(x => x.WaifuUserId == 1001 && x.CycleNumber == cycleNumber);
-            Assert.That(cycle.TotalReturns, Is.EqualTo(expReturns));
-            Assert.That(cycle.WaifuEarnings, Is.EqualTo(expWaifuNet));
-            Assert.That(cycle.ManagerEarnings, Is.EqualTo(expManagerCut));
-            Assert.That(cycle.FanPool, Is.EqualTo(expFanPool));
-        }
+            Assert.That(cycle.Processed, Is.True);
 
-        await _cs.DidNotReceive().AddAsync(Arg.Any<ulong>(), Arg.Any<long>(), Arg.Any<TxData?>());
-
-        await using (var ctx = _db.GetDbContext())
-        {
             var waifuPending = await ctx.GetTable<WaifuPendingPayout>()
                 .FirstAsyncLinqToDB(x => x.UserId == 1001);
             Assert.That((long)Math.Floor(waifuPending.Amount), Is.EqualTo(expWaifuNet));
@@ -299,107 +282,20 @@ public class WaifuCycleTests
     }
 
     [Test]
-    public async Task CatchUp_ProcessesMissedCycle()
-    {
-        // Simulate: cycle 0 was snapshotted but never processed, now we're in cycle 1
-        _time.SetUtcNow(new(Epoch.AddHours(CYCLE_HOURS), TimeSpan.Zero));
-
-        await using (var ctx = _db.GetDbContext())
-        {
-            await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 1000, food: 1000, fee: 5,
-                managerId: 2001, returnsCap: 500_000_000);
-            await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, 0, 1001, 2001, 100_000_000);
-        }
-
-        Assert.That(_svc.GetCurrentCycle(), Is.EqualTo(1));
-
-        await _svc.CatchUpMissedCyclesInternalAsync();
-
-        await using (var ctx = _db.GetDbContext())
-        {
-            var cycle = await ctx.GetTable<WaifuCycle>()
-                .FirstOrDefaultAsyncLinqToDB(x => x.WaifuUserId == 1001 && x.CycleNumber == 0);
-            Assert.That(cycle, Is.Not.Null);
-            Assert.That(cycle!.TotalReturns, Is.GreaterThan(0));
-        }
-    }
-
-    [Test]
-    public async Task CatchUp_SkipsAlreadyProcessedCycle()
-    {
-        _time.SetUtcNow(new(Epoch.AddHours(CYCLE_HOURS), TimeSpan.Zero));
-
-        await using (var ctx = _db.GetDbContext())
-        {
-            await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 1000, food: 1000, fee: 5,
-                managerId: 2001, returnsCap: 500_000_000);
-            await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, 0, 1001, 2001, 100_000_000);
-            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 0, 2001, 100_000_000, 1000, 42, 6, 952);
-        }
-
-        _cs.ClearReceivedCalls();
-        await _svc.CatchUpMissedCyclesInternalAsync();
-
-        // No new payouts should have been added
-        await using (var ctx = _db.GetDbContext())
-        {
-            var payouts = await ctx.GetTable<WaifuPendingPayout>().ToListAsyncLinqToDB();
-            Assert.That(payouts, Is.Empty);
-        }
-    }
-
-    [Test]
-    public async Task CycleProcessing_ManagerlessWaifu_PriceDecays()
+    public async Task CycleProcessing_ManagerlessWaifu_NoCycleRecord()
     {
         var cycleNumber = _svc.GetCurrentCycle();
 
         await using (var ctx = _db.GetDbContext())
-            await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 5000); // no manager
+            await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 5000);
 
-        await using (var ctx = _db.GetDbContext())
-            await _svc.ProcessCycleInternalAsync(ctx, cycleNumber);
+        await _svc.SnapshotCycleInternalAsync(cycleNumber);
 
         await using (var ctx = _db.GetDbContext())
         {
-            var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
-            Assert.That(wi.Price, Is.EqualTo(4500)); // 5000 * 0.90, floored at 1000
-
             var cycle = await ctx.GetTable<WaifuCycle>()
                 .FirstOrDefaultAsyncLinqToDB(x => x.WaifuUserId == 1001 && x.CycleNumber == cycleNumber);
-            Assert.That(cycle, Is.Not.Null);
-            Assert.That(cycle!.TotalReturns, Is.EqualTo(0));
-        }
-    }
-
-    [Test]
-    public async Task CatchUp_ManagerlessWaifu_NoDoubleDecay()
-    {
-        _time.SetUtcNow(new(Epoch.AddHours(CYCLE_HOURS), TimeSpan.Zero));
-
-        await using (var ctx = _db.GetDbContext())
-        {
-            await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 5000); // no manager
-            await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, 0, 1001, 2001, 100_000);
-        }
-
-        await _svc.CatchUpMissedCyclesInternalAsync();
-
-        await using (var ctx = _db.GetDbContext())
-        {
-            var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
-            Assert.That(wi.Price, Is.EqualTo(4500)); // decayed once
-        }
-
-        // Second catch-up should not decay again
-        await _svc.CatchUpMissedCyclesInternalAsync();
-
-        await using (var ctx = _db.GetDbContext())
-        {
-            var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
-            Assert.That(wi.Price, Is.EqualTo(4500)); // still 4500, not 4050
+            Assert.That(cycle, Is.Null);
         }
     }
 
@@ -411,37 +307,33 @@ public class WaifuCycleTests
             await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 1000, food: 1000, managerId: 2001, returnsCap: 500_000_000);
             await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
 
-            // Old data (cycle 0 and 5)
             await WaifuTestHelper.CreateCycleSnapshot(ctx, 0, 1001, 2001, 100_000);
-            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 0, 2001, 100_000, 50, 2, 1, 47);
+            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 0, 2001, 100_000);
             await WaifuTestHelper.CreateCycleSnapshot(ctx, 4, 1001, 2001, 200_000);
-            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 4, 2001, 200_000, 100, 4, 2, 94);
+            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 4, 2001, 200_000);
 
-            // Recent data (cycle 6 and 15)
-            await WaifuTestHelper.CreateCycleSnapshot(ctx, 6, 1001, 2001, 300_000);
-            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 6, 2001, 300_000, 150, 6, 3, 141);
+            await WaifuTestHelper.CreateCycleSnapshot(ctx, 8, 1001, 2001, 300_000);
+            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 8, 2001, 300_000);
             await WaifuTestHelper.CreateCycleSnapshot(ctx, 15, 1001, 2001, 400_000);
-            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 15, 2001, 400_000, 200, 8, 4, 188);
+            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 15, 2001, 400_000);
         }
 
-        // Cleanup with currentCycle=15 -> cutoff=5 -> deletes cycles < 5
-        await using (var ctx = _db.GetDbContext())
-            await _svc.CleanupOldCycleDataInternalAsync(ctx, 15);
+        // currentCycle=15 -> cutoff=15-8=7 -> deletes cycles < 7
+        await _svc.CleanupOldCycleDataInternalAsync(15);
 
         await using (var ctx = _db.GetDbContext())
         {
             var snapshots = await ctx.GetTable<WaifuCycleSnapshot>().ToListAsyncLinqToDB();
             var cycles = await ctx.GetTable<WaifuCycle>().ToListAsyncLinqToDB();
 
-            // Cycle 0 deleted, cycles 4, 6, 15 remain
             Assert.That(snapshots.Any(x => x.CycleNumber == 0), Is.False);
             Assert.That(snapshots.Any(x => x.CycleNumber == 4), Is.False);
-            Assert.That(snapshots.Any(x => x.CycleNumber == 6), Is.True);
+            Assert.That(snapshots.Any(x => x.CycleNumber == 8), Is.True);
             Assert.That(snapshots.Any(x => x.CycleNumber == 15), Is.True);
 
             Assert.That(cycles.Any(x => x.CycleNumber == 0), Is.False);
             Assert.That(cycles.Any(x => x.CycleNumber == 4), Is.False);
-            Assert.That(cycles.Any(x => x.CycleNumber == 6), Is.True);
+            Assert.That(cycles.Any(x => x.CycleNumber == 8), Is.True);
             Assert.That(cycles.Any(x => x.CycleNumber == 15), Is.True);
         }
     }
@@ -449,10 +341,7 @@ public class WaifuCycleTests
     [Test]
     public async Task CleanupOldCycleData_NothingToDelete_NoError()
     {
-        await using (var ctx = _db.GetDbContext())
-            await _svc.CleanupOldCycleDataInternalAsync(ctx, 5);
-
-        // No exception = success
+        await _svc.CleanupOldCycleDataInternalAsync(5);
         Assert.Pass();
     }
 }

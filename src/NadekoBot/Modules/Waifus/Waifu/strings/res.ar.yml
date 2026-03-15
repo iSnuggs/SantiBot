@@ -22,11 +22,6 @@ waifu_invalid_fee: 'يجب أن تكون الرسوم بين {0}% و {1}%.'
 waifu_fee_set: 'تم تحديث الرسوم إلى {0}%.'
 waifu_no_fans: لا يوجد معجبون بعد.
 waifu_fans_title: 'معجبو {0}'
-waifu_manager: المدير
-waifu_projected_payout: المدفوعات المتوقعة
-waifu_total: الإجمالي
-waifu_label: وايفو
-waifu_fan_pool: مجموع المعجبين
 waifu_lb_title: 🏆 لوحة متصدري الوايفو (حسب السعر)
 waifu_lb_title_backed: 🏆 لوحة متصدري الوايفو (حسب الدعم)
 waifu_lb_empty: لا توجد وايفو لديها سجل دورات بعد.
@@ -40,9 +35,8 @@ waifu_stop_backing_confirm: هل أنت متأكد أنك تريد التوقف 
 waifu_switch_confirm: 'أنت حاليًا من معجبي {0}. هل تريد تحويل دعمك إلى {1} بدلاً من ذلك؟'
 waifu_manager_exit_title: استقالة المدير
 waifu_manager_exit_warning: 'ستترتب على الاستقالة العواقب المالية التالية:'
-waifu_refund: استردادك (50%)
-waifu_goes_to_waifu: يذهب للوايفو (10%)
-waifu_goes_to_fans: يوزع على المعجبين (35%)
+waifu_refund: استردادك (90%)
+waifu_goes_to_waifu: يذهب للوايفو (5%)
 waifu_burned: محروق (5%)
 waifu_new_price: سعر الوايفو الجديد
 waifu_outside_buy_window: شراء منصب المدير متاح فقط خلال أول 18 ساعة من الدورة.
@@ -53,9 +47,6 @@ waifu_old_manager_payout: المدير السابق (90%)
 waifu_over_cap: تجاوز الحد
 waifu_no_manager_title: بحاجة إلى مدير!
 waifu_no_manager_payout: 'لا أرباح بعد. بدون مدير، ينخفض السعر بنسبة {0}% كل دورة. كن أول من يدير!'
-waifu_pending_fans: '(+{0} ينضمون، -{1} يغادرون)'
-waifu_fan_pending: ⏳ قيد الانتظار
-waifu_fan_last_earned: 'آخر ربح: {0}'
 waifu_now_backing_hint: |-
   أنت الآن من معجبي {0}!
   *رصيد بنكك هو قوة دعمك -- كلما زاد ما تملكه، كلما زاد ما تكسبه.*
