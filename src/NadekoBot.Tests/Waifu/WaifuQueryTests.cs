@@ -100,22 +100,6 @@ public class WaifuQueryTests
     }
 
     [Test]
-    public async Task GetManagerExitInfo_ReturnsCorrectBreakdown()
-    {
-        await using (var ctx = _db.GetDbContext())
-            await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 10_000, managerId: 5001);
-
-        var result = await _svc.GetManagerExitInfoAsync(5001, 1001);
-        Assert.That(result, Is.Not.Null);
-        Assert.That(result!.Refund, Is.EqualTo(9000));
-        Assert.That(result.WaifuCut, Is.EqualTo(500));
-        Assert.That(result.Burned, Is.EqualTo(500));
-        Assert.That(result.NewPrice, Is.EqualTo(1000));
-
-        Assert.That(await _svc.GetManagerExitInfoAsync(9999, 1001), Is.Null);
-    }
-
-    [Test]
     public async Task GetFans_ReturnsFanList()
     {
         await using (var ctx = _db.GetDbContext())

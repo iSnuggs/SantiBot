@@ -20,11 +20,9 @@ waifu_not_backing: Тренутно не подржавате никога.
 waifu_stopped_backing: Престали сте да будете фан.
 waifu_invalid_fee: 'Провизија мора бити између {0}% и {1}%.'
 waifu_fee_set: 'Провизија ажурирана на {0}%.'
-waifu_no_fans: Још нема фанова.
 waifu_fans_title: 'Фанови корисника {0}'
 waifu_lb_title: 🏆 Ваифу ранг листа (по цени)
 waifu_lb_title_backed: 🏆 Ранг-листа вајфу (по подршци)
-waifu_lb_empty: Још нема вајфу са историјом циклуса.
 waifu_gift_shop_title: 🎁 Данашња продавница поклона
 waifu_shop_refreshes: 'Освежава се за {0}'
 waifu_item_not_found: 'Тај предмет није доступан данас. Користи `{0}wgiftshop` да видиш шта има на стању.'
@@ -34,16 +32,14 @@ waifu_stat_mood: расположење
 waifu_stop_backing_confirm: Да ли си сигуран/на да желиш да престанеш да будеш фан? Више нећеш зарађивати од исплата.
 waifu_switch_confirm: 'Тренутно си фан корисника {0}. Желиш да пребациш подршку на {1}?'
 waifu_manager_exit_title: Оставка менаџера
-waifu_manager_exit_warning: 'Оставка ће имати следеће финансијске последице:'
-waifu_refund: Твој поврат (90%)
-waifu_goes_to_waifu: Иде вајфу (5%)
-waifu_burned: Спаљено (5%)
-waifu_new_price: Нова цена вајфу
+waifu_manager_exit_confirm: 'Да ли си сигуран да желиш да се повучеш са позиције менаџера корисника {0}? Цена ће пасти на минимум.'
+waifu_goes_to_waifu: За Вајфу
+waifu_burned: Спаљено
 waifu_outside_buy_window: Куповина менаџерске позиције је доступна само током првих 18 сати циклуса.
-waifu_price_too_low: Цена је премала.
+waifu_price_too_low: Твоја понуда је прениска. Минимална цена је 115% тренутне цене вајфу.
 waifu_bought_manager_title: 🏢 Менаџерска позиција освојена!
 waifu_bought_manager: 'Сада си менаџер корисника {0} за {1:N0}!'
-waifu_old_manager_payout: Стари менаџер (90%)
+waifu_old_manager_payout: Претходни менаџер
 waifu_over_cap: преко лимита
 waifu_no_manager_title: Потребан менаџер!
 waifu_no_manager_payout: 'Још не зарађује ништа. Без менаџера, цена пада {0}% сваког циклуса. Буди први менаџер!'

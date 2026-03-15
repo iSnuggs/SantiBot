@@ -20,11 +20,9 @@ waifu_not_backing: Nie wspierasz teraz nikogo.
 waifu_stopped_backing: Przestałeś być fanem.
 waifu_invalid_fee: 'Prowizja musi wynosić od {0}% do {1}%.'
 waifu_fee_set: 'Prowizja ustawiona na {0}%.'
-waifu_no_fans: Jeszcze brak fanów.
 waifu_fans_title: 'Fani {0}'
 waifu_lb_title: 🏆 Ranking Waifu (wg ceny)
 waifu_lb_title_backed: 🏆 Ranking Waifu (wg wsparcia)
-waifu_lb_empty: Brak waifu z historią cykli.
 waifu_gift_shop_title: 🎁 Dzisiejszy Sklep z Prezentami
 waifu_shop_refreshes: 'Odświeża się za {0}'
 waifu_item_not_found: 'Ten przedmiot nie jest dziś dostępny. Użyj `{0}wgiftshop`, żeby zobaczyć co jest w ofercie.'
@@ -34,16 +32,14 @@ waifu_stat_mood: humor
 waifu_stop_backing_confirm: Na pewno chcesz przestać być fanem? Nie będziesz już zarabiać z wypłat.
 waifu_switch_confirm: 'Aktualnie wspierasz {0}. Chcesz przerzucić wsparcie na {1}?'
 waifu_manager_exit_title: Rezygnacja Managera
-waifu_manager_exit_warning: 'Rezygnacja będzie miała następujące konsekwencje finansowe:'
-waifu_refund: Twój zwrot (90%)
-waifu_goes_to_waifu: Trafia do Waifu (5%)
-waifu_burned: Spalone (5%)
-waifu_new_price: Nowa Cena Waifu
+waifu_manager_exit_confirm: 'Na pewno chcesz zrezygnować z bycia managerem {0}? Cena waifu spadnie do minimum.'
+waifu_goes_to_waifu: Dla Waifu
+waifu_burned: Spalone
 waifu_outside_buy_window: Zakup pozycji managera jest dostępny tylko przez pierwsze 18 godzin cyklu.
-waifu_price_too_low: Cena jest za niska.
+waifu_price_too_low: Twoja oferta jest za niska. Minimalna cena to 115% aktualnej ceny waifu.
 waifu_bought_manager_title: 🏢 Pozycja Managera Zdobyta!
 waifu_bought_manager: 'Jesteś teraz managerem {0} za {1:N0}!'
-waifu_old_manager_payout: Poprzedni Manager (90%)
+waifu_old_manager_payout: Poprzedni Manager
 waifu_over_cap: ponad limit
 waifu_no_manager_title: Potrzebuje Managera!
 waifu_no_manager_payout: 'Jeszcze nic nie zarabia. Bez managera cena spada o {0}% co cykl. Zostań pierwszym managerem!'

@@ -20,11 +20,9 @@ waifu_not_backing: Ти зараз нікого не підтримуєш.
 waifu_stopped_backing: Ти перестав(-ла) бути фанатом.
 waifu_invalid_fee: 'Комісія має бути від {0}% до {1}%.'
 waifu_fee_set: 'Комісію оновлено до {0}%.'
-waifu_no_fans: Фанатів поки немає.
 waifu_fans_title: 'Фанати {0}'
 waifu_lb_title: 🏆 Рейтинг вайфу (за ціною)
 waifu_lb_title_backed: 🏆 Рейтинг вайфу (за підтримкою)
-waifu_lb_empty: Ще немає вайфу з історією циклів.
 waifu_gift_shop_title: 🎁 Сьогоднішній магазин подарунків
 waifu_shop_refreshes: 'Оновиться через {0}'
 waifu_item_not_found: 'Цей предмет сьогодні недоступний. Використай `{0}wgiftshop`, щоб подивитися, що є в наявності.'
@@ -34,16 +32,14 @@ waifu_stat_mood: настрій
 waifu_stop_backing_confirm: Ти впевнений(-а), що хочеш перестати бути фанатом? Ти більше не будеш отримувати виплати.
 waifu_switch_confirm: 'Ти зараз фанат {0}. Переключити підтримку на {1}?'
 waifu_manager_exit_title: Відставка менеджера
-waifu_manager_exit_warning: 'Відставка матиме такі фінансові наслідки:'
-waifu_refund: Твоє повернення (90%)
-waifu_goes_to_waifu: Переходить вайфу (5%)
-waifu_burned: Спалено (5%)
-waifu_new_price: Нова ціна вайфу
+waifu_manager_exit_confirm: 'Ти впевнений, що хочеш піти з посади менеджера {0}? Ціна вайфу впаде до мінімуму.'
+waifu_goes_to_waifu: Для Вайфу
+waifu_burned: Спалено
 waifu_outside_buy_window: Купівля менеджера доступна лише протягом перших 18 годин циклу.
-waifu_price_too_low: Ціна занадто низька.
+waifu_price_too_low: Твоя ставка занадто низька. Мінімальна ціна - 115% від поточної ціни вайфу.
 waifu_bought_manager_title: 🏢 Посада менеджера отримана!
 waifu_bought_manager: 'Тепер ти менеджер {0} за {1:N0}!'
-waifu_old_manager_payout: Старий менеджер (90%)
+waifu_old_manager_payout: Попередній менеджер
 waifu_over_cap: понад ліміт
 waifu_no_manager_title: Потрібен менеджер!
 waifu_no_manager_payout: 'Поки що нічого не заробляє. Без менеджера ціна падає на {0}% кожен цикл. Стань першим менеджером!'

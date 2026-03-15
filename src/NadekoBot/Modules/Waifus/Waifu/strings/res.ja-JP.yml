@@ -20,11 +20,9 @@ waifu_not_backing: 現在誰も応援していません。
 waifu_stopped_backing: ファンをやめました。
 waifu_invalid_fee: '手数料は{0}%から{1}%の間でなければなりません。'
 waifu_fee_set: '手数料が{0}%に更新されました。'
-waifu_no_fans: まだファンはいません。
 waifu_fans_title: '{0}のファン'
 waifu_lb_title: 🏆 ワイフランキング（価格順）
 waifu_lb_title_backed: 🏆 ワイフランキング（応援順）
-waifu_lb_empty: まだサイクル履歴のあるワイフはいません。
 waifu_gift_shop_title: 🎁 今日のギフトショップ
 waifu_shop_refreshes: '{0}後に更新'
 waifu_item_not_found: 'そのアイテムは今日は利用できません。`{0}wgiftshop`で在庫を確認してください。'
@@ -34,16 +32,14 @@ waifu_stat_mood: ムード
 waifu_stop_backing_confirm: ファンをやめますか？ペイアウトからの収入がなくなります。
 waifu_switch_confirm: '現在{0}のファンです。{1}に応援先を変更しますか？'
 waifu_manager_exit_title: マネージャー辞任
-waifu_manager_exit_warning: '辞任すると以下の財務的影響があります:'
-waifu_refund: あなたの返金（90%）
-waifu_goes_to_waifu: ワイフへ（5%）
-waifu_burned: バーン（5%）
-waifu_new_price: 新しいワイフ価格
+waifu_manager_exit_confirm: '{0}のマネージャーを辞任してよろしいですか？waifuの価格は最低額に下がります。'
+waifu_goes_to_waifu: Waifuへ
+waifu_burned: バーン
 waifu_outside_buy_window: マネージャーの購入はサイクルの最初の18時間のみ利用可能です。
-waifu_price_too_low: 価格が低すぎます。
+waifu_price_too_low: 入札額が低すぎます。最低価格は現在のwaifu価格の115%です。
 waifu_bought_manager_title: 🏢 マネージャーポジション獲得！
 waifu_bought_manager: 'あなたは{1:N0}で{0}のマネージャーになりました！'
-waifu_old_manager_payout: 前マネージャー（90%）
+waifu_old_manager_payout: 前マネージャー
 waifu_over_cap: 上限超過
 waifu_no_manager_title: マネージャーが必要です！
 waifu_no_manager_payout: 'まだ何も稼いでいません。マネージャーがいないと、価格は毎サイクル{0}%下がります。最初のマネージャーになりましょう！'

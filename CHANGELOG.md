@@ -2,6 +2,12 @@
 
 *a,c,f,r,o,d*
 
+## [7.0.8] - 15.03.2026
+
+### Fixed
+
+- Important new waifu system related fixes
+
 ## [7.0.7] - 15.03.2026
 
 ### Added

@@ -64,12 +64,15 @@ waifuback:
 waifubuy:
   desc: |-
     Buys the manager position for a waifu.
-    Costs 115% of the current price. Only available in the first 18h of a cycle.
-    90% goes to old manager, 5% to waifu, 5% burned.
+    You must bid at least 115% of the current price. Only available in the first 18h of a cycle.
+    90% goes to old manager (or waifu if first), 5% to waifu, 5% burned.
   ex:
-    - '@user'
+    - '1150 @user'
+    - '5000 @user'
   params:
-    - user:
+    - amount:
+        desc: "Your bid amount."
+      user:
         desc: "The waifu to manage."
 waifufee:
   desc: |-
@@ -123,8 +126,8 @@ waifugift:
         desc: "The waifu to gift."
 waifuresign:
   desc: |-
-    Resign from managing a specific waifu. Triggers manager exit with financial consequences
-    (50% refund, 10% to waifu, 35% to fans, 5% burned).
+    Resign from managing a specific waifu. The waifu's price drops to the minimum.
+    No refund is given.
   ex:
     - '@user'
   params:

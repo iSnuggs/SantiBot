@@ -20,11 +20,9 @@ waifu_not_backing: Du unterstützt gerade niemanden.
 waifu_stopped_backing: Du hast aufgehört, Fan zu sein.
 waifu_invalid_fee: 'Die Gebühr muss zwischen {0}% und {1}% liegen.'
 waifu_fee_set: 'Gebühr auf {0}% aktualisiert.'
-waifu_no_fans: Noch keine Fans.
 waifu_fans_title: 'Fans von {0}'
 waifu_lb_title: 🏆 Waifu-Rangliste (nach Preis)
 waifu_lb_title_backed: 🏆 Waifu-Rangliste (nach Unterstützung)
-waifu_lb_empty: Noch keine Waifus mit Zyklusgeschichte.
 waifu_gift_shop_title: 🎁 Heutiger Geschenkeladen
 waifu_shop_refreshes: 'Aktualisiert in {0}'
 waifu_item_not_found: 'Dieser Artikel ist heute nicht verfügbar. Benutze `{0}wgiftshop`, um das Angebot zu sehen.'
@@ -34,16 +32,14 @@ waifu_stat_mood: Stimmung
 waifu_stop_backing_confirm: Bist du sicher, dass du aufhören willst, Fan zu sein? Du wirst nicht mehr von Auszahlungen profitieren.
 waifu_switch_confirm: 'Du bist derzeit Fan von {0}. Deine Unterstützung zu {1} wechseln?'
 waifu_manager_exit_title: Manager-Rücktritt
-waifu_manager_exit_warning: 'Der Rücktritt hat folgende finanzielle Konsequenzen:'
-waifu_refund: Deine Rückerstattung (90%)
-waifu_goes_to_waifu: Geht an die Waifu (5%)
-waifu_burned: Verbrannt (5%)
-waifu_new_price: Neuer Waifu-Preis
+waifu_manager_exit_confirm: 'Bist du sicher, dass du als Manager von {0} zurücktreten willst? Der Waifu-Preis fällt auf das Minimum.'
+waifu_goes_to_waifu: Geht an Waifu
+waifu_burned: Verbrannt
 waifu_outside_buy_window: Manager-Käufe sind nur in den ersten 18 Stunden eines Zyklus verfügbar.
-waifu_price_too_low: Der Preis ist zu niedrig.
+waifu_price_too_low: Dein Gebot ist zu niedrig. Der Mindestpreis beträgt 115% des aktuellen Waifu-Preises.
 waifu_bought_manager_title: 🏢 Manager-Position Erworben!
 waifu_bought_manager: 'Du bist jetzt Manager von {0} für {1:N0}!'
-waifu_old_manager_payout: Vorheriger Manager (90%)
+waifu_old_manager_payout: Alter Manager
 waifu_over_cap: über dem Limit
 waifu_no_manager_title: Braucht einen Manager!
 waifu_no_manager_payout: 'Verdient noch nichts. Ohne Manager sinkt der Preis um {0}% pro Zyklus. Sei der Erste, der verwaltet!'

@@ -50,9 +50,10 @@ public class WaifuIntegrationTests
         await _svc.BecomeFanAsync(2001, 1001);
         await _svc.BecomeFanAsync(3001, 1001);
 
-        // Buy manager
-        var buy = await _svc.BuyManagerAsync(3001, 1001);
-        Assert.That(buy.IsT4, Is.True);
+        // Buy manager - opt-in price was 10000, so waifu price = 10000/10 = 1000
+        // Required = ceil(1000 * 1.15) = 1150
+        var buy = await _svc.BuyManagerAsync(3001, 1001, 1150);
+        Assert.That(buy.IsT5, Is.True);
 
         // Boost stats and set bank balances for meaningful cycle payouts
         await using (var ctx = _db.GetDbContext())
@@ -98,8 +99,13 @@ public class WaifuIntegrationTests
             await WaifuTestHelper.SetBankBalance(ctx, 2001, 5_000);
         }
 
-        // Manager resigns -> price drops to MinPrice (1000)
+        // No money should be created on resign
+        _cs.ClearReceivedCalls();
+
+        // Manager resigns -> price drops to MinPrice (1000), no refund
         await _svc.ResignManagerAsync(3001, 1001);
+        await _cs.DidNotReceive().AddAsync(Arg.Any<ulong>(), Arg.Any<long>(), Arg.Any<TxData?>());
+
         await using (var ctx = _db.GetDbContext())
         {
             var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
@@ -109,9 +115,9 @@ public class WaifuIntegrationTests
 
         // User B buys at reduced price: ceil(1000*1.15)=1150
         _cs.ClearReceivedCalls();
-        var buy = await _svc.BuyManagerAsync(2001, 1001);
-        Assert.That(buy.IsT4, Is.True);
-        Assert.That(buy.AsT4.Value.PricePaid, Is.EqualTo(1150));
+        var buy = await _svc.BuyManagerAsync(2001, 1001, 1150);
+        Assert.That(buy.IsT5, Is.True);
+        Assert.That(buy.AsT5.Value.PricePaid, Is.EqualTo(1150));
 
         await using (var ctx = _db.GetDbContext())
         {

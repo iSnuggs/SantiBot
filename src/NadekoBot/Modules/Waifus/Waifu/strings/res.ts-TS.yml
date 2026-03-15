@@ -20,11 +20,9 @@ waifu_not_backing: You're not backing anyone right now... H-how lonely. N-not th
 waifu_stopped_backing: You stopped being a fan. I-it's not like loyalty matters... *looks away*
 waifu_invalid_fee: 'The fee has to be between {0}% and {1}%, b-baka! I-is math that hard for you?!'
 waifu_fee_set: 'Fee updated to {0}%. I-I didn''t calculate it for you or anything!'
-waifu_no_fans: No fans yet... I-it's not like I feel sorry for you! *blushes*
 waifu_fans_title: 'Fans of {0}'
 waifu_lb_title: 🏆 Waifu Leaderboard (by price)
 waifu_lb_title_backed: 🏆 W-Waifu Leaderboard (by backing)... not that I ranked them for you!
-waifu_lb_empty: N-no waifus with cycle history yet... it's not like I was looking or anything!
 waifu_gift_shop_title: 🎁 T-Today's Gift Shop... I guess
 waifu_shop_refreshes: 'Refreshes in {0}... n-not that I''m counting down!'
 waifu_item_not_found: 'T-that item isn''t available today, b-baka! Use `{0}wgiftshop` to see what''s in stock... I-I''m just telling you because it''s my job!'
@@ -34,16 +32,14 @@ waifu_stat_mood: mood
 waifu_stop_backing_confirm: A-are you sure you want to stop being a fan?! You won't earn from payouts anymore... n-not that I care what you do!
 waifu_switch_confirm: 'Y-you''re currently a fan of {0}. Switch your support to {1} instead? ...make up your mind already, b-baka!'
 waifu_manager_exit_title: Manager Resignation... hmph!
-waifu_manager_exit_warning: R-resigning will have these financial consequences... d-don't say I didn't warn you!
-waifu_refund: Your Refund (90%)
-waifu_goes_to_waifu: Goes to Waifu (5%)
-waifu_burned: Burned (5%)
-waifu_new_price: New Waifu Price
+waifu_manager_exit_confirm: 'Y-you really want to resign as manager of {0}?! The waifu''s price will drop to the minimum... n-not that I care!'
+waifu_goes_to_waifu: G-goes to Waifu
+waifu_burned: B-burned... hmph!
 waifu_outside_buy_window: M-manager purchases are only available during the first 18 hours of a cycle... read the rules next time, b-baka!
-waifu_price_too_low: T-the price is too low! Don't be so cheap!
+waifu_price_too_low: Y-your bid is too low! The minimum price is 115% of the current waifu price... do your math, b-baka!
 waifu_bought_manager_title: 🏢 Manager Position Acquired!
 waifu_bought_manager: 'Y-you''re now the manager of {0} for {1:N0}! ...I-it''s not like I''m impressed or anything!'
-waifu_old_manager_payout: Old Manager (90%)
+waifu_old_manager_payout: O-old Manager... hmph!
 waifu_over_cap: over cap
 waifu_no_manager_title: N-Needs a Manager!
 waifu_no_manager_payout: 'Not earning anything yet... Without a manager, price drops {0}% each cycle. B-be the first to manage, I guess!'

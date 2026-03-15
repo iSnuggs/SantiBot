@@ -1,4 +1,5 @@
 using System.Text;
+using NadekoBot.Common.TypeReaders;
 using NadekoBot.Modules.Gambling.Bank;
 using NadekoBot.Modules.Waifus.Waifu;
 
@@ -457,6 +458,7 @@ public partial class Waifus
         await res.Match(
             _ => Response().Error(strs.waifu_already_backing).SendAsync(),
             _ => Response().Error(strs.waifu_not_found).SendAsync(),
+            _ => Response().Error(strs.waifu_self_not_allowed).SendAsync(),
             _ => Response()
                 .Confirm(strs.waifu_now_backing_hint(user.ToString()))
                 .Interaction(CreateBankInteraction())
@@ -465,15 +467,18 @@ public partial class Waifus
     }
 
     [Cmd]
-    public async Task WaifuBuy([Leftover] IUser user)
+    public async Task WaifuBuy(
+        [OverrideTypeReader(typeof(BalanceTypeReader))] long amount,
+        [Leftover] IUser user)
     {
-        var res = await svc.BuyManagerAsync(ctx.User.Id, user.Id);
+        var res = await svc.BuyManagerAsync(ctx.User.Id, user.Id, amount);
 
         await res.Match(
             _ => Response().Error(strs.waifu_outside_buy_window).SendAsync(),
             _ => Response().Error(strs.waifu_insufficient_funds).SendAsync(),
             _ => Response().Error(strs.waifu_not_found).SendAsync(),
             _ => Response().Error(strs.waifu_price_too_low).SendAsync(),
+            _ => Response().Error(strs.waifu_self_not_allowed).SendAsync(),
             info =>
             {
                 var eb = CreateEmbed()
@@ -600,23 +605,19 @@ public partial class Waifus
     [Cmd]
     public async Task WaifuResign([Leftover] IUser user)
     {
-        var exitInfo = await svc.GetManagerExitInfoAsync(ctx.User.Id, user.Id);
-        if (exitInfo is null)
+        var isManaging = await svc.IsManagingAsync(ctx.User.Id, user.Id);
+        if (!isManaging)
         {
             await Response().Error(strs.waifu_not_managing).SendAsync();
             return;
         }
 
-        var embed = CreateEmbed()
+        var confirmEmbed = CreateEmbed()
             .WithPendingColor()
             .WithTitle(GetText(strs.waifu_manager_exit_title))
-            .WithDescription(GetText(strs.waifu_manager_exit_warning))
-            .AddField(GetText(strs.waifu_refund), $"{exitInfo.Refund:N0}", true)
-            .AddField(GetText(strs.waifu_goes_to_waifu), $"{exitInfo.WaifuCut:N0}", true)
-            .AddField(GetText(strs.waifu_burned), $"{exitInfo.Burned:N0}", true)
-            .AddField(GetText(strs.waifu_new_price), $"{exitInfo.NewPrice:N0}", true);
+            .WithDescription(GetText(strs.waifu_manager_exit_confirm(user.ToString())));
 
-        if (!await PromptUserConfirmAsync(embed))
+        if (!await PromptUserConfirmAsync(confirmEmbed))
             return;
 
         var res = await svc.ResignManagerAsync(ctx.User.Id, user.Id);

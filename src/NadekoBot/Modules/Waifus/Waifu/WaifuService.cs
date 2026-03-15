@@ -33,7 +33,7 @@ public sealed partial class OptInResult : OneOfBase<ErrAlreadyOptedIn, ErrInsuff
 public sealed partial class OptOutResult : OneOfBase<ErrNotOptedIn, ErrHasFans, Success>;
 
 [GenerateOneOf]
-public sealed partial class BackResult : OneOfBase<ErrAlreadyBacking, ErrWaifuNotFound, Success>;
+public sealed partial class BackResult : OneOfBase<ErrAlreadyBacking, ErrWaifuNotFound, ErrSelfNotAllowed, Success>;
 
 [GenerateOneOf]
 public sealed partial class StopBackingResult : OneOfBase<ErrNotBacking, Success>;
@@ -50,7 +50,7 @@ public readonly struct ErrItemNotAvailable;
 public sealed partial class GiftResult : OneOfBase<ErrSelfNotAllowed, ErrInsufficientFunds, ErrWaifuNotFound, ErrItemNotAvailable, Success<WaifuGiftItem>>;
 
 [GenerateOneOf]
-public sealed partial class BuyManagerResult : OneOfBase<ErrOutsideBuyWindow, ErrInsufficientFunds, ErrWaifuNotFound, ErrPriceTooLow, Success<BuyManagerInfo>>;
+public sealed partial class BuyManagerResult : OneOfBase<ErrOutsideBuyWindow, ErrInsufficientFunds, ErrWaifuNotFound, ErrPriceTooLow, ErrSelfNotAllowed, Success<BuyManagerInfo>>;
 
 [GenerateOneOf]
 public sealed partial class ResignManagerResult : OneOfBase<ErrNotManager, Success>;
@@ -72,16 +72,7 @@ public sealed class BuyManagerInfo
     public long Burned { get; init; }
 }
 
-/// <summary>
-/// Details about a manager exit for confirmation display.
-/// </summary>
-public sealed class ManagerExitInfo
-{
-    public long Refund { get; init; }
-    public long WaifuCut { get; init; }
-    public long Burned { get; init; }
-    public long NewPrice { get; init; }
-}
+
 
 #endregion
 
@@ -274,30 +265,13 @@ public sealed class WaifuService(
     }
 
     /// <summary>
-    /// Gets the manager exit info for confirmation display for a specific waifu.
+    /// Checks whether the user is the manager of a specific waifu.
     /// </summary>
-    public async Task<ManagerExitInfo?> GetManagerExitInfoAsync(ulong userId, ulong waifuUserId)
+    public async Task<bool> IsManagingAsync(ulong userId, ulong waifuUserId)
     {
         await using var ctx = db.GetDbContext();
-        var conf = configService.Data;
-
-        var wi = await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.UserId == waifuUserId && x.ManagerUserId == userId)
-            .FirstOrDefaultAsyncLinqToDB();
-
-        if (wi is null)
-            return null;
-
-        var price = wi.Price;
-        var refund = (long)(price * conf.ManagerExitRefund);
-        var waifuCut = (long)(price * conf.ManagerExitWaifu);
-        return new ManagerExitInfo
-        {
-            Refund = refund,
-            WaifuCut = waifuCut,
-            Burned = price - refund - waifuCut,
-            NewPrice = conf.MinPrice
-        };
+        return await ctx.GetTable<WaifuInfo>()
+            .AnyAsyncLinqToDB(x => x.UserId == waifuUserId && x.ManagerUserId == userId);
     }
 
     /// <summary>
@@ -445,6 +419,9 @@ public sealed class WaifuService(
     /// </summary>
     public async Task<BackResult> BecomeFanAsync(ulong userId, ulong waifuUserId)
     {
+        if (userId == waifuUserId)
+            return new ErrSelfNotAllowed();
+
         await using var ctx = db.GetDbContext();
 
         var existingFan = await ctx.GetTable<WaifuFan>()
@@ -495,52 +472,26 @@ public sealed class WaifuService(
         return new Success();
     }
 
-    /// <summary>
-    /// Processes the financial consequences of a manager voluntarily exiting.
-    /// </summary>
-    private async Task ProcessManagerExitAsync(NadekoContext ctx, WaifuInfo waifu, ulong managerUserId)
-    {
-        var conf = configService.Data;
-        var price = waifu.Price;
-        var refund = (long)(price * conf.ManagerExitRefund);
-        var waifuCut = (long)(price * conf.ManagerExitWaifu);
-
-        await using var tx = await ctx.Database.BeginTransactionAsync();
-
-        if (refund > 0)
-            await cs.AddAsync(managerUserId, refund, new("waifu", "manager-exit-refund"));
-
-        if (waifuCut > 0)
-            await AddPendingPayoutInternalAsync(ctx, waifu.UserId, waifuCut);
-
-        await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.Id == waifu.Id)
-            .Set(x => x.ManagerUserId, (ulong?)null)
-            .Set(x => x.Price, conf.MinPrice)
-            .UpdateAsync();
-
-        await tx.CommitAsync();
-    }
-
     #endregion
 
     #region Manager Resign
 
     /// <summary>
-    /// Resigns from managing a specific waifu. Triggers the manager exit financial flow.
+    /// Resigns from managing a specific waifu. No money changes hands; price drops to MinPrice.
     /// </summary>
     public async Task<ResignManagerResult> ResignManagerAsync(ulong userId, ulong waifuUserId)
     {
         await using var ctx = db.GetDbContext();
+        var conf = configService.Data;
 
-        var wi = await ctx.GetTable<WaifuInfo>()
+        var updated = await ctx.GetTable<WaifuInfo>()
             .Where(x => x.UserId == waifuUserId && x.ManagerUserId == userId)
-            .FirstOrDefaultAsyncLinqToDB();
+            .Set(x => x.ManagerUserId, (ulong?)null)
+            .Set(x => x.Price, conf.MinPrice)
+            .UpdateAsync();
 
-        if (wi is null)
+        if (updated == 0)
             return new ErrNotManager();
-
-        await ProcessManagerExitAsync(ctx, wi, userId);
 
         return new Success();
     }
@@ -579,10 +530,13 @@ public sealed class WaifuService(
     #region Manager Purchase
 
     /// <summary>
-    /// Buys the manager position for a waifu.
+    /// Buys the manager position for a waifu. Buyer specifies bid amount which must be >= 115% of current price.
     /// </summary>
-    public async Task<BuyManagerResult> BuyManagerAsync(ulong buyerUserId, ulong waifuUserId)
+    public async Task<BuyManagerResult> BuyManagerAsync(ulong buyerUserId, ulong waifuUserId, long bidAmount)
     {
+        if (buyerUserId == waifuUserId)
+            return new ErrSelfNotAllowed();
+
         await using var ctx = db.GetDbContext();
         var conf = configService.Data;
 
@@ -598,13 +552,16 @@ public sealed class WaifuService(
 
         var requiredPrice = (long)Math.Ceiling(wi.Price * (1 + conf.ManagerBuyPremium));
 
-        if (!await cs.RemoveAsync(buyerUserId, requiredPrice, new("waifu", "manager-buy")))
+        if (bidAmount < requiredPrice)
+            return new ErrPriceTooLow();
+
+        if (!await cs.RemoveAsync(buyerUserId, bidAmount, new("waifu", "manager-buy")))
             return new ErrInsufficientFunds();
 
         var oldManagerId = wi.ManagerUserId;
-        var oldManagerPayout = (long)(requiredPrice * conf.ManagerOldPayout);
-        var waifuPayout = (long)(requiredPrice * conf.ManagerWaifuPayout);
-        var burned = requiredPrice - oldManagerPayout - waifuPayout;
+        var oldManagerPayout = (long)(bidAmount * conf.ManagerOldPayout);
+        var waifuPayout = (long)(bidAmount * conf.ManagerWaifuPayout);
+        var burned = bidAmount - oldManagerPayout - waifuPayout;
 
         // Atomic update: only succeed if manager hasn't changed since we read
         int updated;
@@ -613,7 +570,7 @@ public sealed class WaifuService(
             updated = await ctx.GetTable<WaifuInfo>()
                 .Where(x => x.Id == wi.Id && x.ManagerUserId == oldManagerId.Value)
                 .Set(x => x.ManagerUserId, buyerUserId)
-                .Set(x => x.Price, requiredPrice)
+                .Set(x => x.Price, bidAmount)
                 .UpdateAsync();
         }
         else
@@ -621,14 +578,14 @@ public sealed class WaifuService(
             updated = await ctx.GetTable<WaifuInfo>()
                 .Where(x => x.Id == wi.Id && x.ManagerUserId == null)
                 .Set(x => x.ManagerUserId, buyerUserId)
-                .Set(x => x.Price, requiredPrice)
+                .Set(x => x.Price, bidAmount)
                 .UpdateAsync();
         }
 
         if (updated == 0)
         {
             // Another buyer won the race - refund
-            await cs.AddAsync(buyerUserId, requiredPrice, new("waifu", "manager-buy-refund"));
+            await cs.AddAsync(buyerUserId, bidAmount, new("waifu", "manager-buy-refund"));
             return new ErrPriceTooLow();
         }
 
@@ -647,7 +604,7 @@ public sealed class WaifuService(
 
         return new Success<BuyManagerInfo>(new BuyManagerInfo
         {
-            PricePaid = requiredPrice,
+            PricePaid = bidAmount,
             OldManagerId = oldManagerId,
             OldManagerPayout = oldManagerId.HasValue ? oldManagerPayout : 0,
             WaifuPayout = waifuPayout,
