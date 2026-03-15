@@ -14,7 +14,8 @@ emoji_add_error: >-
 emoji_added: 'Added a new emoji: {0}'
 emoji_slots_full_retry_gif: All image emoji slots are full. Would you like to retry as an animated GIF instead?
 emoji_not_removed: 'The following emojis were not removed: {0}'
-inrole_list: List of users in {0} role ({1})
+inrole_users: Users
+inrole_nobody: No users found
 invalid_emoji_link: Specified link is either not an image or exceeds 256KB.
 listservers: |-
   ID: {0}

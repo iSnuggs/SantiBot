@@ -402,4 +402,57 @@ public class WaifuCycleTests
             Assert.That(wi.Price, Is.EqualTo(4500)); // still 4500, not 4050
         }
     }
+
+    [Test]
+    public async Task CleanupOldCycleData_DeletesOldRecords_KeepsRecent()
+    {
+        await using (var ctx = _db.GetDbContext())
+        {
+            await WaifuTestHelper.CreateWaifu(ctx, 1001, mood: 1000, food: 1000, managerId: 2001, returnsCap: 500_000_000);
+            await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
+
+            // Old data (cycle 0 and 5)
+            await WaifuTestHelper.CreateCycleSnapshot(ctx, 0, 1001, 2001, 100_000);
+            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 0, 2001, 100_000, 50, 2, 1, 47);
+            await WaifuTestHelper.CreateCycleSnapshot(ctx, 4, 1001, 2001, 200_000);
+            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 4, 2001, 200_000, 100, 4, 2, 94);
+
+            // Recent data (cycle 6 and 15)
+            await WaifuTestHelper.CreateCycleSnapshot(ctx, 6, 1001, 2001, 300_000);
+            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 6, 2001, 300_000, 150, 6, 3, 141);
+            await WaifuTestHelper.CreateCycleSnapshot(ctx, 15, 1001, 2001, 400_000);
+            await WaifuTestHelper.CreateCycleRecord(ctx, 1001, 15, 2001, 400_000, 200, 8, 4, 188);
+        }
+
+        // Cleanup with currentCycle=15 -> cutoff=5 -> deletes cycles < 5
+        await using (var ctx = _db.GetDbContext())
+            await _svc.CleanupOldCycleDataInternalAsync(ctx, 15);
+
+        await using (var ctx = _db.GetDbContext())
+        {
+            var snapshots = await ctx.GetTable<WaifuCycleSnapshot>().ToListAsyncLinqToDB();
+            var cycles = await ctx.GetTable<WaifuCycle>().ToListAsyncLinqToDB();
+
+            // Cycle 0 deleted, cycles 4, 6, 15 remain
+            Assert.That(snapshots.Any(x => x.CycleNumber == 0), Is.False);
+            Assert.That(snapshots.Any(x => x.CycleNumber == 4), Is.False);
+            Assert.That(snapshots.Any(x => x.CycleNumber == 6), Is.True);
+            Assert.That(snapshots.Any(x => x.CycleNumber == 15), Is.True);
+
+            Assert.That(cycles.Any(x => x.CycleNumber == 0), Is.False);
+            Assert.That(cycles.Any(x => x.CycleNumber == 4), Is.False);
+            Assert.That(cycles.Any(x => x.CycleNumber == 6), Is.True);
+            Assert.That(cycles.Any(x => x.CycleNumber == 15), Is.True);
+        }
+    }
+
+    [Test]
+    public async Task CleanupOldCycleData_NothingToDelete_NoError()
+    {
+        await using (var ctx = _db.GetDbContext())
+            await _svc.CleanupOldCycleDataInternalAsync(ctx, 5);
+
+        // No exception = success
+        Assert.Pass();
+    }
 }
