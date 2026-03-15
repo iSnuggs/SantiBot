@@ -93,11 +93,15 @@ public class WaifuCycleTests
         long totalBacked = 100_000_000;
         long returnsCap = 500_000_000;
         var cycleRate = BASE_RETURN_RATE / CYCLES_PER_YEAR;
-        var expectedReturns = (long)(totalBacked * cycleRate * 1.0);
-        var waifuCut = (long)(expectedReturns * 5 / 100.0);
-        var managerCut = (long)(waifuCut * 0.15);
-        var waifuNet = waifuCut - managerCut;
-        var fanPool = expectedReturns - waifuCut;
+        var returnsD = (decimal)(totalBacked * cycleRate * 1.0);
+        var waifuCutD = returnsD * 5 / 100m;
+        var managerCutD = waifuCutD * 0.15m;
+        var waifuNetD = waifuCutD - managerCutD;
+        var fanPoolD = returnsD - waifuCutD;
+        var expectedReturns = (long)returnsD;
+        var waifuNet = (long)waifuNetD;
+        var managerCut = (long)managerCutD;
+        var fanPool = (long)fanPoolD;
 
         var cycleNumber = _svc.GetCurrentCycle();
 
@@ -252,11 +256,15 @@ public class WaifuCycleTests
 
         // total=1B, cap=5B, fee=5%, full stats
         var cycleRate = BASE_RETURN_RATE / CYCLES_PER_YEAR;
-        var expReturns = (long)(1_000_000_000 * cycleRate * 1.0);
-        var expWaifuCut = (long)(expReturns * 5 / 100.0);
-        var expManagerCut = (long)(expWaifuCut * 0.15);
-        var expWaifuNet = expWaifuCut - expManagerCut;
-        var expFanPool = expReturns - expWaifuCut;
+        var expReturnsD = (decimal)(1_000_000_000 * cycleRate * 1.0);
+        var expWaifuCutD = expReturnsD * 5 / 100m;
+        var expManagerCutD = expWaifuCutD * 0.15m;
+        var expWaifuNetD = expWaifuCutD - expManagerCutD;
+        var expFanPoolD = expReturnsD - expWaifuCutD;
+        var expReturns = (long)expReturnsD;
+        var expWaifuNet = (long)expWaifuNetD;
+        var expManagerCut = (long)expManagerCutD;
+        var expFanPool = (long)expFanPoolD;
 
         await using (var ctx = _db.GetDbContext())
         {
@@ -268,7 +276,7 @@ public class WaifuCycleTests
             Assert.That(cycle.FanPool, Is.EqualTo(expFanPool));
         }
 
-        var expManagerFanShare = (long)(expFanPool * 0.5);
+        var expManagerFanShare = (long)(expFanPoolD * 0.5m);
 
         // Cycle processing now writes to pending payouts, not cs.AddAsync
         await _cs.DidNotReceive().AddAsync(Arg.Any<ulong>(), Arg.Any<long>(), Arg.Any<TxData?>());
@@ -281,15 +289,15 @@ public class WaifuCycleTests
 
             var managerPending = await ctx.GetTable<WaifuPendingPayout>()
                 .FirstAsyncLinqToDB(x => x.UserId == 2001);
-            Assert.That((long)Math.Floor(managerPending.Amount), Is.EqualTo(expManagerCut + expManagerFanShare));
+            Assert.That((long)Math.Floor(managerPending.Amount), Is.EqualTo((long)(expManagerCutD + expFanPoolD * 0.5m)));
 
             var fanAPending = await ctx.GetTable<WaifuPendingPayout>()
                 .FirstAsyncLinqToDB(x => x.UserId == 3001);
-            Assert.That((long)Math.Floor(fanAPending.Amount), Is.EqualTo((long)(expFanPool * 0.3)));
+            Assert.That((long)Math.Floor(fanAPending.Amount), Is.EqualTo((long)(expFanPoolD * 0.3m)));
 
             var fanBPending = await ctx.GetTable<WaifuPendingPayout>()
                 .FirstAsyncLinqToDB(x => x.UserId == 4001);
-            Assert.That((long)Math.Floor(fanBPending.Amount), Is.EqualTo((long)(expFanPool * 0.2)));
+            Assert.That((long)Math.Floor(fanBPending.Amount), Is.EqualTo((long)(expFanPoolD * 0.2m)));
         }
     }
 
@@ -360,6 +368,41 @@ public class WaifuCycleTests
         {
             var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
             Assert.That(wi.Price, Is.EqualTo(4500)); // 5000 * 0.90, floored at 1000
+
+            var cycle = await ctx.GetTable<WaifuCycle>()
+                .FirstOrDefaultAsyncLinqToDB(x => x.WaifuUserId == 1001 && x.CycleNumber == cycleNumber);
+            Assert.That(cycle, Is.Not.Null);
+            Assert.That(cycle!.TotalReturns, Is.EqualTo(0));
+        }
+    }
+
+    [Test]
+    public async Task CatchUp_ManagerlessWaifu_NoDoubleDecay()
+    {
+        _time.SetUtcNow(new(Epoch.AddHours(CYCLE_HOURS), TimeSpan.Zero));
+
+        await using (var ctx = _db.GetDbContext())
+        {
+            await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 5000); // no manager
+            await WaifuTestHelper.CreateFan(ctx, 2001, 1001);
+            await WaifuTestHelper.CreateCycleSnapshot(ctx, 0, 1001, 2001, 100_000);
+        }
+
+        await _svc.CatchUpMissedCyclesInternalAsync();
+
+        await using (var ctx = _db.GetDbContext())
+        {
+            var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
+            Assert.That(wi.Price, Is.EqualTo(4500)); // decayed once
+        }
+
+        // Second catch-up should not decay again
+        await _svc.CatchUpMissedCyclesInternalAsync();
+
+        await using (var ctx = _db.GetDbContext())
+        {
+            var wi = await ctx.GetTable<WaifuInfo>().FirstAsyncLinqToDB(x => x.UserId == 1001);
+            Assert.That(wi.Price, Is.EqualTo(4500)); // still 4500, not 4050
         }
     }
 }

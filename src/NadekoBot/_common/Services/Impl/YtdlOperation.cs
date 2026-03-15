@@ -7,6 +7,8 @@ namespace NadekoBot.Services;
 
 public class YtdlOperation
 {
+    private const string COOKIES_PATH = "data/ytcookies.txt";
+
     private readonly string _baseArgString;
 
     public YtdlOperation(string baseArgString)
@@ -17,12 +19,17 @@ public class YtdlOperation
     private Process CreateProcess(string[] args)
     {
         var newArgs = args.Map(arg => (object)arg.Replace("\"", ""));
+        var arguments = string.Format(_baseArgString, newArgs);
+
+        if (File.Exists(COOKIES_PATH))
+            arguments = $"--cookies \"{COOKIES_PATH}\" " + arguments;
+
         return new()
         {
             StartInfo = new()
             {
                 FileName = "yt-dlp",
-                Arguments = string.Format(_baseArgString, newArgs),
+                Arguments = arguments,
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 RedirectStandardOutput = true,
