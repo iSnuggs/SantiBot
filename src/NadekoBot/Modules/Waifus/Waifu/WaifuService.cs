@@ -1058,34 +1058,22 @@ public sealed class WaifuService(
     }
 
     /// <summary>
-    /// Claims the pending payout. Floors to whole units, pays to wallet, keeps the fractional remainder.
+    /// Claims the pending payout. Floors to whole units, pays to wallet, discards fractional remainder.
     /// </summary>
     public async Task<ClaimPayoutResult> ClaimPayoutAsync(ulong userId)
     {
         await using var ctx = db.GetDbContext();
 
-        var row = await ctx.GetTable<WaifuPendingPayout>()
-            .FirstOrDefaultAsyncLinqToDB(x => x.UserId == userId);
+        var amounts = await ctx.GetTable<WaifuPendingPayout>()
+            .Where(x => x.UserId == userId)
+            .DeleteWithOutputAsync(x => x.Amount);
 
-        if (row is null || Math.Floor(row.Amount) < 1)
+        if (amounts.Length == 0)
             return new ErrNoPendingPayout();
 
-        var claimable = (long)Math.Floor(row.Amount);
-        var remainder = row.Amount - claimable;
-
-        if (remainder > 0)
-        {
-            await ctx.GetTable<WaifuPendingPayout>()
-                .Where(x => x.Id == row.Id)
-                .Set(x => x.Amount, remainder)
-                .UpdateAsync();
-        }
-        else
-        {
-            await ctx.GetTable<WaifuPendingPayout>()
-                .Where(x => x.Id == row.Id)
-                .DeleteAsync();
-        }
+        var claimable = (long)Math.Floor(amounts[0]);
+        if (claimable < 1)
+            return new ErrNoPendingPayout();
 
         await cs.AddAsync(userId, claimable, new("waifu", "payout-claim"));
 
@@ -1264,6 +1252,22 @@ public sealed class WaifuService(
                     Log.Information("Waifu {UserId} has no manager. Price decayed {OldPrice} -> {NewPrice}",
                         waifu.UserId, waifu.Price, newPrice);
 
+                    await ctx.GetTable<WaifuCycle>()
+                        .InsertAsync(() => new WaifuCycle
+                        {
+                            WaifuUserId = waifu.UserId,
+                            CycleNumber = cycleNumber,
+                            ManagerUserId = 0,
+                            TotalBacked = 0,
+                            TotalReturns = 0,
+                            WaifuEarnings = 0,
+                            ManagerEarnings = 0,
+                            FanPool = 0,
+                            MoodSnapshot = waifu.Mood,
+                            FoodSnapshot = waifu.Food,
+                            ProcessedAt = _timeProvider.GetUtcNow().UtcDateTime
+                        });
+
                     continue;
                 }
 
@@ -1307,53 +1311,56 @@ public sealed class WaifuService(
         var statMultiplier = (waifu.Mood + waifu.Food) / 2000.0;
         var cappedBacked = Math.Min(totalBacked, waifu.ReturnsCap);
 
-        var returns = (long)(cappedBacked * cycleRate * statMultiplier);
-        if (returns <= 0)
+        var returnsD = (decimal)(cappedBacked * cycleRate * statMultiplier);
+        if (returnsD < 1m)
         {
-            Log.Information("Waifu {UserId} cycle #{Cycle}: returns=0 (mood={Mood}, food={Food}, backed={Backed})",
+            Log.Information("Waifu {UserId} cycle #{Cycle}: returns<1 (mood={Mood}, food={Food}, backed={Backed})",
                 waifu.UserId, cycleNumber, waifu.Mood, waifu.Food, totalBacked);
             return;
         }
 
-        var waifuCut = (long)(returns * waifu.WaifuFeePercent / 100.0);
-        var managerCut = (long)(waifuCut * configService.Data.ManagerCutPercent);
-        var waifuNet = waifuCut - managerCut;
-        var fanPool = returns - waifuCut;
+        var waifuCutD = returnsD * waifu.WaifuFeePercent / 100m;
+        var managerCutD = waifuCutD * (decimal)configService.Data.ManagerCutPercent;
+        var waifuNetD = waifuCutD - managerCutD;
+        var fanPoolD = returnsD - waifuCutD;
+
+        var returns = (long)returnsD;
+        var waifuCut = (long)waifuCutD;
+        var managerCut = (long)managerCutD;
+        var waifuNet = (long)waifuNetD;
+        var fanPool = (long)fanPoolD;
 
         Log.Information(
             "Waifu {UserId} cycle #{Cycle}: backed={TotalBacked} capped={Capped} rate={Rate:P2} stats={Stats:P0} returns={Returns} | waifu={WaifuNet} manager={ManagerCut} fanPool={FanPool} fee={Fee}%",
             waifu.UserId, cycleNumber, totalBacked, cappedBacked, effectiveRate, statMultiplier,
             returns, waifuNet, managerCut, fanPool, waifu.WaifuFeePercent);
 
-        // Accumulate waifu earnings as pending payout
-        if (waifuNet > 0)
-            await AddPendingPayoutInternalAsync(ctx, waifu.UserId, waifuNet);
+        if (waifuNetD > 0)
+            await AddPendingPayoutInternalAsync(ctx, waifu.UserId, waifuNetD);
 
-        // Accumulate manager earnings (their cut + proportional fan share)
-        var managerFanShare = 0L;
+        var managerFanShareD = 0m;
         var managerSnapshot = snapshots.FirstOrDefault(x => x.UserId == managerId);
         if (managerSnapshot.Balance > 0 && totalBacked > 0)
-            managerFanShare = (long)(fanPool * ((double)managerSnapshot.Balance / totalBacked));
+            managerFanShareD = fanPoolD * managerSnapshot.Balance / totalBacked;
 
-        var totalManagerPay = managerCut + managerFanShare;
-        if (totalManagerPay > 0)
-            await AddPendingPayoutInternalAsync(ctx, managerId, totalManagerPay);
+        var totalManagerPayD = managerCutD + managerFanShareD;
+        if (totalManagerPayD > 0)
+            await AddPendingPayoutInternalAsync(ctx, managerId, totalManagerPayD);
 
         Log.Information("  Manager {ManagerId}: cut={ManagerCut} + fanShare={FanShare} = {Total}",
-            managerId, managerCut, managerFanShare, totalManagerPay);
+            managerId, (long)managerCutD, (long)managerFanShareD, (long)totalManagerPayD);
 
-        // Accumulate fan earnings proportionally (excluding manager's fan share already handled)
         foreach (var (fanId, balance) in snapshots)
         {
             if (fanId == managerId)
                 continue;
 
-            var share = (long)(fanPool * ((double)balance / totalBacked));
-            if (share > 0)
-                await AddPendingPayoutInternalAsync(ctx, fanId, share);
+            var shareD = fanPoolD * balance / totalBacked;
+            if (shareD > 0)
+                await AddPendingPayoutInternalAsync(ctx, fanId, shareD);
 
             Log.Information("  Fan {FanId}: balance={Balance} share={Share}",
-                fanId, balance, share);
+                fanId, balance, (long)shareD);
         }
 
         await ctx.GetTable<WaifuCycle>()

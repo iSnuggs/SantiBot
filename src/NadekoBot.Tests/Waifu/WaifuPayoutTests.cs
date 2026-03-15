@@ -55,7 +55,7 @@ public class WaifuPayoutTests
     }
 
     [Test]
-    public async Task ClaimPayout_WithPending_PaysToWalletAndZeroesOut()
+    public async Task ClaimPayout_FloorsAndDeletesRow()
     {
         await using (var ctx = _db.GetDbContext())
         {
@@ -63,49 +63,19 @@ public class WaifuPayoutTests
                 .InsertAsync(() => new WaifuPendingPayout
                 {
                     UserId = 1001,
-                    Amount = 500m
+                    Amount = 50.3m
                 });
         }
 
         var result = await _svc.ClaimPayoutAsync(1001);
-        Assert.That(result.IsT1, Is.True);
-        Assert.That(result.AsT1.Value, Is.EqualTo(500));
-
-        await _cs.Received(1).AddAsync(1001, 500, Arg.Any<TxData?>());
+        Assert.That(result.AsT1.Value, Is.EqualTo(50));
+        await _cs.Received(1).AddAsync(1001, 50, Arg.Any<TxData?>());
 
         await using (var ctx = _db.GetDbContext())
         {
             var row = await ctx.GetTable<WaifuPendingPayout>()
                 .FirstOrDefaultAsyncLinqToDB(x => x.UserId == 1001);
             Assert.That(row, Is.Null);
-        }
-    }
-
-    [Test]
-    public async Task ClaimPayout_FractionalAmount_KeepsRemainder()
-    {
-        await using (var ctx = _db.GetDbContext())
-        {
-            await ctx.GetTable<WaifuPendingPayout>()
-                .InsertAsync(() => new WaifuPendingPayout
-                {
-                    UserId = 1001,
-                    Amount = 123.75m
-                });
-        }
-
-        var result = await _svc.ClaimPayoutAsync(1001);
-        Assert.That(result.IsT1, Is.True);
-        Assert.That(result.AsT1.Value, Is.EqualTo(123));
-
-        await _cs.Received(1).AddAsync(1001, 123, Arg.Any<TxData?>());
-
-        await using (var ctx = _db.GetDbContext())
-        {
-            var row = await ctx.GetTable<WaifuPendingPayout>()
-                .FirstOrDefaultAsyncLinqToDB(x => x.UserId == 1001);
-            Assert.That(row, Is.Not.Null);
-            Assert.That(row!.Amount, Is.EqualTo(0.75m));
         }
     }
 
@@ -128,13 +98,20 @@ public class WaifuPayoutTests
     }
 
     [Test]
-    public async Task AddPendingPayout_AccumulatesAcrossMultipleCalls()
+    public async Task AddPendingPayout_AccumulatesFractionalDecimals()
     {
         await using (var ctx = _db.GetDbContext())
         {
-            await _svc.AddPendingPayoutInternalAsync(ctx, 1001, 100m);
-            await _svc.AddPendingPayoutInternalAsync(ctx, 1001, 50m);
-            await _svc.AddPendingPayoutInternalAsync(ctx, 1001, 25m);
+            await _svc.AddPendingPayoutInternalAsync(ctx, 1001, 100.25m);
+            await _svc.AddPendingPayoutInternalAsync(ctx, 1001, 50.50m);
+            await _svc.AddPendingPayoutInternalAsync(ctx, 1001, 25.10m);
+        }
+
+        await using (var ctx = _db.GetDbContext())
+        {
+            var row = await ctx.GetTable<WaifuPendingPayout>()
+                .FirstAsyncLinqToDB(x => x.UserId == 1001);
+            Assert.That(row.Amount, Is.EqualTo(175.85m));
         }
 
         var pending = await _svc.GetPendingPayoutAsync(1001);
@@ -142,7 +119,7 @@ public class WaifuPayoutTests
     }
 
     [Test]
-    public async Task CycleProcessing_WritesPendingPayouts()
+    public async Task CycleProcessing_WritesFractionalPendingPayouts()
     {
         var cycleNumber = _svc.GetCurrentCycle();
 
@@ -160,21 +137,19 @@ public class WaifuPayoutTests
             await _svc.ProcessWaifuCycleInternalAsync(ctx, waifu, cycleNumber);
         }
 
-        // cs.AddAsync should NOT have been called (payouts are pending)
         await _cs.DidNotReceive().AddAsync(Arg.Any<ulong>(), Arg.Any<long>(), Arg.Any<TxData?>());
 
-        // Pending payouts should exist for both waifu and manager
         await using (var ctx = _db.GetDbContext())
         {
             var waifuPending = await ctx.GetTable<WaifuPendingPayout>()
-                .FirstOrDefaultAsyncLinqToDB(x => x.UserId == 1001);
-            Assert.That(waifuPending, Is.Not.Null);
-            Assert.That(waifuPending!.Amount, Is.GreaterThan(0));
+                .FirstAsyncLinqToDB(x => x.UserId == 1001);
+            Assert.That(waifuPending.Amount, Is.Not.EqualTo(Math.Floor(waifuPending.Amount)),
+                "Waifu payout should have fractional component");
 
             var managerPending = await ctx.GetTable<WaifuPendingPayout>()
-                .FirstOrDefaultAsyncLinqToDB(x => x.UserId == 2001);
-            Assert.That(managerPending, Is.Not.Null);
-            Assert.That(managerPending!.Amount, Is.GreaterThan(0));
+                .FirstAsyncLinqToDB(x => x.UserId == 2001);
+            Assert.That(managerPending.Amount, Is.Not.EqualTo(Math.Floor(managerPending.Amount)),
+                "Manager payout should have fractional component");
         }
     }
 }

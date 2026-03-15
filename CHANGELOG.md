@@ -2,6 +2,12 @@
 
 *a,c,f,r,o,d*
 
+## [7.0.7] - 15.03.2026
+
+### Added
+
+- yt-dlp now automatically uses cookies from `data/ytcookies.txt` if the file exists, enabling downloads from sites that require authentication
+
 ## [7.0.6] - 14.03.2026
 
 ### Added
