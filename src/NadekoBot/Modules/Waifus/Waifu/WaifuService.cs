@@ -848,17 +848,13 @@ public sealed class WaifuService(
 
         await using var ctx = db.GetDbContext();
 
-        var wi = await ctx.GetTable<WaifuInfo>()
+        var updated = await ctx.GetTable<WaifuInfo>()
             .Where(x => x.UserId == waifuUserId)
-            .FirstOrDefaultAsyncLinqToDB();
-
-        if (wi is null)
-            return new ErrNotOptedIn();
-
-        await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.Id == wi.Id)
             .Set(x => x.WaifuFeePercent, percent)
             .UpdateAsync();
+
+        if (updated == 0)
+            return new ErrNotOptedIn();
 
         return new Success();
     }
@@ -883,15 +879,6 @@ public sealed class WaifuService(
         if (used >= conf.MaxDailyActions)
             return new ErrNoActionsLeft();
 
-        await using var ctx = db.GetDbContext();
-
-        var wi = await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.UserId == waifuId)
-            .FirstOrDefaultAsyncLinqToDB();
-
-        if (wi is null)
-            return new ErrWaifuNotFound();
-
         var baseMood = conf.BaseMoodIncrease;
         var moodIncrease = action switch
         {
@@ -901,12 +888,15 @@ public sealed class WaifuService(
             _ => baseMood
         };
 
-        var newMood = Math.Min(1000, wi.Mood + moodIncrease);
+        await using var ctx = db.GetDbContext();
 
-        await ctx.GetTable<WaifuInfo>()
-            .Where(x => x.Id == wi.Id)
-            .Set(x => x.Mood, newMood)
-            .UpdateAsync();
+        var updated = await ctx.GetTable<WaifuInfo>()
+            .Where(x => x.UserId == waifuId)
+            .Set(x => x.Mood, x => x.Mood + moodIncrease > 1000 ? 1000 : x.Mood + moodIncrease)
+            .UpdateWithOutputAsync((o, n) => n.Mood);
+
+        if (updated.Length == 0)
+            return new ErrWaifuNotFound();
 
         await cache.AddAsync(actionsKey, used + 1, TimeSpan.FromHours(24));
 
@@ -968,26 +958,22 @@ public sealed class WaifuService(
         }
 
         // Persist gift count
-        var existing = await ctx.GetTable<WaifuGiftCount>()
-            .FirstOrDefaultAsyncLinqToDB(x => x.WaifuUserId == waifuUserId && x.GiftItemId == item.Id);
-
-        if (existing is not null)
-        {
-            await ctx.GetTable<WaifuGiftCount>()
-                .Where(x => x.Id == existing.Id)
-                .Set(x => x.Count, existing.Count + count)
-                .UpdateAsync();
-        }
-        else
-        {
-            await ctx.GetTable<WaifuGiftCount>()
-                .InsertAsync(() => new WaifuGiftCount
+        await ctx.GetTable<WaifuGiftCount>()
+            .InsertOrUpdateAsync(() => new WaifuGiftCount
                 {
                     WaifuUserId = waifuUserId,
                     GiftItemId = item.Id,
                     Count = count
+                },
+                old => new WaifuGiftCount
+                {
+                    Count = old.Count + count
+                },
+                () => new WaifuGiftCount
+                {
+                    WaifuUserId = waifuUserId,
+                    GiftItemId = item.Id
                 });
-        }
 
         if (quests is not null)
             await quests.ReportActionAsync(fromUserId, QuestEventType.WaifuGiftSent);
@@ -1065,16 +1051,13 @@ public sealed class WaifuService(
         await using var ctx = db.GetDbContext();
 
         var amounts = await ctx.GetTable<WaifuPendingPayout>()
-            .Where(x => x.UserId == userId)
+            .Where(x => x.UserId == userId && x.Amount >= 1)
             .DeleteWithOutputAsync(x => x.Amount);
 
         if (amounts.Length == 0)
             return new ErrNoPendingPayout();
 
         var claimable = (long)Math.Floor(amounts[0]);
-        if (claimable < 1)
-            return new ErrNoPendingPayout();
-
         await cs.AddAsync(userId, claimable, new("waifu", "payout-claim"));
 
         return new Success<long>(claimable);

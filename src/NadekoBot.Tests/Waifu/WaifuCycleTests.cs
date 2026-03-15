@@ -276,9 +276,6 @@ public class WaifuCycleTests
             Assert.That(cycle.FanPool, Is.EqualTo(expFanPool));
         }
 
-        var expManagerFanShare = (long)(expFanPoolD * 0.5m);
-
-        // Cycle processing now writes to pending payouts, not cs.AddAsync
         await _cs.DidNotReceive().AddAsync(Arg.Any<ulong>(), Arg.Any<long>(), Arg.Any<TxData?>());
 
         await using (var ctx = _db.GetDbContext())

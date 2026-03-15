@@ -15,7 +15,7 @@ public sealed class UserSpamStats
         }
     }
 
-    private string lastMessage;
+    private string lastFingerprint;
 
     private readonly Queue<DateTime> _messageTracker;
 
@@ -25,7 +25,7 @@ public sealed class UserSpamStats
 
     public UserSpamStats(IUserMessage msg)
     {
-        lastMessage = msg.Content.ToUpperInvariant();
+        lastFingerprint = GetFingerprint(msg);
         _messageTracker = new();
 
         ApplyNextMessage(msg);
@@ -33,19 +33,38 @@ public sealed class UserSpamStats
 
     public void ApplyNextMessage(IUserMessage message)
     {
-        var upperMsg = message.Content.ToUpperInvariant();
+        var fingerprint = GetFingerprint(message);
 
         lock (_applyLock)
         {
-            if (upperMsg != lastMessage || (string.IsNullOrWhiteSpace(upperMsg) && message.Attachments.Any()))
+            if (fingerprint != lastFingerprint)
             {
-                // if it's a new message, reset spam counter
-                lastMessage = upperMsg;
+                lastFingerprint = fingerprint;
                 _messageTracker.Clear();
             }
 
             _messageTracker.Enqueue(DateTime.UtcNow);
         }
+    }
+
+    /// <summary>
+    /// Generates a fingerprint for a message based on its text content and attachment metadata.
+    /// </summary>
+    private static string GetFingerprint(IUserMessage message)
+    {
+        var upperContent = message.Content.ToUpperInvariant();
+
+        if (!message.Attachments.Any())
+            return upperContent;
+
+        var attachPart = string.Join(',', message.Attachments
+            .OrderBy(a => a.Filename)
+            .Select(a => $"{a.Filename}:{a.Size}"));
+
+        if (string.IsNullOrWhiteSpace(upperContent))
+            return $"\x01ATTACH:{attachPart}";
+
+        return $"{upperContent}\x01ATTACH:{attachPart}";
     }
 
     private void Cleanup()
