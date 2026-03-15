@@ -2,6 +2,12 @@
 
 *a,c,f,r,o,d*
 
+## [7.0.9] - 15.03.2026
+
+### Fixed
+
+- Docker .so library overwrite fix
+
 ## [7.0.8] - 15.03.2026
 
 ### Fixed
