@@ -1,4 +1,5 @@
 attempting_to_queue: '{0}개의 트랙을 대기열에 추가하는 중...'
+joined_voice: '음성 채널 {0}에 참가했어요.'
 autodc_disable: 더 이상 재생할 트랙이 없어도 음성 채널에서 나가지 않을게요.
 autodc_enable: 더 이상 재생할 트랙이 없으면 음성 채널에서 나갈게요.
 autoplaying: 관련 트랙을 자동으로 추가해요.

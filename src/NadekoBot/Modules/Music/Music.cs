@@ -169,19 +169,20 @@ public sealed partial class Music : NadekoModule<IMusicService>
     // join vc
     [Cmd]
     [RequireContext(ContextType.Guild)]
-    public async Task Join()
+    public async Task Join([Leftover] IVoiceChannel voiceChannel = null)
     {
-        var user = (IGuildUser)ctx.User;
+        var vcId = voiceChannel?.Id ?? ((IGuildUser)ctx.User).VoiceChannel?.Id;
 
-        var voiceChannelId = user.VoiceChannel?.Id;
-
-        if (voiceChannelId is null)
+        if (vcId is null)
         {
             await Response().Error(strs.must_be_in_voice).SendAsync();
             return;
         }
 
-        await _service.JoinVoiceChannelAsync(user.GuildId, voiceChannelId.Value);
+        await _service.JoinVoiceChannelAsync(ctx.Guild.Id, vcId.Value);
+
+        if (voiceChannel is not null)
+            await Response().Confirm(strs.joined_voice(Format.Bold(voiceChannel.Name))).SendAsync();
     }
 
     // leave vc (destroy)

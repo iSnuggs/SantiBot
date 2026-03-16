@@ -4545,9 +4545,11 @@
         ".move",
         ".mv"
       ],
-      "Description": "Makes the bot join your voice channel.",
+      "Description": "Makes the bot join a voice channel.\nIf no channel is specified, the bot joins the voice channel you are currently in.\nIf a channel is specified by name or ID, the bot joins that channel directly.",
       "Usage": [
-        ".join"
+        ".join",
+        ".join Music Room",
+        ".join 123456789012345678"
       ],
       "Submodule": "Music",
       "Module": "Music",

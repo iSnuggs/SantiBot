@@ -1,4 +1,5 @@
 attempting_to_queue: 'Đang thử thêm {0} bài vào hàng đợi...'
+joined_voice: 'Đã tham gia kênh thoại {0}.'
 autodc_disable: Mình sẽ không rời kênh thoại khi hết bài hát nữa.
 autodc_enable: Mình sẽ rời kênh thoại khi hết bài hát.
 autoplaying: Tự động thêm các bài liên quan.

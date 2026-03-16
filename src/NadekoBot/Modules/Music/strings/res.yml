@@ -1,4 +1,5 @@
 attempting_to_queue: Attempting to queue {0} tracks...
+joined_voice: "Joined voice channel {0}."
 autodc_disable: >-
   I will no longer disconnect from the voice channel when there are no more
   tracks to play.

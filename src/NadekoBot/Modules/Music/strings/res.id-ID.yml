@@ -1,4 +1,5 @@
 attempting_to_queue: 'Mencoba mengantrikan {0} lagu...'
+joined_voice: 'Bergabung ke voice channel {0}.'
 autodc_disable: Aku tidak akan lagi keluar dari voice channel saat tidak ada lagu yang tersisa.
 autodc_enable: Aku akan keluar dari voice channel saat tidak ada lagu yang tersisa.
 autoplaying: Otomatis menambahkan lagu terkait.

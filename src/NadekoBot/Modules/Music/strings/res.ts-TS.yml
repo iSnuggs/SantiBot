@@ -1,4 +1,5 @@
 attempting_to_queue: 'A-attempting to queue {0} tracks... b-be patient, b-baka!'
+joined_voice: 'J-joined voice channel {0}... i-it''s not like I wanted to be here, b-baka!'
 autodc_disable: F-fine, I''ll stay in the voice channel even when there''s nothing to play... i-it''s not because I like being here!
 autodc_enable: I-I''ll disconnect from voice when there''s nothing left to play... d-don''t think I want to stay!
 autoplaying: A-automatically adding related tracks... n-not because I care about your playlist!

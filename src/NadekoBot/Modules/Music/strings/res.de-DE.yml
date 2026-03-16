@@ -1,4 +1,5 @@
 attempting_to_queue: 'Versuche {0} Lieder in die Warteschlange zu setzen...'
+joined_voice: 'Sprachkanal {0} beigetreten.'
 autodc_disable: Ich werde nicht mehr den Sprachkanal verlassen, sobald es keine Lieder mehr zu spielen gibt.
 autodc_enable: Ich werde den Sprachkanal verlassen, sobald es keine Lieder mehr zu spielen gibt.
 autoplaying: ''

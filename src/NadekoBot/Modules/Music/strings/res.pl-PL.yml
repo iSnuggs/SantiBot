@@ -1,4 +1,5 @@
 attempting_to_queue: 'Próba dodania {0} utworów do kolejki...'
+joined_voice: 'Dołączono do kanału głosowego {0}.'
 autodc_disable: Nie będę już rozłączać się z kanału głosowego, gdy nie ma więcej utworów do odtworzenia.
 autodc_enable: Rozłączę się z kanału głosowego, gdy nie będzie więcej utworów do odtworzenia.
 autoplaying: Automatycznie dodaje powiązane utwory.

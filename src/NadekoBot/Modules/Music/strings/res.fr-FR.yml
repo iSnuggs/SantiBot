@@ -1,4 +1,5 @@
 attempting_to_queue: 'Tentative d''ajout de {0} morceaux à la file d''attente...'
+joined_voice: 'Rejoint le salon vocal {0}.'
 autodc_disable: Je ne me déconnecterai plus du salon vocal lorsqu'il n'y aura plus de morceaux à jouer.
 autodc_enable: Je me déconnecterai du salon vocal lorsqu'il n'y aura plus de morceaux à jouer.
 autoplaying: Ajout automatique des pistes relatives.

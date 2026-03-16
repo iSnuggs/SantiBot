@@ -1,4 +1,5 @@
 attempting_to_queue: '正在嘗試將 {0} 首歌加入播放清單'
+joined_voice: '已加入語音頻道 {0}。'
 autodc_disable: 我將不會在沒有任何歌曲可以播放時退出語音頻道
 autodc_enable: 我將會在沒有任何歌曲可以播放時退出語音頻道
 autoplaying: 自動添加相關曲目。
