@@ -50,4 +50,8 @@ voice_chan_created: Voice channel created
 voice_chan_destroyed: Voice channel destroyed
 xmuted_text: User {0} from text chat by {1}
 xmuted_text_and_voice: User {0} from text and voice chat by {1}
+voice_server_deafened: Server deafened
+voice_server_muted: Server voice muted
+voice_server_undeafened: Server undeafened
+voice_server_unmuted: Server voice unmuted
 xmuted_voice: User {0} from voice chat {1}

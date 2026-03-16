@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Memory;
 using NadekoBot.Common.ModuleBehaviors;
 using NadekoBot.Modules.Games.Services;
 using System.Diagnostics.CodeAnalysis;
@@ -8,7 +8,10 @@ namespace NadekoBot.Modules.Games.Hangman;
 
 public sealed class HangmanService : IHangmanService, IExecNoCommand
 {
+    private const int REPOST_THRESHOLD = 5;
+
     private readonly ConcurrentDictionary<ulong, HangmanGame> _hangmanGames = new();
+    private readonly ConcurrentDictionary<ulong, HangmanMessageState> _messageStates = new();
     private readonly IHangmanSource _source;
     private readonly IMessageSenderService _sender;
     private readonly GamesConfigService _gcs;
@@ -45,6 +48,7 @@ public sealed class HangmanService : IHangmanService, IExecNoCommand
             var hc = _hangmanGames.GetOrAdd(channelId, game);
             if (hc == game)
             {
+                _messageStates[channelId] = new();
                 state = hc.GetState();
                 return true;
             }
@@ -53,10 +57,22 @@ public sealed class HangmanService : IHangmanService, IExecNoCommand
         }
     }
 
+    public void SetLastMessage(ulong channelId, IUserMessage msg)
+    {
+        if (_messageStates.TryGetValue(channelId, out var ms))
+            ms.SetMessage(msg);
+    }
+
     public ValueTask<bool> StopHangman(ulong channelId)
     {
-        if (_hangmanGames.TryRemove(channelId, out _))
-            return new(true);
+        lock (_locker)
+        {
+            if (_hangmanGames.TryRemove(channelId, out _))
+            {
+                _messageStates.TryRemove(channelId, out _);
+                return new(true);
+            }
+        }
 
         return new(false);
     }
@@ -67,15 +83,17 @@ public sealed class HangmanService : IHangmanService, IExecNoCommand
     public async Task ExecOnNoCommandAsync(IGuild guild, IUserMessage msg)
     {
         if (!_hangmanGames.ContainsKey(msg.Channel.Id))
-        {
             return;
-        }
 
         if (string.IsNullOrWhiteSpace(msg.Content))
             return;
 
         if (_cdCache.TryGetValue("hangman:" + msg.Author.Id, out _))
             return;
+
+        // Increment message counter for this channel
+        if (_messageStates.TryGetValue(msg.Channel.Id, out var msgState))
+            msgState.IncrementCounter();
 
         HangmanGame.State state;
         long rew = 0;
@@ -109,20 +127,58 @@ public sealed class HangmanService : IHangmanService, IExecNoCommand
         if (rew > 0)
             await _cs.AddAsync(msg.Author, rew, new("hangman", "win"));
 
-
         if (state.GuessResult == HangmanGame.GuessResult.Win)
             await _quests.ReportActionAsync(msg.Author.Id, QuestEventType.GameWon, new() { { "game", "hangman" } });
 
-        await SendState((ITextChannel)msg.Channel, msg.Author, msg.Content, state);
+        await SendOrEditState((ITextChannel)msg.Channel, msg.Author, msg.Content, state);
+
+        if (state.Phase == HangmanGame.Phase.Ended)
+            _messageStates.TryRemove(msg.Channel.Id, out _);
     }
 
-    private Task<IUserMessage> SendState(
+    private async Task SendOrEditState(
         ITextChannel channel,
         IUser user,
         string content,
         HangmanGame.State state)
     {
+        var embed = BuildEmbed(user, content, state);
+
+        if (_messageStates.TryGetValue(channel.Id, out var msgState))
+        {
+            var lastMsg = msgState.LastMessage;
+            if (lastMsg is not null && msgState.Counter < REPOST_THRESHOLD)
+            {
+                try
+                {
+                    await lastMsg.ModifyAsync(m =>
+                    {
+                        m.Embed = embed.Build();
+                        m.Content = "";
+                    });
+                    msgState.ResetCounter();
+                    return;
+                }
+                catch
+                {
+                    // message was deleted or can't be edited, fall through to send new
+                }
+            }
+        }
+
+        var sent = await _sender.Response(channel).Embed(embed).SendAsync();
+
+        if (_messageStates.TryGetValue(channel.Id, out msgState))
+        {
+            msgState.SetMessage(sent);
+            msgState.ResetCounter();
+        }
+    }
+
+    private EmbedBuilder BuildEmbed(IUser user, string content, HangmanGame.State state)
+    {
         var embed = Games.HangmanCommands.GetEmbed(_sender, state);
+
         if (state.GuessResult == HangmanGame.GuessResult.Guess)
             embed.WithDescription($"{user} guessed the letter {content}!").WithOkColor();
         else if (state.GuessResult == HangmanGame.GuessResult.Incorrect && state.Failed)
@@ -137,6 +193,27 @@ public sealed class HangmanService : IHangmanService, IExecNoCommand
         if (!string.IsNullOrWhiteSpace(state.ImageUrl) && Uri.IsWellFormedUriString(state.ImageUrl, UriKind.Absolute))
             embed.WithImageUrl(state.ImageUrl);
 
-        return _sender.Response(channel).Embed(embed).SendAsync();
+        return embed;
     }
+}
+
+/// <summary>
+/// Tracks the bot's last hangman message and the count of messages since it was posted.
+/// </summary>
+internal sealed class HangmanMessageState
+{
+    private IUserMessage? _lastMessage;
+    private int _counter;
+
+    public IUserMessage? LastMessage => _lastMessage;
+    public int Counter => _counter;
+
+    public void SetMessage(IUserMessage msg)
+        => _lastMessage = msg;
+
+    public void IncrementCounter()
+        => Interlocked.Increment(ref _counter);
+
+    public void ResetCounter()
+        => Interlocked.Exchange(ref _counter, 0);
 }
