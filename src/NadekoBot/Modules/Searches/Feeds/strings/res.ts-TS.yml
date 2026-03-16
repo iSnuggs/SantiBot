@@ -1,8 +1,8 @@
-feed_added: F-Feed added! I-It''s not like I did this for you or anything!
-feed_cant_parse: I-I can''t access or parse that feed URL! *blushes* G-Give me a proper one next time!
-feed_duplicate: B-Baka! You''re already following that feed on this server!
-feed_invalid_url: I-Invalid feed URL! It has to be an absolute http or https URL, got it?!
-feed_limit_reached: Y-You''ve hit the max number of feeds per server! D-Don''t be so greedy!
-feed_no_feed: You haven''t subscribed to any feeds on this server. N-Not that I was keeping track!
-feed_out_of_range: I-Index out of range! Learn to count, b-baka!
-feed_removed: F-Feed removed. I-I''m not sad about it or anything!
+feed_added: Feed added.
+feed_cant_parse: Can't access or parse that feed URL. Give me a proper one.
+feed_duplicate: You're already following that feed on this server.
+feed_invalid_url: Invalid feed URL. It has to be an absolute http or https URL.
+feed_limit_reached: You've hit the max number of feeds per server.
+feed_no_feed: You haven't subscribed to any feeds on this server.
+feed_out_of_range: Index out of range, b-baka!
+feed_removed: Feed removed.

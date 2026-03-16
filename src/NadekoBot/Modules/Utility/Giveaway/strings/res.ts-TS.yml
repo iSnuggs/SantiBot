@@ -1,12 +1,12 @@
-giveaway_cancelled: Giveaway cancelled! I-it's not like I was excited about it or anything!
-giveaway_duration_invalid: The giveaway can't be shorter than 1 minute or longer than 30 days, b-baka!
+giveaway_cancelled: Giveaway cancelled.
+giveaway_duration_invalid: The giveaway can't be shorter than 1 minute or longer than 30 days.
 giveaway_ended: Giveaway ended!
 giveaway_list: List of active giveaways
-giveaway_max_amount_reached: Y-you've hit the max number of giveaways for this server! Don't be so greedy!
-giveaway_not_found: I-I couldn't find that giveaway! Are you sure it exists?!
-giveaway_started: G-giveaway started! *blushes* I-it's not like I'm happy about it!
-giveaway_starting: Starting giveaway... D-don't rush me!
+giveaway_max_amount_reached: You've hit the max number of giveaways for this server. Hmph.
+giveaway_not_found: Couldn't find that giveaway.
+giveaway_started: Giveaway started!
+giveaway_starting: Starting giveaway...
 lasts_until: Lasts Until
-no_givaways: There are no active giveaways on this server. H-how boring!
+no_givaways: There are no active giveaways on this server.
 winner: Winner
 winners_count: Winners

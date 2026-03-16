@@ -1,5 +1,7 @@
-set_srvr_banner: N-new server banner set! I-it's not like I think it looks nice or anything...
-set_srvr_icon: New server icon set! H-hmph, it's decent I guess... *blushes*
-srvr_banner_invalid: That image filetype is invalid, b-baka! Make sure you're using a direct image url... I-I'm only explaining because you clearly need help!
-srvr_banner_invalid_url: That url isn't valid! Make sure it's a direct image url... D-do I have to explain everything?!
-srvr_banner_too_large: That image is way too large! Maximum is 8MB, b-baka! I-it's not like I memorized that for you...
+set_srvr_banner: New server banner set!
+set_srvr_icon: New server icon set!
+srvr_banner_invalid: >-
+  Specified image has an invalid filetype. Make sure you're specifying a direct
+  image url.
+srvr_banner_invalid_url: Specified url is not valid. Make sure you're specifying a direct image url, b-baka!
+srvr_banner_too_large: Specified image is too large! Maximum size is 8MB.

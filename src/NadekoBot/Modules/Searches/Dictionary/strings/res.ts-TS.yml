@@ -1,5 +1,5 @@
 _class: Class
 definition: Definition
 example: Example
-ud_error: I-I couldn''t find a definition for that term... it''s not my fault, b-baka!
+ud_error: Failed finding a definition for that term.
 word: Word

@@ -1,9 +1,9 @@
-invalid_img_size: 'The image has to be {0}x{1} pixels! C-can''t you get anything right?!'
-nc_hint: 'Use `{0}nczoom x y` to zoom in... the image is {1}x{2} pixels. I-I''m only telling you once!'
-nc_insuff_payment: I-invalid payment! D-do you even have enough?!
+invalid_img_size: 'Image must be {0}x{1} pixels.'
+nc_hint: 'Use `{0}nczoom x y` to zoom in. Image is {1}x{2} pixels.'
+nc_insuff_payment: Invalid payment.
 nc_pixel: 'Pixel {0}'
-nc_pixel_not_found: P-pixel not found! Look more carefully, b-baka!
-nc_pixel_set: 'Pixel {0} set successfully! ...I-it''s not like I helped or anything!'
-nc_pixel_set_confirm: 'A-are you sure you want to set pixel {0}? It''ll cost you {1}... d-don''t waste your money!'
+nc_pixel_not_found: Pixel not found. Look more carefully.
+nc_pixel_set: 'Pixel {0} set successfully!'
+nc_pixel_set_confirm: 'Are you sure you want to set pixel {0}? It will cost you {1}'
 nc_position: Position
-no_attach_found: N-no attachment found! Send the image with the command... do I have to explain everything?! *blushes*
+no_attach_found: No attachment found. Send the image with the command.

@@ -1,13 +1,15 @@
-mute_error: I-I don't have the right permissions for that... d-don't blame me, it's not my fault!
-mute_perms: Y-you can't mute someone with a higher role than yours! ...Unless you're the server owner. I-I'm just stating facts, b-baka!
-mute_role: 'The current mute role is {0}... I-I already knew that, obviously!'
-mute_role_set: New mute role set! I-it's not like I configured it carefully for you or anything...
-user_chat_mute: '{0} has been **muted** from chatting. I-I didn''t enjoy doing that... maybe a little. *blushes*'
-user_chat_mute_time: '{0} has been **chat muted** for {1} minutes! D-don''t look at me, they deserved it!'
-user_chat_unmute: '{0} has been **unmuted** from chatting. I-it''s not like I felt sorry for them!'
-user_muted: '{0} has been **muted** from text and voice chat! H-hmph, I was just doing my job!'
-user_muted_time: '{0} has been **muted** from text and voice chat for {1} minutes. I-I''m not being harsh, b-baka!'
-user_unmuted: '{0} has been **unmuted** from text and voice chat. D-don''t thank me... I just felt like it!'
-user_voice_mute: '{0} has been **voice muted**! I-it''s not like I wanted them to be quiet... okay maybe a little.'
-user_voice_mute_time: '{0} has been **voice muted** for {1} minutes. I-I''m just keeping order, hmph!'
-user_voice_unmute: '{0} has been **voice unmuted**. I-I didn''t miss their voice or anything!!'
+mute_error: I don't have the right permissions for that, most likely.
+mute_perms: >-
+  You can't mute someone with a higher role than yours unless you're the
+  server owner. I-I'm just stating facts.
+mute_role: Current mute role is {0}
+mute_role_set: New mute role set.
+user_chat_mute: '{0} has been **muted** from chatting.'
+user_chat_mute_time: '{0} has been **chat muted** for {1} minutes.'
+user_chat_unmute: '{0} has been **unmuted** from chatting.'
+user_muted: '{0} has been **muted** from text and voice chat. Hmph, they had it coming.'
+user_muted_time: '{0} has been **muted** from text and voice chat for {1} minutes.'
+user_unmuted: '{0} has been **unmuted** from text and voice chat.'
+user_voice_mute: '{0} has been **voice muted**.'
+user_voice_mute_time: '{0} has been **voice muted** for {1} minutes.'
+user_voice_unmute: '{0} has been **voice unmuted**.'

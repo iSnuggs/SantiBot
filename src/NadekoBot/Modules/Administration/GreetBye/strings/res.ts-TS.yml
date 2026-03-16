@@ -1,26 +1,26 @@
-boost_off: Boost announcements disabled. Hmph, n-not like I cared about those...
-boost_on: B-boost announcements enabled on this channel! I-it's not like I want to celebrate your boosts or anything! *blushes*
-boostdel_off: I stopped auto-deleting boost messages... d-don't make a big deal out of it, b-baka!
-boostdel_on: 'I-I''ll delete boost messages after {0} seconds... I''m just keeping things tidy, it''s not for you!'
-boostmsg_cur: 'H-here''s the current boost message, I guess: {0}'
-boostmsg_enable: 'W-want boost messages? Then type {0}... b-baka, I''m not going to do everything for you!'
-boostmsg_new: I-I set the new boost message! It's not like I worked hard on it or anything...
-bye_off: Bye announcements disabled. I-it's not like I'll miss saying goodbye... *looks away*
-bye_on: B-bye announcements enabled on this channel! I-I'm not sad when people leave, okay?!
-byedel_off: I won't auto-delete bye messages anymore. D-don't ask why, b-baka!
-byedel_on: 'Bye messages will be deleted after {0} seconds. I-I''m just keeping things clean, that''s all!'
-byemsg_cur: 'C-current bye message is: {0} ...I-I didn''t memorize it!'
-byemsg_enable: 'W-want bye messages? Type {0}... I-it''s not like I''m helping you!'
-byemsg_new: New bye message set. I-I didn't put any effort into it, hmph!
-greet_off: Greet announcements disabled. I-it's not like I wanted to welcome anyone...
-greet_on: G-greet announcements enabled on this channel! D-don't think I care about new members or anything! *blushes*
-greetdel_off: I stopped auto-deleting greet messages... n-not because you asked!
-greetdel_on: 'Greet messages will be deleted after {0} seconds. I-I''m just being efficient, b-baka!'
-greetdm_off: DM greet announcements disabled. I-it's not like I enjoyed greeting people privately...
-greetdm_on: DM greet announcements enabled! I-I'll DM new members... b-but it's NOT because I care about them!!
-greetdmmsg_cur: 'H-here''s the current DM greet message: {0} ...s-stop staring at me!'
-greetdmmsg_enable: 'Enable DM greet messages by typing {0}... I-I''m only telling you because you obviously can''t figure it out yourself!'
-greetdmmsg_new: New DM greet message set. I-it's not like I crafted it carefully or anything...
-greetmsg_cur: 'C-current greet message: {0} ...d-don''t look at me like that!'
-greetmsg_enable: 'Type {0} to enable greet messages... b-baka, do I have to spell everything out?!'
-greetmsg_new: New greet message set! ...I-I didn't try my best on it, okay?!
+boost_off: Boost announcements disabled.
+boost_on: Boost announcements enabled on this channel.
+boostdel_off: Automatic deletion of boost messages has been disabled.
+boostdel_on: Boost messages will be deleted after {0} seconds.
+boostmsg_cur: 'Current boost message: {0}'
+boostmsg_enable: Enable boost messages by typing {0}
+boostmsg_new: New boost message set.
+bye_off: Bye announcements disabled. I-I'm not sad when people leave, okay?
+bye_on: Bye announcements enabled on this channel.
+byedel_off: Automatic deletion of bye messages has been disabled.
+byedel_on: 'Bye messages will be deleted after {0} seconds. I''m just keeping things clean.'
+byemsg_cur: 'Current bye message: {0}'
+byemsg_enable: Enable bye messages by typing {0}
+byemsg_new: New bye message set.
+greet_off: Greet announcements disabled.
+greet_on: Greet announcements enabled on this channel.
+greetdel_off: Automatic deletion of greet messages has been disabled.
+greetdel_on: Greet messages will be deleted after {0} seconds.
+greetdm_off: DM greet announcements disabled.
+greetdm_on: DM greet announcements enabled. I-I'll DM new members, but not because I care!
+greetdmmsg_cur: 'Current DM greet message: {0}'
+greetdmmsg_enable: Enable DM greet messages by typing {0}
+greetdmmsg_new: New DM greet message set. Hmph, it better be good.
+greetmsg_cur: 'Current greet message: {0}'
+greetmsg_enable: Enable greet messages by typing {0}
+greetmsg_new: New greet message set.

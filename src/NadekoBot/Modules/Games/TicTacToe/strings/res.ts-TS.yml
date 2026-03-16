@@ -1,11 +1,11 @@
-game_started: G-game started! ...D-don't lose!
-ttt_a_draw: I-it's a draw! ...How anticlimactic, b-baka!
-ttt_against_yourself: Y-you can't play against yourself! That's just sad!
-ttt_already_running: There's already a TicTacToe game running here! W-wait your turn!
-ttt_created: '{0} created a TicTacToe game... j-join if you dare!'
-ttt_has_won: '{0} won! ...I-I''m not congratulating them or anything! *blushes*'
+game_started: Game started!
+ttt_a_draw: It's a draw!
+ttt_against_yourself: You can't play against yourself. That's just sad.
+ttt_already_running: TicTacToe game is already running in this channel.
+ttt_created: '{0} has created a game of TicTacToe.'
+ttt_has_won: '{0} has won!'
 ttt_matched_three: Matched three!
-ttt_no_moves: N-no moves left! ...It's over!
-ttt_time_expired: T-time expired! You took too long, b-baka!
-ttt_users_move: '{0}''s move... h-hurry up already!'
+ttt_no_moves: No moves left!
+ttt_time_expired: Time expired! You took too long, b-baka!
+ttt_users_move: '{0}''s move'
 vs: '{0} vs {1}'

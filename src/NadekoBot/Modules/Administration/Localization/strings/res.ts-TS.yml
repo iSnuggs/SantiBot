@@ -1,6 +1,6 @@
-lang_list: L-list of languages... I know all of them, obviously! N-not that I'm showing off!
-lang_set: 'I-I changed the server locale to {0} - {1}! D-don''t think I did it for you... b-baka!'
-lang_set_bot: 'F-fine, the bot''s default locale is now {0} - {1}. I-I''m not doing this because you asked!'
-lang_set_bot_show: 'The bot''s language is set to {0} - {1}... I-I already knew that, obviously!'
-lang_set_fail: I-it failed! B-baka, check the command's help... it's not MY fault you used it wrong!
-lang_set_show: 'This server''s language is {0} - {1}. I-I remembered it perfectly... n-not that I was keeping track for you!'
+lang_list: List of languages
+lang_set: 'Your server''s locale is now {0} - {1}.'
+lang_set_bot: 'Bot''s default locale is now {0} - {1}.'
+lang_set_bot_show: 'Bot''s language is set to {0} - {1}.'
+lang_set_fail: Failed setting locale. Check the command's help, b-baka!
+lang_set_show: 'This server''s language is set to {0} - {1}.'

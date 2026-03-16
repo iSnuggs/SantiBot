@@ -1,7 +1,7 @@
 card: Card
 cards: Cards
-cards_left: '{0} cards left in the deck. I-I was keeping count, so what?!'
-deck_reshuffled: Deck reshuffled. I-I did it perfectly, obviously!
+cards_left: '{0} cards left in the deck.'
+deck_reshuffled: Deck reshuffled.
 guess: Guess
 hand_value: Hand value
-no_more_cards: No more cards in the deck! D-don't look at me like that!
+no_more_cards: No more cards in the deck.

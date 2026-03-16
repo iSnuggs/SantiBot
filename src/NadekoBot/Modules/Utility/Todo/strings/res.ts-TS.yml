@@ -1,12 +1,12 @@
-todo_add_max_limit: Y-you already have too many todos! I-it's not like I'm worried you can't handle them or anything... *blushes*
-todo_archive_empty: Your archive is empty, dummy! N-not that I went looking for you...
+todo_add_max_limit: You've reached the maximum number of todos. Hmph.
+todo_archive_empty: Your archive is empty.
 todo_archive_list: Archived Todo Lists
-todo_archive_max_limit: Ugh, you've maxed out your archived todos! I-it's not my fault you hoard everything, b-baka!
-todo_archive_not_found: I-I looked everywhere and couldn't find that archived list... N-not that I tried hard or anything!
+todo_archive_max_limit: You've maxed out your archived todos.
+todo_archive_not_found: Couldn't find that archived list.
 todo_archived_list: Archived Todo List
-todo_cleared: Fine, I cleared all your unarchived todos! D-don't expect me to do this again! *blushes*
+todo_cleared: All unarchived todos have been cleared.
 todo_list: Todo List
-todo_list_empty: Your todo list is empty... I-it's not like I care if you're productive or not!
-todo_no_todos: There's nothing in your todo list, b-baka! W-were you even planning to do anything?!
-todo_not_found: I c-couldn't find that todo... N-not that I was looking carefully for you or anything!
+todo_list_empty: Your todo list is empty.
+todo_no_todos: There's nothing in your todo list, b-baka!
+todo_not_found: Todo not found.
 todo_stats: '{0} items | {1} completed | {2} remaining'

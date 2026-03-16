@@ -1,10 +1,10 @@
-atl_not_enabled: Auto-translate isn't enabled here, or you gave me a bad language! D-don't waste my time!
-atl_removed: F-fine, I removed your auto-translate language. I-it's not like I wanted to keep it!
-atl_set: 'I-I set your auto-translate language to {0}>{1}... D-don''t thank me!'
-atl_started: I-I started auto-translating messages on this channel. *blushes* It's not like I did this for you!
-atl_stopped: I stopped auto-translating on this channel. H-hmph!
-bad_input_format: W-what is this input?! It's all wrong, b-baka!
-invalid_lang: That's not a valid language! D-do your research first!
+atl_not_enabled: Auto-translate isn't enabled here, or you gave an invalid language.
+atl_removed: Your auto-translate language has been removed.
+atl_set: 'Your auto-translate language has been set to {0}>{1}.'
+atl_started: Started auto-translating messages on this channel.
+atl_stopped: Stopped auto-translating on this channel.
+bad_input_format: Bad input format, or something went wrong.
+invalid_lang: Invalid source or target language, b-baka!
 supported_languages: Supported Languages
-trfl_disabled: Flag translation disabled. I-it's not like I liked that feature anyway!
-trfl_enabled: F-fine, flag translation is on now. React with a flag and I'll translate it... B-but only because it's convenient!
+trfl_disabled: Flag translation disabled.
+trfl_enabled: Flag translation enabled on this channel. React with a flag and it'll be translated.

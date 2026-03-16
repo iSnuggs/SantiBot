@@ -1,13 +1,13 @@
-lineup_added_at: 'A-Added at {0:HH:mm}... I was keeping track, okay?!'
-lineup_already_active: The lineup in this channel is already active, b-baka! Pay attention!
-lineup_already_in: '{0} is already in the lineup at position {1}... d-did you not notice?!'
-lineup_cleared: 'L-Lineup cleared ({0} users removed). I-it''s not like I did this for you!'
-lineup_created: F-Fine! Lineup feature is now active in this channel. *blushes*
-lineup_empty: The lineup is empty... h-how lonely... N-NOT THAT I CARE!
-lineup_join_success: '{0} has joined the lineup at position {1}. I-I guess that''s fine...'
-lineup_leave_success: Y-You left the lineup... w-whatever, it''s not like I wanted you to stay!
+lineup_added_at: 'Added at {0:HH:mm}'
+lineup_already_active: The lineup in this channel is already active, dummy.
+lineup_already_in: '{0} is already in the lineup at position {1}. D-did you not notice?'
+lineup_cleared: 'Lineup cleared ({0} users removed).'
+lineup_created: Lineup feature is now active in this channel.
+lineup_empty: The lineup is empty. How lonely.
+lineup_join_success: '{0} has joined the lineup at position {1}.'
+lineup_leave_success: You left the lineup. W-whatever.
 lineup_list_title: 'Lineup for #{0}'
-lineup_next_user: 'N-Next up: {0}... hurry it up already!'
-lineup_not_in: You''re not even in the lineup, b-baka!
-lineup_remove_fail: '{0} isn''t in the lineup... d-did you even check first?!'
-lineup_removed: '{0} has been removed from the lineup. I-I only did it because you asked!'
+lineup_next_user: 'Next up: {0}. Hurry it up already!'
+lineup_not_in: You're not in the lineup.
+lineup_remove_fail: '{0} isn''t in the lineup. D-did you even check?'
+lineup_removed: '{0} has been removed from the lineup.'

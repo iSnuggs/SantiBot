@@ -1,4 +1,4 @@
-slot_jackpot: 'WOAAHHHHHH!!! C-congratulations!!! x{0} I-it''s not like I''m happy for you! *blushes intensely*'
-slot_single: 'A single {0}, x{1}... b-barely anything, hmph.'
-slot_three: 'Wow! L-lucky! Three of a kind! x{0} D-don''t let it go to your head!'
-slot_two: 'Two {0} - bet x{1}... n-not bad, I guess...'
+slot_jackpot: 'WOAAHHHHHH!!! Congratulations!!! x{0}'
+slot_single: 'A single {0}, x{1}'
+slot_three: 'Wow! Lucky! Three of a kind! x{0}'
+slot_two: 'Two {0} - bet x{1}... n-not bad, I guess.'

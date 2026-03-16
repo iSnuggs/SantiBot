@@ -1,35 +1,35 @@
-acrm_fail: A-auto command not found at that index... pay attention, b-baka!
-autocmd_add: 'The command {0} will execute every {1}s in this channel... I-I set it up perfectly!'
-autocmdlist_none: N-no auto commands on this page... don't look so disappointed!
-bot_name: 'B-bot''s name changed to {0}... i-it''s a nice name, I guess!'
-bot_status: 'Bot status changed to {0}... n-not that I care!'
-bot_strings_reloaded: B-bot strings have been reloaded! I-it's not like I did it for you!
-cache_users_done: '{0} users were added and {1} users were updated... I-I worked really hard on that! *blushes*'
-cache_users_pending: U-updating users, please wait... d-don't rush me!
+acrm_fail: Auto command not found on the specified index.
+autocmd_add: The command {0} will execute every {1}s in this channel.
+autocmdlist_none: No auto commands on this page.
+bot_name: 'Bot''s name changed to {0}. I-it''s a nice name, I guess.'
+bot_status: Bot status changed to {0}
+bot_strings_reloaded: Bot strings have been reloaded.
+cache_users_done: '{0} users were added and {1} users were updated.'
+cache_users_pending: Updating users, please wait...
 command_text: Command Text
-deleted_x_servers: 'D-deleted {0} servers... h-hmph!'
+deleted_x_servers: Deleted {0} servers.
 dm_from: DM from
-fwall_start: I-I'll forward DMs to all owners now... n-not because you asked nicely!
-fwall_stop: I'll only forward DMs to the first owner... d-don't complain!
-fwch_start: A-any message sent to bot's DMs will be forwarded to this channel... I-I'm not your messenger, b-baka!
-fwch_stop: Messages sent to bot's DMs won't be forwarded to this channel anymore. F-fine by me!
-fwdm_start: I-I'll forward DMs from now on... it's not like I want to read them!
-fwdm_stop: I'll stop forwarding DMs now... d-don't miss me!
+fwall_start: I will forward DMs to all owners.
+fwall_stop: I will forward DMs only to the first owner.
+fwch_start: Any message sent to bot's DMs will be forwarded to this channel.
+fwch_stop: Messages sent to bot's DMs will no longer be forwarded to this channel.
+fwdm_start: I will forward DMs from now on. I-I'm not your messenger though!
+fwdm_stop: I will stop forwarding DMs from now on.
 interval: Interval
-invalid_format: I-invalid input format, b-baka! Try again properly!
-no_shard_id: N-no shard with that ID was found... not my problem!
-no_shards_on_page: No shards on this page... d-don't waste my time!
-restart_fail: Y-you must setup RestartCommand in your creds.yml... r-read the docs, b-baka!
-restarting: R-restarting... I-I'll be right back! N-not that you'd miss me!
-scadd: N-new startup command added... you're welcome!
-scrm: Startup command successfully removed. I-it's not like it was hard!
-scrm_fail: S-startup command not found... pay attention!
+invalid_format: Invalid input format.
+no_shard_id: No shard with that ID found.
+no_shards_on_page: No shards on this page.
+restart_fail: You must setup RestartCommand in your creds.yml
+restarting: Restarting.
+scadd: New startup command added.
+scrm: Startup command successfully removed.
+scrm_fail: Startup command not found. Pay attention!
 server: Server
-set_activity: N-new activity set! ...I-it's not like I chose something cute!
-set_avatar: N-new avatar set! *blushes* D-don't stare at me!
-set_banner: N-new banner set! I-I have good taste, obviously!
-set_stream: N-new stream set! I-it's not like I'm excited about it!
-shard_reconnecting: 'Shard {0} reconnecting... I-I''ll handle it, don''t worry! N-not that you were worried!'
-shutting_down: S-shutting down... I-I'll be back, b-baka! Don't forget about me!
-startcmdlist_none: No startup commands on this page... h-hmph!
-startcmds_cleared: Cleared all startup commands! D-don't say I never do anything for you!
+set_activity: New activity set!
+set_avatar: New avatar set!
+set_banner: New banner set!
+set_stream: New stream set!
+shard_reconnecting: Shard {0} reconnecting.
+shutting_down: Shutting down. I-I'll be back!
+startcmdlist_none: No startup commands on this page.
+startcmds_cleared: Cleared all startup commands.

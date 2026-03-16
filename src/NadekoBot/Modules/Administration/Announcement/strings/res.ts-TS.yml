@@ -1,3 +1,3 @@
-autopublish_disable: I-it's not like I wanted to publish your messages anyway! Messages in this channel won't be automatically published anymore. Hmph!
-autopublish_enable: F-fine, I'll auto-publish all messages in this channel... but don't think I'm doing it because I care or anything! *blushes*
-req_announcement_channel: B-baka! You need to run this in an Announcement channel! I-it's not my fault you didn't know that!
+autopublish_disable: Messages in this channel won't be automatically published anymore.
+autopublish_enable: All messages posted in this channel will be automatically published.
+req_announcement_channel: This command has to be run in an Announcement channel, b-baka!
