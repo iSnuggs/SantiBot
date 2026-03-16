@@ -1,4 +1,4 @@
-bank_balance_other: 'User {0} has {1} in the bank. I-I only checked because you asked!'
-bank_deposited: 'You deposited {0} to your bank account. S-smart move, I guess... *blushes*'
-bank_withdraw_insuff: 'You don''t have sufficient {0} in your bank account! D-did you even check first?! B-baka!'
-bank_withdrew: 'You withdrew {0} from your bank account. D-don''t waste it!'
+bank_balance_other: 'User {0} has {1} in the bank.'
+bank_deposited: 'You deposited {0} to your bank account. Smart move.'
+bank_withdraw_insuff: 'You don''t have sufficient {0} in your bank account.'
+bank_withdrew: 'You withdrew {0} from your bank account. Don''t waste it.'

@@ -1,4 +1,4 @@
-aar_disabled: '**Auto assign role** on user join is now **disabled**. I-it''s not like I enjoyed assigning roles anyway!'
-aar_none: Hmph, users don't get any roles when they join. N-not that I care about welcoming them or anything...
-aar_role_removed: 'I-I removed the {0} role from new joins... d-don''t look at me like that! It''s not like I wanted to keep assigning it!'
-aar_roles: 'H-here are the roles new members get, I guess... {0} ...I-it''s not like I memorized them for you!'
+aar_disabled: '**Auto assign role** on user join is now **disabled**.'
+aar_none: Users don't receive any roles when they join this server.
+aar_role_removed: 'Users will no longer receive {0} role when they join. Hmph, one less thing to handle.'
+aar_roles: 'The following roles are applied to new members: {0}'

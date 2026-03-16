@@ -1,11 +1,11 @@
-blocked_commands: B-Blocked Commands
-blocked_modules: B-Blocked Modules
-dmcmd_add: 'Command {0} has been disabled in bot DMs. I-It''s not like I wanted to talk to you anyway!'
-dmcmd_remove: 'Command {0} has been enabled in bot DMs. D-Don''t get excited about it!'
-dmmod_add: 'Module {0} has been disabled in bot DMs. Hmph!'
-dmmod_remove: 'Module {0} has been enabled in bot DMs. W-Whatever!'
-gcmd_add: 'Command {0} has been disabled on all servers. I-I did it because I had to!'
-gcmd_remove: 'Command {0} has been enabled on all servers. D-Don''t thank me, b-baka!'
-gmod_add: 'Module {0} has been disabled on all servers. I-It''s not a big deal!'
-gmod_remove: 'Module {0} has been enabled on all servers. *blushes* Y-You''re welcome... NOT!'
-lgp_none: N-No blocked commands or modules. Everything''s fine... not that I checked for you!
+blocked_commands: Blocked Commands
+blocked_modules: Blocked Modules
+dmcmd_add: 'Command {0} has been disabled in bot DMs.'
+dmcmd_remove: 'Command {0} has been enabled in bot DMs.'
+dmmod_add: 'Module {0} has been disabled in bot DMs. Hmph.'
+dmmod_remove: 'Module {0} has been enabled in bot DMs.'
+gcmd_add: 'Command {0} has been disabled on all servers.'
+gcmd_remove: 'Command {0} has been enabled on all servers.'
+gmod_add: 'Module {0} has been disabled on all servers.'
+gmod_remove: 'Module {0} has been enabled on all servers. You''re welcome.'
+lgp_none: No blocked commands or modules.

@@ -1,4 +1,4 @@
-createvoich: 'V-voice channel {0} created! *blushes* I-I was just doing my job!'
-deafen: D-deafen successful! H-hmph!
-delvoich: 'Voice channel {0} deleted. I-I didn''t hesitate at all!'
-undeafen: Undeafen successful. Y-you're welcome... b-baka!
+createvoich: Voice channel {0} created.
+deafen: Deafen successful. Hmph!
+delvoich: Voice channel {0} deleted.
+undeafen: Undeafen successful. You're welcome.

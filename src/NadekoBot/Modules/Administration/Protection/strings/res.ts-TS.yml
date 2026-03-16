@@ -1,18 +1,18 @@
 anti_alt_status: |-
-  A-any user joining with an account younger than {0} will get this punishment: {1}
-  I-it's not like I'm protecting the server for you... Punished so far: {2}
-prot_active: A-active protections... I was just checking anyway!
-prot_cant_use_time: Y-you can't specify a duration for this punishment action, dummy!
-prot_disable: '{0} has been **disabled** on this server. I-it''s not like I wanted to help you with that!'
-prot_enable: '{0} Enabled... d-don''t look at me like that!'
-prot_none: N-no protections are enabled... not that I care about your server's safety or anything!
-protection_not_running: '{0} protection isn''t enabled, b-baka! Pay attention!'
-punishment_unsupported: 'Y-you can''t use {0} punishment action with this feature... I-I''m not explaining it twice!'
-raid_cnt: 'User threshold must be between {0} and {1}... e-even I know that!'
-raid_stats: 'I-if {0} or more users join within {1} seconds, I''ll {2} them. N-not because you asked me to!'
-raid_time: 'Time must be between {0} and {1} seconds... d-don''t make me repeat myself!'
-spam_ignore: '{0} will ignore this channel now. I-it''s not like I care what happens here!'
-spam_not_ignore: '{0} will stop ignoring this channel... h-hmph!'
+  Any user joining with an account younger than {0} will have the following action applied: {1}
+  Punished so far: {2}
+prot_active: Active protections
+prot_cant_use_time: You can't specify a duration for this punishment action.
+prot_disable: '{0} has been **disabled** on this server.'
+prot_enable: '{0} Enabled'
+prot_none: No protection enabled. I-I'm not worried about your server or anything.
+protection_not_running: '{0} protection is not enabled. Pay attention!'
+punishment_unsupported: You can't use {0} punishment action with this feature.
+raid_cnt: User threshold must be between {0} and {1}.
+raid_stats: If {0} or more users join within {1} seconds, I will {2} them.
+raid_time: Time must be between {0} and {1} seconds.
+spam_ignore: '{0} will ignore this channel.'
+spam_not_ignore: '{0} will no longer ignore this channel.'
 spam_stats: |-
-  I-if a user posts {0} same messages in a row, I'll {1} them... b-baka spammers!
+  If a user posts {0} same messages in a row, I will {1} them.
       __IgnoredChannels__: {2}

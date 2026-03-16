@@ -1,6 +1,6 @@
-expires: E-Expires... not that I care when!
-patron_info: P-Patron Info
-patron_msg_sent: 'F-Fine, I sent messages to patrons at and above tier {1}. {1} went through and {2} failed... d-don''t blame me for the failures!'
-patron_not_enabled: The patron system is disabled, b-baka! It''s not my fault!
+expires: Expires
+patron_info: Patron Info
+patron_msg_sent: 'Done sending messages to patrons at and above tier {1}. {1} sent successfully and {2} failed.'
+patron_not_enabled: The patron system is disabled.
 pledge: Pledge
 tier: Tier

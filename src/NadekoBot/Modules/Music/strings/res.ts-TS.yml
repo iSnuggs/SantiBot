@@ -1,46 +1,46 @@
-attempting_to_queue: 'A-attempting to queue {0} tracks... b-be patient, b-baka!'
-joined_voice: 'J-joined voice channel {0}... i-it''s not like I wanted to be here, b-baka!'
-autodc_disable: F-fine, I''ll stay in the voice channel even when there''s nothing to play... i-it''s not because I like being here!
-autodc_enable: I-I''ll disconnect from voice when there''s nothing left to play... d-don''t think I want to stay!
-autoplaying: A-automatically adding related tracks... n-not because I care about your playlist!
-current_music_quality: 'C-current music quality is: {0}... I-I set it perfectly, obviously!'
-dir_queue_complete: D-directory queue complete! I-I did it so fast, aren''t you impressed?! ...N-not that I care!
+attempting_to_queue: 'Attempting to queue {0} tracks...'
+joined_voice: 'Joined voice channel {0}.'
+autodc_disable: I'll stay in the voice channel even when there's nothing to play.
+autodc_enable: I'll disconnect from voice when there's nothing left to play.
+autoplaying: Automatically adding related tracks.
+current_music_quality: 'Currently set music quality is: {0}'
+dir_queue_complete: Directory queue complete.
 fairplay: ''
 from_position: From position
-music_autoplay_off: M-music autoplay disabled... f-fine, pick your own songs then!
-music_autoplay_on: Music autoplay enabled! I-I''ll automatically queue related tracks after each one finishes... b-because the silence is annoying, not for you!
-music_fairplay: M-music queue has been fairly reordered... I-I''m always fair, b-baka!
-music_quality_set: 'M-music quality set to {0}... y-you''ll have to restart the music player for it to take effect, okay?!'
-no_last_queued_found: N-no last queued track found... d-did you even queue anything?!
-no_lyrics_found: C-couldn''t find any lyrics... i-it''s not my fault the song is obscure!
-no_player: Th-there''s no active music player, b-baka! Start one first!
-not_with_bot_in_voice: Y-you''re not in the same voice channel as me! G-get over here... n-not that I want you near me!
-now_playing: N-now playing
+music_autoplay_off: Music autoplay disabled.
+music_autoplay_on: Music autoplay enabled. I'll automatically queue related tracks after each one finishes.
+music_fairplay: Music queue has been fairly reordered. I-I'm always fair.
+music_quality_set: 'Music quality set to {0}. You''ll need to restart the music player for it to take effect.'
+no_last_queued_found: No last queued track found. Did you even queue anything?
+no_lyrics_found: Couldn't find any lyrics.
+no_player: No active music player. Start one first.
+not_with_bot_in_voice: You're not in the same voice channel as me. H-hurry up and join!
+now_playing: Now playing
 player_queue: 'Player queue - Page {0}/{1}'
-playlist_delete_fail: F-failed to delete that playlist... it either doesn''t exist, or you''re not the author. D-don''t look at me!
-playlist_deleted: Playlist deleted... I-I hope you meant to do that!
-playlist_id_not_found: A playlist with that ID doesn''t exist... c-check your numbers, b-baka!
-playlist_queue_complete: P-playlist queue complete! ...I-it''s not like I rushed to finish it for you!
-playlist_saved: P-playlist saved... I-I kept it safe, okay?! *blushes*
+playlist_delete_fail: Failed to delete that playlist. It either doesn't exist, or you're not the author.
+playlist_deleted: Playlist deleted.
+playlist_id_not_found: A playlist with that ID doesn't exist. Check your numbers.
+playlist_queue_complete: Playlist queue complete.
+playlist_saved: Playlist saved.
 playlists: '`#{0}` - **{1}** by *{2}* ({3} tracks)'
 playlists_page: 'Page {0} of saved playlists'
 queue: Queue
-queue_cleared: M-music queue cleared! I-it''s all gone now... hmph!
-queue_search_results: T-type the number of the search result to queue that track... I-I''m waiting, hurry up!
-queue_shuffled: M-music queue has been shuffled! I-it''s not like I arranged it specially!
-queue_stopped: 'P-player is stopped. Use {0} to start playing... d-do I have to explain everything?!'
-queued_track: T-track queued... n-not that I care what you listen to!
-removed_track: T-track removed... g-gone forever!
-removed_track_error: Th-there''s no track at that index, b-baka!
-repeating_none: P-player will stop once the queue ends... d-don''t expect me to restart it for you!
-repeating_queue: P-player will repeat the queue... o-over and over, just how you like it!
-repeating_track: P-player will keep repeating the same track... y-you really like this one, huh? *blushes*
-set_music_channel: I-I''ll output track info in this channel now... b-because you asked, not because I wanted to!
+queue_cleared: Music queue cleared.
+queue_search_results: Type the number of the search result to queue that track.
+queue_shuffled: Music queue has been shuffled.
+queue_stopped: 'Player is stopped. Use {0} to start playing.'
+queued_track: Track queued.
+removed_track: Track removed.
+removed_track_error: There's no track at that index, b-baka!
+repeating_none: Player will stop once the queue ends.
+repeating_queue: Player will repeat the queue. Over and over.
+repeating_track: Player will keep repeating the same track. You really like this one, huh?
+set_music_channel: I'll output track info in this channel now.
 song_skips_after: ''
 to_position: To position
-track_moved: T-track moved! I-I rearranged it perfectly, obviously!
-track_not_found: N-no track found... a-are you sure you typed it right?!
-unset_music_channel: I-I''ll output track info in whatever channel music starts from now... d-don''t blame me if you miss it!
-volume_input_invalid: V-volume must be between 0 and 100, b-baka! L-learn some numbers!
-volume_set: 'V-volume set to {0}%... I-I hope your ears are happy!'
-wrongsong_success: 'O-oops! Wrong song removed: {0}... I-it''s not like I made the mistake!'
+track_moved: Track moved.
+track_not_found: No track found. Are you sure you typed it right?
+unset_music_channel: I'll output track info in whatever channel music starts from now.
+volume_input_invalid: Volume must be between 0 and 100.
+volume_set: 'Volume set to {0}%'
+wrongsong_success: 'Wrong song removed: {0}'

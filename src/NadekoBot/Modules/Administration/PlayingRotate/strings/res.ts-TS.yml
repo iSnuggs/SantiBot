@@ -1,8 +1,8 @@
-reprm: 'I-I removed the playing message: {0} ...it''s not like I liked that one anyway!'
-ropl_added: A-added! ...D-don't make me say it twice, b-baka!
-ropl_disabled: Rotating playing status disabled. I-it's not like I enjoyed watching them rotate...
-ropl_enabled: Rotating playing status enabled! I-I set it up perfectly... n-not that I'm bragging! *blushes*
+reprm: 'Removed the playing message: {0}'
+ropl_added: Added.
+ropl_disabled: Rotating playing status disabled.
+ropl_enabled: Rotating playing status enabled. I-I set it up perfectly.
 ropl_list: |-
-  H-here's the list of rotating statuses, okay?! Don't say I never help you!
+  Here is a list of rotating statuses:
   {0}
-ropl_not_set: N-no rotating playing statuses are set... it's not like I was keeping track or anything!
+ropl_not_set: No rotating playing statuses set. N-not that I was keeping track.

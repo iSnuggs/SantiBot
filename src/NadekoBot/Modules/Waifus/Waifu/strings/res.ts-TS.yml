@@ -1,89 +1,89 @@
-waifu_not_opted_in: That person hasn't joined the waifu world yet, b-baka! D-don't rush things!
-waifu_already_opted_in: Y-you're already a waifu! H-how could you forget that?! *blushes*
+waifu_not_opted_in: That person hasn't joined the waifu world yet.
+waifu_already_opted_in: You're already a waifu! D-did you forget?
 waifu_opted_in: |-
-  W-welcome to the waifu world! You're registered now...
-  *F-find a manager to start earning {0}... I-it's not like I care if you succeed!*
-waifu_opted_out: You've left the waifu world... I-it's not like I'll miss you or anything! *blushes*
-waifu_insufficient_funds: Y-you don't have enough funds for that, b-baka! Check your wallet first!
-waifu_has_fans: You still have fans backing you! T-tell them to leave first... I-I'm not jealous of your popularity!
-waifu_self_not_allowed: Y-you can't do that to yourself, dummy! W-what were you even thinking?!
-waifu_no_actions_left: You've used up all your actions for today! C-come back tomorrow... I-it's not like I'll be waiting!
-waifu_not_found: That waifu doesn't exist, b-baka! D-did you make them up?!
-waifu_hugged: 'You gave {0} a warm hug! (+{1} mood) I-it''s not like that''s cute or anything... *blushes*'
-waifu_kissed: 'You kissed {0}! (+{1} mood) W-wha-?! I-I''m not jealous! *blushes intensely*'
-waifu_patted: 'You gently patted {0}. (+{1} mood) H-how sweet... I-I mean, whatever!'
-waifu_pending_payout: 'You have {0} in uncollected payouts. I-I noticed, but not because I was checking on you!'
-waifu_no_pending_payout: You have no pending payouts... I-it's not like I was hoping you'd get some!
-waifu_payout_claimed: 'You''ve collected {0}! I-I''m not happy for you or anything, b-baka!'
-waifu_already_backing: Y-you're already a fan of that waifu! D-don't be so clingy!
-waifu_not_backing: You're not backing anyone right now... H-how lonely. N-not that I care!
-waifu_stopped_backing: You stopped being a fan. I-it's not like loyalty matters... *looks away*
-waifu_invalid_fee: 'The fee has to be between {0}% and {1}%, b-baka! I-is math that hard for you?!'
-waifu_fee_set: 'Fee updated to {0}%. I-I didn''t calculate it for you or anything!'
+  Welcome to the waifu world! You're registered now.
+  *Find a manager to start earning {0}.*
+waifu_opted_out: You've left the waifu world. W-well, see you around.
+waifu_insufficient_funds: You don't have enough funds for that. Hmph.
+waifu_has_fans: You still have fans backing you! Tell them to leave first.
+waifu_self_not_allowed: You can't do that to yourself, b-baka!
+waifu_no_actions_left: You've used all your actions for today. Come back tomorrow!
+waifu_not_found: That waifu doesn't exist.
+waifu_hugged: 'You gave {0} a warm hug! (+{1} mood)'
+waifu_kissed: 'You kissed {0}! (+{1} mood) W-whatever!'
+waifu_patted: 'You gently patted {0}. (+{1} mood) H-how sweet... I mean, whatever.'
+waifu_pending_payout: 'You have {0} in uncollected payouts.'
+waifu_no_pending_payout: You have no pending payouts.
+waifu_payout_claimed: 'You''ve collected {0}!'
+waifu_already_backing: You're already a fan of this waifu. D-don't be so clingy!
+waifu_not_backing: You're not backing anyone right now.
+waifu_stopped_backing: You've stopped being a fan. Hmph.
+waifu_invalid_fee: 'Fee must be between {0}% and {1}%.'
+waifu_fee_set: 'Fee updated to {0}%.'
 waifu_fans_title: 'Fans of {0}'
-waifu_lb_title: 🏆 Waifu Leaderboard (by price)
-waifu_lb_title_backed: 🏆 W-Waifu Leaderboard (by backing)... not that I ranked them for you!
-waifu_gift_shop_title: 🎁 T-Today's Gift Shop... I guess
-waifu_shop_refreshes: 'Refreshes in {0}... n-not that I''m counting down!'
-waifu_item_not_found: 'T-that item isn''t available today, b-baka! Use `{0}wgiftshop` to see what''s in stock... I-I''m just telling you because it''s my job!'
-waifu_gifted: 'Y-you gave {0}x {1} {2} to {3}! (+{4} {5}) ...h-how generous *blushes*'
+waifu_lb_title: '🏆 Waifu Leaderboard (by price)'
+waifu_lb_title_backed: '🏆 Waifu Leaderboard (by backing)'
+waifu_gift_shop_title: '🎁 Today''s Gift Shop'
+waifu_shop_refreshes: 'Refreshes in {0}'
+waifu_item_not_found: 'That item isn''t available today. Use `{0}wgiftshop` to see what''s in stock.'
+waifu_gifted: 'You gave {0}x {1} {2} to {3}! (+{4} {5})'
 waifu_stat_food: food
 waifu_stat_mood: mood
-waifu_stop_backing_confirm: A-are you sure you want to stop being a fan?! You won't earn from payouts anymore... n-not that I care what you do!
-waifu_switch_confirm: 'Y-you''re currently a fan of {0}. Switch your support to {1} instead? ...make up your mind already, b-baka!'
-waifu_manager_exit_title: Manager Resignation... hmph!
-waifu_manager_exit_confirm: 'Y-you really want to resign as manager of {0}?! The waifu''s price will drop to the minimum... n-not that I care!'
-waifu_goes_to_waifu: G-goes to Waifu
-waifu_burned: B-burned... hmph!
-waifu_outside_buy_window: M-manager purchases are only available during the first 18 hours of a cycle... read the rules next time, b-baka!
-waifu_price_too_low: Y-your bid is too low! The minimum price is 115% of the current waifu price... do your math, b-baka!
-waifu_bought_manager_title: 🏢 Manager Position Acquired!
-waifu_bought_manager: 'Y-you''re now the manager of {0} for {1:N0}! ...I-it''s not like I''m impressed or anything!'
-waifu_old_manager_payout: O-old Manager... hmph!
+waifu_stop_backing_confirm: Are you sure you want to stop being a fan? You won't earn from payouts anymore.
+waifu_switch_confirm: 'You''re currently a fan of {0}. Switch your support to {1} instead? Make up your mind already.'
+waifu_manager_exit_title: Manager Resignation
+waifu_manager_exit_confirm: 'Are you sure you want to resign as manager of {0}? The waifu''s price will drop to the minimum.'
+waifu_goes_to_waifu: Goes to Waifu
+waifu_burned: Burned
+waifu_outside_buy_window: Manager purchases are only available during the first 18 hours of a cycle. Read the rules next time.
+waifu_price_too_low: Your bid is too low. The minimum price is 115% of the current waifu price. Do the math, b-baka!
+waifu_bought_manager_title: '🏢 Manager Position Acquired!'
+waifu_bought_manager: 'You''re now the manager of {0} for {1:N0}!'
+waifu_old_manager_payout: Old Manager
 waifu_over_cap: over cap
-waifu_no_manager_title: N-Needs a Manager!
-waifu_no_manager_payout: 'Not earning anything yet... Without a manager, price drops {0}% each cycle. B-be the first to manage, I guess!'
+waifu_no_manager_title: Needs a Manager!
+waifu_no_manager_payout: 'Not earning anything yet. A manager is needed to start generating returns. Be the first to manage!'
 waifu_now_backing_hint: |-
-  Y-you're now a fan of {0}! ...n-not that I set this up for you or anything!
-  *Your bank balance is your backing power -- the more you hold, the more you earn... b-baka!*
-waifu_bank_balance: 'Your bank balance: {0} ...I-I didn''t check it because I was curious!'
-waifu_not_participating_title: 🎀 Waifu System
+  You're now a fan of {0}!
+  *Your bank balance is your backing power - the more you hold, the more you earn.*
+waifu_bank_balance: 'Your bank balance: {0}'
+waifu_not_participating_title: '🎀 Waifu System'
 waifu_not_participating: |-
-  B-become a **Waifu** or support one as a **Fan** to earn currency! ...I-it's not like I want you to join!
-  
-  **How it works** ...l-listen carefully, I won't repeat myself!
+  Become a **Waifu** or support one as a **Fan** to earn currency!
+
+  **How it works**
   `{0}woptin` - register as a waifu
   `{0}wback @user` - back a waifu with your bank balance
   `{0}wbuy @user` - become a waifu's manager
-  
+
   **Roles**
   🎀 **Waifu** - earns a fee from every payout cycle
   🏢 **Manager** - buys the position, earns a cut of the waifu fee
   👥 **Fan** - backs a waifu with bank balance, earns from the fan pool
-  
+
   **Cycle**
-  Every 3.5 days, returns are generated from backed funds and split between the waifu, manager, and fans. Keep your waifu's mood 😊 and food 🍔 high for better payouts! ...I-I'm only explaining because you looked confused, b-baka!
-waifu_fan_not_waifu: 'Y-you''re not a waifu -- you''re a fan of **{0}**... get it right!'
+  Every 3.5 days, returns are generated from backed funds and split between the waifu, manager, and fans. Keep your waifu's mood 😊 and food 🍔 high for better payouts!
+waifu_fan_not_waifu: 'You''re not a waifu - you''re a fan of **{0}**. Get it right.'
 waifu_gifts_received: Gifts Received
-waifu_resigned_manager: 'Y-you''ve resigned as manager of {0}... hmph, fine!'
-waifu_not_managing: Y-you're not managing this waifu... were you even paying attention?!
+waifu_resigned_manager: 'You''ve resigned as manager of {0}. Hmph, fine.'
+waifu_not_managing: You're not managing this waifu.
 waifu_managing_title: 'Waifus managed by {0}'
-waifu_managing_empty: N-not managing any waifus... how lazy!
+waifu_managing_empty: Not managing any waifus. How lazy.
 waifu_earned: '**Earned**: {0}'
 waifu_cycle_title: '**Cycle #{0}**'
 waifu_payout_time: 'Payout {0}'
-waifu_field_backed_by: 👥 F-Fans... not that they matter or anything!
-waifu_field_manager: 🏢 Manager
-waifu_field_price: 💎 Price
+waifu_field_backed_by: '👥 Fans'
+waifu_field_manager: '🏢 Manager'
+waifu_field_price: '💎 Price'
 waifu_footer_fee: 'Fee: {0}%'
 waifu_footer_actions: 'Actions: {0}/{1}'
 waifu_fan_count: '{0} fans'
 waifu_unknown: Unknown
-waifu_optin_already: Y-you're already a waifu, b-baka! Did you forget?!
-waifu_optin_no_funds: N-not enough funds! ...don't look at me like that, I can't help it!
-waifu_optin_success: 'Y-you''re a waifu now! Use `{0}waifu` to see your card... I-it''s not like I''m excited for you! *blushes*'
+waifu_optin_already: You're already a waifu!
+waifu_optin_no_funds: Not enough funds! Hmph.
+waifu_optin_success: 'You''re a waifu now! Use `{0}waifu` to see your card.'
 waifu_btn_opt_in: Opt In
 waifu_btn_collect: Collect
-waifu_btn_my_waifus: M-My Waifus
-waifu_help_footer: 'Use {0}cmds waifu for a list of commands... I-I''m not helping you, it''s just there!'
+waifu_btn_my_waifus: My Waifus
+waifu_help_footer: 'Use {0}cmds waifu for a list of commands.'
 waifu_backed_label: backed
