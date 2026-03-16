@@ -1,4 +1,5 @@
 attempting_to_queue: '{0} parça sıraya ekleniyor...'
+joined_voice: 'Ses kanalına katıldı: {0}.'
 autodc_disable: Çalacak parça kalmadığında artık ses kanalından ayrılmayacağım.
 autodc_enable: Çalacak parça kalmadığında ses kanalından ayrılacağım.
 autoplaying: İlgili parçaları otomatik olarak ekler.

@@ -1,4 +1,5 @@
 attempting_to_queue: 'Intentando añadir a la cola {0} canciones...'
+joined_voice: 'Se unió al canal de voz {0}.'
 autodc_disable: Ya no me desconectaré del canal de voz cuando no queden canciones por reproducir.
 autodc_enable: Me desconectaré del canal de voz cuando no queden más canciones por reproducir.
 autoplaying: Añade automáticamente pistas relacionadas.

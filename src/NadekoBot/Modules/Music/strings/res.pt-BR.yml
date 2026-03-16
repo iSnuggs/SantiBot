@@ -1,4 +1,5 @@
 attempting_to_queue: 'Tentando adicionar {0} músicas à fila...'
+joined_voice: 'Entrou no canal de voz {0}.'
 autodc_disable: Não me desconectarei do canal de voz quando não houver mais músicas para serem reproduzidas.
 autodc_enable: Desconectarei do canal de voz quando não houver mais músicas para reproduzir.
 autoplaying: Trilhas similares automaticamente adicionadas.
