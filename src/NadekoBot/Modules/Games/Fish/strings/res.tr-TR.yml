@@ -19,6 +19,7 @@ fish_waiting: Balık tutuyorsun...
 fish_weather: Hava Durumu
 fish_weather_duration: 'Her hava periyodu {0} saat sürer.'
 fish_weather_forecast: Tahmin
+fish_currency_found: '{0} tuttun!'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: Nokta değiştirme jetonun yok.
 fish_spot_changed: 'Balıkçılık noktası {0} olarak değiştirildi!'

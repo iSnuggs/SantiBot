@@ -1,62 +1,67 @@
-﻿#nullable disable
+using System.Buffers.Binary;
 using System.Security.Cryptography;
 
 namespace Nadeko.Common;
 
-public sealed class NadekoRandom : Random
+/// <summary>
+/// Cryptographically secure, bias-free random number generator.
+/// All methods are thread-safe.
+/// </summary>
+public sealed class NadekoRandom
 {
-    private readonly RandomNumberGenerator _rng;
-
-    public NadekoRandom()
-        => _rng = RandomNumberGenerator.Create();
-
-    public override int Next()
-    {
-        var bytes = new byte[sizeof(int)];
-        _rng.GetBytes(bytes);
-        return Math.Abs(BitConverter.ToInt32(bytes, 0));
-    }
+    /// <summary>
+    /// Returns a non-negative random integer in [0, int.MaxValue).
+    /// </summary>
+    public int Next()
+        => RandomNumberGenerator.GetInt32(int.MaxValue);
 
     /// <summary>
-    /// Generates a random integer between 0 (inclusive) and
-    /// a specified exclusive upper bound using a cryptographically strong random number generator.
+    /// Returns a random integer in [0, <paramref name="maxValue"/>).
     /// </summary>
-    /// <param name="maxValue">Exclusive max value</param>
-    /// <returns>A random number</returns>
-    public override int Next(int maxValue)
+    public int Next(int maxValue)
         => RandomNumberGenerator.GetInt32(maxValue);
 
     /// <summary>
-    /// Generates a random integer between a specified inclusive lower bound and a
-    /// specified exclusive upper bound using a cryptographically strong random number generator.
+    /// Returns a random integer in [<paramref name="minValue"/>, <paramref name="maxValue"/>).
     /// </summary>
-    /// <param name="minValue">Inclusive min value</param>
-    /// <param name="maxValue">Exclusive max value</param>
-    /// <returns>A random number</returns>
-    public override int Next(int minValue, int maxValue)
+    public int Next(int minValue, int maxValue)
         => RandomNumberGenerator.GetInt32(minValue, maxValue);
 
+    /// <summary>
+    /// Returns a random long in [0, <paramref name="maxValue"/>).
+    /// </summary>
+    public long NextLong(long maxValue)
+        => NextLong(0, maxValue);
+
+    /// <summary>
+    /// Returns a random long in [<paramref name="minValue"/>, <paramref name="maxValue"/>).
+    /// </summary>
     public long NextLong(long minValue, long maxValue)
     {
-        ArgumentOutOfRangeException.ThrowIfGreaterThan(minValue, maxValue);
-        if (minValue == maxValue)
-            return minValue;
-        var bytes = new byte[sizeof(long)];
-        _rng.GetBytes(bytes);
-        var sign = Math.Sign(BitConverter.ToInt64(bytes, 0));
-        return (sign * BitConverter.ToInt64(bytes, 0) % (maxValue - minValue)) + minValue;
+        ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(minValue, maxValue);
+
+        var range = (ulong)(maxValue - minValue);
+        var threshold = (0UL - range) % range;
+
+        Span<byte> buf = stackalloc byte[8];
+        ulong result;
+        do
+        {
+            RandomNumberGenerator.Fill(buf);
+            result = BinaryPrimitives.ReadUInt64LittleEndian(buf);
+        } while (result < threshold);
+
+        return (long)(result % range) + minValue;
     }
 
-    public override void NextBytes(byte[] buffer)
-        => _rng.GetBytes(buffer);
-
-    protected override double Sample()
+    /// <summary>
+    /// Returns a uniform random double in [0.0, 1.0) with 53 bits of mantissa precision.
+    /// </summary>
+    public double NextDouble()
     {
-        var bytes = new byte[sizeof(double)];
-        _rng.GetBytes(bytes);
-        return Math.Abs((BitConverter.ToDouble(bytes, 0) / (double.MaxValue + 1)));
+        Span<byte> buf = stackalloc byte[8];
+        RandomNumberGenerator.Fill(buf);
+        var bits = BinaryPrimitives.ReadUInt64LittleEndian(buf) >> 11;
+        return bits * (1.0 / (1UL << 53));
     }
-
-    public override double NextDouble()
-        => Sample();
 }

@@ -36,7 +36,6 @@ public sealed class MusicPlayer : IMusicPlayer
     private bool skipped;
     private int? forceIndex;
     private readonly Thread _thread;
-    private readonly Random _rng;
 
     public bool AutoPlay { get; set; }
 
@@ -55,7 +54,6 @@ public sealed class MusicPlayer : IMusicPlayer
         _proxy = proxy;
         _googleApiService = googleApiService;
         AutoPlay = autoPlay;
-        _rng = new NadekoRandom();
 
         _vc = GetVoiceClient(qualityPreset);
         if (_vc.BitDepth == 16)
@@ -498,7 +496,7 @@ public sealed class MusicPlayer : IMusicPlayer
         => Repeat = type;
 
     public void ShuffleQueue()
-        => _queue.Shuffle(_rng);
+        => _queue.Shuffle();
 
     public void Stop()
         => IsStopped = true;

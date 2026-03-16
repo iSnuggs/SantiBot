@@ -1,4 +1,6 @@
-﻿namespace NadekoBot.Modules.Games;
+﻿using OneOf;
+
+namespace NadekoBot.Modules.Games;
 
 public sealed class FishResult
 {
@@ -14,5 +16,12 @@ public sealed class FishResult
     public bool IsRare()
         => Fish.Chance <= 15;
 }
+
+public readonly record struct FishCurrencyResult(long Amount);
+
+public readonly record struct FishNothing;
+
+[GenerateOneOf]
+public partial class FishOutcome : OneOfBase<FishResult, FishCurrencyResult, FishNothing>;
 
 public readonly record struct AlreadyFishing;

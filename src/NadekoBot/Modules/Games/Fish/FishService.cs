@@ -15,18 +15,19 @@ public sealed class FishService(
     DbService db,
     INotifySubscriber notify,
     QuestService quests,
-    FishItemService itemService
+    FishItemService itemService,
+    ICurrencyService cs
 )
     : INService
 {
     private const double MAX_SKILL = 100;
 
-    private readonly Random _rng = new Random();
+    private readonly NadekoRandom _rng = new();
 
     private static TypedKey<bool> FishingKey(ulong userId)
         => new($"fishing:{userId}");
 
-    public async Task<OneOf.OneOf<Task<FishResult?>, AlreadyFishing>> FishAsync(ulong userId, ulong channelId,
+    public async Task<OneOf.OneOf<Task<FishOutcome>, AlreadyFishing>> FishAsync(ulong userId, ulong channelId,
         FishMultipliers multipliers)
     {
         var duration = _rng.Next(3, 6) / multipliers.FishingSpeedMultiplier;
@@ -39,7 +40,7 @@ public sealed class FishService(
         return TryFishAsync(userId, channelId, duration, multipliers);
     }
 
-    private async Task<FishResult?> TryFishAsync(
+    private async Task<FishOutcome> TryFishAsync(
         ulong userId,
         ulong channelId,
         double duration,
@@ -55,18 +56,28 @@ public sealed class FishService(
         var nothingChance = conf.Chance.Nothing;
         var fishChance = conf.Chance.Fish * fishChanceMultiplier * multipliers.FishMultiplier;
         var trashChance = conf.Chance.Trash * trashChanceMultiplier * multipliers.TrashMultiplier;
+        var currencyChance = conf.Chance.Currency;
 
-        // first roll whether it's fish, trash or nothing
-        var totalChance = fishChance + trashChance + conf.Chance.Nothing;
+        // first roll whether it's fish, trash, currency or nothing
+        var totalChance = fishChance + trashChance + nothingChance + currencyChance;
 
         var typeRoll = _rng.NextDouble() * totalChance;
 
         if (typeRoll < nothingChance)
         {
-            return null;
+            return new FishNothing();
         }
 
-        var isFish = typeRoll < nothingChance + fishChance;
+        if (typeRoll < nothingChance + currencyChance)
+        {
+            var min = conf.CurrencyMin;
+            var max = conf.CurrencyMax;
+            var amount = min == max ? min : _rng.NextLong(min, max + 1);
+            await cs.AddAsync(userId, amount, new("fish", "currency"));
+            return new FishCurrencyResult(amount);
+        }
+
+        var isFish = typeRoll < nothingChance + currencyChance + fishChance;
 
         var items = isFish
             ? conf.Fish
@@ -112,10 +123,13 @@ public sealed class FishService(
                 new()
                 {
                     { "fish", result.Fish.Name },
-                    { "type", typeRoll < nothingChance + fishChance ? "fish" : "trash" },
+                    { "type", typeRoll < nothingChance + currencyChance + fishChance ? "fish" : "trash" },
                     { "stars", result.Stars.ToString() }
                 });
         }
+
+        if (result is null)
+            return new FishNothing();
 
         return result;
     }

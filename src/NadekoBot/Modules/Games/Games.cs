@@ -12,7 +12,6 @@ public partial class Games : NadekoModule<GamesService>
 {
     private readonly IImageCache _images;
     private readonly IHttpClientFactory _httpFactory;
-    private readonly Random _rng = new();
 
     public Games(IImageCache images, IHttpClientFactory factory)
     {

@@ -39,21 +39,13 @@ public static class EnumerableExtensions
         => string.Join(separator, data.Select(func ?? (x => x?.ToString() ?? string.Empty)));
     
     /// <summary>
-    ///     Randomize element order by performing the Fisher-Yates shuffle
+    /// Returns a new array with elements in cryptographically random order.
     /// </summary>
-    /// <typeparam name="T">Item type</typeparam>
-    /// <param name="items">Items to shuffle</param>
-    public static IReadOnlyList<T> Shuffle<T>(this IEnumerable<T> items)
+    public static T[] Shuffle<T>(this IEnumerable<T> items)
     {
-        var list = items.ToArray();
-        var n = list.Length;
-        while (n-- > 1)
-        {
-            var k = RandomNumberGenerator.GetInt32(n);
-            (list[k], list[n]) = (list[n], list[k]);
-        }
-
-        return list;
+        var arr = items.ToArray();
+        RandomNumberGenerator.Shuffle<T>(arr.AsSpan());
+        return arr;
     }
 
     /// <summary>

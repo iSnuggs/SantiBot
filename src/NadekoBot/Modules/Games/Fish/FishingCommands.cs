@@ -1,5 +1,7 @@
-﻿using NadekoBot.Modules.Games.Fish;
+﻿using NadekoBot.Common;
+using NadekoBot.Modules.Games.Fish;
 using NadekoBot.Modules.Xp.Services;
+using NadekoBot.Services;
 using Format = Discord.Format;
 
 namespace NadekoBot.Modules.Games;
@@ -12,7 +14,9 @@ public partial class Games
         FishConfigService fcs,
         IBotCache cache,
         UserService us,
-        CaptchaService captchaService) : NadekoModule
+        CaptchaService captchaService,
+        ICurrencyProvider cp,
+        ImagesConfig ic) : NadekoModule
     {
         private static readonly NadekoRandom _rng = new();
 
@@ -96,29 +100,48 @@ public partial class Games
                     .AddField(GetText(strs.fish_tod), GetTodEmoji(currentTod) + " " + currentTod, true))
                 .SendAsync();
 
-            var res = await fishTask;
-            if (res is null)
+            var outcome = await fishTask;
+
+            if (outcome.TryPickT0(out var res, out var remainder))
             {
-                await Response().Error(strs.fish_nothing).SendAsync();
-                return;
+                var desc = GetText(strs.fish_caught(res.Fish.Emoji + " " + Format.Bold(res.Fish.Name)));
+
+                if (res.IsSkillUp)
+                {
+                    desc += "\n" + GetText(strs.fish_skill_up(res.Skill, res.MaxSkill));
+                }
+
+                await Response()
+                    .Embed(CreateEmbed()
+                        .WithOkColor()
+                        .WithAuthor(ctx.User)
+                        .WithDescription(desc)
+                        .AddField(GetText(strs.fish_quality), fs.GetStarText(res.Stars, res.Fish.Stars), true)
+                        .AddField(GetText(strs.desc), res.Fish.Fluff, true)
+                        .WithThumbnailUrl(res.Fish.Image))
+                    .SendAsync();
             }
-
-            var desc = GetText(strs.fish_caught(res.Fish.Emoji + " " + Format.Bold(res.Fish.Name)));
-
-            if (res.IsSkillUp)
+            else if (remainder.TryPickT0(out var cur, out _))
             {
-                desc += "\n" + GetText(strs.fish_skill_up(res.Skill, res.MaxSkill));
-            }
+                var sign = cp.GetCurrencySign();
+                var desc = GetText(strs.fish_currency_found(CurrencyHelper.N(cur.Amount, Culture, sign)));
+                var urls = ic.Data.Currency;
+                var thumbUrl = urls.Length > 0 ? urls[_rng.Next(0, urls.Length)].ToString() : null;
 
-            await Response()
-                .Embed(CreateEmbed()
+                var eb = CreateEmbed()
                     .WithOkColor()
                     .WithAuthor(ctx.User)
-                    .WithDescription(desc)
-                    .AddField(GetText(strs.fish_quality), fs.GetStarText(res.Stars, res.Fish.Stars), true)
-                    .AddField(GetText(strs.desc), res.Fish.Fluff, true)
-                    .WithThumbnailUrl(res.Fish.Image))
-                .SendAsync();
+                    .WithDescription(desc);
+
+                if (thumbUrl is not null)
+                    eb.WithThumbnailUrl(thumbUrl);
+
+                await Response().Embed(eb).SendAsync();
+            }
+            else
+            {
+                await Response().Error(strs.fish_nothing).SendAsync();
+            }
 
             await msg.DeleteAsync();
         }

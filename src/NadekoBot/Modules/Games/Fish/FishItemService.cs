@@ -12,6 +12,8 @@ public sealed class FishItemService(
     ICurrencyService cs,
     FishConfigService fcs) : INService
 {
+    private readonly NadekoRandom _rng = new();
+
     private IReadOnlyList<FishItem> _items
         => fcs.Data.Items;
 
@@ -268,7 +270,7 @@ public sealed class FishItemService(
                 .Where(s => s != currentSpot)
                 .ToList();
 
-            var newSpot = spots[Random.Shared.Next(spots.Count)];
+            var newSpot = spots[_rng.Next(0, spots.Count)];
 
             await ctx.GetTable<ChannelSpotOverride>()
                 .InsertOrUpdateAsync(

@@ -26,7 +26,7 @@ public class GamesService : INService
 
     private readonly IHttpClientFactory _httpFactory;
     private readonly IMemoryCache _8BallCache;
-    private readonly Random _rng;
+    private readonly NadekoRandom _rng;
 
     public GamesService(GamesConfigService gamesConfig, IHttpClientFactory httpFactory)
     {

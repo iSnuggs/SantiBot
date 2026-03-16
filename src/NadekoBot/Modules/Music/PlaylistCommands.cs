@@ -246,7 +246,7 @@ public sealed partial class Music
                 {
                 }
 
-                var songs = opts.Shuffled
+                IEnumerable<PlaylistSong> songs = opts.Shuffled
                     ? mpl.Songs.Shuffle()
                     : mpl.Songs;
 

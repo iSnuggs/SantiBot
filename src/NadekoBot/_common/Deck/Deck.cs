@@ -31,7 +31,7 @@ public class Deck
     private static Dictionary<string, Func<List<Card>, bool>> handValues;
 
     public List<Card> CardPool { get; set; }
-    private readonly Random _r = new NadekoRandom();
+    private readonly NadekoRandom _r = new NadekoRandom();
 
     static Deck()
         => InitHandValues();
