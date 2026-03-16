@@ -120,7 +120,7 @@ public sealed class CheckForUpdatesService(
                 {
                     sb.AppendLine(Format.Bold(line.ToString()));
                 }
-                else
+                else if (!line.IsEmpty && !line.IsWhiteSpace())
                 {
                     sb.AppendLine(line.ToString());
                 }
