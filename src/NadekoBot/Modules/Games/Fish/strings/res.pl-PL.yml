@@ -19,6 +19,7 @@ fish_waiting: Łowienie...
 fish_weather: Pogoda
 fish_weather_duration: 'Każdy okres pogodowy trwa {0} godzin.'
 fish_weather_forecast: Prognoza
+fish_currency_found: 'Wyłowiłeś {0}!'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: Nie masz monety zmiany łowiska.
 fish_spot_changed: 'Łowisko zostało zmienione na {0}!'

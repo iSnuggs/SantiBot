@@ -19,6 +19,7 @@ fish_waiting: Đang câu cá...
 fish_weather: Thời tiết
 fish_weather_duration: 'Mỗi giai đoạn thời tiết kéo dài {0} giờ.'
 fish_weather_forecast: Dự báo
+fish_currency_found: 'Bạn câu được {0}!'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: Bạn không có xu đổi địa điểm.
 fish_spot_changed: 'Địa điểm câu cá đã được đổi thành {0}!'

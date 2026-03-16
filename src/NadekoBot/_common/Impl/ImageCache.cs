@@ -4,7 +4,7 @@ public sealed class ImageCache : IImageCache, INService
 {
     private readonly IBotCache _cache;
     private readonly ImagesConfig _ic;
-    private readonly Random _rng;
+    private readonly NadekoRandom _rng;
     private readonly IHttpClientFactory _httpFactory;
 
     public ImageCache(

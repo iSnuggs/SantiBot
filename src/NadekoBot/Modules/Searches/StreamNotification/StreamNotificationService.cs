@@ -12,7 +12,7 @@ public sealed class StreamNotificationService : INService, IReadyExecutor
 {
     private readonly DbService _db;
     private readonly IBotStrings _strings;
-    private readonly Random _rng = new NadekoRandom();
+    private readonly NadekoRandom _rng = new NadekoRandom();
     private readonly DiscordSocketClient _client;
     private readonly NotifChecker _streamTracker;
 

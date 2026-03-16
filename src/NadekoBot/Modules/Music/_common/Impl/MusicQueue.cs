@@ -1,4 +1,6 @@
-﻿namespace NadekoBot.Modules.Music;
+﻿using System.Security.Cryptography;
+
+namespace NadekoBot.Modules.Music;
 
 public sealed partial class MusicQueue
 {
@@ -283,12 +285,12 @@ public sealed partial class MusicQueue : IMusicQueue
         }
     }
 
-    public void Shuffle(Random rng)
+    public void Shuffle()
     {
         lock (_locker)
         {
             var list = tracks.ToArray();
-            rng.Shuffle(list);
+            RandomNumberGenerator.Shuffle(list.AsSpan());
             tracks = new(list);
             _lastQueued = null;
         }

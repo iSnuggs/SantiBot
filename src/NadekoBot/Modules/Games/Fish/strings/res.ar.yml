@@ -19,6 +19,7 @@ fish_waiting: جارٍ الصيد...
 fish_weather: الطقس
 fish_weather_duration: 'تستمر كل فترة طقس لمدة {0} ساعات.'
 fish_weather_forecast: التوقعات
+fish_currency_found: 'لقد اصطدت {0}!'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: ليس لديك عملة تغيير موقع.
 fish_spot_changed: 'تم تغيير موقع الصيد إلى {0}!'

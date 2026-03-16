@@ -13,6 +13,12 @@ public sealed partial class FishConfig : ICloneable<FishConfig>
     public List<string> StarEmojis { get; set; } = new();
     public List<string> SpotEmojis { get; set; } = new();
     public FishChance Chance { get; set; } = new FishChance();
+
+    [Comment("Min currency awarded when fishing out currency.")]
+    public long CurrencyMin { get; set; } = 1;
+
+    [Comment("Max currency awarded when fishing out currency.")]
+    public long CurrencyMax { get; set; } = 1;
     
     public List<FishData> Fish { get; set; } = new();
     public List<FishData> Trash { get; set; } = new();

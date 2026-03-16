@@ -19,6 +19,7 @@ fish_waiting: Пецам...
 fish_weather: Време
 fish_weather_duration: 'Сваки временски период траје {0} сати.'
 fish_weather_forecast: Прогноза
+fish_currency_found: 'Уловио си {0}!'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: Немаш новчић за промену места.
 fish_spot_changed: 'Место за пецање промењено на {0}!'

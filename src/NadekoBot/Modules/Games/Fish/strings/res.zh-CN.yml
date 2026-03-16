@@ -19,6 +19,7 @@ fish_waiting: 釣魚中...
 fish_weather: 天氣
 fish_weather_duration: '每個天氣週期持續 {0} 小時。'
 fish_weather_forecast: 預報
+fish_currency_found: '你釣到了 {0}！'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: 你沒有地點更換幣。
 fish_spot_changed: '釣魚地點已更改為 {0}！'

@@ -19,6 +19,7 @@ fish_waiting: Fishing... *taps foot impatiently*
 fish_weather: Weather
 fish_weather_duration: 'Each weather period lasts for {0} hours... r-remember that!'
 fish_weather_forecast: Forecast
+fish_currency_found: 'Y-you fished out {0}... i-it''s not like I''m impressed or anything, b-baka!'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: Y-you don't even have a spot change coin! How careless, b-baka!
 fish_spot_changed: 'The fishing spot changed to {0}! ...I-I didn''t do it for you!'

@@ -68,7 +68,7 @@ public sealed class NadekoExpressionsService : IExecOnMessage, IReadyExecutor, I
     private readonly IPubSub _pubSub;
     private readonly IMessageSenderService _sender;
     private readonly IReplacementService _repSvc;
-    private readonly Random _rng;
+    private readonly NadekoRandom _rng;
 
     private bool _isReady;
     private ConcurrentHashSet<ulong> _disabledGlobalExpressionGuilds;

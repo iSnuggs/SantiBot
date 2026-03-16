@@ -17,7 +17,7 @@ public interface IMusicQueue
     bool TryRemoveAt(int index, out IQueuedTrackInfo? trackInfo, out bool isCurrent);
     void RemoveCurrent();
     IQueuedTrackInfo? MoveTrack(int from, int to);
-    void Shuffle(Random rng);
+    void Shuffle();
     bool IsLast();
     void ReorderFairly();
     int? GetLastQueuedIndex();

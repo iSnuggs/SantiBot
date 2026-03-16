@@ -2,6 +2,12 @@
 
 *a,c,f,r,o,d*
 
+## [7.0.10] - 16.03.2026
+
+### Changed
+- Better randomness
+-
+
 ## [7.0.9] - 15.03.2026
 
 ### Fixed

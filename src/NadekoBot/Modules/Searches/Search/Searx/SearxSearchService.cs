@@ -10,7 +10,7 @@ public sealed class SearxSearchService : SearchServiceBase, INService
     private readonly IHttpClientFactory _http;
     private readonly SearchesConfigService _scs;
     
-    private static readonly Random _rng = new NadekoRandom();
+    private static readonly NadekoRandom _rng = new NadekoRandom();
 
     public SearxSearchService(IHttpClientFactory http, SearchesConfigService scs)
         => (_http, _scs) = (http, scs);

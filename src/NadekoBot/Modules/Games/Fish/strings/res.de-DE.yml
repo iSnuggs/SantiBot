@@ -19,6 +19,7 @@ fish_waiting: Angeln...
 fish_weather: Wetter
 fish_weather_duration: 'Jede Wetterperiode dauert {0} Stunden.'
 fish_weather_forecast: Vorhersage
+fish_currency_found: 'Du hast {0} gefischt!'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: Du hast keine Ortswechsel-Münze.
 fish_spot_changed: 'Der Angelort wurde zu {0} geändert!'

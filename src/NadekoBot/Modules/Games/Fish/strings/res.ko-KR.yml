@@ -19,6 +19,7 @@ fish_waiting: 낚시 중...
 fish_weather: 날씨
 fish_weather_duration: '각 날씨는 {0}시간 동안 지속돼요.'
 fish_weather_forecast: 일기예보
+fish_currency_found: '{0}을(를) 낚았어요!'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: 낚시터 변경 코인이 없어요.
 fish_spot_changed: '낚시터가 {0}(으)로 변경되었어요!'

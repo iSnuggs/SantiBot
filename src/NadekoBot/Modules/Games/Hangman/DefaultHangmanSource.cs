@@ -6,7 +6,7 @@ namespace NadekoBot.Modules.Games.Hangman;
 public sealed class DefaultHangmanSource : IHangmanSource
 {
     private IReadOnlyDictionary<string, HangmanTerm[]> termsDict = new Dictionary<string, HangmanTerm[]>();
-    private readonly Random _rng;
+    private readonly NadekoRandom _rng;
 
     public DefaultHangmanSource()
     {

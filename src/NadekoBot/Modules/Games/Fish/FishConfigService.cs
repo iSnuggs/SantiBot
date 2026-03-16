@@ -35,6 +35,21 @@ public sealed class FishConfigService : ConfigServiceBase<FishConfig>
             int.TryParse,
             ConfigPrinters.ToString);
 
+        AddParsedProp("chance.currency",
+            static (conf) => conf.Chance.Currency,
+            int.TryParse,
+            ConfigPrinters.ToString);
+
+        AddParsedProp("currency.min",
+            static (conf) => conf.CurrencyMin,
+            long.TryParse,
+            ConfigPrinters.ToString);
+
+        AddParsedProp("currency.max",
+            static (conf) => conf.CurrencyMax,
+            long.TryParse,
+            ConfigPrinters.ToString);
+
         Migrate();
     }
 
@@ -100,6 +115,17 @@ public sealed class FishConfigService : ConfigServiceBase<FishConfig>
                         MaxStarMultiplier = 1.1
                     }
                 ];
+            });
+        }
+
+        if (data.Version < 12)
+        {
+            ModifyConfig(c =>
+            {
+                c.Version = 12;
+                c.Chance.Currency = 1;
+                c.CurrencyMin = 1;
+                c.CurrencyMax = 1;
             });
         }
     }

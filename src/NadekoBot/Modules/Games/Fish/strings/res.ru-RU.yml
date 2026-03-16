@@ -19,6 +19,7 @@ fish_waiting: Рыбачим...
 fish_weather: Погода
 fish_weather_duration: 'Каждый период погоды длится {0} часов.'
 fish_weather_forecast: Прогноз
+fish_currency_found: 'Вы выловили {0}!'
 fish_stars: '{0} {1}'
 fish_spot_coin_none: У вас нет монеты смены места.
 fish_spot_changed: 'Место рыбалки изменено на {0}!'
