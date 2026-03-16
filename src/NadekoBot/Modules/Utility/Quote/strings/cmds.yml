@@ -76,22 +76,15 @@ quotesdeleteall:
     - keyword:
         desc: The keyword/trigger of the quotes to be deleted.
 quotesearch:
-  desc: >-
-    Shows a random quote given a search query. Partially matches in several
-    ways: 1) Only content of any quote, 2) only by author, 3) keyword and
-    content, 3) or keyword and author
+  desc: |-
+    Searches quotes by keyword, content, or author name.
+    Partially matches across all fields simultaneously.
   ex:
-    - '"find this long text"'
+    - hello
     - AuthorName
-    - keyword some text
-    - keyword AuthorName
   params:
-    - textOrAuthor:
-        desc: The search term to find a matching quote.
-    - keyword:
-        desc: The search term to look for in the quote's content.
-      textOrAuthor:
-        desc: The search term to find a matching quote.
+    - query:
+        desc: "The search term to match against quote keywords, content, and author names."
 quotesexport:
   desc: Exports quotes from the current server into a .yml file
   ex:
