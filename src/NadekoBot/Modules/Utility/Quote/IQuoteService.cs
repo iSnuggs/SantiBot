@@ -22,10 +22,7 @@ public interface IQuoteService
     Task<IReadOnlyCollection<Quote>> GetAllQuotesAsync(ulong guildId, int page, OrderType order);
     Task<Quote?> GetQuoteByKeywordAsync(ulong guildId, string keyword);
 
-    Task<IReadOnlyCollection<Quote>> SearchQuoteKeywordTextAsync(
-        ulong guildId,
-        string? keyword,
-        string text);
+    Task<IReadOnlyCollection<Quote>> SearchQuotesAsync(ulong guildId, string query);
     
     Task<(IReadOnlyCollection<Quote> quotes, int totalCount)> FindQuotesAsync(ulong guildId, string query, int page);
 

@@ -72,31 +72,19 @@ public sealed class QuoteService : IQuoteService, INService
         return quotes.RandomOrDefault();
     }
 
-    public async Task<IReadOnlyCollection<Quote>> SearchQuoteKeywordTextAsync(
-        ulong guildId,
-        string? keyword,
-        string text)
+    public async Task<IReadOnlyCollection<Quote>> SearchQuotesAsync(ulong guildId, string query)
     {
-        keyword = keyword?.ToUpperInvariant();
         await using var uow = _db.GetDbContext();
 
         var quotes = await uow.GetTable<Quote>()
-                              .Where(q => q.GuildId == guildId
-                                          && (keyword == null || q.Keyword == keyword))
-                              .ToArrayAsync();
+                              .Where(q => q.GuildId == guildId)
+                              .Where(q => q.Keyword.Contains(query)
+                                          || q.Text.Contains(query)
+                                          || q.AuthorName.Contains(query))
+                              .OrderBy(q => q.Id)
+                              .ToListAsyncLinqToDB();
 
-        var toReturn = new List<Quote>(quotes.Length);
-
-        foreach (var q in quotes)
-        {
-            if (q.AuthorName.Contains(text, StringComparison.InvariantCultureIgnoreCase)
-                || q.Text.Contains(text, StringComparison.InvariantCultureIgnoreCase))
-            {
-                toReturn.Add(q);
-            }
-        }
-
-        return toReturn;
+        return quotes;
     }
 
     public async Task<IReadOnlyCollection<Quote>> GetGuildQuotesAsync(ulong guildId)

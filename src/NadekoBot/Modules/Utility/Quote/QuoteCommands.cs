@@ -167,14 +167,14 @@ public partial class Utility
                   .SendAsync();
         }
 
-        private async Task QuoteSearchInternalAsync(string? keyword, string textOrAuthor)
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task QuoteSearch([Leftover] string query)
         {
-            if (string.IsNullOrWhiteSpace(textOrAuthor))
+            if (string.IsNullOrWhiteSpace(query))
                 return;
 
-            keyword = keyword?.ToUpperInvariant();
-
-            var quotes = await _qs.SearchQuoteKeywordTextAsync(ctx.Guild.Id, keyword, textOrAuthor);
+            var quotes = await _qs.SearchQuotesAsync(ctx.Guild.Id, query);
 
             if (quotes.Count == 0)
             {
@@ -201,18 +201,6 @@ public partial class Utility
                   })
                   .SendAsync();
         }
-
-        [Cmd]
-        [RequireContext(ContextType.Guild)]
-        [Priority(0)]
-        public Task QuoteSearch(string textOrAuthor)
-            => QuoteSearchInternalAsync(null, textOrAuthor);
-
-        [Cmd]
-        [RequireContext(ContextType.Guild)]
-        [Priority(1)]
-        public Task QuoteSearch(string keyword, [Leftover] string textOrAuthor)
-            => QuoteSearchInternalAsync(keyword, textOrAuthor);
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
