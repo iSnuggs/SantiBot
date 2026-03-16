@@ -5,14 +5,17 @@
 ## [7.0.10] - 16.03.2026
 
 ### Changed
+
 - Better randomness
--
+- `.qse` reworked to search across all fields
+- `.join` now accepts a voice channel, optionally
 
 ## [7.0.9] - 15.03.2026
 
 ### Fixed
 
 - Docker .so library overwrite fix
+- Version notification formatting
 
 ## [7.0.8] - 15.03.2026
 
