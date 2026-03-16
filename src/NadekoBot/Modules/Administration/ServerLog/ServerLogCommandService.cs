@@ -834,6 +834,15 @@ public sealed class LogCommandService : ILogCommandService, IReadyExecutor
                 var beforeVch = before.VoiceChannel;
                 var afterVch = after.VoiceChannel;
 
+                if (afterVch is not null)
+                {
+                    var serverMuteChanged = before.IsMuted != after.IsMuted;
+                    var serverDeafChanged = before.IsDeafened != after.IsDeafened;
+
+                    if (serverMuteChanged || serverDeafChanged)
+                        await LogServerVoiceMuteDeafen(usr, before, after, serverMuteChanged, serverDeafChanged);
+                }
+
                 if (beforeVch == afterVch)
                     return;
 
@@ -891,6 +900,74 @@ public sealed class LogCommandService : ILogCommandService, IReadyExecutor
             }
         });
         return Task.CompletedTask;
+    }
+
+    private async Task LogServerVoiceMuteDeafen(
+        IGuildUser usr,
+        SocketVoiceState before,
+        SocketVoiceState after,
+        bool serverMuteChanged,
+        bool serverDeafChanged)
+    {
+        if (!GuildLogSettings.TryGetValue(usr.Guild.Id, out var logSetting)
+            || logSetting.UserMutedId is null
+            || logSetting.LogIgnores.Any(
+                ilc => ilc.LogItemId == usr.Id && ilc.ItemType == IgnoredItemType.User))
+            return;
+
+        ITextChannel? logChannel;
+        if ((logChannel = await TryGetLogChannel(usr.Guild, logSetting, LogType.UserMuted)) is null)
+            return;
+
+        var modName = "Unknown";
+        try
+        {
+            var auditLogs = await usr.Guild.GetAuditLogsAsync(5, actionType: ActionType.MemberUpdated);
+            var entry = auditLogs
+                .Where(e => e.Data is SocketMemberUpdateAuditLogData data && data.Target.Id == usr.Id)
+                .Where(e => e.CreatedAt > DateTimeOffset.UtcNow.AddSeconds(-5))
+                .OrderByDescending(e => e.CreatedAt)
+                .FirstOrDefault();
+
+            if (entry is not null)
+            {
+                if (entry.User.Id == _client.CurrentUser.Id)
+                    return;
+
+                modName = entry.User.ToString() ?? "Unknown";
+            }
+        }
+        catch
+        {
+        }
+
+        var changes = new List<string>();
+
+        if (serverMuteChanged)
+        {
+            changes.Add(after.IsMuted
+                ? GetText(logChannel.Guild, strs.voice_server_muted)
+                : GetText(logChannel.Guild, strs.voice_server_unmuted));
+        }
+
+        if (serverDeafChanged)
+        {
+            changes.Add(after.IsDeafened
+                ? GetText(logChannel.Guild, strs.voice_server_deafened)
+                : GetText(logChannel.Guild, strs.voice_server_undeafened));
+        }
+
+        var emoji = after.IsMuted || after.IsDeafened ? "🔇" : "🔊";
+        var description = string.Join("\n", changes);
+
+        var embed = _sender.CreateEmbed()
+            .WithAuthor($"{emoji} {description}")
+            .WithTitle($"{usr.Username} | {usr.Id}")
+            .AddField("Moderator", modName, true)
+            .WithFooter(CurrentTime(usr.Guild))
+            .WithOkColor();
+
+        await _sender.Response(logChannel).Embed(embed).SendAsync();
     }
 
     private Task _client_UserLeft(SocketGuild guild, SocketUser usr)

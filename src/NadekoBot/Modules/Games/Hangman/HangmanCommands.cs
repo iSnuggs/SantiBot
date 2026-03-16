@@ -69,7 +69,8 @@ public partial class Games
 
             var eb = GetEmbed(_sender, hangman);
             eb.WithDescription(GetText(strs.hangman_game_started));
-            await Response().Embed(eb).SendAsync();
+            var sent = await Response().Embed(eb).SendAsync();
+            _service.SetLastMessage(ctx.Channel.Id, sent);
         }
 
         [Cmd]
