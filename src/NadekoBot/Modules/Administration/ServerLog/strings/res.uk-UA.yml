@@ -50,4 +50,8 @@ voice_chan_created: Голосовий канал створено
 voice_chan_destroyed: Голосовий канал видалено
 xmuted_text: 'Користувача {0} замучено в текстовому чаті {1}'
 xmuted_text_and_voice: 'Користувача {0} замучено в текстовому та голосовому чаті {1}'
+voice_server_deafened: Заглушено сервером
+voice_server_muted: Мiкрофон вимкнено сервером
+voice_server_undeafened: Заглушення сервером знято
+voice_server_unmuted: Мiкрофон увiмкнено сервером
 xmuted_voice: 'Користувача {0} замучено в голосовому чаті {1}'

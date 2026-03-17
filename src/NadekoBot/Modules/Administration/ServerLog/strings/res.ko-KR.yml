@@ -50,4 +50,8 @@ voice_chan_created: 음성 채널 생성됨
 voice_chan_destroyed: 음성 채널 삭제됨
 xmuted_text: '사용자 {0}을(를) {1}이(가) 텍스트 채팅에서 처리함'
 xmuted_text_and_voice: '사용자 {0}을(를) {1}이(가) 텍스트 및 음성 채팅에서 처리함'
+voice_server_deafened: 서버에서 소리 차단됨
+voice_server_muted: 서버에서 음소거됨
+voice_server_undeafened: 서버에서 소리 차단 해제됨
+voice_server_unmuted: 서버에서 음소거 해제됨
 xmuted_voice: '사용자 {0}을(를) 음성 채팅에서 {1}'

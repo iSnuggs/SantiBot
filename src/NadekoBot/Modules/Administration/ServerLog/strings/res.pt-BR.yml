@@ -50,4 +50,8 @@ voice_chan_created: Canal de voz criado
 voice_chan_destroyed: Canal de voz eliminado
 xmuted_text: 'Usuário {0} do canal de texto por {1}'
 xmuted_text_and_voice: 'Usuário {0} do texto e canal de voz por {1}'
+voice_server_deafened: Ensurdecido pelo servidor
+voice_server_muted: Silenciado pelo servidor
+voice_server_undeafened: Desensurdecido pelo servidor
+voice_server_unmuted: Dessilenciado pelo servidor
 xmuted_voice: 'Usuário {0} do canal de voz {1}'

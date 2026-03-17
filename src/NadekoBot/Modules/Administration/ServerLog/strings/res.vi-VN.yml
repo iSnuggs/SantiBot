@@ -50,4 +50,8 @@ voice_chan_created: Đã tạo kênh thoại
 voice_chan_destroyed: Đã xóa kênh thoại
 xmuted_text: 'Người dùng {0} khỏi chat văn bản bởi {1}'
 xmuted_text_and_voice: 'Người dùng {0} khỏi chat văn bản và thoại bởi {1}'
+voice_server_deafened: Bi tat am thanh boi may chu
+voice_server_muted: Bi tat tieng boi may chu
+voice_server_undeafened: Da bat am thanh boi may chu
+voice_server_unmuted: Da bat tieng boi may chu
 xmuted_voice: 'Người dùng {0} khỏi chat thoại {1}'

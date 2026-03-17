@@ -50,4 +50,8 @@ voice_chan_created: Гласовни канал креиран
 voice_chan_destroyed: Гласовни канал обрисан
 xmuted_text: 'Корисник {0} из текстуалног чета од стране {1}'
 xmuted_text_and_voice: 'Корисник {0} из текстуалног и гласовног чета од стране {1}'
+voice_server_deafened: Утишан од стране сервера
+voice_server_muted: Утишан микрофон од стране сервера
+voice_server_undeafened: Укинуто утишавање од стране сервера
+voice_server_unmuted: Укинуто утишавање микрофона од стране сервера
 xmuted_voice: 'Корисник {0} из гласовног чета {1}'

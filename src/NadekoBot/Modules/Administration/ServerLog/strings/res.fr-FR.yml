@@ -50,4 +50,8 @@ voice_chan_created: Salon vocal créé
 voice_chan_destroyed: Salon vocal détruit
 xmuted_text: 'Utilisateur {0} du salon textuel de {1}'
 xmuted_text_and_voice: 'Utilisateur {0} du salon textuel et vocal par {1}'
+voice_server_deafened: Rendu sourd par le serveur
+voice_server_muted: Micro coupe par le serveur
+voice_server_undeafened: Sourdine levee par le serveur
+voice_server_unmuted: Micro reactive par le serveur
 xmuted_voice: 'Utilisateur {0} du vocal {1}'

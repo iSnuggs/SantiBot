@@ -50,4 +50,8 @@ voice_chan_created: 已創建語音通道
 voice_chan_destroyed: 語音頻道已移除
 xmuted_text: '來自 {1} 的文字頻道的用戶 {0}'
 xmuted_text_and_voice: '來自 {1} 的文字和語音頻道的用戶 {0}'
+voice_server_deafened: 被服务器禁听
+voice_server_muted: 被服务器静音
+voice_server_undeafened: 被服务器取消禁听
+voice_server_unmuted: 被服务器取消静音
 xmuted_voice: '來自語音頻道 {1} 的用戶 {0}'
