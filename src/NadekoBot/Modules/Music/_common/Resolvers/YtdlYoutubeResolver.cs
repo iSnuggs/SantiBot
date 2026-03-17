@@ -34,7 +34,7 @@ public sealed class YtdlYoutubeResolver : IYoutubeResolver
         _ytdlPlaylistOperation = new("-4 "
                                      + "--geo-bypass "
                                      + "--encoding UTF8 "
-                                     + "-f bestaudio "
+                                     + "-f \"bestaudio/best\" "
                                      + "-e "
                                      + "--get-url "
                                      + "--get-id "
@@ -48,7 +48,7 @@ public sealed class YtdlYoutubeResolver : IYoutubeResolver
         _ytdlIdOperation = new("-4 "
                                + "--geo-bypass "
                                + "--encoding UTF8 "
-                               + "-f bestaudio "
+                               + "-f \"bestaudio/best\" "
                                + "-e "
                                + "--get-url "
                                + "--get-id "
@@ -60,7 +60,7 @@ public sealed class YtdlYoutubeResolver : IYoutubeResolver
         _ytdlSearchOperation = new("-4 "
                                    + "--geo-bypass "
                                    + "--encoding UTF8 "
-                                   + "-f bestaudio "
+                                   + "-f \"bestaudio/best\" "
                                    + "-e "
                                    + "--get-url "
                                    + "--get-id "
@@ -158,10 +158,15 @@ public sealed class YtdlYoutubeResolver : IYoutubeResolver
     }
 
     private Task CacheStreamUrlAsync(YtTrackData trackInfo)
-        => _trackCacher.CacheStreamUrlAsync(trackInfo.Id,
+    {
+        if (string.IsNullOrWhiteSpace(trackInfo.StreamUrl))
+            return Task.CompletedTask;
+
+        return _trackCacher.CacheStreamUrlAsync(trackInfo.Id,
             MusicPlatform.Youtube,
             trackInfo.StreamUrl!,
             GetExpiry(trackInfo.StreamUrl!));
+    }
 
     public async IAsyncEnumerable<ITrackInfo> ResolveTracksByPlaylistIdAsync(string playlistId)
     {
@@ -276,6 +281,8 @@ public sealed class YtdlYoutubeResolver : IYoutubeResolver
         {
             var stringData = await _ytdlSearchOperation.GetDataAsync(query);
             var trackData = ResolveYtdlData(stringData);
+            if (string.IsNullOrWhiteSpace(trackData.Title))
+                return null;
 
             var trackInfo = DataToInfo(trackData);
             await Task.WhenAll(_trackCacher.CacheTrackDataByQueryAsync(query, trackInfo.ToCachedData(trackData.Id)),
