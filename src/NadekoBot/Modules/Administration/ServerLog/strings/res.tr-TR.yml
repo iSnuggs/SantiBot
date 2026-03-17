@@ -50,4 +50,8 @@ voice_chan_created: Ses kanalı oluşturuldu
 voice_chan_destroyed: Ses kanalı silindi
 xmuted_text: '{1} tarafından {0} kullanıcısının yazı sohbeti susturuldu'
 xmuted_text_and_voice: '{1} tarafından {0} kullanıcısının yazı ve ses sohbeti susturuldu'
+voice_server_deafened: Sunucu tarafindan sagir edildi
+voice_server_muted: Sunucu tarafindan sesi kapatildi
+voice_server_undeafened: Sunucu tarafindan sagirlik kaldirildi
+voice_server_unmuted: Sunucu tarafindan ses acildi
 xmuted_voice: '{1} tarafından {0} kullanıcısının ses sohbeti susturuldu'

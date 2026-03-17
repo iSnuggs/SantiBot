@@ -50,4 +50,8 @@ voice_chan_created: Voice channel dibuat
 voice_chan_destroyed: Voice channel dihapus
 xmuted_text: 'User {0} dari chat teks oleh {1}'
 xmuted_text_and_voice: 'User {0} dari chat teks dan voice oleh {1}'
+voice_server_deafened: Ditulikan oleh server
+voice_server_muted: Dibisukan oleh server
+voice_server_undeafened: Pembisuan suara server dicabut
+voice_server_unmuted: Pembisuan server dicabut
 xmuted_voice: 'User {0} dari voice chat {1}'

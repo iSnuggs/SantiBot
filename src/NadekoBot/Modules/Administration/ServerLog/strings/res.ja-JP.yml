@@ -50,4 +50,8 @@ voice_chan_created: ボイスチャンネルが作成されました
 voice_chan_destroyed: ボイスチャンネルが削除されました
 xmuted_text: 'テキストチャット上で、ユーザー{0}を{1}がミュートしました'
 xmuted_text_and_voice: 'テキストチャットとボイスチャット上で、ユーザー{0}を{1}がミュートしました'
+voice_server_deafened: サーバーによるスピーカーミュート
+voice_server_muted: サーバーによるマイクミュート
+voice_server_undeafened: サーバーによるスピーカーミュート解除
+voice_server_unmuted: サーバーによるマイクミュート解除
 xmuted_voice: 'ボイスチャット上で、ユーザー{0}を{1}がミュートしました'

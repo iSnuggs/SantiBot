@@ -50,4 +50,8 @@ voice_chan_created: Utworzono kanał głosowy
 voice_chan_destroyed: Usunięto kanał głosowy
 xmuted_text: 'Użytkownik {0} na czacie tekstowym przez {1}'
 xmuted_text_and_voice: 'Użytkownik {0} na czacie tekstowym i głosowym przez {1}'
+voice_server_deafened: Wyciszony przez serwer (gluszenie)
+voice_server_muted: Wyciszony przez serwer (mikrofon)
+voice_server_undeafened: Odgluszony przez serwer
+voice_server_unmuted: Odciszony przez serwer (mikrofon)
 xmuted_voice: 'Użytkownik {0} na czacie głosowym {1}'

@@ -50,4 +50,8 @@ voice_chan_created: تم إنشاء قناة صوتية
 voice_chan_destroyed: تم حذف قناة صوتية
 xmuted_text: 'المستخدم {0} من الدردشة النصية بواسطة {1}'
 xmuted_text_and_voice: 'المستخدم {0} من الدردشة النصية والصوتية بواسطة {1}'
+voice_server_deafened: صُمّ من الخادم
+voice_server_muted: كُتم صوته من الخادم
+voice_server_undeafened: أُلغي الصمم من الخادم
+voice_server_unmuted: أُلغي كتم الصوت من الخادم
 xmuted_voice: 'المستخدم {0} من الدردشة الصوتية {1}'
