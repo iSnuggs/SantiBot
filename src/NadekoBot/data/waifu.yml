@@ -1,5 +1,5 @@
 # DO NOT CHANGE
-version: 4
+version: 5
 # Minimum price a waifu can have. Default 1000
 minPrice: 1000
 # Cost to opt into the waifu system. Default 10000
@@ -26,10 +26,6 @@ managerBuyPremium: 0.15
 managerOldPayout: 0.9
 # Fraction of buy price paid to the waifu (0.0-1.0). Default 0.05. Remainder is burned
 managerWaifuPayout: 0.05
-# Fraction of manager price refunded on resign (0.0-1.0). Default 0.90
-managerExitRefund: 0.9
-# Fraction of manager price paid to the waifu on resign as pending payout (0.0-1.0). Default 0.05
-managerExitWaifu: 0.05
 # Manager's cut of the waifu fee on cycle payouts (0.0-1.0). Default 0.15 (15%)
 managerCutPercent: 0.15
 # List of gift items available in the shop
