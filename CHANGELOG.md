@@ -2,7 +2,25 @@
 
 *a,c,f,r,o,d*
 
+## [7.0.11] - 17.03.2026
+
+### Changed
+
+- Hangman will now re-post once every 5 messages
+- `.log` now supports UserMuted event logging (mute/unmute)
+
+### Fixed
+
+- yt-dlp errors due to unavailable formats
+
 ## [7.0.10] - 16.03.2026
+
+### Added
+
+- AI Agent framework - @mention the bot with natural language to perform multi-step tasks (split messages, send to channels, etc.)
+- `.agent` command as explicit alternative to @mention
+- `.agenttools` and `.agenttool` commands for per-guild tool management
+- Supports both self-hosted OpenAI-compatible APIs and the Nadeko AI backend
 
 ### Changed
 
