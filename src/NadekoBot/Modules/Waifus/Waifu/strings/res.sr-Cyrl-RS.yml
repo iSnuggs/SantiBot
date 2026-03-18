@@ -9,9 +9,9 @@ waifu_has_fans: Још увек имате фанове који вас подр
 waifu_self_not_allowed: Не можете то радити себи!
 waifu_no_actions_left: Потрошили сте све акције за данас. Вратите се сутра!
 waifu_not_found: Тај ваифу не постоји.
-waifu_hugged: 'Загрлили сте {0}! (+{1} расположење)'
-waifu_kissed: 'Пољубили сте {0}! (+{1} расположење)'
-waifu_patted: 'Нежно сте потапшали {0}. (+{1} расположење)'
+waifu_hugged: 'Загрлили сте {0}!'
+waifu_kissed: 'Пољубили сте {0}!'
+waifu_patted: 'Нежно сте потапшали {0}.'
 waifu_pending_payout: 'Имате {0} у неприкупљеним исплатама.'
 waifu_no_pending_payout: Немате исплате на чекању.
 waifu_payout_claimed: 'Прикупили сте {0}!'
@@ -89,3 +89,4 @@ waifu_help_footer: 'Користи {0}cmds waifu за листу команди'
 waifu_backed_label: подржано
 waifu_buy_confirm: 'Постати менаџер **{0}** за **{1}**?'
 waifu_btn_confirm: Потврди
+waifu_no_effect: "без ефекта!"
