@@ -39,7 +39,7 @@ waifu_outside_buy_window: Yönetici satın alımları yalnızca döngünün ilk 
 waifu_price_too_low: Teklifin çok düşük. Minimum fiyat, mevcut waifu fiyatının %115'idir.
 waifu_bought_manager_title: 🏢 Yönetici Pozisyonu Alındı!
 waifu_bought_manager: 'Artık {1:N0} karşılığında {0} kişisinin yöneticisisin!'
-waifu_old_manager_payout: Eski Yönetici
+waifu_old_manager_refund: Eski Yönetici
 waifu_over_cap: sınır aşıldı
 waifu_no_manager_title: Yöneticiye İhtiyacı Var!
 waifu_no_manager_payout: 'Henüz hiçbir kazanç yok. Yönetici olmadan fiyat her döngüde %{0} düşer. İlk yönetici sen ol!'
@@ -87,3 +87,5 @@ waifu_btn_collect: Topla
 waifu_btn_my_waifus: Waifularım
 waifu_help_footer: 'Komut listesi için {0}cmds waifu yaz'
 waifu_backed_label: desteklenen
+waifu_buy_confirm: '**{1}** karsiligi **{0}** adli waifunun yoneticisi olmak ister misin?'
+waifu_btn_confirm: Onayla

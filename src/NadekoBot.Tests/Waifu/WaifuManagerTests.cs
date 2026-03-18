@@ -42,8 +42,8 @@ public class WaifuManagerTests
     [Test]
     public async Task BuyManager_FirstManager_WaifuGetsFullPayout()
     {
-        // Price=1000, bid=1150 (min required=ceil(1000*1.15)=1150)
-        // No old manager: waifu gets oldManagerPayout+waifuPayout = 1035+57 = 1092
+        // Price=1000, bid=1150, no old manager
+        // Surplus=1150, waifu gets 50%=575, burned=575
         await using (var ctx = _db.GetDbContext())
         {
             await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 1000);
@@ -55,11 +55,12 @@ public class WaifuManagerTests
         var info = result.AsT5.Value;
         Assert.That(info.PricePaid, Is.EqualTo(1150));
         Assert.That(info.OldManagerId, Is.Null);
-        Assert.That(info.WaifuPayout, Is.EqualTo(1092));
-        Assert.That(info.Burned, Is.EqualTo(58));
+        Assert.That(info.OldManagerRefund, Is.EqualTo(0));
+        Assert.That(info.WaifuPayout, Is.EqualTo(575));
+        Assert.That(info.Burned, Is.EqualTo(575));
 
         await _cs.Received(1).RemoveAsync(2001, 1150, Arg.Any<TxData?>());
-        await _cs.Received(1).AddAsync(1001, 1092, Arg.Any<TxData?>());
+        await _cs.Received(1).AddAsync(1001, 575, Arg.Any<TxData?>());
 
         await using (var ctx = _db.GetDbContext())
         {
@@ -70,10 +71,10 @@ public class WaifuManagerTests
     }
 
     [Test]
-    public async Task BuyManager_ReplaceExistingManager_OldManagerPaidOut()
+    public async Task BuyManager_ReplaceExistingManager_OldManagerRefunded()
     {
         // Price=2000, bid=2300 (min required=ceil(2000*1.15)=2300)
-        // Old manager gets 90%=2070, waifu gets 5%=115
+        // Old manager refund=2000, surplus=300, waifu gets 50%=150, burned=150
         await using (var ctx = _db.GetDbContext())
         {
             await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 2000, managerId: 3001);
@@ -83,9 +84,10 @@ public class WaifuManagerTests
         Assert.That(result.IsT5, Is.True, "Expected Success");
 
         var info = result.AsT5.Value;
-        Assert.That(info.OldManagerPayout, Is.EqualTo(2070));
-        Assert.That(info.WaifuPayout, Is.EqualTo(115));
-        await _cs.Received(1).AddAsync(3001, 2070, Arg.Any<TxData?>());
+        Assert.That(info.OldManagerRefund, Is.EqualTo(2000));
+        Assert.That(info.WaifuPayout, Is.EqualTo(150));
+        Assert.That(info.Burned, Is.EqualTo(150));
+        await _cs.Received(1).AddAsync(3001, 2000, Arg.Any<TxData?>());
     }
 
     [Test]
@@ -205,8 +207,8 @@ public class WaifuManagerTests
     [Test]
     public async Task BuyManager_Overpay_UsesFullBidAmount()
     {
-        // Price=1000, bid=5000 (overpaying)
-        // Waifu gets 95% of 5000 = 4500+250 = 4750
+        // Price=1000, bid=5000, no old manager
+        // Surplus=5000, waifu gets 50%=2500, burned=2500
         await using (var ctx = _db.GetDbContext())
         {
             await WaifuTestHelper.CreateWaifu(ctx, 1001, price: 1000);
@@ -217,8 +219,8 @@ public class WaifuManagerTests
 
         var info = result.AsT5.Value;
         Assert.That(info.PricePaid, Is.EqualTo(5000));
-        Assert.That(info.WaifuPayout, Is.EqualTo(4750));
-        Assert.That(info.Burned, Is.EqualTo(250));
+        Assert.That(info.WaifuPayout, Is.EqualTo(2500));
+        Assert.That(info.Burned, Is.EqualTo(2500));
 
         await using (var ctx = _db.GetDbContext())
         {

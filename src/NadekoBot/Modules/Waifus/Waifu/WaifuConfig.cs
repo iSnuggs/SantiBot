@@ -6,7 +6,7 @@ namespace NadekoBot.Modules.Waifus.Waifu;
 public sealed partial class WaifuConfig : ICloneable<WaifuConfig>
 {
     [Comment("DO NOT CHANGE")]
-    public int Version { get; set; } = 5;
+    public int Version { get; set; } = 6;
 
     [Comment("Minimum price a waifu can have. Default 1000")]
     public long MinPrice { get; set; } = 1_000;
@@ -41,11 +41,8 @@ public sealed partial class WaifuConfig : ICloneable<WaifuConfig>
     [Comment("Premium over current price to buy manager position (0.0-1.0). Default 0.15 (15%)")]
     public double ManagerBuyPremium { get; set; } = 0.15;
 
-    [Comment("Fraction of buy price paid to the old manager (0.0-1.0). Default 0.90. Remainder is burned")]
-    public double ManagerOldPayout { get; set; } = 0.90;
-
-    [Comment("Fraction of buy price paid to the waifu (0.0-1.0). Default 0.05. Remainder is burned")]
-    public double ManagerWaifuPayout { get; set; } = 0.05;
+    [Comment("Fraction of surplus (bid - old price) paid to the waifu (0.0-1.0). Default 0.50")]
+    public double SurplusWaifuShare { get; set; } = 0.50;
 
     [Comment("Manager's cut of the waifu fee on cycle payouts (0.0-1.0). Default 0.15 (15%)")]
     public double ManagerCutPercent { get; set; } = 0.15;

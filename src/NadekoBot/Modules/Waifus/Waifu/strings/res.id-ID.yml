@@ -39,7 +39,7 @@ waifu_outside_buy_window: Pembelian manajer hanya tersedia selama 18 jam pertama
 waifu_price_too_low: Tawaranmu terlalu rendah. Harga minimum adalah 115% dari harga waifu saat ini.
 waifu_bought_manager_title: 🏢 Posisi Manajer Didapatkan!
 waifu_bought_manager: 'Kamu sekarang manajer dari {0} seharga {1:N0}!'
-waifu_old_manager_payout: Manajer Lama
+waifu_old_manager_refund: Manajer Lama
 waifu_over_cap: melebihi batas
 waifu_no_manager_title: Butuh Manajer!
 waifu_no_manager_payout: 'Belum menghasilkan apa-apa. Tanpa manajer, harga turun {0}% setiap siklus. Jadilah yang pertama mengelola!'
@@ -87,3 +87,5 @@ waifu_btn_collect: Kumpulkan
 waifu_btn_my_waifus: Waifu Saya
 waifu_help_footer: 'Pakai {0}cmds waifu untuk daftar perintah'
 waifu_backed_label: didukung
+waifu_buy_confirm: 'Menjadi manajer **{0}** seharga **{1}**?'
+waifu_btn_confirm: Konfirmasi

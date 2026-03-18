@@ -39,7 +39,7 @@ waifu_outside_buy_window: Куповина менаџерске позиције
 waifu_price_too_low: Твоја понуда је прениска. Минимална цена је 115% тренутне цене вајфу.
 waifu_bought_manager_title: 🏢 Менаџерска позиција освојена!
 waifu_bought_manager: 'Сада си менаџер корисника {0} за {1:N0}!'
-waifu_old_manager_payout: Претходни менаџер
+waifu_old_manager_refund: Претходни менаџер
 waifu_over_cap: преко лимита
 waifu_no_manager_title: Потребан менаџер!
 waifu_no_manager_payout: 'Још не зарађује ништа. Без менаџера, цена пада {0}% сваког циклуса. Буди први менаџер!'
@@ -87,3 +87,5 @@ waifu_btn_collect: Покупи
 waifu_btn_my_waifus: Моје Waifus
 waifu_help_footer: 'Користи {0}cmds waifu за листу команди'
 waifu_backed_label: подржано
+waifu_buy_confirm: 'Постати менаџер **{0}** за **{1}**?'
+waifu_btn_confirm: Потврди

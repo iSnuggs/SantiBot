@@ -21,9 +21,9 @@ waifu_stopped_backing: You've stopped being a fan. Hmph.
 waifu_invalid_fee: 'Fee must be between {0}% and {1}%.'
 waifu_fee_set: 'Fee updated to {0}%.'
 waifu_fans_title: 'Fans of {0}'
-waifu_lb_title: '🏆 Waifu Leaderboard (by price)'
-waifu_lb_title_backed: '🏆 Waifu Leaderboard (by backing)'
-waifu_gift_shop_title: '🎁 Today''s Gift Shop'
+waifu_lb_title: 🏆 Waifu Leaderboard (by price)
+waifu_lb_title_backed: 🏆 Waifu Leaderboard (by backing)
+waifu_gift_shop_title: 🎁 Today's Gift Shop
 waifu_shop_refreshes: 'Refreshes in {0}'
 waifu_item_not_found: 'That item isn''t available today. Use `{0}wgiftshop` to see what''s in stock.'
 waifu_gifted: 'You gave {0}x {1} {2} to {3}! (+{4} {5})'
@@ -37,30 +37,30 @@ waifu_goes_to_waifu: Goes to Waifu
 waifu_burned: Burned
 waifu_outside_buy_window: Manager purchases are only available during the first 18 hours of a cycle. Read the rules next time.
 waifu_price_too_low: Your bid is too low. The minimum price is 115% of the current waifu price. Do the math, b-baka!
-waifu_bought_manager_title: '🏢 Manager Position Acquired!'
+waifu_bought_manager_title: 🏢 Manager Position Acquired!
 waifu_bought_manager: 'You''re now the manager of {0} for {1:N0}!'
-waifu_old_manager_payout: Old Manager
+waifu_old_manager_refund: Old Manager
 waifu_over_cap: over cap
 waifu_no_manager_title: Needs a Manager!
-waifu_no_manager_payout: 'Not earning anything yet. A manager is needed to start generating returns. Be the first to manage!'
+waifu_no_manager_payout: Not earning anything yet. A manager is needed to start generating returns. Be the first to manage!
 waifu_now_backing_hint: |-
   You're now a fan of {0}!
   *Your bank balance is your backing power - the more you hold, the more you earn.*
 waifu_bank_balance: 'Your bank balance: {0}'
-waifu_not_participating_title: '🎀 Waifu System'
+waifu_not_participating_title: 🎀 Waifu System
 waifu_not_participating: |-
   Become a **Waifu** or support one as a **Fan** to earn currency!
-
+  
   **How it works**
   `{0}woptin` - register as a waifu
   `{0}wback @user` - back a waifu with your bank balance
   `{0}wbuy @user` - become a waifu's manager
-
+  
   **Roles**
   🎀 **Waifu** - earns a fee from every payout cycle
   🏢 **Manager** - buys the position, earns a cut of the waifu fee
   👥 **Fan** - backs a waifu with bank balance, earns from the fan pool
-
+  
   **Cycle**
   Every 3.5 days, returns are generated from backed funds and split between the waifu, manager, and fans. Keep your waifu's mood 😊 and food 🍔 high for better payouts!
 waifu_fan_not_waifu: 'You''re not a waifu - you''re a fan of **{0}**. Get it right.'
@@ -72,9 +72,9 @@ waifu_managing_empty: Not managing any waifus. How lazy.
 waifu_earned: '**Earned**: {0}'
 waifu_cycle_title: '**Cycle #{0}**'
 waifu_payout_time: 'Payout {0}'
-waifu_field_backed_by: '👥 Fans'
-waifu_field_manager: '🏢 Manager'
-waifu_field_price: '💎 Price'
+waifu_field_backed_by: 👥 Fans
+waifu_field_manager: 🏢 Manager
+waifu_field_price: 💎 Price
 waifu_footer_fee: 'Fee: {0}%'
 waifu_footer_actions: 'Actions: {0}/{1}'
 waifu_fan_count: '{0} fans'
@@ -87,3 +87,5 @@ waifu_btn_collect: Collect
 waifu_btn_my_waifus: My Waifus
 waifu_help_footer: 'Use {0}cmds waifu for a list of commands.'
 waifu_backed_label: backed
+waifu_buy_confirm: 'B-become the manager of **{0}** for **{1}**?!'
+waifu_btn_confirm: Confirm
