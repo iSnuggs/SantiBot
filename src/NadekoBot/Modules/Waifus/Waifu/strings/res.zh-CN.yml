@@ -39,7 +39,7 @@ waifu_outside_buy_window: 經理購買僅在週期的前 18 小時內可用。
 waifu_price_too_low: 你的出价太低了。最低价格是当前 waifu 价格的 115%。
 waifu_bought_manager_title: 🏢 經理職位已取得！
 waifu_bought_manager: '你現在是 {0} 的經理，花費 {1:N0}！'
-waifu_old_manager_payout: 前经理
+waifu_old_manager_refund: 前经理
 waifu_over_cap: 超過上限
 waifu_no_manager_title: 需要經理！
 waifu_no_manager_payout: '尚未賺取任何東西。沒有經理的話，價格每週期下降 {0}%。成為第一個經理吧！'
@@ -87,3 +87,5 @@ waifu_btn_collect: 領取
 waifu_btn_my_waifus: 我的老婆
 waifu_help_footer: '使用 {0}cmds waifu 查看指令列表'
 waifu_backed_label: 已支持
+waifu_buy_confirm: '成为 **{0}** 的经理人，花费 **{1}**？'
+waifu_btn_confirm: 确认

@@ -39,7 +39,7 @@ waifu_outside_buy_window: Les achats de manager ne sont disponibles que pendant 
 waifu_price_too_low: Votre offre est trop basse. Le prix minimum est de 115% du prix actuel de la waifu.
 waifu_bought_manager_title: 🏢 Position de Manager Acquise !
 waifu_bought_manager: 'Vous êtes maintenant le manager de {0} pour {1:N0} !'
-waifu_old_manager_payout: Ancien Manager
+waifu_old_manager_refund: Ancien Manager
 waifu_over_cap: au-dessus du plafond
 waifu_no_manager_title: A Besoin d'un Manager !
 waifu_no_manager_payout: 'Ne gagne rien encore. Sans manager, le prix baisse de {0}% à chaque cycle. Soyez le premier à gérer !'
@@ -87,3 +87,5 @@ waifu_btn_collect: Collecter
 waifu_btn_my_waifus: Mes Waifus
 waifu_help_footer: 'Utilisez {0}cmds waifu pour une liste de commandes'
 waifu_backed_label: soutenu
+waifu_buy_confirm: 'Devenir le manager de **{0}** pour **{1}** ?'
+waifu_btn_confirm: Confirmer

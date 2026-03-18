@@ -172,7 +172,7 @@ public partial class Waifus
         var backedBySb = new StringBuilder();
         backedBySb.Append(GetText(strs.waifu_fan_count(info.FanCount)));
         if (snapshotBacked > 0)
-            backedBySb.Append($" ({CurrencyHelper.N(snapshotBacked, Culture, currSign)})");
+            backedBySb.Append($"\n{CurrencyHelper.N(snapshotBacked, Culture, currSign)}");
 
 
         var displayName = targetUser?.ToString() ?? targetUserId.ToString();
@@ -467,11 +467,49 @@ public partial class Waifus
     }
 
     [Cmd]
-    public async Task WaifuBuy(
+    public Task WaifuBuy(
         [OverrideTypeReader(typeof(BalanceTypeReader))] long amount,
         [Leftover] IUser user)
+        => WaifuBuyInternalAsync(amount, user.Id, user.ToString() ?? user.Id.ToString());
+
+    [Cmd]
+    public Task WaifuBuy(
+        [OverrideTypeReader(typeof(BalanceTypeReader))] long amount,
+        ulong userId)
+        => WaifuBuyInternalAsync(amount, userId, userId.ToString());
+
+    private async Task WaifuBuyInternalAsync(long amount, ulong targetUserId, string targetName)
     {
-        var res = await svc.BuyManagerAsync(ctx.User.Id, user.Id, amount);
+        var currSign = cp.GetCurrencySign();
+
+        var confirmEmbed = CreateEmbed()
+            .WithPendingColor()
+            .WithDescription(GetText(strs.waifu_buy_confirm(
+                targetName,
+                CurrencyHelper.N(amount, Culture, currSign))));
+
+        var tcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        var confirmBtn = _inter.Create(ctx.User.Id,
+            new ButtonBuilder(
+                label: GetText(strs.waifu_btn_confirm),
+                customId: "wbuy:confirm",
+                style: ButtonStyle.Success),
+            async smc =>
+            {
+                tcs.TrySetResult(true);
+                await smc.DeferAsync();
+            });
+
+        await Response().Embed(confirmEmbed).Interaction(confirmBtn).SendAsync();
+
+        var confirmed = await Task.WhenAny(tcs.Task, Task.Delay(60_000)) == tcs.Task
+                        && tcs.Task.Result;
+
+        if (!confirmed)
+            return;
+
+        var res = await svc.BuyManagerAsync(ctx.User.Id, targetUserId, amount);
 
         await res.Match(
             _ => Response().Error(strs.waifu_outside_buy_window).SendAsync(),
@@ -485,13 +523,13 @@ public partial class Waifus
                     .WithOkColor()
                     .WithTitle(GetText(strs.waifu_bought_manager_title))
                     .WithDescription(GetText(strs.waifu_bought_manager(
-                        user.ToString(),
+                        targetName,
                         info.Value.PricePaid)))
                     .AddField(GetText(strs.waifu_goes_to_waifu), $"{info.Value.WaifuPayout:N0}", true)
                     .AddField(GetText(strs.waifu_burned), $"{info.Value.Burned:N0}", true);
 
                 if (info.Value.OldManagerId.HasValue)
-                    eb.AddField(GetText(strs.waifu_old_manager_payout), $"{info.Value.OldManagerPayout:N0}", true);
+                    eb.AddField(GetText(strs.waifu_old_manager_refund), $"{info.Value.OldManagerRefund:N0}", true);
 
                 return Response().Embed(eb).SendAsync();
             }
@@ -603,9 +641,16 @@ public partial class Waifus
     }
 
     [Cmd]
-    public async Task WaifuResign([Leftover] IUser user)
+    public Task WaifuResign([Leftover] IUser user)
+        => WaifuResignInternalAsync(user.Id, user.ToString() ?? user.Id.ToString());
+
+    [Cmd]
+    public Task WaifuResign(ulong userId)
+        => WaifuResignInternalAsync(userId, userId.ToString());
+
+    private async Task WaifuResignInternalAsync(ulong targetUserId, string targetName)
     {
-        var isManaging = await svc.IsManagingAsync(ctx.User.Id, user.Id);
+        var isManaging = await svc.IsManagingAsync(ctx.User.Id, targetUserId);
         if (!isManaging)
         {
             await Response().Error(strs.waifu_not_managing).SendAsync();
@@ -615,16 +660,16 @@ public partial class Waifus
         var confirmEmbed = CreateEmbed()
             .WithPendingColor()
             .WithTitle(GetText(strs.waifu_manager_exit_title))
-            .WithDescription(GetText(strs.waifu_manager_exit_confirm(user.ToString())));
+            .WithDescription(GetText(strs.waifu_manager_exit_confirm(targetName)));
 
         if (!await PromptUserConfirmAsync(confirmEmbed))
             return;
 
-        var res = await svc.ResignManagerAsync(ctx.User.Id, user.Id);
+        var res = await svc.ResignManagerAsync(ctx.User.Id, targetUserId);
 
         await res.Match(
             _ => Response().Error(strs.waifu_not_managing).SendAsync(),
-            _ => Response().Confirm(strs.waifu_resigned_manager(user.ToString())).SendAsync()
+            _ => Response().Confirm(strs.waifu_resigned_manager(targetName)).SendAsync()
         );
     }
 

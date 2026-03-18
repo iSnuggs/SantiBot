@@ -67,7 +67,7 @@ public sealed class BuyManagerInfo
 {
     public long PricePaid { get; init; }
     public ulong? OldManagerId { get; init; }
-    public long OldManagerPayout { get; init; }
+    public long OldManagerRefund { get; init; }
     public long WaifuPayout { get; init; }
     public long Burned { get; init; }
 }
@@ -559,9 +559,11 @@ public sealed class WaifuService(
             return new ErrInsufficientFunds();
 
         var oldManagerId = wi.ManagerUserId;
-        var oldManagerPayout = (long)(bidAmount * conf.ManagerOldPayout);
-        var waifuPayout = (long)(bidAmount * conf.ManagerWaifuPayout);
-        var burned = bidAmount - oldManagerPayout - waifuPayout;
+        var oldPrice = wi.Price;
+        var oldManagerRefund = oldManagerId.HasValue ? Math.Min(oldPrice, bidAmount) : 0L;
+        var surplus = bidAmount - oldManagerRefund;
+        var waifuPayout = (long)(surplus * conf.SurplusWaifuShare);
+        var burned = surplus - waifuPayout;
 
         // Atomic update: only succeed if manager hasn't changed since we read
         int updated;
@@ -589,14 +591,9 @@ public sealed class WaifuService(
             return new ErrPriceTooLow();
         }
 
-        // Pay old manager (if exists)
-        if (oldManagerId.HasValue && oldManagerPayout > 0)
-            await cs.AddAsync(oldManagerId.Value, oldManagerPayout, new("waifu", "manager-buyout"));
-        else
-        {
-            // First manager: waifu gets the old manager's share
-            waifuPayout += oldManagerPayout;
-        }
+        // Refund old manager (if exists)
+        if (oldManagerId.HasValue && oldManagerRefund > 0)
+            await cs.AddAsync(oldManagerId.Value, oldManagerRefund, new("waifu", "manager-buyout"));
 
         // Pay waifu
         if (waifuPayout > 0)
@@ -606,7 +603,7 @@ public sealed class WaifuService(
         {
             PricePaid = bidAmount,
             OldManagerId = oldManagerId,
-            OldManagerPayout = oldManagerId.HasValue ? oldManagerPayout : 0,
+            OldManagerRefund = oldManagerRefund,
             WaifuPayout = waifuPayout,
             Burned = burned
         });
@@ -929,25 +926,22 @@ public sealed class WaifuService(
                 LEFT JOIN BankUsers b ON b.UserId = f.UserId
                 GROUP BY f.WaifuUserId
             ) fb ON fb.WaifuUserId = w.UserId
-            WHERE w.ManagerUserId IS NOT NULL AND fb.TotalBacked > 0;
+            WHERE w.ManagerUserId IS NOT NULL AND fb.TotalBacked > 0
+            ON CONFLICT (WaifuUserId, CycleNumber) DO NOTHING;
             """);
 
-        await ctx.GetTable<WaifuFan>()
-            .LeftJoin(ctx.GetTable<BankUser>(),
-                (f, b) => f.UserId == b.UserId,
-                (f, b) => new
-                {
-                    f.WaifuUserId,
-                    FanUserId = f.UserId,
-                    Balance = b != null ? b.Balance : 0L
-                })
-            .InsertAsync(ctx.GetTable<WaifuCycleSnapshot>(), fb => new WaifuCycleSnapshot
-            {
-                CycleNumber = cycleNumber,
-                WaifuUserId = fb.WaifuUserId,
-                UserId = fb.FanUserId,
-                SnapshotBalance = fb.Balance
-            });
+        await lctx.ExecuteAsync($"""
+            INSERT INTO WaifuCycleSnapshot
+                (CycleNumber, WaifuUserId, UserId, SnapshotBalance)
+            SELECT
+                {cycleNumber}, f.WaifuUserId, f.UserId, COALESCE(b.Balance, 0)
+            FROM WaifuFan f
+            LEFT JOIN BankUsers b ON b.UserId = f.UserId
+            WHERE f.WaifuUserId IN (
+                SELECT WaifuUserId FROM WaifuCycle WHERE CycleNumber = {cycleNumber}
+            )
+            ON CONFLICT (CycleNumber, WaifuUserId, UserId) DO NOTHING;
+            """);
     }
 
     /// <summary>

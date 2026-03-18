@@ -62,8 +62,6 @@ public sealed class WaifuConfigService : ConfigServiceBase<WaifuConfig>
                 c.MaxDailyActions = 2;
                 c.MaxGiftCount = 100;
                 c.ManagerBuyPremium = 0.15;
-                c.ManagerOldPayout = 0.90;
-                c.ManagerWaifuPayout = 0.05;
                 c.ManagerCutPercent = 0.15;
             });
         }
@@ -80,6 +78,15 @@ public sealed class WaifuConfigService : ConfigServiceBase<WaifuConfig>
             ModifyConfig(c =>
             {
                 c.Version = 5;
+            });
+        }
+
+        if (data.Version < 6)
+        {
+            ModifyConfig(c =>
+            {
+                c.Version = 6;
+                c.SurplusWaifuShare = 0.50;
             });
         }
     }

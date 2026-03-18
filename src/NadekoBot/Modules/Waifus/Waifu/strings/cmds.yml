@@ -69,11 +69,16 @@ waifubuy:
   ex:
     - '1150 @user'
     - '5000 @user'
+    - '5000 123456789012345678'
   params:
     - amount:
         desc: "Your bid amount."
       user:
         desc: "The waifu to manage."
+    - amount:
+        desc: "Your bid amount."
+      userId:
+        desc: "The user ID of the waifu to manage."
 waifufee:
   desc: |-
     Sets your waifu fee (1-5%). You must be opted in as a waifu.
@@ -130,9 +135,12 @@ waifuresign:
     No refund is given.
   ex:
     - '@user'
+    - '123456789012345678'
   params:
     - user:
         desc: "The waifu to resign from managing."
+    - userId:
+        desc: "The user ID of the waifu to resign from managing."
 waifulist:
   desc: |-
     Shows all waifus you (or the specified user) are currently managing.

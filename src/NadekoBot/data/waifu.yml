@@ -1,5 +1,5 @@
 # DO NOT CHANGE
-version: 5
+version: 6
 # Minimum price a waifu can have. Default 1000
 minPrice: 1000
 # Cost to opt into the waifu system. Default 10000
@@ -22,10 +22,8 @@ maxDailyActions: 2
 maxGiftCount: 100
 # Premium over current price to buy manager position (0.0-1.0). Default 0.15 (15%)
 managerBuyPremium: 0.15
-# Fraction of buy price paid to the old manager (0.0-1.0). Default 0.90. Remainder is burned
-managerOldPayout: 0.9
-# Fraction of buy price paid to the waifu (0.0-1.0). Default 0.05. Remainder is burned
-managerWaifuPayout: 0.05
+# Fraction of surplus (bid - old price) paid to the waifu (0.0-1.0). Default 0.50
+surplusWaifuShare: 0.5
 # Manager's cut of the waifu fee on cycle payouts (0.0-1.0). Default 0.15 (15%)
 managerCutPercent: 0.15
 # List of gift items available in the shop

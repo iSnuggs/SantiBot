@@ -39,7 +39,7 @@ waifu_outside_buy_window: マネージャーの購入はサイクルの最初の
 waifu_price_too_low: 入札額が低すぎます。最低価格は現在のwaifu価格の115%です。
 waifu_bought_manager_title: 🏢 マネージャーポジション獲得！
 waifu_bought_manager: 'あなたは{1:N0}で{0}のマネージャーになりました！'
-waifu_old_manager_payout: 前マネージャー
+waifu_old_manager_refund: 前マネージャー
 waifu_over_cap: 上限超過
 waifu_no_manager_title: マネージャーが必要です！
 waifu_no_manager_payout: 'まだ何も稼いでいません。マネージャーがいないと、価格は毎サイクル{0}%下がります。最初のマネージャーになりましょう！'
@@ -87,3 +87,5 @@ waifu_btn_collect: 回収
 waifu_btn_my_waifus: マイワイフ
 waifu_help_footer: '{0}cmds waifuでコマンド一覧を確認'
 waifu_backed_label: 応援済み
+waifu_buy_confirm: '**{0}** のマネージャーになりますか？費用: **{1}**'
+waifu_btn_confirm: 確認
