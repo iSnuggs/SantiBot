@@ -14,6 +14,7 @@ namespace NadekoBot.Modules.Waifus.Waifu;
 
 public readonly struct ErrSelfNotAllowed;
 public readonly struct ErrNoActionsLeft;
+public readonly struct NoEffect;
 public readonly struct ErrWaifuNotFound;
 public readonly struct ErrAlreadyOptedIn;
 public readonly struct ErrNotOptedIn;
@@ -39,7 +40,7 @@ public sealed partial class BackResult : OneOfBase<ErrAlreadyBacking, ErrWaifuNo
 public sealed partial class StopBackingResult : OneOfBase<ErrNotBacking, Success>;
 
 [GenerateOneOf]
-public sealed partial class ImproveMoodResult : OneOfBase<ErrSelfNotAllowed, ErrNoActionsLeft, ErrWaifuNotFound, Success<int>>;
+public sealed partial class ImproveMoodResult : OneOfBase<ErrSelfNotAllowed, ErrNoActionsLeft, ErrWaifuNotFound, NoEffect, Success<int>>;
 
 [GenerateOneOf]
 public sealed partial class SetFeeResult : OneOfBase<ErrWaifuNotFound, ErrNotOptedIn, ErrInvalidPercent, Success>;
@@ -670,10 +671,10 @@ public sealed class WaifuService(
             .Set(x => x.Mood, x => x.Mood + moodIncrease > 1000 ? 1000 : x.Mood + moodIncrease)
             .UpdateWithOutputAsync((o, n) => n.Mood);
 
-        if (updated.Length == 0)
-            return new ErrWaifuNotFound();
-
         await cache.AddAsync(actionsKey, used + 1, TimeSpan.FromHours(24));
+
+        if (updated.Length == 0)
+            return new NoEffect();
 
         return new Success<int>(moodIncrease);
     }

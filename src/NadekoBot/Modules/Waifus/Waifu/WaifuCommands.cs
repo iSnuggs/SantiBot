@@ -549,6 +549,15 @@ public partial class Waifus
         );
     }
 
+    private string GetActionStr(WaifuAction action, IUser user)
+        => GetText(action switch
+        {
+            WaifuAction.Hug => strs.waifu_hugged(user.ToString()),
+            WaifuAction.Kiss => strs.waifu_kissed(user.ToString()),
+            WaifuAction.Pat => strs.waifu_patted(user.ToString()),
+            _ => strs.waifu_hugged(user.ToString())
+        });
+
     private async Task ImproveMoodAsync(WaifuAction action, IUser user)
     {
         var res = await svc.ImproveMoodAsync(ctx.User.Id, user.Id, action);
@@ -557,16 +566,15 @@ public partial class Waifus
             _ => Response().Error(strs.waifu_self_not_allowed).SendAsync(),
             _ => Response().Error(strs.waifu_no_actions_left).SendAsync(),
             _ => Response().Error(strs.waifu_not_found).SendAsync(),
+            _ =>
+            {
+                var msg = $"{GetActionStr(action, user)}\n\n*{GetText(strs.waifu_no_effect)}*";
+                return Response().Confirm(msg).SendAsync();
+            },
             moodIncrease =>
             {
-                var successStr = action switch
-                {
-                    WaifuAction.Hug => strs.waifu_hugged(user.ToString(), moodIncrease.Value),
-                    WaifuAction.Kiss => strs.waifu_kissed(user.ToString(), moodIncrease.Value),
-                    WaifuAction.Pat => strs.waifu_patted(user.ToString(), moodIncrease.Value),
-                    _ => strs.waifu_hugged(user.ToString(), moodIncrease.Value)
-                };
-                return Response().Confirm(successStr).SendAsync();
+                var msg = $"{GetActionStr(action, user)}\n\n*+{moodIncrease.Value} mood*";
+                return Response().Confirm(msg).SendAsync();
             }
         );
     }
