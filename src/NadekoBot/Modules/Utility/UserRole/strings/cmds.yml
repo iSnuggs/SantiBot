@@ -3,10 +3,10 @@ userroleassign:
   ex:
     - '@User @Role'
   params:
-    - role:
-        desc: The role to assign.
-      user:
+    - user:
         desc: The user to assign the role to.
+      role:
+        desc: The role to assign.
 userrolecolor:
   desc: Changes the color of your assigned role.
   ex:
