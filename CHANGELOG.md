@@ -2,25 +2,46 @@
 
 *a,c,f,r,o,d*
 
+## [7.0.13] - 18.03.2026
+
+### Added
+
+- `.nom` command that feeds a waifu to improve food
+- `.hug`, `.kiss`, `.pat`, `.nom` now show a random gif in the response
+- `.hug`, `.kiss`, `.pat`, `.nom` now support multiple users at once (e.g. `.hug @user1 @user2`) and arbitrary strings - non waifus don't receive the effect
+- New AI agent system - beta, owner only for now (replaces chatterbot/cleverbot/nadeko ai)
+- `.notify` now supports `fishcurrency` event to track when users fish out currency
+
+### Changed
+
+- Reorganized Administration module to fix `.cmds admin` exceeding discord's 25-option limit
+- `.wbuy` now asks for confirmation
+- `gptApiKey` in `creds.yml` renamed to `aiApiKey` (auto-migrated on startup)
+- Patrons now get 3 waifu actions per cycle (hug/kiss/pat/nom)
+
+### Fixed
+
+- Fixed `.masskick` actually banning users instead of kicking them
+- Fixed some waifu console errors
+
+### Removed
+
+- Chatterbot/cleverbot and old nadekoAi have been removed in favor of the new ai agent system
+
 ## [7.0.11] - 17.03.2026
 
 ### Changed
 
 - Hangman will now re-post once every 5 messages
 - `.log` now supports UserMuted event logging (mute/unmute)
+- You can now `.fish` out currency
+- `.hug`, `.pat`, `.kiss` now work on non-waifu users with a "no effect!" message instead of an error
 
 ### Fixed
 
 - yt-dlp errors due to unavailable formats
 
 ## [7.0.10] - 16.03.2026
-
-### Added
-
-- AI Agent framework - @mention the bot with natural language to perform multi-step tasks (split messages, send to channels, etc.)
-- `.agent` command as explicit alternative to @mention
-- `.agenttools` and `.agenttool` commands for per-guild tool management
-- Supports both self-hosted OpenAI-compatible APIs and the Nadeko AI backend
 
 ### Changed
 
