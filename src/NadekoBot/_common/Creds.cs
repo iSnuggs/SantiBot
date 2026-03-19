@@ -71,10 +71,10 @@ public sealed class Creds : IBotCreds
     [Comment("""Api key for sending stats to DiscordBotList.""")]
     public string BotListToken { get; set; }
 
-    [Comment("""Official cleverbot api key.""")]
-    public string CleverbotApiKey { get; set; }
+    [Comment("""API key for AI services (agent). OpenAI-compatible.""")]
+    public string AiApiKey { get; set; }
 
-    [Comment(@"OpenAi api key.")]
+    // kept for migration from gpt3ApiKey -> aiApiKey
     public string Gpt3ApiKey { get; set; }
 
     [Comment("""
@@ -181,7 +181,7 @@ public sealed class Creds : IBotCreds
         Votes = new VotesSettings();
         Patreon = new PatreonSettings(string.Empty, string.Empty, string.Empty, string.Empty);
         BotListToken = string.Empty;
-        CleverbotApiKey = string.Empty;
+        AiApiKey = string.Empty;
         Gpt3ApiKey = string.Empty;
         BotCache = BotCacheImplemenation.Memory;
         RedisOptions = "localhost:6379,syncTimeout=30000,responseTimeout=30000,allowAdmin=true,password=";
