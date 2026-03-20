@@ -14,15 +14,16 @@ deletecurrency:
     - {}
 deletewaifu:
   desc: >-
-    Deletes everything from WaifuUpdates, WaifuItem and WaifuInfo tables for the
-    specified user. Also makes specified user's waifus free.
+    Deletes waifu data for the specified user, including waifu info, fans, and
+    cycles. Also frees the user's waifus.
   ex:
-    - ''
+    - '@Someone'
+    - 123456789012345678
   params:
     - user:
-        desc: The ID of the user whose waifus are to be deleted and set free.
+        desc: The user whose waifu data will be deleted.
     - userId:
-        desc: The ID of the user whose waifus are to be deleted and set free.
+        desc: The ID of the user whose waifu data will be deleted.
 deletewaifus:
   desc: Deletes everything from WaifuUpdates, WaifuItem and WaifuInfo tables.
   ex:

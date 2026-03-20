@@ -24,7 +24,7 @@ autocommandslist:
     - ''
   params:
     - page:
-        desc: The number of pages to retrieve from the list of auto commands.
+        desc: The page number to display.
 cacheusers:
   desc: Caches users of a Discord server and saves them to the database.
   ex:
@@ -143,19 +143,20 @@ send:
           channel or individual user.
 setactivity:
   desc: >-
-    Sets the bots game status to a Custom, Playing, Listening, or Watching
-    status.
+    Sets the bot's activity status. Optionally specify a type (Playing,
+    Listening, Watching, Competing). Defaults to Custom status if no type given.
   ex:
     - Just chilling
     - Playing with snakes
     - Listening music
   params:
     - game:
-        desc: The current state of the bot's activity in the game.
+        desc: The status text to display.
+    - game:
+        desc: The status text to display.
       type:
         desc: >-
-          The activity type determines whether the bot is engaged in a game,
-          listening to audio, or watching a video.
+          The activity type: Playing, Listening, Watching, or Competing.
 setavatar:
   desc: >-
     Sets a new avatar image for the NadekoBot. Parameter is a direct link to an
@@ -208,12 +209,12 @@ shardstats:
     - 2
   params:
     - page:
-        desc: The number of pages to retrieve, with each page containing 25 shards.
+        desc: The page number to display.
 startupcommandadd:
   desc: >-
     Adds a command to the list of commands which will be executed automatically
     in the current channel, in the order they were added in, by the bot when it
-    startups up.
+    starts up.
   ex:
     - '{0}stats'
   params:
@@ -240,7 +241,7 @@ startupcommandslist:
     - ''
   params:
     - page:
-        desc: The number of items to display per page.
+        desc: The page number to display.
 stringsreload:
   desc: Reloads localized bot strings.
   ex:
