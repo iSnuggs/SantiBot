@@ -3563,6 +3563,22 @@
     },
     {
       "Aliases": [
+        ".ncnuke",
+        ".ncn"
+      ],
+      "Description": "Nukes all pixels owned by the specified user, resetting them to black.\nOwner only.",
+      "Usage": [
+        ".ncnuke @user"
+      ],
+      "Submodule": "NCanvasCommands",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only"
+      ]
+    },
+    {
+      "Aliases": [
         ".countup",
         ".nunchi"
       ],
@@ -4439,9 +4455,8 @@
       "Aliases": [
         ".votefeed"
       ],
-      "Description": "Shows bot votes in real time in the specified channel.\nOmit channel to disable.",
+      "Description": "Shows bot votes in real time in the current channel.\nRun in a different channel to change, or use the command again to toggle.",
       "Usage": [
-        ".votefeed #votefeed",
         ".votefeed"
       ],
       "Submodule": "Owner",
@@ -4666,9 +4681,10 @@
       "Aliases": [
         ".deletewaifu"
       ],
-      "Description": "Deletes everything from WaifuUpdates, WaifuItem and WaifuInfo tables for the specified user. Also makes specified user's waifus free.",
+      "Description": "Deletes waifu data for the specified user, including waifu info, fans, and cycles. Also frees the user's waifus.",
       "Usage": [
-        ".deletewaifu"
+        ".deletewaifu @Someone",
+        ".deletewaifu 123456789012345678"
       ],
       "Submodule": "DangerousCommands",
       "Module": "Owner",
@@ -4715,8 +4731,9 @@
         ".addplaying",
         ".adpl"
       ],
-      "Description": "Adds a specified string to the list of playing strings to rotate. You have to pick either `Playing`, `Watching` or `Listening` as the first parameter.",
+      "Description": "Adds a specified string to the list of playing strings to rotate. Optionally pick a type: `Playing`, `Watching`, `Listening`, or `Competing`. Defaults to Custom status if no type is given.",
       "Usage": [
+        ".addplaying Just vibing",
         ".addplaying Playing with you",
         ".addplaying Watching you sleep"
       ],
@@ -4750,7 +4767,7 @@
       ],
       "Description": "Removes a playing status by index. Use `.lipl` to see indexes.",
       "Usage": [
-        ".removeplaying"
+        ".removeplaying 3"
       ],
       "Submodule": "PlayingRotateCommands",
       "Module": "Owner",
@@ -4796,7 +4813,7 @@
         ".scadd",
         ".startcmdadd"
       ],
-      "Description": "Adds a command to the list of commands which will be executed automatically in the current channel, in the order they were added in, by the bot when it startups up.",
+      "Description": "Adds a command to the list of commands which will be executed automatically in the current channel, in the order they were added in, by the bot when it starts up.",
       "Usage": [
         ".scadd .stats"
       ],
@@ -5129,7 +5146,7 @@
         ".setactivity",
         ".setgame"
       ],
-      "Description": "Sets the bots game status to a Custom, Playing, Listening, or Watching status.",
+      "Description": "Sets the bot's activity status. Optionally specify a type (Playing, Listening, Watching, Competing). Defaults to Custom status if no type given.",
       "Usage": [
         ".setactivity Just chilling",
         ".setactivity Playing with snakes",
@@ -5853,7 +5870,6 @@
     {
       "Aliases": [
         ".coins",
-        ".crypto",
         ".cryptos"
       ],
       "Description": "Shows a list of 10 crypto currencies ordered by market cap.\nShows their price, change in the last24h, market cap and circulating and total supply.\nPaginated with 10 per page.",
@@ -6062,7 +6078,7 @@
       "Aliases": [
         ".wowjoke"
       ],
-      "Description": "Get one of penultimate WoW jokes.",
+      "Description": "Shows a random WoW joke.",
       "Usage": [
         ".wowjoke"
       ],
@@ -6316,7 +6332,7 @@
         ".youtube",
         ".yt"
       ],
-      "Description": "Searches youtubes and shows the first result",
+      "Description": "Searches YouTube and shows the first result",
       "Usage": [
         ".youtube query"
       ],
@@ -6894,7 +6910,7 @@
       "Aliases": [
         ".listservers"
       ],
-      "Description": "Lists servers the bot is on with some basic info. 15 per page.",
+      "Description": "Lists servers the bot is on with some basic info. 9 per page.",
       "Usage": [
         ".listservers 3"
       ],
@@ -7016,7 +7032,8 @@
       ],
       "Description": "Shows currently raised hands in chronological order from your current voice channel.",
       "Usage": [
-        ".hands"
+        ".hands",
+        ".hands 2"
       ],
       "Submodule": "HandsCommands",
       "Module": "Utility",
@@ -8345,7 +8362,8 @@
       ],
       "Description": "Removes a previously assigned role from a user.",
       "Usage": [
-        ".userroleremove @User @Role"
+        ".userroleremove @User @Role",
+        ".userroleremove @User 123456789012345678"
       ],
       "Submodule": "UserRoleCommands",
       "Module": "Utility",
@@ -8757,7 +8775,7 @@
       "Aliases": [
         ".xpadd"
       ],
-      "Description": "Adds server XP to a single user or all users role on this server. This does not affect their global ranking. You can use negative values.",
+      "Description": "Adds server XP to a single user or all users with a role on this server. This does not affect their global ranking. You can use negative values.",
       "Usage": [
         ".xpadd 100 @Someone",
         ".xpadd 500 SomeRoleName"
@@ -8887,7 +8905,7 @@
       "Aliases": [
         ".clubcreate"
       ],
-      "Description": "Creates a club. You must be at least level 5 and not be in the club already.",
+      "Description": "Creates a club. You must not already be in a club.",
       "Usage": [
         ".clubcreate My Brand New Club"
       ],

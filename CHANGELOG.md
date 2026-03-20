@@ -2,6 +2,26 @@
 
 *a,c,f,r,o,d*
 
+## [7.1.2] - 21.03.2026
+
+### Added
+
+- `.ncnuke` owner-only command to reset all pixels owned by a specified user
+- `.shardstats` now also show uptime over last 1 hour
+
+### Changed
+
+- `.ncpixel` now shows the pixel owner's name and ID
+
+
+### Removed
+
+- GrpcApi removed. Bloat.
+
+### Dev
+
+- Fixed build warnings
+
 ## [7.1.1] - 20.03.2026
 
 ### Added

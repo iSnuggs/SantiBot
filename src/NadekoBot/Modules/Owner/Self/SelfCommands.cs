@@ -332,7 +332,8 @@ public partial class Owner
                                               return $"`{stateStr} "
                                                      + $"| #{st.ShardId.ToString().PadBoth(3)} "
                                                      + $"| {timeDiff:mm\\:ss} "
-                                                     + $"| {st.GuildCount.ToString().PadBoth(maxGuildCountLength)} `";
+                                                     + $"| {st.GuildCount.ToString().PadBoth(maxGuildCountLength)} "
+                                                     + $"| {st.UptimePercent:F1}% `";
                                           })
                                           .ToArray();
             await Response()
