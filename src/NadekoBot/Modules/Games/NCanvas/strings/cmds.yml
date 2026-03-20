@@ -9,6 +9,15 @@ ncanvas:
     - {}
     - position:
         desc: The position of the pixel to retrieve in alphanumeric format.
+ncnuke:
+  desc: |-
+    Nukes all pixels owned by the specified user, resetting them to black.
+    Owner only.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The user whose pixels to nuke."
 ncpixel:
   desc: |-
     Shows the pixel at the specified position.
