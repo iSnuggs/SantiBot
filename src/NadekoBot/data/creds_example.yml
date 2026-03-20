@@ -117,15 +117,6 @@ twitchClientSecret:
 restartCommand:
   cmd: 
   args: 
-# Settings for the grpc api.
-# We don't provide support for this.
-# If you leave certPath empty, the api will run on http.
-grpcApi:
-  enabled: false
-  certChain: ''
-  certPrivateKey: ''
-  host: localhost
-  port: 43120
 # Url and api key to a seq server. If url is set, bot will try to send logs to it.
 seq:
   url: 

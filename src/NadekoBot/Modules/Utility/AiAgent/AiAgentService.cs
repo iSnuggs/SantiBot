@@ -373,7 +373,7 @@ public sealed class AiAgentService(
                         sentMsg.Id,
                         botUser.Id,
                         PromptSanitizer.Sanitize(botUser.DisplayName),
-                        success.Response.TrimTo(MAX_SNAPSHOT_CONTENT_LENGTH),
+                        success.Response.TrimTo(MAX_SNAPSHOT_CONTENT_LENGTH) ?? "",
                         DateTimeOffset.UtcNow));
                 }
 
@@ -468,7 +468,7 @@ public sealed class AiAgentService(
             msg.Id,
             msg.Author.Id,
             PromptSanitizer.Sanitize(msg.Author.Username),
-            PromptSanitizer.Sanitize(GetMessageText(msg)).TrimTo(MAX_SNAPSHOT_CONTENT_LENGTH),
+            PromptSanitizer.Sanitize(GetMessageText(msg)).TrimTo(MAX_SNAPSHOT_CONTENT_LENGTH) ?? "",
             msg.Timestamp);
 
     private static string GetMessageText(IMessage msg)
