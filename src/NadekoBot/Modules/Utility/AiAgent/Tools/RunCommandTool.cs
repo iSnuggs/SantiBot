@@ -49,7 +49,10 @@ public sealed class RunCommandTool(ICommandHandler cmdHandler) : IAiTool, INServ
 
         try
         {
-            await cmdHandler.TryRunCommand(sg, ch, fakeMessage);
+            var task = cmdHandler.TryRunCommand(sg, ch, fakeMessage);
+            var completed = await Task.WhenAny(task, Task.Delay(3000, context.CancellationToken));
+            if (completed == task && task.IsFaulted)
+                return $"Error executing command: {task.Exception?.InnerException?.Message}";
             return $"Command executed: {commandText}";
         }
         catch (Exception ex)
