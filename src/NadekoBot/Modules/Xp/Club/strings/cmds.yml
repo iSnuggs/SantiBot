@@ -33,7 +33,7 @@ clubapps:
     - 2
   params:
     - page:
-        desc: The number of pages to display in the result set.
+        desc: The page number to display.
 clubban:
   desc: >-
     Bans the user from the club. You must be the club owner or admin. They will
@@ -64,9 +64,9 @@ clubbans:
     - 2
   params:
     - page:
-        desc: The number of pages to retrieve in the result set.
+        desc: The page number to display.
 clubcreate:
-  desc: Creates a club. You must be at least level 5 and not be in the club already.
+  desc: Creates a club. You must not already be in a club.
   ex:
     - My Brand New Club
   params:
