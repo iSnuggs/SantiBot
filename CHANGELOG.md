@@ -2,20 +2,16 @@
 
 *a,c,f,r,o,d*
 
-## [7.0.13] - 18.03.2026
+## [7.1.1] - 20.03.2026
 
 ### Added
 
-- `.nom` command that feeds a waifu to improve food
-- `.hug`, `.kiss`, `.pat`, `.nom` now show a random gif in the response
-- `.hug`, `.kiss`, `.pat`, `.nom` now support multiple users at once (e.g. `.hug @user1 @user2`) and arbitrary strings - non waifus don't receive the effect
 - New AI agent system - beta, owner only for now (replaces chatterbot/cleverbot/nadeko ai)
 - `.notify` now supports `fishcurrency` event to track when users fish out currency
 
 ### Changed
 
 - Reorganized Administration module to fix `.cmds admin` exceeding discord's 25-option limit
-- `.wbuy` now asks for confirmation
 - `gptApiKey` in `creds.yml` renamed to `aiApiKey` (auto-migrated on startup)
 - Patrons now get 3 waifu actions per cycle (hug/kiss/pat/nom)
 
@@ -23,10 +19,24 @@
 
 - Fixed `.masskick` actually banning users instead of kicking them
 - Fixed some waifu console errors
+- Countless command strings fixed
 
 ### Removed
 
 - Chatterbot/cleverbot and old nadekoAi have been removed in favor of the new ai agent system
+
+
+## [7.0.12] - 17.03.2026
+
+### Added
+
+- `.nom` command that feeds a waifu to improve food
+
+### Changed
+
+- `.hug`, `.kiss`, `.pat`, `.nom` now show a random gif in the response
+- `.hug`, `.kiss`, `.pat`, `.nom` now support multiple users at once (e.g. `.hug @user1 @user2`) and arbitrary strings - non waifus don't receive the effect
+- `.wbuy` now asks for confirmation
 
 ## [7.0.11] - 17.03.2026
 
