@@ -81,6 +81,19 @@ public partial class Waifus
                 style: ButtonStyle.Success),
             async smc =>
             {
+                await WaifuPayout();
+                await smc.DeferAsync();
+            });
+
+    private NadekoInteractionBase CreateCollectPayoutConfirmInteraction()
+        => _inter.Create(ctx.User.Id,
+            new ButtonBuilder(
+                label: GetText(strs.waifu_btn_collect),
+                customId: "waifu:collect_confirm",
+                emote: new Emoji("💰"),
+                style: ButtonStyle.Success),
+            async smc =>
+            {
                 var result = await svc.ClaimPayoutAsync(ctx.User.Id);
                 var currSign = cp.GetCurrencySign();
                 await result.Match(
@@ -833,7 +846,7 @@ public partial class Waifus
 
         await Response()
             .Confirm(strs.waifu_pending_payout(CurrencyHelper.N(pending, Culture, currSign)))
-            .Interaction(CreateCollectPayoutInteraction())
+            .Interaction(CreateCollectPayoutConfirmInteraction())
             .SendAsync();
     }
 }

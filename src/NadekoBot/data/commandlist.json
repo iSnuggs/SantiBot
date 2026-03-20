@@ -2489,7 +2489,7 @@
         ".leaderboard",
         ".lb"
       ],
-      "Description": "Displays the bot's currency leaderboard, or in other words, the richest users.\nSpecifying -c flag will show only users who are in this server.\nPaginated with 10 users per page.",
+      "Description": "Displays the bot's currency leaderboard, or in other words, the richest users.\nSpecifying -c flag will show only users who are in this server.\nPaginated with 9 users per page.",
       "Usage": [
         ".leaderboard",
         ".leaderboard -c"
@@ -2821,7 +2821,7 @@
       "Aliases": [
         ".roll"
       ],
-      "Description": "Rolls 0-100. If you supply a number `X` it rolls up to 30 normal dice. If you split 2 numbers with letter `d` (`xdy`) it will roll `X` dice from 1 to `y`. `Y` can be a letter 'F' if you want to roll fate dice instead of dnd.",
+      "Description": "Rolls 1-100. If you supply a number `X` it rolls up to 30 normal dice. If you split 2 numbers with letter `d` (`xdy`) it will roll `X` dice from 1 to `y`. `Y` can be a letter 'F' if you want to roll fate dice instead of dnd.",
       "Usage": [
         ".roll",
         ".roll 7",
@@ -3475,7 +3475,8 @@
       ],
       "Description": "Shows the current nCanvas.\nThe canvas allows users to set each pixel's color and text using currency.",
       "Usage": [
-        ".ncanvas"
+        ".ncanvas",
+        ".ncanvas sgu"
       ],
       "Submodule": "NCanvasCommands",
       "Module": "Games",
@@ -3487,7 +3488,7 @@
         ".nczoom",
         ".ncz"
       ],
-      "Description": "Zooms in on the nCanvas.\nBot will show the 10x10 grid with the position of each cell for use with `ncset`.\nYou can either use alphanumeric position (ex. s4u) or pixel x and y (ex. 123 123)",
+      "Description": "Zooms in on the nCanvas.\nBot will show a 5x5 grid with the position of each cell for use with `ncset`.\nYou can either use alphanumeric position (ex. s4u) or pixel x and y (ex. 123 123)",
       "Usage": [
         ".nczoom sgu",
         ".nczoom 123 123"
@@ -3980,7 +3981,7 @@
         ".listqueue",
         ".lq"
       ],
-      "Description": "Lists 10 currently queued songs per page. Default page is 1.",
+      "Description": "Lists 9 currently queued songs per page. Default page is 1.",
       "Usage": [
         ".listqueue",
         ".listqueue 2"
@@ -4351,7 +4352,7 @@
         ".plrm",
         ".pldelete"
       ],
-      "Description": "Deletes a saved playlist using its ID. Works only on playlists saved by you.",
+      "Description": "Deletes a saved playlist using its ID. Works only on playlists saved by you or if you are the bot owner.",
       "Usage": [
         ".playlistdelete 5"
       ],
@@ -4384,7 +4385,7 @@
         ".plsave",
         ".psave"
       ],
-      "Description": "Saves a playlist under a certain name. Playlist name must be no longer than 20 characters and must not contain dashes.",
+      "Description": "Saves a playlist under a certain name. Playlist name must be no longer than 20 characters.",
       "Usage": [
         ".playlistsave classical1"
       ],
@@ -4402,9 +4403,10 @@
         ".plload",
         ".pll"
       ],
-      "Description": "Loads a saved playlist using its ID. Use `.pls` to list all saved playlists and `.save` to save new ones.",
+      "Description": "Loads a saved playlist using its ID. Use `.pls` to list all saved playlists and `.save` to save new ones. Use `--shuffle` to load in random order.",
       "Usage": [
-        ".playlistload 5"
+        ".playlistload 5",
+        ".playlistload 5 --shuffle"
       ],
       "Submodule": "PlaylistCommands",
       "Module": "Music",
