@@ -141,7 +141,6 @@ public sealed class AiAgentService(
         var config = configService.Data;
         var nadekoId = client.CurrentUser.Id;
 
-        // --- Active conversation window (only fires when no command matched) ---
         if (config.FollowUpWindowSeconds > 0
             && conversationTracker.IsActive(msg.Author.Id, channel.Id, config.FollowUpWindowSeconds))
         {
@@ -153,20 +152,19 @@ public sealed class AiAgentService(
             }
         }
 
-        // --- Reply to bot message + intent classification ---
+        if (msg.ReferencedMessage?.Author?.Id == nadekoId
+            && searchService.IsReady
+            && !string.IsNullOrWhiteSpace(msg.Content))
         {
             var query = msg.Content.Trim();
-            if (!string.IsNullOrWhiteSpace(query))
-            {
-                var textForClassification = query.Contains(BOT_TOKEN, StringComparison.Ordinal)
-                    ? query
-                    : $"{BOT_TOKEN} {query}";
+            var textForClassification = query.Contains(BOT_TOKEN, StringComparison.Ordinal)
+                ? query
+                : $"{BOT_TOKEN} {query}";
 
-                if (searchService.IsCommandIntent(textForClassification))
-                {
-                    await TryRunAgentAsync(guild, channel, msg, query);
-                    return;
-                }
+            if (searchService.IsCommandIntent(textForClassification))
+            {
+                await TryRunAgentAsync(guild, channel, msg, query);
+                return;
             }
         }
 
