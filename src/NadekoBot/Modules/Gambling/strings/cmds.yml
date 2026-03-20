@@ -168,7 +168,7 @@ leaderboard:
 
     Specifying -c flag will show only users who are in this server.
 
-    Paginated with 10 users per page.
+    Paginated with 9 users per page.
   ex:
     - ''
     - '-c'

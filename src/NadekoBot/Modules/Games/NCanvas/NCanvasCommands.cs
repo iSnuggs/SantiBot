@@ -339,14 +339,13 @@ public partial class Games
         [OwnerOnly]
         public async Task NcReset()
         {
-            await _service.ResetAsync();
-
             if (!await PromptUserConfirmAsync(CreateEmbed()
                     .WithDescription(
                         "This will delete all pixels and reset the canvas.\n\n"
                         + "Are you sure you want to continue?")))
                 return;
 
+            await _service.ResetAsync();
             await ctx.OkAsync();
         }
     }
