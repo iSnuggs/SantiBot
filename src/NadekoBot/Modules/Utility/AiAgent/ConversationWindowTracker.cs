@@ -36,6 +36,18 @@ public sealed class ConversationWindowTracker : INService
         => _windows.TryRemove((userId, channelId), out _);
 
     /// <summary>
+    /// Closes all conversation windows for a user across all channels
+    /// </summary>
+    public void CloseAll(ulong userId)
+    {
+        foreach (var key in _windows.Keys)
+        {
+            if (key.UserId == userId)
+                _windows.TryRemove(key, out _);
+        }
+    }
+
+    /// <summary>
     /// Removes all expired windows
     /// </summary>
     public void CleanExpired(double windowSeconds)

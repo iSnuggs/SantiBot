@@ -88,8 +88,12 @@ public sealed class RunCommandChainTool(ICommandHandler cmdHandler) : IAiTool, I
             try
             {
                 var fakeMessage = new DoAsUserMessage(context.TriggerMessage, context.User, cmd);
-                await cmdHandler.TryRunCommand(sg, ch, fakeMessage);
-                results.AppendLine($"[{i + 1}] Executed: {cmd}");
+                var task = cmdHandler.TryRunCommand(sg, ch, fakeMessage);
+                var completed = await Task.WhenAny(task, Task.Delay(3000, ct));
+                if (completed == task && task.IsFaulted)
+                    results.AppendLine($"[{i + 1}] Failed: {cmd} - {task.Exception?.InnerException?.Message}");
+                else
+                    results.AppendLine($"[{i + 1}] Executed: {cmd}");
             }
             catch (Exception ex)
             {

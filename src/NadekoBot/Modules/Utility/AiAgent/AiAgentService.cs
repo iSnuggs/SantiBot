@@ -61,6 +61,12 @@ public sealed class AiAgentService(
                 }
 
                 conversationTracker.CleanExpired(configService.Data.FollowUpWindowSeconds);
+
+                foreach (var userId in _pendingMessages.Keys)
+                {
+                    if (!_activeSessions.ContainsKey(userId))
+                        _pendingMessages.TryRemove(userId, out _);
+                }
             }
             catch (Exception ex)
             {
@@ -394,11 +400,14 @@ public sealed class AiAgentService(
         }
         finally
         {
+            var wasCancelled = cts.IsCancellationRequested;
             _activeSessions.TryRemove(userId, out _);
             cts.Dispose();
+
+            if (wasCancelled)
+                _pendingMessages.TryRemove(userId, out _);
         }
 
-        // Drain any messages that arrived while the agent was running
         if (_pendingMessages.TryGetValue(userId, out var pending) && !pending.IsEmpty)
         {
             var parts = new List<string>();
@@ -560,6 +569,8 @@ public sealed class AiAgentService(
         {
             cts.Cancel();
             cts.Dispose();
+            _pendingMessages.TryRemove(userId, out _);
+            conversationTracker.CloseAll(userId);
             return true;
         }
 
