@@ -13,8 +13,20 @@ namespace NadekoBot.Voice
         private CancellationToken _cancellationToken;
         private bool _isStopped;
 
-        public int ReadPosition { get; private set; }
-        public int WritePosition { get; private set; }
+        private volatile int _readPosition;
+        private volatile int _writePosition;
+
+        public int ReadPosition
+        {
+            get => _readPosition;
+            private set => _readPosition = value;
+        }
+
+        public int WritePosition
+        {
+            get => _writePosition;
+            private set => _writePosition = value;
+        }
 
         public int ContentLength => WritePosition >= ReadPosition
             ? WritePosition - ReadPosition
@@ -71,7 +83,7 @@ namespace NadekoBot.Voice
             return bufferingCompleted.Task;
         }
 
-        internal void Write(byte[] input, int writeCount)
+        private void Write(byte[] input, int writeCount)
         {
             if (WritePosition + writeCount < _buffer.Length)
             {

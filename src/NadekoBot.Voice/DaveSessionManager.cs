@@ -99,9 +99,7 @@ namespace NadekoBot.Voice
 
         public byte[]? OnProposals(byte[] proposals)
         {
-            var result = _session.ProcessProposals(proposals, GetRecognizedUserIds());
-            Log.Information("DAVE proposals processed, commitWelcome={HasCommit}", result != null && result.Length > 0);
-            return result;
+            return _session.ProcessProposals(proposals, GetRecognizedUserIds());
         }
 
         public CommitProcessResult OnCommitTransition(int transitionId, byte[] commit)
@@ -150,9 +148,7 @@ namespace NadekoBot.Voice
 
         public byte[]? GetKeyPackage()
         {
-            var kp = _session.GetKeyPackage();
-            Log.Information("DAVE key package generated, length={Length}", kp?.Length ?? 0);
-            return kp;
+            return _session.GetKeyPackage();
         }
 
         public void AddUser(string userId)
@@ -175,14 +171,11 @@ namespace NadekoBot.Voice
 
             if (protocolVersion > 0)
             {
-                Log.Information("DAVE protocol init v{Version}, creating new MLS group (recovery={Recovery})",
-                    protocolVersion, isRecovery);
                 HandlePrepareEpoch(MLS_NEW_GROUP_EXPECTED_EPOCH, protocolVersion);
                 return true;
             }
             else
             {
-                Log.Information("DAVE protocol init v0, passthrough mode");
                 PrepareRatchets(INIT_TRANSITION_ID, protocolVersion);
                 HandleExecuteTransition(INIT_TRANSITION_ID);
                 return false;
@@ -193,7 +186,6 @@ namespace NadekoBot.Voice
         {
             if (epoch == MLS_NEW_GROUP_EXPECTED_EPOCH)
             {
-                Log.Information("DAVE session init: epoch {Epoch} v{Version} channel {Channel}", epoch, protocolVersion, _channelId);
                 _session.Init((ushort)protocolVersion, _channelId, _selfUserId);
             }
         }
@@ -207,7 +199,6 @@ namespace NadekoBot.Voice
             }
 
             _protocolTransitions.Remove(transitionId);
-            Log.Information("DAVE executing transition {TransitionId} v{Version}", transitionId, protocolVersion);
 
             if (protocolVersion == 0)
             {
@@ -217,7 +208,6 @@ namespace NadekoBot.Voice
             _session.UpdateSelfKeyRatchet(_selfUserId);
             _reinitializing = false;
             _lastTransitionId = transitionId;
-            Log.Information("DAVE self key ratchet updated, hasRatchet={HasRatchet}", _session.HasKeyRatchet());
         }
 
         private void PrepareRatchets(int transitionId, int protocolVersion)

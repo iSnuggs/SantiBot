@@ -270,7 +270,6 @@ namespace NadekoBot.Voice
             if (DaveManager is null) return;
             var transitionId = data?["transition_id"]?.Value<int>() ?? 0;
             var protocolVersion = data?["protocol_version"]?.Value<int>() ?? 0;
-            Log.Information("DAVE prepare transition {TransitionId} v{ProtocolVersion}", transitionId, protocolVersion);
             var executedImmediately = DaveManager.OnPrepareTransition(transitionId, protocolVersion);
             if (!executedImmediately)
                 SendDaveTransitionReady(transitionId);
@@ -280,7 +279,6 @@ namespace NadekoBot.Voice
         {
             if (DaveManager is null) return;
             var transitionId = data?["transition_id"]?.Value<int>() ?? 0;
-            Log.Information("DAVE execute transition {TransitionId}", transitionId);
             DaveManager.OnExecuteTransition(transitionId);
         }
 
@@ -289,7 +287,6 @@ namespace NadekoBot.Voice
             if (DaveManager is null) return;
             var epoch = data?["epoch"]?.Value<uint>() ?? 0;
             var protocolVersion = data?["protocol_version"]?.Value<int>() ?? 0;
-            Log.Information("DAVE prepare epoch {Epoch} v{ProtocolVersion}", epoch, protocolVersion);
             var needsKeyPackage = DaveManager.OnPrepareEpoch(epoch, protocolVersion);
 
             if (needsKeyPackage)
@@ -334,7 +331,6 @@ namespace NadekoBot.Voice
                 Buffer.BlockCopy(payload, 2, commit, 0, commit.Length);
 
             var result = DaveManager!.OnCommitTransition(transitionId, commit);
-            Log.Information("DAVE commit result {Result} for transition {TransitionId}", result, transitionId);
             if (result == CommitProcessResult.Success)
             {
                 SendDaveTransitionReady(transitionId);
@@ -356,7 +352,6 @@ namespace NadekoBot.Voice
                 Buffer.BlockCopy(payload, 2, welcome, 0, welcome.Length);
 
             var success = DaveManager!.OnWelcome(transitionId, welcome);
-            Log.Information("DAVE welcome result {Success} for transition {TransitionId}", success, transitionId);
             if (success)
             {
                 SendDaveTransitionReady(transitionId);
