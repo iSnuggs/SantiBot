@@ -102,7 +102,11 @@ public sealed class VoiceProxy : IVoiceProxy
     }
 
     public void SetGateway(VoiceGateway newGateway)
-        => gateway = newGateway;
+    {
+        var old = gateway;
+        gateway = newGateway;
+        old?.Dispose();
+    }
 
     public Task StartSpeakingAsync()
         => RunGatewayAction(gw => gw.SendSpeakingAsync(VoiceSpeaking.State.Microphone));

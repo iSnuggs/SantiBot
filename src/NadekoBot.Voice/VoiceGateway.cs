@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace NadekoBot.Voice
 {
-    public class VoiceGateway
+    public class VoiceGateway : IDisposable
     {
         private class QueueItem
         {
@@ -29,6 +29,7 @@ namespace NadekoBot.Voice
         }
 
         private readonly ulong _guildId;
+        private readonly ulong _channelId;
         private readonly ulong _userId;
         private readonly string _sessionId;
         private readonly string _token;
@@ -67,9 +68,10 @@ namespace NadekoBot.Voice
 
         public event Func<VoiceGateway, Task> OnClosed = delegate { return Task.CompletedTask; };
 
-        public VoiceGateway(ulong guildId, ulong userId, string session, string token, string endpoint)
+        public VoiceGateway(ulong guildId, ulong channelId, ulong userId, string session, string token, string endpoint)
         {
             this._guildId = guildId;
+            this._channelId = channelId;
             this._userId = userId;
             this._sessionId = session;
             this._token = token;
@@ -434,6 +436,15 @@ namespace NadekoBot.Voice
             hbt?.Change(Timeout.Infinite, Timeout.Infinite);
             _heartbeatTimer = null;
 
+            var closeCode = _ws.LastCloseCode;
+            var canReconnect = CloseCodes.ShouldReconnect(closeCode);
+
+            if (!canReconnect)
+            {
+                Log.Warning("Voice close code {CloseCode} indicates no reconnect allowed, stopping", closeCode);
+                _shouldResume = false;
+            }
+
             if (!_stopCancellationToken.IsCancellationRequested && _shouldResume)
             {
                 _ = _ws.RunAndBlockAsync(_websocketUrl, _stopCancellationToken);
@@ -507,19 +518,44 @@ namespace NadekoBot.Voice
             ipDiscoveryData[2] = 0x00;
             ipDiscoveryData[3] = 0x46;
             await _udpClient.SendAsync(ipDiscoveryData, ipDiscoveryData.Length, _udpEp);
-            while (true)
+
+            var previousTimeout = _udpClient.Client.ReceiveTimeout;
+            _udpClient.Client.ReceiveTimeout = 5000;
+            try
             {
-                var buffer = _udpClient.Receive(ref _udpEp);
-
-                if (buffer.Length == 74)
+                const int maxAttempts = 10;
+                for (var i = 0; i < maxAttempts; i++)
                 {
-                    var myIp = Encoding.UTF8.GetString(buffer, 8, buffer.Length - 10);
-                    MyIp = myIp.TrimEnd('\0');
-                    MyPort = (ushort)((buffer[^2] << 8) | buffer[^1]);
+                    if (_stopCancellationToken.IsCancellationRequested)
+                        throw new OperationCanceledException("Voice gateway stopped during IP discovery");
 
-                    await SelectProtocol();
-                    return;
+                    byte[] buffer;
+                    try
+                    {
+                        buffer = _udpClient.Receive(ref _udpEp);
+                    }
+                    catch (SocketException ex) when (ex.SocketErrorCode == SocketError.TimedOut)
+                    {
+                        Log.Warning("IP discovery timed out (attempt {Attempt}/{Max})", i + 1, maxAttempts);
+                        continue;
+                    }
+
+                    if (buffer.Length == 74)
+                    {
+                        var myIp = Encoding.UTF8.GetString(buffer, 8, buffer.Length - 10);
+                        MyIp = myIp.TrimEnd('\0');
+                        MyPort = (ushort)((buffer[^2] << 8) | buffer[^1]);
+
+                        await SelectProtocol();
+                        return;
+                    }
                 }
+
+                throw new TimeoutException("IP discovery failed after maximum attempts");
+            }
+            finally
+            {
+                _udpClient.Client.ReceiveTimeout = previousTimeout;
             }
         }
 
@@ -537,7 +573,7 @@ namespace NadekoBot.Voice
             }
 
             DaveManager?.Dispose();
-            DaveManager = new DaveSessionManager(_guildId, _userId);
+            DaveManager = new DaveSessionManager(_channelId, _userId);
 
             return IdentifyAsync();
         }
@@ -614,6 +650,19 @@ namespace NadekoBot.Voice
             if(!_stopCancellationSource.IsCancellationRequested)
                 try { _stopCancellationSource.Cancel(); } catch { }
             return _ws.CloseAsync("Stopped by the user.");
+        }
+
+        public void Dispose()
+        {
+            _heartbeatTimer?.Dispose();
+            _heartbeatTimer = null;
+
+            DaveManager?.Dispose();
+            DaveManager = null;
+
+            try { _udpClient.Dispose(); } catch { }
+            try { _ws.Dispose(); } catch { }
+            try { _stopCancellationSource.Dispose(); } catch { }
         }
 
         public Task Start()

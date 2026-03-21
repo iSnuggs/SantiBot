@@ -15,10 +15,13 @@ namespace Ayu.Discord.Gateway
         public event Func<byte[], Task>? BinaryPayloadReceived = delegate { return Task.CompletedTask; };
         public event Func<string, Task>? WebsocketClosed = delegate { return Task.CompletedTask; };
 
+        public int LastCloseCode { get; private set; }
+
         const int CHUNK_SIZE = 1024 * 16;
 
         public async Task RunAndBlockAsync(Uri url, CancellationToken cancel)
         {
+            LastCloseCode = 0;
             var error = "Error.";
             var bufferWriter = new ArrayBufferWriter<byte>(CHUNK_SIZE);
             try
@@ -34,7 +37,8 @@ namespace Ayu.Discord.Gateway
                         bufferWriter.Advance(result.Count);
                         if (result.MessageType == WebSocketMessageType.Close)
                         {
-                            var closeMessage = CloseCodes.GetErrorCodeMessage((int?) _ws.CloseStatus ?? 0).Message;
+                            LastCloseCode = (int?)_ws.CloseStatus ?? 0;
+                            var closeMessage = CloseCodes.GetErrorCodeMessage(LastCloseCode).Message;
                             error = $"Websocket closed ({_ws.CloseStatus}): {_ws.CloseStatusDescription} {closeMessage}";
                             break;
                         }

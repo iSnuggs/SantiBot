@@ -2,11 +2,18 @@
 
 *a,c,f,r,o,d*
 
+## [7.1.5] - 21.03.2026
+
+### Fixed
+
+- More music/voice edge-case fixes
+
 ## [7.1.4] - 21.03.2026
 
 ### Fixed
 
 - Music fixes, logging
+- Fixed AI command search crashing on startup on some systems due to ONNX runtime thread affinity errors
 
 ## [7.1.3] - 21.03.2026
 
