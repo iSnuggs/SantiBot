@@ -12,12 +12,16 @@ ncanvas:
 ncnuke:
   desc: |-
     Nukes all pixels owned by the specified user, resetting them to black.
+    You can specify a user mention or a user ID (useful when the user is not in the server).
     Owner only.
   ex:
     - '@user'
+    - '123456789012345678'
   params:
     - user:
         desc: "The user whose pixels to nuke."
+    - userId:
+        desc: "The ID of the user whose pixels to nuke."
 ncpixel:
   desc: |-
     Shows the pixel at the specified position.

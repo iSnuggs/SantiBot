@@ -361,14 +361,22 @@ public partial class Games
         }
         [Cmd]
         [OwnerOnly]
-        public async Task NcNuke(IUser user)
+        public Task NcNuke(IUser user)
+            => NcNukeInternal(user.Id, user.ToString());
+
+        [Cmd]
+        [OwnerOnly]
+        public Task NcNuke(ulong userId)
+            => NcNukeInternal(userId, userId.ToString());
+
+        private async Task NcNukeInternal(ulong userId, string displayName)
         {
             if (!await PromptUserConfirmAsync(CreateEmbed()
                     .WithPendingColor()
-                    .WithDescription(GetText(strs.nc_nuke_confirm(Format.Bold(user.ToString()))))))
+                    .WithDescription(GetText(strs.nc_nuke_confirm(Format.Bold(displayName))))))
                 return;
 
-            var nuked = await _service.NukeUserPixelsAsync(user.Id);
+            var nuked = await _service.NukeUserPixelsAsync(userId);
 
             if (nuked == 0)
             {

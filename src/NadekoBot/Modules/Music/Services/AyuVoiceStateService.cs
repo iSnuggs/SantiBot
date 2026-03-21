@@ -12,6 +12,12 @@ public sealed class AyuVoiceStateService : INService
     private readonly ConcurrentDictionary<ulong, IVoiceProxy> _voiceProxies = new();
     private readonly ConcurrentDictionary<ulong, SemaphoreSlim> _voiceGatewayLocks = new();
 
+    /// <summary>
+    /// Tracks the bot's current voice session ID and channel ID per guild,
+    /// updated by the persistent VoiceStateUpdated handler.
+    /// </summary>
+    private readonly ConcurrentDictionary<ulong, (string SessionId, ulong ChannelId)> _voiceSessions = new();
+
     private readonly DiscordSocketClient _client;
     private readonly MethodInfo _sendVoiceStateUpdateMethodInfo;
     private readonly object _dnetApiClient;
@@ -34,15 +40,96 @@ public sealed class AyuVoiceStateService : INService
                                                         ]);
 
         _client.LeftGuild += ClientOnLeftGuild;
+        _client.UserVoiceStateUpdated += PersistentOnUserVoiceStateUpdated;
+        _client.VoiceServerUpdated += PersistentOnVoiceServerUpdated;
     }
 
     private Task ClientOnLeftGuild(SocketGuild guild)
     {
+        _voiceSessions.TryRemove(guild.Id, out _);
         if (_voiceProxies.TryRemove(guild.Id, out var proxy))
         {
             proxy.StopGateway();
             proxy.SetGateway(null);
         }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Persistently tracks the bot's voice session ID and channel ID per guild.
+    /// When the bot is moved to a different channel, this updates the tracked session
+    /// so the VoiceServerUpdated handler can reconnect with the correct info.
+    /// </summary>
+    private Task PersistentOnUserVoiceStateUpdated(SocketUser user, SocketVoiceState oldState, SocketVoiceState newState)
+    {
+        if (user.Id != _currentUserId)
+            return Task.CompletedTask;
+
+        if (user is not SocketGuildUser guildUser)
+            return Task.CompletedTask;
+
+        var guildId = guildUser.Guild.Id;
+
+        if (newState.VoiceChannel is { } newChannel && newState.VoiceSessionId is { } sessionId)
+        {
+            _voiceSessions[guildId] = (sessionId, newChannel.Id);
+        }
+        else
+        {
+            _voiceSessions.TryRemove(guildId, out _);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Handles VoiceServerUpdate events for guilds where the bot already has an active proxy.
+    /// This fires when the bot is moved to a different voice channel (after close code 4014),
+    /// allowing automatic reconnection with the new endpoint/token.
+    /// </summary>
+    private Task PersistentOnVoiceServerUpdated(SocketVoiceServer data)
+    {
+        var guildId = data.Guild.Id;
+
+        if (!_voiceProxies.TryGetValue(guildId, out var proxy))
+            return Task.CompletedTask;
+
+        if (!_voiceSessions.TryGetValue(guildId, out var session))
+            return Task.CompletedTask;
+
+        _ = Task.Run(async () =>
+        {
+            var gwLock = GetVoiceGatewayLock(guildId);
+            if (!await gwLock.WaitAsync(0))
+            {
+                // Lock is held by InternalConnectToVcAsync or LeaveVoiceChannelInternalAsync,
+                // meaning this is a normal join/leave, not an external move.
+                return;
+            }
+
+            try
+            {
+                Log.Information("Voice channel move detected for guild {GuildId}, reconnecting to channel {ChannelId}",
+                    guildId, session.ChannelId);
+
+                _ = proxy.StopGateway();
+
+                var gw = new VoiceGateway(guildId, session.ChannelId, _currentUserId,
+                    session.SessionId, data.Token, data.Endpoint);
+                proxy.SetGateway(gw);
+
+                _ = proxy.StartGateway();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Failed to reconnect voice after channel move in guild {GuildId}", guildId);
+            }
+            finally
+            {
+                gwLock.Release();
+            }
+        });
 
         return Task.CompletedTask;
     }
