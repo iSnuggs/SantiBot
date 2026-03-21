@@ -13,8 +13,20 @@ namespace NadekoBot.Voice
         private CancellationToken _cancellationToken;
         private bool _isStopped;
 
-        public int ReadPosition { get; private set; }
-        public int WritePosition { get; private set; }
+        private volatile int _readPosition;
+        private volatile int _writePosition;
+
+        public int ReadPosition
+        {
+            get => _readPosition;
+            private set => _readPosition = value;
+        }
+
+        public int WritePosition
+        {
+            get => _writePosition;
+            private set => _writePosition = value;
+        }
 
         public int ContentLength => WritePosition >= ReadPosition
             ? WritePosition - ReadPosition
@@ -71,7 +83,7 @@ namespace NadekoBot.Voice
             return bufferingCompleted.Task;
         }
 
-        internal void Write(byte[] input, int writeCount)
+        private void Write(byte[] input, int writeCount)
         {
             if (WritePosition + writeCount < _buffer.Length)
             {
@@ -89,39 +101,38 @@ namespace NadekoBot.Voice
 
         public Span<byte> Read(int count, out int length)
         {
-            var toRead = Math.Min(ContentLength, count);
+            var rp = ReadPosition;
             var wp = WritePosition;
+            var cl = wp >= rp
+                ? wp - rp
+                : (_buffer.Length - rp) + wp;
 
-            if (ContentLength == 0)
+            if (cl == 0)
             {
                 length = 0;
                 return Span<byte>.Empty;
             }
 
-            if (wp > ReadPosition || ReadPosition + toRead <= _buffer.Length)
+            var toRead = Math.Min(cl, count);
+            var toEnd = _buffer.Length - rp;
+
+            Span<byte> toReturn = _outputArray;
+            if (toRead <= toEnd)
             {
-                // thsi can be achieved without copying if 
-                // writer never writes until the end,
-                // but leaves a single chunk free
-                Span<byte> toReturn = _outputArray;
-                ((Span<byte>) _buffer).Slice(ReadPosition, toRead).CopyTo(toReturn);
-                ReadPosition += toRead;
-                length = toRead;
-                return toReturn;
+                ((Span<byte>)_buffer).Slice(rp, toRead).CopyTo(toReturn);
+                ReadPosition = rp + toRead;
             }
             else
             {
-                Span<byte> toReturn = _outputArray;
-                var toEnd = _buffer.Length - ReadPosition;
-                var bufferSpan = (Span<byte>) _buffer;
-
-                bufferSpan.Slice(ReadPosition, toEnd).CopyTo(toReturn);
+                var bufferSpan = (Span<byte>)_buffer;
+                bufferSpan.Slice(rp, toEnd).CopyTo(toReturn);
                 var fromStart = toRead - toEnd;
                 bufferSpan.Slice(0, fromStart).CopyTo(toReturn.Slice(toEnd));
                 ReadPosition = fromStart;
-                length = toEnd + fromStart;
-                return toReturn;
             }
+
+            length = toRead;
+            return toReturn;
         }
 
         public void Dispose()
