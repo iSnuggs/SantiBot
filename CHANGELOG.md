@@ -2,6 +2,12 @@
 
 *a,c,f,r,o,d*
 
+## [7.1.9] - 21.03.2026
+
+### Fixed
+
+- Waifu query throwing errors on some locales
+
 ## [7.1.8] - 21.03.2026
 
 ### Fixed
