@@ -2,6 +2,12 @@
 
 *a,c,f,r,o,d*
 
+## [7.1.4] - 21.03.2026
+
+### Fixed
+
+- Music fixes, logging
+
 ## [7.1.3] - 21.03.2026
 
 ### Fixed

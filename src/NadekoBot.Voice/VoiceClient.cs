@@ -97,8 +97,7 @@ namespace NadekoBot.Voice
                     var encLen = daveManager.Encrypt(gw.Ssrc, data, count, encryptedFrame, maxEncSize);
                     if (encLen <= 0)
                     {
-                        audioPayload = data;
-                        audioPayloadLength = count;
+                        return (int)SendPcmError.DaveEncryptionFailed;
                     }
                     else
                     {
@@ -171,6 +170,7 @@ namespace NadekoBot.Voice
     {
         SecretKeyUnavailable = -1,
         DaveKeyRatchetUnavailable = -2,
+        DaveEncryptionFailed = -3,
     }
 
     public enum FrameDelay
