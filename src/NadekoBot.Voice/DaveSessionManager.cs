@@ -6,7 +6,6 @@ namespace NadekoBot.Voice
 {
     /// <summary>
     /// Manages the DAVE E2EE protocol state machine for a voice connection.
-    /// Follows the reference implementation from libdave/samples/typescript/DaveSessionManager.ts.
     /// </summary>
     public sealed class DaveSessionManager : IDisposable
     {
@@ -19,6 +18,8 @@ namespace NadekoBot.Voice
         private readonly HashSet<string> _recognizedUserIds = new();
         private readonly Dictionary<int, int> _protocolTransitions = new();
         private int _latestPreparedVersion;
+        private int? _lastTransitionId;
+        private bool _reinitializing;
         private bool _disposed;
 
         private static readonly LibDave.LogSinkCallback _nativeLogCallback = OnNativeLog;
@@ -39,6 +40,10 @@ namespace NadekoBot.Voice
 
         public bool HasKeyRatchet => _session.HasKeyRatchet();
 
+        public bool IsReinitializing => _reinitializing;
+
+        public int? LastTransitionId => _lastTransitionId;
+
         public void AssignSsrcToCodec(uint ssrc)
             => _session.AssignSsrcToCodec(ssrc);
 
@@ -50,16 +55,27 @@ namespace NadekoBot.Voice
 
         /// <summary>
         /// Called when SessionDescription (op 4) is received with dave_protocol_version.
-        /// Matches TS reference: onSelectProtocolAck
         /// </summary>
         public bool OnSessionDescription(int protocolVersion)
         {
             return HandleProtocolInit(protocolVersion);
         }
 
-        public void OnPrepareTransition(int transitionId, int protocolVersion)
+        /// <summary>
+        /// Called when DAVE_PREPARE_TRANSITION (op 21) is received.
+        /// Returns true if executed immediately (transitionId==0), meaning caller should NOT send TRANSITION_READY.
+        /// </summary>
+        public bool OnPrepareTransition(int transitionId, int protocolVersion)
         {
-            PrepareRatchets(transitionId, protocolVersion);
+            _protocolTransitions[transitionId] = protocolVersion;
+
+            if (transitionId == INIT_TRANSITION_ID)
+            {
+                HandleExecuteTransition(transitionId);
+                return true;
+            }
+
+            return false;
         }
 
         public void OnExecuteTransition(int transitionId)
@@ -69,7 +85,6 @@ namespace NadekoBot.Voice
 
         /// <summary>
         /// Called when PrepareEpoch (op 24) is received.
-        /// Matches TS reference: onDaveProtocolPrepareEpoch
         /// </summary>
         public bool OnPrepareEpoch(uint epoch, int protocolVersion)
         {
@@ -84,7 +99,9 @@ namespace NadekoBot.Voice
 
         public byte[]? OnProposals(byte[] proposals)
         {
-            return _session.ProcessProposals(proposals, GetRecognizedUserIds());
+            var result = _session.ProcessProposals(proposals, GetRecognizedUserIds());
+            Log.Information("DAVE proposals processed, commitWelcome={HasCommit}", result != null && result.Length > 0);
+            return result;
         }
 
         public CommitProcessResult OnCommitTransition(int transitionId, byte[] commit)
@@ -92,8 +109,17 @@ namespace NadekoBot.Voice
             var result = _session.ProcessCommit(commit);
             if (result == CommitProcessResult.Success)
             {
-                var version = _session.GetProtocolVersion();
-                PrepareRatchets(transitionId, version);
+                if (transitionId != INIT_TRANSITION_ID)
+                {
+                    var version = _session.GetProtocolVersion();
+                    PrepareRatchets(transitionId, version);
+                }
+                else
+                {
+                    _reinitializing = false;
+                }
+
+                _lastTransitionId = transitionId;
             }
 
             return result;
@@ -105,8 +131,17 @@ namespace NadekoBot.Voice
             var success = _session.ProcessWelcome(welcome, GetRecognizedUserIds());
             if (success)
             {
-                var version = _session.GetProtocolVersion();
-                PrepareRatchets(transitionId, version);
+                if (transitionId != INIT_TRANSITION_ID)
+                {
+                    var version = _session.GetProtocolVersion();
+                    PrepareRatchets(transitionId, version);
+                }
+                else
+                {
+                    _reinitializing = false;
+                }
+
+                _lastTransitionId = transitionId;
                 return true;
             }
 
@@ -114,7 +149,11 @@ namespace NadekoBot.Voice
         }
 
         public byte[]? GetKeyPackage()
-            => _session.GetKeyPackage();
+        {
+            var kp = _session.GetKeyPackage();
+            Log.Information("DAVE key package generated, length={Length}", kp?.Length ?? 0);
+            return kp;
+        }
 
         public void AddUser(string userId)
         {
@@ -127,31 +166,34 @@ namespace NadekoBot.Voice
         }
 
         /// <summary>
-        /// Matches TS reference: _handleDaveProtocolInit.
         /// Returns true if a key package should be sent.
         /// </summary>
-        public bool HandleProtocolInit(int protocolVersion)
+        public bool HandleProtocolInit(int protocolVersion, bool isRecovery = false)
         {
+            if (isRecovery)
+                _reinitializing = true;
+
             if (protocolVersion > 0)
             {
+                Log.Information("DAVE protocol init v{Version}, creating new MLS group (recovery={Recovery})",
+                    protocolVersion, isRecovery);
                 HandlePrepareEpoch(MLS_NEW_GROUP_EXPECTED_EPOCH, protocolVersion);
                 return true;
             }
             else
             {
+                Log.Information("DAVE protocol init v0, passthrough mode");
                 PrepareRatchets(INIT_TRANSITION_ID, protocolVersion);
                 HandleExecuteTransition(INIT_TRANSITION_ID);
                 return false;
             }
         }
 
-        /// <summary>
-        /// Matches TS reference: _handleDaveProtocolPrepareEpoch
-        /// </summary>
         private void HandlePrepareEpoch(uint epoch, int protocolVersion)
         {
             if (epoch == MLS_NEW_GROUP_EXPECTED_EPOCH)
             {
+                Log.Information("DAVE session init: epoch {Epoch} v{Version} guild {Guild}", epoch, protocolVersion, _guildId);
                 _session.Init((ushort)protocolVersion, _guildId, _selfUserId);
             }
         }
@@ -165,6 +207,7 @@ namespace NadekoBot.Voice
             }
 
             _protocolTransitions.Remove(transitionId);
+            Log.Information("DAVE executing transition {TransitionId} v{Version}", transitionId, protocolVersion);
 
             if (protocolVersion == 0)
             {
@@ -172,6 +215,9 @@ namespace NadekoBot.Voice
             }
 
             _session.UpdateSelfKeyRatchet(_selfUserId);
+            _reinitializing = false;
+            _lastTransitionId = transitionId;
+            Log.Information("DAVE self key ratchet updated, hasRatchet={HasRatchet}", _session.HasKeyRatchet());
         }
 
         private void PrepareRatchets(int transitionId, int protocolVersion)
