@@ -6,3 +6,4 @@ feed_limit_reached: Vous avez atteint le nombre maximum de feeds autorisés par 
 feed_no_feed: Vous n'avez souscrit à aucun fil d'actualité sur ce serveur.
 feed_out_of_range: L'index est en dehors de la plage disponible.
 feed_removed: Le flux est supprimé.
+feed_auto_removed: 'Le flux `{0}` a été automatiquement supprimé après des échecs répétés.'

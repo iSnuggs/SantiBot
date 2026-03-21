@@ -69,7 +69,7 @@ public partial class Searches
 
             try
             {
-                await FeedReader.ReadAsync(url);
+                await FeedReader.ReadAsync(url, userAgent: FeedsService.USER_AGENT);
             }
             catch (Exception ex)
             {
