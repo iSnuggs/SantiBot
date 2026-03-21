@@ -8630,8 +8630,7 @@
     },
     {
       "Aliases": [
-        ".nom",
-        ".feed"
+        ".nom"
       ],
       "Description": "Feeds one or more users to improve their food stat. If no valid user is found, just shows a nom GIF.",
       "Usage": [

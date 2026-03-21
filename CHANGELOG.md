@@ -7,6 +7,14 @@
 ### Fixed
 
 - More music/voice edge-case fixes
+- Fixed RSS feeds being silently deleted when the bot was kicked from a guild that shared a feed URL with other guilds
+- Fixed RSS feed error counter being incremented on Discord send failures instead of only on fetch failures
+- RSS feeds now send a notification to the channel when a feed is auto-removed due to repeated failures
+
+### Changed
+
+- Increased RSS feed error threshold before auto-removal from 100 to 500
+- RSS feed fetcher now sends a modern browser User-Agent header to avoid blocks from Reddit and Cloudflare-protected sites
 
 ## [7.1.4] - 21.03.2026
 

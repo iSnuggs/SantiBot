@@ -6,3 +6,4 @@ feed_limit_reached: Du hast die maximale Anzahl erlaubter Feeds pro Server errei
 feed_no_feed: Du bist auf diesem Server keinen Feeds am folgen.
 feed_out_of_range: Kennziffer außerhalb des gültigen Bereichs.
 feed_removed: Feed wurde entfernt.
+feed_auto_removed: 'Feed `{0}` wurde nach wiederholten Abruffehlern automatisch entfernt.'

@@ -6,3 +6,4 @@ feed_limit_reached: サーバーあたりのフィードの最大数に達しま
 feed_no_feed: ''
 feed_out_of_range: ''
 feed_removed: ''
+feed_auto_removed: 'フィード `{0}` は取得の失敗が繰り返されたため、自動的に削除されました。'

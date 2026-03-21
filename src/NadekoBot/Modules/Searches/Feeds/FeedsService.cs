@@ -10,6 +10,11 @@ namespace NadekoBot.Modules.Searches.Services;
 
 public class FeedsService : INService, IReadyExecutor
 {
+    public const string USER_AGENT =
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 OPR/123.0.0.0 (Edition beta)";
+
+    private const int MAX_FEED_ERRORS = 500;
+
     private readonly DbService _db;
     private NonBlocking.ConcurrentDictionary<string, List<FeedSub>> _subs;
     private readonly DiscordSocketClient _client;
@@ -28,8 +33,6 @@ public class FeedsService : INService, IReadyExecutor
         SearchesConfigService scs)
     {
         _db = db;
-
-
         _client = client;
         _sender = sender;
         _shardData = shardData;
@@ -56,24 +59,44 @@ public class FeedsService : INService, IReadyExecutor
     private void ClearErrors(string url)
         => _errorCounters.Remove(url);
 
-    private async Task<uint> AddError(string url, List<int> ids)
+    private async Task<uint> AddError(string url, List<FeedSub> subs)
     {
         try
         {
             var newValue = _errorCounters[url] = _errorCounters.GetValueOrDefault(url) + 1;
 
-            if (newValue >= 100)
+            if (newValue >= MAX_FEED_ERRORS)
             {
-                // remove from db
+                Log.Warning("Feed {FeedUrl} reached {MaxErrors} errors, removing {SubCount} subscription(s)",
+                    url,
+                    MAX_FEED_ERRORS,
+                    subs.Count);
+
                 await using var ctx = _db.GetDbContext();
                 await ctx.GetTable<FeedSub>()
-                    .DeleteAsync(x => ids.Contains(x.Id));
+                    .DeleteAsync(x => subs.Select(s => s.Id).Contains(x.Id));
 
-                // remove from the local cache
                 _subs.TryRemove(url, out _);
-
-                // reset the error counter
                 ClearErrors(url);
+
+                foreach (var sub in subs)
+                {
+                    try
+                    {
+                        var guild = _client.GetGuild(sub.GuildId);
+                        if (guild is null)
+                            continue;
+
+                        var ch = guild.GetTextChannel(sub.ChannelId);
+                        if (ch is null)
+                            continue;
+
+                        await _sender.Response(ch)
+                            .Error(strs.feed_auto_removed(url))
+                            .SendAsync();
+                    }
+                    catch { }
+                }
             }
 
             return newValue;
@@ -152,7 +175,7 @@ public class FeedsService : INService, IReadyExecutor
         return embed;
     }
 
-    public async Task<EmbedBuilder> TrackFeeds()
+    private async Task TrackFeeds()
     {
         while (true)
         {
@@ -165,7 +188,7 @@ public class FeedsService : INService, IReadyExecutor
                 var rssUrl = kvp.Value.First().Url;
                 try
                 {
-                    var feed = await FeedReader.ReadAsync(rssUrl);
+                    var feed = await FeedReader.ReadAsync(rssUrl, userAgent: USER_AGENT);
 
                     var items = new List<(FeedItem Item, DateTime LastUpdate)>();
                     foreach (var item in feed.Items)
@@ -190,6 +213,8 @@ public class FeedsService : INService, IReadyExecutor
                         lastFeedUpdate = _lastPosts[kvp.Key] = items[0].LastUpdate;
                     }
 
+                    var deadSubs = new List<FeedSub>();
+
                     for (var index = 1; index <= items.Count; index++)
                     {
                         var (feedItem, itemUpdateDate) = items[^index];
@@ -204,33 +229,67 @@ public class FeedsService : INService, IReadyExecutor
 
                         foreach (var val in kvp.Value)
                         {
-                            var ch = _client.GetGuild(val.GuildId).GetTextChannel(val.ChannelId);
+                            try
+                            {
+                                var guild = _client.GetGuild(val.GuildId);
+                                if (guild is null)
+                                {
+                                    deadSubs.Add(val);
+                                    continue;
+                                }
 
-                            if (ch is null)
-                                continue;
+                                var ch = guild.GetTextChannel(val.ChannelId);
+                                if (ch is null)
+                                    continue;
 
-                            var sendTask = _sender.Response(ch)
-                                .Embed(embed)
-                                .Text(string.IsNullOrWhiteSpace(val.Message)
-                                    ? string.Empty
-                                    : val.Message)
-                                .SendAsync();
-                            tasks.Add(sendTask);
+                                var sendTask = _sender.Response(ch)
+                                    .Embed(embed)
+                                    .Text(string.IsNullOrWhiteSpace(val.Message)
+                                        ? string.Empty
+                                        : val.Message)
+                                    .SendAsync();
+                                tasks.Add(sendTask);
+                            }
+                            catch (Exception ex)
+                            {
+                                Log.Warning(ex,
+                                    "Error sending feed update to {GuildId}/{ChannelId}",
+                                    val.GuildId,
+                                    val.ChannelId);
+                            }
                         }
 
                         allSendTasks.Add(tasks.WhenAll());
-
-                        // as data retrieval was successful, reset error counter
-                        ClearErrors(rssUrl);
                     }
+
+                    if (deadSubs.Count > 0)
+                    {
+                        Log.Information(
+                            "Removing {Count} feed subscription(s) for {FeedUrl} - bot is no longer in those guilds: {GuildIds}",
+                            deadSubs.Count,
+                            rssUrl,
+                            string.Join(", ", deadSubs.Select(s => s.GuildId)));
+
+                        await using var ctx = _db.GetDbContext();
+                        await ctx.GetTable<FeedSub>()
+                            .DeleteAsync(x => deadSubs.Select(s => s.Id).Contains(x.Id));
+
+                        var deadIds = deadSubs.Select(s => s.Id).ToHashSet();
+                        _subs.AddOrUpdate(kvp.Key,
+                            [],
+                            (_, old) => old.Where(x => !deadIds.Contains(x.Id)).ToList());
+                    }
+
+                    ClearErrors(rssUrl);
                 }
                 catch (Exception ex)
                 {
-                    var errorCount = await AddError(rssUrl, kvp.Value.Select(x => x.Id).ToList());
+                    var errorCount = await AddError(rssUrl, kvp.Value);
 
-                    Log.Warning("An error occured while getting rss stream ({ErrorCount} / 100) {RssFeed}"
+                    Log.Warning("An error occured while getting rss stream ({ErrorCount} / {MaxErrors}) {RssFeed}"
                                 + "\n {Message}",
                         errorCount,
+                        MAX_FEED_ERRORS,
                         rssUrl,
                         $"[{ex.GetType().Name}]: {ex.Message}");
                 }
