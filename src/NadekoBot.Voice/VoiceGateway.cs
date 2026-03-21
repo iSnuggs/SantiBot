@@ -43,7 +43,7 @@ namespace NadekoBot.Voice
         private readonly SocketClient _ws;
         private readonly UdpClient _udpClient;
         private Timer? _heartbeatTimer;
-        private bool _receivedAck;
+        private volatile int _receivedAck;
         private IPEndPoint? _udpEp;
 
         public uint Ssrc { get; private set; }
@@ -166,7 +166,7 @@ namespace NadekoBot.Voice
                     case VoiceOpCode.Speaking:
                         break;
                     case VoiceOpCode.HeartbeatAck:
-                        _receivedAck = true;
+                        _receivedAck = 1;
                         break;
                     case VoiceOpCode.Hello:
                         var hello = payload.Data.ToObject<VoiceHello>();
@@ -220,15 +220,19 @@ namespace NadekoBot.Voice
                 switch (opcode)
                 {
                     case VoiceOpCode.DaveMlsExternalSender:
+                        Log.Information("DAVE: ExternalSender received, size={Size}", payload.Length);
                         DaveManager.OnExternalSender(payload);
                         break;
                     case VoiceOpCode.DaveMlsProposals:
+                        Log.Information("DAVE: MLS Proposals received, size={Size}", payload.Length);
                         HandleDaveMlsProposals(payload);
                         break;
                     case VoiceOpCode.DaveMlsAnnounceCommitTransition:
+                        Log.Information("DAVE: MLS AnnounceCommitTransition received, size={Size}", payload.Length);
                         HandleDaveMlsAnnounceCommitTransition(payload);
                         break;
                     case VoiceOpCode.DaveMlsWelcome:
+                        Log.Information("DAVE: MLS Welcome received, size={Size}", payload.Length);
                         HandleDaveMlsWelcome(payload);
                         break;
                     default:
@@ -270,7 +274,11 @@ namespace NadekoBot.Voice
             if (DaveManager is null) return;
             var transitionId = data?["transition_id"]?.Value<int>() ?? 0;
             var protocolVersion = data?["protocol_version"]?.Value<int>() ?? 0;
+            Log.Information("DAVE: PrepareTransition received, transitionId={TransitionId}, protocolVersion={ProtocolVersion}",
+                transitionId, protocolVersion);
             var executedImmediately = DaveManager.OnPrepareTransition(transitionId, protocolVersion);
+            Log.Information("DAVE: PrepareTransition transitionId={TransitionId}, executedImmediately={ExecutedImmediately}",
+                transitionId, executedImmediately);
             if (!executedImmediately)
                 SendDaveTransitionReady(transitionId);
         }
@@ -279,6 +287,7 @@ namespace NadekoBot.Voice
         {
             if (DaveManager is null) return;
             var transitionId = data?["transition_id"]?.Value<int>() ?? 0;
+            Log.Information("DAVE: ExecuteTransition received, transitionId={TransitionId}", transitionId);
             DaveManager.OnExecuteTransition(transitionId);
         }
 
@@ -287,7 +296,11 @@ namespace NadekoBot.Voice
             if (DaveManager is null) return;
             var epoch = data?["epoch"]?.Value<uint>() ?? 0;
             var protocolVersion = data?["protocol_version"]?.Value<int>() ?? 0;
+            Log.Information("DAVE: PrepareEpoch received, epoch={Epoch}, protocolVersion={ProtocolVersion}",
+                epoch, protocolVersion);
             var needsKeyPackage = DaveManager.OnPrepareEpoch(epoch, protocolVersion);
+            Log.Information("DAVE: PrepareEpoch epoch={Epoch}, needsKeyPackage={NeedsKeyPackage}",
+                epoch, needsKeyPackage);
 
             if (needsKeyPackage)
             {
@@ -331,6 +344,7 @@ namespace NadekoBot.Voice
                 Buffer.BlockCopy(payload, 2, commit, 0, commit.Length);
 
             var result = DaveManager!.OnCommitTransition(transitionId, commit);
+            Log.Information("DAVE: CommitTransition transitionId={TransitionId}, result={Result}", transitionId, result);
             if (result == CommitProcessResult.Success)
             {
                 SendDaveTransitionReady(transitionId);
@@ -352,6 +366,7 @@ namespace NadekoBot.Voice
                 Buffer.BlockCopy(payload, 2, welcome, 0, welcome.Length);
 
             var success = DaveManager!.OnWelcome(transitionId, welcome);
+            Log.Information("DAVE: Welcome transitionId={TransitionId}, success={Success}", transitionId, success);
             if (success)
             {
                 SendDaveTransitionReady(transitionId);
@@ -366,6 +381,7 @@ namespace NadekoBot.Voice
         {
             if (transitionId != 0)
             {
+                Log.Information("DAVE: Sending TransitionReady for transitionId={TransitionId}", transitionId);
                 _ = SendCommandPayloadAsync(new()
                 {
                     OpCode = VoiceOpCode.DaveTransitionReady,
@@ -406,7 +422,12 @@ namespace NadekoBot.Voice
             var keyPackage = DaveManager?.GetKeyPackage();
             if (keyPackage != null && keyPackage.Length > 0)
             {
+                Log.Information("DAVE: Sending MLS KeyPackage, size={Size}", keyPackage.Length);
                 SendDaveBinaryOpcode(VoiceOpCode.DaveMlsKeyPackage, keyPackage);
+            }
+            else
+            {
+                Log.Warning("DAVE: KeyPackage is null or empty, cannot send");
             }
         }
 
@@ -468,11 +489,13 @@ namespace NadekoBot.Voice
             Mode = sd.Mode;
             DaveProtocolVersion = sd.DaveProtocolVersion;
 
-            Log.Information("Voice session: mode={Mode}, DAVE v{DaveVersion}", Mode, DaveProtocolVersion);
+            Log.Information("Voice session: mode={Mode}, DAVE v{DaveVersion}, daveManager={HasManager}",
+                Mode, DaveProtocolVersion, DaveManager != null);
 
             if (DaveProtocolVersion > 0 && DaveManager != null)
             {
                 var needsKeyPackage = DaveManager.OnSessionDescription(DaveProtocolVersion);
+                Log.Information("DAVE: SessionDescription handled, needsKeyPackage={NeedsKeyPackage}", needsKeyPackage);
                 if (needsKeyPackage)
                     SendDaveMlsKeyPackage();
             }
@@ -550,13 +573,14 @@ namespace NadekoBot.Voice
             }
             finally
             {
-                _udpClient.Client.ReceiveTimeout = previousTimeout;
+                if (_udpClient.Client is { } client)
+                    client.ReceiveTimeout = previousTimeout;
             }
         }
 
         private Task HandleHelloAsync(VoiceHello data)
         {
-            _receivedAck = true;
+            _receivedAck = 1;
             _heartbeatTimer = new(async _ =>
             {
                 await SendHeartbeatAsync();
@@ -569,6 +593,7 @@ namespace NadekoBot.Voice
 
             DaveManager?.Dispose();
             DaveManager = new DaveSessionManager(_channelId, _userId);
+            Log.Information("DAVE: Created new session manager for channel={ChannelId}, user={UserId}", _channelId, _userId);
 
             return IdentifyAsync();
         }
@@ -605,7 +630,7 @@ namespace NadekoBot.Voice
 
         private async Task SendHeartbeatAsync()
         {
-            if (!_receivedAck)
+            if (Interlocked.Exchange(ref _receivedAck, 0) == 0)
             {
                 Log.Warning("Voice gateway didn't receive HearbeatAck - closing");
                 var success = await _ws.CloseAsync();
@@ -613,8 +638,6 @@ namespace NadekoBot.Voice
                     await _ws_WebsocketClosed(null);
                 return;
             }
-            
-            _receivedAck = false;
             await SendCommandPayloadAsync(new()
             {
                 OpCode = VoiceOpCode.Heartbeat,

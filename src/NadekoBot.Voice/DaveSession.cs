@@ -59,11 +59,15 @@ namespace NadekoBot.Voice
 
             LibDave.SessionGetMarshalledKeyPackage(_session, out var ptr, out var length);
             if (ptr == IntPtr.Zero || (int)length == 0)
+            {
+                Log.Warning("DAVE Session: GetKeyPackage returned null/empty");
                 return null;
+            }
 
             var result = new byte[(int)length];
             Marshal.Copy(ptr, result, 0, result.Length);
             LibDave.Free(ptr);
+            Log.Debug("DAVE Session: GetKeyPackage returned {Size} bytes", result.Length);
             return result;
         }
 
@@ -102,15 +106,26 @@ namespace NadekoBot.Voice
             if (_session == IntPtr.Zero) return CommitProcessResult.Failed;
 
             var result = LibDave.SessionProcessCommit(_session, commit, (UIntPtr)commit.Length);
-            if (result == IntPtr.Zero) return CommitProcessResult.Failed;
+            if (result == IntPtr.Zero)
+            {
+                Log.Warning("DAVE Session: ProcessCommit returned null pointer");
+                return CommitProcessResult.Failed;
+            }
 
             try
             {
                 if (LibDave.CommitResultIsIgnored(result))
+                {
+                    Log.Information("DAVE Session: ProcessCommit result=Ignored");
                     return CommitProcessResult.Ignored;
+                }
                 if (LibDave.CommitResultIsFailed(result))
+                {
+                    Log.Warning("DAVE Session: ProcessCommit result=Failed");
                     return CommitProcessResult.Failed;
+                }
 
+                Log.Information("DAVE Session: ProcessCommit result=Success");
                 return CommitProcessResult.Success;
             }
             finally
@@ -134,9 +149,14 @@ namespace NadekoBot.Voice
                     userIdPtrs,
                     (UIntPtr)userIdPtrs.Length);
 
-                if (result == IntPtr.Zero) return false;
+                if (result == IntPtr.Zero)
+                {
+                    Log.Warning("DAVE Session: ProcessWelcome failed (null result), recognizedUsers={UserCount}", recognizedUserIds.Length);
+                    return false;
+                }
 
                 LibDave.WelcomeResultDestroy(result);
+                Log.Information("DAVE Session: ProcessWelcome succeeded, recognizedUsers={UserCount}", recognizedUserIds.Length);
                 return true;
             }
             finally
@@ -160,6 +180,11 @@ namespace NadekoBot.Voice
             {
                 LibDave.EncryptorSetKeyRatchet(_encryptor, _selfKeyRatchet);
                 LibDave.EncryptorSetPassthroughMode(_encryptor, false);
+                Log.Information("DAVE Session: Key ratchet obtained and set for user={UserId}", selfUserId);
+            }
+            else
+            {
+                Log.Warning("DAVE Session: Failed to obtain key ratchet for user={UserId}", selfUserId);
             }
         }
 
@@ -196,7 +221,11 @@ namespace NadekoBot.Voice
                 out var bytesWritten);
 
             if (result != LibDave.DAVE_ENCRYPTOR_RESULT_CODE_SUCCESS)
+            {
+                Log.Warning("DAVE Session: Encrypt failed, ssrc={Ssrc}, frameLen={FrameLength}, resultCode={ResultCode}",
+                    ssrc, frameLength, result);
                 return -1;
+            }
 
             return (int)bytesWritten;
         }
@@ -210,7 +239,7 @@ namespace NadekoBot.Voice
 
         private static void OnMlsFailure(string source, string reason, IntPtr userData)
         {
-            Log.Debug("DAVE MLS failure: {Source} - {Reason}", source, reason);
+            Log.Warning("DAVE MLS failure: {Source} - {Reason}", source, reason);
         }
 
         private static IntPtr[] MarshalStringArray(string[] strings)

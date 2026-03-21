@@ -249,12 +249,14 @@ public sealed class MusicPlayer : IMusicPlayer
                             // to survive DAVE E2EE re-keying when users join/leave
                             if (++errorCount <= 50)
                             {
+                                if (errorCount % 10 == 0)
+                                    Log.Debug("Voice send errors accumulating: errorCount={ErrorCount}/50", errorCount);
                                 await Task.Delay(200);
                                 nextFrameTick = sw.ElapsedTicks;
                                 continue;
                             }
 
-                            Log.Warning("Can't send data to voice channel");
+                            Log.Warning("Can't send data to voice channel after {ErrorCount} consecutive failures", errorCount);
 
                             IsStopped = true;
                             break;

@@ -1,6 +1,7 @@
 using System;
 using System.Buffers;
 using System.Buffers.Binary;
+using Serilog;
 
 namespace NadekoBot.Voice
 {
@@ -81,7 +82,11 @@ namespace NadekoBot.Voice
         {
             var secretKey = gw.SecretKey;
             if (secretKey is null || secretKey.Length != Sodium.KEY_SIZE)
+            {
+                Log.Warning("DAVE: SecretKey unavailable (length={KeyLength}, expected={Expected})",
+                    secretKey?.Length ?? 0, Sodium.KEY_SIZE);
                 return (int) SendPcmError.SecretKeyUnavailable;
+            }
 
             byte[] audioPayload;
             int audioPayloadLength;
@@ -97,6 +102,8 @@ namespace NadekoBot.Voice
                     var encLen = daveManager.Encrypt(gw.Ssrc, data, count, encryptedFrame, maxEncSize);
                     if (encLen <= 0)
                     {
+                        Log.Warning("DAVE: Encryption failed for ssrc={Ssrc}, frameLen={FrameLength}, result={Result}",
+                            gw.Ssrc, count, encLen);
                         return (int)SendPcmError.DaveEncryptionFailed;
                     }
                     else
@@ -113,6 +120,8 @@ namespace NadekoBot.Voice
             }
             else if (daveManager != null && gw.DaveProtocolVersion > 0)
             {
+                Log.Warning("DAVE: Key ratchet unavailable (daveVersion={DaveVersion}, hasRatchet={HasRatchet}, reinitializing={Reinit})",
+                    gw.DaveProtocolVersion, daveManager.HasKeyRatchet, daveManager.IsReinitializing);
                 return (int)SendPcmError.DaveKeyRatchetUnavailable;
             }
             else

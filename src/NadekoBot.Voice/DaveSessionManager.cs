@@ -58,6 +58,7 @@ namespace NadekoBot.Voice
         /// </summary>
         public bool OnSessionDescription(int protocolVersion)
         {
+            Log.Information("DAVE Manager: OnSessionDescription protocolVersion={ProtocolVersion}", protocolVersion);
             return HandleProtocolInit(protocolVersion);
         }
 
@@ -71,15 +72,19 @@ namespace NadekoBot.Voice
 
             if (transitionId == INIT_TRANSITION_ID)
             {
+                Log.Information("DAVE Manager: PrepareTransition init (transitionId=0), executing immediately");
                 HandleExecuteTransition(transitionId);
                 return true;
             }
 
+            Log.Information("DAVE Manager: PrepareTransition transitionId={TransitionId}, protocolVersion={ProtocolVersion}",
+                transitionId, protocolVersion);
             return false;
         }
 
         public void OnExecuteTransition(int transitionId)
         {
+            Log.Information("DAVE Manager: OnExecuteTransition transitionId={TransitionId}", transitionId);
             HandleExecuteTransition(transitionId);
         }
 
@@ -88,6 +93,7 @@ namespace NadekoBot.Voice
         /// </summary>
         public bool OnPrepareEpoch(uint epoch, int protocolVersion)
         {
+            Log.Information("DAVE Manager: OnPrepareEpoch epoch={Epoch}, protocolVersion={ProtocolVersion}", epoch, protocolVersion);
             HandlePrepareEpoch(epoch, protocolVersion);
             return epoch == MLS_NEW_GROUP_EXPECTED_EPOCH;
         }
@@ -105,6 +111,7 @@ namespace NadekoBot.Voice
         public CommitProcessResult OnCommitTransition(int transitionId, byte[] commit)
         {
             var result = _session.ProcessCommit(commit);
+            Log.Information("DAVE Manager: OnCommitTransition transitionId={TransitionId}, result={Result}", transitionId, result);
             if (result == CommitProcessResult.Success)
             {
                 if (transitionId != INIT_TRANSITION_ID)
@@ -114,6 +121,7 @@ namespace NadekoBot.Voice
                 }
                 else
                 {
+                    _session.UpdateSelfKeyRatchet(_selfUserId);
                     _reinitializing = false;
                 }
 
@@ -127,6 +135,7 @@ namespace NadekoBot.Voice
         public bool OnWelcome(int transitionId, byte[] welcome)
         {
             var success = _session.ProcessWelcome(welcome, GetRecognizedUserIds());
+            Log.Information("DAVE Manager: OnWelcome transitionId={TransitionId}, success={Success}", transitionId, success);
             if (success)
             {
                 if (transitionId != INIT_TRANSITION_ID)
@@ -136,6 +145,7 @@ namespace NadekoBot.Voice
                 }
                 else
                 {
+                    _session.UpdateSelfKeyRatchet(_selfUserId);
                     _reinitializing = false;
                 }
 
@@ -166,6 +176,9 @@ namespace NadekoBot.Voice
         /// </summary>
         public bool HandleProtocolInit(int protocolVersion, bool isRecovery = false)
         {
+            Log.Information("DAVE Manager: HandleProtocolInit protocolVersion={ProtocolVersion}, isRecovery={IsRecovery}",
+                protocolVersion, isRecovery);
+
             if (isRecovery)
                 _reinitializing = true;
 
@@ -194,7 +207,7 @@ namespace NadekoBot.Voice
         {
             if (!_protocolTransitions.TryGetValue(transitionId, out var protocolVersion))
             {
-                Log.Warning("DAVE execute transition {TransitionId} not found in pending transitions", transitionId);
+                Log.Warning("DAVE Manager: ExecuteTransition {TransitionId} not found in pending transitions", transitionId);
                 return;
             }
 
@@ -202,10 +215,13 @@ namespace NadekoBot.Voice
 
             if (protocolVersion == 0)
             {
+                Log.Information("DAVE Manager: ExecuteTransition resetting session (protocolVersion=0)");
                 _session.Reset();
             }
 
             _session.UpdateSelfKeyRatchet(_selfUserId);
+            Log.Information("DAVE Manager: ExecuteTransition transitionId={TransitionId} complete, hasKeyRatchet={HasRatchet}",
+                transitionId, _session.HasKeyRatchet());
             _reinitializing = false;
             _lastTransitionId = transitionId;
         }
