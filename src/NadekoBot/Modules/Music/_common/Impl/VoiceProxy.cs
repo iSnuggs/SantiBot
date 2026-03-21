@@ -36,11 +36,15 @@ public sealed class VoiceProxy : IVoiceProxy
         {
             var gw = gateway;
             if (gw is null || gw.Stopped || !gw.Started)
+            {
+                Log.Warning("SendPcmFrame rejected: gateway null={IsNull}, stopped={Stopped}, started={Started}",
+                    gw is null, gw?.Stopped, gw?.Started);
                 return false;
+            }
 
             var result = vc.SendPcmFrame(gw, data, 0, length);
             if (result <= 0)
-                Log.Debug("SendPcmFrame returned {Result}", result);
+                Log.Warning("SendPcmFrame returned {Result} ({Error})", result, (SendPcmError)result);
             return result > 0;
         }
         catch (Exception ex)
@@ -56,7 +60,11 @@ public sealed class VoiceProxy : IVoiceProxy
         {
             var gw = gateway;
             if (gw is null || gw.Stopped || !gw.Started)
+            {
+                Log.Warning("SendOpusFrame rejected: gateway null={IsNull}, stopped={Stopped}, started={Started}",
+                    gw is null, gw?.Stopped, gw?.Started);
                 return false;
+            }
 
             vc.SendOpusFrame(gw, data, 0, length);
             return true;

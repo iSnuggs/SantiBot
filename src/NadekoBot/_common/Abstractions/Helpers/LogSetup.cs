@@ -12,7 +12,12 @@ public static class LogSetup
                                               .MinimumLevel.Override("System", LogEventLevel.Information)
                                               .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
                                               .Enrich.FromLogContext()
-                                              .WriteTo.Console(LogEventLevel.Information,
+                                              .WriteTo.Console(
+#if DEBUG
+                                                  LogEventLevel.Debug,
+#else
+                                                  LogEventLevel.Information,
+#endif
                                                   theme: GetTheme(),
                                                   outputTemplate:
                                                   "[{Timestamp:HH:mm:ss} {Level:u3}] | #{LogSource} | {Message:lj}{NewLine}{Exception}")

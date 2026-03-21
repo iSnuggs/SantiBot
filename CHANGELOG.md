@@ -2,6 +2,12 @@
 
 *a,c,f,r,o,d*
 
+## [7.1.7] - 21.03.2026
+
+### Fixed
+
+- More DAVE fixes/changes
+
 ## [7.1.5] - 21.03.2026
 
 ### Fixed
