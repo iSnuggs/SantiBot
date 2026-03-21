@@ -268,14 +268,17 @@ namespace NadekoBot.Voice
             if (DaveManager is null) return;
             var transitionId = data?["transition_id"]?.Value<int>() ?? 0;
             var protocolVersion = data?["protocol_version"]?.Value<int>() ?? 0;
-            DaveManager.OnPrepareTransition(transitionId, protocolVersion);
-            SendDaveTransitionReady(transitionId);
+            Log.Information("DAVE prepare transition {TransitionId} v{ProtocolVersion}", transitionId, protocolVersion);
+            var executedImmediately = DaveManager.OnPrepareTransition(transitionId, protocolVersion);
+            if (!executedImmediately)
+                SendDaveTransitionReady(transitionId);
         }
 
         private void HandleDaveExecuteTransitionJson(JToken data)
         {
             if (DaveManager is null) return;
             var transitionId = data?["transition_id"]?.Value<int>() ?? 0;
+            Log.Information("DAVE execute transition {TransitionId}", transitionId);
             DaveManager.OnExecuteTransition(transitionId);
         }
 
@@ -284,6 +287,7 @@ namespace NadekoBot.Voice
             if (DaveManager is null) return;
             var epoch = data?["epoch"]?.Value<uint>() ?? 0;
             var protocolVersion = data?["protocol_version"]?.Value<int>() ?? 0;
+            Log.Information("DAVE prepare epoch {Epoch} v{ProtocolVersion}", epoch, protocolVersion);
             var needsKeyPackage = DaveManager.OnPrepareEpoch(epoch, protocolVersion);
 
             if (needsKeyPackage)
@@ -294,10 +298,26 @@ namespace NadekoBot.Voice
 
         private void HandleDaveMlsProposals(byte[] payload)
         {
-            var commitWelcome = DaveManager!.OnProposals(payload);
-            if (commitWelcome != null && commitWelcome.Length > 0)
+            try
             {
-                SendDaveBinaryOpcode(VoiceOpCode.DaveMlsCommitWelcome, commitWelcome);
+                var commitWelcome = DaveManager!.OnProposals(payload);
+                if (commitWelcome != null && commitWelcome.Length > 0)
+                {
+                    SendDaveBinaryOpcode(VoiceOpCode.DaveMlsCommitWelcome, commitWelcome);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "DAVE proposals processing failed, recovering");
+                var lastTransition = DaveManager!.LastTransitionId;
+                if (lastTransition.HasValue)
+                {
+                    RecoverFromInvalidTransition(lastTransition.Value);
+                }
+                else
+                {
+                    Log.Error("DAVE proposals failed and no last transition ID available for recovery");
+                }
             }
         }
 
@@ -312,25 +332,14 @@ namespace NadekoBot.Voice
                 Buffer.BlockCopy(payload, 2, commit, 0, commit.Length);
 
             var result = DaveManager!.OnCommitTransition(transitionId, commit);
+            Log.Information("DAVE commit result {Result} for transition {TransitionId}", result, transitionId);
             if (result == CommitProcessResult.Success)
             {
                 SendDaveTransitionReady(transitionId);
             }
-            else if (result == CommitProcessResult.Failed)
+            else if (result == CommitProcessResult.Failed || result == CommitProcessResult.Ignored)
             {
-                Log.Warning("DAVE commit failed for transition {TransitionId}, recovering", transitionId);
-                SendDaveInvalidCommitWelcome(transitionId);
-                var needsKeyPackage = DaveManager.HandleProtocolInit(DaveProtocolVersion);
-                if (needsKeyPackage)
-                    SendDaveMlsKeyPackage();
-            }
-            else if (result == CommitProcessResult.Ignored)
-            {
-                Log.Warning("DAVE commit ignored for transition {TransitionId}, recovering", transitionId);
-                SendDaveInvalidCommitWelcome(transitionId);
-                var needsKeyPackage = DaveManager.HandleProtocolInit(DaveProtocolVersion);
-                if (needsKeyPackage)
-                    SendDaveMlsKeyPackage();
+                RecoverFromInvalidTransition(transitionId);
             }
         }
 
@@ -345,15 +354,14 @@ namespace NadekoBot.Voice
                 Buffer.BlockCopy(payload, 2, welcome, 0, welcome.Length);
 
             var success = DaveManager!.OnWelcome(transitionId, welcome);
+            Log.Information("DAVE welcome result {Success} for transition {TransitionId}", success, transitionId);
             if (success)
             {
                 SendDaveTransitionReady(transitionId);
             }
             else
             {
-                Log.Warning("DAVE welcome failed for transition {TransitionId}, recovering", transitionId);
-                SendDaveInvalidCommitWelcome(transitionId);
-                SendDaveMlsKeyPackage();
+                RecoverFromInvalidTransition(transitionId);
             }
         }
 
@@ -376,6 +384,24 @@ namespace NadekoBot.Voice
                 OpCode = VoiceOpCode.DaveMlsInvalidCommitWelcome,
                 Data = JToken.FromObject(new { transition_id = transitionId })
             });
+        }
+
+        private void RecoverFromInvalidTransition(int transitionId)
+        {
+            if (DaveManager is null) return;
+
+            if (DaveManager.IsReinitializing)
+            {
+                Log.Warning("DAVE recovery requested for transition {TransitionId}, already reinitializing - skipping",
+                    transitionId);
+                return;
+            }
+
+            Log.Warning("DAVE recovering from invalid transition {TransitionId}", transitionId);
+            SendDaveInvalidCommitWelcome(transitionId);
+            var needsKeyPackage = DaveManager.HandleProtocolInit(DaveProtocolVersion, isRecovery: true);
+            if (needsKeyPackage)
+                SendDaveMlsKeyPackage();
         }
 
         private void SendDaveMlsKeyPackage()
@@ -435,6 +461,8 @@ namespace NadekoBot.Voice
             SecretKey = sd.SecretKey;
             Mode = sd.Mode;
             DaveProtocolVersion = sd.DaveProtocolVersion;
+
+            Log.Information("Voice session: mode={Mode}, DAVE v{DaveVersion}", Mode, DaveProtocolVersion);
 
             if (DaveProtocolVersion > 0 && DaveManager != null)
             {

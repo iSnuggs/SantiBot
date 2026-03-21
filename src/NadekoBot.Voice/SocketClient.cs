@@ -119,14 +119,22 @@ namespace Ayu.Discord.Gateway
 
         public async Task SendBulkAsync(byte[] data)
         {
-            var ws = _ws;
-            if (ws is null)
-                throw new WebSocketException("Websocket is disconnected.");
+            await _sendLock.WaitAsync().ConfigureAwait(false);
+            try
+            {
+                var ws = _ws;
+                if (ws is null)
+                    throw new WebSocketException("Websocket is disconnected.");
 
-            await ws.SendAsync(new(data, 0, data.Length),
-                WebSocketMessageType.Binary,
-                true,
-                CancellationToken.None).ConfigureAwait(false);
+                await ws.SendAsync(new(data, 0, data.Length),
+                    WebSocketMessageType.Binary,
+                    true,
+                    CancellationToken.None).ConfigureAwait(false);
+            }
+            finally
+            {
+                _sendLock.Release();
+            }
         }
 
         public async Task<bool> CloseAsync(string msg = "Stop")
