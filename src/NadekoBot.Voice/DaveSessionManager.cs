@@ -12,7 +12,7 @@ namespace NadekoBot.Voice
         private const int INIT_TRANSITION_ID = 0;
         private const uint MLS_NEW_GROUP_EXPECTED_EPOCH = 1;
 
-        private readonly ulong _guildId;
+        private readonly ulong _channelId;
         private readonly string _selfUserId;
         private readonly DaveSession _session;
         private readonly HashSet<string> _recognizedUserIds = new();
@@ -25,9 +25,9 @@ namespace NadekoBot.Voice
         private static readonly LibDave.LogSinkCallback _nativeLogCallback = OnNativeLog;
         private static bool _logCallbackSet;
 
-        public DaveSessionManager(ulong guildId, ulong userId)
+        public DaveSessionManager(ulong channelId, ulong userId)
         {
-            _guildId = guildId;
+            _channelId = channelId;
             _selfUserId = userId.ToString();
             _session = new DaveSession();
 
@@ -193,8 +193,8 @@ namespace NadekoBot.Voice
         {
             if (epoch == MLS_NEW_GROUP_EXPECTED_EPOCH)
             {
-                Log.Information("DAVE session init: epoch {Epoch} v{Version} guild {Guild}", epoch, protocolVersion, _guildId);
-                _session.Init((ushort)protocolVersion, _guildId, _selfUserId);
+                Log.Information("DAVE session init: epoch {Epoch} v{Version} channel {Channel}", epoch, protocolVersion, _channelId);
+                _session.Init((ushort)protocolVersion, _channelId, _selfUserId);
             }
         }
 

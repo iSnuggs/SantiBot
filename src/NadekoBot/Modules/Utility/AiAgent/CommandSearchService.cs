@@ -101,7 +101,10 @@ public sealed class CommandSearchService(
             }
 
             Log.Information("CommandSearch: Loading ONNX model and tokenizer...");
-            _session = new InferenceSession(modelPath);
+            var sessionOptions = new SessionOptions();
+            sessionOptions.InterOpNumThreads = 1;
+            sessionOptions.IntraOpNumThreads = Math.Max(1, Environment.ProcessorCount / 2);
+            _session = new InferenceSession(modelPath, sessionOptions);
             _tokenizer = BertTokenizer.Create(vocabPath);
 
             Log.Information("CommandSearch: Embedding {Count} commands...", commands.Length);

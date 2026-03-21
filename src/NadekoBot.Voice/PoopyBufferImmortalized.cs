@@ -71,7 +71,7 @@ namespace NadekoBot.Voice
             return bufferingCompleted.Task;
         }
 
-        private void Write(byte[] input, int writeCount)
+        internal void Write(byte[] input, int writeCount)
         {
             if (WritePosition + writeCount < _buffer.Length)
             {

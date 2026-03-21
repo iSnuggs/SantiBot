@@ -175,7 +175,7 @@ public sealed class AyuVoiceStateService : INService
 
             VoiceGateway CreateVoiceGatewayLocal()
             {
-                return new(guildId, _currentUserId, session, voiceServerData.Token, voiceServerData.Endpoint);
+                return new(guildId, channelId, _currentUserId, session, voiceServerData.Token, voiceServerData.Endpoint);
             }
 
             var current = _voiceProxies.AddOrUpdate(guildId,
