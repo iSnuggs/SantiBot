@@ -963,13 +963,14 @@ public sealed class WaifuService(
 
         await using var lctx = ctx.CreateLinqToDBConnection();
 
-        await lctx.ExecuteAsync($"""
+        await lctx.ExecuteAsync(
+            """
             INSERT INTO WaifuCycle
                 (WaifuUserId, CycleNumber, ManagerUserId, WaifuFeePercent,
                  ReturnsCap, ManagerCutPercent, Price, Processed, TotalBacked)
             SELECT
-                w.UserId, {cycleNumber}, w.ManagerUserId, w.WaifuFeePercent,
-                w.ReturnsCap, {managerCutPercent}, w.Price, 0, fb.TotalBacked
+                w.UserId, @cycleNumber, w.ManagerUserId, w.WaifuFeePercent,
+                w.ReturnsCap, @managerCutPercent, w.Price, 0, fb.TotalBacked
             FROM WaifuInfo w
             INNER JOIN (
                 SELECT f.WaifuUserId, SUM(COALESCE(b.Balance, 0)) AS TotalBacked
@@ -979,20 +980,24 @@ public sealed class WaifuService(
             ) fb ON fb.WaifuUserId = w.UserId
             WHERE w.ManagerUserId IS NOT NULL AND fb.TotalBacked > 0
             ON CONFLICT (WaifuUserId, CycleNumber) DO NOTHING;
-            """);
+            """,
+            new DataParameter("@cycleNumber", cycleNumber, DataType.Int32),
+            new DataParameter("@managerCutPercent", managerCutPercent, DataType.Double));
 
-        await lctx.ExecuteAsync($"""
+        await lctx.ExecuteAsync(
+            """
             INSERT INTO WaifuCycleSnapshot
                 (CycleNumber, WaifuUserId, UserId, SnapshotBalance)
             SELECT
-                {cycleNumber}, f.WaifuUserId, f.UserId, COALESCE(b.Balance, 0)
+                @cycleNumber, f.WaifuUserId, f.UserId, COALESCE(b.Balance, 0)
             FROM WaifuFan f
             LEFT JOIN BankUsers b ON b.UserId = f.UserId
             WHERE f.WaifuUserId IN (
-                SELECT WaifuUserId FROM WaifuCycle WHERE CycleNumber = {cycleNumber}
+                SELECT WaifuUserId FROM WaifuCycle WHERE CycleNumber = @cycleNumber
             )
             ON CONFLICT (CycleNumber, WaifuUserId, UserId) DO NOTHING;
-            """);
+            """,
+            new DataParameter("@cycleNumber", cycleNumber, DataType.Int32));
     }
 
     /// <summary>
@@ -1018,17 +1023,18 @@ public sealed class WaifuService(
         await using var lctx = ctx.CreateLinqToDBConnection();
 
         // Step 1: All payouts (fan shares + waifu net + manager cut) in one query
-        await lctx.ExecuteAsync($"""
+        await lctx.ExecuteAsync(
+            """
             WITH waifuCalc AS (
                 SELECT wc.Id, wc.WaifuUserId, wc.ManagerUserId, wc.WaifuFeePercent,
                     wc.ManagerCutPercent, wc.TotalBacked,
                     CASE WHEN wc.TotalBacked > 0
                          THEN MIN(wc.TotalBacked, wc.ReturnsCap)
-                              * {cycleRate} * (wi.Mood + wi.Food) / 2000.0
+                              * @cycleRate * (wi.Mood + wi.Food) / 2000.0
                          ELSE 0.0 END AS Returns
                 FROM WaifuCycle wc
                 JOIN WaifuInfo wi ON wi.UserId = wc.WaifuUserId
-                WHERE wc.CycleNumber = {cycleNumber} AND NOT wc.Processed AND wc.ManagerUserId != 0
+                WHERE wc.CycleNumber = @cycleNumber AND NOT wc.Processed AND wc.ManagerUserId != 0
             ),
             waifuSplits AS (
                 SELECT Id, WaifuUserId, ManagerUserId, TotalBacked, Returns,
@@ -1044,7 +1050,7 @@ public sealed class WaifuService(
                 SELECT cs.UserId, ws.FanPool * cs.SnapshotBalance * 1.0 / ws.TotalBacked AS Amount
                 FROM waifuSplits ws
                 JOIN WaifuCycleSnapshot cs
-                    ON cs.WaifuUserId = ws.WaifuUserId AND cs.CycleNumber = {cycleNumber}
+                    ON cs.WaifuUserId = ws.WaifuUserId AND cs.CycleNumber = @cycleNumber
                 WHERE ws.TotalBacked > 0
                 UNION ALL
                 SELECT ws.WaifuUserId, ws.WaifuNet FROM waifuSplits ws WHERE ws.WaifuNet > 0
@@ -1054,7 +1060,9 @@ public sealed class WaifuService(
             GROUP BY UserId
             ON CONFLICT (UserId) DO UPDATE
             SET Amount = WaifuPendingPayout.Amount + EXCLUDED.Amount;
-            """);
+            """,
+            new DataParameter("@cycleRate", cycleRate, DataType.Double),
+            new DataParameter("@cycleNumber", cycleNumber, DataType.Int32));
 
         // Mark all cycles as processed
         await ctx.GetTable<WaifuCycle>()
