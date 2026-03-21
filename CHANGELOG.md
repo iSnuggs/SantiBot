@@ -2,6 +2,12 @@
 
 *a,c,f,r,o,d*
 
+## [7.1.3] - 21.03.2026
+
+### Fixed
+
+- Fixed docker build
+
 ## [7.1.2] - 21.03.2026
 
 ### Added
@@ -13,6 +19,9 @@
 
 - `.ncpixel` now shows the pixel owner's name and ID
 
+### Fixed
+
+- Fixed music going silent when someone joins/leaves the voice channel.
 
 ### Removed
 
