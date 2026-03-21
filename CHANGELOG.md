@@ -2,6 +2,12 @@
 
 *a,c,f,r,o,d*
 
+## [7.1.8] - 21.03.2026
+
+### Fixed
+
+- Dragging the bot to a different music channel while music is playing will now correctly keep the music going
+
 ## [7.1.7] - 21.03.2026
 
 ### Fixed

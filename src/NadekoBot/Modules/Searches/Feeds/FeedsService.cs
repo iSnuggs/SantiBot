@@ -67,7 +67,7 @@ public class FeedsService : INService, IReadyExecutor
 
             if (newValue >= MAX_FEED_ERRORS)
             {
-                Log.Warning("Feed {FeedUrl} reached {MaxErrors} errors, removing {SubCount} subscription(s)",
+                Log.Debug("Feed {FeedUrl} reached {MaxErrors} errors, removing {SubCount} subscription(s)",
                     url,
                     MAX_FEED_ERRORS,
                     subs.Count);
@@ -252,7 +252,7 @@ public class FeedsService : INService, IReadyExecutor
                             }
                             catch (Exception ex)
                             {
-                                Log.Warning(ex,
+                                Log.Debug(ex,
                                     "Error sending feed update to {GuildId}/{ChannelId}",
                                     val.GuildId,
                                     val.ChannelId);
@@ -264,7 +264,7 @@ public class FeedsService : INService, IReadyExecutor
 
                     if (deadSubs.Count > 0)
                     {
-                        Log.Information(
+                        Log.Debug(
                             "Removing {Count} feed subscription(s) for {FeedUrl} - bot is no longer in those guilds: {GuildIds}",
                             deadSubs.Count,
                             rssUrl,
@@ -286,7 +286,7 @@ public class FeedsService : INService, IReadyExecutor
                 {
                     var errorCount = await AddError(rssUrl, kvp.Value);
 
-                    Log.Warning("An error occured while getting rss stream ({ErrorCount} / {MaxErrors}) {RssFeed}"
+                    Log.Debug("An error occured while getting rss stream ({ErrorCount} / {MaxErrors}) {RssFeed}"
                                 + "\n {Message}",
                         errorCount,
                         MAX_FEED_ERRORS,

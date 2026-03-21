@@ -3566,9 +3566,10 @@
         ".ncnuke",
         ".ncn"
       ],
-      "Description": "Nukes all pixels owned by the specified user, resetting them to black.\nOwner only.",
+      "Description": "Nukes all pixels owned by the specified user, resetting them to black.\nYou can specify a user mention or a user ID (useful when the user is not in the server).\nOwner only.",
       "Usage": [
-        ".ncnuke @user"
+        ".ncnuke @user",
+        ".ncnuke 123456789012345678"
       ],
       "Submodule": "NCanvasCommands",
       "Module": "Games",
