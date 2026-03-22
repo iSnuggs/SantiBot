@@ -1,0 +1,19 @@
+pollcreate:
+  - pollcreate
+  - pcreate
+pollcreatetimed:
+  - pollcreatetimed
+  - pcreatetimed
+  - polltimed
+pollend:
+  - pollend
+  - pend
+suggest:
+  - suggest
+  - suggestion
+suggestapprove:
+  - suggestapprove
+  - sapprove
+suggestdeny:
+  - suggestdeny
+  - sdeny

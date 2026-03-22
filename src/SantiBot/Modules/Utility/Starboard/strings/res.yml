@@ -1,0 +1,7 @@
+starboard_channel_set: 'Starboard channel set to {0}.'
+starboard_disabled: Starboard has been disabled.
+starboard_threshold_set: 'Starboard threshold set to {0} stars.'
+starboard_threshold_invalid: Threshold must be between 1 and 50.
+starboard_selfstar_enabled: Self-starring is now allowed.
+starboard_selfstar_disabled: Self-starring is no longer allowed.
+starboard_not_configured: Starboard is not configured on this server.

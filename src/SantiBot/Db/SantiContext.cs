@@ -67,6 +67,14 @@ public abstract class SantiContext : DbContext
 
     // SantiBot additions
     public DbSet<UserXpCard> UserXpCards { get; set; }
+    public DbSet<StarboardEntry> StarboardEntries { get; set; }
+    public DbSet<StarboardSettings> StarboardSettings { get; set; }
+    public DbSet<PollModel> Polls { get; set; }
+    public DbSet<PollVote> PollVotes { get; set; }
+    public DbSet<SuggestionModel> Suggestions { get; set; }
+    public DbSet<FormModel> Forms { get; set; }
+    public DbSet<FormResponse> FormResponses { get; set; }
+    public DbSet<AutoPurgeConfig> AutoPurgeConfigs { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 

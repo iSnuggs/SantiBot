@@ -1,0 +1,32 @@
+formcreate:
+  desc: >-
+    Create a form with questions that users fill out via DM.
+    Questions are separated by `|`. Responses are posted to the specified channel.
+  ex:
+    - '#applications "Staff Application" What is your age? | Why do you want to be staff? | What timezone are you in?'
+  params:
+    - questionsStr:
+        desc: 'The form questions separated by |.'
+      responseChannel:
+        desc: The channel where responses will be posted.
+      title:
+        desc: The title of the form.
+formlist:
+  desc: List all active forms on this server.
+  ex:
+    - ''
+  params: []
+formdelete:
+  desc: Delete a form by ID.
+  ex:
+    - 1
+  params:
+    - id:
+        desc: The form ID to delete.
+formfill:
+  desc: Fill out a form. The bot will DM you the questions.
+  ex:
+    - 1
+  params:
+    - id:
+        desc: The form ID to fill out.

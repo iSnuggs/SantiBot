@@ -107,3 +107,8 @@ quotesimport:
   params:
     - input:
         desc: The path to a file containing the YAML data to be imported.
+quotestats:
+  desc: Show the most used quotes on this server.
+  ex:
+    - ''
+  params: []

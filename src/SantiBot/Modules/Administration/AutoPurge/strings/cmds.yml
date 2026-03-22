@@ -1,0 +1,26 @@
+autopurgeset:
+  desc: >-
+    Set up automatic message purging for a channel.
+    Messages older than the specified age will be deleted on the given interval.
+    Respects Discord's 14-day bulk delete limit.
+  ex:
+    - '#temp-chat 24 48'
+  params:
+    - channel:
+        desc: The channel to auto-purge.
+      intervalHours:
+        desc: How often to run the purge (in hours).
+      maxAgeHours:
+        desc: Delete messages older than this many hours (max 336 / 14 days).
+autopurgeremove:
+  desc: Remove auto purge from a channel.
+  ex:
+    - '#temp-chat'
+  params:
+    - channel:
+        desc: The channel to remove auto purge from.
+autopurgelist:
+  desc: List all auto purge configurations on this server.
+  ex:
+    - ''
+  params: []

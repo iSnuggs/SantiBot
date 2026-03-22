@@ -1,0 +1,14 @@
+starboardchannel:
+  - starboardchannel
+  - sbchannel
+  - sbc
+starboardthreshold:
+  - starboardthreshold
+  - sbthreshold
+  - sbt
+starboardselfstar:
+  - starboardselfstar
+  - sbselfstar
+starboardinfo:
+  - starboardinfo
+  - sbinfo

@@ -9,3 +9,4 @@ quotes_notfound: Nenhuma citação encontrada com o ID especificado.
 quotes_page: 'Página {0} das citações'
 quotes_page_none: Nenhuma citação foi encontrada nessa página.
 quotes_remove_none: Não encontramos citações que podem ser removidas.
+quote_stats_title: ""

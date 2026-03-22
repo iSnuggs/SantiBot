@@ -1,0 +1,7 @@
+form_questions_invalid: 'A form needs between 1 and 20 questions, separated by `|`.'
+form_create_failed: Failed to create form.
+form_none: There are no active forms on this server.
+form_deleted: Form has been deleted.
+form_not_found: Form not found.
+form_dm_sent: Check your DMs! The form questions have been sent.
+form_dm_failed: Could not send you a DM. Please enable DMs from server members.

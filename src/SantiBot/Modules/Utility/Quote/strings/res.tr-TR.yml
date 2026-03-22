@@ -9,3 +9,4 @@ quotes_notfound: Belirtilen alıntı kimliğiyle eşleşen alıntı bulunamadı.
 quotes_page: 'Alıntılar sayfa {0}'
 quotes_page_none: Bu sayfada alıntı bulunamadı.
 quotes_remove_none: Kaldırabileceğin alıntı bulunamadı.
+quote_stats_title: ""

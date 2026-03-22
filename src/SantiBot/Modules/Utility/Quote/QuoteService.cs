@@ -69,7 +69,18 @@ public sealed class QuoteService : IQuoteService, INService
                               .Where(q => q.GuildId == guildId && q.Keyword == keyword)
                               .ToArrayAsyncLinqToDB();
 
-        return quotes.RandomOrDefault();
+        var quote = quotes.RandomOrDefault();
+
+        // Increment use count
+        if (quote is not null)
+        {
+            await uow.GetTable<Quote>()
+                .Where(q => q.Id == quote.Id)
+                .Set(q => q.UseCount, q => q.UseCount + 1)
+                .UpdateAsync();
+        }
+
+        return quote;
     }
 
     public async Task<IReadOnlyCollection<Quote>> SearchQuotesAsync(ulong guildId, string query)
@@ -243,5 +254,15 @@ public sealed class QuoteService : IQuoteService, INService
                            .ToListAsyncLinqToDB();
 
         return (quotes, await baseQuery.CountAsyncLinqToDB());
+    }
+
+    public async Task<IReadOnlyList<Quote>> GetTopQuotesAsync(ulong guildId, int count)
+    {
+        await using var uow = _db.GetDbContext();
+        return await uow.GetTable<Quote>()
+            .Where(q => q.GuildId == guildId && q.UseCount > 0)
+            .OrderByDescending(q => q.UseCount)
+            .Take(count)
+            .ToListAsyncLinqToDB();
     }
 }

@@ -9,3 +9,4 @@ quotes_notfound: No quotes found matching that ID.
 quotes_page: 'Page {0} of quotes'
 quotes_page_none: No quotes found on that page.
 quotes_remove_none: No quotes found that you can remove. Hmph.
+quote_stats_title: ""

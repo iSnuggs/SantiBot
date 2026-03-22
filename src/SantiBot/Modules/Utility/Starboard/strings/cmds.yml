@@ -1,0 +1,31 @@
+starboardchannel:
+  desc: >-
+    Set the starboard channel. Messages that receive enough star reactions will
+    be posted here. Leave empty to disable starboard.
+  ex:
+    - '#starboard'
+    - ''
+  params:
+    - channel:
+        desc: The channel to use for the starboard. Leave empty to disable.
+starboardthreshold:
+  desc: Set the number of star reactions needed for a message to appear on the starboard.
+  ex:
+    - 3
+    - 5
+  params:
+    - threshold:
+        desc: The number of stars required (1-50).
+starboardselfstar:
+  desc: Toggle whether users can star their own messages.
+  ex:
+    - 'true'
+    - 'false'
+  params:
+    - allow:
+        desc: Whether to allow self-starring.
+starboardinfo:
+  desc: Show the current starboard configuration for this server.
+  ex:
+    - ''
+  params: []

@@ -1,0 +1,6 @@
+autopurge_set: 'Auto purge set for {0}: every {1}h, deleting messages older than {2}h.'
+autopurge_removed: 'Auto purge removed for {0}.'
+autopurge_not_found: No auto purge config found for that channel.
+autopurge_none: No auto purge configurations on this server.
+autopurge_interval_invalid: Interval must be between 1 and 720 hours (30 days).
+autopurge_age_invalid: Max message age must be between 1 and 336 hours (14 days).

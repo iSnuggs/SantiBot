@@ -379,5 +379,27 @@ public partial class Utility
 
             await ctx.OkAsync();
         }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task QuoteStats()
+        {
+            var topQuotes = await _qs.GetTopQuotesAsync(ctx.Guild.Id, 10);
+
+            if (topQuotes.Count == 0)
+            {
+                await Response().Error(strs.quotes_page_none).SendAsync();
+                return;
+            }
+
+            var eb = CreateEmbed()
+                .WithOkColor()
+                .WithTitle(GetText(strs.quote_stats_title))
+                .WithDescription(string.Join("\n",
+                    topQuotes.Select((q, i) =>
+                        $"**{i + 1}.** `{q.Keyword}` — {q.UseCount} uses (by {q.AuthorName})")));
+
+            await Response().Embed(eb).SendAsync();
+        }
     }
 }
