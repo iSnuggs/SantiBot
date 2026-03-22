@@ -22,7 +22,7 @@ This guide will show you how to create your own discord bot, invite it to your s
 
 ### Inviting your bot to your server
 
-![Invite the bot to your server](https://cdn.nadeko.bot/tutorial/bot-invite-guide.gif)
+![Invite the bot to your server](https://cdn.santi.bot/tutorial/bot-invite-guide.gif)
 
 - From the **General Information** tab, copy your `Application ID`.
 - Replace the `YOUR_CLIENT_ID_HERE` in the following link, with your `Client ID`:

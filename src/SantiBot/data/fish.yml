@@ -1,0 +1,128 @@
+# DO NOT CHANGE
+version: 12
+weatherSeed: w%29';^eGE)9oWHM(aI9I;%1[.r^z2ZS7ShV,l')o(e%#"hVzb>oxQq^`.&/7srh
+requireCaptcha: true
+starEmojis:
+  - ⚫
+  - ⭐
+  - ⭐
+  - ⭐
+  - ⭐
+spotEmojis:
+  - <:ocean:1328519734953771120>
+  - <:river:1328519754620862504>
+  - <:lake:1328315260561788989>
+  - <:swamp:1328519766083633224>
+  - <:reef:1328519744646545421>
+chance:
+  fish: 80
+  trash: 15
+  nothing: 5
+  currency: 1
+# Min currency awarded when fishing out currency.
+currencyMin: 1
+# Max currency awarded when fishing out currency.
+currencyMax: 1
+fish:
+  - id: 0
+    name: Bass
+    weather: 
+    spot: 
+    time: 
+    chance: 100
+    stars: 4
+    fluff: Very common.
+    condition: 
+    image: https://cdn.santi.bot/fish/bass.png
+    emoji: <:bass:1328520376892002386>
+trash:
+  - id: 1002
+    name: Plastic Bag
+    weather: 
+    spot: 
+    time: 
+    chance: 50
+    stars: 4
+    fluff: Trophy of your contribution to the environment.
+    condition: 
+    image: https://cdn.santi.bot/fish/plasticbag.png
+    emoji: <:plasticbag:1328520895454515211>
+items:
+  - id: 1
+    itemType: Pole
+    name: Wooden Rod
+    emoji: ''
+    description: Better than catching it with bare hands.
+    price: 1000
+    uses: 
+    durationMinutes: 
+    fishMultiplier: 1.2
+    trashMultiplier: 
+    maxStarMultiplier: 
+    rareMultiplier: 
+    fishingSpeedMultiplier: 
+  - id: 11
+    itemType: Pole
+    name: Magnet on a Stick
+    emoji: ''
+    description: Attracts all trash, not just metal.
+    price: 3000
+    uses: 
+    durationMinutes: 
+    fishMultiplier: 0.9
+    trashMultiplier: 2
+    maxStarMultiplier: 
+    rareMultiplier: 
+    fishingSpeedMultiplier: 
+  - id: 21
+    itemType: Bait
+    name: Corn
+    emoji: ''
+    description: Just some cooked corn.
+    price: 100
+    uses: 100
+    durationMinutes: 
+    fishMultiplier: 
+    trashMultiplier: 
+    maxStarMultiplier: 
+    rareMultiplier: 1.1
+    fishingSpeedMultiplier: 
+  - id: 31
+    itemType: Potion
+    name: A Cup of Tea
+    emoji: ''
+    description: Helps you focus.
+    price: 12000
+    uses: 
+    durationMinutes: 30
+    fishMultiplier: 
+    trashMultiplier: 
+    maxStarMultiplier: 1.1
+    rareMultiplier: 
+    fishingSpeedMultiplier: 1.01
+  - id: 41
+    itemType: Boat
+    name: Canoe
+    emoji: ''
+    description: Lets you fish a little faster.
+    price: 3000
+    uses: 
+    durationMinutes: 
+    fishMultiplier: 
+    trashMultiplier: 
+    maxStarMultiplier: 1.1
+    rareMultiplier: 
+    fishingSpeedMultiplier: 1.201
+  - id: 51
+    itemType: SpotCoin
+    name: Spot Change Coin
+    emoji: "🪙"
+    description: Changes the fishing spot of the channel for everyone.
+    price: 5000
+    uses: 1
+    durationMinutes: 
+    fishMultiplier: 
+    trashMultiplier: 
+    maxStarMultiplier: 
+    rareMultiplier: 
+    fishingSpeedMultiplier: 

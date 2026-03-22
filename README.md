@@ -1,50 +1,53 @@
-# NadekoBot
+# SantiBot
 
-[![CI/CD](https://github.com/nadeko-bot/nadekobot/actions/workflows/ci.yml/badge.svg)](https://github.com/nadeko-bot/nadekobot/actions/workflows/ci.yml)
+**SantiBot** is an open-source, self-hostable Discord bot that combines the best features of NadekoBot and Dyno into one powerful package. Named after Santi, a beloved companion.
 
-NadekoBot is an open source Discord bot. It is written in C# and is built on .NET 8.
+Built on a fork of [NadekoBot](https://github.com/nadeko-bot/nadekobot) v6, SantiBot extends the foundation with additional features, a modern web dashboard, and a polished installer — all free and open source.
 
-If you want to run your own instance of NadekoBot, please check out the [Self hosting Guides and Docs](https://docs.nadeko.bot).
+## Features
 
-If you have any questions, please visit our [Discord support server](https://discord.nadeko.bot).
+- **Moderation** — Anti-spam, anti-raid, anti-alt, warnings, muting, banning, pruning, and more
+- **Music** — Play from YouTube, SoundCloud, and 1000+ sources via yt-dlp
+- **Economy** — Currency system, gambling, slots, blackjack, banking, shops, fishing
+- **Games** — Trivia, hangman, tic-tac-toe, minesweeper, typing contests, collaborative pixel art
+- **XP & Leveling** — Experience system with leaderboards and customizable rank cards
+- **Stream Notifications** — Twitch, YouTube, Kick, Trovo, Facebook, Picarto go-live alerts
+- **Custom Commands** — Expressions and auto-responses with full customization
+- **Roles** — Reaction roles, button roles, self-assignable roles, autoroles
+- **Giveaways** — Create and manage giveaways with winner selection
+- **Starboard** — Highlight popular messages *(coming soon)*
+- **Polls & Suggestions** — Community voting *(coming soon)*
+- **Web Dashboard** — Full server management from your browser *(coming soon)*
+- **And much more** — AFK, reminders, quotes, scheduled commands, repeaters, feeds...
 
-## Installation
+## Quick Start
 
-### Default option
+### Docker (Recommended)
+```bash
+git clone https://github.com/iSnuggs/SantiBot.git
+cd SantiBot
+# Edit src/SantiBot/data/creds_example.yml with your bot token
+docker compose up -d
+```
 
-You may want to consider using [upeko](https://github.com/nadeko-bot/upeko/releases) if you want to run bot on your PC.+
+### Local
+```bash
+git clone https://github.com/iSnuggs/SantiBot.git
+cd SantiBot
+dotnet run --project src/SantiBot
+```
 
-### Hosting on a linux server
+## Requirements
 
-If you want your bot to be online 24/7, you should [host it on a linux vps](https://docs.nadeko.bot/guides/linux-guide).
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [ffmpeg](https://ffmpeg.org/) (for music)
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp) (for music)
 
-### Docker
+## Links
 
-There is an official Docker image for a [simple setup](https://docs.nadeko.bot/guides/docker-guide/)
-Short version:
-  ```sh
-    docker run -d --name nadeko ghcr.io/nadeko-bot/nadekobot:v6 -e bot_token=YOUR_TOKEN_HERE -v "./data:/app/data" && docker logs -f --tail 500 nadeko
-  ```
+- **Creator:** [Snuggs](https://www.twitch.tv/Snuggle) | [YouTube](https://www.youtube.com/@oSnuggleBunnyo) | [Twitter/X](https://x.com/oSnuggleBunnyo)
+- **Based on:** [NadekoBot](https://github.com/nadeko-bot/nadekobot) by the NadekoBot team
 
-## Contributing to NadekoBot
+## License
 
-We love your input! We want to make contributing to this project as easy as possible, whether it's:
-
-- Reporting a bug
-- Discussing the current state of the code
-- Submitting a fix
-- Proposing new features
-- Becoming a maintainer
-
-### Contribution
-
-By submitting code, content, or materials via pull request or similar means ("Contribution"), you irrevocably assign all
-intellectual property rights (including copyright and patents) to NadekoBot Repository Owner and affirm you either:
-
-- (a) own the Contribution outright, or
-- (b) it is licensed under compatible terms permitting unrestricted relicensing.
-
-You grant the NadekoBot Repository Owner perpetual, worldwide rights to use, modify, distribute, and sublicense the
-Contribution under AGPLv3, a commercial license, or any other terms without compensation.
-
-These terms survive termination of this agreement.
+SantiBot is licensed under the [GNU AGPLv3](LICENSE.md). This is a fork of NadekoBot, which is also licensed under AGPLv3.

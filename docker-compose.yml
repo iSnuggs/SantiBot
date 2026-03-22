@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  santibot:
+    build: .
+    container_name: santibot
+    restart: unless-stopped
+    volumes:
+      - santibot-data:/app/data
+    environment:
+      - TZ=UTC
+
+volumes:
+  santibot-data:

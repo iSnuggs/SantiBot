@@ -1,0 +1,13 @@
+﻿using SantiBot.Modules.Searches;
+using System.Text.Json.Serialization;
+
+namespace SantiBot.Services;
+
+public sealed class GoogleSearchResultInformation : ISearchResultInformation
+{
+    [JsonPropertyName("formattedTotalResults")]
+    public string TotalResults { get; init; } = null!;
+
+    [JsonPropertyName("formattedSearchTime")]
+    public string SearchTime { get; init; } = null!;
+}
