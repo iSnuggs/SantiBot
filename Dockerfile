@@ -2,23 +2,23 @@
 ARG TARGETARCH
 WORKDIR /source
 
-COPY src/Nadeko.Medusa/*.csproj src/Nadeko.Medusa/
-COPY src/NadekoBot/*.csproj src/NadekoBot/
-COPY src/NadekoBot.Coordinator/*.csproj src/NadekoBot.Coordinator/
-COPY src/NadekoBot.Generators/*.csproj src/NadekoBot.Generators/
-COPY src/NadekoBot.Voice/*.csproj src/NadekoBot.Voice/
-COPY src/NadekoBot.StringsMerger/*.csproj src/NadekoBot.StringsMerger/
+COPY src/Santi.Medusa/*.csproj src/Santi.Medusa/
+COPY src/SantiBot/*.csproj src/SantiBot/
+COPY src/SantiBot.Coordinator/*.csproj src/SantiBot.Coordinator/
+COPY src/SantiBot.Generators/*.csproj src/SantiBot.Generators/
+COPY src/SantiBot.Voice/*.csproj src/SantiBot.Voice/
+COPY src/SantiBot.StringsMerger/*.csproj src/SantiBot.StringsMerger/
 
 RUN DOTNET_RID="linux-$([ "$TARGETARCH" = "arm64" ] && echo "arm64" || echo "x64")" \
     && echo "$DOTNET_RID" > /tmp/rid
-RUN dotnet restore src/NadekoBot/ -r $(cat /tmp/rid)
+RUN dotnet restore src/SantiBot/ -r $(cat /tmp/rid)
 
 COPY . .
-WORKDIR /source/src/NadekoBot
+WORKDIR /source/src/SantiBot
 
 RUN dotnet publish -c Release -o /app --self-contained -r $(cat /tmp/rid) --no-restore \
     && mv /app/data /app/data_init \
-    && chmod +x /app/NadekoBot
+    && chmod +x /app/SantiBot
 
 FROM debian:trixie-slim
 ARG TARGETARCH
@@ -54,4 +54,4 @@ RUN ARCH_DIR="$([ "$TARGETARCH" = "arm64" ] && echo "aarch64-linux-gnu" || echo 
 VOLUME [ "/app/data" ]
 
 ENTRYPOINT [ "/usr/local/sbin/docker-entrypoint.sh" ]
-CMD [ "./NadekoBot" ]
+CMD [ "./SantiBot" ]

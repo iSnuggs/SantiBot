@@ -1,6 +1,6 @@
-site_name: 'NadekoBot'
-site_url: 'https://nadeko.bot'
-repo_url: 'https://github.com/nadeko-bot/nadekobot'
+site_name: 'SantiBot'
+site_url: 'https://santi.bot'
+repo_url: 'https://github.com/santi-bot/santibot'
 site_author: 'Breaker'
 docs_dir: 'md'
 
@@ -34,7 +34,7 @@ theme:
         repo: material/github
 
 extra:
-  homepage: https://nadeko.bot
+  homepage: https://santi.bot
 
 plugins:
     - search
@@ -70,7 +70,7 @@ nav:
         - Docker Guide: guides/docker-guide.md
         - Source Guide: guides/source-guide.md
     - Commands:
-        - Commands List: https://nadeko.bot/commands
+        - Commands List: https://santi.bot/commands
     - Features Explained:
         - Basic Creds: creds-guide.md
         - Medusa System:

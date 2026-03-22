@@ -1,0 +1,309 @@
+award:
+  desc: >-
+    Awards someone a certain amount of currency. You can specify the reason
+    after the Username. You can also specify a role name to award currency to
+    all users in a role.
+  ex:
+    - 100 @person
+    - 5 Role Of Gamblers
+  params:
+    - amount:
+        desc: The amount of currency being awarded.
+      msg:
+        desc: The message describing why the user is being awarded the currency.
+      usr:
+        desc: The user or guild member being awarded the currency.
+    - amount:
+        desc: The amount of currency being awarded.
+      usr:
+        desc: The user or guild member being awarded the currency.
+    - amount:
+        desc: The amount of currency being awarded.
+      msg:
+        desc: The message describing why the user is being awarded the currency.
+      usrId:
+        desc: The ID of the user to whom the currency is being awarded.
+    - amount:
+        desc: The amount of currency being awarded.
+      role:
+        desc: The role for which to award currency to all members.
+betroll:
+  desc: >-
+    Bets the specified amount of currency and rolls a dice.
+
+    Rolling over 65 yields x2 of your currency, over 90 - x4 and 100 x10.
+
+    You can specify 'all', 'half' or 'X%' instead of the amount to bet that part
+    of your current balance.
+  ex:
+    - 5
+  params:
+    - amount:
+        desc: The amount to be wagered on the roll of the dice.
+betstats:
+  desc: |-
+    Shows the current bet stats for yourself, or the targetted user.
+    You may optionally specify the game to show stats for.
+    Supported games right now are: bf, br, bj, bd, lula, slot, race
+  ex:
+    - ''
+    - '@someone'
+    - '@someone lula'
+    - bd
+  params:
+    - {}
+    - user:
+        desc: The user for who to show the betstats for.
+    - game:
+        desc: >-
+          The game to show betstats for. Omit to show betstats for all games
+          combined
+      user:
+        desc: The user for who to show the betstats for.
+    - game:
+        desc: >-
+          The game to show betstats for. Omit to show betstats for all games
+          combined
+betstatsreset:
+  desc: |-
+    Reset all of your Bet Stats for a fee.
+    You can alternatively reset Bet Stats for the specified game.
+  ex:
+    - ''
+    - game
+  params:
+    - game:
+        desc: The game to reset betstats for. Omit to reset all games
+bettest:
+  desc: >-
+    Tests a betting command by specifying the name followed by the number of
+    tests. Some have multiple variations.
+
+    See the list of all tests by specifying no parameters.
+  ex:
+    - ''
+    - betflip 1000
+    - slot 2000
+  params:
+    - {}
+    - target:
+        desc: The type of game or wager being tested.
+      tests:
+        desc: The number of times to repeat the test.
+cash:
+  desc: |-
+    Check how much currency a person has.
+    If no argument is provided it will check your own balance.
+  ex:
+    - ''
+    - '@Someone'
+  params:
+    - userId:
+        desc: >-
+          Optional user ID of the account holder whose currency balance is being
+          checked.
+    - user:
+        desc: Optional ID of the person whose currency balance is being checked.
+currencytransaction:
+  desc: >-
+    Shows full details about a currency transaction with the specified ID. You
+    can only check your own transactions.
+  ex:
+    - 3yvd
+  params:
+    - id:
+        desc: The id of the transaction being queried.
+currencytransactions:
+  desc: >-
+    Shows your currency transactions on the specified page. Bot owner can see
+    other people's transactions too.
+  ex:
+    - 2
+    - '@SomeUser 2'
+  params:
+    - page:
+        desc: The number of pages to display in the list of currency transactions.
+    - usr:
+        desc: The user whose transactions are being displayed.
+    - page:
+        desc: The number of pages to display in the list of currency transactions.
+      usr:
+        desc: The user whose transactions are being displayed.
+gamblestats:
+  desc: |-
+    Shows the total stats of several gambling features.
+    Updates once an hour.
+  ex:
+    - ''
+  params:
+    - {}
+gamblestatsreset:
+  desc: Resets the gamble stats.
+  ex:
+    - ''
+  params:
+    - {}
+give:
+  desc: >-
+    Give someone a certain amount of currency. You can specify the reason after
+    the mention.
+  ex:
+    - 1 @Someone
+    - 5 @CootGurl Ur so pwetty
+  params:
+    - amount:
+        desc: The total value of the gift being bestowed.
+      msg:
+        desc: The message explaining why you're giving them the currency.
+      receiver:
+        desc: The user receiving the currency, such as a gift or reward.
+    - amount:
+        desc: The total value of the gift being bestowed.
+      receiver:
+        desc: The user receiving the currency, such as a gift or reward.
+leaderboard:
+  desc: >-
+    Displays the bot's currency leaderboard, or in other words, the richest
+    users.
+
+    Specifying -c flag will show only users who are in this server.
+
+    Paginated with 9 users per page.
+  ex:
+    - ''
+    - '-c'
+  params:
+    - params:
+        desc: Optional -c flag
+    - page:
+        desc: The page number to display.
+      params:
+        desc: Optional -c flag.
+luckyladder:
+  desc: >-
+    Bets the specified amount of currency on the lucky ladder. You can stop on
+    one of many different multipliers. The won amount is rounded down to the
+    nearest whole number. You can specify 'all', 'half' or 'X%' instead of the
+    amount to bet that part of your current balance.
+  ex:
+    - 10
+  params:
+    - amount:
+        desc: The total value of the bet being placed.
+raffle:
+  desc: >-
+    Prints a name and ID of a random online user from the server, or from the
+    online user in the specified role.
+  ex:
+    - ''
+    - RoleName
+  params:
+    - role:
+        desc: The role of the online user to be selected from.
+raffleany:
+  desc: >-
+    Prints a name and ID of a random user from the server, or from the specified
+    role.
+  ex:
+    - ''
+    - ' RoleName'
+  params:
+    - role:
+        desc: The role that determines which users are eligible for selection.
+rakeback:
+  desc: |-
+    Try to claim any rakeback that you have available.
+    Rakeback is accumulated by betting (not by winning or losing).
+    Default rakeback is 0.05 * house edge
+    House edge is defined per game
+  ex:
+    - ''
+  params:
+    - {}
+rps:
+  desc: >-
+    Play a game of Rocket-Paperclip-Scissors with Santi.
+
+    You can bet on it. Winning awards you 1.95x of the bet.
+
+    You can specify 'all', 'half' or 'X%' instead of the amount to bet that part
+    of your current balance.
+  ex:
+    - r 100
+    - scissors
+  params:
+    - amount:
+        desc: Optional amount of currency to be wagered on the outcome of the game.
+      pick:
+        desc: The user's chosen move in the game, such as rock, paper or scissors.
+take:
+  desc: >-
+    Takes the specified amount of currency from someone. You can specify a role
+    instead to take the specified amount of currency from all users in the role.
+  ex:
+    - 1 @Someone
+    - 50 SomeRole
+  params:
+    - amount:
+        desc: The total value of the funds being withdrawn.
+      role:
+        desc: The role of the person or group from whom the currency is being taken.
+    - amount:
+        desc: The total value of the funds being withdrawn.
+      user:
+        desc: The user or guild member being affected by the currency removal.
+    - amount:
+        desc: The total value of the funds being withdrawn.
+      usrId:
+        desc: The ID of the user whose funds are being taken.
+timely:
+  desc: >-
+    Use to claim your timely currency.
+
+    This is usually set by the bot owners to be daily, hourly or once every 12
+    hours.
+
+    Bot owner has to specify the amount and the period on how often you can
+    claim your currency.
+  ex:
+    - ''
+  params:
+    - {}
+timelyreset:
+  desc: Resets all user timeouts on `{0}timely` command.
+  ex:
+    - ''
+  params:
+    - {}
+timelyset:
+  desc: >-
+    Sets the 'timely' currency allowance amount for users. Second parameter is
+    period in hours, default is 24 hours.
+  ex:
+    - 100
+    - 50 12
+  params:
+    - amount:
+        desc: >-
+          The maximum amount of currency that can be spent within a given time
+          frame.
+      period:
+        desc: >-
+          The time period within which a user's timely currency allowance can be
+          used.
+vote:
+  desc: |-
+    Shows instructions for voting for the bot in order to get rewards.
+    Will redirect user to timely if voting is not enabled.
+  ex:
+    - ''
+  params:
+    - {}
+winlb:
+  desc: Shows the biggest wins leaderboard
+  ex:
+    - ''
+    - '5'
+  params:
+    - page:
+        desc: The optional page to display.

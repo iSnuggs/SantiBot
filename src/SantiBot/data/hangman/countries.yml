@@ -1,0 +1,390 @@
+- word: Afghanistan
+  imageUrl: https://cdn.santi.bot/flags/af-flag.gif
+- word: Albania
+  imageUrl: https://cdn.santi.bot/flags/al-flag.gif
+- word: Algeria
+  imageUrl: https://cdn.santi.bot/flags/ag-flag.gif
+- word: Andorra
+  imageUrl: https://cdn.santi.bot/flags/an-flag.gif
+- word: Angola
+  imageUrl: https://cdn.santi.bot/flags/ao-flag.gif
+- word: Antigua and Barbuda
+  imageUrl: https://cdn.santi.bot/flags/ac-flag.gif
+- word: Argentina
+  imageUrl: https://cdn.santi.bot/flags/ar-flag.gif
+- word: Armenia
+  imageUrl: https://cdn.santi.bot/flags/am-flag.gif
+- word: Australia
+  imageUrl: https://cdn.santi.bot/flags/as-flag.gif
+- word: Austria
+  imageUrl: https://cdn.santi.bot/flags/au-flag.gif
+- word: Azerbaijan
+  imageUrl: https://cdn.santi.bot/flags/aj-flag.gif
+- word: Bahamas
+  imageUrl: https://cdn.santi.bot/flags/bf-flag.gif
+- word: Bahrain
+  imageUrl: https://cdn.santi.bot/flags/ba-flag.gif
+- word: Bangladesh
+  imageUrl: https://cdn.santi.bot/flags/bg-flag.gif
+- word: Barbados
+  imageUrl: https://cdn.santi.bot/flags/bb-flag.gif
+- word: Belarus
+  imageUrl: https://cdn.santi.bot/flags/bo-flag.gif
+- word: Belgium
+  imageUrl: https://cdn.santi.bot/flags/be-flag.gif
+- word: Belize
+  imageUrl: https://cdn.santi.bot/flags/bh-flag.gif
+- word: Benin
+  imageUrl: https://cdn.santi.bot/flags/bn-flag.gif
+- word: Bhutan
+  imageUrl: https://cdn.santi.bot/flags/bt-flag.gif
+- word: Bolivia
+  imageUrl: https://cdn.santi.bot/flags/bl-flag.gif
+- word: Bosnia and Herzegovina
+  imageUrl: https://cdn.santi.bot/flags/bk-flag.gif
+- word: Botswana
+  imageUrl: https://cdn.santi.bot/flags/bc-flag.gif
+- word: Brazil
+  imageUrl: https://cdn.santi.bot/flags/br-flag.gif
+- word: Brunei
+  imageUrl: https://cdn.santi.bot/flags/bx-flag.gif
+- word: Bulgaria
+  imageUrl: https://cdn.santi.bot/flags/bu-flag.gif
+- word: Burkina Faso
+  imageUrl: https://cdn.santi.bot/flags/uv-flag.gif
+- word: Burundi
+  imageUrl: https://cdn.santi.bot/flags/by-flag.gif
+- word: Ivory Coast
+  imageUrl: https://cdn.santi.bot/flags/iv-flag.gif
+- word: Cabo Verde
+  imageUrl: https://cdn.santi.bot/flags/cv-flag.gif
+- word: Cambodia
+  imageUrl: https://cdn.santi.bot/flags/cb-flag.gif
+- word: Cameroon
+  imageUrl: https://cdn.santi.bot/flags/cm-flag.gif
+- word: Canada
+  imageUrl: https://cdn.santi.bot/flags/ca-flag.gif
+- word: Central African Republic
+  imageUrl: https://cdn.santi.bot/flags/ct-flag.gif
+- word: Chad
+  imageUrl: https://cdn.santi.bot/flags/cd-flag.gif
+- word: Chile
+  imageUrl: https://cdn.santi.bot/flags/ci-flag.gif
+- word: China
+  imageUrl: https://cdn.santi.bot/flags/ch-flag.gif
+- word: Colombia
+  imageUrl: https://cdn.santi.bot/flags/co-flag.gif
+- word: Comoros
+  imageUrl: https://cdn.santi.bot/flags/cn-flag.gif
+- word: Congo
+  imageUrl: https://cdn.santi.bot/flags/cg-flag.gif
+- word: Costa Rica
+  imageUrl: https://cdn.santi.bot/flags/cs-flag.gif
+- word: Croatia
+  imageUrl: https://cdn.santi.bot/flags/hr-flag.gif
+- word: Cuba
+  imageUrl: https://cdn.santi.bot/flags/cu-flag.gif
+- word: Cyprus
+  imageUrl: https://cdn.santi.bot/flags/cy-flag.gif
+- word: Czechia
+  imageUrl: https://cdn.santi.bot/flags/ez-flag.gif
+- word: Denmark
+  imageUrl: https://cdn.santi.bot/flags/da-flag.gif
+- word: Djibouti
+  imageUrl: https://cdn.santi.bot/flags/dj-flag.gif
+- word: Dominica
+  imageUrl: https://cdn.santi.bot/flags/do-flag.gif
+- word: Dominican Republic
+  imageUrl: https://cdn.santi.bot/flags/dr-flag.gif
+- word: Democratic People's Republic of Korea
+  imageUrl: https://cdn.santi.bot/flags/kn-flag.gif
+- word: Democratic Republic of the Congo
+  imageUrl: https://cdn.santi.bot/flags/congo-flag.gif
+- word: Ecuador
+  imageUrl: https://cdn.santi.bot/flags/ec-flag.gif
+- word: Egypt
+  imageUrl: https://cdn.santi.bot/flags/eg-flag.gif
+- word: El Salvador
+  imageUrl: https://cdn.santi.bot/flags/es-flag.gif
+- word: Equatorial Guinea
+  imageUrl: https://cdn.santi.bot/flags/ek-flag.gif
+- word: Eritrea
+  imageUrl: https://cdn.santi.bot/flags/er-flag.gif
+- word: Estonia
+  imageUrl: https://cdn.santi.bot/flags/en-flag.gif
+- word: Eswatini
+  imageUrl: https://cdn.santi.bot/flags/wz-flag.gif
+- word: Ethiopia
+  imageUrl: https://cdn.santi.bot/flags/et-flag.gif
+- word: Fiji
+  imageUrl: https://cdn.santi.bot/flags/fj-flag.gif
+- word: Finland
+  imageUrl: https://cdn.santi.bot/flags/fi-flag.gif
+- word: France
+  imageUrl: https://cdn.santi.bot/flags/fr-flag.gif
+- word: Gabon
+  imageUrl: https://cdn.santi.bot/flags/gb-flag.gif
+- word: Gambia
+  imageUrl: https://cdn.santi.bot/flags/ga-flag.gif
+- word: Georgia
+  imageUrl: https://cdn.santi.bot/flags/gg-flag.gif
+- word: Germany
+  imageUrl: https://cdn.santi.bot/flags/gm-flag.gif
+- word: Ghana
+  imageUrl: https://cdn.santi.bot/flags/gh-flag.gif
+- word: Greece
+  imageUrl: https://cdn.santi.bot/flags/gr-flag.gif
+- word: Grenada
+  imageUrl: https://cdn.santi.bot/flags/gj-flag.gif
+- word: Guatemala
+  imageUrl: https://cdn.santi.bot/flags/gt-flag.gif
+- word: Guinea
+  imageUrl: https://cdn.santi.bot/flags/gv-flag.gif
+- word: Guinea Bissau
+  imageUrl: https://cdn.santi.bot/flags/pu-flag.gif
+- word: Guyana
+  imageUrl: https://cdn.santi.bot/flags/gy-flag.gif
+- word: Haiti
+  imageUrl: https://cdn.santi.bot/flags/ha-flag.gif
+- word: Vatican
+  imageUrl: https://cdn.santi.bot/flags/vt-flag.gif
+- word: Honduras
+  imageUrl: https://cdn.santi.bot/flags/ho-flag.gif
+- word: Hungary
+  imageUrl: https://cdn.santi.bot/flags/hu-flag.gif
+- word: Iceland
+  imageUrl: https://cdn.santi.bot/flags/ic-flag.gif
+- word: India
+  imageUrl: https://cdn.santi.bot/flags/in-flag.gif
+- word: Indonesia
+  imageUrl: https://cdn.santi.bot/flags/id-flag.gif
+- word: Iran
+  imageUrl: https://cdn.santi.bot/flags/ir-flag.gif
+- word: Iraq
+  imageUrl: https://cdn.santi.bot/flags/iz-flag.gif
+- word: Ireland
+  imageUrl: https://cdn.santi.bot/flags/ei-flag.gif
+- word: Israel
+  imageUrl: https://cdn.santi.bot/flags/is-flag.gif
+- word: Italy
+  imageUrl: https://cdn.santi.bot/flags/it-flag.gif
+- word: Jamaica
+  imageUrl: https://cdn.santi.bot/flags/jm-flag.gif
+- word: Japan
+  imageUrl: https://cdn.santi.bot/flags/ja-flag.gif
+- word: Jordan
+  imageUrl: https://cdn.santi.bot/flags/jo-flag.gif
+- word: Kazakhstan
+  imageUrl: https://cdn.santi.bot/flags/kz-flag.gif
+- word: Kenya
+  imageUrl: https://cdn.santi.bot/flags/ke-flag.gif
+- word: Kiribati
+  imageUrl: https://cdn.santi.bot/flags/kr-flag.gif
+- word: Kuwait
+  imageUrl: https://cdn.santi.bot/flags/ku-flag.gif
+- word: Kyrgyzstan
+  imageUrl: https://cdn.santi.bot/flags/kg-flag.gif
+- word: Lao People's Democratic Republic
+  imageUrl: https://cdn.santi.bot/flags/la-flag.gif
+- word: Latvia
+  imageUrl: https://cdn.santi.bot/flags/lg-flag.gif
+- word: Lebanon
+  imageUrl: https://cdn.santi.bot/flags/le-flag.gif
+- word: Lesotho
+  imageUrl: https://cdn.santi.bot/flags/lt-flag.gif
+- word: Liberia
+  imageUrl: https://cdn.santi.bot/flags/li-flag.gif
+- word: Libya
+  imageUrl: https://cdn.santi.bot/flags/ly-flag.gif
+- word: Liechtenstein
+  imageUrl: https://cdn.santi.bot/flags/ls-flag.gif
+- word: Lithuania
+  imageUrl: https://cdn.santi.bot/flags/lh-flag.gif
+- word: Luxembourg
+  imageUrl: https://cdn.santi.bot/flags/lu-flag.gif
+- word: Madagascar
+  imageUrl: https://cdn.santi.bot/flags/ma-flag.gif
+- word: Malawi
+  imageUrl: https://cdn.santi.bot/flags/mi-flag.gif
+- word: Malaysia
+  imageUrl: https://cdn.santi.bot/flags/my-flag.gif
+- word: Maldives
+  imageUrl: https://cdn.santi.bot/flags/mv-flag.gif
+- word: Mali
+  imageUrl: https://cdn.santi.bot/flags/ml-flag.gif
+- word: Malta
+  imageUrl: https://cdn.santi.bot/flags/mt-flag.gif
+- word: Marshall Islands
+  imageUrl: https://cdn.santi.bot/flags/rm-flag.gif
+- word: Mauritania
+  imageUrl: https://cdn.santi.bot/flags/mr-flag.gif
+- word: Mauritius
+  imageUrl: https://cdn.santi.bot/flags/mp-flag.gif
+- word: Mexico
+  imageUrl: https://cdn.santi.bot/flags/mx-flag.gif
+- word: Micronesia
+  imageUrl: https://cdn.santi.bot/flags/fm-flag.gif
+- word: Moldova
+  imageUrl: https://cdn.santi.bot/flags/md-flag.gif
+- word: Monaco
+  imageUrl: https://cdn.santi.bot/flags/mn-flag.gif
+- word: Mongolia
+  imageUrl: https://cdn.santi.bot/flags/mg-flag.gif
+- word: Montenegro
+  imageUrl: https://cdn.santi.bot/flags/mj-flag.gif
+- word: Morocco
+  imageUrl: https://cdn.santi.bot/flags/mo-flag.gif
+- word: Mozambique
+  imageUrl: https://cdn.santi.bot/flags/mz-flag.gif
+- word: Myanmar
+  imageUrl: https://cdn.santi.bot/flags/bm-flag.gif
+- word: Namibia
+  imageUrl: https://cdn.santi.bot/flags/wa-flag.gif
+- word: Nauru
+  imageUrl: https://cdn.santi.bot/flags/nr-flag.gif
+- word: Nepal
+  imageUrl: https://cdn.santi.bot/flags/np-flag.gif
+- word: Netherlands
+  imageUrl: https://cdn.santi.bot/flags/nl-flag.gif
+- word: New Zealand
+  imageUrl: https://cdn.santi.bot/flags/nz-flag.gif
+- word: Nicaragua
+  imageUrl: https://cdn.santi.bot/flags/nu-flag.gif
+- word: Niger
+  imageUrl: https://cdn.santi.bot/flags/ng-flag.gif
+- word: Nigeria
+  imageUrl: https://cdn.santi.bot/flags/ni-flag.gif
+- word: North Macedonia
+  imageUrl: https://cdn.santi.bot/flags/mk-flag.gif
+- word: Norway
+  imageUrl: https://cdn.santi.bot/flags/no-flag.gif
+- word: Oman
+  imageUrl: https://cdn.santi.bot/flags/mu-flag.gif
+- word: Pakistan
+  imageUrl: https://cdn.santi.bot/flags/pk-flag.gif
+- word: Palau
+  imageUrl: https://cdn.santi.bot/flags/ps-flag.gif
+- word: Panama
+  imageUrl: https://cdn.santi.bot/flags/pm-flag.gif
+- word: Papua New Guinea
+  imageUrl: https://cdn.santi.bot/flags/pp-flag.gif
+- word: Paraguay
+  imageUrl: https://cdn.santi.bot/flags/pa-flag.gif
+- word: Peru
+  imageUrl: https://cdn.santi.bot/flags/pe-flag.gif
+- word: Philippines
+  imageUrl: https://cdn.santi.bot/flags/rp-flag.gif
+- word: Poland
+  imageUrl: https://cdn.santi.bot/flags/pl-flag.gif
+- word: Portugal
+  imageUrl: https://cdn.santi.bot/flags/po-flag.gif
+- word: Qatar
+  imageUrl: https://cdn.santi.bot/flags/qa-flag.gif
+- word: Romania
+  imageUrl: https://cdn.santi.bot/flags/ro-flag.gif
+- word: Russian Federation
+  imageUrl: https://cdn.santi.bot/flags/rs-flag.gif
+- word: Rwanda
+  imageUrl: https://cdn.santi.bot/flags/rw-flag.gif
+- word: Saint Kitts and Nevis
+  imageUrl: https://cdn.santi.bot/flags/sc-flag.gif
+- word: Saint Lucia
+  imageUrl: https://cdn.santi.bot/flags/st-flag.gif
+- word: Samoa
+  imageUrl: https://cdn.santi.bot/flags/ws-flag.gif
+- word: San Marino
+  imageUrl: https://cdn.santi.bot/flags/sm-flag.gif
+- word: Sao Tome and Principe
+  imageUrl: https://cdn.santi.bot/flags/tp-flag.gif
+- word: Saudi Arabia
+  imageUrl: https://cdn.santi.bot/flags/sa-flag.gif
+- word: Senegal
+  imageUrl: https://cdn.santi.bot/flags/sg-flag.gif
+- word: Serbia
+  imageUrl: https://cdn.santi.bot/flags/ri-flag.gif
+- word: Seychelles
+  imageUrl: https://cdn.santi.bot/flags/se-flag.gif
+- word: Sierra Leone
+  imageUrl: https://cdn.santi.bot/flags/sl-flag.gif
+- word: Singapore
+  imageUrl: https://cdn.santi.bot/flags/sn-flag.gif
+- word: Slovakia
+  imageUrl: https://cdn.santi.bot/flags/lo-flag.gif
+- word: Slovenia
+  imageUrl: https://cdn.santi.bot/flags/si-flag.gif
+- word: Solomon Islands
+  imageUrl: https://cdn.santi.bot/flags/bp-flag.gif
+- word: Somalia
+  imageUrl: https://cdn.santi.bot/flags/so-flag.gif
+- word: South Africa
+  imageUrl: https://cdn.santi.bot/flags/sf-flag.gif
+- word: Republic of Korea
+  imageUrl: https://cdn.santi.bot/flags/ks-flag.gif
+- word: South Sudan
+  imageUrl: https://cdn.santi.bot/flags/od-flag.gif
+- word: Spain
+  imageUrl: https://cdn.santi.bot/flags/sp-flag.gif
+- word: Sri Lanka
+  imageUrl: https://cdn.santi.bot/flags/ce-flag.gif
+- word: Saint Vincent and the Grenadines
+  imageUrl: https://cdn.santi.bot/flags/vc-flag.gif
+- word: Palestine
+  imageUrl: https://cdn.santi.bot/flags/palestine-flag.gif
+- word: Sudan
+  imageUrl: https://cdn.santi.bot/flags/su-flag.gif
+- word: Suriname
+  imageUrl: https://cdn.santi.bot/flags/ns-flag.gif
+- word: Sweden
+  imageUrl: https://cdn.santi.bot/flags/sw-flag.gif
+- word: Switzerland
+  imageUrl: https://cdn.santi.bot/flags/sz-flag.gif
+- word: Syrian Arab Republic
+  imageUrl: https://cdn.santi.bot/flags/sy-flag.gif
+- word: Tajikistan
+  imageUrl: https://cdn.santi.bot/flags/ti-flag.gif
+- word: United Republic of Tanzania
+  imageUrl: https://cdn.santi.bot/flags/tz-flag.gif
+- word: Thailand
+  imageUrl: https://cdn.santi.bot/flags/th-flag.gif
+- word: Timor-Leste
+  imageUrl: https://cdn.santi.bot/flags/tt-flag.gif
+- word: Togo
+  imageUrl: https://cdn.santi.bot/flags/to-flag.gif
+- word: Tonga
+  imageUrl: https://cdn.santi.bot/flags/tn-flag.gif
+- word: Trinidad and Tobago
+  imageUrl: https://cdn.santi.bot/flags/td-flag.gif
+- word: Tunisia
+  imageUrl: https://cdn.santi.bot/flags/ts-flag.gif
+- word: Turkey
+  imageUrl: https://cdn.santi.bot/flags/tu-flag.gif
+- word: Turkmenistan
+  imageUrl: https://cdn.santi.bot/flags/tx-flag.gif
+- word: Tuvalu
+  imageUrl: https://cdn.santi.bot/flags/tv-flag.gif
+- word: United Arab Emirates
+  imageUrl: https://cdn.santi.bot/flags/ae-flag.gif
+- word: United Kingdom
+  imageUrl: https://cdn.santi.bot/flags/uk-flag.gif
+- word: United States Of America
+  imageUrl: https://cdn.santi.bot/flags/us-flag.gif
+- word: Uganda
+  imageUrl: https://cdn.santi.bot/flags/ug-flag.gif
+- word: Ukraine
+  imageUrl: https://cdn.santi.bot/flags/up-flag.gif
+- word: Uruguay
+  imageUrl: https://cdn.santi.bot/flags/uy-flag.gif
+- word: Uzbekistan
+  imageUrl: https://cdn.santi.bot/flags/uz-flag.gif
+- word: Vanuatu
+  imageUrl: https://cdn.santi.bot/flags/nh-flag.gif
+- word: Venezuela
+  imageUrl: https://cdn.santi.bot/flags/ve-flag.gif
+- word: Viet Nam
+  imageUrl: https://cdn.santi.bot/flags/vm-flag.gif
+- word: Yemen
+  imageUrl: https://cdn.santi.bot/flags/ym-flag.gif
+- word: Zambia
+  imageUrl: https://cdn.santi.bot/flags/za-flag.gif
+- word: Zimbabwe
+  imageUrl: https://cdn.santi.bot/flags/zi-flag.gif

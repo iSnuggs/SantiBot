@@ -55,13 +55,13 @@ jobs:
         dotnet publish -c Release -r ${{ matrix.runtime }} \
           --self-contained \
           -p:Version=${{ github.ref_name }} \
-          -o nadeko-${{ matrix.runtime }} src/NadekoBot/NadekoBot.csproj
+          -o santi-${{ matrix.runtime }} src/SantiBot/SantiBot.csproj
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: nadeko-${{ matrix.runtime }}
-        path: nadeko-${{ matrix.runtime }}
+        name: santi-${{ matrix.runtime }}
+        path: santi-${{ matrix.runtime }}
 
   create-release:
     name: Create Release
@@ -73,7 +73,7 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: 'nadeko-*'
+          pattern: 'santi-*'
           path: artifacts
 
       - name: Create archives
@@ -84,7 +84,7 @@ jobs:
             if [[ "$runtime" == *"win"* ]]; then
               zip -r "$runtime.zip" "$runtime"
             else
-              chmod +x "$runtime/NadekoBot"
+              chmod +x "$runtime/SantiBot"
               tar -czf "$runtime.tar.gz" "$runtime"
             fi
           done
@@ -98,7 +98,7 @@ jobs:
         with:
           name: Release ${{ github.ref_name }}
           body: |
-            [Changelog](https://github.com/nadeko-bot/nadekobot/blob/v6/CHANGELOG.md)
+            [Changelog](https://github.com/santi-bot/santibot/blob/v6/CHANGELOG.md)
 
           generate_release_notes: true
           draft: false
@@ -139,7 +139,7 @@ jobs:
           push: true
           context: .
           platforms: linux/amd64,linux/arm64
-          tags: ghcr.io/nadeko-bot/nadekobot:latest,ghcr.io/nadeko-bot/nadekobot:v6,ghcr.io/nadeko-bot/nadekobot:${{ github.ref_name }}
+          tags: ghcr.io/santi-bot/santibot:latest,ghcr.io/santi-bot/santibot:v6,ghcr.io/santi-bot/santibot:${{ github.ref_name }}
 
   publish-medusa-package:
     name: Publish Medusa Package
@@ -168,8 +168,8 @@ jobs:
         fi
 
     - name: Pack and Push
-      working-directory: src/Nadeko.Medusa
+      working-directory: src/Santi.Medusa
       run: |
         dotnet pack -c Release /p:Version=${{ env.MEDUSA_VERSION }} -o bin/Release/packed
-        dotnet nuget push bin/Release/packed/*.nupkg --source https://www.myget.org/F/nadeko/api/v2/package --api-key ${{ secrets.MYGET_API_KEY }}
+        dotnet nuget push bin/Release/packed/*.nupkg --source https://www.myget.org/F/santi/api/v2/package --api-key ${{ secrets.MYGET_API_KEY }}
       continue-on-error: true

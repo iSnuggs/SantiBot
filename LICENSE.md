@@ -1,4 +1,4 @@
-Copyright (C) 2025 NadekoBot
+Copyright (C) 2025 SantiBot
 
 - This program is dual licensed under AGPLv3 and Commercial license.
 - You may purchase a commercial license to exempt yourself from some of the AGPLv3 obligations
@@ -13,4 +13,4 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-Contact: br.eaker on Discord or nadekodiscordbot@gmail.com
+Contact: br.eaker on Discord or santidiscordbot@gmail.com
