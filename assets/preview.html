@@ -1,90 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SantiBot Artwork Preview</title>
+  <title>Santi Pixel Art Preview</title>
   <style>
-    body { background: #0f1117; color: #e4e4e7; font-family: sans-serif; padding: 40px; text-align: center; }
-    h1 { color: #0c95e9; }
-    h2 { color: #71717a; margin-top: 40px; }
-    .grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin: 20px 0; }
-    .preview { background: #1a1b23; border: 1px solid #2a2b35; border-radius: 16px; padding: 20px; }
-    .preview img { image-rendering: pixelated; }
-    .label { color: #71717a; font-size: 14px; margin-top: 10px; }
-    .sizes { display: flex; align-items: end; gap: 20px; justify-content: center; }
+    body { background: #0f1117; color: #e4e4e7; font-family: monospace; padding: 40px; text-align: center; }
+    h1 { color: #0c95e9; font-size: 24px; }
+    .row { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin: 30px 0; }
+    .card { background: #1a1b23; border: 1px solid #2a2b35; border-radius: 12px; padding: 24px; }
+    .card img { image-rendering: pixelated; image-rendering: -moz-crisp-edges; display: block; margin: 0 auto; }
+    .label { color: #71717a; font-size: 12px; margin-top: 8px; }
+    .blue-bg img { background: #0c95e9; border-radius: 50%; }
+    .dark-bg img { background: #1a1b23; }
   </style>
 </head>
 <body>
-  <h1>SantiBot Artwork Preview</h1>
-  <p>8-bit Miniature Pinscher — Black & Rust with Crown (King of Toys!)</p>
+  <h1>Santi — 16x16 Pixel Art Min Pin</h1>
+  <p style="color:#71717a">Black & Rust • Floppy Ears • Crown (King of Toys!) • Happy Tongue</p>
 
-  <h2>32x32 Avatar (Compact)</h2>
-  <div class="grid">
-    <div class="preview">
-      <img src="santi-avatar.svg" width="128" height="128"/>
-      <div class="label">128px render</div>
-    </div>
-    <div class="preview">
-      <img src="santi-avatar.svg" width="256" height="256"/>
-      <div class="label">256px render</div>
-    </div>
-    <div class="preview">
-      <img src="santi-avatar.svg" width="64" height="64"/>
-      <div class="label">64px (Discord avatar size)</div>
-    </div>
+  <h2 style="color:#71717a; margin-top:40px;">On Blue Background</h2>
+  <div class="row blue-bg">
+    <div class="card"><img src="santi-avatar.svg" width="64" height="64"/><div class="label">64px</div></div>
+    <div class="card"><img src="santi-avatar.svg" width="128" height="128"/><div class="label">128px</div></div>
+    <div class="card"><img src="santi-avatar.svg" width="256" height="256"/><div class="label">256px</div></div>
+    <div class="card"><img src="santi-avatar.svg" width="512" height="512"/><div class="label">512px</div></div>
   </div>
 
-  <h2>64x64 Avatar (Detailed)</h2>
-  <div class="grid">
-    <div class="preview">
-      <img src="santi-avatar-64.svg" width="128" height="128"/>
-      <div class="label">128px render</div>
-    </div>
-    <div class="preview">
-      <img src="santi-avatar-64.svg" width="256" height="256"/>
-      <div class="label">256px render</div>
-    </div>
-    <div class="preview">
-      <img src="santi-avatar-64.svg" width="512" height="512"/>
-      <div class="label">512px render</div>
-    </div>
+  <h2 style="color:#71717a; margin-top:40px;">On Dark Background</h2>
+  <div class="row dark-bg">
+    <div class="card"><img src="santi-avatar.svg" width="64" height="64"/><div class="label">64px</div></div>
+    <div class="card"><img src="santi-avatar.svg" width="128" height="128"/><div class="label">128px</div></div>
+    <div class="card"><img src="santi-avatar.svg" width="256" height="256"/><div class="label">256px</div></div>
+    <div class="card"><img src="santi-avatar.svg" width="512" height="512"/><div class="label">512px</div></div>
   </div>
 
-  <h2>Size Comparison</h2>
-  <div class="sizes">
-    <div class="preview">
-      <img src="santi-avatar.svg" width="32" height="32"/>
-      <div class="label">32px</div>
-    </div>
-    <div class="preview">
-      <img src="santi-avatar.svg" width="64" height="64"/>
-      <div class="label">64px</div>
-    </div>
-    <div class="preview">
-      <img src="santi-avatar-64.svg" width="128" height="128"/>
-      <div class="label">128px (64x64 ver)</div>
-    </div>
-    <div class="preview">
-      <img src="santi-avatar-64.svg" width="256" height="256"/>
-      <div class="label">256px (64x64 ver)</div>
-    </div>
+  <h2 style="color:#71717a; margin-top:40px;">Transparent (Raw)</h2>
+  <div class="row">
+    <div class="card"><img src="santi-avatar.svg" width="256" height="256"/><div class="label">256px — transparent bg</div></div>
   </div>
 
-  <h2>Color Palette</h2>
-  <div class="grid">
-    <div style="display: flex; gap: 8px;">
-      <div style="width:60px;height:60px;background:#1a1a1a;border-radius:8px;border:1px solid #333;" title="Black"></div>
-      <div style="width:60px;height:60px;background:#8B4513;border-radius:8px;" title="Rust Brown"></div>
-      <div style="width:60px;height:60px;background:#CD853F;border-radius:8px;" title="Light Rust"></div>
-      <div style="width:60px;height:60px;background:#D2A679;border-radius:8px;" title="Highlight"></div>
-      <div style="width:60px;height:60px;background:#FFD700;border-radius:8px;" title="Crown Gold"></div>
-      <div style="width:60px;height:60px;background:#0c95e9;border-radius:8px;" title="SantiBot Blue"></div>
-      <div style="width:60px;height:60px;background:#E75480;border-radius:8px;" title="Tongue Pink"></div>
-    </div>
-  </div>
-  <div style="color:#71717a; font-size:12px; margin-top:8px;">
-    Black • Rust Brown • Light Rust • Highlight • Crown Gold • SantiBot Blue • Tongue Pink
-  </div>
-
-  <p style="margin-top: 60px; color: #71717a; font-size: 12px;">Named after Santi, a beloved companion 🐾</p>
+  <p style="margin-top: 40px; color: #71717a; font-size: 11px;">Open this file in a browser to preview • assets/preview.html</p>
 </body>
 </html>
