@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicehash/tauri/dev/tooling/cli/schema.json",
+  "productName": "SantiBot Installer",
+  "version": "1.0.0",
+  "identifier": "com.santibot.installer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "title": "SantiBot Installer",
+    "windows": [
+      {
+        "title": "SantiBot Installer",
+        "width": 900,
+        "height": 650,
+        "resizable": true,
+        "center": true,
+        "decorations": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}
