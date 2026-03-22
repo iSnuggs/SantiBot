@@ -9,3 +9,4 @@ quotes_notfound: Tidak ada quote yang cocok dengan ID quote yang ditentukan.
 quotes_page: 'Halaman {0} dari quote'
 quotes_page_none: Tidak ada quote yang ditemukan di halaman itu.
 quotes_remove_none: Tidak ada quote yang bisa kamu hapus.
+quote_stats_title: ""

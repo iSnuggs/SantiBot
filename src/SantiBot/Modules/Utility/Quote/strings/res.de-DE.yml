@@ -9,3 +9,4 @@ quotes_notfound: Keine Zitate gefunden zu der angegebenen Zitat ID.
 quotes_page: 'Seite {0} der Zitate'
 quotes_page_none: Keine Zitate auf dieser Seite gefunden.
 quotes_remove_none: Keine Zitate gefunden die du entfernen kannst.
+quote_stats_title: ""

@@ -9,3 +9,4 @@ quotes_notfound: 找不到與指定的報價 ID 匹配的報價。
 quotes_page: '第 {0} 頁報價'
 quotes_page_none: 在該頁面上沒有找到報價。
 quotes_remove_none: 沒有找到可以刪除的引號。
+quote_stats_title: ""

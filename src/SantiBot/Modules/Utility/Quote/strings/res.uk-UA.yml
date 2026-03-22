@@ -9,3 +9,4 @@ quotes_notfound: Не знайдено цитат з вказаним ID.
 quotes_page: 'Сторінка {0} цитат'
 quotes_page_none: На цій сторінці цитат не знайдено.
 quotes_remove_none: Не знайдено цитат, які ти можеш видалити.
+quote_stats_title: ""

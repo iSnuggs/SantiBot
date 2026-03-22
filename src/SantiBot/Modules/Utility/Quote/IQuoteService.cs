@@ -47,4 +47,5 @@ public interface IQuoteService
         int quoteId);
 
     Task<bool> ImportQuotesAsync(ulong guildId, string input);
+    Task<IReadOnlyList<Quote>> GetTopQuotesAsync(ulong guildId, int count);
 }

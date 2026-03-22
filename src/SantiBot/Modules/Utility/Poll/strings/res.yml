@@ -1,0 +1,7 @@
+poll_options_invalid: 'A poll needs between 2 and 10 options, separated by `|`.'
+poll_duration_invalid: Poll duration must be between 1 minute and 30 days.
+poll_ended: Poll has been ended.
+poll_not_found: Poll not found or already ended.
+suggestion_approved: Suggestion approved.
+suggestion_denied: Suggestion denied.
+suggestion_not_found: Suggestion not found.

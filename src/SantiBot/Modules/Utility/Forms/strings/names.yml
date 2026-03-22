@@ -1,0 +1,13 @@
+formcreate:
+  - formcreate
+  - fcreate
+formlist:
+  - formlist
+  - forms
+formdelete:
+  - formdelete
+  - fdelete
+  - frm
+formfill:
+  - formfill
+  - ffill

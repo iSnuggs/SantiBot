@@ -17,6 +17,9 @@ public class Quote : DbEntity
 
     [Required]
     public string Text { get; set; }
+
+    // SantiBot additions
+    public int UseCount { get; set; }
 }
 
 public enum OrderType
