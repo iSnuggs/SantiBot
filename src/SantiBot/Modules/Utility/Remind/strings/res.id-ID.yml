@@ -10,3 +10,4 @@ reminder_server_list: Daftar pengingat server
 reminders_none: Tidak ada pengingat di halaman ini.
 when: Kapan
 who_where: Siapa / Di mana
+remind_recurring_interval_invalid: ""

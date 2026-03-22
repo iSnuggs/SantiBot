@@ -10,3 +10,4 @@ reminder_server_list: Листа серверских подсетника
 reminders_none: Нема подсетника на овој страни.
 when: Када
 who_where: Ко / Где
+remind_recurring_interval_invalid: ""

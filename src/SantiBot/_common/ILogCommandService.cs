@@ -30,5 +30,9 @@ public enum LogType
     UserWarned,
     
     ThreadDeleted,
-    ThreadCreated
+    ThreadCreated,
+
+    NicknameChanged,
+    RoleChanged,
+    EmojiUpdated
 }

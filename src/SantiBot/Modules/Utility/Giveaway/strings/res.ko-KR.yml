@@ -10,3 +10,4 @@ lasts_until: 종료 시각
 no_givaways: 이 서버에 진행 중인 경품 추첨이 없어요.
 winner: 당첨자
 winners_count: 당첨자 수
+giveaway_winner_count_invalid: ""

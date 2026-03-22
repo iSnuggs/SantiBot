@@ -12,3 +12,4 @@ reminder_server_list: List of server reminders
 reminders_none: No reminder on this page.
 when: When
 who_where: Who / Where
+remind_recurring_interval_invalid: Recurring interval must be between 30 minutes and 30 days.

@@ -78,3 +78,28 @@ ytuploadnotif:
           detected.
       url:
         desc: The URL of the YouTube channel's RSS feed to subscribe to.
+redditfeed:
+  desc: >-
+    Subscribe to a subreddit's new posts feed.
+
+    You can provide a subreddit name, r/subreddit, or a full Reddit URL.
+
+    This is a shortcut for `.feed` with the subreddit's RSS feed URL.
+
+    You can optionally specify a channel and/or a message.
+  ex:
+    - gaming
+    - r/discordapp
+    - 'r/gaming #reddit-updates'
+    - 'r/gaming #reddit-updates New post on r/gaming!'
+  params:
+    - message:
+        desc: The text to be sent with each new post notification.
+      subreddit:
+        desc: The subreddit name or URL to subscribe to.
+    - channel:
+        desc: The channel where updates will be sent.
+      message:
+        desc: The text to be sent with each new post notification.
+      subreddit:
+        desc: The subreddit name or URL to subscribe to.

@@ -10,3 +10,4 @@ lasts_until: Bitiş Zamanı
 no_givaways: Bu sunucuda aktif çekiliş yok.
 winner: Kazanan
 winners_count: Kazananlar
+giveaway_winner_count_invalid: ""

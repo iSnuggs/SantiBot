@@ -62,6 +62,29 @@ public class RemindService : INService, IReadyExecutor, IRemindService
 
             Log.Information("Executing {ReminderCount} reminders", reminders.Count);
 
+            // Reschedule recurring reminders
+            var recurring = reminders.Where(r => r.RecurrenceInterval is not null).ToList();
+            if (recurring.Count > 0)
+            {
+                await using var uow = _db.GetDbContext();
+                foreach (var r in recurring)
+                {
+                    var nextWhen = DateTime.UtcNow + r.RecurrenceInterval!.Value;
+                    await uow.GetTable<Reminder>()
+                        .InsertAsync(() => new Reminder
+                        {
+                            When = nextWhen,
+                            ChannelId = r.ChannelId,
+                            ServerId = r.ServerId,
+                            UserId = r.UserId,
+                            Message = r.Message,
+                            IsPrivate = r.IsPrivate,
+                            Type = r.Type,
+                            RecurrenceInterval = r.RecurrenceInterval,
+                        });
+                }
+            }
+
             // make groups of 5, with 1.5 second in between each one to ensure against ratelimits
             foreach (var group in reminders.Chunk(5))
             {
@@ -282,7 +305,8 @@ public class RemindService : INService, IReadyExecutor, IRemindService
         bool isPrivate,
         DateTime time,
         string message,
-        ReminderType reminderType)
+        ReminderType reminderType,
+        TimeSpan? recurrenceInterval = null)
     {
         await using (var ctx = _db.GetDbContext())
         {
@@ -296,7 +320,8 @@ public class RemindService : INService, IReadyExecutor, IRemindService
                     When = time,
                     Message = message,
                     Type = reminderType,
-                    DateAdded = DateTime.UtcNow
+                    DateAdded = DateTime.UtcNow,
+                    RecurrenceInterval = recurrenceInterval,
                 });
             await ctx.SaveChangesAsync();
         }

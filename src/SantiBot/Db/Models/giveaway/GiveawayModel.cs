@@ -11,4 +11,8 @@ public sealed class GiveawayModel
 
     public IList<GiveawayUser> Participants { get; set; } = new List<GiveawayUser>();
     public DateTime EndsAt { get; set; }
+
+    // SantiBot additions
+    public int WinnerCount { get; set; } = 1;
+    public ulong? RequiredRoleId { get; set; }
 }

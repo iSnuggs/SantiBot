@@ -79,6 +79,7 @@ public sealed class LogCommandService : ILogCommandService, IReadyExecutor
 
         _client.ThreadCreated += _client_ThreadCreated;
         _client.ThreadDeleted += _client_ThreadDeleted;
+        _client.GuildUpdated += _client_GuildUpdated;
 
         _mute.UserMuted += MuteCommands_UserMuted;
         _mute.UserUnmuted += MuteCommands_UserUnmuted;
@@ -449,6 +450,15 @@ public sealed class LogCommandService : ILogCommandService, IReadyExecutor
                 case LogType.ThreadCreated:
                     channelId = logSetting.ThreadCreatedId = logSetting.ThreadCreatedId is null ? cid : default;
                     break;
+                case LogType.NicknameChanged:
+                    channelId = logSetting.NicknameChangedId = logSetting.NicknameChangedId is null ? cid : default;
+                    break;
+                case LogType.RoleChanged:
+                    channelId = logSetting.RoleChangedId = logSetting.RoleChangedId is null ? cid : default;
+                    break;
+                case LogType.EmojiUpdated:
+                    channelId = logSetting.EmojiUpdatedId = logSetting.EmojiUpdatedId is null ? cid : default;
+                    break;
             }
 
             uow.SaveChanges();
@@ -641,17 +651,23 @@ public sealed class LogCommandService : ILogCommandService, IReadyExecutor
                         => ilc.LogItemId == after.Id && ilc.ItemType == IgnoredItemType.User))
                     return;
 
-                ITextChannel? logChannel;
-                if (logSetting.UserUpdatedId is not null
-                    && (logChannel = await TryGetLogChannel(before.Guild, logSetting, LogType.UserUpdated)) is not null)
+                if (before.Nickname != after.Nickname)
                 {
-                    var embed = _sender.CreateEmbed()
-                        .WithOkColor()
-                        .WithFooter(CurrentTime(before.Guild))
-                        .WithTitle($"{before.Username}#{before.Discriminator} | {before.Id}");
-                    if (before.Nickname != after.Nickname)
+                    // Try NicknameChanged channel first, fall back to UserUpdated
+                    ITextChannel? logChannel = null;
+                    if (logSetting.NicknameChangedId is not null)
+                        logChannel = await TryGetLogChannel(before.Guild, logSetting, LogType.NicknameChanged);
+                    logChannel ??= logSetting.UserUpdatedId is not null
+                        ? await TryGetLogChannel(before.Guild, logSetting, LogType.UserUpdated)
+                        : null;
+
+                    if (logChannel is not null)
                     {
-                        embed.WithAuthor("👥 " + GetText(logChannel.Guild, strs.nick_change))
+                        var embed = _sender.CreateEmbed()
+                            .WithOkColor()
+                            .WithFooter(CurrentTime(before.Guild))
+                            .WithTitle($"{before.Username}#{before.Discriminator} | {before.Id}")
+                            .WithAuthor("👥 " + GetText(logChannel.Guild, strs.nick_change))
                             .AddField(GetText(logChannel.Guild, strs.old_nick),
                                 $"{before.Nickname}#{before.Discriminator}")
                             .AddField(GetText(logChannel.Guild, strs.new_nick),
@@ -659,8 +675,24 @@ public sealed class LogCommandService : ILogCommandService, IReadyExecutor
 
                         await _sender.Response(logChannel).Embed(embed).SendAsync();
                     }
-                    else if (!before.Roles.SequenceEqual(after.Roles))
+                }
+                else if (!before.Roles.SequenceEqual(after.Roles))
+                {
+                    // Try RoleChanged channel first, fall back to UserUpdated
+                    ITextChannel? logChannel = null;
+                    if (logSetting.RoleChangedId is not null)
+                        logChannel = await TryGetLogChannel(before.Guild, logSetting, LogType.RoleChanged);
+                    logChannel ??= logSetting.UserUpdatedId is not null
+                        ? await TryGetLogChannel(before.Guild, logSetting, LogType.UserUpdated)
+                        : null;
+
+                    if (logChannel is not null)
                     {
+                        var embed = _sender.CreateEmbed()
+                            .WithOkColor()
+                            .WithFooter(CurrentTime(before.Guild))
+                            .WithTitle($"{before.Username}#{before.Discriminator} | {before.Id}");
+
                         if (before.Roles.Count < after.Roles.Count)
                         {
                             var diffRoles = after.Roles.Where(r => !before.Roles.Contains(r)).Select(r => r.Name);
@@ -1298,6 +1330,15 @@ public sealed class LogCommandService : ILogCommandService, IReadyExecutor
             case LogType.ThreadDeleted:
                 id = logSetting.ThreadDeletedId;
                 break;
+            case LogType.NicknameChanged:
+                id = logSetting.NicknameChangedId;
+                break;
+            case LogType.RoleChanged:
+                id = logSetting.RoleChangedId;
+                break;
+            case LogType.EmojiUpdated:
+                id = logSetting.EmojiUpdatedId;
+                break;
         }
 
         if (id is null or 0)
@@ -1368,9 +1409,67 @@ public sealed class LogCommandService : ILogCommandService, IReadyExecutor
             case LogType.UserWarned:
                 newLogSetting.LogWarnsId = null;
                 break;
+            case LogType.ThreadCreated:
+                newLogSetting.ThreadCreatedId = null;
+                break;
+            case LogType.ThreadDeleted:
+                newLogSetting.ThreadDeletedId = null;
+                break;
+            case LogType.NicknameChanged:
+                newLogSetting.NicknameChangedId = null;
+                break;
+            case LogType.RoleChanged:
+                newLogSetting.RoleChangedId = null;
+                break;
+            case LogType.EmojiUpdated:
+                newLogSetting.EmojiUpdatedId = null;
+                break;
         }
 
         GuildLogSettings.AddOrUpdate(guildId, newLogSetting, (_, _) => newLogSetting);
         uow.SaveChanges();
+    }
+
+    private Task _client_GuildUpdated(SocketGuild before, SocketGuild after)
+    {
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                if (!GuildLogSettings.TryGetValue(after.Id, out var logSetting)
+                    || logSetting.EmojiUpdatedId is null)
+                    return;
+
+                ITextChannel? logChannel;
+                if ((logChannel = await TryGetLogChannel(after, logSetting, LogType.EmojiUpdated)) is null)
+                    return;
+
+                var beforeEmojis = before.Emotes.ToHashSet();
+                var afterEmojis = after.Emotes.ToHashSet();
+
+                var added = afterEmojis.Where(e => !beforeEmojis.Any(be => be.Id == e.Id)).ToList();
+                var removed = beforeEmojis.Where(e => !afterEmojis.Any(ae => ae.Id == e.Id)).ToList();
+
+                if (added.Count == 0 && removed.Count == 0)
+                    return;
+
+                var embed = _sender.CreateEmbed()
+                    .WithOkColor()
+                    .WithFooter(CurrentTime(after))
+                    .WithTitle("😀 Emoji Updated");
+
+                if (added.Count > 0)
+                    embed.AddField("Added", string.Join(" ", added.Select(e => $"{e} `:{e.Name}:`")));
+                if (removed.Count > 0)
+                    embed.AddField("Removed", string.Join(" ", removed.Select(e => $"`:{e.Name}:`")));
+
+                await _sender.Response(logChannel).Embed(embed).SendAsync();
+            }
+            catch
+            {
+                // ignored
+            }
+        });
+        return Task.CompletedTask;
     }
 }

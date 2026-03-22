@@ -7,3 +7,4 @@ feed_no_feed: 您尚未訂閱此伺服器上的任何訂閱源。
 feed_out_of_range: 索引超出範圍。
 feed_removed: 訂閱源被移除。
 feed_auto_removed: '订阅源 `{0}` 因多次获取失败已被自动移除。'
+reddit_invalid_subreddit: ""

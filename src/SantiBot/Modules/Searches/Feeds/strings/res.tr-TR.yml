@@ -7,3 +7,4 @@ feed_no_feed: Bu sunucuda herhangi bir akışa abone olmadın.
 feed_out_of_range: İndeks aralık dışında.
 feed_removed: Akış kaldırıldı.
 feed_auto_removed: '`{0}` akışı tekrarlanan bağlantı hataları nedeniyle otomatik olarak kaldırıldı.'
+reddit_invalid_subreddit: ""

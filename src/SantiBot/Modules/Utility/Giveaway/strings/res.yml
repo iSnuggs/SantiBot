@@ -10,3 +10,4 @@ lasts_until: Lasts Until
 no_givaways: There are no active giveaways on this server.
 winner: Winner
 winners_count: Winners
+giveaway_winner_count_invalid: Winner count must be between 1 and 25.

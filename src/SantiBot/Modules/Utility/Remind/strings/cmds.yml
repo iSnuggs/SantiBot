@@ -59,3 +59,20 @@ remindlist:
         desc: The number of the page to display in the result set.
     - page:
         desc: The number of the page to display in the result set.
+remindrecurring:
+  desc: >-
+    Sets a recurring reminder that repeats at the specified interval.
+    Interval must be between 30 minutes and 30 days.
+    First parameter is `me` or `here`.
+    Second parameter is the interval (e.g. 2h, 1d, 30m).
+    Third parameter is the message.
+  ex:
+    - me 2h Take a break!
+    - here 1d Daily standup reminder!
+  params:
+    - meorhere:
+        desc: "'me' for DM reminder, 'here' for current channel."
+      interval:
+        desc: The interval between reminders (e.g. 2h, 1d, 30m).
+      message:
+        desc: The reminder message.

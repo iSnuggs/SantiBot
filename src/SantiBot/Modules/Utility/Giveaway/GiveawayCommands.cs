@@ -9,11 +9,32 @@ public partial class Utility
         [Cmd]
         [UserPerm(GuildPerm.ManageMessages)]
         [BotPerm(ChannelPerm.ManageMessages | ChannelPerm.AddReactions)]
-        public async Task GiveawayStart(TimeSpan duration, [Leftover] string message)
+        [Priority(0)]
+        public Task GiveawayStart(TimeSpan duration, [Leftover] string message)
+            => GiveawayStart(duration, 1, null, message);
+
+        [Cmd]
+        [UserPerm(GuildPerm.ManageMessages)]
+        [BotPerm(ChannelPerm.ManageMessages | ChannelPerm.AddReactions)]
+        [Priority(1)]
+        public Task GiveawayStart(TimeSpan duration, int winnerCount, [Leftover] string message)
+            => GiveawayStart(duration, winnerCount, null, message);
+
+        [Cmd]
+        [UserPerm(GuildPerm.ManageMessages)]
+        [BotPerm(ChannelPerm.ManageMessages | ChannelPerm.AddReactions)]
+        [Priority(2)]
+        public async Task GiveawayStart(TimeSpan duration, int winnerCount, IRole? requiredRole, [Leftover] string message)
         {
             if (duration > TimeSpan.FromDays(30))
             {
                 await Response().Error(strs.giveaway_duration_invalid).SendAsync();
+                return;
+            }
+
+            if (winnerCount < 1 || winnerCount > 25)
+            {
+                await Response().Error(strs.giveaway_winner_count_invalid).SendAsync();
                 return;
             }
 
@@ -24,9 +45,14 @@ public partial class Utility
 
             var startingMsg = await Response().Embed(eb).SendAsync();
 
-            var maybeId =
-                await _service.StartGiveawayAsync(ctx.Guild.Id, ctx.Channel.Id, startingMsg.Id, duration, message);
-
+            var maybeId = await _service.StartGiveawayAsync(
+                ctx.Guild.Id,
+                ctx.Channel.Id,
+                startingMsg.Id,
+                duration,
+                message,
+                winnerCount,
+                requiredRole?.Id);
 
             if (maybeId is not int id)
             {
@@ -39,8 +65,11 @@ public partial class Utility
                 .WithOkColor()
                 .WithTitle(GetText(strs.giveaway_started))
                 .AddField(GetText(strs.lasts_until), TimestampTag.FromDateTime(DateTime.UtcNow.Add(duration)), true)
-                // .AddField(GetText(strs.winners_count), "1", true)
+                .AddField(GetText(strs.winners_count), winnerCount.ToString(), true)
                 .WithFooter($"id:  {new kwum(id).ToString()}");
+
+            if (requiredRole is not null)
+                eb.AddField("Required Role", requiredRole.Mention, true);
 
             await startingMsg.AddReactionAsync(new Emoji(GiveawayService.GiveawayEmoji));
             await startingMsg.ModifyAsync(x => x.Embed = eb.Build());

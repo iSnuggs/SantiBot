@@ -174,12 +174,31 @@ public partial class Utility
                 await Response().Confirm(strs.reminder_deleted(index + 1)).SendAsync();
         }
 
+        [Cmd]
+        [Priority(1)]
+        public async Task RemindRecurring(MeOrHere meorhere, TimeSpan interval, [Leftover] string message)
+        {
+            if (interval < TimeSpan.FromMinutes(30) || interval > TimeSpan.FromDays(30))
+            {
+                await Response().Error(strs.remind_recurring_interval_invalid).SendAsync();
+                return;
+            }
+
+            ulong target = meorhere == MeOrHere.Me ? ctx.User.Id : ctx.Channel.Id;
+            var isPrivate = meorhere == MeOrHere.Me || ctx.Guild is null;
+
+            var success = await RemindInternal(target, isPrivate, interval, message, ReminderType.User, interval);
+            if (!success)
+                await Response().Error(strs.remind_too_long).SendAsync();
+        }
+
         private async Task<bool> RemindInternal(
             ulong targetId,
             bool isPrivate,
             TimeSpan ts,
             string message,
-            ReminderType reminderType)
+            ReminderType reminderType,
+            TimeSpan? recurrenceInterval = null)
         {
             var time = DateTime.UtcNow + ts;
 
@@ -199,7 +218,8 @@ public partial class Utility
                 isPrivate,
                 time,
                 message,
-                ReminderType.User);
+                ReminderType.User,
+                recurrenceInterval);
 
             var eb = CreateEmbed()
                 .WithOkColor()
@@ -210,10 +230,20 @@ public partial class Utility
                 .AddField(GetText(strs.date2), TimestampTag.FromDateTime(time, TimestampTagStyles.ShortDateTime), true)
                 .WithDescription(message);
 
+            if (recurrenceInterval is not null)
+            {
+                var iv = recurrenceInterval.Value;
+                var parts = new List<string>();
+                if (iv.Days > 0) parts.Add($"{iv.Days}d");
+                if (iv.Hours > 0) parts.Add($"{iv.Hours}h");
+                if (iv.Minutes > 0) parts.Add($"{iv.Minutes}m");
+                eb.AddField("Repeats Every", string.Join(" ", parts), true);
+            }
+
             await Response()
                 .Embed(eb)
                 .SendAsync();
-            
+
             return true;
         }
     }

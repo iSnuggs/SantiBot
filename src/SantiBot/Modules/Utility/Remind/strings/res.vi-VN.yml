@@ -10,3 +10,4 @@ reminder_server_list: Danh sách nhắc nhở của máy chủ
 reminders_none: Không có nhắc nhở nào trên trang này.
 when: Khi nào
 who_where: Ai / Ở đâu
+remind_recurring_interval_invalid: ""

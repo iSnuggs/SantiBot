@@ -7,3 +7,4 @@ feed_no_feed: You haven't subscribed to any feeds on this server.
 feed_out_of_range: Index out of range.
 feed_removed: Feed removed.
 feed_auto_removed: "Feed `{0}` was automatically removed after repeated failures to fetch it."
+reddit_invalid_subreddit: Invalid subreddit name. Provide a subreddit name or a reddit URL (e.g. `r/gaming` or `https://reddit.com/r/gaming`).

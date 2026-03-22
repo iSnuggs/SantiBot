@@ -10,3 +10,4 @@ reminder_server_list: サーバーリマインダーの一覧
 reminders_none: ''
 when: いつ
 who_where: 誰 / どこ
+remind_recurring_interval_invalid: ""

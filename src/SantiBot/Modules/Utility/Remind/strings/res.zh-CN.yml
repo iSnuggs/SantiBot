@@ -10,3 +10,4 @@ reminder_server_list: 伺服器提醒列表
 reminders_none: 此頁面上沒有提醒。
 when: 何時
 who_where: 誰 / 何處
+remind_recurring_interval_invalid: ""
