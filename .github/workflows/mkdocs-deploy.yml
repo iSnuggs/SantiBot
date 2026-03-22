@@ -2,7 +2,7 @@ name: Deploy SantiBot Docs
 
 on:
   push:
-    branches: ["v6"]
+    branches: ["main"]
     paths:
       - 'docs/**'
   workflow_dispatch:
@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   deploy:
-    if: ${{ github.repository == 'santi-bot/santibot' }}
+    if: ${{ github.repository == 'iSnuggs/SantiBot' }}
     runs-on: ubuntu-latest
 
     steps:
