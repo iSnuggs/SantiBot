@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- 8-bit Miniature Pinscher - "Santi" -->
+  <!-- Color Palette: Black #1a1a1a, Rust Brown #8B4513, Light Rust #CD853F, Highlight #D2A679, Eye shine #FFFFFF, Nose #0a0a0a, Tongue #E75480, BG accent #0c95e9 -->
+
+  <!-- Background circle (SantiBot blue) -->
+  <circle cx="16" cy="16" r="16" fill="#0c95e9"/>
+
+  <!-- Ears (floppy, folded over) -->
+  <!-- Left ear -->
+  <rect x="7" y="5" width="2" height="1" fill="#1a1a1a"/>
+  <rect x="6" y="6" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="5" y="7" width="4" height="1" fill="#1a1a1a"/>
+  <rect x="5" y="8" width="4" height="1" fill="#2a1a0a"/>
+  <rect x="6" y="9" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="7" y="10" width="2" height="1" fill="#1a1a1a"/>
+
+  <!-- Right ear -->
+  <rect x="23" y="5" width="2" height="1" fill="#1a1a1a"/>
+  <rect x="23" y="6" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="23" y="7" width="4" height="1" fill="#1a1a1a"/>
+  <rect x="23" y="8" width="4" height="1" fill="#2a1a0a"/>
+  <rect x="23" y="9" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="23" y="10" width="2" height="1" fill="#1a1a1a"/>
+
+  <!-- Head shape - top -->
+  <rect x="10" y="5" width="12" height="1" fill="#1a1a1a"/>
+  <rect x="9" y="6" width="14" height="1" fill="#1a1a1a"/>
+
+  <!-- Head - main black area -->
+  <rect x="8" y="7" width="16" height="1" fill="#1a1a1a"/>
+  <rect x="8" y="8" width="16" height="1" fill="#1a1a1a"/>
+
+  <!-- Eyebrow rust markings -->
+  <rect x="10" y="9" width="3" height="1" fill="#8B4513"/>
+  <rect x="19" y="9" width="3" height="1" fill="#8B4513"/>
+  <rect x="8" y="9" width="2" height="1" fill="#1a1a1a"/>
+  <rect x="13" y="9" width="6" height="1" fill="#1a1a1a"/>
+  <rect x="22" y="9" width="2" height="1" fill="#1a1a1a"/>
+
+  <!-- Eyes row -->
+  <rect x="8" y="10" width="2" height="1" fill="#1a1a1a"/>
+  <rect x="10" y="10" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="11" y="10" width="2" height="1" fill="#1a1a1a"/>
+  <rect x="13" y="10" width="6" height="1" fill="#1a1a1a"/>
+  <rect x="19" y="10" width="1" height="1" fill="#FFFFFF"/>
+  <rect x="20" y="10" width="2" height="1" fill="#1a1a1a"/>
+  <rect x="22" y="10" width="2" height="1" fill="#1a1a1a"/>
+
+  <!-- Below eyes - start of rust muzzle -->
+  <rect x="8" y="11" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="11" y="11" width="10" height="1" fill="#1a1a1a"/>
+  <rect x="21" y="11" width="3" height="1" fill="#1a1a1a"/>
+
+  <!-- Cheeks - rust brown sides, dark center -->
+  <rect x="9" y="12" width="2" height="1" fill="#8B4513"/>
+  <rect x="11" y="12" width="2" height="1" fill="#CD853F"/>
+  <rect x="13" y="12" width="6" height="1" fill="#8B4513"/>
+  <rect x="19" y="12" width="2" height="1" fill="#CD853F"/>
+  <rect x="21" y="12" width="2" height="1" fill="#8B4513"/>
+
+  <!-- Muzzle / nose area -->
+  <rect x="10" y="13" width="2" height="1" fill="#CD853F"/>
+  <rect x="12" y="13" width="2" height="1" fill="#D2A679"/>
+  <rect x="14" y="13" width="4" height="1" fill="#0a0a0a"/>
+  <rect x="18" y="13" width="2" height="1" fill="#D2A679"/>
+  <rect x="20" y="13" width="2" height="1" fill="#CD853F"/>
+
+  <!-- Mouth area -->
+  <rect x="11" y="14" width="2" height="1" fill="#CD853F"/>
+  <rect x="13" y="14" width="6" height="1" fill="#D2A679"/>
+  <rect x="19" y="14" width="2" height="1" fill="#CD853F"/>
+
+  <!-- Smile / tongue -->
+  <rect x="12" y="15" width="2" height="1" fill="#CD853F"/>
+  <rect x="14" y="15" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="15" y="15" width="2" height="1" fill="#E75480"/>
+  <rect x="17" y="15" width="1" height="1" fill="#1a1a1a"/>
+  <rect x="18" y="15" width="2" height="1" fill="#CD853F"/>
+
+  <!-- Chin -->
+  <rect x="13" y="16" width="6" height="1" fill="#CD853F"/>
+
+  <!-- Neck / chest - black with rust chest patch -->
+  <rect x="11" y="17" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="14" y="17" width="4" height="1" fill="#8B4513"/>
+  <rect x="18" y="17" width="3" height="1" fill="#1a1a1a"/>
+
+  <!-- Body -->
+  <rect x="10" y="18" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="13" y="18" width="6" height="1" fill="#8B4513"/>
+  <rect x="19" y="18" width="3" height="1" fill="#1a1a1a"/>
+
+  <rect x="9" y="19" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="12" y="19" width="8" height="1" fill="#8B4513"/>
+  <rect x="20" y="19" width="3" height="1" fill="#1a1a1a"/>
+
+  <rect x="9" y="20" width="3" height="1" fill="#1a1a1a"/>
+  <rect x="12" y="20" width="8" height="1" fill="#CD853F"/>
+  <rect x="20" y="20" width="3" height="1" fill="#1a1a1a"/>
+
+  <!-- Legs -->
+  <rect x="9" y="21" width="2" height="1" fill="#1a1a1a"/>
+  <rect x="11" y="21" width="2" height="1" fill="#8B4513"/>
+  <rect x="13" y="21" width="6" height="1" fill="#CD853F"/>
+  <rect x="19" y="21" width="2" height="1" fill="#8B4513"/>
+  <rect x="21" y="21" width="2" height="1" fill="#1a1a1a"/>
+
+  <!-- Front legs / paws -->
+  <rect x="9" y="22" width="2" height="1" fill="#1a1a1a"/>
+  <rect x="11" y="22" width="1" height="1" fill="#8B4513"/>
+  <rect x="14" y="22" width="4" height="1" fill="#CD853F"/>
+  <rect x="20" y="22" width="1" height="1" fill="#8B4513"/>
+  <rect x="21" y="22" width="2" height="1" fill="#1a1a1a"/>
+
+  <rect x="9" y="23" width="2" height="1" fill="#1a1a1a"/>
+  <rect x="21" y="23" width="2" height="1" fill="#1a1a1a"/>
+
+  <!-- Paws -->
+  <rect x="8" y="24" width="3" height="1" fill="#CD853F"/>
+  <rect x="21" y="24" width="3" height="1" fill="#CD853F"/>
+
+  <!-- Crown/toy (king of toys!) - small crown on head -->
+  <rect x="14" y="4" width="1" height="1" fill="#FFD700"/>
+  <rect x="16" y="4" width="1" height="1" fill="#FFD700"/>
+  <rect x="18" y="4" width="1" height="1" fill="#FFD700"/>
+  <rect x="13" y="5" width="7" height="0.5" fill="#FFD700"/>
+</svg>
