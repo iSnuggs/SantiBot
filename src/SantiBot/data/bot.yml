@@ -8,7 +8,7 @@ version: 9
 # and copy the hex code fo your selected color (marked as #)
 color:
   # Color used for embed responses when command successfully executes
-  ok: 00e584
+  ok: 0c95e9
   # Color used for embed responses when command has an error
   error: ee281f
   # Color used for embed responses while command is doing work or is in progress
