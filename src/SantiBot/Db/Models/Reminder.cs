@@ -10,6 +10,9 @@ public class Reminder : DbEntity
     public string Message { get; set; }
     public bool IsPrivate { get; set; }
     public ReminderType Type { get; set; }
+
+    // SantiBot: recurring reminder support
+    public TimeSpan? RecurrenceInterval { get; set; }
 }
 
 public enum ReminderType

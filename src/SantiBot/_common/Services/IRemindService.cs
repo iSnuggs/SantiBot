@@ -11,5 +11,6 @@ public interface IRemindService
         bool isPrivate,
         DateTime time,
         string message,
-        ReminderType reminderType);
+        ReminderType reminderType,
+        TimeSpan? recurrenceInterval = null);
 }

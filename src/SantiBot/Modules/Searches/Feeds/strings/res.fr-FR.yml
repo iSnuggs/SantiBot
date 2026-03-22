@@ -7,3 +7,4 @@ feed_no_feed: Vous n'avez souscrit à aucun fil d'actualité sur ce serveur.
 feed_out_of_range: L'index est en dehors de la plage disponible.
 feed_removed: Le flux est supprimé.
 feed_auto_removed: 'Le flux `{0}` a été automatiquement supprimé après des échecs répétés.'
+reddit_invalid_subreddit: ""

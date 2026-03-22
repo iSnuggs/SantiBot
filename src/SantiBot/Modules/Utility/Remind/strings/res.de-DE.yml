@@ -10,3 +10,4 @@ reminder_server_list: ''
 reminders_none: Keine Erinnerung auf dieser Seite.
 when: Wann
 who_where: Wer / Wo
+remind_recurring_interval_invalid: ""

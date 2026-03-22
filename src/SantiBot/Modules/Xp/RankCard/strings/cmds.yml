@@ -1,0 +1,26 @@
+rankcardbg:
+  desc: >-
+    Set a custom background image for your rank card.
+    Provide an image URL, or leave empty to reset to default.
+  ex:
+    - 'https://example.com/my-background.png'
+    - ''
+  params:
+    - url:
+        desc: The URL of the background image. Leave empty to reset.
+rankcardcolor:
+  desc: >-
+    Set a custom accent color for your rank card XP bar.
+    Provide a hex color code, or leave empty to reset.
+  ex:
+    - FF5500
+    - '#3498db'
+    - ''
+  params:
+    - hexColor:
+        desc: The hex color code (e.g. FF5500). Leave empty to reset.
+rankcardreset:
+  desc: Reset all rank card customizations to default.
+  ex:
+    - ''
+  params: []

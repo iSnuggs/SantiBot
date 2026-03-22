@@ -10,3 +10,4 @@ reminder_server_list: 서버 리마인더 목록
 reminders_none: 이 페이지에 리마인더가 없어요.
 when: 시간
 who_where: 대상 / 위치
+remind_recurring_interval_invalid: ""

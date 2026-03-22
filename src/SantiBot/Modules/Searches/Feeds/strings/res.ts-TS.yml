@@ -7,3 +7,4 @@ feed_no_feed: You haven't subscribed to any feeds on this server.
 feed_out_of_range: Index out of range, b-baka!
 feed_removed: Feed removed.
 feed_auto_removed: 'Feed `{0}` was removed because it kept failing... not like I wanted to keep it or anything!'
+reddit_invalid_subreddit: ""

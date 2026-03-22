@@ -1,0 +1,7 @@
+rankcard_bg_set: Rank card background has been set.
+rankcard_bg_reset: Rank card background has been reset to default.
+rankcard_color_set: 'Rank card accent color has been set to `{0}`.'
+rankcard_color_reset: Rank card accent color has been reset to default.
+rankcard_reset: Rank card customization has been reset.
+rankcard_invalid_url: Invalid URL. Must be a valid http/https image URL.
+rankcard_invalid_color: Invalid hex color. Use a 6-digit hex code (e.g. FF5500 or #FF5500).

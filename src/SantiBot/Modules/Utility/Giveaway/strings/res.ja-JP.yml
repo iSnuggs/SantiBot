@@ -10,3 +10,4 @@ lasts_until: 終了予定
 no_givaways: このサーバーにアクティブなプレゼント企画はありません。
 winner: 当選者
 winners_count: 当選者数
+giveaway_winner_count_invalid: ""

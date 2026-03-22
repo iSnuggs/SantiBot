@@ -35,4 +35,9 @@ public class LogSetting : DbEntity
     
     public ulong? LogVoicePresenceTTSId { get; set; }
     public ulong? LogWarnsId { get; set; }
+
+    // SantiBot additions
+    public ulong? NicknameChangedId { get; set; }
+    public ulong? RoleChangedId { get; set; }
+    public ulong? EmojiUpdatedId { get; set; }
 }

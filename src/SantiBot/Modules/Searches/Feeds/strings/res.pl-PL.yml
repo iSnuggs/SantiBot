@@ -7,3 +7,4 @@ feed_no_feed: Nie subskrybujesz żadnych feedów na tym serwerze.
 feed_out_of_range: Indeks poza zakresem.
 feed_removed: Usunięto feed.
 feed_auto_removed: 'Feed `{0}` został automatycznie usunięty po wielokrotnych błędach pobierania.'
+reddit_invalid_subreddit: ""

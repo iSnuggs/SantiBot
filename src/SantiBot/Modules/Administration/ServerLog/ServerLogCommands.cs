@@ -153,6 +153,12 @@ public partial class Administration
                     return l.ThreadDeletedId;
                 case LogType.ThreadCreated:
                     return l.ThreadCreatedId;
+                case LogType.NicknameChanged:
+                    return l.NicknameChangedId;
+                case LogType.RoleChanged:
+                    return l.RoleChangedId;
+                case LogType.EmojiUpdated:
+                    return l.EmojiUpdatedId;
                 default:
                     return null;
             }

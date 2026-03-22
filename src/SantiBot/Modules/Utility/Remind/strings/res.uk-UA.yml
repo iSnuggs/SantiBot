@@ -10,3 +10,4 @@ reminder_server_list: Список серверних нагадувань
 reminders_none: Немає нагадувань на цій сторінці.
 when: Коли
 who_where: Хто / Де
+remind_recurring_interval_invalid: ""

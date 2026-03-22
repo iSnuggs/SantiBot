@@ -7,3 +7,4 @@ feed_no_feed: Bạn chưa đăng ký feed nào trên máy chủ này.
 feed_out_of_range: Vị trí ngoài phạm vi.
 feed_removed: Đã xóa feed.
 feed_auto_removed: 'Feed `{0}` đã bị xóa tự động sau nhiều lần lấy dữ liệu thất bại.'
+reddit_invalid_subreddit: ""

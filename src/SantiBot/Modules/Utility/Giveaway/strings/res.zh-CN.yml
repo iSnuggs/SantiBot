@@ -10,3 +10,4 @@ lasts_until: 持續至
 no_givaways: 此伺服器沒有進行中的抽獎。
 winner: 獲獎者
 winners_count: 獲獎者
+giveaway_winner_count_invalid: ""

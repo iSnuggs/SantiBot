@@ -147,7 +147,40 @@ public partial class Searches
                 .SendAsync();
         }
 
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        [UserPerm(GuildPerm.ManageMessages)]
+        [Priority(1)]
+        public Task RedditFeed(string subreddit, [Leftover] string? message = null)
+            => RedditFeed(subreddit, null, message);
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        [UserPerm(GuildPerm.ManageMessages)]
+        [Priority(2)]
+        public Task RedditFeed(string subreddit, ITextChannel? channel = null, [Leftover] string? message = null)
+        {
+            // Extract subreddit name from URL or plain text
+            var m = _redditRegex.Match(subreddit);
+            var subName = m.Success ? m.Groups["subreddit"].Value : subreddit.Trim('/');
+
+            if (string.IsNullOrWhiteSpace(subName) || subName.Length > 50)
+                return Response().Error(strs.reddit_invalid_subreddit).SendAsync();
+
+            channel ??= ctx.Channel as ITextChannel;
+
+            if (!((IGuildUser)ctx.User).GetPermissions(channel).MentionEveryone)
+                message = message?.SanitizeAllMentions();
+
+            return Feed($"https://www.reddit.com/r/{subName}/new/.rss", channel, message);
+        }
+
         [GeneratedRegex(@"youtube\.com\/(?:c\/|channel\/|user\/)?(?<channelid>[a-zA-Z0-9\-_]{1,})")]
         private static partial Regex MyRegex();
+
+        [GeneratedRegex(@"(?:reddit\.com\/)?r\/(?<subreddit>[a-zA-Z0-9_]{1,50})", RegexOptions.IgnoreCase)]
+        private static partial Regex RedditRegex();
+
+        private static readonly Regex _redditRegex = RedditRegex();
     }
 }

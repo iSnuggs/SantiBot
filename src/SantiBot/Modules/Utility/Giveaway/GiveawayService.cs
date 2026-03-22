@@ -133,7 +133,9 @@ public sealed class GiveawayService : INService, IReadyExecutor
         ulong channelId,
         ulong messageId,
         TimeSpan duration,
-        string message)
+        string message,
+        int winnerCount = 1,
+        ulong? requiredRoleId = null)
     {
         await using var ctx = _db.GetDbContext();
 
@@ -154,6 +156,8 @@ public sealed class GiveawayService : INService, IReadyExecutor
                               ChannelId = channelId,
                               Message = message,
                               EndsAt = endsAt,
+                              WinnerCount = winnerCount,
+                              RequiredRoleId = requiredRoleId,
                           });
 
         lock (_giveawayCache)
@@ -188,9 +192,16 @@ public sealed class GiveawayService : INService, IReadyExecutor
             _giveawayCache.Remove(giveaway);
         }
 
-        var winner = PickWinner(giveaway);
-
-        await OnGiveawayEnded(giveaway, winner);
+        if (giveaway.WinnerCount > 1)
+        {
+            var winners = PickWinners(giveaway, giveaway.WinnerCount);
+            await OnGiveawayEndedMulti(giveaway, winners);
+        }
+        else
+        {
+            var winner = PickWinner(giveaway);
+            await OnGiveawayEnded(giveaway, winner);
+        }
 
         return true;
     }
@@ -202,7 +213,6 @@ public sealed class GiveawayService : INService, IReadyExecutor
 
         if (giveaway.Participants.Count == 1)
         {
-            // as this is the last participant, rerolls no longer possible
             _cache.Remove($"reroll:{giveaway.Id}");
             return giveaway.Participants[0];
         }
@@ -211,6 +221,21 @@ public sealed class GiveawayService : INService, IReadyExecutor
 
         HandleWinnerSelection(giveaway, winner);
         return winner;
+    }
+
+    private List<GiveawayUser> PickWinners(GiveawayModel giveaway, int count)
+    {
+        var winners = new List<GiveawayUser>();
+        var remaining = giveaway.Participants.ToList();
+
+        for (var i = 0; i < count && remaining.Count > 0; i++)
+        {
+            var idx = _rng.Next(0, remaining.Count);
+            winners.Add(remaining[idx]);
+            remaining.RemoveAt(idx);
+        }
+
+        return winners;
     }
 
     public async Task<bool> RerollGiveawayAsync(ulong guildId, int giveawayId)
@@ -272,7 +297,22 @@ public sealed class GiveawayService : INService, IReadyExecutor
         if (giveaway is null)
             return false;
 
-        // add the user to the database
+        // Check required role
+        if (giveaway.RequiredRoleId is not null)
+        {
+            var guild = _client.GetGuild(giveaway.GuildId);
+            var guildUser = guild?.GetUser(userId);
+            if (guildUser is null || !guildUser.Roles.Any(r => r.Id == giveaway.RequiredRoleId))
+                return false;
+        }
+
+        // Check if already joined
+        var alreadyJoined = await ctx.GetTable<GiveawayUser>()
+            .AnyAsyncLinqToDB(x => x.GiveawayId == giveaway.Id && x.UserId == userId);
+
+        if (alreadyJoined)
+            return false;
+
         await ctx.GetTable<GiveawayUser>()
                  .InsertAsync(
                      () => new GiveawayUser()
@@ -344,6 +384,51 @@ public sealed class GiveawayService : INService, IReadyExecutor
 
             if (winner is not null)
                 await _sender.Response(ch).Message(msg).Text($"🎉 <@{winner.UserId}>").SendAsync();
+        }
+        catch
+        {
+            _ = msg.DeleteAsync();
+            await _sender.Response(ch).Embed(eb).SendAsync();
+        }
+    }
+
+    public async Task OnGiveawayEndedMulti(GiveawayModel ga, List<GiveawayUser> winners)
+    {
+        var culture = _localization.GetCultureInfo(ga.GuildId);
+
+        string GetText(LocStr str)
+            => _strings.GetText(str, culture);
+
+        var ch = _client.GetChannel(ga.ChannelId) as ITextChannel;
+        if (ch is null)
+            return;
+
+        var msg = await ch.GetMessageAsync(ga.MessageId) as IUserMessage;
+        if (msg is null)
+            return;
+
+        var winnerStr = winners.Count == 0
+            ? "-"
+            : string.Join("\n", winners.Select(w => $"<@{w.UserId}>"));
+
+        var eb = _sender.CreateEmbed(ch.GuildId)
+                        .WithOkColor()
+                        .WithTitle(GetText(strs.giveaway_ended))
+                        .WithDescription(ga.Message)
+                        .WithFooter($"id: {new kwum(ga.Id).ToString()}")
+                        .AddField(GetText(strs.winner) + $" ({winners.Count})",
+                            winnerStr,
+                            true);
+
+        try
+        {
+            await msg.ModifyAsync(x => x.Embed = eb.Build());
+
+            if (winners.Count > 0)
+            {
+                var mentions = string.Join(" ", winners.Select(w => $"<@{w.UserId}>"));
+                await _sender.Response(ch).Message(msg).Text($"🎉 {mentions}").SendAsync();
+            }
         }
         catch
         {

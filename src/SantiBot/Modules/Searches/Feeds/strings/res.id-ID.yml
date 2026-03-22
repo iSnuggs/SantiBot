@@ -7,3 +7,4 @@ feed_no_feed: Kamu belum berlangganan feed apapun di server ini.
 feed_out_of_range: Indeks di luar jangkauan.
 feed_removed: Feed berhasil dihapus.
 feed_auto_removed: 'Feed `{0}` dihapus secara otomatis setelah berulang kali gagal mengambil data.'
+reddit_invalid_subreddit: ""

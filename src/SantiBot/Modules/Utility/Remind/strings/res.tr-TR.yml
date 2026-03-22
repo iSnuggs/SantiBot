@@ -10,3 +10,4 @@ reminder_server_list: Sunucu hatırlatma listesi
 reminders_none: Bu sayfada hatırlatma yok.
 when: Ne Zaman
 who_where: Kim / Nerede
+remind_recurring_interval_invalid: ""

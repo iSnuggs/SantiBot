@@ -65,6 +65,8 @@ public abstract class SantiContext : DbContext
     public DbSet<ArchivedTodoListModel> TodosArchive { get; set; }
     public DbSet<HoneypotChannel> HoneyPotChannels { get; set; }
 
+    // SantiBot additions
+    public DbSet<UserXpCard> UserXpCards { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 
