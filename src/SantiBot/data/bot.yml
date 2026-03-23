@@ -50,26 +50,24 @@ dmHelpTextKeywords:
 # This is the response for the .h command
 helpText: |-
   {
-    "title": "To invite me to your server, use this link",
+    "title": "SantiBot — To invite me to your server, use this link",
     "description": "https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=66186303",
-    "color": 53380,
-    "thumbnail": "https://i.imgur.com/nKYyqMK.png",
+    "color": 816617,
+    "thumbnail": "",
     "fields": [
       {
         "name": "Useful help commands",
-        "value": "`%bot.prefix%modules` Lists all bot modules.
-  `%prefix%h CommandName` Shows some help about a specific command.
-  `%prefix%commands ModuleName` Lists all commands in a module.",
+        "value": "`%bot.prefix%modules` Lists all bot modules.\n`%prefix%h CommandName` Shows some help about a specific command.\n`%prefix%commands ModuleName` Lists all commands in a module.",
         "inline": false
       },
       {
         "name": "List of all Commands",
-        "value": "https://santi.bot/commands",
+        "value": "https://github.com/iSnuggs/SantiBot/blob/main/docs/features/overview.md",
         "inline": false
       },
       {
-        "name": "Santi Support Server",
-        "value": "https://discord.santi.bot/ ",
+        "name": "SantiBot GitHub",
+        "value": "https://github.com/iSnuggs/SantiBot",
         "inline": true
       }
     ]
