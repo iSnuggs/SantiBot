@@ -91,13 +91,21 @@ export default function TokenSetup({ state, update, onNext, onBack }: Props) {
         <button onClick={onBack} className="px-4 py-2 text-sm border border-[var(--border)] rounded-lg hover:bg-[var(--card)]">
           Back
         </button>
-        <button
-          onClick={onNext}
-          disabled={!validated}
-          className="px-6 py-2 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-sm rounded-lg disabled:opacity-50"
-        >
-          Next
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={() => { update({ botName: "SantiBot (Test)" }); onNext(); }}
+            className="px-4 py-2 text-sm text-[var(--muted)] border border-[var(--border)] rounded-lg hover:bg-[var(--card)]"
+          >
+            Skip for now
+          </button>
+          <button
+            onClick={onNext}
+            disabled={!validated}
+            className="px-6 py-2 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-sm rounded-lg disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
