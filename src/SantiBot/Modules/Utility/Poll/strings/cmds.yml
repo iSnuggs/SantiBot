@@ -1,6 +1,6 @@
 pollcreate:
   desc: >-
-    Create a poll with buttons for voting. Options are separated by `|`.
+    Create a poll with buttons for voting. Options are separated by |.
     Up to 10 options supported.
   ex:
     - '"Best game?" Minecraft | Fortnite | Valorant'
@@ -12,7 +12,7 @@ pollcreate:
 pollcreatetimed:
   desc: >-
     Create a timed poll that auto-ends after the specified duration.
-    Options are separated by `|`.
+    Options are separated by |.
   ex:
     - '1h "Lunch spot?" Pizza | Burgers | Sushi'
   params:
@@ -23,21 +23,21 @@ pollcreatetimed:
       question:
         desc: The poll question.
 pollend:
-  desc: End a poll by its ID.
+  desc: 'End a poll by its ID.'
   ex:
     - 1
   params:
     - id:
         desc: The poll ID to end.
 suggest:
-  desc: Submit a suggestion. It will be posted with upvote/downvote reactions.
+  desc: 'Submit a suggestion. It will be posted with upvote/downvote reactions.'
   ex:
     - Add a music channel for song requests
   params:
     - content:
         desc: The suggestion text.
 suggestapprove:
-  desc: Approve a suggestion by ID.
+  desc: 'Approve a suggestion by ID.'
   ex:
     - 1
     - '1 Great idea, we will implement this!'
@@ -47,7 +47,7 @@ suggestapprove:
       reason:
         desc: Optional reason for approval.
 suggestdeny:
-  desc: Deny a suggestion by ID.
+  desc: 'Deny a suggestion by ID.'
   ex:
     - '1 Not feasible at this time'
   params:

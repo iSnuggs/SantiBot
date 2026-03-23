@@ -1,9 +1,10 @@
 autopurgeset:
-  - autopurgeset
-  - apset
+  - set
+  - add
 autopurgeremove:
-  - autopurgeremove
-  - aprm
+  - remove
+  - rm
+  - delete
 autopurgelist:
-  - autopurgelist
-  - aplist
+  - list
+  - ls

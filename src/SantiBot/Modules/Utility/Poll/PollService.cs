@@ -19,6 +19,44 @@ public sealed class PollService : INService, IReadyExecutor
         _client = client;
         _sender = sender;
         _creds = creds;
+
+        _client.InteractionCreated += OnInteractionAsync;
+    }
+
+    private async Task OnInteractionAsync(SocketInteraction interaction)
+    {
+        if (interaction is not SocketMessageComponent comp)
+            return;
+
+        if (!comp.Data.CustomId.StartsWith("poll:vote:"))
+            return;
+
+        if (!int.TryParse(comp.Data.CustomId["poll:vote:".Length..], out var optionIndex))
+            return;
+
+        try
+        {
+            var poll = await GetPollByMessageAsync(comp.Message.Id);
+            if (poll is null || !poll.IsActive)
+            {
+                await comp.RespondAsync("This poll has ended.", ephemeral: true);
+                return;
+            }
+
+            await VoteAsync(poll.Id, comp.User.Id, optionIndex);
+
+            var options = JsonSerializer.Deserialize<List<string>>(poll.OptionsJson) ?? new();
+            var voteCounts = await GetVoteCountsAsync(poll.Id);
+            var totalVotes = voteCounts.Values.Sum();
+
+            var optionName = optionIndex < options.Count ? options[optionIndex] : "Unknown";
+            await comp.RespondAsync($"✅ You voted for **{optionName}**! ({totalVotes} total votes)", ephemeral: true);
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "Error processing poll vote interaction");
+            try { await comp.RespondAsync("An error occurred while voting.", ephemeral: true); } catch { }
+        }
     }
 
     public async Task OnReadyAsync()

@@ -1,14 +1,14 @@
 starboardchannel:
-  - starboardchannel
-  - sbchannel
-  - sbc
+  - channel
+  - setchannel
 starboardthreshold:
-  - starboardthreshold
-  - sbthreshold
-  - sbt
+  - threshold
+  - stars
+  - min
 starboardselfstar:
-  - starboardselfstar
-  - sbselfstar
+  - selfstar
+  - self
 starboardinfo:
-  - starboardinfo
-  - sbinfo
+  - info
+  - status
+  - settings

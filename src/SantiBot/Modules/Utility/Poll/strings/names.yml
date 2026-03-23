@@ -1,19 +1,20 @@
 pollcreate:
-  - pollcreate
-  - pcreate
+  - create
+  - new
 pollcreatetimed:
-  - pollcreatetimed
-  - pcreatetimed
-  - polltimed
+  - createtimed
+  - timed
 pollend:
-  - pollend
-  - pend
+  - end
+  - stop
+  - close
 suggest:
   - suggest
   - suggestion
+  - new
 suggestapprove:
-  - suggestapprove
-  - sapprove
+  - approve
+  - accept
 suggestdeny:
-  - suggestdeny
-  - sdeny
+  - deny
+  - reject
