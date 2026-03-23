@@ -76,22 +76,62 @@ public sealed class SantiDbService : DbService
 
     private static async Task RunMigration(DbContext ctx)
     {
-        // if database doesn't exist, run the baseline migration
-        if (!await ctx.Database.CanConnectAsync())
+        // Check if database exists and has tables
+        var canConnect = await ctx.Database.CanConnectAsync();
+
+        // Count app tables
+        var tableCount = 0;
+        if (canConnect)
         {
-            Log.Information("Database does not exist. Creating a new database...");
-            await ctx.Database.MigrateAsync();
+            try
+            {
+                var conn = ctx.Database.GetDbConnection();
+                if (conn.State != System.Data.ConnectionState.Open)
+                    await conn.OpenAsync();
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'";
+                var result = await cmd.ExecuteScalarAsync();
+                tableCount = Convert.ToInt32(result);
+            }
+            catch { }
+        }
+
+        if (!canConnect || tableCount == 0)
+        {
+            Log.Information("Creating database schema from schema.sql...");
+            var schemaPath = Path.Combine("data", "schema.sql");
+            if (File.Exists(schemaPath))
+            {
+                var sql = await File.ReadAllTextAsync(schemaPath);
+                var conn = ctx.Database.GetDbConnection();
+                if (conn.State != System.Data.ConnectionState.Open)
+                    await conn.OpenAsync();
+                using var cmd = conn.CreateCommand();
+                cmd.CommandText = sql;
+                await cmd.ExecuteNonQueryAsync();
+                Log.Information("Schema created successfully.");
+            }
+            else
+            {
+                Log.Warning("schema.sql not found at {Path}, attempting EnsureCreated...", schemaPath);
+                await ctx.Database.EnsureCreatedAsync();
+            }
             return;
         }
 
         // get the latest applied migration
-
         var applied = await ctx.Database.GetAppliedMigrationsAsync();
 
         // get all .sql file names from the migrations folder
         var available = Directory.GetFiles("Migrations/" + GetMigrationDirectory(ctx.Database), "*_*.sql")
             .Select(x => Path.GetFileNameWithoutExtension(x))
             .OrderBy(x => x);
+
+        if (!applied.Any())
+        {
+            // Existing database with tables but no migration history — skip migrations
+            return;
+        }
 
         var lastApplied = applied.Last();
 

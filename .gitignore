@@ -381,3 +381,4 @@ agent/
 Pipfile
 Pipfile.lock
 .venv
+src/SantiBot/data/creds.yml
