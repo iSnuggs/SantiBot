@@ -122,15 +122,9 @@ public class CommandHandler : INService, ICommandHandler
     public Task StartHandling()
     {
         _client.MessageReceived += MessageReceivedHandler;
-        // _client.SlashCommandExecuted += SlashCommandExecuted;
+        // Slash commands are handled by SlashCommandService
         return Task.CompletedTask;
     }
-
-    // private async Task SlashCommandExecuted(SocketSlashCommand arg)
-    // {
-    //     var ctx = new SocketInteractionContext<SocketSlashCommand>(_client, arg);
-    //     await _interactions.ExecuteCommandAsync(ctx, _services);
-    // }
 
     private Task LogSuccessfulExecution(IUserMessage usrMsg, ITextChannel channel, params int[] execPoints)
     {
