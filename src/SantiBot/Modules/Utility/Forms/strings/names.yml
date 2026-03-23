@@ -1,13 +1,14 @@
 formcreate:
-  - formcreate
-  - fcreate
+  - create
+  - new
 formlist:
-  - formlist
-  - forms
+  - list
+  - ls
 formdelete:
-  - formdelete
-  - fdelete
-  - frm
+  - delete
+  - remove
+  - rm
 formfill:
-  - formfill
-  - ffill
+  - fill
+  - submit
+  - start
