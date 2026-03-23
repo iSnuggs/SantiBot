@@ -19,7 +19,7 @@ public sealed class CheckForUpdatesService(
     IMessageSenderService sender)
     : INService, IReadyExecutor
 {
-    private const string RELEASES_URL = "https://api.github.com/repos/nadeko-bot/nadekobot/releases";
+    private const string RELEASES_URL = "https://api.github.com/repos/iSnuggs/SantiBot/releases";
 
     public async Task OnReadyAsync()
     {
@@ -38,7 +38,7 @@ public sealed class CheckForUpdatesService(
             {
                 using var http = httpFactory.CreateClient();
                 http.DefaultRequestHeaders.Clear();
-                http.DefaultRequestHeaders.Add("User-Agent", "nadekobot_" + client.CurrentUser.Id.ToString()[^5..]);
+                http.DefaultRequestHeaders.Add("User-Agent", "santibot_" + client.CurrentUser.Id.ToString()[^5..]);
                 var githubRelease = (await http.GetFromJsonAsync<GithubReleaseModel[]>(RELEASES_URL))
                     ?.FirstOrDefault();
 
@@ -60,7 +60,7 @@ public sealed class CheckForUpdatesService(
                     UpdateLastKnownVersion(latestVersion);
 
                     // pull changelog
-                    var changelog = await http.GetStringAsync("https://raw.githubusercontent.com/nadeko-bot/nadekobot/refs/heads/v6/CHANGELOG.md");
+                    var changelog = await http.GetStringAsync("https://raw.githubusercontent.com/iSnuggs/SantiBot/refs/heads/main/CHANGELOG.md");
 
                     var thisVersionChangelog = GetVersionChangelog(latestVersion, changelog);
 
@@ -83,7 +83,7 @@ public sealed class CheckForUpdatesService(
                                                    .WithOkColor()
                                                    .WithAuthor($"SantiBot v{latest} Released!")
                                                    .WithTitle("Changelog")
-                                                   .WithUrl("https://github.com/nadeko-bot/nadekobot/blob/refs/heads/v6/CHANGELOG.md")
+                                                   .WithUrl("https://github.com/iSnuggs/SantiBot/blob/main/CHANGELOG.md")
                                                    .WithDescription(thisVersionChangelog.TrimTo(4096))
                                                    .WithFooter(
                                                        "You may disable these messages by typing '.conf bot checkforupdates false'");

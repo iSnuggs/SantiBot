@@ -135,7 +135,7 @@ public sealed class Bot : IBot
             .AddCache(_creds)
             .AddHttpClients();
 
-        if (Environment.GetEnvironmentVariable("NADEKOBOT_IS_COORDINATED") != "1")
+        if (Environment.GetEnvironmentVariable("SANTIBOT_IS_COORDINATED") != "1")
         {
             svcs.AddSingleton<ICoordinator, SingleProcessCoordinator>();
         }
@@ -349,7 +349,7 @@ public sealed class Bot : IBot
 
                       You'll need to apply to use the intents with Discord, but for small selfhosts, all that is required is enabling the intents in the developer portal.
                       Yes, this is a new thing from Discord, as of October 2020. No, there's nothing we can do about it. Yes, we're aware it worked before.
-                      While waiting for your bot to be accepted, you can change the 'usePrivilegedIntents' inside your creds.yml to 'false', although this will break many of the nadeko's features
+                      While waiting for your bot to be accepted, you can change the 'usePrivilegedIntents' inside your creds.yml to 'false', although this will break many of SantiBot's features
                       """);
             return Task.CompletedTask;
         }

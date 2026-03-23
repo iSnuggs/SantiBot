@@ -343,7 +343,7 @@ public sealed class PatronageService
                 .WithTitle("❤️ Thank you for supporting SantiBot! ❤️")
                 .WithDescription(
                     "Your donation has been processed and you will receive the rewards shortly.\n"
-                    + "You can visit <https://www.patreon.com/join/nadekobot> to see rewards for your tier. 🎉")
+                    + "You can visit <https://github.com/iSnuggs/SantiBot> to see rewards for your tier. 🎉")
                 .AddField("Tier", Format.Bold(patron.Tier.ToString()), true)
                 .AddField("Pledge", $"**{patron.Amount / 100.0f:N1}$**", true)
                 .AddField("Expires",
