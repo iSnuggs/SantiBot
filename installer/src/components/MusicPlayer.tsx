@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 const tracks = [
   { name: "Vintage", file: "/music/vintage.mp3", artist: "HoliznaCC0" },
@@ -7,59 +7,74 @@ const tracks = [
 ];
 
 export default function MusicPlayer() {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [audio] = useState(() => new Audio(tracks[0].file));
   const [playing, setPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
   const [volume, setVolume] = useState(0.3);
   const [muted, setMuted] = useState(false);
+  const started = useRef(false);
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
-    }
-  }, [volume]);
+  const tryPlay = useCallback(() => {
+    if (started.current) return;
+    audio.volume = volume;
+    audio.play().then(() => {
+      started.current = true;
+      setPlaying(true);
+    }).catch(() => {});
+  }, [audio, volume]);
 
+  // Try autoplay + fallback to any interaction
   useEffect(() => {
-    if (audioRef.current && playing) {
-      audioRef.current.src = tracks[currentTrack].file;
-      audioRef.current.play().catch(() => {});
-    }
-  }, [currentTrack]);
+    audio.volume = volume;
+    tryPlay();
+
+    const handler = () => tryPlay();
+    document.addEventListener("click", handler);
+    document.addEventListener("keydown", handler);
+    document.addEventListener("pointerdown", handler);
+
+    audio.addEventListener("ended", () => {
+      setCurrentTrack(c => {
+        const next = (c + 1) % tracks.length;
+        audio.src = tracks[next].file;
+        audio.play().catch(() => {});
+        return next;
+      });
+    });
+
+    return () => {
+      document.removeEventListener("click", handler);
+      document.removeEventListener("keydown", handler);
+      document.removeEventListener("pointerdown", handler);
+    };
+  }, []);
+
+  // Volume changes
+  useEffect(() => {
+    audio.volume = muted ? 0 : volume;
+  }, [volume, muted, audio]);
+
+  // Track changes
+  const playTrack = (index: number) => {
+    setCurrentTrack(index);
+    audio.src = tracks[index].file;
+    audio.play().then(() => setPlaying(true)).catch(() => {});
+  };
 
   const toggle = () => {
-    if (!audioRef.current) return;
     if (playing) {
-      audioRef.current.pause();
+      audio.pause();
+      setPlaying(false);
     } else {
-      audioRef.current.src = tracks[currentTrack].file;
-      audioRef.current.play().catch(() => {});
-    }
-    setPlaying(!playing);
-  };
-
-  const next = () => {
-    setCurrentTrack((c) => (c + 1) % tracks.length);
-  };
-
-  const prev = () => {
-    setCurrentTrack((c) => (c - 1 + tracks.length) % tracks.length);
-  };
-
-  const handleEnded = () => {
-    next();
-  };
-
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !muted;
-      setMuted(!muted);
+      audio.play().then(() => setPlaying(true)).catch(() => {});
     }
   };
+
+  const next = () => playTrack((currentTrack + 1) % tracks.length);
+  const prev = () => playTrack((currentTrack - 1 + tracks.length) % tracks.length);
 
   return (
     <div className="flex items-center gap-2 px-3 py-2 bg-[var(--card)] border-t border-[var(--border)]">
-      <audio ref={audioRef} onEnded={handleEnded} />
-
       {/* Controls */}
       <button
         onClick={prev}
@@ -97,7 +112,7 @@ export default function MusicPlayer() {
 
       {/* Volume */}
       <button
-        onClick={toggleMute}
+        onClick={() => setMuted(!muted)}
         className="text-xs text-[var(--muted)] hover:text-[var(--foreground)]"
         title={muted ? "Unmute" : "Mute"}
       >
