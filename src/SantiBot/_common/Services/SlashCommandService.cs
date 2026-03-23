@@ -59,125 +59,69 @@ public sealed class SlashCommandService : INService, IReadyExecutor
 
         foreach (var topModule in topModules)
         {
-            var moduleName = topModule.Name?.ToLowerInvariant()?.Replace(" ", "-") ?? "general";
-
-            // Skip owner-only modules for slash commands
-            if (topModule.Preconditions.Any(p => p is OwnerOnlyAttribute))
-                continue;
-
-            // Get all submodules (groups) and direct commands
-            var subModules = topModule.Submodules.ToList();
-            var directCommands = topModule.Commands.ToList();
-
-            // If module has groups (submodules), create a command with subcommand groups
-            if (subModules.Count > 0)
+            try
             {
+                var moduleName = topModule.Name?.ToLowerInvariant()?.Replace(" ", "-") ?? "general";
+
+                // Skip owner-only modules for slash commands
+                if (topModule.Preconditions.Any(p => p is OwnerOnlyAttribute))
+                    continue;
+
+                var sanitizedModuleName = SanitizeCommandName(moduleName);
+                if (string.IsNullOrEmpty(sanitizedModuleName))
+                    continue;
+
+                // Collect ALL commands from this module tree (submodules + direct)
+                var allSubCommands = new List<SlashCommandOptionBuilder>();
+                var usedNames = new HashSet<string>();
+
+                // Process submodules — each submodule's commands become subcommands
+                foreach (var sub in topModule.Submodules)
+                {
+                    foreach (var cmd in sub.Commands)
+                    {
+                        var subCmd = BuildSubCommand(cmd, sub.Group);
+                        if (subCmd is not null && usedNames.Add(subCmd.Name))
+                            allSubCommands.Add(subCmd);
+                    }
+                }
+
+                // Process direct commands
+                foreach (var cmd in topModule.Commands)
+                {
+                    var subCmd = BuildSubCommand(cmd, null);
+                    if (subCmd is not null && usedNames.Add(subCmd.Name))
+                        allSubCommands.Add(subCmd);
+                }
+
+                if (allSubCommands.Count == 0)
+                    continue;
+
+                // Discord limit: 25 subcommands per command
+                // If we have more, take the first 25
                 var builder = new SlashCommandBuilder()
-                    .WithName(SanitizeCommandName(moduleName))
+                    .WithName(sanitizedModuleName)
                     .WithDescription(TruncateDesc($"{topModule.Name} commands"))
                     .WithDMPermission(false);
 
-                var addedSubCommands = false;
-
-                foreach (var sub in subModules.Take(25)) // Discord limit: 25 subcommands
+                foreach (var subCmd in allSubCommands.Take(25))
                 {
-                    var groupName = sub.Group?.ToLowerInvariant() ?? sub.Name?.ToLowerInvariant()?.Replace(" ", "-");
-                    if (string.IsNullOrEmpty(groupName))
-                        continue;
-
-                    groupName = SanitizeCommandName(groupName);
-
-                    // If the submodule itself has groups, use subcommand groups
-                    if (sub.Submodules.Count > 0)
-                    {
-                        var groupBuilder = new SlashCommandOptionBuilder()
-                            .WithName(groupName)
-                            .WithDescription(TruncateDesc($"{sub.Name ?? groupName} commands"))
-                            .WithType(ApplicationCommandOptionType.SubCommandGroup);
-
-                        foreach (var cmd in sub.Commands.Take(25))
-                        {
-                            var subCmd = BuildSubCommand(cmd, sub.Group);
-                            if (subCmd is not null)
-                            {
-                                groupBuilder.AddOption(subCmd);
-                                addedSubCommands = true;
-                            }
-                        }
-
-                        foreach (var nestedSub in sub.Submodules.Take(10))
-                        {
-                            foreach (var cmd in nestedSub.Commands.Take(25))
-                            {
-                                var subCmd = BuildSubCommand(cmd, nestedSub.Group ?? sub.Group);
-                                if (subCmd is not null)
-                                {
-                                    groupBuilder.AddOption(subCmd);
-                                    addedSubCommands = true;
-                                }
-                            }
-                        }
-
-                        if (groupBuilder.Options?.Count > 0)
-                            builder.AddOption(groupBuilder);
-                    }
-                    else
-                    {
-                        // Submodule commands become subcommands
-                        foreach (var cmd in sub.Commands.Take(25))
-                        {
-                            var subCmd = BuildSubCommand(cmd, sub.Group);
-                            if (subCmd is not null)
-                            {
-                                builder.AddOption(subCmd);
-                                addedSubCommands = true;
-                            }
-                        }
-                    }
-                }
-
-                // Also add direct commands as subcommands
-                foreach (var cmd in directCommands.Take(Math.Max(0, 25 - (builder.Options?.Count ?? 0))))
-                {
-                    var subCmd = BuildSubCommand(cmd, null);
-                    if (subCmd is not null)
+                    try
                     {
                         builder.AddOption(subCmd);
-                        addedSubCommands = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Warning("Failed to add subcommand {Name}: {Error}", subCmd.Name, ex.Message);
                     }
                 }
 
-                if (addedSubCommands && (builder.Options?.Count ?? 0) > 0)
+                if ((builder.Options?.Count ?? 0) > 0)
                     slashCommands.Add(builder);
             }
-            else if (directCommands.Count > 0)
+            catch (Exception ex)
             {
-                // Module with only direct commands — create individual slash commands
-                // or a single command with subcommands if there are many
-                if (directCommands.Count == 1)
-                {
-                    var cmd = directCommands[0];
-                    var cmdBuilder = BuildTopLevelCommand(cmd);
-                    if (cmdBuilder is not null)
-                        slashCommands.Add(cmdBuilder);
-                }
-                else
-                {
-                    var builder = new SlashCommandBuilder()
-                        .WithName(SanitizeCommandName(moduleName))
-                        .WithDescription(TruncateDesc($"{topModule.Name} commands"))
-                        .WithDMPermission(false);
-
-                    foreach (var cmd in directCommands.Take(25))
-                    {
-                        var subCmd = BuildSubCommand(cmd, null);
-                        if (subCmd is not null)
-                            builder.AddOption(subCmd);
-                    }
-
-                    if ((builder.Options?.Count ?? 0) > 0)
-                        slashCommands.Add(builder);
-                }
+                Log.Warning(ex, "Failed to process module {ModuleName} for slash commands", topModule.Name);
             }
         }
 
