@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/image (4).jpg" alt="SantiBot" width="180" />
+  <img src="assets/image(4)TP.png" alt="SantiBot" width="180" />
 </p>
 
 <h1 align="center">SantiBot</h1>
