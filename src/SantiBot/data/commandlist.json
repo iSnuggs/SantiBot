@@ -19,6 +19,54 @@
     },
     {
       "Aliases": [
+        ".autopurge autopurgeset",
+        ".autopurge apset"
+      ],
+      "Description": "Set up automatic message purging for a channel. Messages older than the specified age will be deleted on the given interval. Respects Discord's 14-day bulk delete limit.",
+      "Usage": [
+        ".autopurge autopurgeset #temp-chat 24 48"
+      ],
+      "Submodule": "AutoPurge",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autopurge autopurgeremove",
+        ".autopurge aprm"
+      ],
+      "Description": "Remove auto purge from a channel.",
+      "Usage": [
+        ".autopurge autopurgeremove #temp-chat"
+      ],
+      "Submodule": "AutoPurge",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autopurge autopurgelist",
+        ".autopurge aplist"
+      ],
+      "Description": "List all auto purge configurations on this server.",
+      "Usage": [
+        ".autopurge autopurgelist"
+      ],
+      "Submodule": "AutoPurge",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".imageonlychannel",
         ".imageonly",
         ".imagesonly"
@@ -5994,6 +6042,26 @@
     },
     {
       "Aliases": [
+        ".redditfeed",
+        ".rfeed",
+        ".reddit"
+      ],
+      "Description": "Subscribe to a subreddit's new posts feed.\nYou can provide a subreddit name, r/subreddit, or a full Reddit URL.\nThis is a shortcut for `.feed` with the subreddit's RSS feed URL.\nYou can optionally specify a channel and/or a message.",
+      "Usage": [
+        ".redditfeed gaming",
+        ".redditfeed r/discordapp",
+        ".redditfeed r/gaming #reddit-updates",
+        ".redditfeed r/gaming #reddit-updates New post on r/gaming!"
+      ],
+      "Submodule": "FeedCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".magicthegathering",
         ".mtg"
       ],
@@ -7190,6 +7258,69 @@
     },
     {
       "Aliases": [
+        ".form formcreate",
+        ".form fcreate"
+      ],
+      "Description": "Create a form with questions that users fill out via DM. Questions are separated by `|`. Responses are posted to the specified channel.",
+      "Usage": [
+        ".form formcreate #applications \"Staff Application\" What is your age? | Why do you want to be staff? | What timezone are you in?"
+      ],
+      "Submodule": "Forms",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".form formlist",
+        ".form forms"
+      ],
+      "Description": "List all active forms on this server.",
+      "Usage": [
+        ".form formlist"
+      ],
+      "Submodule": "Forms",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".form formdelete",
+        ".form fdelete",
+        ".form frm"
+      ],
+      "Description": "Delete a form by ID.",
+      "Usage": [
+        ".form formdelete 1"
+      ],
+      "Submodule": "Forms",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".form formfill",
+        ".form ffill"
+      ],
+      "Description": "Fill out a form. The bot will DM you the questions.",
+      "Usage": [
+        ".form formfill 1"
+      ],
+      "Submodule": "Forms",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".ga start"
       ],
       "Description": "Starts a giveaway. Specify the duration (between 1 minute and 30 days) followed by the prize.",
@@ -7663,6 +7794,102 @@
     },
     {
       "Aliases": [
+        ".poll pollcreate",
+        ".poll pcreate"
+      ],
+      "Description": "Create a poll with buttons for voting. Options are separated by `|`. Up to 10 options supported.",
+      "Usage": [
+        ".poll pollcreate \"Best game?\" Minecraft | Fortnite | Valorant"
+      ],
+      "Submodule": "Polls",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".poll pollcreatetimed",
+        ".poll pcreatetimed",
+        ".poll polltimed"
+      ],
+      "Description": "Create a timed poll that auto-ends after the specified duration. Options are separated by `|`.",
+      "Usage": [
+        ".poll pollcreatetimed 1h \"Lunch spot?\" Pizza | Burgers | Sushi"
+      ],
+      "Submodule": "Polls",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".poll pollend",
+        ".poll pend"
+      ],
+      "Description": "End a poll by its ID.",
+      "Usage": [
+        ".poll pollend 1"
+      ],
+      "Submodule": "Polls",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".suggest suggest",
+        ".suggest suggestion"
+      ],
+      "Description": "Submit a suggestion. It will be posted with upvote/downvote reactions.",
+      "Usage": [
+        ".suggest suggest Add a music channel for song requests"
+      ],
+      "Submodule": "Suggestions",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".suggest suggestapprove",
+        ".suggest sapprove"
+      ],
+      "Description": "Approve a suggestion by ID.",
+      "Usage": [
+        ".suggest suggestapprove 1",
+        ".suggest suggestapprove 1 Great idea, we will implement this!"
+      ],
+      "Submodule": "Suggestions",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".suggest suggestdeny",
+        ".suggest sdeny"
+      ],
+      "Description": "Deny a suggestion by ID.",
+      "Usage": [
+        ".suggest suggestdeny 1 Not feasible at this time"
+      ],
+      "Submodule": "Suggestions",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".quotelist",
         ".qli",
         ".quli",
@@ -7857,6 +8084,21 @@
     },
     {
       "Aliases": [
+        ".quotestats",
+        ".qstats",
+        ".qtop"
+      ],
+      "Description": "Show the most used quotes on this server.",
+      "Usage": [
+        ".quotestats"
+      ],
+      "Submodule": "QuoteCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".remind"
       ],
       "Description": "Sets a reminder which will be sent to you or to the targeted channel after certain amount of time (max 1 year).\nFirst parameter is `me` / `here` / 'channelname'\nSecond parameter is time in a descending order (mo>w>d>h>m) example: 1w5d3h10m.\nThird parameter is a (multiword) message.\nRequires ManageMessages server permission if you're targeting a different channel.",
@@ -7904,6 +8146,22 @@
       "Requirements": [
         "Administrator Server Permission"
       ]
+    },
+    {
+      "Aliases": [
+        ".remindrecurring",
+        ".remindrec",
+        ".remindrepeat"
+      ],
+      "Description": "Sets a recurring reminder that repeats at the specified interval. Interval must be between 30 minutes and 30 days. First parameter is `me` or `here`. Second parameter is the interval (e.g. 2h, 1d, 30m). Third parameter is the message.",
+      "Usage": [
+        ".remindrecurring me 2h Take a break!",
+        ".remindrecurring here 1d Daily standup reminder!"
+      ],
+      "Submodule": "RemindCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
     },
     {
       "Aliases": [
@@ -8049,6 +8307,73 @@
         ".scheduleadd 3h .br all"
       ],
       "Submodule": "ScheduledCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".starboard starboardchannel",
+        ".starboard sbchannel",
+        ".starboard sbc"
+      ],
+      "Description": "Set the starboard channel. Messages that receive enough star reactions will be posted here. Leave empty to disable starboard.",
+      "Usage": [
+        ".starboard starboardchannel #starboard",
+        ".starboard starboardchannel"
+      ],
+      "Submodule": "Starboard",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".starboard starboardthreshold",
+        ".starboard sbthreshold",
+        ".starboard sbt"
+      ],
+      "Description": "Set the number of star reactions needed for a message to appear on the starboard.",
+      "Usage": [
+        ".starboard starboardthreshold 3",
+        ".starboard starboardthreshold 5"
+      ],
+      "Submodule": "Starboard",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".starboard starboardselfstar",
+        ".starboard sbselfstar"
+      ],
+      "Description": "Toggle whether users can star their own messages.",
+      "Usage": [
+        ".starboard starboardselfstar true",
+        ".starboard starboardselfstar false"
+      ],
+      "Submodule": "Starboard",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".starboard starboardinfo",
+        ".starboard sbinfo"
+      ],
+      "Description": "Show the current starboard configuration for this server.",
+      "Usage": [
+        ".starboard starboardinfo"
+      ],
+      "Submodule": "Starboard",
       "Module": "Utility",
       "Options": null,
       "Requirements": []
@@ -9121,6 +9446,52 @@
         ".clubrename New cool club name"
       ],
       "Submodule": "Club",
+      "Module": "Xp",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rankcard rankcardbg",
+        ".rankcard rcbg"
+      ],
+      "Description": "Set a custom background image for your rank card. Provide an image URL, or leave empty to reset to default.",
+      "Usage": [
+        ".rankcard rankcardbg https://example.com/my-background.png",
+        ".rankcard rankcardbg"
+      ],
+      "Submodule": "RankCard",
+      "Module": "Xp",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rankcard rankcardcolor",
+        ".rankcard rccolor",
+        ".rankcard rcaccent"
+      ],
+      "Description": "Set a custom accent color for your rank card XP bar. Provide a hex color code, or leave empty to reset.",
+      "Usage": [
+        ".rankcard rankcardcolor FF5500",
+        ".rankcard rankcardcolor #3498db",
+        ".rankcard rankcardcolor"
+      ],
+      "Submodule": "RankCard",
+      "Module": "Xp",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rankcard rankcardreset",
+        ".rankcard rcreset"
+      ],
+      "Description": "Reset all rank card customizations to default.",
+      "Usage": [
+        ".rankcard rankcardreset"
+      ],
+      "Submodule": "RankCard",
       "Module": "Xp",
       "Options": null,
       "Requirements": []
