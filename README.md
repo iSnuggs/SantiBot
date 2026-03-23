@@ -1,6 +1,13 @@
-# SantiBot
+<p align="center">
+  <img src="assets/SantiPixel.png" alt="SantiBot" width="180" />
+</p>
 
-**SantiBot** is an open-source, self-hostable Discord bot that combines the best features of NadekoBot and Dyno into one powerful package. Named after Santi, a beloved companion.
+<h1 align="center">SantiBot</h1>
+
+<p align="center">
+  <strong>An open-source, self-hostable Discord bot combining the best of NadekoBot and Dyno.</strong><br/>
+  Named after Santi, a beloved companion.
+</p>
 
 Built on a fork of [NadekoBot](https://github.com/nadeko-bot/nadekobot) v6, SantiBot extends the foundation with additional features, a modern web dashboard, and a polished installer — all free and open source.
 

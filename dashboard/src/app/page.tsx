@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -6,6 +7,14 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-8">
       <div className="text-center">
+        <Image
+          src="/santi-logo.png"
+          alt="SantiBot"
+          width={128}
+          height={128}
+          className="mx-auto mb-4 rounded-2xl"
+          priority
+        />
         <h1 className="text-5xl font-bold mb-4">
           <span className="text-[var(--accent)]">Santi</span>Bot
         </h1>

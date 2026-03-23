@@ -54,8 +54,11 @@ export default function Sidebar({ guildId }: { guildId: string }) {
       >
         {/* Logo */}
         <div className="p-4 border-b border-[var(--border)]">
-          <Link href="/dashboard" className="text-xl font-bold">
-            <span className="text-[var(--accent)]">Santi</span>Bot
+          <Link href="/dashboard" className="flex items-center gap-3">
+            <img src="/santi-logo.png" alt="Santi" className="w-8 h-8 rounded-lg" />
+            <span className="text-xl font-bold">
+              <span className="text-[var(--accent)]">Santi</span>Bot
+            </span>
           </Link>
         </div>
 
