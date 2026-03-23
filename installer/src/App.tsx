@@ -7,6 +7,7 @@ import Dependencies from "./pages/Dependencies";
 import Installing from "./pages/Installing";
 import Complete from "./pages/Complete";
 import StepIndicator from "./components/StepIndicator";
+import MusicPlayer from "./components/MusicPlayer";
 
 export type DeployMethod = "local" | "docker" | "vps";
 
@@ -72,6 +73,9 @@ export default function App() {
         {step === 5 && <Installing state={state} onNext={next} />}
         {step === 6 && <Complete state={state} />}
       </div>
+
+      {/* Music Player — fixed at bottom */}
+      <MusicPlayer />
     </div>
   );
 }
