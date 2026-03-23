@@ -4,6 +4,9 @@ import "@/styles/globals.css";
 export const metadata: Metadata = {
   title: "SantiBot Dashboard",
   description: "Manage your SantiBot Discord server settings",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

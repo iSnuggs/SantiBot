@@ -1,4 +1,5 @@
 import type { InstallerState } from "../App";
+import santiWave from "../assets/santi-wave.jpg";
 
 interface Props {
   state: InstallerState;
@@ -9,7 +10,11 @@ export default function Complete({ state }: Props) {
 
   return (
     <div className="flex flex-col items-center justify-center h-full text-center">
-      <div className="text-6xl mb-4">🎉</div>
+      <img
+        src={santiWave}
+        alt="Santi waving"
+        className="w-32 h-32 rounded-2xl object-cover mb-4 shadow-lg"
+      />
       <h1 className="text-3xl font-bold mb-2">
         <span className="text-[var(--accent)]">Santi</span>Bot is Ready!
       </h1>

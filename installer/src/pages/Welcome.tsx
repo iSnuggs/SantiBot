@@ -1,3 +1,5 @@
+import santiWelcome from "../assets/santi-welcome.jpg";
+
 interface Props {
   onNext: () => void;
 }
@@ -6,7 +8,11 @@ export default function Welcome({ onNext }: Props) {
   return (
     <div className="flex flex-col items-center justify-center h-full text-center">
       <div className="mb-8">
-        <div className="text-6xl mb-4">🐾</div>
+        <img
+          src={santiWelcome}
+          alt="Santi"
+          className="w-40 h-40 rounded-2xl mx-auto mb-4 object-cover shadow-lg shadow-[var(--accent)]/20"
+        />
         <h1 className="text-4xl font-bold mb-2">
           <span className="text-[var(--accent)]">Santi</span>Bot
         </h1>
