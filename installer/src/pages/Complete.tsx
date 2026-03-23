@@ -72,13 +72,23 @@ export default function Complete({ state }: Props) {
         <a
           href="https://github.com/iSnuggs/SantiBot"
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           className="px-4 py-2 text-sm border border-[var(--border)] rounded-lg hover:bg-[var(--card)] transition-colors"
+          onClick={(e) => {
+            e.preventDefault();
+            window.open("https://github.com/iSnuggs/SantiBot", "_blank");
+          }}
         >
           View on GitHub
         </a>
-        <button className="px-6 py-2 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-sm rounded-lg">
-          Open Dashboard
+        <button
+          onClick={() => {
+            const dashUrl = state.enableDashboard ? "http://localhost:3000" : "https://github.com/iSnuggs/SantiBot/blob/main/docs/dashboard/setup.md";
+            window.open(dashUrl, "_blank");
+          }}
+          className="px-6 py-2 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-sm rounded-lg"
+        >
+          {state.enableDashboard ? "Open Dashboard" : "Dashboard Setup Guide"}
         </button>
       </div>
 
