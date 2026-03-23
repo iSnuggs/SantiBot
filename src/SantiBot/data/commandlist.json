@@ -19,12 +19,12 @@
     },
     {
       "Aliases": [
-        ".autopurge autopurgeset",
-        ".autopurge apset"
+        ".autopurge set",
+        ".autopurge add"
       ],
       "Description": "Set up automatic message purging for a channel. Messages older than the specified age will be deleted on the given interval. Respects Discord's 14-day bulk delete limit.",
       "Usage": [
-        ".autopurge autopurgeset #temp-chat 24 48"
+        ".autopurge set #temp-chat 24 48"
       ],
       "Submodule": "AutoPurge",
       "Module": "Administration",
@@ -35,12 +35,13 @@
     },
     {
       "Aliases": [
-        ".autopurge autopurgeremove",
-        ".autopurge aprm"
+        ".autopurge remove",
+        ".autopurge rm",
+        ".autopurge delete"
       ],
       "Description": "Remove auto purge from a channel.",
       "Usage": [
-        ".autopurge autopurgeremove #temp-chat"
+        ".autopurge remove #temp-chat"
       ],
       "Submodule": "AutoPurge",
       "Module": "Administration",
@@ -51,12 +52,12 @@
     },
     {
       "Aliases": [
-        ".autopurge autopurgelist",
-        ".autopurge aplist"
+        ".autopurge list",
+        ".autopurge ls"
       ],
       "Description": "List all auto purge configurations on this server.",
       "Usage": [
-        ".autopurge autopurgelist"
+        ".autopurge list"
       ],
       "Submodule": "AutoPurge",
       "Module": "Administration",
@@ -7258,12 +7259,12 @@
     },
     {
       "Aliases": [
-        ".form formcreate",
-        ".form fcreate"
+        ".form create",
+        ".form new"
       ],
       "Description": "Create a form with questions that users fill out via DM. Questions are separated by `|`. Responses are posted to the specified channel.",
       "Usage": [
-        ".form formcreate #applications \"Staff Application\" What is your age? | Why do you want to be staff? | What timezone are you in?"
+        ".form create #applications \"Staff Application\" What is your age? | Why do you want to be staff? | What timezone are you in?"
       ],
       "Submodule": "Forms",
       "Module": "Utility",
@@ -7274,12 +7275,12 @@
     },
     {
       "Aliases": [
-        ".form formlist",
-        ".form forms"
+        ".form list",
+        ".form ls"
       ],
       "Description": "List all active forms on this server.",
       "Usage": [
-        ".form formlist"
+        ".form list"
       ],
       "Submodule": "Forms",
       "Module": "Utility",
@@ -7290,13 +7291,13 @@
     },
     {
       "Aliases": [
-        ".form formdelete",
-        ".form fdelete",
-        ".form frm"
+        ".form delete",
+        ".form remove",
+        ".form rm"
       ],
       "Description": "Delete a form by ID.",
       "Usage": [
-        ".form formdelete 1"
+        ".form delete 1"
       ],
       "Submodule": "Forms",
       "Module": "Utility",
@@ -7307,12 +7308,13 @@
     },
     {
       "Aliases": [
-        ".form formfill",
-        ".form ffill"
+        ".form fill",
+        ".form submit",
+        ".form start"
       ],
       "Description": "Fill out a form. The bot will DM you the questions.",
       "Usage": [
-        ".form formfill 1"
+        ".form fill 1"
       ],
       "Submodule": "Forms",
       "Module": "Utility",
@@ -7794,12 +7796,12 @@
     },
     {
       "Aliases": [
-        ".poll pollcreate",
-        ".poll pcreate"
+        ".poll create",
+        ".poll new"
       ],
-      "Description": "Create a poll with buttons for voting. Options are separated by `|`. Up to 10 options supported.",
+      "Description": "Create a poll with buttons for voting. Options are separated by |. Up to 10 options supported.",
       "Usage": [
-        ".poll pollcreate \"Best game?\" Minecraft | Fortnite | Valorant"
+        ".poll create \"Best game?\" Minecraft | Fortnite | Valorant"
       ],
       "Submodule": "Polls",
       "Module": "Utility",
@@ -7810,13 +7812,12 @@
     },
     {
       "Aliases": [
-        ".poll pollcreatetimed",
-        ".poll pcreatetimed",
-        ".poll polltimed"
+        ".poll createtimed",
+        ".poll timed"
       ],
-      "Description": "Create a timed poll that auto-ends after the specified duration. Options are separated by `|`.",
+      "Description": "Create a timed poll that auto-ends after the specified duration. Options are separated by |.",
       "Usage": [
-        ".poll pollcreatetimed 1h \"Lunch spot?\" Pizza | Burgers | Sushi"
+        ".poll createtimed 1h \"Lunch spot?\" Pizza | Burgers | Sushi"
       ],
       "Submodule": "Polls",
       "Module": "Utility",
@@ -7827,12 +7828,13 @@
     },
     {
       "Aliases": [
-        ".poll pollend",
-        ".poll pend"
+        ".poll end",
+        ".poll stop",
+        ".poll close"
       ],
       "Description": "End a poll by its ID.",
       "Usage": [
-        ".poll pollend 1"
+        ".poll end 1"
       ],
       "Submodule": "Polls",
       "Module": "Utility",
@@ -7844,7 +7846,8 @@
     {
       "Aliases": [
         ".suggest suggest",
-        ".suggest suggestion"
+        ".suggest suggestion",
+        ".suggest new"
       ],
       "Description": "Submit a suggestion. It will be posted with upvote/downvote reactions.",
       "Usage": [
@@ -7857,13 +7860,13 @@
     },
     {
       "Aliases": [
-        ".suggest suggestapprove",
-        ".suggest sapprove"
+        ".suggest approve",
+        ".suggest accept"
       ],
       "Description": "Approve a suggestion by ID.",
       "Usage": [
-        ".suggest suggestapprove 1",
-        ".suggest suggestapprove 1 Great idea, we will implement this!"
+        ".suggest approve 1",
+        ".suggest approve 1 Great idea, we will implement this!"
       ],
       "Submodule": "Suggestions",
       "Module": "Utility",
@@ -7874,12 +7877,12 @@
     },
     {
       "Aliases": [
-        ".suggest suggestdeny",
-        ".suggest sdeny"
+        ".suggest deny",
+        ".suggest reject"
       ],
       "Description": "Deny a suggestion by ID.",
       "Usage": [
-        ".suggest suggestdeny 1 Not feasible at this time"
+        ".suggest deny 1 Not feasible at this time"
       ],
       "Submodule": "Suggestions",
       "Module": "Utility",
@@ -8313,14 +8316,13 @@
     },
     {
       "Aliases": [
-        ".starboard starboardchannel",
-        ".starboard sbchannel",
-        ".starboard sbc"
+        ".starboard channel",
+        ".starboard setchannel"
       ],
       "Description": "Set the starboard channel. Messages that receive enough star reactions will be posted here. Leave empty to disable starboard.",
       "Usage": [
-        ".starboard starboardchannel #starboard",
-        ".starboard starboardchannel"
+        ".starboard channel #starboard",
+        ".starboard channel"
       ],
       "Submodule": "Starboard",
       "Module": "Utility",
@@ -8331,14 +8333,14 @@
     },
     {
       "Aliases": [
-        ".starboard starboardthreshold",
-        ".starboard sbthreshold",
-        ".starboard sbt"
+        ".starboard threshold",
+        ".starboard stars",
+        ".starboard min"
       ],
       "Description": "Set the number of star reactions needed for a message to appear on the starboard.",
       "Usage": [
-        ".starboard starboardthreshold 3",
-        ".starboard starboardthreshold 5"
+        ".starboard threshold 3",
+        ".starboard threshold 5"
       ],
       "Submodule": "Starboard",
       "Module": "Utility",
@@ -8349,13 +8351,13 @@
     },
     {
       "Aliases": [
-        ".starboard starboardselfstar",
-        ".starboard sbselfstar"
+        ".starboard selfstar",
+        ".starboard self"
       ],
       "Description": "Toggle whether users can star their own messages.",
       "Usage": [
-        ".starboard starboardselfstar true",
-        ".starboard starboardselfstar false"
+        ".starboard selfstar true",
+        ".starboard selfstar false"
       ],
       "Submodule": "Starboard",
       "Module": "Utility",
@@ -8366,12 +8368,13 @@
     },
     {
       "Aliases": [
-        ".starboard starboardinfo",
-        ".starboard sbinfo"
+        ".starboard info",
+        ".starboard status",
+        ".starboard settings"
       ],
       "Description": "Show the current starboard configuration for this server.",
       "Usage": [
-        ".starboard starboardinfo"
+        ".starboard info"
       ],
       "Submodule": "Starboard",
       "Module": "Utility",
