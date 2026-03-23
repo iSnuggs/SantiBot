@@ -7,8 +7,8 @@ namespace SantiBot.Modules.Help;
 
 public sealed partial class Help : SantiModule<HelpService>
 {
-    public const string PATREON_URL = "https://patreon.com/nadekobot";
-    public const string PAYPAL_URL = "https://paypal.me/Kwoth";
+    public const string PATREON_URL = "https://github.com/iSnuggs/SantiBot";
+    public const string PAYPAL_URL = "https://github.com/iSnuggs/SantiBot";
 
     private readonly ICommandsUtilityService _cus;
     private readonly CommandService _cmds;
@@ -525,8 +525,8 @@ public sealed partial class Help : SantiModule<HelpService>
     [Cmd]
     public async Task Guide()
         => await Response()
-            .Confirm(strs.guide("https://nadeko.bot/commands",
-                "https://docs.nadeko.bot/"))
+            .Confirm(strs.guide("https://github.com/iSnuggs/SantiBot/blob/main/docs/features/overview.md",
+                "https://github.com/iSnuggs/SantiBot/tree/main/docs"))
             .SendAsync();
 
     [Cmd]
@@ -540,7 +540,7 @@ public sealed partial class Help : SantiModule<HelpService>
         eb
             .WithDescription("""
                              SantiBot relies on donations to keep the servers, services and APIs running.
-                             Donating will give you access to some exclusive features. You can read about them on the [patreon page](https://patreon.com/join/nadekobot)
+                             Donating will give you access to some exclusive features. You can read about them on the [patreon page](https://github.com/iSnuggs/SantiBot)
                              """)
             .AddField("Donation Instructions",
                 $"""
@@ -548,7 +548,7 @@ public sealed partial class Help : SantiModule<HelpService>
 
                  **Step 1:** ❤️ Pledge on Patreon ❤️
 
-                 `1.` Go to <https://patreon.com/join/nadekobot> and choose a tier.
+                 `1.` Go to <https://github.com/iSnuggs/SantiBot> and choose a tier.
                  `2.` Make sure your payment is processed and accepted.
 
                  **Step 2** 🤝 Connect your Discord account 🤝

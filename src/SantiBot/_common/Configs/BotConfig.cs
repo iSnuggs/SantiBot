@@ -119,12 +119,12 @@ public sealed partial class BotConfig : ICloneable<BotConfig>
                 },
                 {
                   "name": "List of all Commands",
-                  "value": "https://nadeko.bot/commands",
+                  "value": "https://github.com/iSnuggs/SantiBot/blob/main/docs/features/overview.md",
                   "inline": false
                 },
                 {
                   "name": "SantiBot Support Server",
-                  "value": "https://discord.nadeko.bot/ ",
+                  "value": "https://github.com/iSnuggs/SantiBot ",
                   "inline": true
                 }
               ]
