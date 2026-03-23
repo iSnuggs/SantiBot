@@ -102,7 +102,7 @@ public sealed class SlashCommandService : INService, IReadyExecutor
                 var builder = new SlashCommandBuilder()
                     .WithName(sanitizedModuleName)
                     .WithDescription(TruncateDesc($"{topModule.Name} commands"))
-                    .WithDMPermission(false);
+                    .WithContextTypes(InteractionContextType.Guild);
 
                 foreach (var subCmd in allSubCommands.Take(25))
                 {
@@ -156,7 +156,7 @@ public sealed class SlashCommandService : INService, IReadyExecutor
         var builder = new SlashCommandBuilder()
             .WithName(name)
             .WithDescription(TruncateDesc(cmd.Summary ?? cmd.Remarks ?? $"{name} command"))
-            .WithDMPermission(false);
+            .WithContextTypes(InteractionContextType.Guild);
 
         AddParametersToCommand(builder, cmd);
 
