@@ -1,5 +1,7 @@
 #nullable disable
 using Discord.Rest;
+using System.Globalization;
+using Santi.Common.Medusa;
 using SantiBot.Common.ModuleBehaviors;
 
 namespace SantiBot.Services;
@@ -11,6 +13,8 @@ public sealed class SlashCommandService : INService, IReadyExecutor
     private readonly ICommandHandler _cmdHandler;
     private readonly IServiceProvider _services;
     private readonly IBotCreds _creds;
+    private readonly IBotStrings _strings;
+    private readonly IMedusaLoaderService _medusae;
 
     // Map slash command full names to text command strings
     private readonly ConcurrentDictionary<string, string> _slashToTextMap = new();
@@ -20,13 +24,17 @@ public sealed class SlashCommandService : INService, IReadyExecutor
         CommandService commandService,
         ICommandHandler cmdHandler,
         IServiceProvider services,
-        IBotCreds creds)
+        IBotCreds creds,
+        IBotStrings strings,
+        IMedusaLoaderService medusae)
     {
         _client = client;
         _commandService = commandService;
         _cmdHandler = cmdHandler;
         _services = services;
         _creds = creds;
+        _strings = strings;
+        _medusae = medusae;
 
         _client.SlashCommandExecuted += OnSlashCommandExecuted;
     }
@@ -46,215 +54,171 @@ public sealed class SlashCommandService : INService, IReadyExecutor
         }
     }
 
+    // ═══════════════════════════════════════════════════════════════
+    // CURATED SLASH COMMANDS — Clean, top-level commands only
+    // Add new entries here to register more slash commands.
+    // Format: ("slash-name", "text-command", "Description")
+    // ═══════════════════════════════════════════════════════════════
+    private static readonly (string SlashName, string TextCommand, string Description)[] CuratedCommands =
+    {
+        // ── Moderation ──
+        ("ban",          "ban",          "Ban a user from the server"),
+        ("unban",        "unban",        "Unban a user from the server"),
+        ("kick",         "kick",         "Kick a user from the server"),
+        ("mute",         "mute",         "Mute a user (text + voice)"),
+        ("unmute",       "unmute",       "Unmute a previously muted user"),
+        ("timeout",      "timeout",      "Timeout a user for a duration"),
+        ("warn",         "warn",         "Warn a user with optional reason"),
+        ("warnlog",      "warnlog",      "View warnings for a user"),
+        ("prune",        "prune",        "Delete messages in a channel"),
+        ("softban",      "softban",      "Ban then unban to delete messages"),
+
+        // ── Music ──
+        ("play",         "play",         "Play a song by name, URL, or search"),
+        ("queue",        "queue",        "Queue a song to play next"),
+        ("skip",         "next",         "Skip to the next song"),
+        ("pause",        "pause",        "Pause or resume playback"),
+        ("stop",         "stop",         "Stop music and preserve queue"),
+        ("join",         "join",         "Join your voice channel"),
+        ("volume",       "volume",       "Set music volume (0-100%)"),
+        ("nowplaying",   "nowplaying",   "Show the currently playing song"),
+        ("listqueue",    "listqueue",    "Show the current song queue"),
+        ("shuffle",      "queueshuffle", "Shuffle the song queue"),
+        ("repeat",       "queuerepeat",  "Set repeat mode (none/song/queue)"),
+        ("lyrics",       "lyrics",       "Look up lyrics for a song"),
+
+        // ── Economy ──
+        ("cash",         "cash",         "Check your currency balance"),
+        ("give",         "give",         "Give currency to another user"),
+        ("timely",       "timely",       "Claim your periodic currency reward"),
+        ("leaderboard",  "leaderboard",  "Show the richest users"),
+        ("betroll",      "betroll",      "Bet currency on a dice roll"),
+        ("betflip",      "betflip",      "Bet on a coin flip"),
+        ("slot",         "slot",         "Play the slot machine"),
+
+        // ── XP & Leveling ──
+        ("xp",           "experience",   "Check your XP and level"),
+        ("xplb",         "xpleaderboard","Show the server XP leaderboard"),
+        ("rank",         "experience",   "Check your rank and level"),
+
+        // ── Utility ──
+        ("help",         "commands",     "Show bot commands and modules"),
+        ("remind",       "remind",       "Set a reminder for yourself"),
+        ("poll",         "pollcreate",   "Create a poll with button voting"),
+        ("giveaway",     "giveawaystart","Start a giveaway"),
+        ("suggest",      "suggest",      "Submit a suggestion"),
+        ("starboard",    "starboardinfo","Show starboard configuration"),
+        ("afk",          "afk",          "Set your AFK status"),
+        ("ping",         "ping",         "Check bot latency"),
+        ("userinfo",     "userinfo",     "Show info about a user"),
+        ("serverinfo",   "serverinfo",   "Show server information"),
+
+        // ── Games ──
+        ("trivia",       "trivia",       "Start a trivia game"),
+        ("fish",         "fish",         "Go fishing!"),
+        ("hangman",      "hangman",      "Start a hangman game"),
+        ("tictactoe",    "tictactoe",    "Start a tic-tac-toe game"),
+        ("rps",          "rps",          "Play rock-paper-scissors"),
+
+        // ── Admin/Config ──
+        ("prefix",       "prefix",       "View or change the command prefix"),
+        ("greet",        "greet",        "Toggle join announcements"),
+        ("bye",          "bye",          "Toggle leave announcements"),
+        ("setrole",      "setrole",      "Assign a role to a user"),
+        ("removerole",   "removerole",   "Remove a role from a user"),
+
+        // ── Searches ──
+        ("anime",        "anime",        "Search for an anime on AniList"),
+        ("manga",        "manga",        "Search for a manga on AniList"),
+        ("weather",      "weather",      "Check the weather for a location"),
+        ("translate",    "translate",     "Translate text between languages"),
+
+        // ── Expressions ──
+        ("say",          "say",          "Make the bot send a message"),
+    };
+
     private async Task RegisterSlashCommandsAsync()
     {
-        var modules = _commandService.Modules.ToList();
-
-        // Group commands by their top-level module
-        var topModules = modules
-            .Where(m => m.Parent is null)
-            .ToList();
-
+        var allCommands = _commandService.Commands.ToList();
         var slashCommands = new List<SlashCommandBuilder>();
+        var culture = CultureInfo.GetCultureInfo("en-US");
 
-        foreach (var topModule in topModules)
+        foreach (var (slashName, textCommand, description) in CuratedCommands)
         {
             try
             {
-                var moduleName = topModule.Name?.ToLowerInvariant()?.Replace(" ", "-") ?? "general";
+                // Find the matching text command in the command service
+                var cmdInfo = allCommands.FirstOrDefault(c =>
+                    c.Aliases.Any(a => a.Equals(textCommand, StringComparison.OrdinalIgnoreCase)));
 
-                // Skip owner-only modules for slash commands
-                if (topModule.Preconditions.Any(p => p is OwnerOnlyAttribute))
-                    continue;
-
-                var sanitizedModuleName = SanitizeCommandName(moduleName);
-                if (string.IsNullOrEmpty(sanitizedModuleName))
-                    continue;
-
-                // Collect ALL commands from this module tree (submodules + direct)
-                var allSubCommands = new List<SlashCommandOptionBuilder>();
-                var usedNames = new HashSet<string>();
-
-                // Process submodules — each submodule's commands become subcommands
-                foreach (var sub in topModule.Submodules)
-                {
-                    foreach (var cmd in sub.Commands)
-                    {
-                        var subCmd = BuildSubCommand(cmd, sub.Group);
-                        if (subCmd is not null && usedNames.Add(subCmd.Name))
-                            allSubCommands.Add(subCmd);
-                    }
-                }
-
-                // Process direct commands
-                foreach (var cmd in topModule.Commands)
-                {
-                    var subCmd = BuildSubCommand(cmd, null);
-                    if (subCmd is not null && usedNames.Add(subCmd.Name))
-                        allSubCommands.Add(subCmd);
-                }
-
-                if (allSubCommands.Count == 0)
-                    continue;
-
-                // Discord limit: 25 subcommands per command
-                // If we have more, take the first 25
                 var builder = new SlashCommandBuilder()
-                    .WithName(sanitizedModuleName)
-                    .WithDescription(TruncateDesc($"{topModule.Name} commands"))
+                    .WithName(slashName)
+                    .WithDescription(description)
                     .WithContextTypes(InteractionContextType.Guild);
 
-                foreach (var subCmd in allSubCommands.Take(25))
+                // Add parameters from the command if found
+                if (cmdInfo is not null)
                 {
-                    try
+                    var cmdStrings = _strings.GetCommandStrings(cmdInfo.Summary, culture);
+                    var yamlParams = cmdStrings?.Params;
+
+                    foreach (var param in cmdInfo.Parameters.Take(25))
                     {
-                        builder.AddOption(subCmd);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Warning("Failed to add subcommand {Name}: {Error}", subCmd.Name, ex.Message);
+                        if (param.Name is "args" or "_")
+                            continue;
+
+                        var paramName = SanitizeCommandName(param.Name);
+                        if (string.IsNullOrEmpty(paramName))
+                            continue;
+
+                        var optionType = GetOptionType(param.Type);
+
+                        // Look up YAML description
+                        var paramDesc = param.Name;
+                        if (yamlParams is not null)
+                        {
+                            foreach (var overload in yamlParams)
+                            {
+                                if (overload.TryGetValue(param.Name, out var paramInfo) && !string.IsNullOrEmpty(paramInfo.Desc))
+                                {
+                                    paramDesc = paramInfo.Desc;
+                                    break;
+                                }
+                            }
+                        }
+
+                        try
+                        {
+                            builder.AddOption(
+                                paramName,
+                                optionType,
+                                TruncateDesc(paramDesc),
+                                isRequired: !param.IsOptional && param.DefaultValue is null);
+                        }
+                        catch { }
                     }
                 }
 
-                if ((builder.Options?.Count ?? 0) > 0)
-                    slashCommands.Add(builder);
+                slashCommands.Add(builder);
+                _slashToTextMap[$"/{slashName}"] = textCommand;
             }
             catch (Exception ex)
             {
-                Log.Warning(ex, "Failed to process module {ModuleName} for slash commands", topModule.Name);
+                Log.Warning("Failed to build slash command /{SlashName}: {Error}", slashName, ex.Message);
             }
         }
 
-        // Discord limit: 100 global commands
-        slashCommands = slashCommands.Take(100).ToList();
-
-        Log.Information("Registering {Count} slash commands...", slashCommands.Count);
+        Log.Information("Registering {Count} curated slash commands...", slashCommands.Count);
 
         try
         {
             var props = slashCommands.Select(x => x.Build()).ToArray();
             await _client.BulkOverwriteGlobalApplicationCommandsAsync(props);
-            Log.Information("Successfully registered {Count} slash commands with {SubCount} total subcommands",
-                slashCommands.Count,
-                _slashToTextMap.Count);
+            Log.Information("Successfully registered {Count} slash commands", slashCommands.Count);
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Failed to bulk register slash commands");
-        }
-    }
-
-    private SlashCommandBuilder BuildTopLevelCommand(CommandInfo cmd)
-    {
-        if (cmd.Preconditions.Any(p => p is OwnerOnlyAttribute))
-            return null;
-
-        var name = SanitizeCommandName(cmd.Aliases.FirstOrDefault() ?? cmd.Name);
-        if (string.IsNullOrEmpty(name))
-            return null;
-
-        var builder = new SlashCommandBuilder()
-            .WithName(name)
-            .WithDescription(TruncateDesc(cmd.Summary ?? cmd.Remarks ?? $"{name} command"))
-            .WithContextTypes(InteractionContextType.Guild);
-
-        AddParametersToCommand(builder, cmd);
-
-        var textCmd = cmd.Aliases.FirstOrDefault() ?? cmd.Name;
-        _slashToTextMap[$"/{name}"] = textCmd;
-
-        return builder;
-    }
-
-    private SlashCommandOptionBuilder BuildSubCommand(CommandInfo cmd, string groupPrefix)
-    {
-        if (cmd.Preconditions.Any(p => p is OwnerOnlyAttribute))
-            return null;
-
-        var cmdName = cmd.Aliases.FirstOrDefault() ?? cmd.Name;
-
-        // Strip the group prefix from the command name if present
-        if (!string.IsNullOrEmpty(groupPrefix) && cmdName.StartsWith(groupPrefix, StringComparison.OrdinalIgnoreCase))
-            cmdName = cmdName[groupPrefix.Length..].TrimStart();
-
-        if (string.IsNullOrEmpty(cmdName))
-            cmdName = cmd.Name?.ToLowerInvariant() ?? "run";
-
-        cmdName = SanitizeCommandName(cmdName);
-        if (string.IsNullOrEmpty(cmdName))
-            return null;
-
-        var subCmd = new SlashCommandOptionBuilder()
-            .WithName(cmdName)
-            .WithDescription(TruncateDesc(cmd.Summary ?? cmd.Remarks ?? $"{cmdName} command"))
-            .WithType(ApplicationCommandOptionType.SubCommand);
-
-        // Add parameters
-        foreach (var param in cmd.Parameters.Take(25))
-        {
-            if (param.Name is "args" or "_")
-                continue;
-
-            var paramName = SanitizeCommandName(param.Name);
-            if (string.IsNullOrEmpty(paramName))
-                continue;
-
-            var optionType = GetOptionType(param.Type);
-
-            try
-            {
-                subCmd.AddOption(
-                    paramName,
-                    optionType,
-                    TruncateDesc(param.Summary ?? param.Name),
-                    isRequired: !param.IsOptional && param.DefaultValue is null);
-            }
-            catch
-            {
-                // Skip parameters that can't be added
-            }
-        }
-
-        // Build the text command mapping
-        var fullTextCmd = string.IsNullOrEmpty(groupPrefix)
-            ? (cmd.Aliases.FirstOrDefault() ?? cmd.Name)
-            : $"{groupPrefix} {cmdName}";
-
-        var moduleName = cmd.Module.GetTopLevelModule().Name?.ToLowerInvariant()?.Replace(" ", "-") ?? "general";
-        var slashPath = string.IsNullOrEmpty(groupPrefix)
-            ? $"/{SanitizeCommandName(moduleName)} {cmdName}"
-            : $"/{SanitizeCommandName(moduleName)} {cmdName}";
-
-        _slashToTextMap[slashPath] = fullTextCmd;
-
-        return subCmd;
-    }
-
-    private void AddParametersToCommand(SlashCommandBuilder builder, CommandInfo cmd)
-    {
-        foreach (var param in cmd.Parameters.Take(25))
-        {
-            if (param.Name is "args" or "_")
-                continue;
-
-            var paramName = SanitizeCommandName(param.Name);
-            if (string.IsNullOrEmpty(paramName))
-                continue;
-
-            var optionType = GetOptionType(param.Type);
-
-            try
-            {
-                builder.AddOption(
-                    paramName,
-                    optionType,
-                    TruncateDesc(param.Summary ?? param.Name),
-                    isRequired: !param.IsOptional && param.DefaultValue is null);
-            }
-            catch
-            {
-                // Skip parameters that can't be added
-            }
+            Log.Error(ex, "Failed to register slash commands");
         }
     }
 
@@ -281,85 +245,93 @@ public sealed class SlashCommandService : INService, IReadyExecutor
         return ApplicationCommandOptionType.String;
     }
 
-    private async Task OnSlashCommandExecuted(SocketSlashCommand cmd)
+    private Task OnSlashCommandExecuted(SocketSlashCommand cmd)
     {
-        try
+        // Fire-and-forget on a background thread to avoid blocking the gateway
+        _ = Task.Run(async () =>
         {
-            // Acknowledge immediately
-            await cmd.DeferAsync();
-
-            // Build the text command equivalent
-            var textCommand = BuildTextCommandFromSlash(cmd);
-            if (string.IsNullOrEmpty(textCommand))
-            {
-                await cmd.FollowupAsync("Command not recognized.", ephemeral: true);
-                return;
-            }
-
-            var prefix = _cmdHandler.GetPrefix(cmd.GuildId is not null ? _client.GetGuild(cmd.GuildId.Value) : null);
-            var fullCommand = prefix + textCommand;
-
-            var channel = cmd.Channel as SocketTextChannel;
-            var guild = channel?.Guild;
-
-            // Send the command as a message for the pipeline to process
-            // First, send a followup indicating the command is being processed
-            var msg = await cmd.FollowupAsync($"Running `{prefix}{textCommand}`...");
-
-            // Execute through the text command pipeline
-            var context = new CommandContext(_client, new SlashCommandMessage(cmd, _client, fullCommand));
-            var (success, error, info) = await (_cmdHandler as CommandHandler)!.ExecuteCommand(
-                context,
-                textCommand,
-                _services,
-                MultiMatchHandling.Best);
-
-            if (!success && error is not null)
-            {
-                await cmd.FollowupAsync($"Error: {error}", ephemeral: true);
-            }
-
-            // Try to delete the "Running..." message
-            try { await msg.DeleteAsync(); } catch { }
-        }
-        catch (Exception ex)
-        {
-            Log.Warning(ex, "Error handling slash command {CommandName}", cmd.Data.Name);
             try
             {
-                await cmd.FollowupAsync("An error occurred while executing the command.", ephemeral: true);
+                // Build the slash path and extract parameters
+                var (slashPath, paramValues) = ParseSlashCommand(cmd);
+
+                // Look up the text command in our map
+                string textCommand = null;
+                if (_slashToTextMap.TryGetValue(slashPath, out var mapped))
+                {
+                    textCommand = mapped;
+                }
+                else
+                {
+                    // Fallback: try without the leading /
+                    var pathWithoutSlash = slashPath.TrimStart('/');
+                    foreach (var kvp in _slashToTextMap)
+                    {
+                        if (kvp.Key.TrimStart('/') == pathWithoutSlash)
+                        {
+                            textCommand = kvp.Value;
+                            break;
+                        }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(textCommand))
+                {
+                    Log.Warning("Slash command not found in map: {SlashPath}. Available mappings: {Mappings}",
+                        slashPath,
+                        string.Join(", ", _slashToTextMap.Keys.Take(20)));
+                    await cmd.RespondAsync("Command not recognized.", ephemeral: true);
+                    return;
+                }
+
+                // Append parameter values to the text command
+                if (paramValues.Count > 0)
+                    textCommand += " " + string.Join(" ", paramValues);
+
+                var prefix = _cmdHandler.GetPrefix(cmd.GuildId is not null ? _client.GetGuild(cmd.GuildId.Value) : null);
+                var fullCommand = prefix + textCommand;
+
+                Log.Information("Slash command {SlashPath} → text command: {TextCommand}", slashPath, textCommand);
+
+                // Acknowledge the interaction with a brief message, then let the command pipeline
+                // send its real response directly to the channel
+                await cmd.RespondAsync($"⚡ `{prefix}{textCommand}`", ephemeral: true);
+
+                // Execute through the text command pipeline — output goes to the channel normally
+                var context = new CommandContext(_client, new SlashCommandMessage(cmd, _client, fullCommand));
+                var (success, error, info) = await (_cmdHandler as CommandHandler)!.ExecuteCommand(
+                    context,
+                    textCommand,
+                    _services,
+                    MultiMatchHandling.Best);
+
+                if (!success && error is not null)
+                {
+                    await cmd.FollowupAsync($"Error: {error}", ephemeral: true);
+                }
             }
-            catch { }
-        }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "Error handling slash command {CommandName}", cmd.Data.Name);
+                try
+                {
+                    if (!cmd.HasResponded)
+                        await cmd.RespondAsync("An error occurred while executing the command.", ephemeral: true);
+                    else
+                        await cmd.FollowupAsync("An error occurred while executing the command.", ephemeral: true);
+                }
+                catch { }
+            }
+        });
+
+        return Task.CompletedTask;
     }
 
-    private string BuildTextCommandFromSlash(SocketSlashCommand cmd)
+    private (string slashPath, List<string> paramValues) ParseSlashCommand(SocketSlashCommand cmd)
     {
-        var parts = new List<string>();
-
-        // Start with the command name
-        var commandName = cmd.Data.Name;
-        parts.Add(commandName);
-
-        // Walk through options to find subcommands
         var options = cmd.Data.Options?.ToList() ?? new();
 
-        while (options.Count > 0)
-        {
-            var firstOpt = options[0];
-            if (firstOpt.Type == ApplicationCommandOptionType.SubCommandGroup
-                || firstOpt.Type == ApplicationCommandOptionType.SubCommand)
-            {
-                parts.Add(firstOpt.Name);
-                options = firstOpt.Options?.ToList() ?? new();
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        // Now options contains the actual parameter values
+        // Extract parameter values directly (no subcommand nesting for curated commands)
         var paramValues = new List<string>();
         foreach (var opt in options)
         {
@@ -375,14 +347,7 @@ public sealed class SlashCommandService : INService, IReadyExecutor
                 paramValues.Add(val);
         }
 
-        // Build the full text command path
-        var textPath = string.Join(" ", parts);
-
-        // Append parameters
-        if (paramValues.Count > 0)
-            textPath += " " + string.Join(" ", paramValues);
-
-        return textPath;
+        return ($"/{cmd.Data.Name}", paramValues);
     }
 
     private static string SanitizeCommandName(string name)
@@ -409,10 +374,26 @@ public sealed class SlashCommandService : INService, IReadyExecutor
         return string.IsNullOrEmpty(name) ? null : name;
     }
 
+    private string GetRealDescription(CommandInfo cmd)
+    {
+        try
+        {
+            var culture = CultureInfo.GetCultureInfo("en-US");
+            return cmd.RealSummary(_strings, _medusae, culture, "/");
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
     private static string TruncateDesc(string desc)
     {
         if (string.IsNullOrEmpty(desc))
             return "No description";
+
+        // Strip markdown formatting for cleaner slash command descriptions
+        desc = desc.Replace("**", "").Replace("`", "").Replace("\n", " ").Trim();
 
         return desc.Length > 100 ? desc[..97] + "..." : desc;
     }
