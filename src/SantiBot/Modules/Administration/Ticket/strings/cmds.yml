@@ -1,0 +1,78 @@
+ticketenable:
+  desc: Toggles the ticket system on or off for this server.
+  ex:
+    - ''
+  params:
+    - {}
+ticketcreate:
+  desc: Creates a new support ticket. A private channel will be created for you and the support team. Optionally include a topic.
+  ex:
+    - ''
+    - 'I need help with my roles'
+  params:
+    - topic:
+        desc: "Optional topic or description for the ticket"
+ticketclose:
+  desc: Closes the current ticket. Must be used inside a ticket channel. The channel will be deleted after a short delay.
+  ex:
+    - ''
+  params:
+    - {}
+ticketclaim:
+  desc: Claims a ticket as a moderator, letting the user know you're handling it.
+  ex:
+    - ''
+  params:
+    - {}
+ticketlist:
+  desc: Shows all currently open tickets on the server.
+  ex:
+    - ''
+  params:
+    - {}
+ticketcategory:
+  desc: Sets the category where new ticket channels are created. Leave empty to clear.
+  ex:
+    - 'Support Tickets'
+    - ''
+  params:
+    - category:
+        desc: "The category channel for tickets"
+ticketlog:
+  desc: Sets the channel where ticket transcripts/logs are posted when tickets are closed.
+  ex:
+    - '#ticket-logs'
+    - ''
+  params:
+    - channel:
+        desc: "The log channel (leave empty to disable)"
+ticketrole:
+  desc: Sets the support team role that can see and manage all tickets.
+  ex:
+    - '@Support Team'
+    - ''
+  params:
+    - role:
+        desc: "The support role (leave empty to clear)"
+ticketwelcome:
+  desc: Sets the welcome message shown when a ticket is created. Use {user} for the user mention, {server} for server name, {ticket} for ticket number.
+  ex:
+    - 'Welcome {user}! A mod will help you shortly.'
+  params:
+    - message:
+        desc: "The welcome message template"
+ticketmax:
+  desc: Sets the maximum number of open tickets a user can have at once. Use 0 for unlimited.
+  ex:
+    - '1'
+    - '3'
+    - '0'
+  params:
+    - maxPerUser:
+        desc: "Maximum open tickets per user (0 = unlimited)"
+ticketpanel:
+  desc: Sends a "Create Ticket" button panel in the current channel. Users click the button to open a ticket.
+  ex:
+    - ''
+  params:
+    - {}
