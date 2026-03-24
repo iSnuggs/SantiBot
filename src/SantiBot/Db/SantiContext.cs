@@ -84,6 +84,8 @@ public abstract class SantiContext : DbContext
     public DbSet<ModNote> ModNotes { get; set; }
     public DbSet<AutoPunishConfig> AutoPunishConfigs { get; set; }
     public DbSet<ModSettings> ModSettings { get; set; }
+    public DbSet<TicketConfig> TicketConfigs { get; set; }
+    public DbSet<Ticket> Tickets { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 
