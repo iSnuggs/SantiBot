@@ -1,0 +1,41 @@
+schedulemessage:
+  desc: >-
+    Schedules a one-time message to be sent in a channel after a delay.
+    Use time formats like 1h, 30m, 2d, 1h30m.
+  ex:
+    - '#announcements 2h Server maintenance starting soon!'
+    - '#general 1d Happy Monday everyone!'
+  params:
+    - channel:
+        desc: "The channel to send the message in"
+      timeStr:
+        desc: "When to send (e.g., 1h, 30m, 2d, 1h30m)"
+      content:
+        desc: "The message to send"
+schedulerecurring:
+  desc: >-
+    Schedules a recurring message. The message will be sent every interval.
+    Minimum interval is 5 minutes. Use time formats like 1h, 30m, 2d.
+  ex:
+    - '#rules 24h Remember to read the rules!'
+    - '#general 1h Check out our latest stream!'
+  params:
+    - channel:
+        desc: "The channel to send messages in"
+      intervalStr:
+        desc: "How often to send (e.g., 1h, 6h, 24h, 7d)"
+      content:
+        desc: "The message to send each time"
+schedulecancel:
+  desc: Cancels a scheduled message by its ID.
+  ex:
+    - '1'
+  params:
+    - messageId:
+        desc: "The ID of the scheduled message to cancel"
+schedulelist:
+  desc: Shows all active scheduled messages for this server.
+  ex:
+    - ''
+  params:
+    - {}
