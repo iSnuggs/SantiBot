@@ -1,6 +1,7 @@
 #nullable disable
+using System.Diagnostics;
+using System.Text;
 using System.Text.RegularExpressions;
-using CodeHollow.FeedReader;
 using Microsoft.EntityFrameworkCore;
 using LinqToDB.EntityFrameworkCore;
 using SantiBot.Common.ModuleBehaviors;
@@ -10,136 +11,220 @@ using SantiBot.Db.Models;
 namespace SantiBot.Modules.Searches;
 
 /// <summary>
-/// TikTok feed notifications via RSS bridge services.
-/// Uses RSSHub (rsshub.app) or ProxiTok to convert TikTok profiles to RSS.
-/// Falls back to the existing Feed system for actual polling.
+/// TikTok feed notifications using yt-dlp to poll TikTok profiles for new videos.
+/// No external RSS service needed — just yt-dlp (already required for music).
 /// </summary>
-public sealed class TikTokFeedService : INService
+public sealed class TikTokFeedService : IReadyExecutor, INService
 {
     private readonly DbService _db;
     private readonly DiscordSocketClient _client;
     private readonly IMessageSenderService _sender;
-    private readonly IHttpClientFactory _httpFactory;
-
-    // RSSHub instance for TikTok RSS conversion
-    // Users can self-host RSSHub for reliability
-    private const string RSSHUB_BASE = "https://rsshub.app";
+    private Timer _timer;
 
     private static readonly Regex _tiktokUserRegex = new(
         @"(?:tiktok\.com/@|^@?)([a-zA-Z0-9_.]+)",
         RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    public TikTokFeedService(DbService db, DiscordSocketClient client,
-        IMessageSenderService sender, IHttpClientFactory httpFactory)
+    public TikTokFeedService(DbService db, DiscordSocketClient client, IMessageSenderService sender)
     {
         _db = db;
         _client = client;
         _sender = sender;
-        _httpFactory = httpFactory;
     }
 
-    /// <summary>
-    /// Resolves a TikTok username or URL to an RSS feed URL.
-    /// </summary>
-    public string GetRssFeedUrl(string input)
+    public Task OnReadyAsync()
     {
-        var match = _tiktokUserRegex.Match(input);
-        if (!match.Success)
-            return null;
+        // Check for new TikTok videos every 10 minutes
+        _timer = new Timer(async _ => await CheckAllFeedsAsync(), null,
+            TimeSpan.FromMinutes(2), TimeSpan.FromMinutes(10));
 
-        var username = match.Groups[1].Value;
-        // RSSHub route for TikTok user posts
-        return $"{RSSHUB_BASE}/tiktok/user/@{username}";
+        Log.Information("TikTok feed checker started (10 minute interval)");
+        return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// Subscribes a channel to a TikTok user's posts via RSS.
-    /// Leverages the existing FeedSub system.
-    /// </summary>
-    public async Task<(bool success, string error, string feedUrl)> SubscribeAsync(
-        ulong guildId, ulong channelId, string tiktokUser)
+    private async Task CheckAllFeedsAsync()
     {
-        var feedUrl = GetRssFeedUrl(tiktokUser);
-        if (feedUrl is null)
-            return (false, "Invalid TikTok username. Use @username or a TikTok profile URL.", null);
-
-        // Test if the feed is reachable
         try
         {
-            var client = _httpFactory.CreateClient();
-            client.DefaultRequestHeaders.UserAgent.ParseAdd(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
-            var response = await client.GetAsync(feedUrl);
+            await using var uow = _db.GetDbContext();
+            var follows = await uow.Set<TikTokFollow>()
+                .ToListAsyncEF();
 
-            if (!response.IsSuccessStatusCode)
-                return (false, $"Could not reach TikTok RSS feed. The RSSHub service may be down or rate-limited. (HTTP {(int)response.StatusCode})", null);
+            if (follows.Count == 0)
+                return;
+
+            // Group by username to avoid duplicate API calls
+            var byUser = follows.GroupBy(f => f.Username.ToLowerInvariant());
+
+            foreach (var group in byUser)
+            {
+                try
+                {
+                    var username = group.Key;
+                    var latestVideoId = await GetLatestVideoIdAsync(username);
+
+                    if (string.IsNullOrEmpty(latestVideoId))
+                        continue;
+
+                    foreach (var follow in group)
+                    {
+                        // Skip if we already notified about this video
+                        if (follow.LastVideoId == latestVideoId)
+                            continue;
+
+                        // First time following — just save the ID, don't notify
+                        if (string.IsNullOrEmpty(follow.LastVideoId))
+                        {
+                            follow.LastVideoId = latestVideoId;
+                            continue;
+                        }
+
+                        // New video — send notification!
+                        var guild = _client.GetGuild(follow.GuildId);
+                        var channel = guild?.GetTextChannel(follow.ChannelId);
+
+                        if (channel is not null)
+                        {
+                            var videoUrl = $"https://www.tiktok.com/@{username}/video/{latestVideoId}";
+
+                            var embed = _sender.CreateEmbed(follow.GuildId)
+                                .WithTitle($"🎵 New TikTok from @{username}")
+                                .WithUrl(videoUrl)
+                                .WithDescription($"**@{username}** just posted a new TikTok!")
+                                .WithColor(new Discord.Color(0xFF0050)) // TikTok pink
+                                .WithTimestamp(DateTime.UtcNow);
+
+                            await channel.SendMessageAsync(videoUrl, embed: embed.Build());
+                        }
+
+                        follow.LastVideoId = latestVideoId;
+                    }
+
+                    await uow.SaveChangesAsync();
+
+                    // Rate limit friendly — wait between users
+                    await Task.Delay(3000);
+                }
+                catch (Exception ex)
+                {
+                    Log.Warning(ex, "TikTok feed check failed for @{Username}", group.Key);
+                }
+            }
         }
         catch (Exception ex)
         {
-            return (false, $"Could not reach RSS feed: {ex.Message}", null);
+            Log.Warning(ex, "TikTok feed checker error");
         }
-
-        // Add as a regular feed subscription
-        await using var uow = _db.GetDbContext();
-
-        // Check if already subscribed
-        var existing = await uow.Set<FeedSub>()
-            .FirstOrDefaultAsyncEF(f => f.GuildId == guildId && f.ChannelId == channelId && f.Url == feedUrl);
-
-        if (existing is not null)
-            return (false, "This channel is already subscribed to that TikTok user.", null);
-
-        // Check guild feed limit
-        var guildCount = await uow.Set<FeedSub>()
-            .CountAsyncEF(f => f.GuildId == guildId);
-
-        if (guildCount >= 10) // Max feeds from searches config
-            return (false, "Maximum number of feed subscriptions reached.", null);
-
-        var sub = new FeedSub
-        {
-            GuildId = guildId,
-            ChannelId = channelId,
-            Url = feedUrl,
-            Message = null,
-        };
-
-        uow.Set<FeedSub>().Add(sub);
-        await uow.SaveChangesAsync();
-
-        return (true, null, feedUrl);
     }
 
     /// <summary>
-    /// Unsubscribes a channel from a TikTok user's posts.
+    /// Gets the latest video ID from a TikTok user using yt-dlp.
     /// </summary>
-    public async Task<bool> UnsubscribeAsync(ulong guildId, ulong channelId, string tiktokUser)
+    private async Task<string> GetLatestVideoIdAsync(string username)
     {
-        var feedUrl = GetRssFeedUrl(tiktokUser);
-        if (feedUrl is null)
+        try
+        {
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "yt-dlp",
+                    Arguments = $"--js-runtimes node --flat-playlist --playlist-items 1 --print id \"https://www.tiktok.com/@{username}\"",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    StandardOutputEncoding = Encoding.UTF8,
+                    CreateNoWindow = true,
+                }
+            };
+
+            process.Start();
+            var output = await process.StandardOutput.ReadToEndAsync();
+            var error = await process.StandardError.ReadToEndAsync();
+            await process.WaitForExitAsync();
+
+            var videoId = output?.Trim().Split('\n').FirstOrDefault()?.Trim();
+            return string.IsNullOrWhiteSpace(videoId) ? null : videoId;
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "yt-dlp TikTok fetch failed for @{Username}", username);
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Extracts a TikTok username from various input formats.
+    /// </summary>
+    public static string ParseUsername(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return null;
+
+        var match = _tiktokUserRegex.Match(input.Trim());
+        return match.Success ? match.Groups[1].Value : null;
+    }
+
+    // ── Public API ──
+
+    public async Task<(bool success, string error)> FollowAsync(ulong guildId, ulong channelId, string input)
+    {
+        var username = ParseUsername(input);
+        if (username is null)
+            return (false, "Invalid TikTok username. Use @username or a TikTok profile URL.");
+
+        // Verify the user exists by trying to fetch their latest video
+        var testId = await GetLatestVideoIdAsync(username);
+        if (testId is null)
+            return (false, $"Could not find TikTok user @{username}. Check the spelling.");
+
+        await using var uow = _db.GetDbContext();
+
+        // Check if already following
+        var existing = await uow.Set<TikTokFollow>()
+            .FirstOrDefaultAsyncEF(f => f.GuildId == guildId && f.ChannelId == channelId
+                && f.Username.ToLower() == username.ToLower());
+
+        if (existing is not null)
+            return (false, $"This channel is already following @{username}.");
+
+        uow.Set<TikTokFollow>().Add(new TikTokFollow
+        {
+            GuildId = guildId,
+            ChannelId = channelId,
+            Username = username,
+            LastVideoId = testId, // Save current latest so we don't notify for old videos
+        });
+
+        await uow.SaveChangesAsync();
+        return (true, null);
+    }
+
+    public async Task<bool> UnfollowAsync(ulong guildId, ulong channelId, string input)
+    {
+        var username = ParseUsername(input);
+        if (username is null)
             return false;
 
         await using var uow = _db.GetDbContext();
-        var sub = await uow.Set<FeedSub>()
-            .FirstOrDefaultAsyncEF(f => f.GuildId == guildId && f.ChannelId == channelId && f.Url == feedUrl);
+        var follow = await uow.Set<TikTokFollow>()
+            .FirstOrDefaultAsyncEF(f => f.GuildId == guildId && f.ChannelId == channelId
+                && f.Username.ToLower() == username.ToLower());
 
-        if (sub is null)
+        if (follow is null)
             return false;
 
-        uow.Set<FeedSub>().Remove(sub);
+        uow.Set<TikTokFollow>().Remove(follow);
         await uow.SaveChangesAsync();
         return true;
     }
 
-    /// <summary>
-    /// Lists all TikTok feed subscriptions for a guild.
-    /// </summary>
-    public async Task<List<FeedSub>> GetTikTokFeedsAsync(ulong guildId)
+    public async Task<List<TikTokFollow>> GetFollowsAsync(ulong guildId)
     {
         await using var uow = _db.GetDbContext();
-        return await uow.Set<FeedSub>()
+        return await uow.Set<TikTokFollow>()
             .AsNoTracking()
-            .Where(f => f.GuildId == guildId && f.Url.Contains("tiktok"))
+            .Where(f => f.GuildId == guildId)
             .ToListAsyncEF();
     }
 }

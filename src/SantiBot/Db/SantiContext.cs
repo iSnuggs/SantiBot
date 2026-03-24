@@ -93,6 +93,7 @@ public abstract class SantiContext : DbContext
     public DbSet<VoiceTextLink> VoiceTextLinks { get; set; }
     public DbSet<DehoistConfig> DehoistConfigs { get; set; }
     public DbSet<WelcomeImageConfig> WelcomeImageConfigs { get; set; }
+    public DbSet<TikTokFollow> TikTokFollows { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 

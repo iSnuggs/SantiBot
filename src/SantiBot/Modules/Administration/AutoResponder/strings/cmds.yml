@@ -1,9 +1,9 @@
 autoresponseadd:
   desc: >-
     Creates a new auto-response. When someone sends a message matching the trigger,
-    the bot responds automatically. Supports variables like {user}, {server}, {channel}.
+    the bot responds automatically. Supports variables like user, server, and channel in curly braces.
   ex:
-    - 'Contains hello Hey there {user}!'
+    - 'Contains hello Hey there!'
     - 'ExactMatch !rules Please read the rules in #rules'
     - 'StartsWith !ticket A mod will be with you shortly'
   params:

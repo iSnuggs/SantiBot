@@ -55,9 +55,9 @@ ticketrole:
     - role:
         desc: "The support role (leave empty to clear)"
 ticketwelcome:
-  desc: Sets the welcome message shown when a ticket is created. Use {user} for the user mention, {server} for server name, {ticket} for ticket number.
+  desc: Sets the welcome message shown when a ticket is created. Supports variables for user, server, and ticket number.
   ex:
-    - 'Welcome {user}! A mod will help you shortly.'
+    - 'Welcome! A mod will help you shortly.'
   params:
     - message:
         desc: "The welcome message template"

@@ -66,9 +66,9 @@ moddm:
   params:
     - {}
 moddmtemplate:
-  desc: Sets the template for DM messages sent to users on mod actions. Variables available are {action}, {reason}, {server}, and {duration}.
+  desc: Sets the template for DM messages sent to users on mod actions. Variables available are action, reason, server, and duration in curly braces.
   ex:
-    - 'You have been {action} in {server}. Reason: {reason}'
+    - 'You have been warned in MyServer. Reason: spamming'
   params:
     - template:
         desc: "The DM message template"
