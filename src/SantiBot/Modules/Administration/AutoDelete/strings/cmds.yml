@@ -1,0 +1,37 @@
+autodeleteadd:
+  desc: >-
+    Sets up auto-deletion in a channel. Messages will be deleted after the specified delay.
+    Optionally add a filter: "bots" (bot messages only), "humans" (human messages only),
+    "attachments" (messages with files), "links" (messages with URLs), or "contains:text".
+  ex:
+    - '#temp-chat 10'
+    - '#bot-spam 5 bots'
+    - '#images 30 attachments'
+    - '#general 0 contains:discord.gg'
+  params:
+    - channel:
+        desc: "The channel to auto-delete messages in"
+      delaySeconds:
+        desc: "Seconds to wait before deleting (0 = instant)"
+      filter:
+        desc: "Optional filter: bots, humans, attachments, links, or contains:text"
+autodeleteremove:
+  desc: Removes an auto-delete rule by its ID.
+  ex:
+    - '1'
+  params:
+    - ruleId:
+        desc: "The ID of the rule to remove"
+autodeletetoggle:
+  desc: Enables or disables an auto-delete rule.
+  ex:
+    - '1'
+  params:
+    - ruleId:
+        desc: "The ID of the rule to toggle"
+autodeletelist:
+  desc: Shows all auto-delete rules for this server.
+  ex:
+    - ''
+  params:
+    - {}
