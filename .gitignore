@@ -382,3 +382,4 @@ Pipfile
 Pipfile.lock
 .venv
 src/SantiBot/data/creds.yml
+src/SantiBot/data/ytcookies.txt

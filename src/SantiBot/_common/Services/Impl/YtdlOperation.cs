@@ -21,6 +21,9 @@ public class YtdlOperation
         var newArgs = args.Map(arg => (object)arg.Replace("\"", ""));
         var arguments = string.Format(_baseArgString, newArgs);
 
+        // Use node as JS runtime (required for YouTube extraction)
+        arguments = "--js-runtimes node " + arguments;
+
         if (File.Exists(COOKIES_PATH))
             arguments = $"--cookies \"{COOKIES_PATH}\" " + arguments;
 
