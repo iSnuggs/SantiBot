@@ -1,0 +1,54 @@
+verifyenable:
+  desc: Toggles the verification gate on or off. When enabled, new members must click a verify button to get access.
+  ex:
+    - ''
+  params:
+    - {}
+verifyrole:
+  desc: Sets the role that verified users receive. New members won't have this role until they verify.
+  ex:
+    - '@Verified'
+  params:
+    - role:
+        desc: "The role to grant upon verification"
+verifymessage:
+  desc: Sets the custom message shown on the verification panel.
+  ex:
+    - 'Welcome! Click verify to access the server.'
+  params:
+    - message:
+        desc: "The verification panel message"
+verifypanel:
+  desc: Sends the verification button panel in the current channel.
+  ex:
+    - ''
+  params:
+    - {}
+lockdown:
+  desc: Manually toggles server lockdown. Sets verification level to Extreme when on, Medium when off.
+  ex:
+    - ''
+    - 'off'
+  params:
+    - state:
+        desc: "Leave empty to enable, or 'off' to disable"
+autolockdown:
+  desc: >-
+    Toggles auto-lockdown. When too many users join in a short time, the server
+    automatically locks down. Default: 10 joins in 10 seconds.
+  ex:
+    - ''
+    - '15 20'
+  params:
+    - joinThreshold:
+        desc: "Number of joins to trigger lockdown (default 10)"
+      timeWindowSeconds:
+        desc: "Time window in seconds (default 10)"
+massjoinban:
+  desc: Bans all users who joined within the last X seconds. Use during or after a raid to clean up.
+  ex:
+    - '60'
+    - '300'
+  params:
+    - seconds:
+        desc: "Ban everyone who joined in the last X seconds (10-3600)"

@@ -89,6 +89,7 @@ public abstract class SantiContext : DbContext
     public DbSet<AutobanRule> AutobanRules { get; set; }
     public DbSet<AutoDeleteRule> AutoDeleteRules { get; set; }
     public DbSet<ScheduledMessage> ScheduledMessages { get; set; }
+    public DbSet<VerificationGate> VerificationGates { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 
