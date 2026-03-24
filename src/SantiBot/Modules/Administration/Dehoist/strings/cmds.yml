@@ -1,0 +1,12 @@
+dehoist:
+  desc: Toggles auto-dehoist. When enabled, the bot automatically removes special characters from nicknames that push users to the top of the member list (like !, #, $, etc.).
+  ex:
+    - ''
+  params:
+    - {}
+dehoistall:
+  desc: Immediately dehoists all current members who have special characters at the start of their nickname.
+  ex:
+    - ''
+  params:
+    - {}

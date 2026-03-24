@@ -1,0 +1,3 @@
+dehoist_toggled: 'Auto-dehoist is now **{0}**. Hoisting characters will be removed from nicknames automatically.'
+dehoist_scanning: Scanning members for hoisting characters...
+dehoist_all_result: 'Dehoisted **{0}** members.'

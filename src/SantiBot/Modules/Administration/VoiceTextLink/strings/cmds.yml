@@ -1,0 +1,22 @@
+vtlink:
+  desc: Links a voice channel to a text channel. When someone joins the voice channel, they get access to the text channel. When they leave, access is revoked.
+  ex:
+    - 'Music Room #music-chat'
+  params:
+    - voiceChannel:
+        desc: "The voice channel"
+      textChannel:
+        desc: "The text channel to link"
+vtunlink:
+  desc: Removes a voice-text link.
+  ex:
+    - 'Music Room'
+  params:
+    - voiceChannel:
+        desc: "The voice channel to unlink"
+vtlist:
+  desc: Shows all voice-text links on this server.
+  ex:
+    - ''
+  params:
+    - {}

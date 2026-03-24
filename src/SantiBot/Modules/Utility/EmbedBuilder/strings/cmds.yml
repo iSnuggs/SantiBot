@@ -1,0 +1,50 @@
+embed:
+  desc: Sends a rich embed to a channel using JSON. Use `.embed template` to see the format.
+  ex:
+    - '#announcements {"title":"Hello","description":"World","color":"#FF0000"}'
+  params:
+    - channel:
+        desc: "The channel to send the embed in"
+      json:
+        desc: "The embed JSON"
+embedsimple:
+  desc: Sends a simple embed with just a title and description.
+  ex:
+    - '#rules "Server Rules" Follow the rules or get banned!'
+  params:
+    - channel:
+        desc: "The channel to send in"
+      title:
+        desc: "The embed title"
+      description:
+        desc: "The embed description"
+embedcolor:
+  desc: Sends a colored embed with a title and description. Color is a hex code.
+  ex:
+    - '#announcements FF0000 "Important" Read this carefully!'
+  params:
+    - channel:
+        desc: "The channel to send in"
+      hexColor:
+        desc: "Hex color code (e.g., FF0000 for red)"
+      title:
+        desc: "The embed title"
+      description:
+        desc: "The embed description"
+embededit:
+  desc: Edits an existing embed sent by the bot. Provide the channel, message ID, and new JSON.
+  ex:
+    - '#announcements 123456789 {"title":"Updated","description":"New content"}'
+  params:
+    - channel:
+        desc: "The channel the message is in"
+      messageId:
+        desc: "The message ID to edit"
+      json:
+        desc: "The new embed JSON"
+embedtemplate:
+  desc: Shows a template for the embed JSON format with all available fields.
+  ex:
+    - ''
+  params:
+    - {}
