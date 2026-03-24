@@ -1,0 +1,102 @@
+automodadd:
+  desc: >-
+    Adds a new automod rule to the server. Choose a filter type (like BannedWords,
+    MassCaps, FastSpam, etc.), an action to take (Delete, Warn, Mute, Kick, Ban, TimeOut),
+    and a threshold (how many times before triggering).
+  ex:
+    - 'FastSpam Delete 5'
+    - 'MassCaps Delete 70'
+    - 'MassMentions TimeOut 10'
+    - 'BannedWords Delete'
+  params:
+    - filterType:
+        desc: "The type of filter (BannedWords, MassCaps, DuplicateText, FastSpam, MassMentions, EmojiSpam, etc.)"
+      action:
+        desc: "The action to take (Delete, Warn, Mute, TempMute, Kick, Ban, TempBan, TimeOut, CustomResponse)"
+      threshold:
+        desc: "The trigger threshold (e.g., 5 messages for spam, 70% for caps)"
+automodremove:
+  desc: Removes an automod rule by its ID number.
+  ex:
+    - '1'
+  params:
+    - ruleId:
+        desc: "The ID of the rule to remove"
+automodtoggle:
+  desc: Enables or disables an automod rule without deleting it.
+  ex:
+    - '1'
+  params:
+    - ruleId:
+        desc: "The ID of the rule to toggle"
+automodlist:
+  desc: Shows all automod rules for this server, including their settings and status.
+  ex:
+    - ''
+  params:
+    - {}
+automodthreshold:
+  desc: Changes the trigger threshold for an automod rule.
+  ex:
+    - '1 10'
+  params:
+    - ruleId:
+        desc: "The ID of the rule to update"
+      threshold:
+        desc: "The new threshold value"
+automodaction:
+  desc: Changes the action taken when an automod rule is triggered. Optionally set a duration in minutes for timed actions.
+  ex:
+    - '1 TimeOut 10'
+    - '1 Ban'
+  params:
+    - ruleId:
+        desc: "The ID of the rule to update"
+      action:
+        desc: "The new action (Delete, Warn, Mute, TempMute, Kick, Ban, TempBan, TimeOut)"
+      durationMinutes:
+        desc: "Duration in minutes for TempMute/TempBan/TimeOut actions"
+automodpattern:
+  desc: >-
+    Sets the word/pattern list for a BannedWords, LinkBlacklist, or LinkWhitelist rule.
+    Separate multiple entries with spaces. Use * for wildcards, or /regex/ for regex patterns.
+  ex:
+    - '1 badword1 badword2 badword3'
+    - '1 /b[a@]d\s*w[o0]rd/'
+  params:
+    - ruleId:
+        desc: "The ID of the rule to update"
+      pattern:
+        desc: "The pattern or word list to match against"
+automodexemptchannel:
+  desc: Makes a channel exempt from an automod rule. Messages in that channel won't be checked by this rule.
+  ex:
+    - '1 #bot-spam'
+  params:
+    - ruleId:
+        desc: "The ID of the rule"
+      channel:
+        desc: "The channel to exempt"
+automodexemptrole:
+  desc: Makes a role exempt from an automod rule. Users with that role won't be checked by this rule.
+  ex:
+    - '1 @Moderators'
+  params:
+    - ruleId:
+        desc: "The ID of the rule"
+      role:
+        desc: "The role to exempt"
+automodinfractions:
+  desc: Shows how many times a user has triggered automod rules, including recent (last 24h) count.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The user to check"
+automodclearinfractions:
+  desc: Clears all automod infractions for a user, giving them a clean slate.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The user to clear infractions for"

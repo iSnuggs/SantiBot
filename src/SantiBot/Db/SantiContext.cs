@@ -76,6 +76,9 @@ public abstract class SantiContext : DbContext
     public DbSet<FormResponse> FormResponses { get; set; }
     public DbSet<AutoPurgeConfig> AutoPurgeConfigs { get; set; }
     public DbSet<SavedEmbed> SavedEmbeds { get; set; }
+    public DbSet<AutomodRule> AutomodRules { get; set; }
+    public DbSet<AutomodRuleExemption> AutomodRuleExemptions { get; set; }
+    public DbSet<AutomodInfraction> AutomodInfractions { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 

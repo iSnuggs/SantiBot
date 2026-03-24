@@ -1,0 +1,12 @@
+automod_rule_added: 'Automod rule #{0} created — Filter: **{1}**, Action: **{2}**, Threshold: **{3}**'
+automod_rule_removed: 'Automod rule #{0} has been removed.'
+automod_rule_not_found: 'Automod rule #{0} not found.'
+automod_rule_toggled: 'Automod rule #{0} is now **{1}**.'
+automod_no_rules: No automod rules are configured on this server.
+automod_threshold_set: 'Automod rule #{0} threshold set to **{1}**.'
+automod_action_set: 'Automod rule #{0} action changed to **{1}**.'
+automod_pattern_set: 'Automod rule #{0} pattern updated.'
+automod_exempt_channel: 'Channel {1} is now exempt from automod rule #{0}.'
+automod_exempt_role: 'Role {1} is now exempt from automod rule #{0}.'
+automod_infractions: '{0} has **{1}** total automod infractions (**{2}** in the last 24 hours).'
+automod_infractions_cleared: 'All automod infractions cleared for {0}.'
