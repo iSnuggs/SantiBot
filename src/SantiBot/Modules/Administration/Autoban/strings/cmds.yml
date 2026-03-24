@@ -1,0 +1,46 @@
+autobanage:
+  desc: Auto-bans accounts younger than the specified number of hours when they join. Helps prevent raids from new throwaway accounts.
+  ex:
+    - '24'
+    - '72 Kick'
+  params:
+    - minHours:
+        desc: "Minimum account age in hours"
+      action:
+        desc: "Action to take: Ban (default), Kick, or TimeOut"
+autobanname:
+  desc: Auto-bans users whose username contains specified words. Separate multiple words with spaces. Use * for wildcards.
+  ex:
+    - 'free nitro scam'
+    - 'discord*gift'
+  params:
+    - patterns:
+        desc: "Words to match in usernames (space-separated)"
+autobannoavatar:
+  desc: Automatically kicks or bans users who join with the default Discord avatar (no custom profile picture).
+  ex:
+    - ''
+    - 'Ban'
+  params:
+    - action:
+        desc: "Action to take: Kick (default) or Ban"
+autobanremove:
+  desc: Removes an autoban rule by its ID.
+  ex:
+    - '1'
+  params:
+    - ruleId:
+        desc: "The ID of the rule to remove"
+autobantoggle:
+  desc: Enables or disables an autoban rule without deleting it.
+  ex:
+    - '1'
+  params:
+    - ruleId:
+        desc: "The ID of the rule to toggle"
+autobanlist:
+  desc: Shows all autoban rules for this server.
+  ex:
+    - ''
+  params:
+    - {}
