@@ -15,7 +15,7 @@ tiktokunfollow:
   params:
     - username:
         desc: "TikTok @username to unfollow"
-tiktoklistcmd:
+tiktoklist:
   desc: Shows all TikTok feeds configured on this server.
   ex:
     - ''

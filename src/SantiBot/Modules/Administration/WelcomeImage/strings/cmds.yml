@@ -27,9 +27,9 @@ welcomeimgcolor:
     - hexColor:
         desc: "Hex color code for the accent"
 welcomeimgtext:
-  desc: Sets the welcome text shown on the banner. Use {user} for name, {server} for server, {membercount} for count.
+  desc: Sets the welcome text shown on the banner. Supports variables for user, server, and membercount.
   ex:
-    - 'Welcome to {server}, {user}!'
+    - 'Welcome to the server!'
   params:
     - text:
         desc: "The welcome message text"

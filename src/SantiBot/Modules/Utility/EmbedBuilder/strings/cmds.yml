@@ -1,7 +1,7 @@
 embed:
   desc: Sends a rich embed to a channel using JSON. Use `.embed template` to see the format.
   ex:
-    - '#announcements {"title":"Hello","description":"World","color":"#FF0000"}'
+    - '#announcements <json>'
   params:
     - channel:
         desc: "The channel to send the embed in"
@@ -34,7 +34,7 @@ embedcolor:
 embededit:
   desc: Edits an existing embed sent by the bot. Provide the channel, message ID, and new JSON.
   ex:
-    - '#announcements 123456789 {"title":"Updated","description":"New content"}'
+    - '#announcements 123456789 <json>'
   params:
     - channel:
         desc: "The channel the message is in"
