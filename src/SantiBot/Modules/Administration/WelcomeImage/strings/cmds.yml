@@ -1,0 +1,41 @@
+welcomeimg:
+  desc: Toggles welcome images on or off. When enabled, a custom banner with the user's avatar is posted when someone joins.
+  ex:
+    - ''
+  params:
+    - {}
+welcomeimgchannel:
+  desc: Sets the channel where welcome images are posted.
+  ex:
+    - '#welcome'
+  params:
+    - channel:
+        desc: "The channel for welcome images"
+welcomeimgbg:
+  desc: Sets a custom background image URL for the welcome banner.
+  ex:
+    - 'https://example.com/my-background.png'
+  params:
+    - url:
+        desc: "URL to the background image (800x300 recommended)"
+welcomeimgcolor:
+  desc: Sets the accent color for the welcome banner. Use hex codes.
+  ex:
+    - 'FF6347'
+    - '0C95E9'
+  params:
+    - hexColor:
+        desc: "Hex color code for the accent"
+welcomeimgtext:
+  desc: Sets the welcome text shown on the banner. Use {user} for name, {server} for server, {membercount} for count.
+  ex:
+    - 'Welcome to {server}, {user}!'
+  params:
+    - text:
+        desc: "The welcome message text"
+welcomeimgtest:
+  desc: Generates a test welcome image using your own profile so you can preview how it looks.
+  ex:
+    - ''
+  params:
+    - {}
