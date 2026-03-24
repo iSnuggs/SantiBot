@@ -1,0 +1,9 @@
+autoban_age_added: 'Autoban rule #{0} created — accounts younger than **{1} hours** will be **{2}**.'
+autoban_age_invalid: Minimum age must be at least 1 hour.
+autoban_name_added: 'Autoban rule #{0} created — usernames matching `{1}` will be banned.'
+autoban_name_empty: You must provide at least one word or pattern to match.
+autoban_noavatar_added: 'Autoban rule #{0} created — users with no avatar will be **{1}**.'
+autoban_removed: 'Autoban rule #{0} removed.'
+autoban_not_found: 'Autoban rule #{0} not found.'
+autoban_toggled: 'Autoban rule #{0} is now **{1}**.'
+autoban_none: No autoban rules are configured on this server.
