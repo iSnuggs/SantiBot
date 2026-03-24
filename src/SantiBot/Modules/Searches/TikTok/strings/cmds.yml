@@ -1,0 +1,23 @@
+tiktokfollow:
+  desc: >-
+    Subscribe to a TikTok user's new posts in this channel. Uses RSS to check
+    for new videos. Provide a @username or TikTok profile URL.
+  ex:
+    - '@charlidamelio'
+    - 'https://tiktok.com/@khaby.lame'
+  params:
+    - username:
+        desc: "TikTok @username or profile URL"
+tiktokunfollow:
+  desc: Unsubscribe from a TikTok user's posts in this channel.
+  ex:
+    - '@charlidamelio'
+  params:
+    - username:
+        desc: "TikTok @username to unfollow"
+tiktoklistcmd:
+  desc: Shows all TikTok feeds configured on this server.
+  ex:
+    - ''
+  params:
+    - {}
