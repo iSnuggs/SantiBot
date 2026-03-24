@@ -1,0 +1,102 @@
+case:
+  desc: Shows details of a specific mod case by its case number.
+  ex:
+    - '1'
+    - '42'
+  params:
+    - caseNumber:
+        desc: "The case number to look up"
+cases:
+  desc: Shows all mod cases for a user — warnings, mutes, bans, etc.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The user to look up cases for"
+caselog:
+  desc: Shows the most recent mod cases for this server.
+  ex:
+    - ''
+  params:
+    - {}
+reason:
+  desc: Updates the reason for an existing mod case. Useful when you need to add context after the fact.
+  ex:
+    - '1 Repeated spam in general'
+  params:
+    - caseNumber:
+        desc: "The case number to update"
+      reason:
+        desc: "The new reason"
+modnote:
+  desc: Adds a private moderator note on a user. Only visible to mods, not the user. Use this for context that doesn't warrant a formal warning.
+  ex:
+    - '@user Suspicious behavior, keep an eye on them'
+  params:
+    - user:
+        desc: "The user to add a note for"
+      note:
+        desc: "The note content"
+modnotes:
+  desc: Shows all moderator notes for a user.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The user to view notes for"
+modnotedelete:
+  desc: Deletes a moderator note by its ID.
+  ex:
+    - '1'
+  params:
+    - noteId:
+        desc: "The ID of the note to delete"
+modlogchannel:
+  desc: Sets the channel where mod case logs are posted. Leave empty to disable.
+  ex:
+    - '#mod-log'
+    - ''
+  params:
+    - channel:
+        desc: "The channel for mod logs (leave empty to disable)"
+moddm:
+  desc: Toggles whether users receive a DM when they are warned, muted, kicked, or banned.
+  ex:
+    - ''
+  params:
+    - {}
+moddmtemplate:
+  desc: Sets the template for DM messages sent to users on mod actions. Variables available are {action}, {reason}, {server}, and {duration}.
+  ex:
+    - 'You have been {action} in {server}. Reason: {reason}'
+  params:
+    - template:
+        desc: "The DM message template"
+autopunish:
+  desc: Sets up automatic escalation. When a user reaches X mod cases, they get automatically punished. Time window is optional (hours).
+  ex:
+    - '3 Kick'
+    - '5 Ban 24'
+    - '3 TimeOut 0 60'
+  params:
+    - caseCount:
+        desc: "Number of cases that triggers the punishment"
+      action:
+        desc: "The punishment action (Kick, Ban, Mute, TimeOut)"
+      timeWindowHours:
+        desc: "Only count cases within this many hours (0 = all time)"
+      durationMinutes:
+        desc: "Duration for timed actions like TimeOut"
+autopunishlist:
+  desc: Shows all auto-punish escalation rules.
+  ex:
+    - ''
+  params:
+    - {}
+autopunishremove:
+  desc: Removes an auto-punish rule by its ID.
+  ex:
+    - '1'
+  params:
+    - configId:
+        desc: "The ID of the auto-punish rule to remove"

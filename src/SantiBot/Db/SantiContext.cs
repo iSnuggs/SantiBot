@@ -80,6 +80,10 @@ public abstract class SantiContext : DbContext
     public DbSet<AutomodRuleExemption> AutomodRuleExemptions { get; set; }
     public DbSet<AutomodInfraction> AutomodInfractions { get; set; }
     public DbSet<AutoResponse> AutoResponses { get; set; }
+    public DbSet<ModCase> ModCases { get; set; }
+    public DbSet<ModNote> ModNotes { get; set; }
+    public DbSet<AutoPunishConfig> AutoPunishConfigs { get; set; }
+    public DbSet<ModSettings> ModSettings { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 
