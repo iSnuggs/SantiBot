@@ -87,6 +87,7 @@ public abstract class SantiContext : DbContext
     public DbSet<TicketConfig> TicketConfigs { get; set; }
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<AutobanRule> AutobanRules { get; set; }
+    public DbSet<AutoDeleteRule> AutoDeleteRules { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 
