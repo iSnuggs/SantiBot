@@ -57,84 +57,101 @@ public sealed class SlashCommandService : INService, IReadyExecutor
     // ═══════════════════════════════════════════════════════════════
     // CURATED SLASH COMMANDS — Clean, top-level commands only
     // Add new entries here to register more slash commands.
-    // Format: ("slash-name", "text-command", "Description")
+    //
+    // Format: ("slash-name", "text-command", "Description", Params)
+    //   Params = null → auto-detect from the text command
+    //   Params = array → manually specify parameters
     // ═══════════════════════════════════════════════════════════════
-    private static readonly (string SlashName, string TextCommand, string Description)[] CuratedCommands =
+
+    // Helper for manually specifying slash command parameters
+    private sealed record SlashParam(string Name, string Description, ApplicationCommandOptionType Type, bool Required = false);
+
+    private static readonly (string SlashName, string TextCommand, string Description, SlashParam[] Params)[] CuratedCommands =
     {
         // ── Moderation ──
-        ("ban",          "ban",          "Ban a user from the server"),
-        ("unban",        "unban",        "Unban a user from the server"),
-        ("kick",         "kick",         "Kick a user from the server"),
-        ("mute",         "mute",         "Mute a user (text + voice)"),
-        ("unmute",       "unmute",       "Unmute a previously muted user"),
-        ("timeout",      "timeout",      "Timeout a user for a duration"),
-        ("warn",         "warn",         "Warn a user with optional reason"),
-        ("warnlog",      "warnlog",      "View warnings for a user"),
-        ("prune",        "prune",        "Delete messages in a channel"),
-        ("softban",      "softban",      "Ban then unban to delete messages"),
+        ("ban",          "ban",          "Ban a user from the server", null),
+        ("unban",        "unban",        "Unban a user from the server", null),
+        ("kick",         "kick",         "Kick a user from the server", null),
+        ("mute",         "mute",         "Mute a user (text + voice)", null),
+        ("unmute",       "unmute",       "Unmute a previously muted user", null),
+        ("timeout",      "timeout",      "Timeout a user for a duration", null),
+        ("warn",         "warn",         "Warn a user with optional reason", null),
+        ("warnlog",      "warnlog",      "View warnings for a user", null),
+        ("prune",        "prune",        "Delete messages in a channel", new SlashParam[]
+        {
+            new("count", "Number of messages to delete (default 100)", ApplicationCommandOptionType.Integer, Required: false),
+            new("user", "Only delete messages from this user", ApplicationCommandOptionType.User, Required: false),
+        }),
+        ("softban",      "softban",      "Ban then unban to delete messages", null),
 
         // ── Music ──
-        ("play",         "play",         "Play a song by name, URL, or search"),
-        ("queue",        "queue",        "Queue a song to play next"),
-        ("skip",         "next",         "Skip to the next song"),
-        ("pause",        "pause",        "Pause or resume playback"),
-        ("stop",         "stop",         "Stop music and preserve queue"),
-        ("join",         "join",         "Join your voice channel"),
-        ("volume",       "volume",       "Set music volume (0-100%)"),
-        ("nowplaying",   "nowplaying",   "Show the currently playing song"),
-        ("listqueue",    "listqueue",    "Show the current song queue"),
-        ("shuffle",      "queueshuffle", "Shuffle the song queue"),
-        ("repeat",       "queuerepeat",  "Set repeat mode (none/song/queue)"),
-        ("lyrics",       "lyrics",       "Look up lyrics for a song"),
+        ("play",         "play",         "Play a song by name, URL, or search", new SlashParam[]
+        {
+            new("query", "Song name, artist, or YouTube link", ApplicationCommandOptionType.String, Required: true),
+        }),
+        ("queue",        "queue",        "Queue a song to play next", new SlashParam[]
+        {
+            new("query", "Song name, artist, or YouTube link", ApplicationCommandOptionType.String, Required: true),
+        }),
+        ("skip",         "next",         "Skip to the next song", null),
+        ("pause",        "pause",        "Pause or resume playback", null),
+        ("stop",         "stop",         "Stop music and preserve queue", null),
+        ("join",         "join",         "Join your voice channel", null),
+        ("volume",       "volume",       "Set music volume (0-100%)", null),
+        ("nowplaying",   "nowplaying",   "Show the currently playing song", null),
+        ("listqueue",    "listqueue",    "Show the current song queue", null),
+        ("shuffle",      "queueshuffle", "Shuffle the song queue", null),
+        ("repeat",       "queuerepeat",  "Set repeat mode (none/song/queue)", null),
+        ("lyrics",       "lyrics",       "Look up lyrics for a song", null),
 
         // ── Economy ──
-        ("cash",         "cash",         "Check your currency balance"),
-        ("give",         "give",         "Give currency to another user"),
-        ("timely",       "timely",       "Claim your periodic currency reward"),
-        ("leaderboard",  "leaderboard",  "Show the richest users"),
-        ("betroll",      "betroll",      "Bet currency on a dice roll"),
-        ("betflip",      "betflip",      "Bet on a coin flip"),
-        ("slot",         "slot",         "Play the slot machine"),
+        ("cash",         "cash",         "Check your currency balance", null),
+        ("give",         "give",         "Give currency to another user", null),
+        ("timely",       "timely",       "Claim your periodic currency reward", null),
+        ("leaderboard",  "leaderboard",  "Show the richest users", null),
+        ("betroll",      "betroll",      "Bet currency on a dice roll", null),
+        ("betflip",      "betflip",      "Bet on a coin flip", null),
+        ("slot",         "slot",         "Play the slot machine", null),
 
         // ── XP & Leveling ──
-        ("xp",           "experience",   "Check your XP and level"),
-        ("xplb",         "xpleaderboard","Show the server XP leaderboard"),
-        ("rank",         "experience",   "Check your rank and level"),
+        ("xp",           "experience",   "Check your XP and level", null),
+        ("xplb",         "xpleaderboard","Show the server XP leaderboard", null),
+        ("rank",         "experience",   "Check your rank and level", null),
 
         // ── Utility ──
-        ("help",         "commands",     "Show bot commands and modules"),
-        ("remind",       "remind",       "Set a reminder for yourself"),
-        ("poll",         "pollcreate",   "Create a poll with button voting"),
-        ("giveaway",     "giveawaystart","Start a giveaway"),
-        ("suggest",      "suggest",      "Submit a suggestion"),
-        ("starboard",    "starboardinfo","Show starboard configuration"),
-        ("afk",          "afk",          "Set your AFK status"),
-        ("ping",         "ping",         "Check bot latency"),
-        ("userinfo",     "userinfo",     "Show info about a user"),
-        ("serverinfo",   "serverinfo",   "Show server information"),
+        ("help",         "commands",     "Show bot commands and modules", null),
+        ("remind",       "remind",       "Set a reminder for yourself", null),
+        ("poll",         "pollcreate",   "Create a poll with button voting", null),
+        ("giveaway",     "giveawaystart","Start a giveaway", null),
+        ("suggest",      "suggest",      "Submit a suggestion", null),
+        ("starboard",    "starboardinfo","Show starboard configuration", null),
+        ("afk",          "afk",          "Set your AFK status", null),
+        ("ping",         "ping",         "Check bot latency", null),
+        ("userinfo",     "userinfo",     "Show info about a user", null),
+        ("serverinfo",   "serverinfo",   "Show server information", null),
 
         // ── Games ──
-        ("trivia",       "trivia",       "Start a trivia game"),
-        ("fish",         "fish",         "Go fishing!"),
-        ("hangman",      "hangman",      "Start a hangman game"),
-        ("tictactoe",    "tictactoe",    "Start a tic-tac-toe game"),
-        ("rps",          "rps",          "Play rock-paper-scissors"),
+        ("trivia",       "trivia",       "Start a trivia game", null),
+        ("fish",         "fish",         "Go fishing!", null),
+        ("hangman",      "hangman",      "Start a hangman game", null),
+        ("tictactoe",    "tictactoe",    "Start a tic-tac-toe game", null),
+        ("rps",          "rps",          "Play rock-paper-scissors", null),
 
         // ── Admin/Config ──
-        ("prefix",       "prefix",       "View or change the command prefix"),
-        ("greet",        "greet",        "Toggle join announcements"),
-        ("bye",          "bye",          "Toggle leave announcements"),
-        ("setrole",      "setrole",      "Assign a role to a user"),
-        ("removerole",   "removerole",   "Remove a role from a user"),
+        ("prefix",       "prefix",       "View or change the command prefix", null),
+        ("greet",        "greet",        "Toggle join announcements", null),
+        ("bye",          "bye",          "Toggle leave announcements", null),
+        ("setrole",      "setrole",      "Assign a role to a user", null),
+        ("removerole",   "removerole",   "Remove a role from a user", null),
 
         // ── Searches ──
-        ("anime",        "anime",        "Search for an anime on AniList"),
-        ("manga",        "manga",        "Search for a manga on AniList"),
-        ("weather",      "weather",      "Check the weather for a location"),
-        ("translate",    "translate",     "Translate text between languages"),
+        ("anime",        "anime",        "Search for an anime on AniList", null),
+        ("manga",        "manga",        "Search for a manga on AniList", null),
+        ("weather",      "weather",      "Check the weather for a location", null),
+        ("translate",    "translate",     "Translate text between languages", null),
 
         // ── Expressions ──
-        ("say",          "say",          "Make the bot send a message"),
+        ("say",          "say",          "Make the bot send a message", null),
     };
 
     private async Task RegisterSlashCommandsAsync()
@@ -143,59 +160,75 @@ public sealed class SlashCommandService : INService, IReadyExecutor
         var slashCommands = new List<SlashCommandBuilder>();
         var culture = CultureInfo.GetCultureInfo("en-US");
 
-        foreach (var (slashName, textCommand, description) in CuratedCommands)
+        foreach (var (slashName, textCommand, description, manualParams) in CuratedCommands)
         {
             try
             {
-                // Find the matching text command in the command service
-                var cmdInfo = allCommands.FirstOrDefault(c =>
-                    c.Aliases.Any(a => a.Equals(textCommand, StringComparison.OrdinalIgnoreCase)));
-
                 var builder = new SlashCommandBuilder()
                     .WithName(slashName)
                     .WithDescription(description)
                     .WithContextTypes(InteractionContextType.Guild);
 
-                // Add parameters from the command if found
-                if (cmdInfo is not null)
+                if (manualParams is not null)
                 {
-                    var cmdStrings = _strings.GetCommandStrings(cmdInfo.Summary, culture);
-                    var yamlParams = cmdStrings?.Params;
-
-                    foreach (var param in cmdInfo.Parameters.Take(25))
+                    // Use manually specified parameters
+                    foreach (var p in manualParams)
                     {
-                        if (param.Name is "args" or "_")
-                            continue;
-
-                        var paramName = SanitizeCommandName(param.Name);
-                        if (string.IsNullOrEmpty(paramName))
-                            continue;
-
-                        var optionType = GetOptionType(param.Type);
-
-                        // Look up YAML description
-                        var paramDesc = param.Name;
-                        if (yamlParams is not null)
-                        {
-                            foreach (var overload in yamlParams)
-                            {
-                                if (overload.TryGetValue(param.Name, out var paramInfo) && !string.IsNullOrEmpty(paramInfo.Desc))
-                                {
-                                    paramDesc = paramInfo.Desc;
-                                    break;
-                                }
-                            }
-                        }
-
                         try
                         {
-                            builder.AddOption(
-                                paramName,
-                                optionType,
-                                TruncateDesc(paramDesc),
-                                isRequired: !param.IsOptional && param.DefaultValue is null);
+                            builder.AddOption(p.Name, p.Type, p.Description, isRequired: p.Required);
                         }
                         catch { }
+                    }
+                }
+                else
+                {
+                    // Auto-detect parameters from the text command
+                    var cmdInfo = allCommands
+                        .Where(c => c.Aliases.Any(a => a.Equals(textCommand, StringComparison.OrdinalIgnoreCase)))
+                        .OrderByDescending(c => c.Parameters.Any(p => p.Type == typeof(string)) ? 1 : 0)
+                        .ThenByDescending(c => c.Parameters.Count)
+                        .FirstOrDefault();
+
+                    if (cmdInfo is not null)
+                    {
+                        var cmdStrings = _strings.GetCommandStrings(cmdInfo.Summary, culture);
+                        var yamlParams = cmdStrings?.Params;
+
+                        foreach (var param in cmdInfo.Parameters.Take(25))
+                        {
+                            if (param.Name is "args" or "_")
+                                continue;
+
+                            var paramName = SanitizeCommandName(param.Name);
+                            if (string.IsNullOrEmpty(paramName))
+                                continue;
+
+                            var optionType = GetOptionType(param.Type);
+
+                            var paramDesc = param.Name;
+                            if (yamlParams is not null)
+                            {
+                                foreach (var overload in yamlParams)
+                                {
+                                    if (overload.TryGetValue(param.Name, out var paramInfo) && !string.IsNullOrEmpty(paramInfo.Desc))
+                                    {
+                                        paramDesc = paramInfo.Desc;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            try
+                            {
+                                builder.AddOption(
+                                    paramName,
+                                    optionType,
+                                    TruncateDesc(paramDesc),
+                                    isRequired: !param.IsOptional && param.DefaultValue is null);
+                            }
+                            catch { }
+                        }
                     }
                 }
 
@@ -331,21 +364,39 @@ public sealed class SlashCommandService : INService, IReadyExecutor
     {
         var options = cmd.Data.Options?.ToList() ?? new();
 
-        // Extract parameter values directly (no subcommand nesting for curated commands)
-        var paramValues = new List<string>();
+        // Extract parameter values — put users/mentions first, then other params
+        // (text commands typically expect: command @user <other args>)
+        var userValues = new List<string>();
+        var otherValues = new List<string>();
+
         foreach (var opt in options)
         {
             var val = opt.Value?.ToString() ?? "";
             if (opt.Type == ApplicationCommandOptionType.User && opt.Value is SocketGuildUser user)
+            {
                 val = user.Id.ToString();
+                userValues.Add(val);
+            }
             else if (opt.Type == ApplicationCommandOptionType.Channel && opt.Value is SocketChannel ch)
+            {
                 val = ch.Id.ToString();
+                otherValues.Add(val);
+            }
             else if (opt.Type == ApplicationCommandOptionType.Role && opt.Value is SocketRole role)
+            {
                 val = role.Id.ToString();
-
-            if (!string.IsNullOrEmpty(val))
-                paramValues.Add(val);
+                otherValues.Add(val);
+            }
+            else if (!string.IsNullOrEmpty(val))
+            {
+                otherValues.Add(val);
+            }
         }
+
+        // Users first, then everything else
+        var paramValues = new List<string>();
+        paramValues.AddRange(userValues);
+        paramValues.AddRange(otherValues);
 
         return ($"/{cmd.Data.Name}", paramValues);
     }
