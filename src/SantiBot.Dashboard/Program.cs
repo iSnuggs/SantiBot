@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using SantiBot.Dashboard.Middleware;
 using SantiBot.Dashboard.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,8 @@ builder.Services.AddSingleton<DiscordOAuthService>();
 builder.Services.AddSingleton<JwtService>();
 // Stores Discord tokens in memory so we can fetch guilds on behalf of users
 builder.Services.AddSingleton<TokenStorageService>();
+// Checks and caches whether users can manage specific guilds
+builder.Services.AddSingleton<GuildPermissionService>();
 
 // CORS for the frontend
 builder.Services.AddCors(options =>
@@ -52,6 +55,8 @@ var app = builder.Build();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
+// Verify the user has "Manage Server" permission before allowing guild config access
+app.UseMiddleware<GuildPermissionMiddleware>();
 app.MapControllers();
 
 // Health check
