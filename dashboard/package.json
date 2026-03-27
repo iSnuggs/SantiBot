@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@microsoft/signalr": "^10.0.0",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "autoprefixer": "^10.4.27",

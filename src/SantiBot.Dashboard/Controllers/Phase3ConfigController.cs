@@ -2,6 +2,8 @@ using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using SantiBot.Dashboard.Hubs;
 using SantiBot.Dashboard.Services;
 using SantiBot.Db.Models;
 using SantiBot.Services;
@@ -18,10 +20,12 @@ namespace SantiBot.Dashboard.Controllers;
 public class Phase3ConfigController : ControllerBase
 {
     private readonly DbService _db;
+    private readonly IHubContext<DashboardHub> _hub;
 
-    public Phase3ConfigController(DbService db)
+    public Phase3ConfigController(DbService db, IHubContext<DashboardHub> hub)
     {
         _db = db;
+        _hub = hub;
     }
 
     // ──────────────────────────────────────────────
@@ -66,6 +70,8 @@ public class Phase3ConfigController : ControllerBase
         if (model.DisableGlobalExpressions.HasValue) gc.DisableGlobalExpressions = model.DisableGlobalExpressions.Value;
         await ctx.SaveChangesAsync();
 
+        await _hub.Clients.Group($"guild:{guildId}")
+            .SendAsync("ConfigUpdated", "settings");
         return Ok(new { success = true });
     }
 
