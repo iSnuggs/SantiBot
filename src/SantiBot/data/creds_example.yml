@@ -1,126 +1,214 @@
-# DO NOT CHANGE
+# ╔══════════════════════════════════════════════════════════════╗
+# ║                  SANTIBOT CONFIGURATION                     ║
+# ║                                                              ║
+# ║  Copy this file to 'creds.yml' and fill in your values.     ║
+# ║  Fields marked [REQUIRED] must be set for the bot to run.   ║
+# ║  Fields marked [OPTIONAL] enable extra features.            ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+# DO NOT CHANGE THIS VERSION NUMBER
 version: 13
-# Bot token. Do not share with anyone ever -> https://discordapp.com/developers/applications/
+
+# ──────────────────────────────────────────────
+# [REQUIRED] Discord Bot Token
+# ──────────────────────────────────────────────
+# 1. Go to https://discord.com/developers/applications
+# 2. Click "New Application" and give it a name
+# 3. Go to the "Bot" tab on the left
+# 4. Click "Reset Token" and copy the token
+# 5. Paste it below between the quotes
 token: ''
-# List of Ids of the users who have bot owner permissions
-# **DO NOT ADD PEOPLE YOU DON'T TRUST**
+
+# ──────────────────────────────────────────────
+# [REQUIRED] Bot Owner IDs
+# ──────────────────────────────────────────────
+# Your Discord user ID(s). These users get full bot control.
+# To find your ID: enable Developer Mode in Discord settings,
+# right-click your name, and click "Copy User ID"
+# DO NOT add people you don't trust!
 ownerIds: []
-# Keep this on 'true' unless you're sure your bot shouldn't use privileged intents or you're waiting to be accepted
+
+# ──────────────────────────────────────────────
+# Discord Settings
+# ──────────────────────────────────────────────
+# Keep this true — SantiBot needs privileged intents for features
+# like member tracking, message content, and presence updates.
+# Make sure to enable them in your Discord Developer Portal:
+# Bot tab -> Privileged Gateway Intents -> enable all three
 usePrivilegedIntents: true
-# The number of shards that the bot will be running on.
-# Leave at 1 if you don't know what you're doing.
-# 
-# note: If you are planning to have more than one shard, then you must change botCache to 'redis'.
-# Also, in that case you should be using SantiBot.Coordinator to start the bot, and it will correctly override this value.
+
+# Number of shards. Leave at 1 unless you have 2500+ servers.
+# If using multiple shards, change botCache to 'redis' below.
 totalShards: 1
-# Pledge 5$ or more on https://patreon.com/santibot and connect your discord account to Patreon.
-# Go to https://dashy.santi.bot/me and login with your discord account
-# Go to the Keys page and click "Generate New Key" and copy it here
-# You and anyone else with the permission to run `.prompt` command will be able to use natural language to run bot's commands.
-# For example '@Bot how's the weather in Paris' will return the current weather in Paris as if you were to run `.weather Paris` command.
-santiAiToken: 
-# Login to https://console.cloud.google.com, create a new project, go to APIs & Services -> Library -> YouTube Data API and enable it.
-# Then, go to APIs and Services -> Credentials and click Create credentials -> API key.
-# Used only for Youtube Data Api (at the moment).
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] AI Agent — Natural Language Commands
+# ──────────────────────────────────────────────
+# Lets users talk to the bot naturally (e.g., "@Bot what's the weather in Paris")
+# and the bot translates it to the right command automatically.
+# Requires an OpenAI-compatible API key.
+santiAiToken:
+aiApiKey: ''
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] Google APIs — YouTube, Search, Images
+# ──────────────────────────────────────────────
+# Used for: YouTube music search, web search, image search
+#
+# YouTube Data API (for music and video lookups):
+# 1. Go to https://console.cloud.google.com
+# 2. Create a new project (or select existing)
+# 3. Go to APIs & Services -> Library
+# 4. Search "YouTube Data API v3" and enable it
+# 5. Go to APIs & Services -> Credentials
+# 6. Click "Create Credentials" -> "API Key"
+# 7. Copy the key below
 googleApiKey: ''
-# Create a new custom search here https://programmablesearchengine.google.com/cse/create/new
-# Enable SafeSearch
-# Remove all Sites to Search
-# Enable Search the entire web
-# Copy the 'Search Engine ID' to the SearchId field
-# 
-# Do all steps again but enable image search for the ImageSearchId
+
+# Google Custom Search (for .google and .image commands):
+# 1. Go to https://programmablesearchengine.google.com/cse/create/new
+# 2. Name it anything, enable "Search the entire web"
+# 3. Create it, then copy the "Search Engine ID" to searchId
+# 4. Create ANOTHER search engine with "Image search" enabled
+# 5. Copy that ID to imageSearchId
 google:
-  searchId: 
-  imageSearchId: 
-# Settings for voting system for discordbots. Meant for use on global Santi.
-votes:
-  # top.gg votes service url
-  # This is the url of your instance of the SantiBot.Votes api
-  # Example: https://votes.my.cool.bot.com
-  topggServiceUrl: ''
-  # Authorization header value sent to the TopGG service url with each request
-  # This should be equivalent to the TopggKey in your SantiBot.Votes api appsettings.json file
-  topggKey: ''
-  # discords.com votes service url
-  # This is the url of your instance of the SantiBot.Votes api
-  # Example: https://votes.my.cool.bot.com
-  discordsServiceUrl: ''
-  # Authorization header value sent to the Discords service url with each request
-  # This should be equivalent to the DiscordsKey in your SantiBot.Votes api appsettings.json file
-  discordsKey: ''
-# Patreon auto reward system settings.
-# go to https://www.patreon.com/portal -> my clients -> create client
+  searchId:
+  imageSearchId:
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] Twitch — Stream Notifications
+# ──────────────────────────────────────────────
+# Used for: notifying channels when Twitch streamers go live
+# 1. Go to https://dev.twitch.tv/console/apps
+# 2. Click "Register Your Application"
+# 3. Name: SantiBot, Category: Chat Bot
+# 4. OAuth Redirect URL: http://localhost
+# 5. Copy Client ID and generate a Client Secret
+twitchClientId:
+twitchClientSecret:
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] Trovo — Stream Notifications
+# ──────────────────────────────────────────────
+# Used for: notifying channels when Trovo streamers go live
+# 1. Go to https://developer.trovo.live/
+# 2. Create an application and copy the Client ID
+trovoClientId:
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] Steam — Game & User Info
+# ──────────────────────────────────────────────
+# Used for: Steam profile lookups, game info
+# 1. Go to https://steamcommunity.com/dev/apikey
+# 2. Register for a Web API key
+# 3. Copy it below
+steamApiKey: ''
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] osu! — Game Stats
+# ──────────────────────────────────────────────
+# Used for: osu! player stats and recent plays
+# 1. Go to https://osu.ppy.sh/p/api
+# 2. Register for an API key
+# 3. Copy it below
+osuApiKey:
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] CoinMarketCap — Crypto Prices
+# ──────────────────────────────────────────────
+# Used for: cryptocurrency price lookups
+# 1. Go to https://pro.coinmarketcap.com/account/
+# 2. Sign up for the free Basic plan
+# 3. Copy your API key below
+coinmarketcapApiKey:
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] Location & Timezone
+# ──────────────────────────────────────────────
+# Used for: .time command (shows current time in any city)
+#
+# LocationIQ (geocoding):
+# 1. Go to https://locationiq.com
+# 2. Register and check your email for the API token
+locationIqApiKey:
+
+# TimezoneDB (timezone lookup):
+# 1. Go to https://timezonedb.com
+# 2. Register and check your email for the API key
+timezoneDbApiKey:
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] RapidAPI — Various APIs
+# ──────────────────────────────────────────────
+# Used for: various lookup commands
+# 1. Go to https://rapidapi.com
+# 2. Sign up -> My Apps -> Add New App -> copy Application Key
+rapidApiKey:
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] Patreon — Supporter Rewards
+# ──────────────────────────────────────────────
+# Used for: auto-rewarding Patreon supporters with bot perks
+# 1. Go to https://www.patreon.com/portal
+# 2. My Clients -> Create Client
+# 3. Fill in the details and copy credentials below
 patreon:
-  clientId: 
+  clientId:
   accessToken: ''
   refreshToken: ''
   clientSecret: ''
-  # Campaign ID of your patreon page. Go to your patreon page (make sure you're logged in) and type "prompt('Campaign ID', window.patreon.bootstrap.creator.data.id);" in the console. (ctrl + shift + i)
+  # Find your campaign ID: go to your Patreon page while logged in,
+  # open browser console (Ctrl+Shift+I) and run:
+  # prompt('Campaign ID', window.patreon.bootstrap.creator.data.id);
   campaignId: ''
-# Api key for sending stats to DiscordBotList.
+
+# ──────────────────────────────────────────────
+# [OPTIONAL] Bot Lists — Voting & Stats
+# ──────────────────────────────────────────────
+# Used for: tracking votes on bot list sites
+votes:
+  # top.gg vote tracking
+  topggServiceUrl: ''
+  topggKey: ''
+  # discords.com vote tracking
+  discordsServiceUrl: ''
+  discordsKey: ''
+
+# DiscordBotList stats reporting
 botListToken: ''
-# API key for AI services (agent). OpenAI-compatible.
-aiApiKey: ''
-# Which cache implementation should bot use.
-# 'memory' - Cache will be in memory of the bot's process itself. Only use this on bots with a single shard. When the bot is restarted the cache is reset.
-# 'redis' - Uses redis (which needs to be separately downloaded and installed). The cache will persist through bot restarts. You can configure connection string in creds.yml
+
+# ──────────────────────────────────────────────
+# Database Settings
+# ──────────────────────────────────────────────
+# SQLite works great for single-server setups.
+# Switch to PostgreSQL if you need better performance at scale.
 botCache: Memory
-# Redis connection string. Don't change if you don't know what you're doing.
-# Only used if botCache is set to 'redis'
 redisOptions: localhost:6379,syncTimeout=30000,responseTimeout=30000,allowAdmin=true,password=
-# Database options. Don't change if you don't know what you're doing. Leave null for default values
 db:
-  # Database type. "sqlite", "mysql" and "postgresql" are supported.
-  # Default is "sqlite"
+  # Options: sqlite, mysql, postgresql
   type: sqlite
-  # Database connection string.
-  # You MUST change this if you're not using "sqlite" type.
-  # Default is "Data Source=data/SantiBot.db"
-  # Example for mysql: "Server=localhost;Port=3306;Uid=root;Pwd=my_super_secret_mysql_password;Database=santi"
-  # Example for postgresql: "Server=localhost;Port=5432;User Id=postgres;Password=my_super_secret_postgres_password;Database=santi;"
+  # Default SQLite path (works out of the box):
+  # For PostgreSQL: "Server=localhost;Port=5432;User Id=postgres;Password=YOUR_PASSWORD;Database=santibot;"
+  # For MySQL: "Server=localhost;Port=3306;Uid=root;Pwd=YOUR_PASSWORD;Database=santibot"
   connectionString: Data Source=data/SantiBot.db
-# Address and port of the coordinator endpoint. Leave empty for default.
-# Change only if you've changed the coordinator address or port.
+
+# ──────────────────────────────────────────────
+# Advanced Settings
+# ──────────────────────────────────────────────
+
+# Coordinator URL (only change if running multi-shard setup)
 coordinatorUrl: http://localhost:3442
-# Api key obtained on https://rapidapi.com (go to MyApps -> Add New App -> Enter Name -> Application key)
-rapidApiKey: 
-# https://locationiq.com api key (register and you will receive the token in the email).
-# Used only for .time command.
-locationIqApiKey: 
-# https://timezonedb.com api key (register and you will receive the token in the email).
-# Used only for .time command
-timezoneDbApiKey: 
-# https://pro.coinmarketcap.com/account/ api key. There is a free plan for personal use.
-# Used for cryptocurrency related commands.
-coinmarketcapApiKey: 
-# Api key used for Osu related commands. Obtain this key at https://osu.ppy.sh/p/api
-osuApiKey: 
-# Optional Trovo client id.
-# You should use this if Trovo stream notifications stopped working or you're getting ratelimit errors.
-trovoClientId: 
-# Obtain by creating an application at https://dev.twitch.tv/console/apps
-twitchClientId: 
-# Obtain by creating an application at https://dev.twitch.tv/console/apps
-twitchClientSecret: 
-# Command and args which will be used to restart the bot.
-# Only used if bot is executed directly (NOT through the coordinator)
-# placeholders:
-# {0} -> shard id
-# {1} -> total shards
-# Linux default
-# cmd: SantiBot
-# args: "{0}"
-# Windows default
-# cmd: SantiBot.exe
-# args: "{0}"
+
+# Restart command (how the bot restarts itself)
+# Linux: cmd: SantiBot, args: "{0}"
+# Windows: cmd: SantiBot.exe, args: "{0}"
 restartCommand:
-  cmd: 
-  args: 
-# Url and api key to a seq server. If url is set, bot will try to send logs to it.
+  cmd:
+  args:
+
+# Seq structured logging (optional, for debugging)
+# 1. Install Seq from https://datalust.co/seq
+# 2. Enter your Seq server URL and API key
 seq:
-  url: 
-  apiKey: 
-# Steam Web API key. Used for steam related commands.
-# Obtain by registerting a Web API key at https://steamcommunity.com/dev/apikey
-steamApiKey: ''
+  url:
+  apiKey:
