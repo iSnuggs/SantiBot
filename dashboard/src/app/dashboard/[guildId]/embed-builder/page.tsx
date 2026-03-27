@@ -1,9 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { apiFetch } from "@/lib/api";
 import type { EmbedField } from "@/lib/types";
 
+interface SavedEmbed {
+  id: number;
+  name: string;
+  embedJson: string;
+  creatorId: string;
+}
+
+interface EmbedData {
+  title?: string;
+  description?: string;
+  color?: string;
+  author?: string;
+  footer?: string;
+  imageUrl?: string;
+  thumbnailUrl?: string;
+  fields?: EmbedField[];
+}
+
 export default function EmbedBuilderPage() {
+  const { guildId } = useParams<{ guildId: string }>();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [color, setColor] = useState("#0c95e9");
@@ -12,6 +33,26 @@ export default function EmbedBuilderPage() {
   const [imageUrl, setImageUrl] = useState("");
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [fields, setFields] = useState<EmbedField[]>([]);
+
+  const [savedEmbeds, setSavedEmbeds] = useState<SavedEmbed[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!guildId) return;
+
+    apiFetch<SavedEmbed[]>(`/api/guilds/${guildId}/embeds/saved`)
+      .then((data) => {
+        setSavedEmbeds(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to load saved embeds");
+        setLoading(false);
+      });
+  }, [guildId]);
 
   const addField = () => {
     setFields([...fields, { name: "", value: "", inline: false }]);
@@ -26,6 +67,85 @@ export default function EmbedBuilderPage() {
   const removeField = (index: number) => {
     setFields(fields.filter((_, i) => i !== index));
   };
+
+  const handleSaveTemplate = async () => {
+    const name = window.prompt("Enter a name for this template:");
+    if (!name || !name.trim()) return;
+
+    setSaving(true);
+    try {
+      const embed: EmbedData = {};
+      if (title) embed.title = title;
+      if (description) embed.description = description;
+      if (color) embed.color = color;
+      if (author) embed.author = author;
+      if (footer) embed.footer = footer;
+      if (imageUrl) embed.imageUrl = imageUrl;
+      if (thumbnailUrl) embed.thumbnailUrl = thumbnailUrl;
+      if (fields.length > 0) embed.fields = fields;
+
+      const saved = await apiFetch<SavedEmbed>(`/api/guilds/${guildId}/embeds/saved`, {
+        method: "POST",
+        body: JSON.stringify({ name: name.trim(), embed }),
+      });
+      setSavedEmbeds([...savedEmbeds, saved]);
+    } catch (err: any) {
+      alert(err.message || "Failed to save template");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDeleteEmbed = async (embedId: number) => {
+    if (!confirm("Are you sure you want to delete this template?")) return;
+
+    setDeletingId(embedId);
+    try {
+      await apiFetch(`/api/guilds/${guildId}/embeds/saved/${embedId}`, {
+        method: "DELETE",
+      });
+      setSavedEmbeds(savedEmbeds.filter((e) => e.id !== embedId));
+    } catch (err: any) {
+      alert(err.message || "Failed to delete template");
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  const handleLoadEmbed = (embed: SavedEmbed) => {
+    try {
+      const data: EmbedData = JSON.parse(embed.embedJson);
+      setTitle(data.title || "");
+      setDescription(data.description || "");
+      setColor(data.color || "#0c95e9");
+      setAuthor(data.author || "");
+      setFooter(data.footer || "");
+      setImageUrl(data.imageUrl || "");
+      setThumbnailUrl(data.thumbnailUrl || "");
+      setFields(data.fields || []);
+    } catch {
+      alert("Failed to parse embed data");
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="w-8 h-8 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="text-center">
+          <p className="text-[var(--error)] font-medium mb-2">Failed to load embed builder</p>
+          <p className="text-[var(--muted)] text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -230,14 +350,72 @@ export default function EmbedBuilderPage() {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <button className="flex-1 px-4 py-2 text-sm bg-[var(--accent)] text-white rounded-lg hover:bg-[var(--accent-hover)]">
-                Save Template
+              <button
+                onClick={handleSaveTemplate}
+                disabled={saving}
+                className="flex-1 px-4 py-2 text-sm bg-[var(--accent)] text-white rounded-lg hover:bg-[var(--accent-hover)] disabled:opacity-50"
+              >
+                {saving ? "Saving..." : "Save Template"}
               </button>
               <button className="flex-1 px-4 py-2 text-sm border border-[var(--border)] rounded-lg hover:bg-[var(--card-hover)]">
                 Send to Channel
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Saved Templates */}
+      <div className="mt-8">
+        <div className="bg-[var(--card)] border border-[var(--border)] rounded-xl p-6">
+          <h2 className="font-semibold mb-4">Saved Templates</h2>
+
+          {savedEmbeds.length === 0 ? (
+            <p className="text-[var(--muted)] text-sm">
+              No saved templates yet. Build an embed above and click &quot;Save Template&quot; to save it.
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {savedEmbeds.map((embed) => {
+                let parsed: EmbedData = {};
+                try {
+                  parsed = JSON.parse(embed.embedJson);
+                } catch {
+                  // ignore parse errors
+                }
+
+                return (
+                  <div
+                    key={embed.id}
+                    className="flex items-center justify-between p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium">{embed.name}</p>
+                      <p className="text-xs text-[var(--muted)] truncate">
+                        {parsed.title || "No title"} &middot;{" "}
+                        {parsed.fields?.length || 0} field{(parsed.fields?.length || 0) !== 1 ? "s" : ""}
+                      </p>
+                    </div>
+                    <div className="flex gap-2 ml-3">
+                      <button
+                        onClick={() => handleLoadEmbed(embed)}
+                        className="px-3 py-1 text-xs bg-[var(--accent)] text-white rounded-lg hover:bg-[var(--accent-hover)]"
+                      >
+                        Load
+                      </button>
+                      <button
+                        onClick={() => handleDeleteEmbed(embed.id)}
+                        disabled={deletingId === embed.id}
+                        className="px-3 py-1 text-xs bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 disabled:opacity-50"
+                      >
+                        {deletingId === embed.id ? "..." : "Delete"}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>

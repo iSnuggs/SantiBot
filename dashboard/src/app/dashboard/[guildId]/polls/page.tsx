@@ -1,32 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import ConfigPanel, { Toggle, SelectField } from "@/components/ConfigPanel";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { apiFetch } from "@/lib/api";
+import ConfigPanel from "@/components/ConfigPanel";
 
 interface Poll {
   id: string;
   question: string;
-  votes: number;
+  channelId: string;
   endsAt: string;
-  channel: string;
 }
 
 export default function PollsPage() {
-  const [enabled, setEnabled] = useState(true);
-  const [allowMultipleVotes, setAllowMultipleVotes] = useState(false);
-  const [showResults, setShowResults] = useState(true);
-  const [defaultDuration, setDefaultDuration] = useState("24h");
-  const [hasChanges, setHasChanges] = useState(false);
+  const { guildId } = useParams();
+  const [polls, setPolls] = useState<Poll[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const [polls] = useState<Poll[]>([
-    { id: "1", question: "What game should we play this weekend?", votes: 47, endsAt: "2026-03-23", channel: "#polls" },
-    { id: "2", question: "Best movie of 2026?", votes: 23, endsAt: "2026-03-28", channel: "#general" },
-  ]);
+  useEffect(() => {
+    if (!guildId) return;
+    setLoading(true);
+    apiFetch<Poll[]>(`/api/guilds/${guildId}/config/polls`)
+      .then((data) => {
+        setPolls(data);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to load polls");
+      })
+      .finally(() => setLoading(false));
+  }, [guildId]);
 
-  const handleChange = (setter: Function) => (value: any) => {
-    setter(value);
-    setHasChanges(true);
-  };
+  const isActive = (endsAt: string) => new Date(endsAt) > new Date();
 
   return (
     <div>
@@ -36,32 +42,33 @@ export default function PollsPage() {
       </p>
 
       <div className="space-y-6">
-        <ConfigPanel
-          title="Poll Settings"
-          hasChanges={hasChanges}
-          onSave={() => setHasChanges(false)}
-          onDiscard={() => setHasChanges(false)}
-        >
-          <Toggle label="Enable Polls" checked={enabled} onChange={handleChange(setEnabled)} />
-          <Toggle label="Allow Multiple Votes" checked={allowMultipleVotes} onChange={handleChange(setAllowMultipleVotes)} />
-          <Toggle label="Show Results Before End" checked={showResults} onChange={handleChange(setShowResults)} />
-          <SelectField
-            label="Default Duration"
-            value={defaultDuration}
-            onChange={handleChange(setDefaultDuration)}
-            options={[
-              { value: "1h", label: "1 Hour" },
-              { value: "6h", label: "6 Hours" },
-              { value: "24h", label: "24 Hours" },
-              { value: "3d", label: "3 Days" },
-              { value: "7d", label: "7 Days" },
-            ]}
-          />
-        </ConfigPanel>
-
-        <ConfigPanel title="Active Polls">
-          {polls.length === 0 ? (
-            <p className="text-[var(--muted)] text-sm">No active polls.</p>
+        <ConfigPanel title="Poll List">
+          {loading ? (
+            <div className="flex items-center justify-center py-8">
+              <div className="w-6 h-6 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
+              <span className="ml-3 text-sm text-[var(--muted)]">Loading polls...</span>
+            </div>
+          ) : error ? (
+            <div className="text-center py-8">
+              <p className="text-red-400 text-sm">{error}</p>
+              <button
+                onClick={() => {
+                  setLoading(true);
+                  setError(null);
+                  apiFetch<Poll[]>(`/api/guilds/${guildId}/config/polls`)
+                    .then((data) => setPolls(data))
+                    .catch((err) => setError(err.message || "Failed to load polls"))
+                    .finally(() => setLoading(false));
+                }}
+                className="mt-3 px-4 py-2 text-sm rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          ) : polls.length === 0 ? (
+            <p className="text-[var(--muted)] text-sm">
+              No active polls. Create them with bot commands.
+            </p>
           ) : (
             <div className="space-y-3">
               {polls.map((p) => (
@@ -72,10 +79,18 @@ export default function PollsPage() {
                   <div>
                     <p className="text-sm font-medium">{p.question}</p>
                     <p className="text-xs text-[var(--muted)]">
-                      {p.votes} votes &middot; Ends {p.endsAt} &middot; {p.channel}
+                      Ends {new Date(p.endsAt).toLocaleDateString()} &middot; Channel: {p.channelId}
                     </p>
                   </div>
-                  <span className="text-xs px-2 py-1 rounded-full bg-blue-500/20 text-blue-400">Active</span>
+                  {isActive(p.endsAt) ? (
+                    <span className="text-xs px-2 py-1 rounded-full bg-green-500/20 text-green-400">
+                      Active
+                    </span>
+                  ) : (
+                    <span className="text-xs px-2 py-1 rounded-full bg-[var(--border)] text-[var(--muted)]">
+                      Ended
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
