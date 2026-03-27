@@ -9,12 +9,14 @@ public class AuthController : ControllerBase
 {
     private readonly DiscordOAuthService _oauth;
     private readonly JwtService _jwt;
+    private readonly TokenStorageService _tokenStorage;
     private readonly IConfiguration _config;
 
-    public AuthController(DiscordOAuthService oauth, JwtService jwt, IConfiguration config)
+    public AuthController(DiscordOAuthService oauth, JwtService jwt, TokenStorageService tokenStorage, IConfiguration config)
     {
         _oauth = oauth;
         _jwt = jwt;
+        _tokenStorage = tokenStorage;
         _config = config;
     }
 
@@ -42,6 +44,13 @@ public class AuthController : ControllerBase
 
         if (!ulong.TryParse(user.Id, out var userId))
             return BadRequest(new { error = "Invalid user ID" });
+
+        // Store the Discord token so we can fetch guilds and other data later
+        _tokenStorage.StoreToken(
+            userId,
+            tokenResponse.AccessToken,
+            tokenResponse.RefreshToken,
+            tokenResponse.ExpiresIn);
 
         var jwt = _jwt.GenerateToken(userId, user.Username, user.AvatarUrl);
 

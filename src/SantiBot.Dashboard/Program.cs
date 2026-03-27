@@ -31,6 +31,8 @@ builder.Services.AddHttpClient();
 // Register dashboard services
 builder.Services.AddSingleton<DiscordOAuthService>();
 builder.Services.AddSingleton<JwtService>();
+// Stores Discord tokens in memory so we can fetch guilds on behalf of users
+builder.Services.AddSingleton<TokenStorageService>();
 
 // CORS for the frontend
 builder.Services.AddCors(options =>
