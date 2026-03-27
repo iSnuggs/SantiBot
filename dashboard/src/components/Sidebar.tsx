@@ -12,20 +12,50 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  // General
   { name: "Overview", href: "/overview", icon: "📊", category: "General" },
+  { name: "Settings", href: "/settings", icon: "⚙️", category: "General" },
+
+  // Management — moderation & protection tools
   { name: "Moderation", href: "/moderation", icon: "🛡️", category: "Management" },
+  { name: "Mod Cases", href: "/mod-cases", icon: "📂", category: "Management" },
+  { name: "Automod", href: "/automod", icon: "🤖", category: "Management" },
+  { name: "Autoban", href: "/autoban", icon: "🚫", category: "Management" },
+  { name: "Anti-Raid", href: "/anti-raid", icon: "🏰", category: "Management" },
   { name: "Logging", href: "/logging", icon: "📝", category: "Management" },
-  { name: "Auto Purge", href: "/auto-purge", icon: "🧹", category: "Management" },
   { name: "Permissions", href: "/permissions", icon: "🔒", category: "Management" },
+  { name: "Slowmode", href: "/slowmode", icon: "🐌", category: "Management" },
+
+  // Automation — automatic actions
+  { name: "Auto-Responder", href: "/auto-responder", icon: "💬", category: "Automation" },
+  { name: "Auto Purge", href: "/auto-purge", icon: "🧹", category: "Automation" },
+  { name: "Auto Delete", href: "/auto-delete", icon: "🗑️", category: "Automation" },
+  { name: "Auto Message", href: "/auto-message", icon: "📨", category: "Automation" },
+  { name: "Autoroles", href: "/autoroles", icon: "🎭", category: "Automation" },
+
+  // Community — engagement features
   { name: "Starboard", href: "/starboard", icon: "⭐", category: "Community" },
   { name: "Giveaways", href: "/giveaways", icon: "🎉", category: "Community" },
   { name: "Polls", href: "/polls", icon: "📊", category: "Community" },
   { name: "Forms", href: "/forms", icon: "📋", category: "Community" },
+  { name: "Suggestions", href: "/suggestions", icon: "💡", category: "Community" },
+  { name: "Tickets", href: "/tickets", icon: "🎫", category: "Community" },
+  { name: "Reaction Roles", href: "/reaction-roles", icon: "🏷️", category: "Community" },
+  { name: "Welcome", href: "/welcome", icon: "👋", category: "Community" },
+
+  // Engagement — XP, expressions, reminders
   { name: "XP & Leveling", href: "/xp", icon: "⬆️", category: "Engagement" },
-  { name: "Expressions", href: "/expressions", icon: "💬", category: "Engagement" },
+  { name: "Expressions", href: "/expressions", icon: "🔤", category: "Engagement" },
+  { name: "Reminders", href: "/reminders", icon: "⏰", category: "Engagement" },
+
+  // Fun — music, economy
   { name: "Music", href: "/music", icon: "🎵", category: "Fun" },
   { name: "Economy", href: "/economy", icon: "💰", category: "Fun" },
+
+  // Tools — utilities
   { name: "Embed Builder", href: "/embed-builder", icon: "🎨", category: "Tools" },
+  { name: "Voice Text", href: "/voice-text", icon: "🔊", category: "Tools" },
+  { name: "Streams", href: "/streams", icon: "📺", category: "Tools" },
 ];
 
 export default function Sidebar({ guildId }: { guildId: string }) {
