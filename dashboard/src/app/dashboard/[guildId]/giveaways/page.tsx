@@ -1,33 +1,40 @@
 "use client";
 
-import { useState } from "react";
-import ConfigPanel, { Toggle, InputField, SelectField } from "@/components/ConfigPanel";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { apiFetch } from "@/lib/api";
+import ConfigPanel from "@/components/ConfigPanel";
 
 interface Giveaway {
   id: string;
-  prize: string;
-  winners: number;
+  message: string;
+  channelId: string;
   endsAt: string;
-  channel: string;
-  active: boolean;
+  winnerCount: number;
+  requiredRoleId: string | null;
 }
 
 export default function GiveawaysPage() {
-  const [enabled, setEnabled] = useState(false);
-  const [dmWinners, setDmWinners] = useState(true);
-  const [requireRole, setRequireRole] = useState(false);
-  const [defaultDuration, setDefaultDuration] = useState("24h");
-  const [hasChanges, setHasChanges] = useState(false);
+  const { guildId } = useParams();
+  const [giveaways, setGiveaways] = useState<Giveaway[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const [giveaways] = useState<Giveaway[]>([
-    { id: "1", prize: "Nitro Classic", winners: 1, endsAt: "2026-03-25", channel: "#giveaways", active: true },
-    { id: "2", prize: "Steam Gift Card", winners: 2, endsAt: "2026-03-30", channel: "#giveaways", active: true },
-  ]);
+  useEffect(() => {
+    if (!guildId) return;
+    setLoading(true);
+    apiFetch<Giveaway[]>(`/api/guilds/${guildId}/config/giveaways`)
+      .then((data) => {
+        setGiveaways(data);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to load giveaways");
+      })
+      .finally(() => setLoading(false));
+  }, [guildId]);
 
-  const handleChange = (setter: Function) => (value: any) => {
-    setter(value);
-    setHasChanges(true);
-  };
+  const isActive = (endsAt: string) => new Date(endsAt) > new Date();
 
   return (
     <div>
@@ -37,32 +44,33 @@ export default function GiveawaysPage() {
       </p>
 
       <div className="space-y-6">
-        <ConfigPanel
-          title="Giveaway Settings"
-          hasChanges={hasChanges}
-          onSave={() => setHasChanges(false)}
-          onDiscard={() => setHasChanges(false)}
-        >
-          <Toggle label="Enable Giveaways" checked={enabled} onChange={handleChange(setEnabled)} />
-          <Toggle label="DM Winners" checked={dmWinners} onChange={handleChange(setDmWinners)} />
-          <Toggle label="Require Role to Enter" checked={requireRole} onChange={handleChange(setRequireRole)} />
-          <SelectField
-            label="Default Duration"
-            value={defaultDuration}
-            onChange={handleChange(setDefaultDuration)}
-            options={[
-              { value: "1h", label: "1 Hour" },
-              { value: "12h", label: "12 Hours" },
-              { value: "24h", label: "24 Hours" },
-              { value: "3d", label: "3 Days" },
-              { value: "7d", label: "7 Days" },
-            ]}
-          />
-        </ConfigPanel>
-
-        <ConfigPanel title="Active Giveaways">
-          {giveaways.length === 0 ? (
-            <p className="text-[var(--muted)] text-sm">No active giveaways.</p>
+        <ConfigPanel title="Giveaway List">
+          {loading ? (
+            <div className="flex items-center justify-center py-8">
+              <div className="w-6 h-6 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
+              <span className="ml-3 text-sm text-[var(--muted)]">Loading giveaways...</span>
+            </div>
+          ) : error ? (
+            <div className="text-center py-8">
+              <p className="text-red-400 text-sm">{error}</p>
+              <button
+                onClick={() => {
+                  setLoading(true);
+                  setError(null);
+                  apiFetch<Giveaway[]>(`/api/guilds/${guildId}/config/giveaways`)
+                    .then((data) => setGiveaways(data))
+                    .catch((err) => setError(err.message || "Failed to load giveaways"))
+                    .finally(() => setLoading(false));
+                }}
+                className="mt-3 px-4 py-2 text-sm rounded-lg bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          ) : giveaways.length === 0 ? (
+            <p className="text-[var(--muted)] text-sm">
+              No giveaways found. Create them with bot commands.
+            </p>
           ) : (
             <div className="space-y-3">
               {giveaways.map((g) => (
@@ -71,12 +79,24 @@ export default function GiveawaysPage() {
                   className="flex items-center justify-between p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]"
                 >
                   <div>
-                    <p className="text-sm font-medium">{g.prize}</p>
+                    <p className="text-sm font-medium">{g.message}</p>
                     <p className="text-xs text-[var(--muted)]">
-                      {g.winners} winner{g.winners > 1 ? "s" : ""} &middot; Ends {g.endsAt} &middot; {g.channel}
+                      {g.winnerCount} winner{g.winnerCount !== 1 ? "s" : ""} &middot; Ends{" "}
+                      {new Date(g.endsAt).toLocaleDateString()} &middot; Channel: {g.channelId}
+                      {g.requiredRoleId && (
+                        <> &middot; Requires role: {g.requiredRoleId}</>
+                      )}
                     </p>
                   </div>
-                  <span className="text-xs px-2 py-1 rounded-full bg-green-500/20 text-green-400">Active</span>
+                  {isActive(g.endsAt) ? (
+                    <span className="text-xs px-2 py-1 rounded-full bg-green-500/20 text-green-400">
+                      Active
+                    </span>
+                  ) : (
+                    <span className="text-xs px-2 py-1 rounded-full bg-[var(--border)] text-[var(--muted)]">
+                      Ended
+                    </span>
+                  )}
                 </div>
               ))}
             </div>

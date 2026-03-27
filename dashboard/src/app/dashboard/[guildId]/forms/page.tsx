@@ -1,32 +1,63 @@
 "use client";
 
-import { useState } from "react";
-import ConfigPanel, { Toggle, InputField, SelectField } from "@/components/ConfigPanel";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { apiFetch } from "@/lib/api";
+import ConfigPanel from "@/components/ConfigPanel";
 
 interface Form {
   id: string;
-  name: string;
-  submissions: number;
-  status: "open" | "closed";
-  responseChannel: string;
+  title: string;
+  responseChannelId: string;
+  questionsJson: string;
 }
 
 export default function FormsPage() {
-  const [enabled, setEnabled] = useState(true);
-  const [dmConfirmation, setDmConfirmation] = useState(true);
-  const [logChannel, setLogChannel] = useState("");
-  const [cooldown, setCooldown] = useState("none");
-  const [hasChanges, setHasChanges] = useState(false);
+  const { guildId } = useParams<{ guildId: string }>();
+  const [forms, setForms] = useState<Form[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const [forms] = useState<Form[]>([
-    { id: "1", name: "Staff Application", submissions: 12, status: "open", responseChannel: "#staff-apps" },
-    { id: "2", name: "Bug Report", submissions: 34, status: "open", responseChannel: "#bug-reports" },
-    { id: "3", name: "Event Suggestion", submissions: 8, status: "closed", responseChannel: "#suggestions" },
-  ]);
+  useEffect(() => {
+    if (!guildId) return;
 
-  const handleChange = (setter: Function) => (value: any) => {
-    setter(value);
-    setHasChanges(true);
+    apiFetch<Form[]>(`/api/guilds/${guildId}/config/forms`)
+      .then((data) => {
+        setForms(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to load forms");
+        setLoading(false);
+      });
+  }, [guildId]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="w-8 h-8 border-2 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <div className="text-center">
+          <p className="text-[var(--error)] font-medium mb-2">Failed to load forms</p>
+          <p className="text-[var(--muted)] text-sm">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  const getQuestionCount = (questionsJson: string): number => {
+    try {
+      const parsed = JSON.parse(questionsJson);
+      return Array.isArray(parsed) ? parsed.length : 0;
+    } catch {
+      return 0;
+    }
   };
 
   return (
@@ -37,36 +68,11 @@ export default function FormsPage() {
       </p>
 
       <div className="space-y-6">
-        <ConfigPanel
-          title="Form Settings"
-          hasChanges={hasChanges}
-          onSave={() => setHasChanges(false)}
-          onDiscard={() => setHasChanges(false)}
-        >
-          <Toggle label="Enable Forms" checked={enabled} onChange={handleChange(setEnabled)} />
-          <Toggle label="DM Submission Confirmation" checked={dmConfirmation} onChange={handleChange(setDmConfirmation)} />
-          <InputField
-            label="Log Channel ID"
-            value={logChannel}
-            onChange={handleChange(setLogChannel)}
-            placeholder="Enter channel ID for form logs"
-          />
-          <SelectField
-            label="Submission Cooldown"
-            value={cooldown}
-            onChange={handleChange(setCooldown)}
-            options={[
-              { value: "none", label: "No Cooldown" },
-              { value: "5m", label: "5 Minutes" },
-              { value: "1h", label: "1 Hour" },
-              { value: "24h", label: "24 Hours" },
-            ]}
-          />
-        </ConfigPanel>
-
         <ConfigPanel title="Managed Forms">
           {forms.length === 0 ? (
-            <p className="text-[var(--muted)] text-sm">No forms created yet.</p>
+            <p className="text-[var(--muted)] text-sm">
+              No forms created yet. Use bot commands to create them.
+            </p>
           ) : (
             <div className="space-y-3">
               {forms.map((f) => (
@@ -75,19 +81,15 @@ export default function FormsPage() {
                   className="flex items-center justify-between p-3 rounded-lg bg-[var(--background)] border border-[var(--border)]"
                 >
                   <div>
-                    <p className="text-sm font-medium">{f.name}</p>
+                    <p className="text-sm font-medium">{f.title}</p>
                     <p className="text-xs text-[var(--muted)]">
-                      {f.submissions} submissions &middot; {f.responseChannel}
+                      Response Channel: {f.responseChannelId} &middot;{" "}
+                      {getQuestionCount(f.questionsJson)} question
+                      {getQuestionCount(f.questionsJson) !== 1 ? "s" : ""}
                     </p>
                   </div>
-                  <span
-                    className={`text-xs px-2 py-1 rounded-full ${
-                      f.status === "open"
-                        ? "bg-green-500/20 text-green-400"
-                        : "bg-red-500/20 text-red-400"
-                    }`}
-                  >
-                    {f.status === "open" ? "Open" : "Closed"}
+                  <span className="text-xs px-2 py-1 rounded-full bg-green-500/20 text-green-400">
+                    Active
                   </span>
                 </div>
               ))}
