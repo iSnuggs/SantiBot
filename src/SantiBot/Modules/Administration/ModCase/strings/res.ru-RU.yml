@@ -1,0 +1,16 @@
+case_not_found: 'Case #{0} not found.'
+cases_none: '{0} has no mod cases.'
+cases_log_empty: No mod cases have been created on this server yet.
+case_reason_updated: 'Case #{0} reason updated.'
+modnote_added: 'Note added for {0} (note #{1}).'
+modnotes_none: '{0} has no moderator notes.'
+modnote_deleted: 'Note #{0} deleted.'
+modnote_not_found: 'Note #{0} not found.'
+modlog_channel_set: 'Mod log channel set to {0}. All future mod actions will be logged there.'
+modlog_channel_disabled: Mod log channel disabled.
+moddm_toggled: 'DM on mod action is now **{0}**.'
+moddm_template_set: DM template updated.
+autopunish_added: 'Auto-punish rule created — **{0}** cases{1} → **{2}**'
+autopunish_none: No auto-punish rules are configured.
+autopunish_removed: 'Auto-punish rule #{0} removed.'
+autopunish_not_found: 'Auto-punish rule #{0} not found.'

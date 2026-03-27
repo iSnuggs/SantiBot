@@ -1,0 +1,10 @@
+verify_toggled: 'Verification gate is now **{0}**.'
+verify_role_set: 'Verified role set to {0}. New members must verify to receive this role.'
+verify_message_set: Verification panel message updated.
+verify_not_configured: Verification gate is not enabled or configured. Use `.verify enable` first.
+lockdown_enabled: '🚨 **Server is now locked down.** Verification level set to Extreme. Use `.lockdown off` to disable.'
+lockdown_disabled: '✅ **Lockdown disabled.** Verification level reset to Medium.'
+autolockdown_enabled: 'Auto-lockdown enabled — will trigger if **{0}** users join within **{1}** seconds.'
+autolockdown_disabled: Auto-lockdown disabled.
+massjoinban_invalid_time: Time window must be between 10 and 3600 seconds.
+massjoinban_result: 'Banned **{0}** users who joined in the last **{1}** seconds.'

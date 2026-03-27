@@ -1,0 +1,7 @@
+embed_sent: 'Embed sent to {0}!'
+embed_no_json: You must provide embed JSON. Use `.embed template` to see the format.
+embed_invalid_json: 'Invalid embed JSON: {0}'
+embed_invalid_color: 'Invalid hex color. Use a format like FF0000 or #0C95E9.'
+embed_cant_edit: "Can't edit that message — either it doesn't exist or it wasn't sent by me."
+embed_edited: Embed updated!
+embed_template: 'Here''s the embed JSON template:\n{0}\nSend it with `.embed #channel <json>`'

@@ -1,0 +1,32 @@
+case:
+  - case
+cases:
+  - cases
+caselog:
+  - caselog
+reason:
+  - reason
+modnote:
+  - modnote
+modnotes:
+  - modnotes
+modnotedelete:
+  - modnotedelete
+  - mndel
+modlogchannel:
+  - modlogchannel
+  - modlog
+moddm:
+  - moddm
+moddmtemplate:
+  - moddmtemplate
+  - moddmtpl
+autopunish:
+  - autopunish
+  - ap
+autopunishlist:
+  - autopunishlist
+  - aplist
+autopunishremove:
+  - autopunishremove
+  - aprm

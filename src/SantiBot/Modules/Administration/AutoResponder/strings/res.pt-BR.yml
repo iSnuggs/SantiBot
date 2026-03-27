@@ -1,0 +1,8 @@
+autoresponse_added: 'Auto-response #{0} created — Trigger type: **{1}**, Trigger: `{2}`'
+autoresponse_removed: 'Auto-response #{0} has been removed.'
+autoresponse_not_found: 'Auto-response #{0} not found.'
+autoresponse_toggled: 'Auto-response #{0} is now **{1}**.'
+autoresponse_none: No auto-responses are configured on this server.
+autoresponse_missing_args: You must provide a trigger type, trigger text, and response text.
+autoresponse_cooldown_set: 'Auto-response #{0} cooldowns set — User: **{1}s**, Channel: **{2}s**'
+autoresponse_delete_trigger: 'Auto-response #{0} delete trigger is now **{1}**.'

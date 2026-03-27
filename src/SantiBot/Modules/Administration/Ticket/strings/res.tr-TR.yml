@@ -1,0 +1,15 @@
+ticket_toggled: 'Ticket system is now **{0}**.'
+ticket_created: 'Ticket created! Head to <#{0}>'
+ticket_create_failed: 'Could not create ticket: {0}'
+ticket_not_ticket_channel: This is not a ticket channel.
+ticket_claimed: 'Ticket claimed by {0}!'
+ticket_claim_failed: Could not claim this ticket. It may already be claimed or this isn't a ticket channel.
+ticket_none_open: No open tickets on this server.
+ticket_category_set: 'Ticket category set to **{0}**.'
+ticket_category_cleared: Ticket category cleared. Tickets will be created at the top of the channel list.
+ticket_log_set: 'Ticket log channel set to {0}.'
+ticket_log_disabled: Ticket logging disabled.
+ticket_role_set: 'Support role set to {0}. Members with this role can see all tickets.'
+ticket_role_cleared: Support role cleared.
+ticket_welcome_set: Ticket welcome message updated.
+ticket_max_set: 'Max tickets per user set to **{0}**.'

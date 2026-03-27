@@ -1,0 +1,17 @@
+autoresponseadd:
+  - autoresponseadd
+  - aradd
+autoresponseremove:
+  - autoresponseremove
+  - arrm
+autoresponsetoggle:
+  - autoresponsetoggle
+autoresponselist:
+  - autoresponselist
+  - arlist
+autoresponsecooldown:
+  - autoresponsecooldown
+  - arcd
+autoresponsedeletetrigger:
+  - autoresponsedeletetrigger
+  - ardeltrig

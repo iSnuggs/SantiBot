@@ -1,0 +1,7 @@
+welcomeimg_toggled: 'Welcome images are now **{0}**.'
+welcomeimg_channel_set: 'Welcome image channel set to {0}.'
+welcomeimg_bg_set: Background image updated. Use `.welcomeimg test` to preview.
+welcomeimg_color_set: 'Accent color set to **#{0}**.'
+welcomeimg_text_set: Welcome text updated. Use `.welcomeimg test` to preview.
+welcomeimg_not_configured: Welcome images are not configured. Use `.welcomeimg` to enable and `.welcomeimg channel #channel` to set the channel.
+welcomeimg_gen_failed: Failed to generate the welcome image. Check the background URL and try again.

@@ -1,0 +1,5 @@
+autodelete_added: 'Auto-delete rule #{0} created — {1} with **{2}s** delay ({3}).'
+autodelete_removed: 'Auto-delete rule #{0} removed.'
+autodelete_not_found: 'Auto-delete rule #{0} not found.'
+autodelete_toggled: 'Auto-delete rule #{0} is now **{1}**.'
+autodelete_none: No auto-delete rules are configured on this server.

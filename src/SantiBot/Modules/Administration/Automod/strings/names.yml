@@ -1,0 +1,26 @@
+automodadd:
+  - automodadd
+automodremove:
+  - automodremove
+  - amodrm
+automodtoggle:
+  - automodtoggle
+automodlist:
+  - automodlist
+automodthreshold:
+  - automodthreshold
+automodsetaction:
+  - automodsetaction
+  - automodaction
+automodpattern:
+  - automodpattern
+automodexemptchannel:
+  - automodexemptchannel
+  - amodexch
+automodexemptrole:
+  - automodexemptrole
+  - amodexrole
+automodinfractions:
+  - automodinfractions
+automodclearinfractions:
+  - automodclearinfractions

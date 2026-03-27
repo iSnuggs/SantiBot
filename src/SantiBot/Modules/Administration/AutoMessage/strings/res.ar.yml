@@ -1,0 +1,8 @@
+schedule_created: 'Scheduled message #{0} created — will be sent in {1} at **{2}**.'
+schedule_recurring_created: 'Recurring message #{0} created — will repeat in {1} every **{2}**.'
+schedule_cancelled: 'Scheduled message #{0} cancelled.'
+schedule_not_found: 'Scheduled message #{0} not found.'
+schedule_none: No active scheduled messages on this server.
+schedule_no_content: You must provide message content.
+schedule_invalid_time: 'Invalid time format. Use formats like 1h, 30m, 2d, 1h30m. Minimum 1 minute.'
+schedule_invalid_interval: 'Invalid interval. Use formats like 1h, 6h, 24h. Minimum 5 minutes.'
