@@ -1,0 +1,26 @@
+ticketenable:
+  - ticketenable
+ticketcreate:
+  - ticketcreate
+  - tnew
+ticketclose:
+  - ticketclose
+ticketclaim:
+  - ticketclaim
+ticketlist:
+  - ticketlist
+  - tickets
+ticketcategory:
+  - ticketcategory
+  - ticketcat
+ticketlog:
+  - ticketlog
+ticketrole:
+  - ticketrole
+ticketwelcome:
+  - ticketwelcome
+  - ticketwm
+ticketmax:
+  - ticketmax
+ticketpanel:
+  - ticketpanel

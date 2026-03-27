@@ -44,7 +44,7 @@ automodthreshold:
         desc: "The ID of the rule to update"
       threshold:
         desc: "The new threshold value"
-automodaction:
+automodsetaction:
   desc: Changes the action taken when an automod rule is triggered. Optionally set a duration in minutes for timed actions.
   ex:
     - '1 TimeOut 10'

@@ -1,0 +1,5 @@
+tiktok_followed: 'Now following **{0}** on TikTok! New posts will appear in <#{1}>.'
+tiktok_follow_failed: 'Could not follow: {0}'
+tiktok_unfollowed: 'Unfollowed **{0}** on TikTok.'
+tiktok_not_following: 'Not following **{0}** in this channel.'
+tiktok_none: No TikTok feeds configured on this server.

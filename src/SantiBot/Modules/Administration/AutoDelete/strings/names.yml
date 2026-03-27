@@ -1,0 +1,11 @@
+autodeleteadd:
+  - autodeleteadd
+  - adadd
+autodeleteremove:
+  - autodeleteremove
+  - adrm
+autodeletetoggle:
+  - autodeletetoggle
+autodeletelist:
+  - autodeletelist
+  - adlist

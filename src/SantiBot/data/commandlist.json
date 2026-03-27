@@ -2,6 +2,114 @@
   "Administration": [
     {
       "Aliases": [
+        ".verifyenable"
+      ],
+      "Description": "Toggles the verification gate on or off. When enabled, new members must click a verify button to get access.",
+      "Usage": [
+        ".verifyenable"
+      ],
+      "Submodule": "VerificationGateCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".verifyrole"
+      ],
+      "Description": "Sets the role that verified users receive. New members won't have this role until they verify.",
+      "Usage": [
+        ".verifyrole @Verified"
+      ],
+      "Submodule": "VerificationGateCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".verifymessage"
+      ],
+      "Description": "Sets the custom message shown on the verification panel.",
+      "Usage": [
+        ".verifymessage Welcome! Click verify to access the server."
+      ],
+      "Submodule": "VerificationGateCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".verifypanel"
+      ],
+      "Description": "Sends the verification button panel in the current channel.",
+      "Usage": [
+        ".verifypanel"
+      ],
+      "Submodule": "VerificationGateCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lockdown"
+      ],
+      "Description": "Manually toggles server lockdown. Sets verification level to Extreme when on, Medium when off.",
+      "Usage": [
+        ".lockdown",
+        ".lockdown off"
+      ],
+      "Submodule": "VerificationGateCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autolockdown"
+      ],
+      "Description": "Toggles auto-lockdown. When too many users join in a short time, the server automatically locks down. Default: 10 joins in 10 seconds.",
+      "Usage": [
+        ".autolockdown",
+        ".autolockdown 15 20"
+      ],
+      "Submodule": "VerificationGateCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".massjoinban"
+      ],
+      "Description": "Bans all users who joined within the last X seconds. Use during or after a raid to clean up.",
+      "Usage": [
+        ".massjoinban 60",
+        ".massjoinban 300"
+      ],
+      "Submodule": "VerificationGateCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".autoassignrole",
         ".aar"
       ],
@@ -15,6 +123,395 @@
       "Options": null,
       "Requirements": [
         "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autobanage"
+      ],
+      "Description": "Auto-bans accounts younger than the specified number of hours when they join. Helps prevent raids from new throwaway accounts.",
+      "Usage": [
+        ".autobanage 24",
+        ".autobanage 72 Kick"
+      ],
+      "Submodule": "AutobanCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autobanname"
+      ],
+      "Description": "Auto-bans users whose username contains specified words. Separate multiple words with spaces. Use * for wildcards.",
+      "Usage": [
+        ".autobanname free nitro scam",
+        ".autobanname discord*gift"
+      ],
+      "Submodule": "AutobanCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autobannoavatar"
+      ],
+      "Description": "Automatically kicks or bans users who join with the default Discord avatar (no custom profile picture).",
+      "Usage": [
+        ".autobannoavatar",
+        ".autobannoavatar Ban"
+      ],
+      "Submodule": "AutobanCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autobanremove"
+      ],
+      "Description": "Removes an autoban rule by its ID.",
+      "Usage": [
+        ".autobanremove 1"
+      ],
+      "Submodule": "AutobanCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autobantoggle"
+      ],
+      "Description": "Enables or disables an autoban rule without deleting it.",
+      "Usage": [
+        ".autobantoggle 1"
+      ],
+      "Submodule": "AutobanCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autobanlist"
+      ],
+      "Description": "Shows all autoban rules for this server.",
+      "Usage": [
+        ".autobanlist"
+      ],
+      "Submodule": "AutobanCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autodeleteadd"
+      ],
+      "Description": "Sets up auto-deletion in a channel. Messages will be deleted after the specified delay. Optionally add a filter: \"bots\" (bot messages only), \"humans\" (human messages only), \"attachments\" (messages with files), \"links\" (messages with URLs), or \"contains:text\".",
+      "Usage": [
+        ".autodeleteadd #temp-chat 10",
+        ".autodeleteadd #bot-spam 5 bots",
+        ".autodeleteadd #images 30 attachments",
+        ".autodeleteadd #general 0 contains:discord.gg"
+      ],
+      "Submodule": "AutoDeleteCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autodeleteremove"
+      ],
+      "Description": "Removes an auto-delete rule by its ID.",
+      "Usage": [
+        ".autodeleteremove 1"
+      ],
+      "Submodule": "AutoDeleteCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autodeletetoggle"
+      ],
+      "Description": "Enables or disables an auto-delete rule.",
+      "Usage": [
+        ".autodeletetoggle 1"
+      ],
+      "Submodule": "AutoDeleteCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autodeletelist"
+      ],
+      "Description": "Shows all auto-delete rules for this server.",
+      "Usage": [
+        ".autodeletelist"
+      ],
+      "Submodule": "AutoDeleteCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedulemessage"
+      ],
+      "Description": "Schedules a one-time message to be sent in a channel after a delay. Use time formats like 1h, 30m, 2d, 1h30m.",
+      "Usage": [
+        ".schedulemessage #announcements 2h Server maintenance starting soon!",
+        ".schedulemessage #general 1d Happy Monday everyone!"
+      ],
+      "Submodule": "AutoMessageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedulerecurring"
+      ],
+      "Description": "Schedules a recurring message. The message will be sent every interval. Minimum interval is 5 minutes. Use time formats like 1h, 30m, 2d.",
+      "Usage": [
+        ".schedulerecurring #rules 24h Remember to read the rules!",
+        ".schedulerecurring #general 1h Check out our latest stream!"
+      ],
+      "Submodule": "AutoMessageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedulecancel"
+      ],
+      "Description": "Cancels a scheduled message by its ID.",
+      "Usage": [
+        ".schedulecancel 1"
+      ],
+      "Submodule": "AutoMessageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedulelist",
+        ".schl",
+        ".schli"
+      ],
+      "Description": "Lists your scheduled commands in the current server.",
+      "Usage": [
+        ".schedulelist"
+      ],
+      "Submodule": "AutoMessageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodadd"
+      ],
+      "Description": "Adds a new automod rule to the server. Choose a filter type (like BannedWords, MassCaps, FastSpam, etc.), an action to take (Delete, Warn, Mute, Kick, Ban, TimeOut), and a threshold (how many times before triggering).",
+      "Usage": [
+        ".automodadd FastSpam Delete 5",
+        ".automodadd MassCaps Delete 70",
+        ".automodadd MassMentions TimeOut 10",
+        ".automodadd BannedWords Delete"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodremove"
+      ],
+      "Description": "Removes an automod rule by its ID number.",
+      "Usage": [
+        ".automodremove 1"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodtoggle"
+      ],
+      "Description": "Enables or disables an automod rule without deleting it.",
+      "Usage": [
+        ".automodtoggle 1"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodlist"
+      ],
+      "Description": "Shows all automod rules for this server, including their settings and status.",
+      "Usage": [
+        ".automodlist"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodthreshold"
+      ],
+      "Description": "Changes the trigger threshold for an automod rule.",
+      "Usage": [
+        ".automodthreshold 1 10"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodsetaction"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".automodsetaction"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodpattern"
+      ],
+      "Description": "Sets the word/pattern list for a BannedWords, LinkBlacklist, or LinkWhitelist rule. Separate multiple entries with spaces. Use * for wildcards, or /regex/ for regex patterns.",
+      "Usage": [
+        ".automodpattern 1 badword1 badword2 badword3",
+        ".automodpattern 1 /b[a@]d\\s*w[o0]rd/"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodexemptchannel"
+      ],
+      "Description": "Makes a channel exempt from an automod rule. Messages in that channel won't be checked by this rule.",
+      "Usage": [
+        ".automodexemptchannel 1 #bot-spam"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodexemptrole"
+      ],
+      "Description": "Makes a role exempt from an automod rule. Users with that role won't be checked by this rule.",
+      "Usage": [
+        ".automodexemptrole 1 @Moderators"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodinfractions"
+      ],
+      "Description": "Shows how many times a user has triggered automod rules, including recent (last 24h) count.",
+      "Usage": [
+        ".automodinfractions @user"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".automodclearinfractions"
+      ],
+      "Description": "Clears all automod infractions for a user, giving them a clean slate.",
+      "Usage": [
+        ".automodclearinfractions @user"
+      ],
+      "Submodule": "AutomodCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
       ]
     },
     {
@@ -64,6 +561,99 @@
       "Options": null,
       "Requirements": [
         "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoresponseadd"
+      ],
+      "Description": "Creates a new auto-response. When someone sends a message matching the trigger, the bot responds automatically. Supports variables like user, server, and channel in curly braces.",
+      "Usage": [
+        ".autoresponseadd Contains hello Hey there!",
+        ".autoresponseadd ExactMatch !rules Please read the rules in #rules",
+        ".autoresponseadd StartsWith !ticket A mod will be with you shortly"
+      ],
+      "Submodule": "AutoResponderCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoresponseremove"
+      ],
+      "Description": "Removes an auto-response by its ID number.",
+      "Usage": [
+        ".autoresponseremove 1"
+      ],
+      "Submodule": "AutoResponderCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoresponsetoggle"
+      ],
+      "Description": "Enables or disables an auto-response without deleting it.",
+      "Usage": [
+        ".autoresponsetoggle 1"
+      ],
+      "Submodule": "AutoResponderCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoresponselist"
+      ],
+      "Description": "Shows all auto-responses for this server.",
+      "Usage": [
+        ".autoresponselist"
+      ],
+      "Submodule": "AutoResponderCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoresponsecooldown"
+      ],
+      "Description": "Sets cooldowns for an auto-response to prevent spam. User cooldown limits per-person, channel cooldown limits per-channel.",
+      "Usage": [
+        ".autoresponsecooldown 1 30",
+        ".autoresponsecooldown 1 30 60"
+      ],
+      "Submodule": "AutoResponderCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoresponsedeletetrigger"
+      ],
+      "Description": "Toggles whether the triggering message should be automatically deleted when an auto-response fires.",
+      "Usage": [
+        ".autoresponsedeletetrigger 1"
+      ],
+      "Submodule": "AutoResponderCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
       ]
     },
     {
@@ -150,6 +740,36 @@
       "Options": null,
       "Requirements": [
         "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dehoist"
+      ],
+      "Description": "Toggles auto-dehoist. When enabled, the bot automatically removes special characters from nicknames that push users to the top of the member list (like !,",
+      "Usage": [
+        ".dehoist"
+      ],
+      "Submodule": "DehoistCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageNicknames Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dehoistall"
+      ],
+      "Description": "Immediately dehoists all current members who have special characters at the start of their nickname.",
+      "Usage": [
+        ".dehoistall"
+      ],
+      "Submodule": "DehoistCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageNicknames Server Permission"
       ]
     },
     {
@@ -477,6 +1097,205 @@
       "Options": null,
       "Requirements": [
         "ManageMessages Channel Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".case"
+      ],
+      "Description": "Shows details of a specific mod case by its case number.",
+      "Usage": [
+        ".case 1",
+        ".case 42"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".cases"
+      ],
+      "Description": "Shows all mod cases for a user — warnings, mutes, bans, etc.",
+      "Usage": [
+        ".cases @user"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".caselog"
+      ],
+      "Description": "Shows the most recent mod cases for this server.",
+      "Usage": [
+        ".caselog"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".reason"
+      ],
+      "Description": "Updates the reason for an existing mod case. Useful when you need to add context after the fact.",
+      "Usage": [
+        ".reason 1 Repeated spam in general"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modnote"
+      ],
+      "Description": "Adds a private moderator note on a user. Only visible to mods, not the user. Use this for context that doesn't warrant a formal warning.",
+      "Usage": [
+        ".modnote @user Suspicious behavior, keep an eye on them"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modnotes"
+      ],
+      "Description": "Shows all moderator notes for a user.",
+      "Usage": [
+        ".modnotes @user"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modnotedelete"
+      ],
+      "Description": "Deletes a moderator note by its ID.",
+      "Usage": [
+        ".modnotedelete 1"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modlogchannel"
+      ],
+      "Description": "Sets the channel where mod case logs are posted. Leave empty to disable.",
+      "Usage": [
+        ".modlogchannel #mod-log",
+        ".modlogchannel"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".moddm"
+      ],
+      "Description": "Toggles whether users receive a DM when they are warned, muted, kicked, or banned.",
+      "Usage": [
+        ".moddm"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".moddmtemplate"
+      ],
+      "Description": "Sets the template for DM messages sent to users on mod actions. Variables available are action, reason, server, and duration in curly braces.",
+      "Usage": [
+        ".moddmtemplate You have been warned in MyServer. Reason: spamming"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autopunish"
+      ],
+      "Description": "Sets up automatic escalation. When a user reaches X mod cases, they get automatically punished. Time window is optional (hours).",
+      "Usage": [
+        ".autopunish 3 Kick",
+        ".autopunish 5 Ban 24",
+        ".autopunish 3 TimeOut 0 60"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autopunishlist"
+      ],
+      "Description": "Shows all auto-punish escalation rules.",
+      "Usage": [
+        ".autopunishlist"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autopunishremove"
+      ],
+      "Description": "Removes an auto-punish rule by its ID.",
+      "Usage": [
+        ".autopunishremove 1"
+      ],
+      "Submodule": "ModCaseCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
       ]
     },
     {
@@ -1593,6 +2412,175 @@
     },
     {
       "Aliases": [
+        ".ticketenable"
+      ],
+      "Description": "Toggles the ticket system on or off for this server.",
+      "Usage": [
+        ".ticketenable"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ticketcreate"
+      ],
+      "Description": "Creates a new support ticket. A private channel will be created for you and the support team. Optionally include a topic.",
+      "Usage": [
+        ".ticketcreate",
+        ".ticketcreate I need help with my roles"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ticketclose"
+      ],
+      "Description": "Closes the current ticket. Must be used inside a ticket channel. The channel will be deleted after a short delay.",
+      "Usage": [
+        ".ticketclose"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ticketclaim"
+      ],
+      "Description": "Claims a ticket as a moderator, letting the user know you're handling it.",
+      "Usage": [
+        ".ticketclaim"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ticketlist"
+      ],
+      "Description": "Shows all currently open tickets on the server.",
+      "Usage": [
+        ".ticketlist"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ticketcategory"
+      ],
+      "Description": "Sets the category where new ticket channels are created. Leave empty to clear.",
+      "Usage": [
+        ".ticketcategory Support Tickets",
+        ".ticketcategory"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ticketlog"
+      ],
+      "Description": "Sets the channel where ticket transcripts/logs are posted when tickets are closed.",
+      "Usage": [
+        ".ticketlog #ticket-logs",
+        ".ticketlog"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ticketrole"
+      ],
+      "Description": "Sets the support team role that can see and manage all tickets.",
+      "Usage": [
+        ".ticketrole @Support Team",
+        ".ticketrole"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ticketwelcome"
+      ],
+      "Description": "Sets the welcome message shown when a ticket is created. Supports variables for user, server, and ticket number.",
+      "Usage": [
+        ".ticketwelcome Welcome! A mod will help you shortly."
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ticketmax"
+      ],
+      "Description": "Sets the maximum number of open tickets a user can have at once. Use 0 for unlimited.",
+      "Usage": [
+        ".ticketmax 1",
+        ".ticketmax 3",
+        ".ticketmax 0"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ticketpanel"
+      ],
+      "Description": "Sends a \"Create Ticket\" button panel in the current channel. Users click the button to open a ticket.",
+      "Usage": [
+        ".ticketpanel"
+      ],
+      "Submodule": "TicketCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".timezones"
       ],
       "Description": "Lists all timezones available on the system to be used with `.timezone`.",
@@ -2072,6 +3060,142 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vtlink"
+      ],
+      "Description": "Links a voice channel to a text channel. When someone joins the voice channel, they get access to the text channel. When they leave, access is revoked.",
+      "Usage": [
+        ".vtlink Music Room #music-chat"
+      ],
+      "Submodule": "VoiceTextLinkCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vtunlink"
+      ],
+      "Description": "Removes a voice-text link.",
+      "Usage": [
+        ".vtunlink Music Room"
+      ],
+      "Submodule": "VoiceTextLinkCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vtlist"
+      ],
+      "Description": "Shows all voice-text links on this server.",
+      "Usage": [
+        ".vtlist"
+      ],
+      "Submodule": "VoiceTextLinkCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomeimg"
+      ],
+      "Description": "Toggles welcome images on or off. When enabled, a custom banner with the user's avatar is posted when someone joins.",
+      "Usage": [
+        ".welcomeimg"
+      ],
+      "Submodule": "WelcomeImageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomeimgchannel"
+      ],
+      "Description": "Sets the channel where welcome images are posted.",
+      "Usage": [
+        ".welcomeimgchannel #welcome"
+      ],
+      "Submodule": "WelcomeImageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomeimgbg"
+      ],
+      "Description": "Sets a custom background image URL for the welcome banner.",
+      "Usage": [
+        ".welcomeimgbg https://example.com/my-background.png"
+      ],
+      "Submodule": "WelcomeImageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomeimgcolor"
+      ],
+      "Description": "Sets the accent color for the welcome banner. Use hex codes.",
+      "Usage": [
+        ".welcomeimgcolor FF6347",
+        ".welcomeimgcolor 0C95E9"
+      ],
+      "Submodule": "WelcomeImageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomeimgtext"
+      ],
+      "Description": "Sets the welcome text shown on the banner. Supports variables for user, server, and membercount.",
+      "Usage": [
+        ".welcomeimgtext Welcome to the server!"
+      ],
+      "Submodule": "WelcomeImageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomeimgtest"
+      ],
+      "Description": "Generates a test welcome image using your own profile so you can preview how it looks.",
+      "Usage": [
+        ".welcomeimgtest"
+      ],
+      "Submodule": "WelcomeImageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
     }
   ],
   "Expressions": [
@@ -6558,6 +7682,52 @@
     },
     {
       "Aliases": [
+        ".tiktokfollow"
+      ],
+      "Description": "Subscribe to a TikTok user's new posts in this channel. Uses RSS to check for new videos. Provide a @username or TikTok profile URL.",
+      "Usage": [
+        ".tiktokfollow @charlidamelio",
+        ".tiktokfollow https://tiktok.com/@khaby.lame"
+      ],
+      "Submodule": "TikTokCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".tiktokunfollow"
+      ],
+      "Description": "Unsubscribe from a TikTok user's posts in this channel.",
+      "Usage": [
+        ".tiktokunfollow @charlidamelio"
+      ],
+      "Submodule": "TikTokCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".tiktoklist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tiktoklist"
+      ],
+      "Submodule": "TikTokCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".time"
       ],
       "Description": "Shows the current time and timezone in the specified location.",
@@ -7255,6 +8425,81 @@
       "Options": null,
       "Requirements": [
         "Bot Owner Only"
+      ]
+    },
+    {
+      "Aliases": [
+        ".embed"
+      ],
+      "Description": "Sends a rich embed to a channel using JSON. Use `.embed template` to see the format.",
+      "Usage": [
+        ".embed #announcements <json>"
+      ],
+      "Submodule": "EmbedBuilderCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".embedsimple"
+      ],
+      "Description": "Sends a simple embed with just a title and description.",
+      "Usage": [
+        ".embedsimple #rules \"Server Rules\" Follow the rules or get banned!"
+      ],
+      "Submodule": "EmbedBuilderCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".embedcolor"
+      ],
+      "Description": "Sends a colored embed with a title and description. Color is a hex code.",
+      "Usage": [
+        ".embedcolor #announcements FF0000 \"Important\" Read this carefully!"
+      ],
+      "Submodule": "EmbedBuilderCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".embededit"
+      ],
+      "Description": "Edits an existing embed sent by the bot. Provide the channel, message ID, and new JSON.",
+      "Usage": [
+        ".embededit #announcements 123456789 <json>"
+      ],
+      "Submodule": "EmbedBuilderCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".embedtemplate"
+      ],
+      "Description": "Shows a template for the embed JSON format with all available fields.",
+      "Usage": [
+        ".embedtemplate"
+      ],
+      "Submodule": "EmbedBuilderCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
       ]
     },
     {

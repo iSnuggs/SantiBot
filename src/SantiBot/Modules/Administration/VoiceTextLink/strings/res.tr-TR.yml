@@ -1,0 +1,4 @@
+vtlink_added: 'Linked voice channel **{0}** → {1}. Users in voice will auto-get text access.'
+vtlink_removed: 'Voice-text link removed for **{0}**.'
+vtlink_not_found: 'No voice-text link found for **{0}**.'
+vtlink_none: No voice-text links configured on this server.

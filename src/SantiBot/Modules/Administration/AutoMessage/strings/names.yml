@@ -1,0 +1,11 @@
+schedulemessage:
+  - schedulemessage
+  - schedmsg
+schedulerecurring:
+  - schedulerecurring
+  - schedrec
+schedulecancel:
+  - schedulecancel
+schedulelist:
+  - schedulelist
+  - schedlist

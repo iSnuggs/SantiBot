@@ -1,0 +1,18 @@
+verifyenable:
+  - verifyenable
+verifyrole:
+  - verifyrole
+verifymessage:
+  - verifymessage
+  - verifymsg
+verifypanel:
+  - verifypanel
+lockdown:
+  - lockdown
+  - ld
+autolockdown:
+  - autolockdown
+  - autold
+massjoinban:
+  - massjoinban
+  - mjb
