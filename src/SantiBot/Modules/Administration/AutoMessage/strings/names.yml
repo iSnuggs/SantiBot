@@ -6,6 +6,3 @@ schedulerecurring:
   - schedrec
 schedulecancel:
   - schedulecancel
-schedulelist:
-  - schedulelist
-  - schedlist
