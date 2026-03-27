@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using SantiBot.Dashboard.Hubs;
 using SantiBot.Dashboard.Middleware;
 using SantiBot.Dashboard.Services;
 
@@ -23,11 +24,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = "SantiBot.Dashboard",
             IssuerSigningKey = new SymmetricSecurityKey(keyBytes),
         };
+
+        // SignalR sends JWT via query string instead of Authorization header
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                    context.Token = accessToken;
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
+// SignalR for real-time dashboard updates between users
+builder.Services.AddSignalR();
 
 // Register dashboard services
 builder.Services.AddSingleton<DiscordOAuthService>();
@@ -58,6 +74,8 @@ app.UseAuthorization();
 // Verify the user has "Manage Server" permission before allowing guild config access
 app.UseMiddleware<GuildPermissionMiddleware>();
 app.MapControllers();
+// SignalR hub endpoint — frontend connects here for real-time updates
+app.MapHub<DashboardHub>("/hubs/dashboard");
 
 // Health check
 app.MapGet("/api/health", () => Results.Ok(new { status = "healthy", bot = "SantiBot" }));

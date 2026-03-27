@@ -2,6 +2,8 @@ using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using SantiBot.Dashboard.Hubs;
 using SantiBot.Dashboard.Services;
 using SantiBot.Db.Models;
 using SantiBot.Services;
@@ -15,11 +17,23 @@ public class ConfigController : ControllerBase
 {
     private readonly DbService _db;
     private readonly JwtService _jwt;
+    private readonly IHubContext<DashboardHub> _hub;
 
-    public ConfigController(DbService db, JwtService jwt)
+    public ConfigController(DbService db, JwtService jwt, IHubContext<DashboardHub> hub)
     {
         _db = db;
         _jwt = jwt;
+        _hub = hub;
+    }
+
+    /// <summary>
+    /// Broadcast a config change to all dashboard users viewing this guild.
+    /// The "section" tells the frontend which page's data changed (e.g., "starboard", "logging").
+    /// </summary>
+    private async Task BroadcastChange(ulong guildId, string section)
+    {
+        await _hub.Clients.Group($"guild:{guildId}")
+            .SendAsync("ConfigUpdated", section);
     }
 
     // ──────────────────────────────────────────────
@@ -125,6 +139,7 @@ public class ConfigController : ControllerBase
                 query = (IQueryable<StarboardSettings>)query.Set(x => x.AllowSelfStar, model.AllowSelfStar.Value);
         }
 
+        await BroadcastChange(guildId, "starboard");
         return Ok(new { success = true });
     }
 
@@ -231,6 +246,7 @@ public class ConfigController : ControllerBase
             await ctx.SaveChangesAsync();
         }
 
+        await BroadcastChange(guildId, "logging");
         return Ok(new { success = true });
     }
 
@@ -323,6 +339,7 @@ public class ConfigController : ControllerBase
             await ctx.SaveChangesAsync();
         }
 
+        await BroadcastChange(guildId, "music");
         return Ok(new { success = true });
     }
 
@@ -381,6 +398,7 @@ public class ConfigController : ControllerBase
         if (model.StickyRoles.HasValue) gc.StickyRoles = model.StickyRoles.Value;
         await ctx.SaveChangesAsync();
 
+        await BroadcastChange(guildId, "moderation");
         return Ok(new { success = true });
     }
 

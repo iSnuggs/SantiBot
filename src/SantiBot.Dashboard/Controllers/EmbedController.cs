@@ -3,6 +3,8 @@ using LinqToDB;
 using LinqToDB.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using SantiBot.Dashboard.Hubs;
 using SantiBot.Dashboard.Services;
 using SantiBot.Db.Models;
 using SantiBot.Services;
@@ -16,11 +18,13 @@ public class EmbedController : ControllerBase
 {
     private readonly DbService _db;
     private readonly JwtService _jwt;
+    private readonly IHubContext<DashboardHub> _hub;
 
-    public EmbedController(DbService db, JwtService jwt)
+    public EmbedController(DbService db, JwtService jwt, IHubContext<DashboardHub> hub)
     {
         _db = db;
         _jwt = jwt;
+        _hub = hub;
     }
 
     [HttpPost("preview")]
@@ -80,6 +84,8 @@ public class EmbedController : ControllerBase
                 CreatorId = userId.Value,
             });
 
+        await _hub.Clients.Group($"guild:{guildId}")
+            .SendAsync("ConfigUpdated", "embeds");
         return Ok(new { id = saved.Id, name = saved.Name });
     }
 
@@ -90,7 +96,13 @@ public class EmbedController : ControllerBase
         var deleted = await ctx.GetTable<SavedEmbed>()
             .DeleteAsync(x => x.Id == embedId && x.GuildId == guildId);
 
-        return deleted > 0 ? Ok(new { success = true }) : NotFound();
+        if (deleted > 0)
+        {
+            await _hub.Clients.Group($"guild:{guildId}")
+                .SendAsync("ConfigUpdated", "embeds");
+            return Ok(new { success = true });
+        }
+        return NotFound();
     }
 }
 
