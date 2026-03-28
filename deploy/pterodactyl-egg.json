@@ -1,0 +1,50 @@
+{
+  "_comment": "SantiBot Pterodactyl Egg — for gaming server panels",
+  "meta": {
+    "version": "PTDL_v2",
+    "update_url": null
+  },
+  "exported_at": "2026-03-28T00:00:00+00:00",
+  "name": "SantiBot",
+  "author": "snuggs@santibot.dev",
+  "description": "An open-source Discord bot combining NadekoBot and Dyno features. Includes music, moderation, economy, games, XP, and a full web dashboard.",
+  "features": null,
+  "docker_images": {
+    "ghcr.io/isnuggs/santibot:latest": "ghcr.io/isnuggs/santibot:latest"
+  },
+  "file_denylist": [],
+  "startup": "./SantiBot",
+  "config": {
+    "files": "{}",
+    "startup": "{\"done\": \"Bot is connected to Discord\"}",
+    "logs": "{}",
+    "stop": "^^C"
+  },
+  "scripts": {
+    "installation": {
+      "script": "#!/bin/bash\napt-get update\napt-get install -y curl unzip\n\n# Download latest release\nLATEST=$(curl -s https://api.github.com/repos/iSnuggs/SantiBot/releases/latest | grep -oP '\"tag_name\": \"\\K(.*)(?=\")')\nARCH=$(uname -m)\nif [ \"$ARCH\" = \"aarch64\" ]; then\n  RUNTIME=\"linux-arm64\"\nelse\n  RUNTIME=\"linux-x64\"\nfi\n\ncurl -L -o /tmp/santibot.tar.gz \"https://github.com/iSnuggs/SantiBot/releases/download/${LATEST}/santi-${RUNTIME}.tar.gz\"\ntar -xzf /tmp/santibot.tar.gz -C /mnt/server/ --strip-components=1\nrm /tmp/santibot.tar.gz\nchmod +x /mnt/server/SantiBot\n\n# Create default creds if not exists\nif [ ! -f /mnt/server/data/creds.yml ]; then\n  cp /mnt/server/data/creds_example.yml /mnt/server/data/creds.yml\nfi",
+      "container": "debian:trixie-slim",
+      "entrypoint": "bash"
+    }
+  },
+  "variables": [
+    {
+      "name": "Bot Token",
+      "description": "Your Discord bot token from https://discord.com/developers/applications",
+      "env_variable": "SANTIBOT_TOKEN",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string"
+    },
+    {
+      "name": "Owner ID",
+      "description": "Your Discord user ID. Right-click your name in Discord -> Copy User ID",
+      "env_variable": "SANTIBOT_OWNER_ID",
+      "default_value": "",
+      "user_viewable": true,
+      "user_editable": true,
+      "rules": "required|string"
+    }
+  ]
+}
