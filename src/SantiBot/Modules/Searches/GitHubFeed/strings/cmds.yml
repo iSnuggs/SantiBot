@@ -1,0 +1,24 @@
+ghwatch:
+  desc: >-
+    Watch a GitHub repository for new events and post notifications to a channel.
+    Also used to toggle specific event types (commits, issues, prs, releases).
+  ex:
+    - 'iSnuggs/SantiBot #github-feed'
+    - 'iSnuggs/SantiBot commits off'
+  params:
+    - repoFullName:
+        desc: "The full repo name in owner/repo format (e.g. iSnuggs/SantiBot)."
+    - channel:
+        desc: The channel to post GitHub notifications in.
+ghunwatch:
+  desc: Stop watching a GitHub repository.
+  ex:
+    - 'iSnuggs/SantiBot'
+  params:
+    - repoFullName:
+        desc: "The full repo name to stop watching."
+ghlist:
+  desc: List all GitHub repositories being watched in this server.
+  ex:
+    - ''
+  params: []

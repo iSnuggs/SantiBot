@@ -1,0 +1,26 @@
+banappeal:
+  - show
+  - status
+banappealenable:
+  - enable
+  - on
+banappealdisable:
+  - disable
+  - off
+banappealchannel:
+  - channel
+  - setchannel
+banappeallist:
+  - list
+  - ls
+  - pending
+banappealapprove:
+  - approve
+  - accept
+banappealdeny:
+  - deny
+  - reject
+banappealmessage:
+  - message
+  - msg
+  - dm

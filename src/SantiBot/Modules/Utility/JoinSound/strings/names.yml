@@ -1,0 +1,20 @@
+joinsoundset:
+  - set
+  - add
+joinsoundremove:
+  - remove
+  - rm
+  - delete
+joinsounddefault:
+  - default
+  - serverdefault
+joinsoundenable:
+  - enable
+  - on
+joinsounddisable:
+  - disable
+  - off
+joinsoundmaxduration:
+  - maxduration
+  - duration
+  - maxlen

@@ -1,0 +1,7 @@
+rotatestatus_added: 'Added rotating status: **{0}** — `{1}`'
+rotatestatus_removed: 'Removed rotating status with ID {0}.'
+rotatestatus_not_found: 'No rotating status found with ID {0}.'
+rotatestatus_none: No rotating statuses are configured.
+rotatestatus_cleared: All rotating statuses have been cleared.
+rotatestatus_invalid_type: 'Invalid type. Use 0=Playing, 1=Streaming, 2=Listening, 3=Watching, 4=Competing.'
+rotatestatus_no_text: You must provide status text.

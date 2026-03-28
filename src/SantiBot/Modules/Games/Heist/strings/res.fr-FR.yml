@@ -1,0 +1,6 @@
+heist_min_bet: The minimum heist bet is 100.
+heist_already_active: There is already an active heist in this server. Join it or wait for it to finish.
+heist_none_active: There is no active heist in this server. Start one with `.heist <amount>`.
+heist_already_joined: You have already joined this heist.
+heist_not_enough: You don't have enough currency to join this heist.
+heist_joined: '{0} joined the heist! Crew size: **{1}** | Pot: **{2}**'

@@ -1,0 +1,4 @@
+bump_channel_set: 'Bump reminder channel set to {0}.'
+bump_role_set: 'Bump reminder ping role set to {0}.'
+bump_disabled: Bump reminders have been disabled.
+bump_not_configured: Bump reminders are not configured on this server. Use `.bumpreminder #channel` to set up.

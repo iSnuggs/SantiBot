@@ -1,0 +1,42 @@
+stocks:
+  desc: >-
+    Show all available stocks with their current prices and recent price change
+    percentages. Prices fluctuate every 10 minutes.
+  ex:
+    - ''
+  params:
+    - {}
+stockbuy:
+  desc: Buy shares of a stock at the current market price.
+  ex:
+    - 'DSCRD 10'
+    - 'SANTI 5'
+  params:
+    - symbol:
+        desc: The stock ticker symbol to buy.
+    - quantity:
+        desc: The number of shares to buy. Defaults to 1.
+stocksell:
+  desc: Sell shares of a stock you own at the current market price.
+  ex:
+    - 'DSCRD 5'
+    - 'SANTI 3'
+  params:
+    - symbol:
+        desc: The stock ticker symbol to sell.
+    - quantity:
+        desc: The number of shares to sell. Defaults to 1.
+stockportfolio:
+  desc: Show your stock portfolio with current holdings, average purchase price, and profit/loss.
+  ex:
+    - ''
+  params:
+    - {}
+stockinfo:
+  desc: Show detailed information about a specific stock including price and recent changes.
+  ex:
+    - 'DSCRD'
+    - 'SANTI'
+  params:
+    - symbol:
+        desc: The stock ticker symbol to look up.

@@ -1,0 +1,53 @@
+quarantine:
+  desc: Show the current quarantine configuration for this server.
+  ex:
+    - ''
+  params: []
+quarantineenable:
+  desc: Enable quarantine. New members matching suspicious criteria will be assigned the quarantine role.
+  ex:
+    - ''
+  params: []
+quarantinedisable:
+  desc: Disable quarantine. New members will no longer be auto-quarantined.
+  ex:
+    - ''
+  params: []
+quarantinerole:
+  desc: Set the role that will be assigned to quarantined users. This role should restrict channel access.
+  ex:
+    - '@Quarantine'
+  params:
+    - role:
+        desc: The role to assign to quarantined users.
+quarantineage:
+  desc: Set the minimum account age in days. Accounts newer than this will be quarantined.
+  ex:
+    - '7'
+    - '14'
+    - '1'
+  params:
+    - days:
+        desc: Minimum account age in days (0-365).
+quarantinenoavatar:
+  desc: Toggle whether to quarantine accounts with no custom avatar (default profile picture).
+  ex:
+    - 'true'
+    - 'false'
+  params:
+    - enabled:
+        desc: True to quarantine no-avatar accounts, false to skip this check.
+quarantinelog:
+  desc: Set the channel where quarantine actions will be logged.
+  ex:
+    - '#quarantine-log'
+  params:
+    - channel:
+        desc: The text channel to log quarantine events to.
+quarantinerelease:
+  desc: Remove the quarantine role from a user, allowing them full server access.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: The user to release from quarantine.

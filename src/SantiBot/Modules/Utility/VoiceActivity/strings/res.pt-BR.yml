@@ -1,0 +1,5 @@
+activity_not_in_voice: You must be in a voice channel to start an activity.
+activity_not_found: 'Activity "{0}" not found. Use `.activity list` to see available activities.'
+activity_failed: Failed to create the activity invite. Make sure the bot has permission to create invites.
+activity_started: '**{0}** is ready! [Click here to join]({1})'
+activity_list_title: Available Voice Activities

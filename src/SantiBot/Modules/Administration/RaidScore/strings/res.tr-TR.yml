@@ -1,0 +1,8 @@
+raidscore_enabled: Raid score system has been **enabled**. New members will be scored on join.
+raidscore_disabled: Raid score system has been **disabled**.
+raidscore_threshold_set: 'Raid score threshold set to **{0}**.'
+raidscore_threshold_invalid: Threshold must be between 1 and 100.
+raidscore_action_set: 'Raid score action set to **{0}**.'
+raidscore_action_invalid: 'Invalid action. Valid actions: Alert, Quarantine, Kick, Ban.'
+raidscore_channel_set: 'Raid score alerts will be sent to {0}.'
+raidscore_user_not_found: Could not resolve that user for scoring.

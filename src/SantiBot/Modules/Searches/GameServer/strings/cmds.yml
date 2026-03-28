@@ -1,0 +1,39 @@
+gameserveradd:
+  desc: >-
+    Add a game server to watch. The bot will periodically ping the server and
+    update a status embed in the specified channel showing player count and online status.
+  ex:
+    - 'minecraft play.example.com 25565 #server-status'
+    - 'valheim myserver.com 2457 #game-servers'
+  params:
+    - gameType:
+        desc: "The type of game server (minecraft, csgo, valheim, etc.)."
+    - address:
+        desc: The server address or IP.
+    - port:
+        desc: The server port number.
+    - channel:
+        desc: The channel to post the status embed in.
+gameserverremove:
+  desc: Remove a watched game server by its ID number (shown in the list).
+  ex:
+    - '3'
+  params:
+    - id:
+        desc: The ID of the server watch entry to remove.
+gameserverlist:
+  desc: List all game servers being watched in this server.
+  ex:
+    - ''
+  params: []
+gameservercheck:
+  desc: Perform a one-time status check on a game server without adding it to the watch list.
+  ex:
+    - 'minecraft play.example.com 25565'
+  params:
+    - gameType:
+        desc: "The type of game server."
+    - address:
+        desc: The server address or IP.
+    - port:
+        desc: The server port number.

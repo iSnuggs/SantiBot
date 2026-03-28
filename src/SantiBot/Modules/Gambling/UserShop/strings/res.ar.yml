@@ -1,0 +1,13 @@
+shop_empty: There are no items for sale in this server yet.
+shop_title: Server Marketplace
+shop_name_invalid: Item name must be between 1 and 64 characters.
+shop_price_invalid: Price must be greater than zero.
+shop_listed: "Listed **{0}** for {1}! (Listing #{2})"
+shop_not_found: That listing doesn't exist or is no longer active.
+shop_cant_buy_own: You can't buy your own listing!
+shop_out_of_stock: That item is out of stock.
+shop_buy_fail: Failed to buy that item.
+shop_bought: "You bought **{0}** for {1}!"
+shop_removed: "Listing #{0} has been removed."
+shop_no_listings: You don't have any active listings.
+shop_my_title: Your Listings

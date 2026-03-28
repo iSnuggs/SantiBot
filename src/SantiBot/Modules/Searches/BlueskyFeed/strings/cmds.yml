@@ -1,0 +1,25 @@
+bskyfollow:
+  desc: >-
+    Follow a Bluesky account for new post notifications. Provide their handle
+    (e.g. user.bsky.social) and optionally a Discord channel to post in.
+  ex:
+    - 'user.bsky.social #general'
+    - 'someone.bsky.social'
+  params:
+    - handle:
+        desc: "Bluesky handle (e.g. user.bsky.social)"
+    - channel:
+        desc: "Discord channel to post notifications in (defaults to current)"
+bskyunfollow:
+  desc: Unfollow a Bluesky account.
+  ex:
+    - 'user.bsky.social'
+  params:
+    - handle:
+        desc: "Bluesky handle to unfollow"
+bskylist:
+  desc: Shows all Bluesky feeds configured on this server.
+  ex:
+    - ''
+  params:
+    - {}

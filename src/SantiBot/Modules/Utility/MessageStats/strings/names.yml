@@ -1,0 +1,4 @@
+serverstats:
+  - stats
+  - msgstats
+  - messagestats

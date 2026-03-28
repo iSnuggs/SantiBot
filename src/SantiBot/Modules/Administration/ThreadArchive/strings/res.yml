@@ -1,0 +1,8 @@
+threadarchive_set: "Threads in {0} will auto-archive after **{1}** minutes."
+threadarchive_keepalive: "Threads in {0} will be kept alive (no auto-archive)."
+threadarchive_reset: "Thread archive config for {0} has been reset to Discord defaults."
+threadarchive_no_config: No custom thread archive config exists for that channel.
+threadarchive_invalid_time: "Archive time must be between 60 and 10080 minutes (1 hour to 7 days)."
+threadarchive_invalid_mode: "Invalid mode. Use a number of minutes, 'keepalive', or 'default'."
+threadarchive_none: No thread archive configs are set for this server.
+threadarchive_list: Thread Archive Configs

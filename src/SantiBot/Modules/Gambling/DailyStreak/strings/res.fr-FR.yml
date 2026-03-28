@@ -1,0 +1,7 @@
+daily_already_claimed: You already claimed your daily reward! Come back tomorrow.
+daily_claimed: "You claimed {0}! Current streak: **{1} days** ({2} bonus)"
+streak_title: Your Daily Streak
+streak_title_user: "{0}'s Daily Streak"
+streak_current: Current Streak
+streak_longest: Longest Streak
+streak_multiplier: Bonus Multiplier

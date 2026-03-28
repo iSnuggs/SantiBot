@@ -1,0 +1,8 @@
+modstats:
+  - mstats
+  - modactions
+  - modlog
+modstatstop:
+  - mstatstop
+  - modleaderboard
+  - topmod

@@ -56,6 +56,7 @@ const navItems: NavItem[] = [
   { name: "Embed Builder", href: "/embed-builder", icon: "🎨", category: "Tools" },
   { name: "Voice Text", href: "/voice-text", icon: "🔊", category: "Tools" },
   { name: "Streams", href: "/streams", icon: "📺", category: "Tools" },
+  { name: "Backup & Restore", href: "/backup", icon: "💾", category: "Tools" },
 ];
 
 export default function Sidebar({ guildId }: { guildId: string }) {

@@ -1,0 +1,18 @@
+raidscoreenable:
+  - enable
+  - on
+raidscoredisable:
+  - disable
+  - off
+raidscorethreshold:
+  - threshold
+  - thresh
+raidscoreaction:
+  - action
+  - act
+raidscorechannel:
+  - channel
+  - ch
+raidscorecheck:
+  - check
+  - scan

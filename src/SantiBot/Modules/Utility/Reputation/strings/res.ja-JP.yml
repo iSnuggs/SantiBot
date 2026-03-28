@@ -1,0 +1,7 @@
+rep_self: You can't give rep to yourself.
+rep_bot: You can't give rep to a bot.
+rep_cooldown: "You can rep again in {0}h {1}m."
+rep_given: "You gave a rep point to {0}! They now have **{1}** rep."
+rep_count: "{0} has **{1}** reputation points."
+rep_nobody: Nobody has any rep yet.
+rep_leaderboard: Reputation Leaderboard

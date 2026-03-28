@@ -1,0 +1,5 @@
+antiphish_enabled: Phishing link detection has been **enabled**.
+antiphish_disabled: Phishing link detection has been **disabled**.
+antiphish_action_set: 'Phishing detection action set to **{0}**.'
+antiphish_action_invalid: 'Invalid action. Valid actions: Delete, Warn, Mute, Ban.'
+antiphish_log_set: 'Phishing detection logs will be sent to {0}.'

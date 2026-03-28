@@ -1,0 +1,19 @@
+heist:
+  desc: >-
+    Start a heist with a currency bet, or show the active heist status.
+
+    Other users can join within 60 seconds by typing `.heist join`.
+    Higher crew size = better odds of success. Winners split the pot.
+  ex:
+    - '1000'
+    - ''
+  params:
+    - amount:
+        desc: The amount of currency to bet on the heist.
+    - {}
+heistjoin:
+  desc: Join an active heist in progress. Your bet matches the per-person share of the pot.
+  ex:
+    - ''
+  params:
+    - {}

@@ -1,0 +1,24 @@
+craft:
+  desc: >-
+    Show available crafting recipes and what you can craft, or craft a specific
+    item by providing its name. Materials come from fishing, daily rewards, and
+    random drops.
+  ex:
+    - ''
+    - '"Lucky Charm"'
+  params:
+    - {}
+    - itemName:
+        desc: The name of the item to craft (use quotes for multi-word names).
+inventory:
+  desc: Show your crafting materials and items.
+  ex:
+    - ''
+  params:
+    - {}
+craftrecipes:
+  desc: List all crafting recipes with required materials and sell values.
+  ex:
+    - ''
+  params:
+    - {}

@@ -1,0 +1,36 @@
+joinsoundset:
+  desc: Set your personal join sound that plays when you enter a voice channel.
+  ex:
+    - 'https://example.com/sound.mp3'
+  params:
+    - url:
+        desc: Direct URL to the audio file.
+joinsoundremove:
+  desc: Remove your personal join sound.
+  ex:
+    - ''
+  params: []
+joinsounddefault:
+  desc: Set the default join sound for the server (plays for users without a personal sound).
+  ex:
+    - 'https://example.com/default.mp3'
+  params:
+    - url:
+        desc: Direct URL to the default audio file.
+joinsoundenable:
+  desc: Enable join sounds on this server.
+  ex:
+    - ''
+  params: []
+joinsounddisable:
+  desc: Disable join sounds on this server.
+  ex:
+    - ''
+  params: []
+joinsoundmaxduration:
+  desc: Set the maximum duration for join sounds in seconds (1-15).
+  ex:
+    - '5'
+  params:
+    - seconds:
+        desc: Maximum duration in seconds.

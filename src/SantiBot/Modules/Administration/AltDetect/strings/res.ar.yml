@@ -1,0 +1,9 @@
+altdetect_enabled: Alt account detection has been **enabled**.
+altdetect_disabled: Alt account detection has been **disabled**.
+altdetect_age_set: 'Minimum account age set to **{0} days**.'
+altdetect_age_invalid: Account age must be between 0 and 365 days.
+altdetect_action_set: 'Alt detection action set to **{0}**.'
+altdetect_action_invalid: 'Invalid action. Valid actions: Alert, Kick, Ban.'
+altdetect_channel_set: 'Alt detection alerts will be sent to {0}.'
+altdetect_linked: '{0} has been marked as an alt of {1}.'
+altdetect_no_alts: '{0} has no known alt accounts.'

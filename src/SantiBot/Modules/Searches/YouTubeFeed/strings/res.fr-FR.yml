@@ -1,0 +1,5 @@
+ytfeed_followed: 'Now following **{0}** on YouTube! New uploads will appear in <#{1}>.'
+ytfeed_follow_failed: 'Could not follow: {0}'
+ytfeed_unfollowed: 'Unfollowed YouTube channel `{0}`.'
+ytfeed_not_following: 'Not following YouTube channel `{0}` on this server.'
+ytfeed_none: No YouTube feeds configured on this server.

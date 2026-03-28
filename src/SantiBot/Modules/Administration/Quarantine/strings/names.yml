@@ -1,0 +1,25 @@
+quarantine:
+  - show
+  - status
+quarantineenable:
+  - enable
+  - on
+quarantinedisable:
+  - disable
+  - off
+quarantinerole:
+  - role
+  - setrole
+quarantineage:
+  - age
+  - minage
+quarantinenoavatar:
+  - noavatar
+  - avatar
+quarantinelog:
+  - log
+  - logchannel
+quarantinerelease:
+  - release
+  - free
+  - unquarantine

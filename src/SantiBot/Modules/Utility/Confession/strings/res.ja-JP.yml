@@ -1,0 +1,10 @@
+confession_channel_set: Confession channel has been set to {0}.
+confession_disabled: Confessions have been disabled.
+confession_empty: You need to include text with your confession.
+confession_enabled: Confessions have been enabled.
+confession_footer: Anonymous Confession
+confession_no_channel: You need to set a confession channel first using the channel command.
+confession_not_configured: Confessions are not configured for this server.
+confession_not_enabled: Confessions are not enabled in this server.
+confession_submitted: "Your confession #{0} has been submitted anonymously."
+confession_title: "Confession #{0}"

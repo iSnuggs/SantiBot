@@ -1,0 +1,35 @@
+birthday:
+  desc: >-
+    Set your birthday or view someone's birthday. Use two numbers for month and
+    day, or mention a user to see theirs.
+  ex:
+    - 3 15
+    - '@user'
+    - ''
+  params:
+    - month:
+        desc: The month of your birthday (1-12).
+      day:
+        desc: The day of your birthday (1-31).
+    - user:
+        desc: The user whose birthday you want to see. Leave empty for your own.
+birthdaychannel:
+  desc: Sets the channel where birthday announcements will be posted.
+  ex:
+    - '#birthdays'
+  params:
+    - channel:
+        desc: The text channel for birthday announcements.
+birthdayrole:
+  desc: Sets the role that will be given to users on their birthday.
+  ex:
+    - '@Birthday'
+  params:
+    - role:
+        desc: The role to assign on birthdays.
+birthdayupcoming:
+  desc: Shows the next 10 upcoming birthdays in the server within the next 30 days.
+  ex:
+    - ''
+  params:
+    - {}

@@ -1,0 +1,9 @@
+counting_channel: Channel
+counting_channel_set: Counting channel has been set to {0}. Start counting from 1!
+counting_current: Current Count
+counting_last_user: Last Counter
+counting_no_double: You can't count twice in a row! Wait for someone else.
+counting_not_configured: Counting is not set up for this server.
+counting_reset: The count has been reset to zero.
+counting_status_title: Counting Status
+counting_wrong: "{0} sent {1} but the next number was {2}. The count has been reset!"

@@ -1,0 +1,5 @@
+gs_added: "Now watching **{0}** server `{1}:{2}`. Status updates will be posted in {3}."
+gs_removed: "Game server watch #{0} has been removed."
+gs_not_found: "No game server watch with ID #{0} was found in this server."
+gs_none: No game servers are being watched in this server.
+gs_checking: Pinging the server, please wait...

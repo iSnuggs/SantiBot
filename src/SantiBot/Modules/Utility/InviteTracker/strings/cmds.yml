@@ -1,0 +1,37 @@
+invites:
+  desc: >-
+    Shows how many people you (or the specified user) have invited to this
+    server.
+  ex:
+    - ''
+    - '@user'
+  params:
+    - target:
+        desc: The user whose invite count to check. Leave blank for yourself.
+invitesleaderboard:
+  desc: Shows the top inviters in this server.
+  ex:
+    - ''
+  params:
+    - {}
+invitesenable:
+  desc: Enables invite tracking for this server. Requires Manage Server permission.
+  ex:
+    - ''
+  params:
+    - {}
+invitesdisable:
+  desc: Disables invite tracking for this server. Requires Manage Server permission.
+  ex:
+    - ''
+  params:
+    - {}
+inviteslog:
+  desc: >-
+    Sets the channel where invite tracking events are logged. Requires Manage
+    Server permission.
+  ex:
+    - '#invite-logs'
+  params:
+    - channel:
+        desc: The text channel to log invite events to.

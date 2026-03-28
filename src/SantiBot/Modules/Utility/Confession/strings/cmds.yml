@@ -1,0 +1,28 @@
+confess:
+  desc: >-
+    Submit an anonymous confession. Your message will be deleted and the
+    confession will be posted anonymously in the confession channel.
+  ex:
+    - I secretly love pineapple on pizza
+  params:
+    - text:
+        desc: The text of your anonymous confession.
+confessionchannel:
+  desc: Sets the channel where anonymous confessions will be posted.
+  ex:
+    - '#confessions'
+  params:
+    - channel:
+        desc: The text channel for confessions.
+confessiondisable:
+  desc: Disables the confession system for this server.
+  ex:
+    - ''
+  params:
+    - {}
+confessionenable:
+  desc: Enables the confession system for this server.
+  ex:
+    - ''
+  params:
+    - {}

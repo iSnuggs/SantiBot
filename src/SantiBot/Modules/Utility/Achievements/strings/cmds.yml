@@ -1,0 +1,17 @@
+achievements:
+  desc: >-
+    Show your unlocked achievements, or view another user's achievements by
+    mentioning them.
+  ex:
+    - ''
+    - '@user'
+  params:
+    - {}
+    - user:
+        desc: The user whose achievements you want to view.
+achievementslist:
+  desc: List all possible achievements and whether you have unlocked them.
+  ex:
+    - ''
+  params:
+    - {}

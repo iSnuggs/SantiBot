@@ -1,0 +1,9 @@
+birthday_channel_set: Birthday announcements will be posted in {0}.
+birthday_info: "{0}'s birthday is on {1}/{2}."
+birthday_invalid_date: That's not a valid date. Use a valid month (1-12) and day (1-31).
+birthday_none_upcoming: There are no upcoming birthdays in the next 30 days.
+birthday_not_set: "{0} hasn't set their birthday yet."
+birthday_role_set: The birthday role has been set to {0}.
+birthday_set: Your birthday has been set to {0}/{1}.
+birthday_title: Birthday
+birthday_upcoming_title: Upcoming Birthdays

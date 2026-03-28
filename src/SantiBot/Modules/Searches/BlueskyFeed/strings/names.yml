@@ -1,0 +1,8 @@
+bskyfollow:
+  - bskyfollow
+  - bskyadd
+bskyunfollow:
+  - bskyunfollow
+  - bskyremove
+bskylist:
+  - bskylist

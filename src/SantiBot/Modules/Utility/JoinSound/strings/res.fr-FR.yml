@@ -1,0 +1,9 @@
+joinsound_set: Your join sound has been set! It will play when you join a voice channel.
+joinsound_removed: Your join sound has been removed.
+joinsound_not_set: You don't have a join sound set.
+joinsound_default_set: The server default join sound has been set.
+joinsound_enabled: Join sounds have been enabled on this server.
+joinsound_disabled: Join sounds have been disabled on this server.
+joinsound_duration_set: 'Maximum join sound duration set to {0} seconds.'
+joinsound_duration_invalid: Duration must be between 1 and 15 seconds.
+joinsound_invalid_url: Please provide a valid URL starting with http:// or https://.

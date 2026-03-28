@@ -1,0 +1,8 @@
+kickfollow:
+  - kickfollow
+  - kickadd
+kickunfollow:
+  - kickunfollow
+  - kickremove
+kicklist:
+  - kicklist

@@ -1,0 +1,41 @@
+petadopt:
+  desc: "Adopt a pet! Choose a species (Cat, Dog, Bunny, Fox, Dragon, Phoenix) and give it a name. You can only have one pet at a time."
+  ex:
+    - Cat Whiskers
+    - Dragon Smaug
+  params:
+    - species:
+        desc: The type of pet to adopt.
+      name:
+        desc: The name for your new pet.
+pet:
+  desc: View your pet's stats including level, hunger, and happiness. Hunger decreases over time so remember to feed your pet!
+  ex:
+    - ''
+  params:
+    - {}
+petfeed:
+  desc: Feed your pet to restore hunger. Costs 50 currency. Also gives your pet XP.
+  ex:
+    - ''
+  params:
+    - {}
+petplay:
+  desc: Play with your pet to restore happiness and earn XP. Has a 1 hour cooldown.
+  ex:
+    - ''
+  params:
+    - {}
+petrename:
+  desc: Give your pet a new name (max 32 characters).
+  ex:
+    - Fluffy
+  params:
+    - name:
+        desc: The new name for your pet.
+petleaderboard:
+  desc: View the highest level pets on this bot.
+  ex:
+    - ''
+  params:
+    - {}

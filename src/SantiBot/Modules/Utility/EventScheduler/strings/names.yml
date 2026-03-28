@@ -1,0 +1,10 @@
+eventcreate:
+  - create
+eventrsvp:
+  - rsvp
+eventlist:
+  - list
+eventcancel:
+  - cancel
+eventping:
+  - ping

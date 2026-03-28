@@ -1,0 +1,12 @@
+afke:
+  desc: >-
+    Set yourself as AFK with an optional message. When someone pings you,
+    they will see your AFK message and how long you have been gone.
+    Your AFK status is automatically removed when you send a message.
+  ex:
+    - Going to lunch
+    - Be back in 30 minutes
+    - ''
+  params:
+    - message:
+        desc: Optional AFK message to display when someone pings you.

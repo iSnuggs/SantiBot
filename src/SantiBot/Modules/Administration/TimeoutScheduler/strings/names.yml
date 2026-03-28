@@ -1,0 +1,11 @@
+schedtimeout:
+  - schedule
+  - sched
+schedtimeoutlist:
+  - list
+  - ls
+  - pending
+schedtimeoutcancel:
+  - cancel
+  - remove
+  - rm

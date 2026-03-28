@@ -1,0 +1,9 @@
+ghwatch:
+  - ghw
+  - gitwatch
+ghunwatch:
+  - ghuw
+  - gitunwatch
+ghlist:
+  - ghl
+  - gitwatches

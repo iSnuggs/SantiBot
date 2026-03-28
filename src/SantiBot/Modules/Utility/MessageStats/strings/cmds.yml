@@ -1,0 +1,13 @@
+serverstats:
+  desc: >-
+    Show server message statistics. See the top 10 most active users and channels.
+    Optionally specify a number of days (default 7) or mention a user to see their stats.
+  ex:
+    - ''
+    - '30'
+    - '@Snuggs'
+  params:
+    - days:
+        desc: Number of days to look back (1-365, default 7).
+    - user:
+        desc: A specific user to view stats for.

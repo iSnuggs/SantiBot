@@ -1,0 +1,16 @@
+rotatestatusadd:
+  - rotatestatusadd
+  - rsadd
+  - rsa
+rotatestatusremove:
+  - rotatestatusremove
+  - rsremove
+  - rsrm
+rotatestatuslist:
+  - rotatestatuslist
+  - rslist
+  - rsl
+rotatestatusclear:
+  - rotatestatusclear
+  - rsclear
+  - rsc

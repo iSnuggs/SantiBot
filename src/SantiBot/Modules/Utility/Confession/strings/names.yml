@@ -1,0 +1,10 @@
+confess:
+  - confess
+confessionchannel:
+  - channel
+confessiondisable:
+  - disable
+  - off
+confessionenable:
+  - enable
+  - on

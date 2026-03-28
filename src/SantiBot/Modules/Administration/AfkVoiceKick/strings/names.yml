@@ -1,0 +1,18 @@
+afkkick:
+  - ''
+  - status
+afkkickenable:
+  - enable
+  - on
+afkkickdisable:
+  - disable
+  - off
+afkkicktime:
+  - time
+  - minutes
+afkkickexempt:
+  - exempt
+  - role
+afkkickchannel:
+  - channel
+  - afkchannel

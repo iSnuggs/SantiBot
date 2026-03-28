@@ -1,0 +1,7 @@
+afkkick_enabled: AFK voice kick has been **enabled**.
+afkkick_disabled: AFK voice kick has been **disabled**.
+afkkick_time_set: 'Idle timeout set to **{0} minutes**.'
+afkkick_time_invalid: Idle time must be between 1 and 1440 minutes (24 hours).
+afkkick_exempt_set: 'Role {0} is now exempt from AFK voice kicks.'
+afkkick_channel_set: 'Idle users will be moved to **{0}** instead of disconnected.'
+afkkick_not_configured: AFK voice kick is not configured yet. Use `.afkkick enable` to start.

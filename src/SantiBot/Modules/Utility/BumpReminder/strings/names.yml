@@ -1,0 +1,13 @@
+bumpreminder:
+  - br
+  - bump
+bumpreminderrole:
+  - brrole
+  - bumprole
+bumpreminderdisable:
+  - brdisable
+  - bumpoff
+bumpreminderstatus:
+  - brstatus
+  - bumpstatus
+  - bumpinfo

@@ -1,0 +1,13 @@
+daily:
+  desc: Claim your daily reward. Consecutive days build a streak that multiplies your payout (7d=2x, 30d=3x, 365d=5x). Streak resets after 48h without claiming.
+  ex:
+    - ''
+  params:
+    - {}
+streak:
+  desc: View your current daily streak and longest streak. Optionally check another user's streak.
+  ex:
+    - ''
+    - '@User'
+  params:
+    - {}

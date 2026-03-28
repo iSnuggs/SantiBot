@@ -1,0 +1,17 @@
+pet_name_invalid: Pet name must be between 1 and 32 characters.
+pet_invalid_species: "Invalid species! Choose from: {0}"
+pet_already_have: You already have a pet! You can only have one.
+pet_adopt_fail: Failed to adopt a pet.
+pet_adopted: "You adopted **{0}** the **{1}**! Take good care of them!"
+pet_none: You don't have a pet yet! Use `.pet adopt` to get one.
+pet_level: Level
+pet_hunger: Hunger
+pet_happiness: Happiness
+pet_fed: You fed your pet! They look happy.
+pet_feed_fail: Failed to feed your pet.
+pet_play_cooldown: "You played with your pet recently! Try again in {0} minutes."
+pet_play_fail: Failed to play with your pet.
+pet_played: You played with your pet! They had a great time.
+pet_renamed: "Your pet is now named **{0}**!"
+pet_lb_empty: No one has adopted a pet yet!
+pet_lb_title: Top Pets Leaderboard
