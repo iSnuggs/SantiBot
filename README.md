@@ -45,6 +45,7 @@ Built on a fork of [NadekoBot](https://github.com/nadeko-bot/nadekobot) v6, Sant
 - **TikTok Feed** — follow TikTok accounts for new post notifications
 - **Enhanced Welcome Images** — custom banners with avatar, text, backgrounds
 - **Mod Cases** — case numbering, mod notes, auto-punish escalation
+- **Mod Mail** — DM-to-staff relay with threaded channels, transcripts, and block list
 
 ### Community Features
 - **Starboard** — highlight popular messages with star reactions
@@ -91,6 +92,36 @@ npm install
 npm run dev
 # Open http://localhost:3000
 ```
+
+### Mod Mail Setup
+
+Mod Mail lets users DM the bot to contact your staff team. Each DM creates a private channel where staff can reply, and the bot relays messages both ways.
+
+1. **Enable mod mail:**
+   ```
+   .mmenable
+   ```
+2. **Set the category** where thread channels are created:
+   ```
+   .mmcat Mod Mail
+   ```
+3. **Set the staff role** (who can see and reply to threads):
+   ```
+   .mmrole @Staff
+   ```
+4. **Set a log channel** for transcripts when threads close (optional):
+   ```
+   .mmlog #modmail-logs
+   ```
+5. **Customize messages** sent to users (optional):
+   ```
+   .mmopenmsg Thanks for reaching out! Our staff will reply shortly.
+   .mmclosemsg Your thread has been resolved. DM again if you need more help!
+   ```
+
+**How it works:** A user DMs the bot, a private `mm-username` channel appears in your Mod Mail category, staff type in that channel to reply, and the bot delivers it to the user's DMs. Use `.mmclose` or the Close Thread button to end the conversation and log a transcript.
+
+**Other commands:** `.mmblock @user` / `.mmunblock @user` to manage blocked users, `.mmlist` to see recent threads, `.mmsetup` to view current config.
 
 ## Requirements
 

@@ -1,0 +1,15 @@
+modmail_toggled: 'Mod mail is now **{0}**.'
+modmail_category_set: 'Mod mail category set to **{0}**.'
+modmail_category_cleared: Mod mail category cleared. Threads will be created at the top of the channel list.
+modmail_log_set: 'Mod mail log channel set to {0}.'
+modmail_log_disabled: Mod mail logging disabled.
+modmail_role_set: 'Staff role set to {0}. Members with this role can see mod mail threads.'
+modmail_role_cleared: Staff role cleared.
+modmail_not_thread: This is not a mod mail thread channel.
+modmail_blocked: '{0} has been blocked from using mod mail.'
+modmail_already_blocked: '{0} is already blocked from mod mail.'
+modmail_unblocked: '{0} has been unblocked from mod mail.'
+modmail_not_blocked: '{0} is not blocked from mod mail.'
+modmail_no_threads: No mod mail threads found for this server.
+modmail_openmsg_set: Mod mail open message updated.
+modmail_closemsg_set: Mod mail close message updated.

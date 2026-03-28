@@ -152,6 +152,11 @@ public sealed class SlashCommandService : INService, IReadyExecutor
 
         // ── Expressions ──
         ("say",          "say",          "Make the bot send a message", null),
+
+        // ── Mod Mail ──
+        ("modmail",      "modmailconfig","Show mod mail configuration", null),
+        ("modmail-close","modmailclose", "Close the current mod mail thread", null),
+        ("modmail-block","modmailblock", "Block a user from mod mail", null),
     };
 
     private async Task RegisterSlashCommandsAsync()
