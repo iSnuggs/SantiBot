@@ -1,0 +1,21 @@
+modsnipe:
+  desc: "Show recently deleted messages in this channel. Caches messages in memory so deleted content can be recovered by moderators."
+  ex:
+    - ''
+    - '5'
+    - '@user'
+  params:
+    - count:
+        desc: "Number of messages to show (1-10, default 1)"
+    - user:
+        desc: "Show deleted messages by a specific user"
+      count:
+        desc: "Number of messages to show"
+editsnipe:
+  desc: "Show recently edited messages in this channel with before/after content."
+  ex:
+    - ''
+    - '5'
+  params:
+    - count:
+        desc: "Number of messages to show (1-10, default 1)"
