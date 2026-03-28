@@ -1,7 +1,7 @@
 site_name: 'SantiBot'
 site_url: 'https://santi.bot'
-repo_url: 'https://github.com/santi-bot/santibot'
-site_author: 'Breaker'
+repo_url: 'https://github.com/iSnuggs/SantiBot'
+site_author: 'Snuggs'
 docs_dir: 'md'
 
 theme:

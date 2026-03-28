@@ -9,23 +9,60 @@
   Named after Santi, a beloved companion.
 </p>
 
-Built on a fork of [NadekoBot](https://github.com/nadeko-bot/nadekobot) v6, SantiBot extends the foundation with additional features, a modern web dashboard, and a polished installer — all free and open source.
+<p align="center">
+  <a href="https://github.com/iSnuggs/SantiBot/actions"><img src="https://github.com/iSnuggs/SantiBot/actions/workflows/ci.yml/badge.svg?branch=develop" alt="CI/CD" /></a>
+  <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-AGPLv3-blue.svg" alt="License" /></a>
+  <a href="https://github.com/iSnuggs/SantiBot/releases"><img src="https://img.shields.io/github/v/release/iSnuggs/SantiBot?include_prereleases" alt="Release" /></a>
+</p>
+
+---
+
+Built on a fork of [NadekoBot](https://github.com/nadeko-bot/nadekobot) v6, SantiBot merges every feature from NadekoBot and Dyno into one bot — with a full web dashboard, slash commands, and features Dyno charges for, all completely free.
 
 ## Features
 
-- **Moderation** — Anti-spam, anti-raid, anti-alt, warnings, muting, banning, pruning, and more
-- **Music** — Play from YouTube, SoundCloud, and 1000+ sources via yt-dlp
-- **Economy** — Currency system, gambling, slots, blackjack, banking, shops, fishing
-- **Games** — Trivia, hangman, tic-tac-toe, minesweeper, typing contests, collaborative pixel art
-- **XP & Leveling** — Experience system with leaderboards and customizable rank cards
+### Core (inherited from NadekoBot)
+- **400+ Commands** — text prefix + slash commands side by side
+- **Music** — YouTube, SoundCloud, and 1000+ sources via yt-dlp
+- **Economy** — currency, gambling, slots, blackjack, banking, shops, fishing
+- **Games** — trivia, hangman, tic-tac-toe, minesweeper, typing contests, pixel art
+- **XP & Leveling** — experience system with leaderboards and customizable rank cards
 - **Stream Notifications** — Twitch, YouTube, Kick, Trovo, Facebook, Picarto go-live alerts
-- **Custom Commands** — Expressions and auto-responses with full customization
-- **Roles** — Reaction roles, button roles, self-assignable roles, autoroles
-- **Giveaways** — Create and manage giveaways with winner selection
-- **Starboard** — Highlight popular messages *(coming soon)*
-- **Polls & Suggestions** — Community voting *(coming soon)*
-- **Web Dashboard** — Full server management from your browser *(coming soon)*
-- **And much more** — AFK, reminders, quotes, scheduled commands, repeaters, feeds...
+- **Custom Expressions** — auto-responses with full customization
+- **Roles** — reaction roles, button roles, self-assignable roles, autoroles
+
+### Dyno Features (free in SantiBot)
+- **Advanced Automod** — 19 filter types with per-rule actions, escalating punishments
+- **Auto-Responder** — keyword triggers with cooldowns, channel restrictions
+- **Ticket System** — button-based tickets with claiming, logging, categories
+- **Autoban** — auto-ban by account age, username patterns, no-avatar
+- **Auto Delete** — per-channel message auto-deletion with filters
+- **Auto Message** — scheduled one-time and recurring messages
+- **Anti-Raid** — verification gates, auto-lockdown, mass join ban
+- **Voice Text Linking** — auto-grant text access when joining voice
+- **Auto-Dehoist** — remove hoisting characters from nicknames
+- **Custom Embed Builder** — build and send rich embeds via commands
+- **TikTok Feed** — follow TikTok accounts for new post notifications
+- **Enhanced Welcome Images** — custom banners with avatar, text, backgrounds
+- **Mod Cases** — case numbering, mod notes, auto-punish escalation
+
+### Community Features
+- **Starboard** — highlight popular messages with star reactions
+- **Polls** — button-based voting with timed expiry
+- **Suggestions** — approve/deny community suggestions with reasons
+- **Giveaways** — role requirements, multi-winner, auto-end
+- **Enhanced Reminders** — recurring reminders with auto-reschedule
+
+### Web Dashboard
+- **32 config pages** — manage every feature from your browser
+- **Real-time updates** — SignalR live sync between dashboard users
+- **Discord OAuth login** — secure authentication with permission checks
+- **Embed builder** — visual builder with save/load templates
+
+### Distribution
+- **Desktop Installer** — Tauri-based app for Windows, Mac, and Linux
+- **Docker** — multi-platform images (amd64 + arm64)
+- **Medusa Plugins** — extend SantiBot with community plugins
 
 ## Quick Start
 
@@ -33,7 +70,8 @@ Built on a fork of [NadekoBot](https://github.com/nadeko-bot/nadekobot) v6, Sant
 ```bash
 git clone https://github.com/iSnuggs/SantiBot.git
 cd SantiBot
-# Edit src/SantiBot/data/creds_example.yml with your bot token
+cp src/SantiBot/data/creds_example.yml src/SantiBot/data/creds.yml
+# Edit creds.yml with your Discord bot token and owner ID
 docker compose up -d
 ```
 
@@ -41,12 +79,23 @@ docker compose up -d
 ```bash
 git clone https://github.com/iSnuggs/SantiBot.git
 cd SantiBot
+cp src/SantiBot/data/creds_example.yml src/SantiBot/data/creds.yml
+# Edit creds.yml with your Discord bot token and owner ID
 dotnet run --project src/SantiBot
+```
+
+### Dashboard
+```bash
+cd dashboard
+npm install
+npm run dev
+# Open http://localhost:3000
 ```
 
 ## Requirements
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [Node.js 18+](https://nodejs.org/) (for dashboard)
 - [ffmpeg](https://ffmpeg.org/) (for music)
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp) (for music)
 

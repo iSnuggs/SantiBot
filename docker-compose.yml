@@ -1,3 +1,7 @@
+# SantiBot Docker Compose
+# Run: docker compose up -d
+# Logs: docker compose logs -f santibot
+
 version: "3.8"
 
 services:
@@ -10,5 +14,43 @@ services:
     environment:
       - TZ=UTC
 
+  # Uncomment to run the web dashboard alongside the bot
+  # dashboard:
+  #   build:
+  #     context: ./dashboard
+  #     dockerfile: Dockerfile
+  #   container_name: santibot-dashboard
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://dashboard-api:5000
+  #   depends_on:
+  #     - dashboard-api
+
+  # dashboard-api:
+  #   build:
+  #     context: .
+  #     dockerfile: src/SantiBot.Dashboard/Dockerfile
+  #   container_name: santibot-dashboard-api
+  #   restart: unless-stopped
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - santibot-data:/app/data
+  #   environment:
+  #     - Dashboard__FrontendUrl=http://localhost:3000
+  #     - Discord__ClientId=YOUR_CLIENT_ID
+  #     - Discord__ClientSecret=YOUR_CLIENT_SECRET
+
+  # Uncomment to use Redis (required for multi-shard setups)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: santibot-redis
+  #   restart: unless-stopped
+  #   volumes:
+  #     - redis-data:/data
+
 volumes:
   santibot-data:
+  # redis-data:
