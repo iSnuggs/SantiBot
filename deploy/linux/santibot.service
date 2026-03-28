@@ -1,0 +1,47 @@
+# SantiBot Systemd Service File
+#
+# Install:
+#   sudo cp santibot.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable santibot
+#   sudo systemctl start santibot
+#
+# Commands:
+#   sudo systemctl start santibot     — start the bot
+#   sudo systemctl stop santibot      — stop the bot
+#   sudo systemctl restart santibot   — restart the bot
+#   sudo systemctl status santibot    — check if it's running
+#   journalctl -u santibot -f         — view live logs
+
+[Unit]
+Description=SantiBot Discord Bot
+Documentation=https://github.com/iSnuggs/SantiBot
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=santibot
+Group=santibot
+WorkingDirectory=/opt/santibot
+ExecStart=/opt/santibot/SantiBot
+Restart=always
+RestartSec=10
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/santibot/data
+PrivateTmp=true
+
+# Environment
+Environment=DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=santibot
+
+[Install]
+WantedBy=multi-user.target
