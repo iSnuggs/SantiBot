@@ -1,0 +1,26 @@
+welcomequizenable:
+  - enable
+  - on
+welcomequizdisable:
+  - disable
+  - off
+welcomequizrole:
+  - role
+  - setrole
+welcomequizchannel:
+  - channel
+  - setchannel
+welcomequizadd:
+  - add
+  - addquestion
+welcomequizremove:
+  - remove
+  - rm
+  - delete
+welcomequizlist:
+  - list
+  - ls
+  - questions
+welcomequizrequired:
+  - required
+  - req

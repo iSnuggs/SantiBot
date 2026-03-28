@@ -1,0 +1,37 @@
+usershop:
+  desc: Browse all items listed for sale in this server's player marketplace.
+  ex:
+    - ''
+  params:
+    - {}
+ushoplist:
+  desc: List an item for sale in the server marketplace. Other users can buy it with bot currency, and you get the payment.
+  ex:
+    - '"Cool Sword" 500 "A very shiny sword"'
+  params:
+    - itemName:
+        desc: The name of the item to sell (in quotes if spaces).
+      price:
+        desc: How much currency to charge.
+      description:
+        desc: An optional description of the item.
+ushopbuy:
+  desc: Buy an item from the server marketplace by its listing number. The currency goes to the seller.
+  ex:
+    - 3
+  params:
+    - listingId:
+        desc: The ID number of the listing to buy.
+ushopremove:
+  desc: Remove one of your own listings from the marketplace.
+  ex:
+    - 3
+  params:
+    - listingId:
+        desc: The ID number of the listing to remove.
+ushopmylistings:
+  desc: View all of your active marketplace listings in this server.
+  ex:
+    - ''
+  params:
+    - {}

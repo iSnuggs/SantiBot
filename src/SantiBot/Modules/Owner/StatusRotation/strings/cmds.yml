@@ -1,0 +1,35 @@
+rotatestatusadd:
+  desc: >-
+    Add a status to the rotation. Type: 0=Playing, 1=Streaming, 2=Listening,
+    3=Watching, 4=Competing. Use {0} as a placeholder for server count.
+    If no type is given, defaults to Playing.
+  ex:
+    - 0 with {0} servers
+    - 3 over the community
+    - just vibing
+  params:
+    - type:
+        desc: 'The activity type (0-4).'
+      status:
+        desc: The status text. Use {0} for server count.
+    - status:
+        desc: The status text (defaults to Playing type).
+rotatestatusremove:
+  desc: Remove a rotating status by its ID. Use the list command to see IDs.
+  ex:
+    - 3
+  params:
+    - id:
+        desc: The ID of the status to remove.
+rotatestatuslist:
+  desc: List all rotating statuses and their IDs.
+  ex:
+    - ''
+  params:
+    - {}
+rotatestatusclear:
+  desc: Clear all rotating statuses and stop rotation.
+  ex:
+    - ''
+  params:
+    - {}

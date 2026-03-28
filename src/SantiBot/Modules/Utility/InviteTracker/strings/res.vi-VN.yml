@@ -1,0 +1,7 @@
+invite_count: "{0} has invited **{1}** people."
+invite_nobody: No invites have been tracked yet.
+invite_leaderboard: Invite Leaderboard
+invite_enabled: Invite tracking has been **enabled**.
+invite_disabled: Invite tracking has been **disabled**.
+invite_log_set: "Invite log channel set to {0}."
+invite_tracked: Invite Tracked

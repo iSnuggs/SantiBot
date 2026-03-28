@@ -1,0 +1,30 @@
+webhookcreate:
+  desc: >-
+    Create a new webhook relay endpoint. External services can POST JSON to the
+    generated URL, and the bot will forward it as an embed to the specified channel.
+  ex:
+    - '#webhook-feed'
+  params:
+    - channel:
+        desc: The channel where webhook payloads will be forwarded.
+webhooklist:
+  desc: List all webhook relay endpoints configured for this server.
+  ex:
+    - ''
+  params: []
+webhookremove:
+  desc: Remove a webhook relay endpoint by its ID.
+  ex:
+    - 'a1b2c3d4e5f6'
+  params:
+    - endpointId:
+        desc: The unique endpoint ID to remove.
+webhooksecret:
+  desc: Set an authentication secret for a webhook endpoint. Incoming requests must include this secret in the Authorization header.
+  ex:
+    - 'a1b2c3d4e5f6 my-secret-key'
+  params:
+    - endpointId:
+        desc: The endpoint ID to configure.
+    - secret:
+        desc: The secret key that incoming requests must provide.

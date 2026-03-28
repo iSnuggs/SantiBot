@@ -1,0 +1,14 @@
+welcomequiz_enabled: Welcome quiz has been enabled. New members will be quizzed when they join.
+welcomequiz_disabled: Welcome quiz has been disabled.
+welcomequiz_role_set: 'Verified role set to {0}. Members who pass the quiz will receive this role.'
+welcomequiz_channel_set: 'Quiz channel set to {0}. Questions will be posted there instead of DMs.'
+welcomequiz_question_added: 'Question added: "{0}"'
+welcomequiz_question_removed: 'Question #{0} has been removed.'
+welcomequiz_question_not_found: Question not found. Check the index with `.welcomequiz list`.
+welcomequiz_not_configured: Welcome quiz is not configured for this server.
+welcomequiz_no_questions: No quiz questions have been added yet.
+welcomequiz_list_title: Welcome Quiz Questions
+welcomequiz_required_set: 'Members now need {0} correct answer(s) to pass the quiz.'
+welcomequiz_required_invalid: Required correct count must be at least 1.
+welcomequiz_add_usage: 'Usage: `.welcomequiz add "question" "answer1" "answer2" "answer3" correctIndex`'
+welcomequiz_invalid_index: The correct answer index is out of range.

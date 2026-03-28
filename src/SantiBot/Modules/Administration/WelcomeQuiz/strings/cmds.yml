@@ -1,0 +1,54 @@
+welcomequizenable:
+  desc: Enable the welcome quiz for new members.
+  ex:
+    - ''
+  params: []
+welcomequizdisable:
+  desc: Disable the welcome quiz.
+  ex:
+    - ''
+  params: []
+welcomequizrole:
+  desc: Set the role granted when a member passes the quiz.
+  ex:
+    - '@Verified'
+  params:
+    - role:
+        desc: The role to grant upon passing the quiz.
+welcomequizchannel:
+  desc: Set the channel where quiz questions are posted. If not set, questions are sent via DM.
+  ex:
+    - '#verify'
+  params:
+    - channel:
+        desc: The channel to use for the quiz.
+welcomequizadd:
+  desc: >-
+    Add a quiz question. Provide the question in quotes, each answer in quotes,
+    and the zero-based index of the correct answer as the last argument.
+  ex:
+    - '"What is rule #1?" "Be nice" "Spam" "Leave" 0'
+  params:
+    - question:
+        desc: The question text (in quotes).
+      rest:
+        desc: 'Quoted answers followed by the correct answer index (0-based).'
+welcomequizremove:
+  desc: Remove a quiz question by its number (1-based).
+  ex:
+    - '1'
+  params:
+    - index:
+        desc: The 1-based index of the question to remove.
+welcomequizlist:
+  desc: List all welcome quiz questions and settings.
+  ex:
+    - ''
+  params: []
+welcomequizrequired:
+  desc: Set how many correct answers are needed to pass the quiz.
+  ex:
+    - '2'
+  params:
+    - count:
+        desc: Number of correct answers required to pass.

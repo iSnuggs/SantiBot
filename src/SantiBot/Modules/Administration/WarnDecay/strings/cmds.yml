@@ -1,0 +1,26 @@
+warndecay:
+  desc: Show the current warn decay configuration for this server.
+  ex:
+    - ''
+  params: []
+warndecayenable:
+  desc: Enable warn decay. Warnings older than the decay period will stop counting toward auto-punish thresholds.
+  ex:
+    - ''
+  params: []
+warndecaydisable:
+  desc: Disable warn decay. All warnings will count toward auto-punish thresholds regardless of age.
+  ex:
+    - ''
+  params: []
+warndecaydays:
+  desc: >-
+    Set how many days before a warning decays. Decayed warnings still show in
+    history but don't count toward auto-punish. Must be between 1 and 365 days.
+  ex:
+    - '30'
+    - '60'
+    - '7'
+  params:
+    - days:
+        desc: Number of days before a warning decays.

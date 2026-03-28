@@ -1,0 +1,5 @@
+kick_followed: 'Now following **{0}** on Kick! Live notifications will appear in <#{1}>.'
+kick_follow_failed: 'Could not follow: {0}'
+kick_unfollowed: 'Unfollowed **{0}** on Kick.'
+kick_not_following: 'Not following **{0}** on Kick.'
+kick_none: No Kick streamers followed on this server.

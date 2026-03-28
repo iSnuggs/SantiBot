@@ -1,0 +1,6 @@
+schedtimeout_scheduled: 'Scheduled timeout for {0}: {1}m duration, triggers at {2} (ID: #{3}).'
+schedtimeout_cancelled: 'Scheduled timeout #{0} has been cancelled.'
+schedtimeout_not_found: 'No pending scheduled timeout found with that ID.'
+schedtimeout_none: 'No pending scheduled timeouts on this server.'
+schedtimeout_duration_invalid: 'Timeout duration must be between 1 minute and 28 days.'
+schedtimeout_delay_invalid: 'Delay must be between 1 minute and 30 days.'

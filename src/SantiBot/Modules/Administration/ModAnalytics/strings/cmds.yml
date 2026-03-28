@@ -1,0 +1,21 @@
+modstats:
+  desc: >-
+    Show moderation action statistics for this server. Defaults to the last 30 days.
+    You can specify a number of days, or mention a specific moderator to see their stats.
+  ex:
+    - ''
+    - '7'
+    - '@ModeratorName'
+  params:
+    - days:
+        desc: Number of days to look back (default 30).
+    - moderator:
+        desc: A specific moderator to show stats for.
+modstatstop:
+  desc: Show a leaderboard of the most active moderators by action count.
+  ex:
+    - ''
+    - '7'
+  params:
+    - days:
+        desc: Number of days to look back (default 30).

@@ -1,0 +1,17 @@
+milestone:
+  desc: >-
+    Set the milestone announcement channel, or show current member count and
+    next milestone if no channel is provided.
+  ex:
+    - '#milestones'
+    - ''
+  params:
+    - channel:
+        desc: The channel where milestone announcements will be posted.
+    - {}
+milestonedisable:
+  desc: Disable milestone announcements for this server.
+  ex:
+    - ''
+  params:
+    - {}

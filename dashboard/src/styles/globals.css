@@ -13,6 +13,19 @@
   --error: #ef4444;
 }
 
+[data-theme="light"] {
+  --background: #f4f5f7;
+  --foreground: #1a1b23;
+  --card: #ffffff;
+  --card-hover: #f0f1f3;
+  --border: #d4d4d8;
+  --accent: #0c7fd4;
+  --accent-hover: #0a6ab3;
+  --muted: #6b7280;
+  --success: #16a34a;
+  --error: #dc2626;
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);

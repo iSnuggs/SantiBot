@@ -1,0 +1,3 @@
+stats_invalid_days: Days must be between 1 and 365.
+stats_no_data: No message stats found for this server yet. Stats are collected automatically as people chat.
+stats_no_user_data: 'No message stats found for {0}.'

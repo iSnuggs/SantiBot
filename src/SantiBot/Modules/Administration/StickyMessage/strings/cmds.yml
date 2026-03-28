@@ -1,0 +1,24 @@
+sticky:
+  desc: >-
+    Set a sticky message in a channel. The message will stay at the bottom
+    of the channel by re-posting itself after every 5 new messages.
+  ex:
+    - '#rules Please read the rules before posting!'
+    - '#general Welcome to our server!'
+  params:
+    - channel:
+        desc: The channel to set the sticky message in.
+    - message:
+        desc: The message content to stick.
+stickyremove:
+  desc: Remove a sticky message from a channel.
+  ex:
+    - '#rules'
+  params:
+    - channel:
+        desc: The channel to remove the sticky message from.
+stickylist:
+  desc: List all active sticky messages in this server.
+  ex:
+    - ''
+  params: []

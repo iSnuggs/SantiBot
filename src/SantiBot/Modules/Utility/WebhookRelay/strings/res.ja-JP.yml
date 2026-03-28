@@ -1,0 +1,5 @@
+webhook_created: "Webhook relay created!\n**Endpoint ID:** `{0}`\n**Channel:** {1}\n**URL:** `{2}`\nPOST JSON to this URL and it will appear in the channel."
+webhook_none: No webhook relay endpoints are configured for this server.
+webhook_removed: "Webhook endpoint `{0}` has been removed."
+webhook_not_found: "No webhook endpoint with ID `{0}` was found in this server."
+webhook_secret_set: "Secret key has been set for endpoint `{0}`. Incoming requests must include this in the Authorization header."

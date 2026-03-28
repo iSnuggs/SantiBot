@@ -1,0 +1,11 @@
+spotify:
+  desc: >-
+    Shows what you (or someone else) are currently listening to on Spotify.
+    Reads from Discord presence data — the user must have Spotify connected
+    to their Discord account.
+  ex:
+    - ''
+    - '@someone'
+  params:
+    - target:
+        desc: "User to check (defaults to yourself)"

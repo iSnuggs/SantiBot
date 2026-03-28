@@ -1,0 +1,12 @@
+warndecay:
+  - show
+  - status
+warndecayenable:
+  - enable
+  - on
+warndecaydisable:
+  - disable
+  - off
+warndecaydays:
+  - days
+  - period

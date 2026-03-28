@@ -1,0 +1,16 @@
+activity:
+  desc: >-
+    Start a Discord voice channel activity.
+    You must be in a voice channel. Use `.activity list` to see available activities.
+  ex:
+    - 'youtube'
+    - 'poker'
+    - 'chess'
+  params:
+    - activityName:
+        desc: The activity to start (youtube, poker, chess, sketch, letter).
+activitylist:
+  desc: List all available voice channel activities.
+  ex:
+    - ''
+  params: []

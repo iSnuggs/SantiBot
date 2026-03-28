@@ -1,0 +1,20 @@
+gfish:
+  - gfish
+  - cast
+fishsell:
+  - fishsell
+  - fsell
+fishbucket:
+  - fishbucket
+  - fbucket
+  - fb
+fishrod:
+  - fishrod
+  - frod
+fishrodupgrade:
+  - fishrodupgrade
+  - frodup
+fishleaderboard:
+  - fishleaderboard
+  - fishlb
+  - flb

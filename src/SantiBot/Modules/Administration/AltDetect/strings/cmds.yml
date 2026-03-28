@@ -1,0 +1,57 @@
+altdetectenable:
+  desc: >-
+    Enable alt account detection. New members with young accounts
+    will be flagged automatically.
+  ex:
+    - ''
+  params: []
+altdetectdisable:
+  desc: Disable alt account detection.
+  ex:
+    - ''
+  params: []
+altdetectage:
+  desc: >-
+    Set the minimum account age in days. Accounts younger than this
+    are flagged as potential alts. Default is 3 days.
+  ex:
+    - '3'
+    - '7'
+  params:
+    - days:
+        desc: Minimum account age in days (0-365).
+altdetectaction:
+  desc: >-
+    Set the action taken when an alt is detected.
+    Valid actions: Alert, Kick, Ban.
+  ex:
+    - 'Alert'
+    - 'Kick'
+  params:
+    - action:
+        desc: The action to take (Alert, Kick, Ban).
+altdetectchannel:
+  desc: Set the channel where alt detection alerts are sent.
+  ex:
+    - '#mod-alerts'
+  params:
+    - channel:
+        desc: The text channel for alerts.
+altdetectlink:
+  desc: Manually mark a user as an alt of another user.
+  ex:
+    - '@main-account @alt-account Evading ban'
+  params:
+    - mainUser:
+        desc: The main account.
+      altUser:
+        desc: The alt account.
+      reason:
+        desc: Reason for linking (optional).
+altdetectcheck:
+  desc: Check if a user has any known alt accounts.
+  ex:
+    - '@suspicious-user'
+  params:
+    - user:
+        desc: The user to check.

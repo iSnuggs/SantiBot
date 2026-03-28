@@ -1,0 +1,12 @@
+webhookcreate:
+  - whcreate
+  - webhookadd
+webhooklist:
+  - whlist
+  - webhooks
+webhookremove:
+  - whremove
+  - whdelete
+webhooksecret:
+  - whsecret
+  - whauth

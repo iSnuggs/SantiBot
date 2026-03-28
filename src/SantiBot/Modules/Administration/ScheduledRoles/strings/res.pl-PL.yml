@@ -1,0 +1,7 @@
+schedrole_added: '{0} will be granted to {1} at {2} UTC.'
+schedrole_removal_added: '{0} will be removed from {1} at {2} UTC.'
+schedrole_cancelled: 'Scheduled role change #{0} has been cancelled.'
+schedrole_not_found: No pending scheduled role change found with that ID.
+schedrole_none: No pending scheduled role changes on this server.
+schedrole_list_title: Pending Scheduled Role Changes
+schedrole_invalid_duration: 'Invalid duration. Use a format like 7d (days), 12h (hours), or 30m (minutes).'

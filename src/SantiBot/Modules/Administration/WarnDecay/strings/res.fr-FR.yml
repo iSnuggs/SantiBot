@@ -1,0 +1,5 @@
+warndecay_enabled: 'Warn decay has been enabled. Warnings will decay after the configured period.'
+warndecay_disabled: 'Warn decay has been disabled.'
+warndecay_not_configured: 'Warn decay is not configured for this server. Use `.warndecay enable` first.'
+warndecay_days_set: 'Warn decay period set to {0} days.'
+warndecay_days_invalid: 'Decay period must be between 1 and 365 days.'

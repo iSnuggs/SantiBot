@@ -1,0 +1,44 @@
+afkkick:
+  desc: Show the current AFK voice kick configuration.
+  ex:
+    - ''
+  params: []
+afkkickenable:
+  desc: >-
+    Enable AFK voice kick. Idle users in voice channels will be
+    disconnected or moved after the configured time.
+  ex:
+    - ''
+  params: []
+afkkickdisable:
+  desc: Disable AFK voice kick.
+  ex:
+    - ''
+  params: []
+afkkicktime:
+  desc: >-
+    Set the idle time in minutes before a user is kicked from voice.
+    Default is 30 minutes. Maximum is 1440 (24 hours).
+  ex:
+    - '30'
+    - '60'
+  params:
+    - minutes:
+        desc: Minutes of inactivity before action (1-1440).
+afkkickexempt:
+  desc: Set a role that is exempt from AFK voice kicks.
+  ex:
+    - '@VIP'
+    - '@DJ'
+  params:
+    - role:
+        desc: The role to exempt.
+afkkickchannel:
+  desc: >-
+    Set a voice channel to move idle users to instead of disconnecting them.
+    If not set, idle users are disconnected.
+  ex:
+    - '#afk-voice'
+  params:
+    - channel:
+        desc: The voice channel to move idle users to.

@@ -1,0 +1,18 @@
+gfish_cooldown: "Your line is still cooling down! Try again in {0} seconds."
+gfish_nothing: You cast your line but nothing bit.
+gfish_caught: You caught a fish!
+gfish_name: Fish
+gfish_rarity: Rarity
+gfish_weight: Weight
+gfish_value: Value
+gfish_bucket_empty: Your fish bucket is empty! Go catch some fish first.
+gfish_bucket_title: Your Fish Bucket
+gfish_sold_all: "You sold all your fish for {0}!"
+gfish_rod_title: Your Fishing Rod
+gfish_rod_current: Current Rod
+gfish_rod_next: Next Upgrade
+gfish_rod_max: You have the best rod!
+gfish_rod_upgrade_fail: "Can't upgrade your rod. Either you're at max level or don't have enough currency."
+gfish_rod_upgraded: "Your rod has been upgraded to **{0}**!"
+gfish_lb_empty: No fish have been caught yet!
+gfish_lb_title: Biggest Fish Leaderboard

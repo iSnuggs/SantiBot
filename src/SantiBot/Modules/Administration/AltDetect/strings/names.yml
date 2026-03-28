@@ -1,0 +1,21 @@
+altdetectenable:
+  - enable
+  - on
+altdetectdisable:
+  - disable
+  - off
+altdetectage:
+  - age
+  - minage
+altdetectaction:
+  - action
+  - act
+altdetectchannel:
+  - channel
+  - ch
+altdetectlink:
+  - link
+  - mark
+altdetectcheck:
+  - check
+  - lookup

@@ -1,0 +1,11 @@
+invites:
+  - invites
+invitesleaderboard:
+  - leaderboard
+  - invitelb
+invitesenable:
+  - enable
+invitesdisable:
+  - disable
+inviteslog:
+  - log

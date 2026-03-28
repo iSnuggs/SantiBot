@@ -1,0 +1,29 @@
+schedtimeout:
+  desc: >-
+    Schedule a timeout for a user in the future. Specify the user, timeout
+    duration, delay before it triggers, and an optional reason.
+  ex:
+    - '@user 2h 3h Spam warning'
+    - '@user 30m 1d Repeated rule violations'
+  params:
+    - user:
+        desc: The user to timeout.
+      duration:
+        desc: How long the timeout lasts (e.g. 30m, 2h, 1d).
+      delay:
+        desc: How long to wait before applying the timeout (e.g. 3h, 1d).
+      reason:
+        desc: Optional reason for the timeout.
+schedtimeoutlist:
+  desc: List all pending scheduled timeouts on this server.
+  ex:
+    - ''
+  params: []
+schedtimeoutcancel:
+  desc: Cancel a pending scheduled timeout by its ID.
+  ex:
+    - '5'
+    - '12'
+  params:
+    - id:
+        desc: The ID of the scheduled timeout to cancel.

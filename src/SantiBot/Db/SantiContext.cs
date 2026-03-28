@@ -94,6 +94,9 @@ public abstract class SantiContext : DbContext
     public DbSet<DehoistConfig> DehoistConfigs { get; set; }
     public DbSet<WelcomeImageConfig> WelcomeImageConfigs { get; set; }
     public DbSet<TikTokFollow> TikTokFollows { get; set; }
+    public DbSet<YouTubeFeedSub> YouTubeFeedSubs { get; set; }
+    public DbSet<KickStreamFollow> KickStreamFollows { get; set; }
+    public DbSet<BlueskyFeedSub> BlueskyFeedSubs { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 

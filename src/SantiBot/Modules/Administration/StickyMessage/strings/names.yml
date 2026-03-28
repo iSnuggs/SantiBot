@@ -1,0 +1,9 @@
+sticky:
+  - stickymsg
+  - pin
+stickyremove:
+  - unsticky
+  - removesticky
+stickylist:
+  - stickies
+  - liststicky

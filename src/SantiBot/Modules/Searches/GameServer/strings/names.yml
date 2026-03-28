@@ -1,0 +1,14 @@
+gameserveradd:
+  - gsadd
+  - serveradd
+gameserverremove:
+  - gsremove
+  - serverremove
+  - gsdelete
+gameserverlist:
+  - gslist
+  - servers
+gameservercheck:
+  - gscheck
+  - servercheck
+  - serverstatus

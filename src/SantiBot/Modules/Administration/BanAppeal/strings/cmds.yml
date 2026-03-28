@@ -1,0 +1,48 @@
+banappeal:
+  desc: Show the current ban appeal configuration for this server.
+  ex:
+    - ''
+  params: []
+banappealenable:
+  desc: Enable ban appeals. Banned users will receive a DM with appeal instructions.
+  ex:
+    - ''
+  params: []
+banappealdisable:
+  desc: Disable ban appeals.
+  ex:
+    - ''
+  params: []
+banappealchannel:
+  desc: Set the channel where ban appeals will be posted for mod review.
+  ex:
+    - '#appeals'
+  params:
+    - channel:
+        desc: The text channel to post appeals to.
+banappeallist:
+  desc: List all pending ban appeals.
+  ex:
+    - ''
+  params: []
+banappealapprove:
+  desc: Approve a ban appeal by ID. The user will be unbanned.
+  ex:
+    - '5'
+  params:
+    - id:
+        desc: The ID of the ban appeal to approve.
+banappealdeny:
+  desc: Deny a ban appeal by ID.
+  ex:
+    - '5'
+  params:
+    - id:
+        desc: The ID of the ban appeal to deny.
+banappealmessage:
+  desc: Customize the DM message sent to banned users with appeal instructions.
+  ex:
+    - 'You have been banned from our server. Reply with your appeal.'
+  params:
+    - message:
+        desc: The custom message to send to banned users.

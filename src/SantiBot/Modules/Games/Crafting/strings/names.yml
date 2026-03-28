@@ -1,0 +1,11 @@
+craft:
+  - craft
+  - cr
+inventory:
+  - inventory
+  - inv
+  - bag
+craftrecipes:
+  - craftrecipes
+  - crrecipes
+  - crlist

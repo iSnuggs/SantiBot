@@ -1,0 +1,38 @@
+schedroleadd:
+  desc: >-
+    Schedule a role to be granted to a user after a delay.
+    Duration format: 7d (days), 12h (hours), 30m (minutes).
+  ex:
+    - '@User @VIP in 7d'
+    - '@User @Muted in 1h'
+  params:
+    - user:
+        desc: The user to grant the role to.
+      role:
+        desc: The role to grant.
+      duration:
+        desc: 'How long to wait (e.g. "in 7d", "in 1h", "30m").'
+schedroleremove:
+  desc: >-
+    Schedule a role to be removed from a user after a delay.
+  ex:
+    - '@User @TempAccess in 7d'
+  params:
+    - user:
+        desc: The user to remove the role from.
+      role:
+        desc: The role to remove.
+      duration:
+        desc: 'How long to wait before removing the role.'
+schedrolelist:
+  desc: List all pending scheduled role changes for this server.
+  ex:
+    - ''
+  params: []
+schedrolecancel:
+  desc: Cancel a pending scheduled role change by its ID.
+  ex:
+    - '5'
+  params:
+    - id:
+        desc: The ID of the scheduled role change to cancel.

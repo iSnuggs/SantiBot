@@ -1,0 +1,15 @@
+threadarchive:
+  desc: >-
+    Controls thread auto-archive behavior for a channel. Set a custom archive
+    time in minutes, use 'keepalive' to prevent archiving, or 'default' to
+    reset. Run with no arguments to list all configs.
+  ex:
+    - '#general 1440'
+    - '#general keepalive'
+    - '#general default'
+    - ''
+  params:
+    - channel:
+        desc: The text channel to configure.
+      minutes:
+        desc: "Archive time in minutes (60-10080), or 'keepalive'/'default'."

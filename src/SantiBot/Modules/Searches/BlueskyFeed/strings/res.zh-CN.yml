@@ -1,0 +1,5 @@
+bsky_followed: 'Now following **{0}** on Bluesky! New posts will appear in <#{1}>.'
+bsky_follow_failed: 'Could not follow: {0}'
+bsky_unfollowed: 'Unfollowed **{0}** on Bluesky.'
+bsky_not_following: 'Not following **{0}** on Bluesky.'
+bsky_none: No Bluesky feeds configured on this server.

@@ -1,0 +1,25 @@
+kickfollow:
+  desc: >-
+    Follow a Kick.com streamer for live notifications. Provide their username
+    and optionally a Discord channel to post in.
+  ex:
+    - 'xQc #streams'
+    - 'ninja'
+  params:
+    - username:
+        desc: "Kick.com username"
+    - channel:
+        desc: "Discord channel to post notifications in (defaults to current)"
+kickunfollow:
+  desc: Unfollow a Kick.com streamer.
+  ex:
+    - 'xQc'
+  params:
+    - username:
+        desc: "Kick.com username to unfollow"
+kicklist:
+  desc: Shows all Kick.com streamers followed on this server.
+  ex:
+    - ''
+  params:
+    - {}

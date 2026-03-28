@@ -1,0 +1,18 @@
+counting:
+  desc: >-
+    Set up a counting channel or view the current count. Members take turns
+    counting up by one. If someone sends the wrong number, the count resets.
+    Same person can't count twice in a row.
+  ex:
+    - '#counting'
+    - ''
+  params:
+    - channel:
+        desc: The text channel to use for counting.
+    - {}
+countingreset:
+  desc: Resets the current count back to zero.
+  ex:
+    - ''
+  params:
+    - {}

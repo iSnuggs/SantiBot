@@ -1,0 +1,14 @@
+schedroleadd:
+  - add
+  - grant
+schedroleremove:
+  - remove
+  - rm
+  - revoke
+schedrolelist:
+  - list
+  - ls
+  - pending
+schedrolecancel:
+  - cancel
+  - delete

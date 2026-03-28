@@ -1,0 +1,6 @@
+gh_watching: "Now watching **{0}** for GitHub events. Notifications will be posted in {1}."
+gh_unwatched: "Stopped watching **{0}**."
+gh_not_watching: "This server is not watching **{0}**."
+gh_none: No GitHub repositories are being watched in this server.
+gh_invalid_repo: "Invalid repo format. Use `owner/repo` format (e.g. `iSnuggs/SantiBot`)."
+gh_event_toggled: "{0} notifications are now **{1}** for **{2}**."

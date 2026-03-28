@@ -1,0 +1,7 @@
+activity:
+  - start
+  - play
+  - launch
+activitylist:
+  - list
+  - ls

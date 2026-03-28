@@ -1,0 +1,15 @@
+antiphishenable:
+  - enable
+  - on
+antiphishdisable:
+  - disable
+  - off
+antiphishaction:
+  - action
+  - act
+antiphishlog:
+  - log
+  - logchannel
+antiphishcheck:
+  - check
+  - scan

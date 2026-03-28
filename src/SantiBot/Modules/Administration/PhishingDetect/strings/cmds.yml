@@ -1,0 +1,37 @@
+antiphishenable:
+  desc: >-
+    Enable phishing link detection. Messages containing known phishing
+    URLs will be automatically actioned.
+  ex:
+    - ''
+  params: []
+antiphishdisable:
+  desc: Disable phishing link detection.
+  ex:
+    - ''
+  params: []
+antiphishaction:
+  desc: >-
+    Set the action taken when a phishing link is detected.
+    Valid actions: Delete, Warn, Mute, Ban.
+  ex:
+    - 'Delete'
+    - 'Mute'
+    - 'Ban'
+  params:
+    - action:
+        desc: The action to take (Delete, Warn, Mute, Ban).
+antiphishlog:
+  desc: Set the channel where phishing detections are logged.
+  ex:
+    - '#mod-log'
+  params:
+    - channel:
+        desc: The text channel for logging.
+antiphishcheck:
+  desc: Manually check a URL against the phishing pattern database.
+  ex:
+    - 'https://discord-nitro-free.com'
+  params:
+    - url:
+        desc: The URL to check.

@@ -1,0 +1,11 @@
+wttr:
+  desc: >-
+    Show current weather for any city using wttr.in (no API key needed).
+    Displays temperature, humidity, wind speed, and conditions.
+  ex:
+    - Paris
+    - Tokyo
+    - New York
+  params:
+    - location:
+        desc: The city or location to get weather for.

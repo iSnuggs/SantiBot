@@ -1,0 +1,11 @@
+event_created: Event Created
+event_invalid_date: "Could not parse that date. Use format: YYYY-MM-DD HH:mm"
+event_past_date: The event date must be in the future.
+event_not_found: Event not found.
+event_rsvp: "{0} is going to event #{1}!"
+event_none: There are no upcoming events.
+event_list: Upcoming Events
+event_cancel_fail: "Could not cancel that event. You must be the creator or have Manage Server permission."
+event_cancelled: "Event #{0} has been cancelled."
+event_no_perm: You need Manage Server permission to do that.
+event_ping_set: "{0} will be pinged for event #{1}."

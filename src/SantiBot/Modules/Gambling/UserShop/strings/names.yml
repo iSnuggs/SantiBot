@@ -1,0 +1,17 @@
+usershop:
+  - usershop
+  - ushop
+  - market
+ushoplist:
+  - ushoplist
+  - sell
+ushopbuy:
+  - ushopbuy
+  - ubuy
+ushopremove:
+  - ushopremove
+  - unlist
+ushopmylistings:
+  - ushopmylistings
+  - myshop
+  - mylistings

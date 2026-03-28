@@ -1,0 +1,47 @@
+eventcreate:
+  desc: >-
+    Creates a scheduled event. Provide a title in quotes, description in
+    quotes, then the date and time (UTC).
+  ex:
+    - '"Game Night" "Playing Valorant together" 2026-04-01 20:00'
+    - '"Movie Night" "Watching Lord of the Rings" 2026-04-05 19:00'
+  params:
+    - title:
+        desc: The title of the event (in quotes).
+      description:
+        desc: A short description of the event (in quotes).
+      dateTimeStr:
+        desc: The date and time the event starts, in UTC.
+eventrsvp:
+  desc: RSVP to an upcoming event by its ID number.
+  ex:
+    - '3'
+  params:
+    - eventId:
+        desc: The ID of the event to RSVP to.
+eventlist:
+  desc: Shows all upcoming events in this server.
+  ex:
+    - ''
+  params:
+    - {}
+eventcancel:
+  desc: >-
+    Cancels an event. Only the event creator or someone with Manage Server
+    permission can cancel.
+  ex:
+    - '3'
+  params:
+    - eventId:
+        desc: The ID of the event to cancel.
+eventping:
+  desc: >-
+    Sets a role to be pinged when the event reminder fires (15 minutes before
+    start). Requires Manage Server permission.
+  ex:
+    - '3 @Gamers'
+  params:
+    - eventId:
+        desc: The ID of the event.
+      role:
+        desc: The role to ping for this event.

@@ -1,0 +1,47 @@
+raidscoreenable:
+  desc: >-
+    Enable the raid score system. New members will be scored on join and
+    actioned if they exceed the threshold.
+  ex:
+    - ''
+  params: []
+raidscoredisable:
+  desc: Disable the raid score system.
+  ex:
+    - ''
+  params: []
+raidscorethreshold:
+  desc: >-
+    Set the risk score threshold (1-100). Users scoring at or above this
+    value will be actioned. Default is 70.
+  ex:
+    - '70'
+    - '50'
+  params:
+    - threshold:
+        desc: The score threshold (1-100).
+raidscoreaction:
+  desc: >-
+    Set the action taken when a user exceeds the threshold.
+    Valid actions: Alert, Quarantine, Kick, Ban.
+  ex:
+    - 'Alert'
+    - 'Kick'
+    - 'Ban'
+  params:
+    - action:
+        desc: The action to take (Alert, Quarantine, Kick, Ban).
+raidscorechannel:
+  desc: Set the channel where raid score alerts are sent.
+  ex:
+    - '#mod-alerts'
+  params:
+    - channel:
+        desc: The text channel for alerts.
+raidscorecheck:
+  desc: Manually check a user's raid risk score.
+  ex:
+    - '@suspicious-user'
+  params:
+    - user:
+        desc: The user to check.

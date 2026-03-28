@@ -1,0 +1,8 @@
+stock_none: No stocks are available yet. They will be seeded shortly.
+stock_not_found: 'Stock not found. Use `.stocks` to see available symbols.'
+stock_not_enough: "You don't have enough currency to buy those shares."
+stock_not_enough_shares: "You don't own enough shares to sell that many."
+stock_invalid_quantity: Quantity must be at least 1.
+stock_no_holdings: "You don't own any stocks. Use `.stock buy SYMBOL` to get started."
+stock_bought: 'Successfully purchased **{0}** shares of **{1}** for **{2}**.'
+stock_sold: 'Successfully sold **{0}** shares of **{1}** for **{2}**.'

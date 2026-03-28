@@ -1,0 +1,25 @@
+ytfeedadd:
+  desc: >-
+    Follow a YouTube channel for new upload notifications. Provide the YouTube
+    channel ID (starts with UC) and optionally a Discord channel to post in.
+  ex:
+    - 'UCxxxxxxxxxxxxxxxxxxxx #general'
+    - 'UCxxxxxxxxxxxxxxxxxxxx'
+  params:
+    - ytchannelid:
+        desc: "YouTube channel ID (starts with UC)"
+    - channel:
+        desc: "Discord channel to post notifications in (defaults to current)"
+ytfeedremove:
+  desc: Unfollow a YouTube channel. Provide the YouTube channel ID.
+  ex:
+    - 'UCxxxxxxxxxxxxxxxxxxxx'
+  params:
+    - ytchannelid:
+        desc: "YouTube channel ID to unfollow"
+ytfeedlist:
+  desc: Shows all YouTube feeds configured on this server.
+  ex:
+    - ''
+  params:
+    - {}

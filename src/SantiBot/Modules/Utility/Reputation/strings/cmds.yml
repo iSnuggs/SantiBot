@@ -1,0 +1,16 @@
+rep:
+  desc: >-
+    Give someone a reputation point (24h cooldown), or check your own or
+    someone else's rep count. You cannot rep yourself.
+  ex:
+    - '@user'
+    - ''
+  params:
+    - target:
+        desc: The user to give a rep point to, or check rep of. Leave blank to see your own.
+repleaderboard:
+  desc: Shows the top 10 most reputed users in this server.
+  ex:
+    - ''
+  params:
+    - {}

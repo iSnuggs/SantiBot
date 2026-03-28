@@ -1,0 +1,26 @@
+bumpreminder:
+  desc: >-
+    Set the channel where bump reminders will be posted. The bot watches for
+    Disboard's "Bump done" message and reminds you 2 hours later.
+  ex:
+    - '#bump-reminder'
+  params:
+    - channel:
+        desc: The channel to post bump reminders in.
+bumpreminderrole:
+  desc: Set a role to ping when it's time to bump.
+  ex:
+    - '@Bumpers'
+  params:
+    - role:
+        desc: The role to ping for bump reminders.
+bumpreminderdisable:
+  desc: Disable bump reminders for this server.
+  ex:
+    - ''
+  params: []
+bumpreminderstatus:
+  desc: Show the current bump reminder configuration.
+  ex:
+    - ''
+  params: []

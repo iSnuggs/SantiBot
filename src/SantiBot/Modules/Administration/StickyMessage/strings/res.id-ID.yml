@@ -1,0 +1,6 @@
+sticky_set: 'Sticky message set in {0}.'
+sticky_removed: 'Sticky message removed from {0}.'
+sticky_not_found: 'No sticky message found in {0}.'
+sticky_none: No sticky messages are configured on this server.
+sticky_no_message: You need to provide a message to stick.
+sticky_too_long: Sticky message must be 2000 characters or less.

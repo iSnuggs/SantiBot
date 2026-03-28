@@ -1,0 +1,36 @@
+gfish:
+  desc: Cast your fishing line and try to catch a fish. Better rods improve your chances of catching rare fish. 30 second cooldown between casts.
+  ex:
+    - ''
+  params:
+    - {}
+fishsell:
+  desc: Sell all the fish in your bucket for currency.
+  ex:
+    - ''
+  params:
+    - {}
+fishbucket:
+  desc: View all the fish you've caught (up to 20 most recent).
+  ex:
+    - ''
+  params:
+    - {}
+fishrod:
+  desc: View your current fishing rod and the next available upgrade.
+  ex:
+    - ''
+  params:
+    - {}
+fishrodupgrade:
+  desc: Upgrade your fishing rod to the next tier. Better rods catch rarer fish.
+  ex:
+    - ''
+  params:
+    - {}
+fishleaderboard:
+  desc: View the biggest fish ever caught on this bot.
+  ex:
+    - ''
+  params:
+    - {}
