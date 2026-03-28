@@ -102,6 +102,54 @@ public abstract class SantiContext : DbContext
     public DbSet<ModMailMessage> ModMailMessages { get; set; }
     public DbSet<ModMailBlock> ModMailBlocks { get; set; }
 
+    // 51 new features (bonus batch)
+    public DbSet<AfkUser> AfkUsers { get; set; }
+    public DbSet<AfkVoiceKickConfig> AfkVoiceKickConfigs { get; set; }
+    public DbSet<AltDetectConfig> AltDetectConfigs { get; set; }
+    public DbSet<BanAppeal> BanAppeals { get; set; }
+    public DbSet<BanAppealConfig> BanAppealConfigs { get; set; }
+    public DbSet<BirthdayConfig> BirthdayConfigs { get; set; }
+    public DbSet<BumpReminderConfig> BumpReminderConfigs { get; set; }
+    public DbSet<CommandUsage> CommandUsages { get; set; }
+    public DbSet<ConfessionConfig> ConfessionConfigs { get; set; }
+    public DbSet<CountingConfig> CountingConfigs { get; set; }
+    public DbSet<CraftingInventory> CraftingInventories { get; set; }
+    public DbSet<DashboardAuditLog> DashboardAuditLogs { get; set; }
+    public DbSet<GameServerWatch> GameServerWatches { get; set; }
+    public DbSet<GitHubRepoWatch> GitHubRepoWatches { get; set; }
+    public DbSet<HeistSession> HeistSessions { get; set; }
+    public DbSet<InviteTrackConfig> InviteTrackConfigs { get; set; }
+    public DbSet<JoinSoundConfig> JoinSoundConfigs { get; set; }
+    public DbSet<KnownAlt> KnownAlts { get; set; }
+    public DbSet<MessageStat> MessageStats { get; set; }
+    public DbSet<MilestoneConfig> MilestoneConfigs { get; set; }
+    public DbSet<ModAction> ModActions { get; set; }
+    public DbSet<PhishingConfig> PhishingConfigs { get; set; }
+    public DbSet<QuarantineConfig> QuarantineConfigs { get; set; }
+    public DbSet<RaidScoreConfig> RaidScoreConfigs { get; set; }
+    public DbSet<RepLog> RepLogs { get; set; }
+    public DbSet<ScheduledEvent> ScheduledEvents { get; set; }
+    public DbSet<ScheduledRoleGrant> ScheduledRoleGrants { get; set; }
+    public DbSet<ScheduledTimeout> ScheduledTimeouts { get; set; }
+    public DbSet<Stock> Stocks { get; set; }
+    public DbSet<StockHolding> StockHoldings { get; set; }
+    public DbSet<ThreadArchiveConfig> ThreadArchiveConfigs { get; set; }
+    public DbSet<TrackedInvite> TrackedInvites { get; set; }
+    public DbSet<UserAchievement> UserAchievements { get; set; }
+    public DbSet<UserBirthday> UserBirthdays { get; set; }
+    public DbSet<UserJoinSound> UserJoinSounds { get; set; }
+    public DbSet<UserReputation> UserReputations { get; set; }
+    public DbSet<WarnDecayConfig> WarnDecayConfigs { get; set; }
+    public DbSet<WebhookRelayConfig> WebhookRelayConfigs { get; set; }
+    public DbSet<WelcomeQuizConfig> WelcomeQuizConfigs { get; set; }
+    public DbSet<DailyStreak> DailyStreaks { get; set; }
+    public DbSet<FishingRod> FishingRods { get; set; }
+    public DbSet<ReactionResponse> ReactionResponses { get; set; }
+    public DbSet<ShopListing> ShopListings { get; set; }
+    public DbSet<ShopPurchase> ShopPurchases { get; set; }
+    public DbSet<StickyMessage> StickyMessages { get; set; }
+    public DbSet<UserPet> UserPets { get; set; }
+
     // public DbSet<GuildColors> GuildColors { get; set; }
 
 
