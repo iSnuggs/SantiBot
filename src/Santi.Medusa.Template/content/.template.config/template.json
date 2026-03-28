@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Snuggs",
+  "classifications": ["SantiBot", "Discord", "Plugin", "Medusa"],
+  "identity": "Santi.Medusa.Template",
+  "name": "SantiBot Medusa Plugin",
+  "shortName": "santi-medusa",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "MyMedusa",
+  "preferNameDirectory": true,
+  "symbols": {
+    "authorName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Plugin Author",
+      "description": "The name of the plugin author",
+      "replaces": "AUTHOR_NAME"
+    }
+  }
+}
