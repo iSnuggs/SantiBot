@@ -346,8 +346,8 @@ public partial class Utility : SantiModule
         var eb = CreateEmbed()
             .WithOkColor()
             .WithAuthor($"SantiBot v{StatsService.BotVersion}",
-                "https://nadeko-pictures.nyc3.digitaloceanspaces.com/other/avatar.png",
-                "https://nadeko.bot")
+                _client.CurrentUser.GetAvatarUrl() ?? _client.CurrentUser.GetDefaultAvatarUrl(),
+                "https://github.com/iSnuggs/SantiBot")
             .AddField(GetText(strs.author), _stats.Author, true)
             .AddField(GetText(strs.botid), _client.CurrentUser.Id.ToString(), true)
             .AddField(GetText(strs.shard),
