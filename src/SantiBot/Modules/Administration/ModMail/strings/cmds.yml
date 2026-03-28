@@ -1,0 +1,79 @@
+modmailenable:
+  desc: Toggles the mod mail system on or off. When enabled, users can DM the bot to contact staff.
+  ex:
+    - ''
+  params:
+    - {}
+modmailcategory:
+  desc: Sets the category where mod mail thread channels are created. Leave empty to clear.
+  ex:
+    - 'Mod Mail'
+    - ''
+  params:
+    - category:
+        desc: "The category channel for mod mail threads"
+modmaillog:
+  desc: Sets the channel where mod mail transcripts are posted when threads are closed.
+  ex:
+    - '#modmail-logs'
+    - ''
+  params:
+    - channel:
+        desc: "The log channel (leave empty to disable)"
+modmailrole:
+  desc: Sets the staff role that can view and manage mod mail threads.
+  ex:
+    - '@Staff'
+    - ''
+  params:
+    - role:
+        desc: "The staff role (leave empty to clear)"
+modmailclose:
+  desc: Closes the current mod mail thread. Must be used inside a mod mail channel. The user will be notified and a transcript will be logged.
+  ex:
+    - ''
+  params:
+    - {}
+modmailblock:
+  desc: Blocks a user from creating new mod mail threads. They won't be able to DM the bot for support.
+  ex:
+    - '@user Spamming modmail'
+    - '@user'
+  params:
+    - user:
+        desc: "The user to block"
+    - reason:
+        desc: "Optional reason for the block"
+modmailunblock:
+  desc: Unblocks a user so they can use mod mail again.
+  ex:
+    - '@user'
+  params:
+    - user:
+        desc: "The user to unblock"
+modmailthreads:
+  desc: Shows recent mod mail threads for this server, both open and closed.
+  ex:
+    - ''
+  params:
+    - {}
+modmailopenmsg:
+  desc: Sets the message sent to users when their mod mail thread is opened. Variables available are server and user.
+  ex:
+    - 'Thanks for reaching out! Our staff will reply shortly.'
+  params:
+    - message:
+        desc: "The message template"
+modmailclosemsg:
+  desc: Sets the message sent to users when their mod mail thread is closed.
+  ex:
+    - 'Your thread has been resolved. DM again if you need more help!'
+  params:
+    - message:
+        desc: "The message template"
+modmailconfig:
+  desc: Shows the current mod mail configuration for this server.
+  ex:
+    - ''
+  params:
+    - {}

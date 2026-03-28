@@ -97,6 +97,10 @@ public abstract class SantiContext : DbContext
     public DbSet<YouTubeFeedSub> YouTubeFeedSubs { get; set; }
     public DbSet<KickStreamFollow> KickStreamFollows { get; set; }
     public DbSet<BlueskyFeedSub> BlueskyFeedSubs { get; set; }
+    public DbSet<ModMailConfig> ModMailConfigs { get; set; }
+    public DbSet<ModMailThread> ModMailThreads { get; set; }
+    public DbSet<ModMailMessage> ModMailMessages { get; set; }
+    public DbSet<ModMailBlock> ModMailBlocks { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 

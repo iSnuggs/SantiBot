@@ -1,0 +1,36 @@
+modmailenable:
+  - modmailenable
+  - mmenable
+modmailcategory:
+  - modmailcategory
+  - mmcategory
+  - mmcat
+modmaillog:
+  - modmaillog
+  - mmlog
+modmailrole:
+  - modmailrole
+  - mmrole
+modmailclose:
+  - modmailclose
+  - mmclose
+modmailblock:
+  - modmailblock
+  - mmblock
+modmailunblock:
+  - modmailunblock
+  - mmunblock
+modmailthreads:
+  - modmailthreads
+  - mmthreads
+  - mmlist
+modmailopenmsg:
+  - modmailopenmsg
+  - mmopenmsg
+modmailclosemsg:
+  - modmailclosemsg
+  - mmclosemsg
+modmailconfig:
+  - modmailconfig
+  - mmconfig
+  - mmsetup
