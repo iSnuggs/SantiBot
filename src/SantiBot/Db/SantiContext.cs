@@ -217,6 +217,10 @@ public abstract class SantiContext : DbContext
     public DbSet<BattlePassProgress> BattlePassProgress { get; set; }
     public DbSet<BattlePassConfig> BattlePassConfigs { get; set; }
     public DbSet<DailyChallenge> DailyChallenges { get; set; }
+    public DbSet<LoreEntry> LoreEntries { get; set; }
+    public DbSet<PlayerDiscovery> PlayerDiscoveries { get; set; }
+    public DbSet<TreasureMap> TreasureMaps { get; set; }
+    public DbSet<WorldEvent> WorldEvents { get; set; }
     public DbSet<GatheringProfile> GatheringProfiles { get; set; }
     public DbSet<CraftingProfile> CraftingProfiles { get; set; }
     public DbSet<PlayerInventoryItem> PlayerInventoryItems { get; set; }
@@ -308,6 +312,15 @@ public abstract class SantiContext : DbContext
     public DbSet<FanArtSubmission> FanArtSubmissions { get; set; }
     public DbSet<FeedSubscription> FeedSubscriptions { get; set; }
     public DbSet<UptimeMonitor> UptimeMonitors { get; set; }
+
+    // Developer, XP, Feature Flags
+    public DbSet<BotPlugin> BotPlugins { get; set; }
+    public DbSet<WebhookEndpoint> WebhookEndpoints { get; set; }
+    public DbSet<FeatureFlag> FeatureFlags { get; set; }
+    public DbSet<CommandLog> CommandLogs { get; set; }
+    public DbSet<XpMultiplier> XpMultipliers { get; set; }
+    public DbSet<XpChallengeEntry> XpChallengeEntries { get; set; }
+    public DbSet<XpChallengeParticipant> XpChallengeParticipants { get; set; }
 
 
     #region Mandatory Provider-Specific Values
