@@ -27,22 +27,257 @@ public sealed class RaidBossService : INService
     }
 
     // ═══════════════════════════════════════════════════════════
-    //  RAID BOSS TEMPLATES
+    //  1000 RAID BOSSES — 50 Handcrafted + 950 Procedural
     // ═══════════════════════════════════════════════════════════
 
-    public static readonly (string Name, string Emoji, int BaseHp, int BaseAtk, int BaseDef, long BaseXp, long BaseCurrency, string Desc)[] BossTemplates =
+    public enum BossTier { Common, Uncommon, Rare, Epic, Legendary, Mythic }
+
+    public record BossEntry(int Id, string Name, string Emoji, int BaseHp, int BaseAtk, int BaseDef,
+        long BaseXp, long BaseCurrency, string Desc, BossTier Tier);
+
+    // ── 50 HANDCRAFTED BOSSES ──────────────────────────────────
+
+    private static readonly BossEntry[] HandcraftedBosses =
     [
-        ("Infernal Dragon",   "🐉", 10000, 60, 35, 500,  2000, "A dragon wreathed in hellfire — its breath melts steel"),
-        ("The Lich Emperor",  "👑", 8000,  80, 25, 600,  2500, "An ancient king who conquered death itself"),
-        ("Kraken of the Deep","🦑", 12000, 50, 40, 550,  2200, "Tentacles the size of towers emerge from the abyss"),
-        ("World Eater",       "🌑", 15000, 70, 30, 800,  3000, "A void entity that devours entire realms"),
-        ("Titan Golem",       "🗿", 20000, 40, 50, 700,  2800, "An ancient construct of stone and fury"),
-        ("Phoenix Overlord",  "🔥", 9000,  90, 20, 650,  2400, "Reborn in flame — each phase it grows stronger"),
-        ("Shadow Hydra",      "🐍", 11000, 65, 30, 600,  2300, "Cut one head, two more take its place"),
-        ("Demon Lord Azaroth","😈", 18000, 85, 35, 900,  3500, "The lord of the ninth circle — bringer of despair"),
-        ("Frost Wyrm",        "❄️", 13000, 55, 45, 700,  2600, "Its frozen breath can freeze time itself"),
-        ("Abyssal Behemoth",  "👾", 25000, 75, 40, 1000, 4000, "From the deepest dungeon, something ancient stirs"),
+        // Tier: Common (1-10) — starter bosses
+        new(1,  "Goblin Warlord",         "👺", 5000,   30, 15, 200,  800,  "A cunning goblin who united the scattered tribes under one banner", BossTier.Common),
+        new(2,  "Mushroom Colossus",      "🍄", 6000,   25, 25, 220,  900,  "A massive fungal growth given terrible sentience", BossTier.Common),
+        new(3,  "Corrupted Treant",       "🌳", 5500,   28, 30, 210,  850,  "An ancient tree twisted by dark magic into a walking nightmare", BossTier.Common),
+        new(4,  "Giant Scorpion Queen",   "🦂", 4500,   35, 20, 190,  750,  "Her venomous tail can pierce castle walls", BossTier.Common),
+        new(5,  "Spectral Knight",        "👻", 5000,   32, 22, 200,  800,  "A fallen paladin cursed to guard an empty throne for eternity", BossTier.Common),
+        new(6,  "Sand Wurm",             "🐛", 7000,   28, 18, 230,  950,  "It burrows beneath the desert, swallowing caravans whole", BossTier.Common),
+        new(7,  "Plague Rat King",        "🐀", 4000,   38, 12, 180,  700,  "A writhing mass of diseased vermin sharing one terrible mind", BossTier.Common),
+        new(8,  "Stone Gargoyle",         "🗿", 6500,   26, 35, 240,  1000, "By day it sleeps as stone — by night it hunts", BossTier.Common),
+        new(9,  "Swamp Hag",             "🧙", 4500,   40, 15, 200,  800,  "Her curses turn brave warriors into toads", BossTier.Common),
+        new(10, "Dire Wolf Alpha",        "🐺", 5000,   34, 18, 210,  850,  "The pack leader — its howl freezes blood", BossTier.Common),
+
+        // Tier: Uncommon (11-20) — mid-range bosses
+        new(11, "Infernal Dragon",        "🐉", 10000,  60, 35, 500,  2000, "A dragon wreathed in hellfire — its breath melts steel", BossTier.Uncommon),
+        new(12, "The Lich Emperor",       "👑", 8000,   80, 25, 600,  2500, "An ancient king who conquered death itself", BossTier.Uncommon),
+        new(13, "Kraken of the Deep",     "🦑", 12000,  50, 40, 550,  2200, "Tentacles the size of towers emerge from the abyss", BossTier.Uncommon),
+        new(14, "Phoenix Overlord",       "🔥", 9000,   90, 20, 650,  2400, "Reborn in flame — each phase it grows stronger", BossTier.Uncommon),
+        new(15, "Shadow Hydra",           "🐍", 11000,  65, 30, 600,  2300, "Cut one head, two more take its place", BossTier.Uncommon),
+        new(16, "Frost Wyrm",            "❄️", 13000,  55, 45, 700,  2600, "Its frozen breath can freeze time itself", BossTier.Uncommon),
+        new(17, "Vampire Lord Draven",    "🧛", 9500,   75, 28, 580,  2200, "He has drained kingdoms dry over a thousand years", BossTier.Uncommon),
+        new(18, "Clockwork Titan",        "⚙️", 14000,  45, 50, 650,  2500, "An ancient dwarven war machine reactivated by dark energy", BossTier.Uncommon),
+        new(19, "Storm Giant",            "⛈️", 11000,  70, 35, 600,  2300, "Lightning dances between its fingers like a toy", BossTier.Uncommon),
+        new(20, "Bone Colossus",          "💀", 10000,  60, 40, 550,  2100, "Built from the bones of a thousand fallen warriors", BossTier.Uncommon),
+
+        // Tier: Rare (21-30) — serious threats
+        new(21, "World Eater",            "🌑", 15000,  70, 30, 800,  3000, "A void entity that devours entire realms", BossTier.Rare),
+        new(22, "Titan Golem",            "🗿", 20000,  40, 50, 700,  2800, "An ancient construct of stone and fury", BossTier.Rare),
+        new(23, "Demon Lord Azaroth",     "😈", 18000,  85, 35, 900,  3500, "The lord of the ninth circle — bringer of despair", BossTier.Rare),
+        new(24, "Medusa Queen",           "🐍", 14000,  75, 38, 750,  2900, "One glance turns flesh to stone forever", BossTier.Rare),
+        new(25, "Celestial Fallen Angel", "👼", 16000,  80, 32, 850,  3200, "Cast from heaven, burning with vengeful fury", BossTier.Rare),
+        new(26, "Necropolis",             "🏚️", 22000,  50, 55, 900,  3400, "An entire undead city that walks on skeletal legs", BossTier.Rare),
+        new(27, "The Devouring Maw",      "👄", 13000,  95, 20, 800,  3000, "A portal to the plane of hunger given terrible form", BossTier.Rare),
+        new(28, "Ironclad Leviathan",     "🐋", 25000,  55, 60, 950,  3600, "A metal-plated sea beast from the deepest trench", BossTier.Rare),
+        new(29, "Blighted Dragon",        "🐲", 17000,  80, 40, 850,  3200, "Its plague breath kills everything it touches", BossTier.Rare),
+        new(30, "Mirror Demon",           "🪞", 15000,  70, 45, 800,  3000, "It copies your abilities and uses them against you", BossTier.Rare),
+
+        // Tier: Epic (31-40) — devastating encounters
+        new(31, "Abyssal Behemoth",       "👾", 30000,  75, 40, 1200, 5000, "From the deepest dungeon, something ancient stirs", BossTier.Epic),
+        new(32, "The Unnamed God",        "⭐", 35000,  90, 45, 1500, 6000, "A forgotten deity, mad with isolation", BossTier.Epic),
+        new(33, "Cosmic Serpent Jormun",   "🌌", 28000,  85, 50, 1300, 5500, "It encircles the world — its awakening means the end", BossTier.Epic),
+        new(34, "Time Devourer",          "⏳", 32000,  80, 35, 1400, 5800, "It eats moments — entire civilizations lost to its hunger", BossTier.Epic),
+        new(35, "Plague Mother",          "🦠", 25000,  100,30, 1100, 4800, "Every disease that ever existed spawned from her", BossTier.Epic),
+        new(36, "The Puppeteer",          "🎭", 27000,  88, 42, 1300, 5200, "It controls the minds of heroes and makes them fight each other", BossTier.Epic),
+        new(37, "Volcanic Colossus",      "🌋", 40000,  65, 55, 1600, 6500, "A walking volcano — the ground melts beneath it", BossTier.Epic),
+        new(38, "Dream Eater",            "💤", 26000,  95, 28, 1200, 5000, "It devours sleeping minds — the comatose are its harvest", BossTier.Epic),
+        new(39, "The Swarm Queen",        "🐝", 22000,  110,25, 1100, 4500, "Billions of insects sharing one vast intelligence", BossTier.Epic),
+        new(40, "Gravity Titan",          "🕳️", 35000,  78, 48, 1500, 6000, "It bends space itself — light cannot escape", BossTier.Epic),
+
+        // Tier: Legendary (41-47) — world-ending threats
+        new(41, "Primordial Chaos",       "🌀", 50000,  100,50, 2000, 8000, "The entropy that existed before creation — formless, endless, hungry", BossTier.Legendary),
+        new(42, "The Last Star",          "💫", 45000,  110,45, 1800, 7500, "A dying star given consciousness — it burns with the fury of a supernova", BossTier.Legendary),
+        new(43, "Leviathan Prime",        "🐙", 55000,  90, 60, 2200, 9000, "The first sea creature — all oceans are its domain", BossTier.Legendary),
+        new(44, "Archlich Malachar",      "☠️", 42000,  120,40, 2000, 8500, "He has died and been reborn seven times — each death made him stronger", BossTier.Legendary),
+        new(45, "Dragon God Tiamat",      "🐉", 60000,  95, 55, 2500, 10000,"Five heads, five elements, five apocalypses", BossTier.Legendary),
+        new(46, "The Machine God",        "🤖", 48000,  105,52, 2100, 8800, "An AI from a dead civilization — it builds armies from scrap", BossTier.Legendary),
+        new(47, "Soul Harvester Kael",    "💀", 44000,  115,38, 1900, 8000, "Every soul he takes makes him stronger — he's taken millions", BossTier.Legendary),
+
+        // Tier: Mythic (48-50) — THE endgame bosses
+        new(48, "Void Emperor Xal'Thun",  "🕳️", 80000, 130, 60, 3000, 15000, "The ruler of the void between dimensions — reality tears where he walks", BossTier.Mythic),
+        new(49, "The World Serpent",       "🐲", 100000,120, 70, 4000, 20000, "It sleeps coiled around the core of the world — if it wakes, everything ends", BossTier.Mythic),
+        new(50, "Oblivion",               "⬛", 150000,150, 80, 5000, 25000, "Not a creature. Not a god. The concept of nothingness given form. The final boss.", BossTier.Mythic),
     ];
+
+    // ── PROCEDURAL GENERATION BUILDING BLOCKS ──────────────────
+
+    private static readonly string[] Prefixes =
+    [
+        "Infernal", "Cursed", "Ancient", "Corrupted", "Savage", "Venomous", "Frenzied", "Spectral",
+        "Undying", "Molten", "Frozen", "Storm", "Shadow", "Blood", "Iron", "Crystal", "Void",
+        "Plague", "Thunder", "Bone", "Dire", "Feral", "Toxic", "Chaos", "Dread", "Ash",
+        "Rusted", "Gilded", "Obsidian", "Emerald", "Crimson", "Azure", "Violet", "Scarlet",
+        "Blighted", "Hollow", "Twisted", "Wretched", "Forsaken", "Eternal",
+    ];
+
+    private static readonly string[] Creatures =
+    [
+        "Dragon", "Wyrm", "Drake", "Wyvern", "Serpent", "Hydra", "Basilisk",
+        "Golem", "Titan", "Colossus", "Giant", "Ogre", "Troll", "Cyclops",
+        "Demon", "Devil", "Fiend", "Balor", "Succubus", "Archfiend",
+        "Lich", "Wraith", "Revenant", "Phantom", "Specter", "Banshee",
+        "Spider Queen", "Scorpion King", "Beetle Lord", "Mantis", "Wasp Queen",
+        "Wolf Alpha", "Bear", "Boar King", "Stag Lord", "Lion", "Tiger", "Panther",
+        "Kraken", "Leviathan", "Shark", "Eel Lord", "Crab King",
+        "Phoenix", "Griffin", "Harpy", "Roc", "Thunderbird", "Gargoyle",
+        "Treant", "Mushroom King", "Vine Horror", "Thorn Beast",
+        "Minotaur", "Centaur", "Chimera", "Manticore", "Cerberus", "Sphinx",
+        "Slime King", "Ooze Lord", "Gel Titan", "Cube",
+        "Skeleton Lord", "Zombie King", "Ghoul", "Mummy Lord", "Death Knight",
+        "Elemental", "Djinn", "Efreet", "Marid",
+        "Beholder", "Mind Flayer", "Aboleth", "Mimic King",
+        "Vampire Lord", "Werewolf Alpha", "Wendigo", "Night Hag",
+        "Clockwork Knight", "Steam Golem", "Mech Titan",
+        "Sandworm", "Dust Devil", "Mummy Pharaoh",
+        "Frost Giant", "Ice Elemental", "Blizzard Hawk",
+        "Lava Golem", "Magma Serpent", "Ember Titan", "Flame Wraith",
+    ];
+
+    private static readonly string[] Suffixes =
+    [
+        "", "", "", "", "",
+        "of Doom", "of the Abyss", "of the Void", "of Despair", "of Ruin",
+        "the Destroyer", "the Devourer", "the Conqueror", "the Immortal", "the Forsaken",
+        "the Undying", "the Merciless", "the Ravenous", "the Ancient", "the Cursed",
+        "of the Deep", "of the Wastes", "of the Peaks", "of the Swamp", "of the Crypt",
+    ];
+
+    private static readonly string[] Emojis =
+    [
+        "🐉", "🐲", "🦎", "🐍", "🦂", "🕷️", "🦇", "🐺", "🐻", "🦁",
+        "🐯", "🦅", "🦑", "🐙", "🦈", "🐊", "🦏", "🐘", "🗿", "👑",
+        "💀", "👻", "😈", "👿", "🧟", "🧛", "🦴", "🎃", "👾", "🤖",
+        "🔥", "❄️", "⚡", "🌑", "☠️", "⚔️", "🛡️", "🌋", "🌊",
+        "🍄", "🌿", "🪨", "💎", "🔮", "🧿", "⭐", "🐾",
+    ];
+
+    private static readonly string[] DescTemplates =
+    [
+        "A {0} {1} that has terrorized the realm for centuries",
+        "Born from pure {0} energy — its very presence warps reality",
+        "Once a noble creature, now corrupted beyond recognition",
+        "Legends say it has destroyed a thousand armies",
+        "Its roar alone can shatter castle walls",
+        "Awakened from an ancient slumber, hungry for destruction",
+        "The ground trembles with each of its steps",
+        "Its eyes glow with malevolent intelligence",
+        "Even the bravest heroes tremble at its name",
+        "It feeds on the fear of those who challenge it",
+        "Forged in the fires of the underworld",
+        "A nightmare given physical form",
+        "The last thing many adventurers ever see",
+        "Ancient runes pulse across its body",
+        "It commands an army of lesser creatures",
+        "The air itself turns toxic in its presence",
+        "Time seems to slow in its shadow",
+        "Chains of dark magic bind its full power — for now",
+        "The prophecy warned of its return",
+        "It remembers when the world was young — and wants it to end",
+    ];
+
+    private static readonly string[] Elements =
+    ["fire", "ice", "lightning", "shadow", "void", "poison", "blood", "arcane", "nature", "death"];
+
+    // ── THE FULL 1000-BOSS LIST ────────────────────────────────
+
+    public static readonly BossEntry[] AllBosses = GenerateAllBosses();
+
+    // Keep backward compat — BossTemplates points to AllBosses as tuples
+    public static readonly (string Name, string Emoji, int BaseHp, int BaseAtk, int BaseDef, long BaseXp, long BaseCurrency, string Desc)[] BossTemplates =
+        AllBosses.Select(b => (b.Name, b.Emoji, b.BaseHp, b.BaseAtk, b.BaseDef, b.BaseXp, b.BaseCurrency, b.Desc)).ToArray();
+
+    private static BossEntry[] GenerateAllBosses()
+    {
+        var rng = new Random(42); // Fixed seed = boss #347 is ALWAYS the same boss
+        var bosses = new List<BossEntry>(1000);
+        var usedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        // Add the 50 handcrafted bosses first
+        foreach (var hb in HandcraftedBosses)
+        {
+            bosses.Add(hb);
+            usedNames.Add(hb.Name);
+        }
+
+        // Generate 950 procedural bosses (IDs 51-1000)
+        var id = 51;
+        while (id <= 1000)
+        {
+            var prefix = Prefixes[rng.Next(Prefixes.Length)];
+            var creature = Creatures[rng.Next(Creatures.Length)];
+            var suffix = Suffixes[rng.Next(Suffixes.Length)];
+
+            var name = string.IsNullOrEmpty(suffix)
+                ? $"{prefix} {creature}"
+                : $"{prefix} {creature} {suffix}";
+
+            if (!usedNames.Add(name))
+                continue; // Skip duplicates, try again
+
+            // Tier scales with ID — later bosses are harder
+            var tier = id switch
+            {
+                <= 250  => BossTier.Common,
+                <= 450  => BossTier.Uncommon,
+                <= 650  => BossTier.Rare,
+                <= 850  => BossTier.Epic,
+                <= 950  => BossTier.Legendary,
+                _       => BossTier.Mythic,
+            };
+
+            var tierMult = tier switch
+            {
+                BossTier.Common    => 1.0,
+                BossTier.Uncommon  => 2.0,
+                BossTier.Rare      => 3.5,
+                BossTier.Epic      => 5.5,
+                BossTier.Legendary => 8.0,
+                BossTier.Mythic    => 12.0,
+                _ => 1.0,
+            };
+
+            var hp   = (int)(rng.Next(4000, 10000) * tierMult);
+            var atk  = (int)(rng.Next(25, 55) * tierMult);
+            var def  = (int)(rng.Next(15, 40) * tierMult);
+            var xp   = (long)(rng.Next(150, 400) * tierMult);
+            var curr = (long)(rng.Next(600, 1800) * tierMult);
+
+            var emoji = Emojis[rng.Next(Emojis.Length)];
+            var element = Elements[rng.Next(Elements.Length)];
+            var descTemplate = DescTemplates[rng.Next(DescTemplates.Length)];
+            var desc = string.Format(descTemplate, element, creature.ToLower());
+
+            bosses.Add(new BossEntry(id, name, emoji, hp, atk, def, xp, curr, desc, tier));
+            id++;
+        }
+
+        return [.. bosses];
+    }
+
+    // ── BOSS LOOKUP HELPERS ────────────────────────────────────
+
+    public static BossEntry GetBossById(int id) =>
+        AllBosses.FirstOrDefault(b => b.Id == id);
+
+    public static BossEntry[] SearchBosses(string query) =>
+        AllBosses.Where(b => b.Name.Contains(query, StringComparison.OrdinalIgnoreCase)).ToArray();
+
+    public static BossEntry[] GetBossesByTier(BossTier tier) =>
+        AllBosses.Where(b => b.Tier == tier).ToArray();
+
+    public static string TierEmoji(BossTier tier) => tier switch
+    {
+        BossTier.Common    => "⚪",
+        BossTier.Uncommon  => "🟢",
+        BossTier.Rare      => "🔵",
+        BossTier.Epic      => "🟣",
+        BossTier.Legendary => "🟡",
+        BossTier.Mythic    => "🔴",
+        _ => "⚪",
+    };
 
     // Phase names and multipliers
     private static readonly (string Name, double AtkMult, double DefMult)[] Phases =
