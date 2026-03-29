@@ -275,6 +275,20 @@ public abstract class SantiContext : DbContext
     public DbSet<CustomScript> CustomScripts { get; set; }
     public DbSet<InstalledPlugin> InstalledPlugins { get; set; }
 
+    // Events & Scheduling
+    public DbSet<ServerEvent> ServerEvents { get; set; }
+    public DbSet<EventRsvp> EventRsvps { get; set; }
+    public DbSet<EventReminder> EventReminders { get; set; }
+    public DbSet<MovieNightPoll> MovieNightPolls { get; set; }
+    public DbSet<MovieNightOption> MovieNightOptions { get; set; }
+
+    // ==========================================
+    // Gamification, Customization, Events, PvP
+    // ==========================================
+    public DbSet<BotCustomization> BotCustomizations { get; set; }
+    public DbSet<CustomEmbed> CustomEmbeds { get; set; }
+    public DbSet<CustomCommand> CustomCommands { get; set; }
+
 
     #region Mandatory Provider-Specific Values
 
