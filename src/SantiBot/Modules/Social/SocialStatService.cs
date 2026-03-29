@@ -41,7 +41,7 @@ public sealed class SocialStatService : INService, IReadyExecutor
         {
             var channel = await ch.GetOrDownloadAsync();
             if (channel is not ITextChannel tc) return;
-            if (reaction.UserId == msg.Id) return;
+            if (reaction.UserId == msg.Value?.Author?.Id) return;
 
             await IncrementStatAsync(tc.GuildId, reaction.UserId, "reactions");
 

@@ -588,6 +588,9 @@ public sealed class RaidBossService : INService
                 // Award XP
                 var dPlayer = await ctx.GetTable<DungeonPlayer>()
                     .FirstOrDefaultAsyncLinqToDB(x => x.UserId == p.UserId && x.GuildId == guildId);
+                // Award Battle Pass XP for raid participation
+                _ = Gamification.BattlePassBridge.AwardAsync(p.UserId, guildId, 100 + xpShare / 5);
+
                 if (dPlayer is not null)
                 {
                     dPlayer.Xp += xpShare;

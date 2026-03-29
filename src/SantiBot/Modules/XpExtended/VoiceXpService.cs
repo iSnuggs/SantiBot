@@ -40,6 +40,10 @@ public sealed class VoiceXpService : INService, IReadyExecutor
                     var config = await GetConfigAsync(guildId);
                     if (config is null || !config.Enabled) continue;
 
+                    // NOTE: NadekoBot's built-in XpService also awards voice XP.
+                    // This VoiceXpService is DISABLED by default (config.Enabled = false).
+                    // Admins should only enable it if they've disabled NadekoBot's voice XP
+                    // via .xp settings to avoid double-counting.
                     await using var ctx = _db.GetDbContext();
                     await ctx.GetTable<UserXpStats>()
                         .Where(x => x.GuildId == guildId && x.UserId == userId)

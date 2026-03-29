@@ -1210,6 +1210,9 @@ public sealed class DungeonService : INService
             player.TotalLoot += perPlayer;
             player.MonstersKilled += p.MonstersKilled;
             player.DungeonsCleared++;
+
+            // Award Battle Pass XP for dungeon completion
+            _ = Gamification.BattlePassBridge.AwardAsync(p.UserId, run.GuildId, 50 + run.Difficulty * 20);
             if (run.Difficulty > player.HighestDifficulty)
                 player.HighestDifficulty = run.Difficulty;
 

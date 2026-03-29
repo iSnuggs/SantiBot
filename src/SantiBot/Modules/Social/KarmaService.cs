@@ -29,7 +29,7 @@ public sealed class KarmaService : INService, IReadyExecutor
     {
         try
         {
-            if (reaction.UserId == msg.Id) return; // can't karma self
+            if (reaction.UserId == msg.Value?.Author?.Id) return; // can't karma self
             var channel = await ch.GetOrDownloadAsync();
             if (channel is not ITextChannel tc) return;
 

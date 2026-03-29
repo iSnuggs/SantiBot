@@ -198,14 +198,38 @@ public class XpService : INService, IReadyExecutor, IExecNoCommand
         var tempTableName = "xptemp_" + Guid.NewGuid().ToString().Replace("-", string.Empty);
         await using var batchTable = await lctx.CreateTempTableAsync<UserXpBatch>(tempTableName);
 
-        await batchTable.BulkCopyAsync(currentBatch.Select(x => new UserXpBatch()
+        // Apply XP multipliers from .dev xpmult commands
+        var multipliedBatch = new List<UserXpBatch>();
+        foreach (var x in currentBatch)
         {
-            GuildId = x.User.GuildId,
-            UserId = x.User.Id,
-            Username = x.User.Username,
-            AvatarId = x.User.DisplayAvatarId,
-            XpToGain = x.Xp
-        }));
+            var mult = 1.0;
+            try
+            {
+                var mults = await ctx.GetTable<XpMultiplier>()
+                    .Where(m => m.GuildId == x.User.GuildId && m.IsActive
+                        && (m.ExpiresAt == null || m.ExpiresAt > DateTime.UtcNow))
+                    .ToListAsyncLinqToDB();
+
+                foreach (var m in mults)
+                {
+                    if (m.Type is "Global" or "Event") mult *= m.Multiplier;
+                    else if (m.Type == "Channel" && m.TargetId == x.ChannelId) mult *= m.Multiplier;
+                    else if (m.Type == "Role" && x.User.RoleIds.Contains(m.TargetId)) mult *= m.Multiplier;
+                }
+            }
+            catch { /* ignore multiplier errors — still award base XP */ }
+
+            multipliedBatch.Add(new UserXpBatch()
+            {
+                GuildId = x.User.GuildId,
+                UserId = x.User.Id,
+                Username = x.User.Username,
+                AvatarId = x.User.DisplayAvatarId,
+                XpToGain = (long)(x.Xp * mult)
+            });
+        }
+
+        await batchTable.BulkCopyAsync(multipliedBatch);
 
         await lctx.ExecuteAsync(
             $"""
