@@ -21,10 +21,10 @@ Built on a fork of [NadekoBot](https://github.com/nadeko-bot/nadekobot) v6, Sant
 
 ## Features
 
-> **1,342 commands** across **171 command groups** with **1000+ features**
+> **1,690 text commands** | **60 curated slash commands** | **1000+ features**
 
 ### Core
-- **1,342 Commands** — text prefix + slash commands side by side
+- **1,690 Commands** — text prefix commands with 60 curated slash commands
 - **Music** — YouTube, SoundCloud, and 1000+ sources via yt-dlp
 - **Economy** — currency, gambling, slots, blackjack, banking, shops, fishing, crafting, jobs, stock market, crypto sim, auctions, real estate
 - **RPG Dungeon System** — 11 classes, 8 races, equipment, skill trees, prestige, party dungeons
