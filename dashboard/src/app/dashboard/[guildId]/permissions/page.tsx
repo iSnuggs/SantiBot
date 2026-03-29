@@ -62,9 +62,10 @@ export default function PermissionsPage() {
       <div className="space-y-6">
         <ConfigPanel title="Global Permission Settings">
           <Toggle
-            label="Verbose Permissions"
+            label="Verbose Permissions (use .verbose command to change)"
             checked={data?.verbosePermissions ?? false}
             onChange={() => {}}
+            disabled
           />
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1.5">Permission Role</label>

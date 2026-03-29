@@ -57,6 +57,9 @@ const navItems: NavItem[] = [
   { name: "Voice Text", href: "/voice-text", icon: "🔊", category: "Tools" },
   { name: "Streams", href: "/streams", icon: "📺", category: "Tools" },
   { name: "Backup & Restore", href: "/backup", icon: "💾", category: "Tools" },
+  { name: "Analytics", href: "/analytics", icon: "📈", category: "Tools" },
+  { name: "Audit Log", href: "/audit-log", icon: "📜", category: "Tools" },
+  { name: "User Search", href: "/user-search", icon: "🔍", category: "Tools" },
 ];
 
 export default function Sidebar({ guildId }: { guildId: string }) {

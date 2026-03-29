@@ -11,7 +11,7 @@ interface SettingsConfig {
   timeZoneId: string;
   locale: string;
   deleteMessageOnCommand: boolean;
-  autoAssignRoleIds: number[];
+  autoAssignRoleIds: string;
   disableGlobalExpressions: boolean;
 }
 

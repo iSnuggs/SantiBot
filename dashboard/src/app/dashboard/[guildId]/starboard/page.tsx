@@ -66,6 +66,7 @@ export default function StarboardPage() {
       await apiFetch(`/api/guilds/${guildId}/config/starboard`, {
         method: "PATCH",
         body: JSON.stringify({
+          enabled,
           channelId: channelId ? Number(channelId) : null,
           threshold: Number(threshold),
           emoji,

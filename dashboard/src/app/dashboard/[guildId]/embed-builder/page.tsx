@@ -357,7 +357,11 @@ export default function EmbedBuilderPage() {
               >
                 {saving ? "Saving..." : "Save Template"}
               </button>
-              <button className="flex-1 px-4 py-2 text-sm border border-[var(--border)] rounded-lg hover:bg-[var(--card-hover)]">
+              <button
+                onClick={() => alert("Send to Channel requires a channel ID. This feature will be available in a future update.")}
+                className="flex-1 px-4 py-2 text-sm border border-[var(--border)] rounded-lg hover:bg-[var(--card-hover)]"
+                title="Coming soon"
+              >
                 Send to Channel
               </button>
             </div>
