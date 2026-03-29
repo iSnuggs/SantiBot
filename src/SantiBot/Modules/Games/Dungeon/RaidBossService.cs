@@ -514,7 +514,7 @@ public sealed class RaidBossService : INService
             config = new RaidBossConfig
             {
                 GuildId = guildId,
-                NextSpawnThreshold = _rng.Next(5, 1001),
+                NextSpawnThreshold = _rng.Next(5, 26),
             };
             ctx.Add(config);
             await ctx.SaveChangesAsync();
