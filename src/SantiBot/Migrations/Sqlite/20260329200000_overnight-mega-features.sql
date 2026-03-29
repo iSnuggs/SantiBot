@@ -1,0 +1,560 @@
+-- ══════════════════════════════════════════════════════
+-- SantiBot Overnight Mega-Feature Migration (SQLite)
+-- Covers: Gamification, Crafting, PvP, Housing, Lore,
+--         Security, Voice, Streaming, Events, Customization,
+--         Developer, AI, Expansion, Premium, Mini-Games
+-- ══════════════════════════════════════════════════════
+
+-- Gamification: Badges
+CREATE TABLE IF NOT EXISTS UserBadges (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    BadgeId TEXT, BadgeName TEXT, Emoji TEXT, Category TEXT,
+    Rarity TEXT DEFAULT 'Common', IsDisplayed INTEGER NOT NULL DEFAULT 0,
+    EarnedAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_UserBadges_UserId_GuildId ON UserBadges (UserId, GuildId);
+
+-- Gamification: Titles
+CREATE TABLE IF NOT EXISTS UserTitles (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    TitleId TEXT, TitleName TEXT, Color TEXT,
+    IsActive INTEGER NOT NULL DEFAULT 0,
+    EarnedAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_UserTitles_UserId_GuildId ON UserTitles (UserId, GuildId);
+
+-- Gamification: Battle Pass
+CREATE TABLE IF NOT EXISTS BattlePassProgress (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    Season INTEGER NOT NULL DEFAULT 1, CurrentTier INTEGER NOT NULL DEFAULT 1,
+    SeasonXp INTEGER NOT NULL DEFAULT 0, IsPremium INTEGER NOT NULL DEFAULT 0,
+    DailyChallengesCompleted INTEGER NOT NULL DEFAULT 0,
+    WeeklyChallengesCompleted INTEGER NOT NULL DEFAULT 0,
+    LastDailyChallengeAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS BattlePassConfigs (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, CurrentSeason INTEGER NOT NULL DEFAULT 1,
+    SeasonName TEXT DEFAULT 'Season 1', MaxTier INTEGER NOT NULL DEFAULT 50,
+    XpPerTier INTEGER NOT NULL DEFAULT 1000, IsActive INTEGER NOT NULL DEFAULT 1,
+    SeasonStartedAt TEXT NOT NULL DEFAULT (datetime('now')),
+    SeasonEndsAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+CREATE UNIQUE INDEX IF NOT EXISTS IX_BattlePassConfigs_GuildId ON BattlePassConfigs (GuildId);
+
+CREATE TABLE IF NOT EXISTS DailyChallenges (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ChallengeId TEXT, Description TEXT,
+    XpReward INTEGER NOT NULL DEFAULT 0, ActiveDate TEXT NOT NULL, DateAdded TEXT
+);
+
+-- Crafting & Gathering
+CREATE TABLE IF NOT EXISTS GatheringProfiles (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    MiningLevel INTEGER NOT NULL DEFAULT 1, MiningXp INTEGER NOT NULL DEFAULT 0,
+    WoodcuttingLevel INTEGER NOT NULL DEFAULT 1, WoodcuttingXp INTEGER NOT NULL DEFAULT 0,
+    FarmingLevel INTEGER NOT NULL DEFAULT 1, FarmingXp INTEGER NOT NULL DEFAULT 0,
+    FishingSkillLevel INTEGER NOT NULL DEFAULT 1, FishingSkillXp INTEGER NOT NULL DEFAULT 0,
+    HerbGatheringLevel INTEGER NOT NULL DEFAULT 1, HerbGatheringXp INTEGER NOT NULL DEFAULT 0,
+    LastMinedAt TEXT, LastChoppedAt TEXT, LastHarvestedAt TEXT, LastGatheredAt TEXT, DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_GatheringProfiles_UserId_GuildId ON GatheringProfiles (UserId, GuildId);
+
+CREATE TABLE IF NOT EXISTS CraftingProfiles (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    CookingLevel INTEGER NOT NULL DEFAULT 1, CookingXp INTEGER NOT NULL DEFAULT 0,
+    AlchemyLevel INTEGER NOT NULL DEFAULT 1, AlchemyXp INTEGER NOT NULL DEFAULT 0,
+    BlacksmithingLevel INTEGER NOT NULL DEFAULT 1, BlacksmithingXp INTEGER NOT NULL DEFAULT 0,
+    EnchantingLevel INTEGER NOT NULL DEFAULT 1, EnchantingXp INTEGER NOT NULL DEFAULT 0,
+    JewelcraftingLevel INTEGER NOT NULL DEFAULT 1, JewelcraftingXp INTEGER NOT NULL DEFAULT 0,
+    DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_CraftingProfiles_UserId_GuildId ON CraftingProfiles (UserId, GuildId);
+
+CREATE TABLE IF NOT EXISTS PlayerInventoryItems (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    ItemName TEXT, ItemType TEXT, Quantity INTEGER NOT NULL DEFAULT 0,
+    Rarity TEXT DEFAULT 'Common', DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_PlayerInventoryItems_UserId_GuildId ON PlayerInventoryItems (UserId, GuildId);
+
+-- PvP
+CREATE TABLE IF NOT EXISTS PvpStats (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    Wins INTEGER NOT NULL DEFAULT 0, Losses INTEGER NOT NULL DEFAULT 0,
+    Draws INTEGER NOT NULL DEFAULT 0, Elo INTEGER NOT NULL DEFAULT 1000,
+    WinStreak INTEGER NOT NULL DEFAULT 0, BestWinStreak INTEGER NOT NULL DEFAULT 0,
+    TotalDamageDealt INTEGER NOT NULL DEFAULT 0, TotalDamageReceived INTEGER NOT NULL DEFAULT 0,
+    LastDuelAt TEXT, DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_PvpStats_UserId_GuildId ON PvpStats (UserId, GuildId);
+
+CREATE TABLE IF NOT EXISTS Tournaments (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ChannelId INTEGER NOT NULL DEFAULT 0,
+    Name TEXT, Status TEXT DEFAULT 'Registration',
+    Format TEXT DEFAULT 'SingleElimination',
+    MaxParticipants INTEGER NOT NULL DEFAULT 16,
+    EntryFee INTEGER NOT NULL DEFAULT 0, PrizePool INTEGER NOT NULL DEFAULT 0,
+    CreatedBy INTEGER NOT NULL DEFAULT 0,
+    StartedAt TEXT, CompletedAt TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS TournamentParticipants (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    TournamentId INTEGER NOT NULL, UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    Seed INTEGER NOT NULL DEFAULT 0, IsEliminated INTEGER NOT NULL DEFAULT 0,
+    Wins INTEGER NOT NULL DEFAULT 0, Losses INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+-- Housing
+CREATE TABLE IF NOT EXISTS PlayerHouses (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    HouseName TEXT, HouseSize TEXT DEFAULT 'Cottage',
+    Level INTEGER NOT NULL DEFAULT 1, RoomCount INTEGER NOT NULL DEFAULT 1,
+    GardenSize INTEGER NOT NULL DEFAULT 0, TrophySlots INTEGER NOT NULL DEFAULT 0,
+    GuestBookEntries INTEGER NOT NULL DEFAULT 0,
+    LastVisitedBy INTEGER NOT NULL DEFAULT 0,
+    PurchasePrice INTEGER NOT NULL DEFAULT 0, Style TEXT DEFAULT 'Medieval', DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_PlayerHouses_UserId_GuildId ON PlayerHouses (UserId, GuildId);
+
+CREATE TABLE IF NOT EXISTS HouseRooms (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    HouseId INTEGER NOT NULL, RoomName TEXT, RoomType TEXT,
+    FurnitureCount INTEGER NOT NULL DEFAULT 0, Decorations TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS HouseFurniture (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    HouseId INTEGER NOT NULL, RoomName TEXT, ItemName TEXT,
+    ItemType TEXT, Rarity TEXT DEFAULT 'Common', BonusEffect TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS GuestBookEntries (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    HouseId INTEGER NOT NULL, VisitorUserId INTEGER NOT NULL,
+    VisitorName TEXT, Message TEXT,
+    VisitedAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+
+-- Lore
+CREATE TABLE IF NOT EXISTS LoreEntries (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, Category TEXT, EntryName TEXT,
+    Description TEXT, Emoji TEXT, IsDiscovered INTEGER NOT NULL DEFAULT 0,
+    DiscoveredBy INTEGER NOT NULL DEFAULT 0, DiscoveredAt TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS PlayerDiscoveries (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    LoreEntryId INTEGER NOT NULL, DiscoveredAt TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS TreasureMaps (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, UserId INTEGER NOT NULL,
+    MapName TEXT, Clue1 TEXT, Clue2 TEXT, Clue3 TEXT,
+    RewardCurrency INTEGER NOT NULL DEFAULT 0, RewardXp INTEGER NOT NULL DEFAULT 0,
+    RewardItemName TEXT, IsSolved INTEGER NOT NULL DEFAULT 0,
+    SolvedBy INTEGER NOT NULL DEFAULT 0,
+    CreatedAt TEXT NOT NULL DEFAULT (datetime('now')),
+    ExpiresAt TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS WorldEvents (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, EventName TEXT,
+    EventType TEXT, Description TEXT, IsActive INTEGER NOT NULL DEFAULT 0,
+    StartedAt TEXT, EndsAt TEXT, BonusEffect TEXT, DateAdded TEXT
+);
+
+-- Events & Scheduling
+CREATE TABLE IF NOT EXISTS ServerEvents (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ChannelId INTEGER NOT NULL DEFAULT 0,
+    CreatedBy INTEGER NOT NULL DEFAULT 0,
+    Title TEXT, Description TEXT, EventType TEXT DEFAULT 'Custom',
+    StartTime TEXT NOT NULL, EndTime TEXT,
+    IsRecurring INTEGER NOT NULL DEFAULT 0, RecurrencePattern TEXT,
+    MaxAttendees INTEGER NOT NULL DEFAULT 0,
+    Status TEXT DEFAULT 'Upcoming', DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS EventRsvps (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    EventId INTEGER NOT NULL, UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    Status TEXT DEFAULT 'Going',
+    RsvpAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS EventReminders (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    EventId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    ReminderMinutesBefore INTEGER NOT NULL DEFAULT 15,
+    Sent INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS MovieNightPolls (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ChannelId INTEGER NOT NULL DEFAULT 0,
+    IsActive INTEGER NOT NULL DEFAULT 1,
+    CreatedBy INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS MovieNightOptions (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    PollId INTEGER NOT NULL, MovieTitle TEXT,
+    AddedBy INTEGER NOT NULL DEFAULT 0,
+    Votes INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+-- Customization
+CREATE TABLE IF NOT EXISTS BotCustomizations (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, CurrencyName TEXT DEFAULT 'Currency',
+    CurrencyEmoji TEXT DEFAULT '🥠', XpName TEXT DEFAULT 'XP',
+    XpEmoji TEXT DEFAULT '⭐', EmbedColorHex TEXT DEFAULT '#00E68A',
+    EmbedFooterText TEXT, EmbedThumbnailUrl TEXT,
+    SuccessPrefix TEXT DEFAULT '✅', ErrorPrefix TEXT DEFAULT '❌',
+    LevelUpMessage TEXT, LevelUpChannelId INTEGER NOT NULL DEFAULT 0,
+    LevelUpDm INTEGER NOT NULL DEFAULT 0,
+    WelcomeTitle TEXT, WelcomeMessage TEXT, WelcomeImageUrl TEXT,
+    GoodbyeMessage TEXT, ActiveTheme TEXT DEFAULT 'default', DateAdded TEXT
+);
+CREATE UNIQUE INDEX IF NOT EXISTS IX_BotCustomizations_GuildId ON BotCustomizations (GuildId);
+
+CREATE TABLE IF NOT EXISTS CustomEmbeds (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, Name TEXT, Title TEXT, Description TEXT,
+    ColorHex TEXT, ThumbnailUrl TEXT, ImageUrl TEXT,
+    FooterText TEXT, AuthorName TEXT, Fields TEXT,
+    CreatedBy INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS CustomCommands (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, Trigger TEXT, Response TEXT,
+    EmbedName TEXT, IsEmbed INTEGER NOT NULL DEFAULT 0,
+    CreatedBy INTEGER NOT NULL DEFAULT 0,
+    UseCount INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+-- Voice & Streaming
+CREATE TABLE IF NOT EXISTS SoundboardSounds (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, Name TEXT, Url TEXT,
+    AddedBy INTEGER NOT NULL DEFAULT 0, PlayCount INTEGER NOT NULL DEFAULT 0,
+    Category TEXT DEFAULT 'General', DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS TempVoiceConfigs (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, CreateChannelId INTEGER NOT NULL DEFAULT 0,
+    CategoryId INTEGER NOT NULL DEFAULT 0,
+    DefaultName TEXT DEFAULT '{user}''s Channel',
+    DefaultLimit INTEGER NOT NULL DEFAULT 0,
+    IsEnabled INTEGER NOT NULL DEFAULT 1, DateAdded TEXT
+);
+CREATE UNIQUE INDEX IF NOT EXISTS IX_TempVoiceConfigs_GuildId ON TempVoiceConfigs (GuildId);
+
+CREATE TABLE IF NOT EXISTS TempVoiceChannels (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ChannelId INTEGER NOT NULL,
+    OwnerId INTEGER NOT NULL, Name TEXT,
+    CreatedAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS VoiceSessionLogs (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    ChannelId INTEGER NOT NULL,
+    JoinedAt TEXT NOT NULL, LeftAt TEXT,
+    DurationMinutes INTEGER NOT NULL DEFAULT 0,
+    WasStreaming INTEGER NOT NULL DEFAULT 0,
+    WasMuted INTEGER NOT NULL DEFAULT 0,
+    WasDeafened INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_VoiceSessionLogs_UserId_GuildId ON VoiceSessionLogs (UserId, GuildId);
+
+CREATE TABLE IF NOT EXISTS StreamAlerts (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, AlertChannelId INTEGER NOT NULL DEFAULT 0,
+    StreamerUserId INTEGER NOT NULL DEFAULT 0,
+    Platform TEXT DEFAULT 'Discord', CustomMessage TEXT,
+    IsEnabled INTEGER NOT NULL DEFAULT 1, LastAlertAt TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ContentSchedules (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, UserId INTEGER NOT NULL,
+    Title TEXT, Platform TEXT, Description TEXT,
+    ScheduledAt TEXT NOT NULL, IsCompleted INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ChannelPointsConfigs (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, PointsName TEXT DEFAULT 'Channel Points',
+    PointsEmoji TEXT DEFAULT '🔷',
+    PointsPerMessage INTEGER NOT NULL DEFAULT 1,
+    PointsPerMinuteVoice INTEGER NOT NULL DEFAULT 2,
+    IsEnabled INTEGER NOT NULL DEFAULT 1, DateAdded TEXT
+);
+CREATE UNIQUE INDEX IF NOT EXISTS IX_ChannelPointsConfigs_GuildId ON ChannelPointsConfigs (GuildId);
+
+CREATE TABLE IF NOT EXISTS UserChannelPoints (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    Points INTEGER NOT NULL DEFAULT 0,
+    TotalEarned INTEGER NOT NULL DEFAULT 0,
+    TotalSpent INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_UserChannelPoints_UserId_GuildId ON UserChannelPoints (UserId, GuildId);
+
+CREATE TABLE IF NOT EXISTS ChannelPointRewards (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, Name TEXT, Description TEXT,
+    Cost INTEGER NOT NULL DEFAULT 0, RewardType TEXT,
+    RoleId INTEGER NOT NULL DEFAULT 0,
+    MaxRedemptions INTEGER NOT NULL DEFAULT 0,
+    CurrentRedemptions INTEGER NOT NULL DEFAULT 0,
+    IsEnabled INTEGER NOT NULL DEFAULT 1, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Predictions (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ChannelId INTEGER NOT NULL DEFAULT 0,
+    CreatedBy INTEGER NOT NULL DEFAULT 0,
+    Question TEXT, Option1 TEXT, Option2 TEXT,
+    Option1Points INTEGER NOT NULL DEFAULT 0, Option2Points INTEGER NOT NULL DEFAULT 0,
+    Option1Voters INTEGER NOT NULL DEFAULT 0, Option2Voters INTEGER NOT NULL DEFAULT 0,
+    Status TEXT DEFAULT 'Open', WinningOption INTEGER,
+    CreatedAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS PredictionBets (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    PredictionId INTEGER NOT NULL, UserId INTEGER NOT NULL,
+    ChosenOption INTEGER NOT NULL DEFAULT 0,
+    PointsBet INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS FanArtSubmissions (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, UserId INTEGER NOT NULL,
+    Title TEXT, ImageUrl TEXT, Votes INTEGER NOT NULL DEFAULT 0,
+    SubmittedAt TEXT NOT NULL DEFAULT (datetime('now')),
+    IsApproved INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS FeedSubscriptions (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ChannelId INTEGER NOT NULL DEFAULT 0,
+    FeedType TEXT, FeedUrl TEXT, FeedName TEXT,
+    LastItemId TEXT, LastCheckedAt TEXT,
+    IsEnabled INTEGER NOT NULL DEFAULT 1,
+    AddedBy INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS UptimeMonitors (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, AlertChannelId INTEGER NOT NULL DEFAULT 0,
+    Url TEXT, Name TEXT, IsUp INTEGER NOT NULL DEFAULT 1,
+    LastDownAt TEXT, LastCheckedAt TEXT,
+    CheckIntervalMinutes INTEGER NOT NULL DEFAULT 5,
+    ConsecutiveFailures INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+-- Developer Tools
+CREATE TABLE IF NOT EXISTS BotPlugins (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, PluginName TEXT, Description TEXT,
+    Version TEXT, Author TEXT, IsEnabled INTEGER NOT NULL DEFAULT 1,
+    InstalledAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS WebhookEndpoints (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, Name TEXT, Secret TEXT,
+    TargetChannelId TEXT, EventType TEXT,
+    TriggerCount INTEGER NOT NULL DEFAULT 0,
+    IsEnabled INTEGER NOT NULL DEFAULT 1,
+    CreatedAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS FeatureFlags (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, FeatureName TEXT,
+    IsEnabled INTEGER NOT NULL DEFAULT 1,
+    EnabledForRoles TEXT, RolloutPercent INTEGER NOT NULL DEFAULT 100,
+    CreatedAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS CommandLogs (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, UserId INTEGER NOT NULL,
+    ChannelId INTEGER NOT NULL, CommandName TEXT, Arguments TEXT,
+    Success INTEGER NOT NULL DEFAULT 1,
+    ExecutionMs INTEGER NOT NULL DEFAULT 0,
+    ExecutedAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_CommandLogs_GuildId ON CommandLogs (GuildId);
+
+CREATE TABLE IF NOT EXISTS XpMultipliers (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, Type TEXT, TargetId INTEGER NOT NULL DEFAULT 0,
+    Multiplier REAL NOT NULL DEFAULT 1.0,
+    ExpiresAt TEXT, IsActive INTEGER NOT NULL DEFAULT 1, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS XpChallengeEntries (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ChallengeName TEXT, Description TEXT,
+    Requirement TEXT, XpReward INTEGER NOT NULL DEFAULT 0,
+    StartsAt TEXT NOT NULL, EndsAt TEXT NOT NULL,
+    IsActive INTEGER NOT NULL DEFAULT 1, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS XpChallengeParticipants (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ChallengeId INTEGER NOT NULL, UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    Progress INTEGER NOT NULL DEFAULT 0,
+    IsComplete INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+-- RPG Expansion
+CREATE TABLE IF NOT EXISTS SkillTrees (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    Class TEXT, SkillPoints INTEGER NOT NULL DEFAULT 0,
+    Skill1Level INTEGER NOT NULL DEFAULT 0, Skill2Level INTEGER NOT NULL DEFAULT 0,
+    Skill3Level INTEGER NOT NULL DEFAULT 0, Skill4Level INTEGER NOT NULL DEFAULT 0,
+    Skill5Level INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_SkillTrees_UserId_GuildId ON SkillTrees (UserId, GuildId);
+
+CREATE TABLE IF NOT EXISTS PrestigeData (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    PrestigeLevel INTEGER NOT NULL DEFAULT 0,
+    PrestigeBonusPercent INTEGER NOT NULL DEFAULT 0,
+    LastPrestigeAt TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS DungeonModifiers (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ModifierName TEXT, Description TEXT,
+    IsActive INTEGER NOT NULL DEFAULT 0,
+    AtkMult REAL NOT NULL DEFAULT 1.0, DefMult REAL NOT NULL DEFAULT 1.0,
+    HpMult REAL NOT NULL DEFAULT 1.0, XpMult REAL NOT NULL DEFAULT 1.0,
+    LootMult REAL NOT NULL DEFAULT 1.0, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Bounties (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, TargetUserId INTEGER NOT NULL,
+    PostedBy INTEGER NOT NULL DEFAULT 0,
+    Amount INTEGER NOT NULL DEFAULT 0, Reason TEXT,
+    IsClaimed INTEGER NOT NULL DEFAULT 0,
+    ClaimedBy INTEGER NOT NULL DEFAULT 0,
+    PostedAt TEXT NOT NULL DEFAULT (datetime('now')),
+    ClaimedAt TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS TreasureHunts (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, ChannelId INTEGER NOT NULL DEFAULT 0,
+    HiddenWord TEXT, Reward INTEGER NOT NULL DEFAULT 0,
+    IsFound INTEGER NOT NULL DEFAULT 0,
+    FoundBy INTEGER NOT NULL DEFAULT 0,
+    HiddenAt TEXT NOT NULL DEFAULT (datetime('now')), DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS MarriageExpansions (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    PartnerId INTEGER NOT NULL DEFAULT 0,
+    Anniversary TEXT, SharedCurrency INTEGER NOT NULL DEFAULT 0,
+    SharedXp INTEGER NOT NULL DEFAULT 0,
+    ChildCount INTEGER NOT NULL DEFAULT 0,
+    FamilyName TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Horoscopes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    ZodiacSign TEXT, LastReadingAt TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS GoalTrackers (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    GoalName TEXT, Description TEXT,
+    TargetValue INTEGER NOT NULL DEFAULT 0,
+    CurrentValue INTEGER NOT NULL DEFAULT 0,
+    IsComplete INTEGER NOT NULL DEFAULT 0,
+    Deadline TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ServerNewspapers (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, Edition INTEGER NOT NULL DEFAULT 1,
+    Content TEXT, PublishedAt TEXT NOT NULL DEFAULT (datetime('now')),
+    GeneratedBy INTEGER NOT NULL DEFAULT 0, DateAdded TEXT
+);
+
+-- Premium
+CREATE TABLE IF NOT EXISTS PremiumGuilds (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    GuildId INTEGER NOT NULL, Tier TEXT DEFAULT 'Free',
+    ExpiresAt TEXT, Features TEXT DEFAULT '',
+    MaxCustomCommands INTEGER NOT NULL DEFAULT 5,
+    MaxSavedEmbeds INTEGER NOT NULL DEFAULT 3,
+    MaxFeeds INTEGER NOT NULL DEFAULT 2,
+    PremiumSince TEXT, DateAdded TEXT
+);
+CREATE UNIQUE INDEX IF NOT EXISTS IX_PremiumGuilds_GuildId ON PremiumGuilds (GuildId);
+
+-- Quest Expansion
+CREATE TABLE IF NOT EXISTS QuestProgress (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    QuestId TEXT, QuestName TEXT, Description TEXT,
+    Type TEXT DEFAULT 'Daily', Status TEXT DEFAULT 'Active',
+    CurrentProgress INTEGER NOT NULL DEFAULT 0,
+    RequiredProgress INTEGER NOT NULL DEFAULT 0,
+    XpReward INTEGER NOT NULL DEFAULT 0,
+    CurrencyReward INTEGER NOT NULL DEFAULT 0,
+    StartedAt TEXT NOT NULL DEFAULT (datetime('now')),
+    CompletedAt TEXT, ExpiresAt TEXT, DateAdded TEXT
+);
+CREATE INDEX IF NOT EXISTS IX_QuestProgress_UserId_GuildId ON QuestProgress (UserId, GuildId);
+
+CREATE TABLE IF NOT EXISTS QuestLogs (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    TotalQuestsCompleted INTEGER NOT NULL DEFAULT 0,
+    DailyQuestsCompleted INTEGER NOT NULL DEFAULT 0,
+    WeeklyQuestsCompleted INTEGER NOT NULL DEFAULT 0,
+    StoryQuestsCompleted INTEGER NOT NULL DEFAULT 0,
+    CurrentStreak INTEGER NOT NULL DEFAULT 0,
+    BestStreak INTEGER NOT NULL DEFAULT 0,
+    LastDailyRefresh TEXT, LastWeeklyRefresh TEXT, DateAdded TEXT
+);
+
+CREATE TABLE IF NOT EXISTS FactionStandings (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER NOT NULL, GuildId INTEGER NOT NULL,
+    FactionName TEXT, Reputation INTEGER NOT NULL DEFAULT 0,
+    Rank TEXT DEFAULT 'Outsider', DateAdded TEXT
+);

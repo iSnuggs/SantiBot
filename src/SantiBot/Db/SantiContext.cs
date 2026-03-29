@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 using SantiBot.Db.Models;
 using SantiBot.Modules.Waifus.Waifu.Db;
+using SantiBot.Modules.Utility.Premium;
 
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
@@ -321,6 +322,26 @@ public abstract class SantiContext : DbContext
     public DbSet<XpMultiplier> XpMultipliers { get; set; }
     public DbSet<XpChallengeEntry> XpChallengeEntries { get; set; }
     public DbSet<XpChallengeParticipant> XpChallengeParticipants { get; set; }
+
+    // ==========================================
+    // Missing Model Registrations (wiring fix)
+    // ==========================================
+    public DbSet<SkillTree> SkillTrees { get; set; }
+    public DbSet<PrestigeData> PrestigeData { get; set; }
+    public DbSet<DungeonModifier> DungeonModifiers { get; set; }
+    public DbSet<Bounty> Bounties { get; set; }
+    public DbSet<TreasureHunt> TreasureHunts { get; set; }
+    public DbSet<MarriageExpansion> MarriageExpansions { get; set; }
+    public DbSet<Horoscope> Horoscopes { get; set; }
+    public DbSet<GoalTracker> GoalTrackers { get; set; }
+    public DbSet<ServerNewspaper> ServerNewspapers { get; set; }
+    public DbSet<PvpStats> PvpStats { get; set; }
+    public DbSet<TournamentModel> Tournaments { get; set; }
+    public DbSet<TournamentParticipant> TournamentParticipants { get; set; }
+    public DbSet<QuestProgress> QuestProgress { get; set; }
+    public DbSet<QuestLog> QuestLogs { get; set; }
+    public DbSet<FactionStanding> FactionStandings { get; set; }
+    public DbSet<PremiumGuild> PremiumGuilds { get; set; }
 
 
     #region Mandatory Provider-Specific Values
