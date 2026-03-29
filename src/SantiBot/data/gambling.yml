@@ -3,9 +3,9 @@ version: 13
 # Currency settings
 currency:
   # What is the emoji/character which represents the currency
-  sign: "🌸"
+  sign: "🥠"
   # What is the name of the currency
-  name: Santi Flower
+  name: Fortune Cookie
   # For how long (in days) will the transactions be kept in the database (curtrs)
   # Set 0 to disable cleanup (keep transactions forever)
   transactionsLifetime: 0

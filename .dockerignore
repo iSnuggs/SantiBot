@@ -11,4 +11,4 @@
 # ignore bin and obj folders in projects
 src/**/bin/*
 src/**/obj/*
-src/NadekoBot/data/creds.yml
+src/SantiBot/data/creds.yml

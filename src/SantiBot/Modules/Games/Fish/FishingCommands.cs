@@ -45,10 +45,10 @@ public partial class Games
                             .WithFooter("captcha: type the text from the image")
                             .WithImageUrl("attachment://timely.png"));
 
-#if GLOBAL_NADEKO
+#if GLOBAL_SANTI
                     if (_rng.Next(0, 8) == 0)
                         toSend = toSend
-                            .Text("*[Sub on Patreon](https://patreon.com/nadekobot) to remove captcha.*");
+                            .Text("*Support on Patreon to remove captcha.*");
 #endif
                     var captcha = await toSend.SendAsync();
 

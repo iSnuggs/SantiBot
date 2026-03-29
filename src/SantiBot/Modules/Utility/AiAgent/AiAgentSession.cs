@@ -7,7 +7,7 @@ namespace SantiBot.Modules.Utility.AiAgent;
 
 /// <summary>
 /// Executes the ReAct agent loop: prompt -> LLM -> tool calls -> results -> LLM -> repeat.
-/// Supports both self-hosted OpenAI-compatible APIs and the nadeko backend.
+/// Supports both self-hosted OpenAI-compatible APIs and the SantiBot backend.
 /// </summary>
 public sealed class AiAgentSession(
     IHttpClientFactory httpFactory,
@@ -160,9 +160,9 @@ public sealed class AiAgentSession(
         var creds = credsProvider.GetCreds();
 
         string url;
-        if (config.Backend == "nadeko")
+        if (config.Backend == "santi")
         {
-            url = "https://nai.nadeko.bot/v1/chat/completions";
+            url = config.ApiUrl.TrimEnd('/') + "/v1/chat/completions";
             http.DefaultRequestHeaders.TryAddWithoutValidation("x-auth-token", creds.SantiAiToken);
         }
         else

@@ -78,7 +78,7 @@ public sealed partial class Help : SantiModule<HelpService>
                 m.Name,
                 null);
 
-#if GLOBAL_NADEKO
+#if GLOBAL_SANTI
             if (m.Preconditions.Any(x => x is NoPublicBotAttribute))
                 continue;
 #endif

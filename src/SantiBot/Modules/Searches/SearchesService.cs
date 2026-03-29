@@ -67,7 +67,7 @@ public class SearchesService : INService
     {
         query = query.Trim().ToLowerInvariant();
 
-        return await _c.GetOrAddAsync(new($"nadeko_weather_{query}"),
+        return await _c.GetOrAddAsync(new($"santi_weather_{query}"),
             async () => await GetWeatherDataFactory(query),
             TimeSpan.FromHours(3));
     }
@@ -97,7 +97,7 @@ public class SearchesService : INService
     public Task<((string Address, DateTime Time, string TimeZoneName), ErrorType?)> GetTimeDataAsync(string arg)
         => GetTimeDataFactory(arg);
 
-    //return _cache.GetOrAddCachedDataAsync($"nadeko_time_{arg}",
+    //return _cache.GetOrAddCachedDataAsync($"santi_time_{arg}",
     //    GetTimeDataFactory,
     //    arg,
     //    TimeSpan.FromMinutes(1));
@@ -179,7 +179,7 @@ public class SearchesService : INService
         };
 
 
-        return $"https://nadeko-pictures.nyc3.digitaloceanspaces.com/{subpath}/"
+        return $"https://cdn.nadeko.bot/{subpath}/"
                + _rng.Next(1, max).ToString("000")
                + ".png";
     }
@@ -336,7 +336,7 @@ public class SearchesService : INService
     private async Task<OmdbMovie> GetMovieDataFactory(string name)
     {
         using var http = _httpFactory.CreateClient();
-        var res = await http.GetStringAsync("https://omdbapi.nadeko.bot/"
+        var res = await http.GetStringAsync("https://www.omdbapi.com/"
                                             + $"?t={name.Trim().Replace(' ', '+')}"
                                             + "&y="
                                             + "&plot=full"

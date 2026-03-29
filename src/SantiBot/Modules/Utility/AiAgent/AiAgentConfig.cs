@@ -14,7 +14,7 @@ public sealed partial class AiAgentConfig : ICloneable<AiAgentConfig>
     [Comment("""
              LLM backend to use.
              'openai' - Use your own OpenAI-compatible API key (self-hosters control cost).
-             'nadeko' - Route through nai.nadeko.bot (patron-gated, uses SantiAiToken from creds).
+             'santi' - Route through a SantiBot-hosted backend (uses SantiAiToken from creds).
              Default 'openai'
              """)]
     public string Backend { get; set; } = "openai";

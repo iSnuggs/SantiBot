@@ -3,12 +3,12 @@
 public static class SantiInteractionExtensions
 {
     public static MessageComponent CreateComponent(
-        this SantiInteractionBase nadekoInteractionBase
+        this SantiInteractionBase interactionBase
     )
     {
         var cb = new ComponentBuilder();
 
-        nadekoInteractionBase.AddTo(cb);
+        interactionBase.AddTo(cb);
 
         return cb.Build();
     }

@@ -155,7 +155,7 @@ timeout:
 unban:
   desc: Unbans a user with the provided user#discrim or id.
   ex:
-    - kwoth#1234
+    - user#1234
     - 123123123
   params:
     - user:

@@ -128,7 +128,7 @@ public static class ServiceCollectionExtensions
         foreach (var svc in a.GetTypes()
                      .Where(type => type.IsClass && types.Any(t => type.IsAssignableTo(t)) &&
                                     !type.HasAttribute<DIIgnoreAttribute>()
-#if GLOBAL_NADEKO
+#if GLOBAL_SANTI
                             && !type.HasAttribute<NoPublicBotAttribute>()
 #endif
                      ))

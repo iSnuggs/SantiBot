@@ -47,7 +47,7 @@ public sealed class CheckLeaderboardsQuest : IQuest
         if ((progress & 0b0001) == 0b0001)
             emoji = IQuest.COMPLETED;
 
-        msg += emoji + " flower lb seen\n";
+        msg += emoji + " fortune cookie lb seen\n";
 
         emoji = IQuest.INCOMPLETE;
         if ((progress & 0b0010) == 0b0010)

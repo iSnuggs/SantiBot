@@ -152,6 +152,116 @@ public abstract class SantiContext : DbContext
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 
+    // ==========================================
+    // Phase 9 — Moderation & Server Management
+    // ==========================================
+    public DbSet<RegexAutomodRule> RegexAutomodRules { get; set; }
+    public DbSet<SlowmodeSchedule> SlowmodeSchedules { get; set; }
+    public DbSet<WarningPoint> WarningPoints { get; set; }
+    public DbSet<WarningPointConfig> WarningPointConfigs { get; set; }
+    public DbSet<LockdownPreset> LockdownPresets { get; set; }
+    public DbSet<InviteWhitelist> InviteWhitelists { get; set; }
+    public DbSet<InviteWhitelistConfig> InviteWhitelistConfigs { get; set; }
+    public DbSet<ModTranslateConfig> ModTranslateConfigs { get; set; }
+    public DbSet<ModShift> ModShifts { get; set; }
+    public DbSet<EvidenceItem> EvidenceItems { get; set; }
+    public DbSet<UserNote> UserNotes { get; set; }
+    public DbSet<BanSyncConfig> BanSyncConfigs { get; set; }
+    public DbSet<BanSyncEntry> BanSyncEntries { get; set; }
+    public DbSet<SmartSpamConfig> SmartSpamConfigs { get; set; }
+    public DbSet<ContentAgeGate> ContentAgeGates { get; set; }
+    public DbSet<ModActionTemplate> ModActionTemplates { get; set; }
+    public DbSet<DropdownRolePanel> DropdownRolePanels { get; set; }
+    public DbSet<DropdownRoleOption> DropdownRoleOptions { get; set; }
+    public DbSet<ChannelTemplate> ChannelTemplates { get; set; }
+    public DbSet<AutoArchiveConfig> AutoArchiveConfigs { get; set; }
+    public DbSet<AutoArchiveExclusion> AutoArchiveExclusions { get; set; }
+    public DbSet<ServerBackup> ServerBackups { get; set; }
+    public DbSet<ChannelActivity> ChannelActivities { get; set; }
+    public DbSet<ChannelPrefix> ChannelPrefixes { get; set; }
+    public DbSet<HealthReportConfig> HealthReportConfigs { get; set; }
+
+    // ==========================================
+    // Phase 10 — Economy & Games
+    // ==========================================
+    public DbSet<RealEstateProperty> RealEstateProperties { get; set; }
+    public DbSet<Auction> Auctions { get; set; }
+    public DbSet<UserJob> UserJobs { get; set; }
+    public DbSet<UserLoan> UserLoans { get; set; }
+    public DbSet<LoanHistory> LoanHistories { get; set; }
+    public DbSet<EconomySeason> EconomySeasons { get; set; }
+    public DbSet<SeasonEarnings> SeasonEarnings { get; set; }
+    public DbSet<UserLootBox> UserLootBoxes { get; set; }
+    public DbSet<CryptoHolding> CryptoHoldings { get; set; }
+    public DbSet<CryptoCoin> CryptoCoins { get; set; }
+    public DbSet<UserBusiness> UserBusinesses { get; set; }
+    public DbSet<BusinessEmployee> BusinessEmployees { get; set; }
+    public DbSet<TaxGovernment> TaxGovernments { get; set; }
+    public DbSet<ElectionVote> ElectionVotes { get; set; }
+    public DbSet<TriviaTournamentEntry> TriviaTournamentEntries { get; set; }
+    public DbSet<UserPokemon> UserPokemon { get; set; }
+    public DbSet<DungeonPlayer> DungeonPlayers { get; set; }
+    public DbSet<RaceCar> RaceCars { get; set; }
+    public DbSet<CollectibleCard> CollectibleCards { get; set; }
+    public DbSet<PuzzleScore> PuzzleScores { get; set; }
+    public DbSet<StoryProgress> StoryProgress { get; set; }
+    public DbSet<IdlePlayer> IdlePlayers { get; set; }
+    public DbSet<ChessGameModel> ChessGames { get; set; }
+
+    // ==========================================
+    // Phase 11 — Social, Profiles & XP
+    // ==========================================
+    public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<ProfileBackground> ProfileBackgrounds { get; set; }
+    public DbSet<OwnedBackground> OwnedBackgrounds { get; set; }
+    public DbSet<Marriage> Marriages { get; set; }
+    public DbSet<Adoption> Adoptions { get; set; }
+    public DbSet<UserKarma> UserKarmas { get; set; }
+    public DbSet<KarmaVote> KarmaVotes { get; set; }
+    public DbSet<UserSocial> UserSocials { get; set; }
+    public DbSet<ActivityHeatmap> ActivityHeatmaps { get; set; }
+    public DbSet<Friendship> Friendships { get; set; }
+    public DbSet<UserMood> UserMoods { get; set; }
+    public DbSet<TimeCapsule> TimeCapsules { get; set; }
+    public DbSet<IntroConfig> IntroConfigs { get; set; }
+    public DbSet<SocialStat> SocialStats { get; set; }
+    public DbSet<VoiceStat> VoiceStats { get; set; }
+    public DbSet<VoicePartner> VoicePartners { get; set; }
+    public DbSet<UserPrestige> UserPrestiges { get; set; }
+    public DbSet<XpBooster> XpBoosters { get; set; }
+    public DbSet<SeasonConfig> SeasonConfigs { get; set; }
+    public DbSet<SeasonProgress> SeasonProgresses { get; set; }
+    public DbSet<VoiceXpConfig> VoiceXpConfigs { get; set; }
+    public DbSet<LevelUpMessage> LevelUpMessages { get; set; }
+    public DbSet<XpSnapshot> XpSnapshots { get; set; }
+    public DbSet<LevelColorConfig> LevelColorConfigs { get; set; }
+    public DbSet<XpChallenge> XpChallenges { get; set; }
+    public DbSet<XpChallengeProgress> XpChallengeProgresses { get; set; }
+    public DbSet<XpTeam> XpTeams { get; set; }
+    public DbSet<XpTeamMember> XpTeamMembers { get; set; }
+    public DbSet<XpDecayConfig> XpDecayConfigs { get; set; }
+
+    // ==========================================
+    // Phase 12 — Feeds, Dashboard & Developer
+    // ==========================================
+    public DbSet<RedditFollow> RedditFollows { get; set; }
+    public DbSet<XFeedFollow> XFeedFollows { get; set; }
+    public DbSet<TwitchClipFollow> TwitchClipFollows { get; set; }
+    public DbSet<SteamSaleWatch> SteamSaleWatches { get; set; }
+    public DbSet<AnimeTrack> AnimeTracks { get; set; }
+    public DbSet<SportsFollow> SportsFollows { get; set; }
+    public DbSet<CryptoAlert> CryptoAlerts { get; set; }
+    public DbSet<RssFeedEntry> RssFeedEntries { get; set; }
+    public DbSet<CalendarEvent> CalendarEvents { get; set; }
+    public DbSet<AutoFlow> AutoFlows { get; set; }
+    public DbSet<ScheduledTask> ScheduledTasks { get; set; }
+    public DbSet<EmbedTemplate> EmbedTemplates { get; set; }
+    public DbSet<DashWebhook> DashWebhooks { get; set; }
+    public DbSet<WhiteLabelConfig> WhiteLabelConfigs { get; set; }
+    public DbSet<ApiKey> ApiKeys { get; set; }
+    public DbSet<CustomScript> CustomScripts { get; set; }
+    public DbSet<InstalledPlugin> InstalledPlugins { get; set; }
+
 
     #region Mandatory Provider-Specific Values
 

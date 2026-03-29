@@ -9,7 +9,7 @@ Project which contains source generators
     Type safe response strings access, and enforces correct usage of response strings.
 
     -- How it works --
-    Creates a file "strs.cs" containing a class called "strs" in "NadekoBot" namespace.
+    Creates a file "strs.cs" containing a class called "strs" in "SantiBot" namespace.
     
     Loads "Modules/**/strings/res.yml" and creates a property or a function for each key in the res.yml file based on whether the value has string format placeholders or not.
 

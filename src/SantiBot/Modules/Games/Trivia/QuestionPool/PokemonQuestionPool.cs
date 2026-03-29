@@ -25,8 +25,8 @@ public sealed class PokemonQuestionPool : IQuestionPool
             Question = "Who's That Pokémon?",
             Answer = pokes[num].ToTitleCase(),
             Category = "Pokemon",
-            ImageUrl = $@"https://nadeko.bot/images/pokemon/shadows/{num}.png",
-            AnswerImageUrl = $@"https://nadeko.bot/images/pokemon/real/{num}.png"
+            ImageUrl = $@"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{num}.png",
+            AnswerImageUrl = $@"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{num}.png"
         });
     }
 }

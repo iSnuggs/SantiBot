@@ -4,12 +4,12 @@ global using NonBlocking;
 // packages
 global using Serilog;
 
-// nadekobot
+// santibot
 global using SantiBot;
 global using SantiBot.Db;
 global using SantiBot.Services;
 global using Santi.Common; // new project
-global using SantiBot.Common; // old + nadekobot specific things
+global using SantiBot.Common; // legacy common utilities
 global using SantiBot.Common.Attributes;
 global using SantiBot.Extensions;
 

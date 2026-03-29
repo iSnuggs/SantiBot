@@ -48,7 +48,7 @@ public class ConverterService : INService, IReadyExecutor
     private async Task<Rates> GetCurrencyRates()
     {
         using var http = _httpFactory.CreateClient();
-        var res = await http.GetStringAsync("https://convertapi.nadeko.bot/latest");
+        var res = await http.GetStringAsync("https://open.er-api.com/v6/latest/USD");
         return JsonSerializer.Deserialize<Rates>(res);
     }
 

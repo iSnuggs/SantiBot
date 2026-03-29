@@ -240,7 +240,7 @@ public class UserPunishService : INService, IReadyExecutor
             case PunishmentAction.RemoveRoles:
                 return botUser.GuildPermissions.ManageRoles;
             case PunishmentAction.ChatMute:
-                return botUser.GuildPermissions.ManageRoles; // adds nadeko-mute role
+                return botUser.GuildPermissions.ManageRoles; // adds santi-mute role
             case PunishmentAction.VoiceMute:
                 return botUser.GuildPermissions.MuteMembers;
             case PunishmentAction.AddRole:

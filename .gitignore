@@ -1,20 +1,20 @@
 ﻿#Manually added files
 
-src/NadekoBot/data/last_known_version.txt
+src/SantiBot/data/last_known_version.txt
 scripts/
 **/DESIGN.md
 
 # medusa stuff
-src/NadekoBot/data/medusae/
+src/SantiBot/data/medusae/
 
 # other
 
 output/
-src/NadekoBot/output
-src/NadekoBot/creds.yml
-src/NadekoBot/data/creds.yml
-src/NadekoBot/Command Errors*.txt
-src/NadekoBot/data/NadekoBot.db*
+src/SantiBot/output
+src/SantiBot/creds.yml
+src/SantiBot/data/creds.yml
+src/SantiBot/Command Errors*.txt
+src/SantiBot/data/SantiBot.db*
 
 # Created by https://www.gitignore.io/api/visualstudio,visualstudiocode,windows,linux,macos
 

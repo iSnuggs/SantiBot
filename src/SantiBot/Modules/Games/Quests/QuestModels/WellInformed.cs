@@ -9,7 +9,7 @@ public sealed class WellInformedQuest : IQuest
         => "Well Informed";
 
     public string Desc
-        => "Check your flower stats";
+        => "Check your fortune cookie stats";
 
     public string ProgDesc
         => "";

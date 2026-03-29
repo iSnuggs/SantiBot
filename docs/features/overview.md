@@ -50,7 +50,7 @@ SantiBot combines the best features of NadekoBot and Dyno into one self-hostable
 
 | Feature | Commands | Description |
 |---------|----------|-------------|
-| Currency | `.$`, `.timely` | Santi Flowers currency system |
+| Currency | `.$`, `.timely` | 🥠 Fortune Cookie currency system |
 | Gambling | `.slots`, `.blackjack`, `.bet` | Casino games |
 | Banking | `.bank` | Deposit and withdraw |
 | Shops | `.shop` | Admin-configurable item shops |

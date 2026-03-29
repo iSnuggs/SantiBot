@@ -144,7 +144,7 @@ public class GamblingService : INService, IReadyExecutor
         }
     }
 
-    private static readonly TypedKey<EconomyResult> _ecoKey = new("nadeko:economy");
+    private static readonly TypedKey<EconomyResult> _ecoKey = new("santi:economy");
 
     private static readonly SemaphoreSlim _timelyLock = new(1, 1);
 
@@ -258,9 +258,9 @@ public class GamblingService : INService, IReadyExecutor
         {
             if (percentBonus > float.Epsilon)
                 msg +=
-                    $"✅ *+{percentBonus:P0} bonus for the [Patreon](https://patreon.com/nadekobot) pledge! <:hart:746995901758832712>*\n";
+                    $"✅ *+{percentBonus:P0} bonus for the Patreon pledge! <:hart:746995901758832712>*\n";
             else
-                msg += $"❌ *+0 bonus for the [Patreon](https://patreon.com/nadekobot) pledge*\n";
+                msg += $"❌ *+0 bonus for the Patreon pledge*\n";
         }
 
         if (hasCompletedDailies)

@@ -26,7 +26,7 @@ public class AnimeSearchService : INService
         try
         {
             var suffix = Uri.EscapeDataString(query.Replace("/", " ", StringComparison.InvariantCulture));
-            var link = $"https://aniapi.nadeko.bot/anime/{suffix}";
+            var link = $"https://api.jikan.moe/v4/anime?q={suffix}&limit=1";
             link = link.ToLowerInvariant();
             var result = await _cache.GetAsync(GetKey(link));
             if (!result.TryPickT0(out var data, out _))
@@ -55,7 +55,7 @@ public class AnimeSearchService : INService
         
         try
         {
-            var link = "https://aniapi.nadeko.bot/manga/"
+            var link = "https://api.jikan.moe/v4/manga?limit=1&q="
                        + Uri.EscapeDataString(query.Replace("/", " ", StringComparison.InvariantCulture));
             link = link.ToLowerInvariant();
             

@@ -2,6 +2,218 @@
   "Administration": [
     {
       "Aliases": [
+        ".afkkick",
+        ".afkkick status"
+      ],
+      "Description": "Show the current AFK voice kick configuration.",
+      "Usage": [
+        ".afkkick"
+      ],
+      "Submodule": "AfkVoiceKick",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".afkkick enable",
+        ".afkkick on"
+      ],
+      "Description": "Enable AFK voice kick. Idle users in voice channels will be disconnected or moved after the configured time.",
+      "Usage": [
+        ".afkkick enable"
+      ],
+      "Submodule": "AfkVoiceKick",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".afkkick disable",
+        ".afkkick off"
+      ],
+      "Description": "Disable AFK voice kick.",
+      "Usage": [
+        ".afkkick disable"
+      ],
+      "Submodule": "AfkVoiceKick",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".afkkick time",
+        ".afkkick minutes"
+      ],
+      "Description": "Set the idle time in minutes before a user is kicked from voice. Default is 30 minutes. Maximum is 1440 (24 hours).",
+      "Usage": [
+        ".afkkick time 30",
+        ".afkkick time 60"
+      ],
+      "Submodule": "AfkVoiceKick",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".afkkick exempt",
+        ".afkkick role"
+      ],
+      "Description": "Set a role that is exempt from AFK voice kicks.",
+      "Usage": [
+        ".afkkick exempt @VIP",
+        ".afkkick exempt @DJ"
+      ],
+      "Submodule": "AfkVoiceKick",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".afkkick channel",
+        ".afkkick afkchannel"
+      ],
+      "Description": "Set a voice channel to move idle users to instead of disconnecting them. If not set, idle users are disconnected.",
+      "Usage": [
+        ".afkkick channel #afk-voice"
+      ],
+      "Submodule": "AfkVoiceKick",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".altdetect enable",
+        ".altdetect on"
+      ],
+      "Description": "Enable alt account detection. New members with young accounts will be flagged automatically.",
+      "Usage": [
+        ".altdetect enable"
+      ],
+      "Submodule": "AltDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".altdetect disable",
+        ".altdetect off"
+      ],
+      "Description": "Disable alt account detection.",
+      "Usage": [
+        ".altdetect disable"
+      ],
+      "Submodule": "AltDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".altdetect age",
+        ".altdetect minage"
+      ],
+      "Description": "Set the minimum account age in days. Accounts younger than this are flagged as potential alts. Default is 3 days.",
+      "Usage": [
+        ".altdetect age 3",
+        ".altdetect age 7"
+      ],
+      "Submodule": "AltDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".altdetect action",
+        ".altdetect act"
+      ],
+      "Description": "Set the action taken when an alt is detected. Valid actions: Alert, Kick, Ban.",
+      "Usage": [
+        ".altdetect action Alert",
+        ".altdetect action Kick"
+      ],
+      "Submodule": "AltDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".altdetect channel",
+        ".altdetect ch"
+      ],
+      "Description": "Set the channel where alt detection alerts are sent.",
+      "Usage": [
+        ".altdetect channel #mod-alerts"
+      ],
+      "Submodule": "AltDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".altdetect link",
+        ".altdetect mark"
+      ],
+      "Description": "Manually mark a user as an alt of another user.",
+      "Usage": [
+        ".altdetect link @main-account @alt-account Evading ban"
+      ],
+      "Submodule": "AltDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".altdetect check",
+        ".altdetect lookup"
+      ],
+      "Description": "Check if a user has any known alt accounts.",
+      "Usage": [
+        ".altdetect check @suspicious-user"
+      ],
+      "Submodule": "AltDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".verifyenable"
       ],
       "Description": "Toggles the verification gate on or off. When enabled, new members must click a verify button to get access.",
@@ -32,7 +244,8 @@
     },
     {
       "Aliases": [
-        ".verifymessage"
+        ".verifymessage",
+        ".verifymsg"
       ],
       "Description": "Sets the custom message shown on the verification panel.",
       "Usage": [
@@ -62,7 +275,8 @@
     },
     {
       "Aliases": [
-        ".lockdown"
+        ".lockdown",
+        ".ld"
       ],
       "Description": "Manually toggles server lockdown. Sets verification level to Extreme when on, Medium when off.",
       "Usage": [
@@ -78,7 +292,8 @@
     },
     {
       "Aliases": [
-        ".autolockdown"
+        ".autolockdown",
+        ".autold"
       ],
       "Description": "Toggles auto-lockdown. When too many users join in a short time, the server automatically locks down. Default: 10 joins in 10 seconds.",
       "Usage": [
@@ -94,7 +309,8 @@
     },
     {
       "Aliases": [
-        ".massjoinban"
+        ".massjoinban",
+        ".mjb"
       ],
       "Description": "Bans all users who joined within the last X seconds. Use during or after a raid to clean up.",
       "Usage": [
@@ -106,6 +322,66 @@
       "Options": null,
       "Requirements": [
         "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoarchive autoarchive"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".autoarchive autoarchive"
+      ],
+      "Submodule": "autoarchive",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoarchive autoarchiveexclude"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".autoarchive autoarchiveexclude"
+      ],
+      "Submodule": "autoarchive",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoarchive autoarchivelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".autoarchive autoarchivelist"
+      ],
+      "Submodule": "autoarchive",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoarchive autoarchiveoff"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".autoarchive autoarchiveoff"
+      ],
+      "Submodule": "autoarchive",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
       ]
     },
     {
@@ -175,7 +451,8 @@
     },
     {
       "Aliases": [
-        ".autobanremove"
+        ".autobanremove",
+        ".abrm"
       ],
       "Description": "Removes an autoban rule by its ID.",
       "Usage": [
@@ -205,7 +482,8 @@
     },
     {
       "Aliases": [
-        ".autobanlist"
+        ".autobanlist",
+        ".ablist"
       ],
       "Description": "Shows all autoban rules for this server.",
       "Usage": [
@@ -220,7 +498,8 @@
     },
     {
       "Aliases": [
-        ".autodeleteadd"
+        ".autodeleteadd",
+        ".adadd"
       ],
       "Description": "Sets up auto-deletion in a channel. Messages will be deleted after the specified delay. Optionally add a filter: \"bots\" (bot messages only), \"humans\" (human messages only), \"attachments\" (messages with files), \"links\" (messages with URLs), or \"contains:text\".",
       "Usage": [
@@ -238,7 +517,8 @@
     },
     {
       "Aliases": [
-        ".autodeleteremove"
+        ".autodeleteremove",
+        ".adrm"
       ],
       "Description": "Removes an auto-delete rule by its ID.",
       "Usage": [
@@ -268,7 +548,8 @@
     },
     {
       "Aliases": [
-        ".autodeletelist"
+        ".autodeletelist",
+        ".adlist"
       ],
       "Description": "Shows all auto-delete rules for this server.",
       "Usage": [
@@ -283,7 +564,8 @@
     },
     {
       "Aliases": [
-        ".schedulemessage"
+        ".schedulemessage",
+        ".schedmsg"
       ],
       "Description": "Schedules a one-time message to be sent in a channel after a delay. Use time formats like 1h, 30m, 2d, 1h30m.",
       "Usage": [
@@ -299,7 +581,8 @@
     },
     {
       "Aliases": [
-        ".schedulerecurring"
+        ".schedulerecurring",
+        ".schedrec"
       ],
       "Description": "Schedules a recurring message. The message will be sent every interval. Minimum interval is 5 minutes. Use time formats like 1h, 30m, 2d.",
       "Usage": [
@@ -365,7 +648,8 @@
     },
     {
       "Aliases": [
-        ".automodremove"
+        ".automodremove",
+        ".amodrm"
       ],
       "Description": "Removes an automod rule by its ID number.",
       "Usage": [
@@ -425,11 +709,13 @@
     },
     {
       "Aliases": [
-        ".automodsetaction"
+        ".automodsetaction",
+        ".automodaction"
       ],
-      "Description": "?",
+      "Description": "Changes the action taken when an automod rule is triggered. Optionally set a duration in minutes for timed actions.",
       "Usage": [
-        ".automodsetaction"
+        ".automodsetaction 1 TimeOut 10",
+        ".automodsetaction 1 Ban"
       ],
       "Submodule": "AutomodCommands",
       "Module": "Administration",
@@ -456,7 +742,8 @@
     },
     {
       "Aliases": [
-        ".automodexemptchannel"
+        ".automodexemptchannel",
+        ".amodexch"
       ],
       "Description": "Makes a channel exempt from an automod rule. Messages in that channel won't be checked by this rule.",
       "Usage": [
@@ -471,7 +758,8 @@
     },
     {
       "Aliases": [
-        ".automodexemptrole"
+        ".automodexemptrole",
+        ".amodexrole"
       ],
       "Description": "Makes a role exempt from an automod rule. Users with that role won't be checked by this rule.",
       "Usage": [
@@ -565,7 +853,8 @@
     },
     {
       "Aliases": [
-        ".autoresponseadd"
+        ".autoresponseadd",
+        ".aradd"
       ],
       "Description": "Creates a new auto-response. When someone sends a message matching the trigger, the bot responds automatically. Supports variables like user, server, and channel in curly braces.",
       "Usage": [
@@ -582,7 +871,8 @@
     },
     {
       "Aliases": [
-        ".autoresponseremove"
+        ".autoresponseremove",
+        ".arrm"
       ],
       "Description": "Removes an auto-response by its ID number.",
       "Usage": [
@@ -612,7 +902,8 @@
     },
     {
       "Aliases": [
-        ".autoresponselist"
+        ".autoresponselist",
+        ".arlist"
       ],
       "Description": "Shows all auto-responses for this server.",
       "Usage": [
@@ -627,7 +918,8 @@
     },
     {
       "Aliases": [
-        ".autoresponsecooldown"
+        ".autoresponsecooldown",
+        ".arcd"
       ],
       "Description": "Sets cooldowns for an auto-response to prevent spam. User cooldown limits per-person, channel cooldown limits per-channel.",
       "Usage": [
@@ -643,13 +935,234 @@
     },
     {
       "Aliases": [
-        ".autoresponsedeletetrigger"
+        ".autoresponsedeletetrigger",
+        ".ardeltrig"
       ],
       "Description": "Toggles whether the triggering message should be automatically deleted when an auto-response fires.",
       "Usage": [
         ".autoresponsedeletetrigger 1"
       ],
       "Submodule": "AutoResponderCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".banappeal show",
+        ".banappeal status"
+      ],
+      "Description": "Show the current ban appeal configuration for this server.",
+      "Usage": [
+        ".banappeal show"
+      ],
+      "Submodule": "BanAppeal",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".banappeal enable",
+        ".banappeal on"
+      ],
+      "Description": "Enable ban appeals. Banned users will receive a DM with appeal instructions.",
+      "Usage": [
+        ".banappeal enable"
+      ],
+      "Submodule": "BanAppeal",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".banappeal disable",
+        ".banappeal off"
+      ],
+      "Description": "Disable ban appeals.",
+      "Usage": [
+        ".banappeal disable"
+      ],
+      "Submodule": "BanAppeal",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".banappeal channel",
+        ".banappeal setchannel"
+      ],
+      "Description": "Set the channel where ban appeals will be posted for mod review.",
+      "Usage": [
+        ".banappeal channel #appeals"
+      ],
+      "Submodule": "BanAppeal",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".banappeal list",
+        ".banappeal ls",
+        ".banappeal pending"
+      ],
+      "Description": "List all pending ban appeals.",
+      "Usage": [
+        ".banappeal list"
+      ],
+      "Submodule": "BanAppeal",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".banappeal approve",
+        ".banappeal accept"
+      ],
+      "Description": "Approve a ban appeal by ID. The user will be unbanned.",
+      "Usage": [
+        ".banappeal approve 5"
+      ],
+      "Submodule": "BanAppeal",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".banappeal deny",
+        ".banappeal reject"
+      ],
+      "Description": "Deny a ban appeal by ID.",
+      "Usage": [
+        ".banappeal deny 5"
+      ],
+      "Submodule": "BanAppeal",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".banappeal message",
+        ".banappeal msg",
+        ".banappeal dm"
+      ],
+      "Description": "Customize the DM message sent to banned users with appeal instructions.",
+      "Usage": [
+        ".banappeal message You have been banned from our server. Reply with your appeal."
+      ],
+      "Submodule": "BanAppeal",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bansync bansyncadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bansync bansyncadd"
+      ],
+      "Submodule": "bansync",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bansync bansyncremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bansync bansyncremove"
+      ],
+      "Submodule": "bansync",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bansync bansynclist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bansync bansynclist"
+      ],
+      "Submodule": "bansync",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bansync bansyncpush"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bansync bansyncpush"
+      ],
+      "Submodule": "bansync",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bansync bansyncpull"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bansync bansyncpull"
+      ],
+      "Submodule": "bansync",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".chactivity chactivity"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chactivity chactivity"
+      ],
+      "Submodule": "chactivity",
       "Module": "Administration",
       "Options": null,
       "Requirements": [
@@ -744,6 +1257,141 @@
     },
     {
       "Aliases": [
+        ".chprefix chprefix"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chprefix chprefix"
+      ],
+      "Submodule": "chprefix",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".chprefix chprefixlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chprefix chprefixlist"
+      ],
+      "Submodule": "chprefix",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".chtemplate chtemplatesave"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chtemplate chtemplatesave"
+      ],
+      "Submodule": "chtemplate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".chtemplate chtemplateload"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chtemplate chtemplateload"
+      ],
+      "Submodule": "chtemplate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".chtemplate chtemplatelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chtemplate chtemplatelist"
+      ],
+      "Submodule": "chtemplate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".chtemplate chtemplatedel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chtemplate chtemplatedel"
+      ],
+      "Submodule": "chtemplate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".agegate agegate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".agegate agegate"
+      ],
+      "Submodule": "agegate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".agegate agegateremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".agegate agegateremove"
+      ],
+      "Submodule": "agegate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".agegate agegatelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".agegate agegatelist"
+      ],
+      "Submodule": "agegate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".dehoist"
       ],
       "Description": "Toggles auto-dehoist. When enabled, the bot automatically removes special characters from nicknames that push users to the top of the member list (like !,",
@@ -770,6 +1418,51 @@
       "Options": null,
       "Requirements": [
         "ManageNicknames Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".evidence evidenceadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".evidence evidenceadd"
+      ],
+      "Submodule": "evidence",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".evidence evidencelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".evidence evidencelist"
+      ],
+      "Submodule": "evidence",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".evidence evidencedel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".evidence evidencedel"
+      ],
+      "Submodule": "evidence",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
       ]
     },
     {
@@ -1007,6 +1700,96 @@
     },
     {
       "Aliases": [
+        ".healthreport healthreport"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".healthreport healthreport"
+      ],
+      "Submodule": "healthreport",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".healthreport healthreportauto"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".healthreport healthreportauto"
+      ],
+      "Submodule": "healthreport",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".invwl invwladd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".invwl invwladd"
+      ],
+      "Submodule": "invwl",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".invwl invwldel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".invwl invwldel"
+      ],
+      "Submodule": "invwl",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".invwl invwllist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".invwl invwllist"
+      ],
+      "Submodule": "invwl",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".invwl invwltoggle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".invwl invwltoggle"
+      ],
+      "Submodule": "invwl",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".languageset",
         ".langset"
       ],
@@ -1048,6 +1831,111 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lockpreset lockpresetsave"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lockpreset lockpresetsave"
+      ],
+      "Submodule": "lockpreset",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lockpreset lockpresetload"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lockpreset lockpresetload"
+      ],
+      "Submodule": "lockpreset",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lockpreset lockpresetlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lockpreset lockpresetlist"
+      ],
+      "Submodule": "lockpreset",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lockpreset lockpresetdel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lockpreset lockpresetdel"
+      ],
+      "Submodule": "lockpreset",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".mass massban"
+      ],
+      "Description": "Bans multiple users at once. Specify a space separated list of IDs of users who you wish to ban.",
+      "Usage": [
+        ".mass massban 123123123 3333333333 444444444"
+      ],
+      "Submodule": "mass",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission\nBanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".mass masskick"
+      ],
+      "Description": "Kicks multiple users at once. Specify a space separated list of IDs of users who you wish to kick.",
+      "Usage": [
+        ".mass masskick 123123123 3333333333 444444444"
+      ],
+      "Submodule": "mass",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission\nKickMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".mass massmute"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mass massmute"
+      ],
+      "Submodule": "mass",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission\nModerateMembers Server Permission"
+      ]
     },
     {
       "Aliases": [
@@ -1097,6 +1985,78 @@
       "Options": null,
       "Requirements": [
         "ManageMessages Channel Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".snipe modsnipe",
+        ".snipe msnipe"
+      ],
+      "Description": "Show recently deleted messages in this channel. Caches messages in memory so deleted content can be recovered by moderators.",
+      "Usage": [
+        ".snipe modsnipe",
+        ".snipe modsnipe 5",
+        ".snipe modsnipe @user"
+      ],
+      "Submodule": "MessageTracker",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".snipe editsnipe",
+        ".snipe esnipe"
+      ],
+      "Description": "Show recently edited messages in this channel with before/after content.",
+      "Usage": [
+        ".snipe editsnipe",
+        ".snipe editsnipe 5"
+      ],
+      "Submodule": "MessageTracker",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".mstats",
+        ".modactions",
+        ".modlog"
+      ],
+      "Description": "Show moderation action statistics for this server. Defaults to the last 30 days. You can specify a number of days, or mention a specific moderator to see their stats.",
+      "Usage": [
+        ".mstats",
+        ".mstats 7",
+        ".mstats @ModeratorName"
+      ],
+      "Submodule": "ModAnalytics",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".mstatstop",
+        ".modleaderboard",
+        ".topmod"
+      ],
+      "Description": "Show a leaderboard of the most active moderators by action count.",
+      "Usage": [
+        ".mstatstop",
+        ".mstatstop 7"
+      ],
+      "Submodule": "ModAnalytics",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
       ]
     },
     {
@@ -1192,7 +2152,8 @@
     },
     {
       "Aliases": [
-        ".modnotedelete"
+        ".modnotedelete",
+        ".mndel"
       ],
       "Description": "Deletes a moderator note by its ID.",
       "Usage": [
@@ -1207,7 +2168,8 @@
     },
     {
       "Aliases": [
-        ".modlogchannel"
+        ".modlogchannel",
+        ".modlog"
       ],
       "Description": "Sets the channel where mod case logs are posted. Leave empty to disable.",
       "Usage": [
@@ -1238,7 +2200,8 @@
     },
     {
       "Aliases": [
-        ".moddmtemplate"
+        ".moddmtemplate",
+        ".moddmtpl"
       ],
       "Description": "Sets the template for DM messages sent to users on mod actions. Variables available are action, reason, server, and duration in curly braces.",
       "Usage": [
@@ -1253,7 +2216,8 @@
     },
     {
       "Aliases": [
-        ".autopunish"
+        ".autopunish",
+        ".ap"
       ],
       "Description": "Sets up automatic escalation. When a user reaches X mod cases, they get automatically punished. Time window is optional (hours).",
       "Usage": [
@@ -1270,7 +2234,8 @@
     },
     {
       "Aliases": [
-        ".autopunishlist"
+        ".autopunishlist",
+        ".aplist"
       ],
       "Description": "Shows all auto-punish escalation rules.",
       "Usage": [
@@ -1285,7 +2250,8 @@
     },
     {
       "Aliases": [
-        ".autopunishremove"
+        ".autopunishremove",
+        ".aprm"
       ],
       "Description": "Removes an auto-punish rule by its ID.",
       "Usage": [
@@ -1296,6 +2262,338 @@
       "Options": null,
       "Requirements": [
         "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailenable",
+        ".mmenable"
+      ],
+      "Description": "Toggles the mod mail system on or off. When enabled, users can DM the bot to contact staff.",
+      "Usage": [
+        ".modmailenable"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailcategory",
+        ".mmcategory",
+        ".mmcat"
+      ],
+      "Description": "Sets the category where mod mail thread channels are created. Leave empty to clear.",
+      "Usage": [
+        ".modmailcategory Mod Mail",
+        ".modmailcategory"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmaillog",
+        ".mmlog"
+      ],
+      "Description": "Sets the channel where mod mail transcripts are posted when threads are closed.",
+      "Usage": [
+        ".modmaillog #modmail-logs",
+        ".modmaillog"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailrole",
+        ".mmrole"
+      ],
+      "Description": "Sets the staff role that can view and manage mod mail threads.",
+      "Usage": [
+        ".modmailrole @Staff",
+        ".modmailrole"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailclose",
+        ".mmclose"
+      ],
+      "Description": "Closes the current mod mail thread. Must be used inside a mod mail channel. The user will be notified and a transcript will be logged.",
+      "Usage": [
+        ".modmailclose"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailblock",
+        ".mmblock"
+      ],
+      "Description": "Blocks a user from creating new mod mail threads. They won't be able to DM the bot for support.",
+      "Usage": [
+        ".modmailblock @user Spamming modmail",
+        ".modmailblock @user"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailunblock",
+        ".mmunblock"
+      ],
+      "Description": "Unblocks a user so they can use mod mail again.",
+      "Usage": [
+        ".modmailunblock @user"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailthreads",
+        ".mmthreads",
+        ".mmlist"
+      ],
+      "Description": "Shows recent mod mail threads for this server, both open and closed.",
+      "Usage": [
+        ".modmailthreads"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailopenmsg",
+        ".mmopenmsg"
+      ],
+      "Description": "Sets the message sent to users when their mod mail thread is opened. Variables available are server and user.",
+      "Usage": [
+        ".modmailopenmsg Thanks for reaching out! Our staff will reply shortly."
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailclosemsg",
+        ".mmclosemsg"
+      ],
+      "Description": "Sets the message sent to users when their mod mail thread is closed.",
+      "Usage": [
+        ".modmailclosemsg Your thread has been resolved. DM again if you need more help!"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modmailconfig",
+        ".mmconfig",
+        ".mmsetup"
+      ],
+      "Description": "Shows the current mod mail configuration for this server.",
+      "Usage": [
+        ".modmailconfig"
+      ],
+      "Submodule": "ModMailCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modshift modshiftadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".modshift modshiftadd"
+      ],
+      "Submodule": "modshift",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modshift modshiftlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".modshift modshiftlist"
+      ],
+      "Submodule": "modshift",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modshift modshiftdel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".modshift modshiftdel"
+      ],
+      "Submodule": "modshift",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modshift modshiftonduty"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".modshift modshiftonduty"
+      ],
+      "Submodule": "modshift",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".modtemplate modtemplateadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".modtemplate modtemplateadd"
+      ],
+      "Submodule": "modtemplate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modtemplate modtemplatedel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".modtemplate modtemplatedel"
+      ],
+      "Submodule": "modtemplate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modtemplate modtemplatelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".modtemplate modtemplatelist"
+      ],
+      "Submodule": "modtemplate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modtemplate modtemplateuse"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".modtemplate modtemplateuse"
+      ],
+      "Submodule": "modtemplate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modtranslate modtranslate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".modtranslate modtranslate"
+      ],
+      "Submodule": "modtranslate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".modtranslate translate",
+        ".modtranslate trans"
+      ],
+      "Description": "Translates text from the given language to the destination language.",
+      "Usage": [
+        ".modtranslate translate en fr Hello"
+      ],
+      "Submodule": "modtranslate",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
       ]
     },
     {
@@ -1485,6 +2783,21 @@
     },
     {
       "Aliases": [
+        ".permaudit permaudit"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".permaudit permaudit"
+      ],
+      "Submodule": "permaudit",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".dpo"
       ],
       "Description": "Overrides required user permissions that the command has with the specified ones. You can only use server-level permissions. This action will make the bot ignore user permission requirements which command has by default. Provide no permissions to reset to default.",
@@ -1528,6 +2841,88 @@
       "Options": null,
       "Requirements": [
         "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".antiphish enable",
+        ".antiphish on"
+      ],
+      "Description": "Enable phishing link detection. Messages containing known phishing URLs will be automatically actioned.",
+      "Usage": [
+        ".antiphish enable"
+      ],
+      "Submodule": "PhishingDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".antiphish disable",
+        ".antiphish off"
+      ],
+      "Description": "Disable phishing link detection.",
+      "Usage": [
+        ".antiphish disable"
+      ],
+      "Submodule": "PhishingDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".antiphish action",
+        ".antiphish act"
+      ],
+      "Description": "Set the action taken when a phishing link is detected. Valid actions: Delete, Warn, Mute, Ban.",
+      "Usage": [
+        ".antiphish action Delete",
+        ".antiphish action Mute",
+        ".antiphish action Ban"
+      ],
+      "Submodule": "PhishingDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".antiphish log",
+        ".antiphish logchannel"
+      ],
+      "Description": "Set the channel where phishing detections are logged.",
+      "Usage": [
+        ".antiphish log #mod-log"
+      ],
+      "Submodule": "PhishingDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".antiphish check",
+        ".antiphish scan"
+      ],
+      "Description": "Manually check a URL against the phishing pattern database.",
+      "Usage": [
+        ".antiphish check https://discord-nitro-free.com"
+      ],
+      "Submodule": "PhishingDetect",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
       ]
     },
     {
@@ -1690,6 +3085,327 @@
       "Options": null,
       "Requirements": [
         "ManageMessages Channel Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".quarantine show",
+        ".quarantine status"
+      ],
+      "Description": "Show the current quarantine configuration for this server.",
+      "Usage": [
+        ".quarantine show"
+      ],
+      "Submodule": "Quarantine",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".quarantine enable",
+        ".quarantine on"
+      ],
+      "Description": "Enable quarantine. New members matching suspicious criteria will be assigned the quarantine role.",
+      "Usage": [
+        ".quarantine enable"
+      ],
+      "Submodule": "Quarantine",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".quarantine disable",
+        ".quarantine off"
+      ],
+      "Description": "Disable quarantine. New members will no longer be auto-quarantined.",
+      "Usage": [
+        ".quarantine disable"
+      ],
+      "Submodule": "Quarantine",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".quarantine role",
+        ".quarantine setrole"
+      ],
+      "Description": "Set the role that will be assigned to quarantined users. This role should restrict channel access.",
+      "Usage": [
+        ".quarantine role @Quarantine"
+      ],
+      "Submodule": "Quarantine",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".quarantine age",
+        ".quarantine minage"
+      ],
+      "Description": "Set the minimum account age in days. Accounts newer than this will be quarantined.",
+      "Usage": [
+        ".quarantine age 7",
+        ".quarantine age 14",
+        ".quarantine age 1"
+      ],
+      "Submodule": "Quarantine",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".quarantine noavatar",
+        ".quarantine avatar"
+      ],
+      "Description": "Toggle whether to quarantine accounts with no custom avatar (default profile picture).",
+      "Usage": [
+        ".quarantine noavatar true",
+        ".quarantine noavatar false"
+      ],
+      "Submodule": "Quarantine",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".quarantine log",
+        ".quarantine logchannel"
+      ],
+      "Description": "Set the channel where quarantine actions will be logged.",
+      "Usage": [
+        ".quarantine log #quarantine-log"
+      ],
+      "Submodule": "Quarantine",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".quarantine release",
+        ".quarantine free",
+        ".quarantine unquarantine"
+      ],
+      "Description": "Remove the quarantine role from a user, allowing them full server access.",
+      "Usage": [
+        ".quarantine release @user"
+      ],
+      "Submodule": "Quarantine",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".raidscore enable",
+        ".raidscore on"
+      ],
+      "Description": "Enable the raid score system. New members will be scored on join and actioned if they exceed the threshold.",
+      "Usage": [
+        ".raidscore enable"
+      ],
+      "Submodule": "RaidScore",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".raidscore disable",
+        ".raidscore off"
+      ],
+      "Description": "Disable the raid score system.",
+      "Usage": [
+        ".raidscore disable"
+      ],
+      "Submodule": "RaidScore",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".raidscore threshold",
+        ".raidscore thresh"
+      ],
+      "Description": "Set the risk score threshold (1-100). Users scoring at or above this value will be actioned. Default is 70.",
+      "Usage": [
+        ".raidscore threshold 70",
+        ".raidscore threshold 50"
+      ],
+      "Submodule": "RaidScore",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".raidscore action",
+        ".raidscore act"
+      ],
+      "Description": "Set the action taken when a user exceeds the threshold. Valid actions: Alert, Quarantine, Kick, Ban.",
+      "Usage": [
+        ".raidscore action Alert",
+        ".raidscore action Kick",
+        ".raidscore action Ban"
+      ],
+      "Submodule": "RaidScore",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".raidscore channel",
+        ".raidscore ch"
+      ],
+      "Description": "Set the channel where raid score alerts are sent.",
+      "Usage": [
+        ".raidscore channel #mod-alerts"
+      ],
+      "Submodule": "RaidScore",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".raidscore check",
+        ".raidscore scan"
+      ],
+      "Description": "Manually check a user's raid risk score.",
+      "Usage": [
+        ".raidscore check @suspicious-user"
+      ],
+      "Submodule": "RaidScore",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ddrole dropdownrolecreate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ddrole dropdownrolecreate"
+      ],
+      "Submodule": "ddrole",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ddrole dropdownroleadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ddrole dropdownroleadd"
+      ],
+      "Submodule": "ddrole",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ddrole buttonrole"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ddrole buttonrole"
+      ],
+      "Submodule": "ddrole",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".regex regexadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".regex regexadd"
+      ],
+      "Submodule": "regex",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".regex regexdel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".regex regexdel"
+      ],
+      "Submodule": "regex",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".regex regexlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".regex regexlist"
+      ],
+      "Submodule": "regex",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
       ]
     },
     {
@@ -2026,6 +3742,148 @@
     },
     {
       "Aliases": [
+        ".rolesuite rolesuitecreate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rolesuite rolesuitecreate"
+      ],
+      "Submodule": "rolesuite",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rolesuite rolesuitedelete"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rolesuite rolesuitedelete"
+      ],
+      "Submodule": "rolesuite",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rolesuite rolesuiterecolor"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rolesuite rolesuiterecolor"
+      ],
+      "Submodule": "rolesuite",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rolesuite rolesuiteinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rolesuite rolesuiteinfo"
+      ],
+      "Submodule": "rolesuite",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rolesuite rolesuitemembers"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rolesuite rolesuitemembers"
+      ],
+      "Submodule": "rolesuite",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedrole add",
+        ".schedrole grant"
+      ],
+      "Description": "Schedule a role to be granted to a user after a delay. Duration format: 7d (days), 12h (hours), 30m (minutes).",
+      "Usage": [
+        ".schedrole add @User @VIP in 7d",
+        ".schedrole add @User @Muted in 1h"
+      ],
+      "Submodule": "ScheduledRoles",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedrole remove",
+        ".schedrole rm",
+        ".schedrole revoke"
+      ],
+      "Description": "Schedule a role to be removed from a user after a delay.",
+      "Usage": [
+        ".schedrole remove @User @TempAccess in 7d"
+      ],
+      "Submodule": "ScheduledRoles",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedrole list",
+        ".schedrole ls",
+        ".schedrole pending"
+      ],
+      "Description": "List all pending scheduled role changes for this server.",
+      "Usage": [
+        ".schedrole list"
+      ],
+      "Submodule": "ScheduledRoles",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedrole cancel",
+        ".schedrole delete"
+      ],
+      "Description": "Cancel a pending scheduled role change by its ID.",
+      "Usage": [
+        ".schedrole cancel 5"
+      ],
+      "Submodule": "ScheduledRoles",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".iam"
       ],
       "Description": "Adds a role to you that you choose. Role must be on the list of self-assignable roles.",
@@ -2243,6 +4101,51 @@
     },
     {
       "Aliases": [
+        ".serverbackup serverbackup"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".serverbackup serverbackup"
+      ],
+      "Submodule": "serverbackup",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".serverbackup serverrestore"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".serverbackup serverrestore"
+      ],
+      "Submodule": "serverbackup",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".serverbackup serverbackuplist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".serverbackup serverbackuplist"
+      ],
+      "Submodule": "serverbackup",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".logserver"
       ],
       "Description": "Enables or Disables ALL log events. If enabled, all log events will log to this channel.",
@@ -2315,6 +4218,158 @@
     },
     {
       "Aliases": [
+        ".slowsched slowsched"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".slowsched slowsched"
+      ],
+      "Submodule": "slowsched",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".slowsched slowschedlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".slowsched slowschedlist"
+      ],
+      "Submodule": "slowsched",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".slowsched slowscheddel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".slowsched slowscheddel"
+      ],
+      "Submodule": "slowsched",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".smartspam smartspam"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smartspam smartspam"
+      ],
+      "Submodule": "smartspam",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".smartspam smartspamthreshold"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smartspam smartspamthreshold"
+      ],
+      "Submodule": "smartspam",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".smartspam smartspamaction"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smartspam smartspamaction"
+      ],
+      "Submodule": "smartspam",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".smartspam smartspaminfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smartspam smartspaminfo"
+      ],
+      "Submodule": "smartspam",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".sticky stickymsg",
+        ".sticky pin"
+      ],
+      "Description": "Set a sticky message in a channel. The message will stay at the bottom of the channel by re-posting itself after every 5 new messages.",
+      "Usage": [
+        ".sticky stickymsg #rules Please read the rules before posting!",
+        ".sticky stickymsg #general Welcome to our server!"
+      ],
+      "Submodule": "StickyMessage",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".sticky unsticky",
+        ".sticky removesticky"
+      ],
+      "Description": "Remove a sticky message from a channel.",
+      "Usage": [
+        ".sticky unsticky #rules"
+      ],
+      "Submodule": "StickyMessage",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".sticky stickies",
+        ".sticky liststicky"
+      ],
+      "Description": "List all active sticky messages in this server.",
+      "Usage": [
+        ".sticky stickies"
+      ],
+      "Submodule": "StickyMessage",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".deltxtchanl",
         ".dtch"
       ],
@@ -2379,6 +4434,25 @@
     },
     {
       "Aliases": [
+        ".threadarchive threadarchive",
+        ".threadarchive tarchive"
+      ],
+      "Description": "Controls thread auto-archive behavior for a channel. Set a custom archive time in minutes, use 'keepalive' to prevent archiving, or 'default' to reset. Run with no arguments to list all configs.",
+      "Usage": [
+        ".threadarchive threadarchive #general 1440",
+        ".threadarchive threadarchive #general keepalive",
+        ".threadarchive threadarchive #general default",
+        ".threadarchive threadarchive"
+      ],
+      "Submodule": "ThreadArchive",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageThreads Channel Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".threadcreate",
         ".thcr"
       ],
@@ -2427,7 +4501,8 @@
     },
     {
       "Aliases": [
-        ".ticketcreate"
+        ".ticketcreate",
+        ".tnew"
       ],
       "Description": "Creates a new support ticket. A private channel will be created for you and the support team. Optionally include a topic.",
       "Usage": [
@@ -2471,7 +4546,8 @@
     },
     {
       "Aliases": [
-        ".ticketlist"
+        ".ticketlist",
+        ".tickets"
       ],
       "Description": "Shows all currently open tickets on the server.",
       "Usage": [
@@ -2486,7 +4562,8 @@
     },
     {
       "Aliases": [
-        ".ticketcategory"
+        ".ticketcategory",
+        ".ticketcat"
       ],
       "Description": "Sets the category where new ticket channels are created. Leave empty to clear.",
       "Usage": [
@@ -2534,7 +4611,8 @@
     },
     {
       "Aliases": [
-        ".ticketwelcome"
+        ".ticketwelcome",
+        ".ticketwm"
       ],
       "Description": "Sets the welcome message shown when a ticket is created. Supports variables for user, server, and ticket number.",
       "Usage": [
@@ -2581,6 +4659,58 @@
     },
     {
       "Aliases": [
+        ".schedtimeout schedule",
+        ".schedtimeout sched"
+      ],
+      "Description": "Schedule a timeout for a user in the future. Specify the user, timeout duration, delay before it triggers, and an optional reason.",
+      "Usage": [
+        ".schedtimeout schedule @user 2h 3h Spam warning",
+        ".schedtimeout schedule @user 30m 1d Repeated rule violations"
+      ],
+      "Submodule": "TimeoutScheduler",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedtimeout list",
+        ".schedtimeout ls",
+        ".schedtimeout pending"
+      ],
+      "Description": "List all pending scheduled timeouts on this server.",
+      "Usage": [
+        ".schedtimeout list"
+      ],
+      "Submodule": "TimeoutScheduler",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".schedtimeout cancel",
+        ".schedtimeout remove",
+        ".schedtimeout rm"
+      ],
+      "Description": "Cancel a pending scheduled timeout by its ID.",
+      "Usage": [
+        ".schedtimeout cancel 5",
+        ".schedtimeout cancel 12"
+      ],
+      "Submodule": "TimeoutScheduler",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".timezones"
       ],
       "Description": "Lists all timezones available on the system to be used with `.timezone`.",
@@ -2605,6 +4735,51 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".usernotes usernotes"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".usernotes usernotes"
+      ],
+      "Submodule": "usernotes",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".usernotes addnote"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".usernotes addnote"
+      ],
+      "Submodule": "usernotes",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".usernotes delnote"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".usernotes delnote"
+      ],
+      "Submodule": "usernotes",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
     },
     {
       "Aliases": [
@@ -2829,7 +5004,7 @@
       ],
       "Description": "Unbans a user with the provided user#discrim or id.",
       "Usage": [
-        ".unban kwoth#1234",
+        ".unban user#1234",
         ".unban 123123123"
       ],
       "Submodule": "UserPunishCommands",
@@ -3108,6 +5283,117 @@
     },
     {
       "Aliases": [
+        ".warndecay show",
+        ".warndecay status"
+      ],
+      "Description": "Show the current warn decay configuration for this server.",
+      "Usage": [
+        ".warndecay show"
+      ],
+      "Submodule": "WarnDecay",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".warndecay enable",
+        ".warndecay on"
+      ],
+      "Description": "Enable warn decay. Warnings older than the decay period will stop counting toward auto-punish thresholds.",
+      "Usage": [
+        ".warndecay enable"
+      ],
+      "Submodule": "WarnDecay",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".warndecay disable",
+        ".warndecay off"
+      ],
+      "Description": "Disable warn decay. All warnings will count toward auto-punish thresholds regardless of age.",
+      "Usage": [
+        ".warndecay disable"
+      ],
+      "Submodule": "WarnDecay",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".warndecay days",
+        ".warndecay period"
+      ],
+      "Description": "Set how many days before a warning decays. Decayed warnings still show in history but don't count toward auto-punish. Must be between 1 and 365 days.",
+      "Usage": [
+        ".warndecay days 30",
+        ".warndecay days 60",
+        ".warndecay days 7"
+      ],
+      "Submodule": "WarnDecay",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".warnp warnpoints"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".warnp warnpoints"
+      ],
+      "Submodule": "warnp",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".warnp warnpconfig"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".warnp warnpconfig"
+      ],
+      "Submodule": "warnp",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".warnp warnpstatus"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".warnp warnpstatus"
+      ],
+      "Submodule": "warnp",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "BanMembers Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".welcomeimg"
       ],
       "Description": "Toggles welcome images on or off. When enabled, a custom banner with the user's avatar is posted when someone joins.",
@@ -3123,7 +5409,8 @@
     },
     {
       "Aliases": [
-        ".welcomeimgchannel"
+        ".welcomeimgchannel",
+        ".wimgch"
       ],
       "Description": "Sets the channel where welcome images are posted.",
       "Usage": [
@@ -3153,7 +5440,8 @@
     },
     {
       "Aliases": [
-        ".welcomeimgcolor"
+        ".welcomeimgcolor",
+        ".wimgclr"
       ],
       "Description": "Sets the accent color for the welcome banner. Use hex codes.",
       "Usage": [
@@ -3169,7 +5457,8 @@
     },
     {
       "Aliases": [
-        ".welcomeimgtext"
+        ".welcomeimgtext",
+        ".wimgtxt"
       ],
       "Description": "Sets the welcome text shown on the banner. Supports variables for user, server, and membercount.",
       "Usage": [
@@ -3191,6 +5480,136 @@
         ".welcomeimgtest"
       ],
       "Submodule": "WelcomeImageCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomequiz enable",
+        ".welcomequiz on"
+      ],
+      "Description": "Enable the welcome quiz for new members.",
+      "Usage": [
+        ".welcomequiz enable"
+      ],
+      "Submodule": "WelcomeQuiz",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomequiz disable",
+        ".welcomequiz off"
+      ],
+      "Description": "Disable the welcome quiz.",
+      "Usage": [
+        ".welcomequiz disable"
+      ],
+      "Submodule": "WelcomeQuiz",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomequiz role",
+        ".welcomequiz setrole"
+      ],
+      "Description": "Set the role granted when a member passes the quiz.",
+      "Usage": [
+        ".welcomequiz role @Verified"
+      ],
+      "Submodule": "WelcomeQuiz",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomequiz channel",
+        ".welcomequiz setchannel"
+      ],
+      "Description": "Set the channel where quiz questions are posted. If not set, questions are sent via DM.",
+      "Usage": [
+        ".welcomequiz channel #verify"
+      ],
+      "Submodule": "WelcomeQuiz",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomequiz add",
+        ".welcomequiz addquestion"
+      ],
+      "Description": "Add a quiz question. Provide the question in quotes, each answer in quotes, and the zero-based index of the correct answer as the last argument.",
+      "Usage": [
+        ".welcomequiz add \"What is rule #1?\" \"Be nice\" \"Spam\" \"Leave\" 0"
+      ],
+      "Submodule": "WelcomeQuiz",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomequiz remove",
+        ".welcomequiz rm",
+        ".welcomequiz delete"
+      ],
+      "Description": "Remove a quiz question by its number (1-based).",
+      "Usage": [
+        ".welcomequiz remove 1"
+      ],
+      "Submodule": "WelcomeQuiz",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomequiz list",
+        ".welcomequiz ls",
+        ".welcomequiz questions"
+      ],
+      "Description": "List all welcome quiz questions and settings.",
+      "Usage": [
+        ".welcomequiz list"
+      ],
+      "Submodule": "WelcomeQuiz",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".welcomequiz required",
+        ".welcomequiz req"
+      ],
+      "Description": "Set how many correct answers are needed to pass the quiz.",
+      "Usage": [
+        ".welcomequiz required 2"
+      ],
+      "Submodule": "WelcomeQuiz",
       "Module": "Administration",
       "Options": null,
       "Requirements": [
@@ -3767,6 +6186,71 @@
     },
     {
       "Aliases": [
+        ".auction create"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".auction create"
+      ],
+      "Submodule": "Auction",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".auction bid"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".auction bid"
+      ],
+      "Submodule": "Auction",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".auction list"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".auction list"
+      ],
+      "Submodule": "Auction",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".auction my"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".auction my"
+      ],
+      "Submodule": "Auction",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".auction cancel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".auction cancel"
+      ],
+      "Submodule": "Auction",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".bank deposit",
         ".bank d",
         ".bank dep"
@@ -3976,6 +6460,84 @@
     },
     {
       "Aliases": [
+        ".biz create"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".biz create"
+      ],
+      "Submodule": "Business",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".biz hire"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".biz hire"
+      ],
+      "Submodule": "Business",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".biz fire"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".biz fire"
+      ],
+      "Submodule": "Business",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".biz info"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".biz info"
+      ],
+      "Submodule": "Business",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".biz list"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".biz list"
+      ],
+      "Submodule": "Business",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".biz work"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".biz work"
+      ],
+      "Submodule": "Business",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".connect4",
         ".con4"
       ],
@@ -3988,6 +6550,101 @@
       "Options": [
         "`--turn-timer` (`-t`)   Turn time in seconds. It has to be between 5 and 60. Default 15.  "
       ],
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".crypto list"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".crypto list"
+      ],
+      "Submodule": "Crypto",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".crypto shopbuy",
+        ".crypto buy"
+      ],
+      "Description": "Buys an item from the shop on a given index. If buying items, make sure that the bot can DM you.",
+      "Usage": [
+        ".crypto shopbuy 2"
+      ],
+      "Submodule": "Crypto",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".crypto sell"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".crypto sell"
+      ],
+      "Submodule": "Crypto",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".crypto portfolio"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".crypto portfolio"
+      ],
+      "Submodule": "Crypto",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".crypto history"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".crypto history"
+      ],
+      "Submodule": "Crypto",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".daily daily",
+        ".daily d"
+      ],
+      "Description": "Claim your daily reward. Consecutive days build a streak that multiplies your payout (7d=2x, 30d=3x, 365d=5x). Streak resets after 48h without claiming.",
+      "Usage": [
+        ".daily daily"
+      ],
+      "Submodule": "DailyStreak",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".daily streak",
+        ".daily streaks"
+      ],
+      "Description": "View your current daily streak and longest streak. Optionally check another user's streak.",
+      "Usage": [
+        ".daily streak",
+        ".daily streak @User"
+      ],
+      "Submodule": "DailyStreak",
+      "Module": "Gambling",
+      "Options": null,
       "Requirements": []
     },
     {
@@ -4116,6 +6773,92 @@
     },
     {
       "Aliases": [
+        ".gfish gfish",
+        ".gfish cast"
+      ],
+      "Description": "Cast your fishing line and try to catch a fish. Better rods improve your chances of catching rare fish. 30 second cooldown between casts.",
+      "Usage": [
+        ".gfish gfish"
+      ],
+      "Submodule": "Fishing",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gfish fishsell",
+        ".gfish fsell"
+      ],
+      "Description": "Sell all the fish in your bucket for currency.",
+      "Usage": [
+        ".gfish fishsell"
+      ],
+      "Submodule": "Fishing",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gfish fishbucket",
+        ".gfish fbucket",
+        ".gfish fb"
+      ],
+      "Description": "View all the fish you've caught (up to 20 most recent).",
+      "Usage": [
+        ".gfish fishbucket"
+      ],
+      "Submodule": "Fishing",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gfish fishrod",
+        ".gfish frod"
+      ],
+      "Description": "View your current fishing rod and the next available upgrade.",
+      "Usage": [
+        ".gfish fishrod"
+      ],
+      "Submodule": "Fishing",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gfish fishrodupgrade",
+        ".gfish frodup"
+      ],
+      "Description": "Upgrade your fishing rod to the next tier. Better rods catch rarer fish.",
+      "Usage": [
+        ".gfish fishrodupgrade"
+      ],
+      "Submodule": "Fishing",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gfish fishleaderboard",
+        ".gfish fishlb",
+        ".gfish flb"
+      ],
+      "Description": "View the biggest fish ever caught on this bot.",
+      "Usage": [
+        ".gfish fishleaderboard"
+      ],
+      "Submodule": "Fishing",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".flip"
       ],
       "Description": "Flips coin(s) - heads or tails, and shows an image.",
@@ -4139,6 +6882,333 @@
         ".betflip 3 t"
       ],
       "Submodule": "FlipCoinCommands",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gamble coinflip"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gamble coinflip"
+      ],
+      "Submodule": "GamblingExpansion",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gamble roulette"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gamble roulette"
+      ],
+      "Submodule": "GamblingExpansion",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gamble blackjack",
+        ".gamble bj"
+      ],
+      "Description": "Start or join a blackjack game by specifying the amount you're betting. \nYou must specify the amount you're betting. \nUse `.hit`, `.stand` and `.double` commands to play. \nGame is played with 4 decks. \nDealer hits on soft 17 and wins draws.",
+      "Usage": [
+        ".gamble blackjack 50"
+      ],
+      "Submodule": "GamblingExpansion",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gamble pokerstart"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gamble pokerstart"
+      ],
+      "Submodule": "GamblingExpansion",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gamble pokerjoin"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gamble pokerjoin"
+      ],
+      "Submodule": "GamblingExpansion",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gamble pokergo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gamble pokergo"
+      ],
+      "Submodule": "GamblingExpansion",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".job list"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".job list"
+      ],
+      "Submodule": "Jobs",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".job work"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".job work"
+      ],
+      "Submodule": "Jobs",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".job apply"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".job apply"
+      ],
+      "Submodule": "Jobs",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".job career"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".job career"
+      ],
+      "Submodule": "Jobs",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".job quit"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".job quit"
+      ],
+      "Submodule": "Jobs",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".loan take",
+        ".loan seize"
+      ],
+      "Description": "Takes the specified amount of currency from someone. You can specify a role instead to take the specified amount of currency from all users in the role.",
+      "Usage": [
+        ".loan take 1 @Someone",
+        ".loan take 50 SomeRole"
+      ],
+      "Submodule": "Loan",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".loan repay"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".loan repay"
+      ],
+      "Submodule": "Loan",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".loan status"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".loan status"
+      ],
+      "Submodule": "Loan",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".loan history"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".loan history"
+      ],
+      "Submodule": "Loan",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lootbox open"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lootbox open"
+      ],
+      "Submodule": "LootBox",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lootbox shopbuy",
+        ".lootbox buy"
+      ],
+      "Description": "Buys an item from the shop on a given index. If buying items, make sure that the bot can DM you.",
+      "Usage": [
+        ".lootbox shopbuy 2"
+      ],
+      "Submodule": "LootBox",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lootbox inventory",
+        ".lootbox inv",
+        ".lootbox bag"
+      ],
+      "Description": "Show your crafting materials and items.",
+      "Usage": [
+        ".lootbox inventory"
+      ],
+      "Submodule": "LootBox",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petadopt",
+        ".pet padopt",
+        ".pet adopt"
+      ],
+      "Description": "Adopt a pet! Choose a species (Cat, Dog, Bunny, Fox, Dragon, Phoenix) and give it a name. You can only have one pet at a time.",
+      "Usage": [
+        ".pet petadopt Cat Whiskers",
+        ".pet petadopt Dragon Smaug"
+      ],
+      "Submodule": "Pets",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet pet",
+        ".pet mypet"
+      ],
+      "Description": "View your pet's stats including level, hunger, and happiness. Hunger decreases over time so remember to feed your pet!",
+      "Usage": [
+        ".pet pet"
+      ],
+      "Submodule": "Pets",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petfeed",
+        ".pet pfeed"
+      ],
+      "Description": "Feed your pet to restore hunger. Costs 50 currency. Also gives your pet XP.",
+      "Usage": [
+        ".pet petfeed"
+      ],
+      "Submodule": "Pets",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petplay",
+        ".pet pplay"
+      ],
+      "Description": "Play with your pet to restore happiness and earn XP. Has a 1 hour cooldown.",
+      "Usage": [
+        ".pet petplay"
+      ],
+      "Submodule": "Pets",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petrename",
+        ".pet prename"
+      ],
+      "Description": "Give your pet a new name (max 32 characters).",
+      "Usage": [
+        ".pet petrename Fluffy"
+      ],
+      "Submodule": "Pets",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petleaderboard",
+        ".pet petlb",
+        ".pet plb"
+      ],
+      "Description": "View the highest level pets on this bot.",
+      "Usage": [
+        ".pet petleaderboard"
+      ],
+      "Submodule": "Pets",
       "Module": "Gambling",
       "Options": null,
       "Requirements": []
@@ -4202,6 +7272,128 @@
       "Requirements": [
         "Bot Owner Only",
         "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".realestate shopbuy",
+        ".realestate buy"
+      ],
+      "Description": "Buys an item from the shop on a given index. If buying items, make sure that the bot can DM you.",
+      "Usage": [
+        ".realestate shopbuy 2"
+      ],
+      "Submodule": "RealEstate",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".realestate upgrade"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".realestate upgrade"
+      ],
+      "Submodule": "RealEstate",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".realestate list"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".realestate list"
+      ],
+      "Submodule": "RealEstate",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".realestate collect"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".realestate collect"
+      ],
+      "Submodule": "RealEstate",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".realestate sell"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".realestate sell"
+      ],
+      "Submodule": "RealEstate",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season info"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season info"
+      ],
+      "Submodule": "Season",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season leaderboard",
+        ".season lb"
+      ],
+      "Description": "Displays the bot's currency leaderboard, or in other words, the richest users.\nSpecifying -c flag will show only users who are in this server.\nPaginated with 9 users per page.",
+      "Usage": [
+        ".season leaderboard",
+        ".season leaderboard -c"
+      ],
+      "Submodule": "Season",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season history"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season history"
+      ],
+      "Submodule": "Season",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season reset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season reset"
+      ],
+      "Submodule": "Season",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
       ]
     },
     {
@@ -4371,6 +7563,234 @@
       "Module": "Gambling",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".stock stocks",
+        ".stock stk"
+      ],
+      "Description": "Show all available stocks with their current prices and recent price change percentages. Prices fluctuate every 10 minutes.",
+      "Usage": [
+        ".stock stocks"
+      ],
+      "Submodule": "StockMarket",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".stock stockbuy",
+        ".stock stkbuy",
+        ".stock stkb"
+      ],
+      "Description": "Buy shares of a stock at the current market price.",
+      "Usage": [
+        ".stock stockbuy DSCRD 10",
+        ".stock stockbuy SANTI 5"
+      ],
+      "Submodule": "StockMarket",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".stock stocksell",
+        ".stock stksell",
+        ".stock stks"
+      ],
+      "Description": "Sell shares of a stock you own at the current market price.",
+      "Usage": [
+        ".stock stocksell DSCRD 5",
+        ".stock stocksell SANTI 3"
+      ],
+      "Submodule": "StockMarket",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".stock stockportfolio",
+        ".stock stkport",
+        ".stock stkp"
+      ],
+      "Description": "Show your stock portfolio with current holdings, average purchase price, and profit/loss.",
+      "Usage": [
+        ".stock stockportfolio"
+      ],
+      "Submodule": "StockMarket",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".stock stockinfo",
+        ".stock stki"
+      ],
+      "Description": "Show detailed information about a specific stock including price and recent changes.",
+      "Usage": [
+        ".stock stockinfo DSCRD",
+        ".stock stockinfo SANTI"
+      ],
+      "Submodule": "StockMarket",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tax rate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tax rate"
+      ],
+      "Submodule": "Tax",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tax set"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tax set"
+      ],
+      "Submodule": "Tax",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".election start"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".election start"
+      ],
+      "Submodule": "Election",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".election vote"
+      ],
+      "Description": "Shows instructions for voting for the bot in order to get rewards.\nWill redirect user to timely if voting is not enabled.",
+      "Usage": [
+        ".election vote"
+      ],
+      "Submodule": "Election",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".election results"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".election results"
+      ],
+      "Submodule": "Election",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".treasury treasury"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".treasury treasury"
+      ],
+      "Submodule": "Treasury",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".usershop usershop",
+        ".usershop ushop",
+        ".usershop market"
+      ],
+      "Description": "Browse all items listed for sale in this server's player marketplace.",
+      "Usage": [
+        ".usershop usershop"
+      ],
+      "Submodule": "UserShop",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".usershop ushoplist",
+        ".usershop sell"
+      ],
+      "Description": "List an item for sale in the server marketplace. Other users can buy it with bot currency, and you get the payment.",
+      "Usage": [
+        ".usershop ushoplist \"Cool Sword\" 500 \"A very shiny sword\""
+      ],
+      "Submodule": "UserShop",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".usershop ushopbuy",
+        ".usershop ubuy"
+      ],
+      "Description": "Buy an item from the server marketplace by its listing number. The currency goes to the seller.",
+      "Usage": [
+        ".usershop ushopbuy 3"
+      ],
+      "Submodule": "UserShop",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".usershop ushopremove",
+        ".usershop unlist"
+      ],
+      "Description": "Remove one of your own listings from the marketplace.",
+      "Usage": [
+        ".usershop ushopremove 3"
+      ],
+      "Submodule": "UserShop",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".usershop ushopmylistings",
+        ".usershop myshop",
+        ".usershop mylistings"
+      ],
+      "Description": "View all of your active marketplace listings in this server.",
+      "Usage": [
+        ".usershop ushopmylistings"
+      ],
+      "Submodule": "UserShop",
+      "Module": "Gambling",
+      "Options": null,
+      "Requirements": []
     }
   ],
   "Games": [
@@ -4431,6 +7851,312 @@
         "`--submission-time` (`-s`)   Time after which the submissions are closed and voting starts.  ",
         "`--vote-time` (`-v`)   Time after which the voting is closed and the winner is declared.  "
       ],
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".br start"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".br start"
+      ],
+      "Submodule": "BattleRoyale",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".br join",
+        ".br j",
+        ".br move",
+        ".br mv"
+      ],
+      "Description": "Makes the bot join a voice channel.\nIf no channel is specified, the bot joins the voice channel you are currently in.\nIf a channel is specified by name or ID, the bot joins that channel directly.",
+      "Usage": [
+        ".br join",
+        ".br join Music Room",
+        ".br join 123456789012345678"
+      ],
+      "Submodule": "BattleRoyale",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".br go"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".br go"
+      ],
+      "Submodule": "BattleRoyale",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".cards daily",
+        ".cards d"
+      ],
+      "Description": "Claim your daily reward. Consecutive days build a streak that multiplies your payout (7d=2x, 30d=3x, 365d=5x). Streak resets after 48h without claiming.",
+      "Usage": [
+        ".cards daily"
+      ],
+      "Submodule": "Cards",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".cards inventory",
+        ".cards inv",
+        ".cards bag"
+      ],
+      "Description": "Show your crafting materials and items.",
+      "Usage": [
+        ".cards inventory"
+      ],
+      "Submodule": "Cards",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".cards trade"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".cards trade"
+      ],
+      "Submodule": "Cards",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".cards album"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".cards album"
+      ],
+      "Submodule": "Cards",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".chess challenge"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chess challenge"
+      ],
+      "Submodule": "Chess",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".chess move"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chess move"
+      ],
+      "Submodule": "Chess",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".chess resign"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chess resign"
+      ],
+      "Submodule": "Chess",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".chess board"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".chess board"
+      ],
+      "Submodule": "Chess",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".counting counting",
+        ".counting count"
+      ],
+      "Description": "Set up a counting channel or view the current count. Members take turns counting up by one. If someone sends the wrong number, the count resets. Same person can't count twice in a row.",
+      "Usage": [
+        ".counting counting #counting",
+        ".counting counting"
+      ],
+      "Submodule": "Counting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".counting reset"
+      ],
+      "Description": "Resets the current count back to zero.",
+      "Usage": [
+        ".counting reset"
+      ],
+      "Submodule": "Counting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".craft craft",
+        ".craft cr"
+      ],
+      "Description": "Show available crafting recipes and what you can craft, or craft a specific item by providing its name. Materials come from fishing, daily rewards, and random drops.",
+      "Usage": [
+        ".craft craft",
+        ".craft craft \"Lucky Charm\""
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft inventory",
+        ".craft inv",
+        ".craft bag"
+      ],
+      "Description": "Show your crafting materials and items.",
+      "Usage": [
+        ".craft inventory"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft craftrecipes",
+        ".craft crrecipes",
+        ".craft crlist"
+      ],
+      "Description": "List all crafting recipes with required materials and sell values.",
+      "Usage": [
+        ".craft craftrecipes"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon enter"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon enter"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon invite"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon invite"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon explore"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon explore"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon attack"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon attack"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon flee"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon flee"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon status"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon status"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
       "Requirements": []
     },
     {
@@ -4640,6 +8366,295 @@
     },
     {
       "Aliases": [
+        ".heist heist",
+        ".heist ht"
+      ],
+      "Description": "Start a heist with a currency bet, or show the active heist status.\nOther users can join within 60 seconds by typing `.heist join`. Higher crew size = better odds of success. Winners split the pot.",
+      "Usage": [
+        ".heist heist 1000",
+        ".heist heist"
+      ],
+      "Submodule": "Heist",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".heist heistjoin",
+        ".heist htjoin",
+        ".heist htj"
+      ],
+      "Description": "Join an active heist in progress. Your bet matches the per-person share of the pot.",
+      "Usage": [
+        ".heist heistjoin"
+      ],
+      "Submodule": "Heist",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".hg start"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".hg start"
+      ],
+      "Submodule": "HungerGames",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".hg join",
+        ".hg j",
+        ".hg move",
+        ".hg mv"
+      ],
+      "Description": "Makes the bot join a voice channel.\nIf no channel is specified, the bot joins the voice channel you are currently in.\nIf a channel is specified by name or ID, the bot joins that channel directly.",
+      "Usage": [
+        ".hg join",
+        ".hg join Music Room",
+        ".hg join 123456789012345678"
+      ],
+      "Submodule": "HungerGames",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".hg volunteer"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".hg volunteer"
+      ],
+      "Submodule": "HungerGames",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".hg go"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".hg go"
+      ],
+      "Submodule": "HungerGames",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".idle status"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".idle status"
+      ],
+      "Submodule": "Idle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".idle click"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".idle click"
+      ],
+      "Submodule": "Idle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".idle shopbuy",
+        ".idle buy"
+      ],
+      "Description": "Buys an item from the shop on a given index. If buying items, make sure that the bot can DM you.",
+      "Usage": [
+        ".idle shopbuy 2"
+      ],
+      "Submodule": "Idle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".idle prestige"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".idle prestige"
+      ],
+      "Submodule": "Idle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".idle shop"
+      ],
+      "Description": "Lists this server's administrators' shop. Paginated.",
+      "Usage": [
+        ".idle shop",
+        ".idle shop 2"
+      ],
+      "Submodule": "Idle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mafia start"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mafia start"
+      ],
+      "Submodule": "Mafia",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mafia join",
+        ".mafia j",
+        ".mafia move",
+        ".mafia mv"
+      ],
+      "Description": "Makes the bot join a voice channel.\nIf no channel is specified, the bot joins the voice channel you are currently in.\nIf a channel is specified by name or ID, the bot joins that channel directly.",
+      "Usage": [
+        ".mafia join",
+        ".mafia join Music Room",
+        ".mafia join 123456789012345678"
+      ],
+      "Submodule": "Mafia",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mafia begin"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mafia begin"
+      ],
+      "Submodule": "Mafia",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mafia vote"
+      ],
+      "Description": "Shows instructions for voting for the bot in order to get rewards.\nWill redirect user to timely if voting is not enabled.",
+      "Usage": [
+        ".mafia vote"
+      ],
+      "Submodule": "Mafia",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mafia nightaction"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mafia nightaction"
+      ],
+      "Submodule": "Mafia",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mafia dawn"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mafia dawn"
+      ],
+      "Submodule": "Mafia",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mafia resolve"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mafia resolve"
+      ],
+      "Submodule": "Mafia",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".minigame minigame"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".minigame minigame"
+      ],
+      "Submodule": "Minigame",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".minigame mg"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".minigame mg"
+      ],
+      "Submodule": "Minigame",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".minigame answer"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".minigame answer"
+      ],
+      "Submodule": "Minigame",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".ncanvas",
         ".nc",
         ".ncanv",
@@ -4767,6 +8782,138 @@
     },
     {
       "Aliases": [
+        ".pokemon catch"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pokemon catch"
+      ],
+      "Submodule": "Pokemon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pokemon list"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pokemon list"
+      ],
+      "Submodule": "Pokemon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pokemon info"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pokemon info"
+      ],
+      "Submodule": "Pokemon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pokemon train"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pokemon train"
+      ],
+      "Submodule": "Pokemon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pokemon battle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pokemon battle"
+      ],
+      "Submodule": "Pokemon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pokemon attack"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pokemon attack"
+      ],
+      "Submodule": "Pokemon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".puzzle puzzle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".puzzle puzzle"
+      ],
+      "Submodule": "Puzzle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".puzzle solve"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".puzzle solve"
+      ],
+      "Submodule": "Puzzle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".puzzle hint"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".puzzle hint"
+      ],
+      "Submodule": "Puzzle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".puzzle leaderboard",
+        ".puzzle lb"
+      ],
+      "Description": "Displays the bot's currency leaderboard, or in other words, the richest users.\nSpecifying -c flag will show only users who are in this server.\nPaginated with 9 users per page.",
+      "Usage": [
+        ".puzzle leaderboard",
+        ".puzzle leaderboard -c"
+      ],
+      "Submodule": "Puzzle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".questlog",
         ".qlog",
         ".quest",
@@ -4778,6 +8925,63 @@
         ".questlog"
       ],
       "Submodule": "QuestCommands",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".race join",
+        ".race j",
+        ".race move",
+        ".race mv"
+      ],
+      "Description": "Makes the bot join a voice channel.\nIf no channel is specified, the bot joins the voice channel you are currently in.\nIf a channel is specified by name or ID, the bot joins that channel directly.",
+      "Usage": [
+        ".race join",
+        ".race join Music Room",
+        ".race join 123456789012345678"
+      ],
+      "Submodule": "Racing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".race start"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".race start"
+      ],
+      "Submodule": "Racing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".race garage"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".race garage"
+      ],
+      "Submodule": "Racing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".race upgrade"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".race upgrade"
+      ],
+      "Submodule": "Racing",
       "Module": "Games",
       "Options": null,
       "Requirements": []
@@ -4856,6 +9060,58 @@
     },
     {
       "Aliases": [
+        ".quest start"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest start"
+      ],
+      "Submodule": "Quest",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest continue"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest continue"
+      ],
+      "Submodule": "Quest",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest status"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest status"
+      ],
+      "Submodule": "Quest",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest abandon"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest abandon"
+      ],
+      "Submodule": "Quest",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".tictactoe",
         ".ttt"
       ],
@@ -4868,6 +9124,71 @@
       "Options": [
         "`--turn-timer` (`-t`)   Turn time in seconds. Default 15.  "
       ],
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".td start"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".td start"
+      ],
+      "Submodule": "TowerDefense",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".td place"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".td place"
+      ],
+      "Submodule": "TowerDefense",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".td upgrade"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".td upgrade"
+      ],
+      "Submodule": "TowerDefense",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".td wave"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".td wave"
+      ],
+      "Submodule": "TowerDefense",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".td status"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".td status"
+      ],
+      "Submodule": "TowerDefense",
+      "Module": "Games",
+      "Options": null,
       "Requirements": []
     },
     {
@@ -4913,6 +9234,141 @@
         ".tq"
       ],
       "Submodule": "TriviaCommands",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".triviatour start"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".triviatour start"
+      ],
+      "Submodule": "TriviaTournament",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".triviatour join",
+        ".triviatour j",
+        ".triviatour move",
+        ".triviatour mv"
+      ],
+      "Description": "Makes the bot join a voice channel.\nIf no channel is specified, the bot joins the voice channel you are currently in.\nIf a channel is specified by name or ID, the bot joins that channel directly.",
+      "Usage": [
+        ".triviatour join",
+        ".triviatour join Music Room",
+        ".triviatour join 123456789012345678"
+      ],
+      "Submodule": "TriviaTournament",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".triviatour next",
+        ".triviatour n"
+      ],
+      "Description": "Goes to the next song in the queue. You have to be in the same voice channel as the bot",
+      "Usage": [
+        ".triviatour next"
+      ],
+      "Submodule": "TriviaTournament",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".triviatour answer"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".triviatour answer"
+      ],
+      "Submodule": "TriviaTournament",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".triviatour leaderboard",
+        ".triviatour lb"
+      ],
+      "Description": "Displays the bot's currency leaderboard, or in other words, the richest users.\nSpecifying -c flag will show only users who are in this server.\nPaginated with 9 users per page.",
+      "Usage": [
+        ".triviatour leaderboard",
+        ".triviatour leaderboard -c"
+      ],
+      "Submodule": "TriviaTournament",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".wordchain start"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".wordchain start"
+      ],
+      "Submodule": "WordChain",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".wordchain stop",
+        ".wordchain s"
+      ],
+      "Description": "Stops the music and preserves the current song index. Stays in the channel.",
+      "Usage": [
+        ".wordchain stop"
+      ],
+      "Submodule": "WordChain",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".wordchain play",
+        ".wordchain p",
+        ".wordchain start"
+      ],
+      "Description": "Queues up and plays a song or video based on a search query, song name, artist name or youtube link.\nIf no parameters are specified, it will skip the current song.\nIf you specify a song number, it will jump to that song.\nIf you specify a search query, acts as a `.q` command\n**You must be in a voice channel**.",
+      "Usage": [
+        ".wordchain play",
+        ".wordchain play 5",
+        ".wordchain play Dream Of Venice"
+      ],
+      "Submodule": "WordChain",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".wordchain join",
+        ".wordchain j",
+        ".wordchain move",
+        ".wordchain mv"
+      ],
+      "Description": "Makes the bot join a voice channel.\nIf no channel is specified, the bot joins the voice channel you are currently in.\nIf a channel is specified by name or ID, the bot joins that channel directly.",
+      "Usage": [
+        ".wordchain join",
+        ".wordchain join Music Room",
+        ".wordchain join 123456789012345678"
+      ],
+      "Submodule": "WordChain",
       "Module": "Games",
       "Options": null,
       "Requirements": []
@@ -6393,6 +10849,76 @@
       "Requirements": [
         "Bot Owner Only"
       ]
+    },
+    {
+      "Aliases": [
+        ".rotatestatus rotatestatusadd",
+        ".rotatestatus rsadd",
+        ".rotatestatus rsa"
+      ],
+      "Description": "Add a status to the rotation. Type: 0=Playing, 1=Streaming, 2=Listening, 3=Watching, 4=Competing. Use . as a placeholder for server count. If no type is given, defaults to Playing.",
+      "Usage": [
+        ".rotatestatus rotatestatusadd 0 with . servers",
+        ".rotatestatus rotatestatusadd 3 over the community",
+        ".rotatestatus rotatestatusadd just vibing"
+      ],
+      "Submodule": "StatusRotation",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rotatestatus rotatestatusremove",
+        ".rotatestatus rsremove",
+        ".rotatestatus rsrm"
+      ],
+      "Description": "Remove a rotating status by its ID. Use the list command to see IDs.",
+      "Usage": [
+        ".rotatestatus rotatestatusremove 3"
+      ],
+      "Submodule": "StatusRotation",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rotatestatus rotatestatuslist",
+        ".rotatestatus rslist",
+        ".rotatestatus rsl"
+      ],
+      "Description": "List all rotating statuses and their IDs.",
+      "Usage": [
+        ".rotatestatus rotatestatuslist"
+      ],
+      "Submodule": "StatusRotation",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rotatestatus rotatestatusclear",
+        ".rotatestatus rsclear",
+        ".rotatestatus rsc"
+      ],
+      "Description": "Clear all rotating statuses and stop rotation.",
+      "Usage": [
+        ".rotatestatus rotatestatusclear"
+      ],
+      "Submodule": "StatusRotation",
+      "Module": "Owner",
+      "Options": null,
+      "Requirements": [
+        "Bot Owner Only"
+      ]
     }
   ],
   "Permissions": [
@@ -7013,6 +11539,110 @@
     },
     {
       "Aliases": [
+        ".anime animetrack"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".anime animetrack"
+      ],
+      "Submodule": "AnimeTracker",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".anime animeuntrack"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".anime animeuntrack"
+      ],
+      "Submodule": "AnimeTracker",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".anime animelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".anime animelist"
+      ],
+      "Submodule": "AnimeTracker",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".anime animeschedule"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".anime animeschedule"
+      ],
+      "Submodule": "AnimeTracker",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bskyfollow",
+        ".bskyadd"
+      ],
+      "Description": "Follow a Bluesky account for new post notifications. Provide their handle (e.g. user.bsky.social) and optionally a Discord channel to post in.",
+      "Usage": [
+        ".bskyfollow user.bsky.social #general",
+        ".bskyfollow someone.bsky.social"
+      ],
+      "Submodule": "BlueskyFeedCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bskyunfollow",
+        ".bskyremove"
+      ],
+      "Description": "Unfollow a Bluesky account.",
+      "Usage": [
+        ".bskyunfollow user.bsky.social"
+      ],
+      "Submodule": "BlueskyFeedCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bskylist"
+      ],
+      "Description": "Shows all Bluesky feeds configured on this server.",
+      "Usage": [
+        ".bskylist"
+      ],
+      "Submodule": "BlueskyFeedCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".stock"
       ],
       "Description": "Shows basic information about a stock. You can use a symbol or company name",
@@ -7052,6 +11682,45 @@
         ".coins 2"
       ],
       "Submodule": "FinanceCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".cryptoalert cryptoalertadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".cryptoalert cryptoalertadd"
+      ],
+      "Submodule": "CryptoAlerts",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".cryptoalert cryptoalertremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".cryptoalert cryptoalertremove"
+      ],
+      "Submodule": "CryptoAlerts",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".cryptoalert cryptoalertlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".cryptoalert cryptoalertlist"
+      ],
+      "Submodule": "CryptoAlerts",
       "Module": "Searches",
       "Options": null,
       "Requirements": []
@@ -7228,6 +11897,116 @@
     },
     {
       "Aliases": [
+        ".gameserver gsadd",
+        ".gameserver serveradd"
+      ],
+      "Description": "Add a game server to watch. The bot will periodically ping the server and update a status embed in the specified channel showing player count and online status.",
+      "Usage": [
+        ".gameserver gsadd minecraft play.example.com 25565 #server-status",
+        ".gameserver gsadd valheim myserver.com 2457 #game-servers"
+      ],
+      "Submodule": "GameServer",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".gameserver gsremove",
+        ".gameserver serverremove",
+        ".gameserver gsdelete"
+      ],
+      "Description": "Remove a watched game server by its ID number (shown in the list).",
+      "Usage": [
+        ".gameserver gsremove 3"
+      ],
+      "Submodule": "GameServer",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".gameserver gslist",
+        ".gameserver servers"
+      ],
+      "Description": "List all game servers being watched in this server.",
+      "Usage": [
+        ".gameserver gslist"
+      ],
+      "Submodule": "GameServer",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gameserver gscheck",
+        ".gameserver servercheck",
+        ".gameserver serverstatus"
+      ],
+      "Description": "Perform a one-time status check on a game server without adding it to the watch list.",
+      "Usage": [
+        ".gameserver gscheck minecraft play.example.com 25565"
+      ],
+      "Submodule": "GameServer",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ghw",
+        ".gitwatch"
+      ],
+      "Description": "Watch a GitHub repository for new events and post notifications to a channel. Also used to toggle specific event types (commits, issues, prs, releases).",
+      "Usage": [
+        ".ghw iSnuggs/SantiBot #github-feed",
+        ".ghw iSnuggs/SantiBot commits off"
+      ],
+      "Submodule": "GitHubFeed",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ghuw",
+        ".gitunwatch"
+      ],
+      "Description": "Stop watching a GitHub repository.",
+      "Usage": [
+        ".ghuw iSnuggs/SantiBot"
+      ],
+      "Submodule": "GitHubFeed",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ghl",
+        ".gitwatches"
+      ],
+      "Description": "List all GitHub repositories being watched in this server.",
+      "Usage": [
+        ".ghl"
+      ],
+      "Submodule": "GitHubFeed",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".yomama",
         ".ym"
       ],
@@ -7294,6 +12073,54 @@
       "Module": "Searches",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".kickfollow",
+        ".kickadd"
+      ],
+      "Description": "Follow a Kick.com streamer for live notifications. Provide their username and optionally a Discord channel to post in.",
+      "Usage": [
+        ".kickfollow xQc #streams",
+        ".kickfollow ninja"
+      ],
+      "Submodule": "KickStreamCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".kickunfollow",
+        ".kickremove"
+      ],
+      "Description": "Unfollow a Kick.com streamer.",
+      "Usage": [
+        ".kickunfollow xQc"
+      ],
+      "Submodule": "KickStreamCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".kicklist"
+      ],
+      "Description": "Shows all Kick.com streamers followed on this server.",
+      "Usage": [
+        ".kicklist"
+      ],
+      "Submodule": "KickStreamCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
     },
     {
       "Aliases": [
@@ -7465,6 +12292,51 @@
     },
     {
       "Aliases": [
+        ".reddit redditfollow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".reddit redditfollow"
+      ],
+      "Submodule": "RedditFeed",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".reddit redditunfollow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".reddit redditunfollow"
+      ],
+      "Submodule": "RedditFeed",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".reddit redditlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".reddit redditlist"
+      ],
+      "Submodule": "RedditFeed",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".bible"
       ],
       "Description": "Shows bible verse. You need to supply book name and chapter:verse",
@@ -7489,6 +12361,64 @@
       "Module": "Searches",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rss rssadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rss rssadd"
+      ],
+      "Submodule": "RssManager",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rss rssremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rss rssremove"
+      ],
+      "Submodule": "RssManager",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rss rsslist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rss rsslist"
+      ],
+      "Submodule": "RssManager",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rss rsstest"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rss rsstest"
+      ],
+      "Submodule": "RssManager",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
     },
     {
       "Aliases": [
@@ -7534,6 +12464,123 @@
       "Module": "Searches",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".sports sportsfollow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".sports sportsfollow"
+      ],
+      "Submodule": "SportsScores",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".sports sportsscores"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".sports sportsscores"
+      ],
+      "Submodule": "SportsScores",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".sports sportsunfollow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".sports sportsunfollow"
+      ],
+      "Submodule": "SportsScores",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".sports sportslist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".sports sportslist"
+      ],
+      "Submodule": "SportsScores",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".spotify",
+        ".sp",
+        ".nowplaying"
+      ],
+      "Description": "Shows what you (or someone else) are currently listening to on Spotify. Reads from Discord presence data — the user must have Spotify connected to their Discord account.",
+      "Usage": [
+        ".spotify",
+        ".spotify @someone"
+      ],
+      "Submodule": "SpotifyNowPlayingCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".steamsale steamsalewatch"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".steamsale steamsalewatch"
+      ],
+      "Submodule": "SteamSaleAlerts",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".steamsale steamsaleunwatch"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".steamsale steamsaleunwatch"
+      ],
+      "Submodule": "SteamSaleAlerts",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".steamsale steamsalelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".steamsale steamsalelist"
+      ],
+      "Submodule": "SteamSaleAlerts",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
     },
     {
       "Aliases": [
@@ -7682,7 +12729,8 @@
     },
     {
       "Aliases": [
-        ".tiktokfollow"
+        ".tiktokfollow",
+        ".ttfollow"
       ],
       "Description": "Subscribe to a TikTok user's new posts in this channel. Uses RSS to check for new videos. Provide a @username or TikTok profile URL.",
       "Usage": [
@@ -7698,7 +12746,8 @@
     },
     {
       "Aliases": [
-        ".tiktokunfollow"
+        ".tiktokunfollow",
+        ".ttunfollow"
       ],
       "Description": "Unsubscribe from a TikTok user's posts in this channel.",
       "Usage": [
@@ -7713,9 +12762,10 @@
     },
     {
       "Aliases": [
-        ".tiktoklist"
+        ".tiktoklist",
+        ".ttlist"
       ],
-      "Description": "?",
+      "Description": "Shows all TikTok feeds configured on this server.",
       "Usage": [
         ".tiktoklist"
       ],
@@ -7819,6 +12869,51 @@
     },
     {
       "Aliases": [
+        ".twitchclip twitchclipfollow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".twitchclip twitchclipfollow"
+      ],
+      "Submodule": "TwitchClipAlerts",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".twitchclip twitchclipunfollow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".twitchclip twitchclipunfollow"
+      ],
+      "Submodule": "TwitchClipAlerts",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".twitchclip twitchcliplist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".twitchclip twitchcliplist"
+      ],
+      "Submodule": "TwitchClipAlerts",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".lmgtfy"
       ],
       "Description": "Google something for a baka.",
@@ -7874,6 +12969,23 @@
     },
     {
       "Aliases": [
+        ".wttr",
+        ".weatherwttr",
+        ".wt"
+      ],
+      "Description": "Show current weather for any city using wttr.in (no API key needed). Displays temperature, humidity, wind speed, and conditions.",
+      "Usage": [
+        ".wttr Paris",
+        ".wttr Tokyo",
+        ".wttr New York"
+      ],
+      "Submodule": "WeatherWttrCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".wiki",
         ".wikipedia"
       ],
@@ -7903,6 +13015,51 @@
     },
     {
       "Aliases": [
+        ".xfeed xfeedfollow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xfeed xfeedfollow"
+      ],
+      "Submodule": "XFeed",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".xfeed xfeedunfollow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xfeed xfeedunfollow"
+      ],
+      "Submodule": "XFeed",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".xfeed xfeedlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xfeed xfeedlist"
+      ],
+      "Submodule": "XFeed",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".xkcd"
       ],
       "Description": "Shows a XKCD comic. Specify no parameters to retrieve a random one. Number parameter will retrieve a specific comic, and \"latest\" will get the latest one.",
@@ -7913,6 +13070,586 @@
       ],
       "Submodule": "XkcdCommands",
       "Module": "Searches",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ytfeedadd",
+        ".ytfeed add"
+      ],
+      "Description": "Follow a YouTube channel for new upload notifications. Provide the YouTube channel ID (starts with UC) and optionally a Discord channel to post in.",
+      "Usage": [
+        ".ytfeedadd UCxxxxxxxxxxxxxxxxxxxx #general",
+        ".ytfeedadd UCxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "Submodule": "YouTubeFeedCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ytfeedremove",
+        ".ytfeed remove"
+      ],
+      "Description": "Unfollow a YouTube channel. Provide the YouTube channel ID.",
+      "Usage": [
+        ".ytfeedremove UCxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "Submodule": "YouTubeFeedCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ytfeedlist",
+        ".ytfeed list"
+      ],
+      "Description": "Shows all YouTube feeds configured on this server.",
+      "Usage": [
+        ".ytfeedlist"
+      ],
+      "Submodule": "YouTubeFeedCommands",
+      "Module": "Searches",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    }
+  ],
+  "Social": [
+    {
+      "Aliases": [
+        ".achievements achievements",
+        ".achievements ach",
+        ".achievements achieve"
+      ],
+      "Description": "Show your unlocked achievements, or view another user's achievements by mentioning them.",
+      "Usage": [
+        ".achievements achievements",
+        ".achievements achievements @user"
+      ],
+      "Submodule": "Achievements",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".achievements achievementlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".achievements achievementlist"
+      ],
+      "Submodule": "Achievements",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bg bgshop"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bg bgshop"
+      ],
+      "Submodule": "Backgrounds",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bg bgbuy"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bg bgbuy"
+      ],
+      "Submodule": "Backgrounds",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bg bgset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bg bgset"
+      ],
+      "Submodule": "Backgrounds",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bg bglist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bg bglist"
+      ],
+      "Submodule": "Backgrounds",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bio bioset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bio bioset"
+      ],
+      "Submodule": "Bio",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bio pronouns"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bio pronouns"
+      ],
+      "Submodule": "Bio",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bio timezoneset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bio timezoneset"
+      ],
+      "Submodule": "Bio",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bio socialset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bio socialset"
+      ],
+      "Submodule": "Bio",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".bio whois"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".bio whois"
+      ],
+      "Submodule": "Bio",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".compatible compatible"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".compatible compatible"
+      ],
+      "Submodule": "Compatibility",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".friend friendadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".friend friendadd"
+      ],
+      "Submodule": "Friends",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".friend friendaccept"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".friend friendaccept"
+      ],
+      "Submodule": "Friends",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".friend frienddeny"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".friend frienddeny"
+      ],
+      "Submodule": "Friends",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".friend friendremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".friend friendremove"
+      ],
+      "Submodule": "Friends",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".friend friendlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".friend friendlist"
+      ],
+      "Submodule": "Friends",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".friend friendrequests"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".friend friendrequests"
+      ],
+      "Submodule": "Friends",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".heatmap heatmap"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".heatmap heatmap"
+      ],
+      "Submodule": "Heatmap",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".intro introsetup"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".intro introsetup"
+      ],
+      "Submodule": "Introductions",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".intro introtemplate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".intro introtemplate"
+      ],
+      "Submodule": "Introductions",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".intro introdisable"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".intro introdisable"
+      ],
+      "Submodule": "Introductions",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".karma karma"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".karma karma"
+      ],
+      "Submodule": "Karma",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".karma karmaboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".karma karmaboard"
+      ],
+      "Submodule": "Karma",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".marriage marry"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".marriage marry"
+      ],
+      "Submodule": "Marriage",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".marriage divorce"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".marriage divorce"
+      ],
+      "Submodule": "Marriage",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".marriage adopt"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".marriage adopt"
+      ],
+      "Submodule": "Marriage",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".marriage spouse"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".marriage spouse"
+      ],
+      "Submodule": "Marriage",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".marriage family"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".marriage family"
+      ],
+      "Submodule": "Marriage",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mood mood"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mood mood"
+      ],
+      "Submodule": "Mood",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mood moodclear"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mood moodclear"
+      ],
+      "Submodule": "Mood",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mood moodboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mood moodboard"
+      ],
+      "Submodule": "Mood",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".profile profile"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".profile profile"
+      ],
+      "Submodule": "Profile",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".profile profileset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".profile profileset"
+      ],
+      "Submodule": "Profile",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".socialboard socialboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".socialboard socialboard"
+      ],
+      "Submodule": "SocialBoard",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".timecapsule timecapsule"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".timecapsule timecapsule"
+      ],
+      "Submodule": "TimeCapsule",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".timecapsule timecapsulelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".timecapsule timecapsulelist"
+      ],
+      "Submodule": "TimeCapsule",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vcstats vcstats"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vcstats vcstats"
+      ],
+      "Submodule": "VoiceStats",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vcstats vcleaderboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vcstats vcleaderboard"
+      ],
+      "Submodule": "VoiceStats",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".yearbook yearbook"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".yearbook yearbook"
+      ],
+      "Submodule": "Yearbook",
+      "Module": "Social",
       "Options": null,
       "Requirements": []
     }
@@ -8282,6 +14019,54 @@
     },
     {
       "Aliases": [
+        ".achievements achievements",
+        ".achievements ach",
+        ".achievements achieve"
+      ],
+      "Description": "Show your unlocked achievements, or view another user's achievements by mentioning them.",
+      "Usage": [
+        ".achievements achievements",
+        ".achievements achievements @user"
+      ],
+      "Submodule": "Achievements",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".achievements achievementslist",
+        ".achievements achlist",
+        ".achievements achall"
+      ],
+      "Description": "List all possible achievements and whether you have unlocked them.",
+      "Usage": [
+        ".achievements achievementslist"
+      ],
+      "Submodule": "Achievements",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".afke",
+        ".afkenhanced",
+        ".away"
+      ],
+      "Description": "Set yourself as AFK with an optional message. When someone pings you, they will see your AFK message and how long you have been gone. Your AFK status is automatically removed when you send a message.",
+      "Usage": [
+        ".afke Going to lunch",
+        ".afke Be back in 30 minutes",
+        ".afke"
+      ],
+      "Submodule": "AfkEnhancedCommands",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".agent",
         ".ai"
       ],
@@ -8364,6 +14149,129 @@
     },
     {
       "Aliases": [
+        ".birthday birthday",
+        ".birthday bday"
+      ],
+      "Description": "Set your birthday or view someone's birthday. Use two numbers for month and day, or mention a user to see theirs.",
+      "Usage": [
+        ".birthday birthday 3 15",
+        ".birthday birthday @user",
+        ".birthday birthday"
+      ],
+      "Submodule": "Birthday",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".birthday upcoming",
+        ".birthday next"
+      ],
+      "Description": "Shows the next 10 upcoming birthdays in the server within the next 30 days.",
+      "Usage": [
+        ".birthday upcoming"
+      ],
+      "Submodule": "Birthday",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".birthday channel"
+      ],
+      "Description": "Sets the channel where birthday announcements will be posted.",
+      "Usage": [
+        ".birthday channel #birthdays"
+      ],
+      "Submodule": "Birthday",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".birthday role"
+      ],
+      "Description": "Sets the role that will be given to users on their birthday.",
+      "Usage": [
+        ".birthday role @Birthday"
+      ],
+      "Submodule": "Birthday",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bumpreminder br",
+        ".bumpreminder bump"
+      ],
+      "Description": "Set the channel where bump reminders will be posted. The bot watches for Disboard's \"Bump done\" message and reminds you 2 hours later.",
+      "Usage": [
+        ".bumpreminder br #bump-reminder"
+      ],
+      "Submodule": "BumpReminder",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bumpreminder brrole",
+        ".bumpreminder bumprole"
+      ],
+      "Description": "Set a role to ping when it's time to bump.",
+      "Usage": [
+        ".bumpreminder brrole @Bumpers"
+      ],
+      "Submodule": "BumpReminder",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bumpreminder brdisable",
+        ".bumpreminder bumpoff"
+      ],
+      "Description": "Disable bump reminders for this server.",
+      "Usage": [
+        ".bumpreminder brdisable"
+      ],
+      "Submodule": "BumpReminder",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".bumpreminder brstatus",
+        ".bumpreminder bumpstatus",
+        ".bumpreminder bumpinfo"
+      ],
+      "Description": "Show the current bump reminder configuration.",
+      "Usage": [
+        ".bumpreminder brstatus"
+      ],
+      "Submodule": "BumpReminder",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".calculate",
         ".calc"
       ],
@@ -8388,6 +14296,131 @@
       "Module": "Utility",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".calendar calendaradd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".calendar calendaradd"
+      ],
+      "Submodule": "Calendar",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".calendar calendarlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".calendar calendarlist"
+      ],
+      "Submodule": "Calendar",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".calendar calendartoday"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".calendar calendartoday"
+      ],
+      "Submodule": "Calendar",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".calendar calendarremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".calendar calendarremove"
+      ],
+      "Submodule": "Calendar",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".calendar calendarremind"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".calendar calendarremind"
+      ],
+      "Submodule": "Calendar",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".confession confess"
+      ],
+      "Description": "Submit an anonymous confession. Your message will be deleted and the confession will be posted anonymously in the confession channel.",
+      "Usage": [
+        ".confession confess I secretly love pineapple on pizza"
+      ],
+      "Submodule": "Confession",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".confession channel"
+      ],
+      "Description": "Sets the channel where anonymous confessions will be posted.",
+      "Usage": [
+        ".confession channel #confessions"
+      ],
+      "Submodule": "Confession",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".confession enable",
+        ".confession on"
+      ],
+      "Description": "Enables the confession system for this server.",
+      "Usage": [
+        ".confession enable"
+      ],
+      "Submodule": "Confession",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".confession disable",
+        ".confession off"
+      ],
+      "Description": "Disables the confession system for this server.",
+      "Usage": [
+        ".confession disable"
+      ],
+      "Submodule": "Confession",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
     },
     {
       "Aliases": [
@@ -8429,6 +14462,364 @@
     },
     {
       "Aliases": [
+        ".customscript customscriptadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customscript customscriptadd"
+      ],
+      "Submodule": "CustomScripting",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customscript customscriptremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customscript customscriptremove"
+      ],
+      "Submodule": "CustomScripting",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customscript customscriptlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customscript customscriptlist"
+      ],
+      "Submodule": "CustomScripting",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customscript customscripttest"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customscript customscripttest"
+      ],
+      "Submodule": "CustomScripting",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".autoflow autoflowcreate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".autoflow autoflowcreate"
+      ],
+      "Submodule": "AutoFlow",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoflow autoflowlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".autoflow autoflowlist"
+      ],
+      "Submodule": "AutoFlow",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".autoflow autoflowdelete"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".autoflow autoflowdelete"
+      ],
+      "Submodule": "AutoFlow",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dashwebhook dashwebhookadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dashwebhook dashwebhookadd"
+      ],
+      "Submodule": "DashWebhooks",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dashwebhook dashwebhookremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dashwebhook dashwebhookremove"
+      ],
+      "Submodule": "DashWebhooks",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dashwebhook dashwebhooklist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dashwebhook dashwebhooklist"
+      ],
+      "Submodule": "DashWebhooks",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".embedtemplate embedtemplatelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".embedtemplate embedtemplatelist"
+      ],
+      "Submodule": "EmbedBuilderV2",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".embedtemplate embedtemplatepreview"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".embedtemplate embedtemplatepreview"
+      ],
+      "Submodule": "EmbedBuilderV2",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".embedtemplate embedtemplatesend"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".embedtemplate embedtemplatesend"
+      ],
+      "Submodule": "EmbedBuilderV2",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".permmatrix permmatrixview"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".permmatrix permmatrixview"
+      ],
+      "Submodule": "PermissionsMatrix",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".rolehierarchy rolehierarchylist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rolehierarchy rolehierarchylist"
+      ],
+      "Submodule": "RoleHierarchy",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageRoles Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".scheduledtask scheduledtaskcreate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".scheduledtask scheduledtaskcreate"
+      ],
+      "Submodule": "ScheduledTasks",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".scheduledtask scheduledtasklist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".scheduledtask scheduledtasklist"
+      ],
+      "Submodule": "ScheduledTasks",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".scheduledtask scheduledtaskdelete"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".scheduledtask scheduledtaskdelete"
+      ],
+      "Submodule": "ScheduledTasks",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".scheduledtask scheduledtasktoggle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".scheduledtask scheduledtasktoggle"
+      ],
+      "Submodule": "ScheduledTasks",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".whitelabel whitelabelname"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".whitelabel whitelabelname"
+      ],
+      "Submodule": "WhiteLabel",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".whitelabel whitelabelavatar"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".whitelabel whitelabelavatar"
+      ],
+      "Submodule": "WhiteLabel",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".whitelabel whitelabelcolor"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".whitelabel whitelabelcolor"
+      ],
+      "Submodule": "WhiteLabel",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".whitelabel whitelabelreset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".whitelabel whitelabelreset"
+      ],
+      "Submodule": "WhiteLabel",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".whitelabel whitelabelview"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".whitelabel whitelabelview"
+      ],
+      "Submodule": "WhiteLabel",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".embed"
       ],
       "Description": "Sends a rich embed to a channel using JSON. Use `.embed template` to see the format.",
@@ -8444,7 +14835,8 @@
     },
     {
       "Aliases": [
-        ".embedsimple"
+        ".embedsimple",
+        ".embedez"
       ],
       "Description": "Sends a simple embed with just a title and description.",
       "Usage": [
@@ -8459,7 +14851,8 @@
     },
     {
       "Aliases": [
-        ".embedcolor"
+        ".embedcolor",
+        ".embedclr"
       ],
       "Description": "Sends a colored embed with a title and description. Color is a hex code.",
       "Usage": [
@@ -8489,7 +14882,8 @@
     },
     {
       "Aliases": [
-        ".embedtemplate"
+        ".embedtemplate",
+        ".embedtpl"
       ],
       "Description": "Shows a template for the embed JSON format with all available fields.",
       "Usage": [
@@ -8501,6 +14895,72 @@
       "Requirements": [
         "ManageMessages Server Permission"
       ]
+    },
+    {
+      "Aliases": [
+        ".event create"
+      ],
+      "Description": "Creates a scheduled event. Provide a title in quotes, description in quotes, then the date and time (UTC).",
+      "Usage": [
+        ".event create \"Game Night\" \"Playing Valorant together\" 2026-04-01 20:00",
+        ".event create \"Movie Night\" \"Watching Lord of the Rings\" 2026-04-05 19:00"
+      ],
+      "Submodule": "EventScheduler",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event rsvp"
+      ],
+      "Description": "RSVP to an upcoming event by its ID number.",
+      "Usage": [
+        ".event rsvp 3"
+      ],
+      "Submodule": "EventScheduler",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event list"
+      ],
+      "Description": "Shows all upcoming events in this server.",
+      "Usage": [
+        ".event list"
+      ],
+      "Submodule": "EventScheduler",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event cancel"
+      ],
+      "Description": "Cancels an event. Only the event creator or someone with Manage Server permission can cancel.",
+      "Usage": [
+        ".event cancel 3"
+      ],
+      "Submodule": "EventScheduler",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event ping"
+      ],
+      "Description": "Sets a role to be pinged when the event reminder fires (15 minutes before start). Requires Manage Server permission.",
+      "Usage": [
+        ".event ping 3 @Gamers"
+      ],
+      "Submodule": "EventScheduler",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
     },
     {
       "Aliases": [
@@ -8827,6 +15287,173 @@
     },
     {
       "Aliases": [
+        ".invites invites"
+      ],
+      "Description": "Shows how many people you (or the specified user) have invited to this server.",
+      "Usage": [
+        ".invites invites",
+        ".invites invites @user"
+      ],
+      "Submodule": "InviteTracker",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".invites leaderboard",
+        ".invites invitelb"
+      ],
+      "Description": "Shows the top inviters in this server.",
+      "Usage": [
+        ".invites leaderboard"
+      ],
+      "Submodule": "InviteTracker",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".invites enable"
+      ],
+      "Description": "Enables invite tracking for this server. Requires Manage Server permission.",
+      "Usage": [
+        ".invites enable"
+      ],
+      "Submodule": "InviteTracker",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".invites disable"
+      ],
+      "Description": "Disables invite tracking for this server. Requires Manage Server permission.",
+      "Usage": [
+        ".invites disable"
+      ],
+      "Submodule": "InviteTracker",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".invites log"
+      ],
+      "Description": "Sets the channel where invite tracking events are logged. Requires Manage Server permission.",
+      "Usage": [
+        ".invites log #invite-logs"
+      ],
+      "Submodule": "InviteTracker",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".joinsound set",
+        ".joinsound add"
+      ],
+      "Description": "Set your personal join sound that plays when you enter a voice channel.",
+      "Usage": [
+        ".joinsound set https://example.com/sound.mp3"
+      ],
+      "Submodule": "JoinSound",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".joinsound remove",
+        ".joinsound rm",
+        ".joinsound delete"
+      ],
+      "Description": "Remove your personal join sound.",
+      "Usage": [
+        ".joinsound remove"
+      ],
+      "Submodule": "JoinSound",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".joinsound default",
+        ".joinsound serverdefault"
+      ],
+      "Description": "Set the default join sound for the server (plays for users without a personal sound).",
+      "Usage": [
+        ".joinsound default https://example.com/default.mp3"
+      ],
+      "Submodule": "JoinSound",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".joinsound enable",
+        ".joinsound on"
+      ],
+      "Description": "Enable join sounds on this server.",
+      "Usage": [
+        ".joinsound enable"
+      ],
+      "Submodule": "JoinSound",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".joinsound disable",
+        ".joinsound off"
+      ],
+      "Description": "Disable join sounds on this server.",
+      "Usage": [
+        ".joinsound disable"
+      ],
+      "Submodule": "JoinSound",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".joinsound maxduration",
+        ".joinsound duration",
+        ".joinsound maxlen"
+      ],
+      "Description": "Set the maximum duration for join sounds in seconds (1-15).",
+      "Usage": [
+        ".joinsound maxduration 5"
+      ],
+      "Submodule": "JoinSound",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".lineup",
         ".ljoin",
         ".linejoin"
@@ -9026,6 +15653,57 @@
     },
     {
       "Aliases": [
+        ".serverstats serverstats",
+        ".serverstats msgstats",
+        ".serverstats messagestats"
+      ],
+      "Description": "Show server message statistics. See the top 10 most active users and channels. Optionally specify a number of days (default 7) or mention a user to see their stats.",
+      "Usage": [
+        ".serverstats serverstats",
+        ".serverstats serverstats 30",
+        ".serverstats serverstats @Snuggs"
+      ],
+      "Submodule": "MessageStats",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".milestone milestone",
+        ".milestone ms"
+      ],
+      "Description": "Set the milestone announcement channel, or show current member count and next milestone if no channel is provided.",
+      "Usage": [
+        ".milestone milestone #milestones",
+        ".milestone milestone"
+      ],
+      "Submodule": "Milestone",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".milestone milestonedisable",
+        ".milestone msdisable",
+        ".milestone msoff"
+      ],
+      "Description": "Disable milestone announcements for this server.",
+      "Usage": [
+        ".milestone milestonedisable"
+      ],
+      "Submodule": "Milestone",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".setnick"
       ],
       "Description": "Changes the nickname of the bot on this server.",
@@ -9038,6 +15716,75 @@
       "Requirements": [
         "ManageNicknames Server Permission"
       ]
+    },
+    {
+      "Aliases": [
+        ".pluginmarket pluginmarketsearch"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pluginmarket pluginmarketsearch"
+      ],
+      "Submodule": "PluginMarket",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pluginmarket pluginmarketinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pluginmarket pluginmarketinfo"
+      ],
+      "Submodule": "PluginMarket",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pluginmarket pluginmarketinstall"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pluginmarket pluginmarketinstall"
+      ],
+      "Submodule": "PluginMarket",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".pluginmarket pluginmarketuninstall"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pluginmarket pluginmarketuninstall"
+      ],
+      "Submodule": "PluginMarket",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".pluginmarket pluginmarketinstalled"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pluginmarket pluginmarketinstalled"
+      ],
+      "Submodule": "PluginMarket",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
     },
     {
       "Aliases": [
@@ -9134,6 +15881,36 @@
       "Options": null,
       "Requirements": [
         "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".apikey apikeygenerate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".apikey apikeygenerate"
+      ],
+      "Submodule": "PublicApi",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".apikey apikeyrevoke"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".apikey apikeyrevoke"
+      ],
+      "Submodule": "PublicApi",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
       ]
     },
     {
@@ -9512,6 +16289,34 @@
       "Requirements": [
         "ManageMessages Server Permission"
       ]
+    },
+    {
+      "Aliases": [
+        ".rep rep"
+      ],
+      "Description": "Give someone a reputation point (24h cooldown), or check your own or someone else's rep count. You cannot rep yourself.",
+      "Usage": [
+        ".rep rep @user",
+        ".rep rep"
+      ],
+      "Submodule": "Reputation",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rep repleaderboard",
+        ".rep replb"
+      ],
+      "Description": "Shows the top 10 most reputed users in this server.",
+      "Usage": [
+        ".rep repleaderboard"
+      ],
+      "Submodule": "Reputation",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
     },
     {
       "Aliases": [
@@ -10018,6 +16823,101 @@
       "Module": "Utility",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".activity start",
+        ".activity play",
+        ".activity launch"
+      ],
+      "Description": "Start a Discord voice channel activity. You must be in a voice channel. Use `.activity list` to see available activities.",
+      "Usage": [
+        ".activity start youtube",
+        ".activity start poker",
+        ".activity start chess"
+      ],
+      "Submodule": "VoiceActivity",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".activity list",
+        ".activity ls"
+      ],
+      "Description": "List all available voice channel activities.",
+      "Usage": [
+        ".activity list"
+      ],
+      "Submodule": "VoiceActivity",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".webhook whcreate",
+        ".webhook webhookadd"
+      ],
+      "Description": "Create a new webhook relay endpoint. External services can POST JSON to the generated URL, and the bot will forward it as an embed to the specified channel.",
+      "Usage": [
+        ".webhook whcreate #webhook-feed"
+      ],
+      "Submodule": "WebhookRelay",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".webhook whlist",
+        ".webhook webhooks"
+      ],
+      "Description": "List all webhook relay endpoints configured for this server.",
+      "Usage": [
+        ".webhook whlist"
+      ],
+      "Submodule": "WebhookRelay",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".webhook whremove",
+        ".webhook whdelete"
+      ],
+      "Description": "Remove a webhook relay endpoint by its ID.",
+      "Usage": [
+        ".webhook whremove a1b2c3d4e5f6"
+      ],
+      "Submodule": "WebhookRelay",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".webhook whsecret",
+        ".webhook whauth"
+      ],
+      "Description": "Set an authentication secret for a webhook endpoint. Incoming requests must include this secret in the Authorization header.",
+      "Usage": [
+        ".webhook whsecret a1b2c3d4e5f6 my-secret-key"
+      ],
+      "Submodule": "WebhookRelay",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
     }
   ],
   "Waifus": [
@@ -10875,6 +17775,446 @@
       "Requirements": [
         "Bot Owner Only"
       ]
+    }
+  ],
+  "XpExtended": [
+    {
+      "Aliases": [
+        ".levelcolor levelcolortoggle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".levelcolor levelcolortoggle"
+      ],
+      "Submodule": "LevelColor",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".levelcolor levelcolorset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".levelcolor levelcolorset"
+      ],
+      "Submodule": "LevelColor",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".levelcolor levelcolorinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".levelcolor levelcolorinfo"
+      ],
+      "Submodule": "LevelColor",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lvlmsg lvlmsgset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lvlmsg lvlmsgset"
+      ],
+      "Submodule": "LevelMsg",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lvlmsg lvlmsgchannel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lvlmsg lvlmsgchannel"
+      ],
+      "Submodule": "LevelMsg",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lvlmsg lvlmsgoff"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lvlmsg lvlmsgoff"
+      ],
+      "Submodule": "LevelMsg",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".lvlmsg lvlmsginfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lvlmsg lvlmsginfo"
+      ],
+      "Submodule": "LevelMsg",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".prestige prestige"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".prestige prestige"
+      ],
+      "Submodule": "Prestige",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".prestige prestigeinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".prestige prestigeinfo"
+      ],
+      "Submodule": "Prestige",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".prestige prestigeleaderboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".prestige prestigeleaderboard"
+      ],
+      "Submodule": "Prestige",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season season"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season season"
+      ],
+      "Submodule": "Season",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season seasonstart"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season seasonstart"
+      ],
+      "Submodule": "Season",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".season seasonrewards"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season seasonrewards"
+      ],
+      "Submodule": "Season",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season seasonclaim"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season seasonclaim"
+      ],
+      "Submodule": "Season",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".team teamcreate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".team teamcreate"
+      ],
+      "Submodule": "Team",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".team teamjoin"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".team teamjoin"
+      ],
+      "Submodule": "Team",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".team teamleave"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".team teamleave"
+      ],
+      "Submodule": "Team",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".team teamleaderboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".team teamleaderboard"
+      ],
+      "Submodule": "Team",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".team teaminfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".team teaminfo"
+      ],
+      "Submodule": "Team",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".voicexp voicexptoggle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".voicexp voicexptoggle"
+      ],
+      "Submodule": "VoiceXp",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".voicexp voicexprate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".voicexp voicexprate"
+      ],
+      "Submodule": "VoiceXp",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".voicexp voicexpinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".voicexp voicexpinfo"
+      ],
+      "Submodule": "VoiceXp",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".xpboost xpboost"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xpboost xpboost"
+      ],
+      "Submodule": "XpBoost",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".xpboost xpbooststatus"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xpboost xpbooststatus"
+      ],
+      "Submodule": "XpBoost",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".xpchallenge xpchallenge"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xpchallenge xpchallenge"
+      ],
+      "Submodule": "XpChallenge",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".xpchallenge xpchallengeprogress"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xpchallenge xpchallengeprogress"
+      ],
+      "Submodule": "XpChallenge",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".xpchallenge xpchallengelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xpchallenge xpchallengelist"
+      ],
+      "Submodule": "XpChallenge",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".xpdecay xpdecaytoggle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xpdecay xpdecaytoggle"
+      ],
+      "Submodule": "XpDecay",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".xpdecay xpdecayrate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xpdecay xpdecayrate"
+      ],
+      "Submodule": "XpDecay",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": [
+        "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".xpdecay xpdecayinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xpdecay xpdecayinfo"
+      ],
+      "Submodule": "XpDecay",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".xphistory xphistory"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xphistory xphistory"
+      ],
+      "Submodule": "XpHistory",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".xphistory xphistorytop"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".xphistory xphistorytop"
+      ],
+      "Submodule": "XpHistory",
+      "Module": "XpExtended",
+      "Options": null,
+      "Requirements": []
     }
   ]
 }

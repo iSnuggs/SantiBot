@@ -7,8 +7,8 @@ using SantiBot.Db.Models;
 namespace SantiBot.Modules.Administration;
 
 public sealed class LogCommandService : ILogCommandService, IReadyExecutor
-#if !GLOBAL_NADEKO
-        , INService // don't load this service on global nadeko
+#if !GLOBAL_SANTI
+        , INService // don't load this service on global SantiBot
 #endif
 {
     public ConcurrentDictionary<ulong, LogSetting> GuildLogSettings { get; }

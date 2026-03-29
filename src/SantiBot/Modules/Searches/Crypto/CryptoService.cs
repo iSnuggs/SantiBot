@@ -130,7 +130,7 @@ public class CryptoService : INService
         await _getCryptoLock.WaitAsync();
         try
         {
-            var data = await _cache.GetOrAddAsync(new("nadeko:crypto_data"),
+            var data = await _cache.GetOrAddAsync(new("santi:crypto_data"),
                 async () =>
                 {
                     try

@@ -50,7 +50,7 @@ public sealed partial class GamblingConfig : ICloneable<GamblingConfig>
 
     [Comment("""
              Amount of currency selfhosters will get PER pledged dollar CENT.
-             1 = 100 currency per $. Used almost exclusively on public nadeko.
+             1 = 100 currency per $. Used for Patreon reward scaling.
              """)]
     public decimal PatreonCurrencyPerCent { get; set; } = 1;
 
@@ -100,10 +100,10 @@ public sealed partial class GamblingConfig : ICloneable<GamblingConfig>
 public class CurrencyConfig
 {
     [Comment("""What is the emoji/character which represents the currency""")]
-    public string Sign { get; set; } = "🌸";
+    public string Sign { get; set; } = "🥠";
 
     [Comment("""What is the name of the currency""")]
-    public string Name { get; set; } = "Santi Flower";
+    public string Name { get; set; } = "Fortune Cookie";
 
     [Comment("""
              For how long (in days) will the transactions be kept in the database (curtrs)

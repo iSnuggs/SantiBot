@@ -1,6 +1,6 @@
 # Coordinator project
 
-Grpc-based coordinator useful for sharded NadekoBot. Its purpose is controlling the lifetime and checking status of the shards it creates.
+Grpc-based coordinator useful for sharded SantiBot. Its purpose is controlling the lifetime and checking status of the shards it creates.
 
 
 ### Supports

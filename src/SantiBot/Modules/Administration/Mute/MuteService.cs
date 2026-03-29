@@ -258,7 +258,7 @@ public class MuteService : INService, IReadyExecutor
     {
         ArgumentNullException.ThrowIfNull(guild);
 
-        const string defaultMuteRoleName = "nadeko-mute";
+        const string defaultMuteRoleName = "santi-mute";
 
         var muteRoleName = _guildMuteRoles.GetOrAdd(guild.Id, defaultMuteRoleName);
 

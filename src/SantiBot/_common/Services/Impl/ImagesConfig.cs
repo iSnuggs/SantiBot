@@ -25,7 +25,7 @@ public sealed class ImagesConfig : ConfigServiceBase<ImageUrls>
             ModifyConfig(c =>
             {
                 if(c.Xp.Bg.ToString().Contains("cdn.nadeko.bot"))
-                    c.Xp.Bg = new("https://cdn.nadeko.bot/xp/bgs/v6.png");
+                    c.Xp.Bg = new("https://cdn.nadeko.bot/xp/bgs/v6.png"); // TODO: replace with SantiBot-hosted XP background
                 c.Version = 10;
             });
         }

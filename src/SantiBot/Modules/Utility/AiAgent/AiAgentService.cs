@@ -100,10 +100,10 @@ public sealed class AiAgentService(
         if (!credsProvider.GetCreds().IsOwner(msg.Author))
             return false;
 
-        var nadekoId = client.CurrentUser.Id;
+        var botId = client.CurrentUser.Id;
 
-        var normalMention = $"<@{nadekoId}>";
-        var nickMention = $"<@!{nadekoId}>";
+        var normalMention = $"<@{botId}>";
+        var nickMention = $"<@!{botId}>";
 
         if (msg.Content.StartsWith(normalMention, StringComparison.InvariantCulture))
         {
@@ -145,7 +145,7 @@ public sealed class AiAgentService(
             return;
 
         var config = configService.Data;
-        var nadekoId = client.CurrentUser.Id;
+        var botId = client.CurrentUser.Id;
 
         if (config.FollowUpWindowSeconds > 0
             && conversationTracker.IsActive(msg.Author.Id, channel.Id, config.FollowUpWindowSeconds))
@@ -158,7 +158,7 @@ public sealed class AiAgentService(
             }
         }
 
-        if (msg.ReferencedMessage?.Author?.Id == nadekoId
+        if (msg.ReferencedMessage?.Author?.Id == botId
             && searchService.IsReady
             && !string.IsNullOrWhiteSpace(msg.Content))
         {
@@ -272,7 +272,7 @@ public sealed class AiAgentService(
         if (!config.Enabled)
             return false;
 
-        if (string.IsNullOrWhiteSpace(credsProvider.GetCreds().AiApiKey) && config.Backend != "nadeko")
+        if (string.IsNullOrWhiteSpace(credsProvider.GetCreds().AiApiKey) && config.Backend != "santi")
         {
             await sender.Response(channel)
                         .Error("AI agent is not configured. The bot owner must set aiApiKey in data/creds.yml.")

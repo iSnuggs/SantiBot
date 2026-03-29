@@ -20,10 +20,10 @@ public static class CurrencyHelper
 
     private static IFormatProvider GetCurrencyFormat(CultureInfo culture, string currencySign)
     {
-        var flowersCurrencyCulture = (CultureInfo)culture.Clone();
-        flowersCurrencyCulture.NumberFormat.CurrencySymbol = currencySign;
-        flowersCurrencyCulture.NumberFormat.CurrencyNegativePattern = 5;
+        var currencyCulture = (CultureInfo)culture.Clone();
+        currencyCulture.NumberFormat.CurrencySymbol = currencySign;
+        currencyCulture.NumberFormat.CurrencyNegativePattern = 5;
 
-        return flowersCurrencyCulture;
+        return currencyCulture;
     }
 }

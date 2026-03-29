@@ -6,13 +6,13 @@ public sealed class BetFlowersQuest : IQuest
         => QuestIds.BetFlowers;
 
     public string Name
-        => "Flower Gambler";
+        => "Fortune Gambler";
 
     public string Desc
-        => "Bet 300 flowers";
+        => "Bet 300 fortune cookies";
 
     public string ProgDesc
-        => "flowers bet";
+        => "fortune cookies bet";
 
     public QuestEventType EventType
         => QuestEventType.BetPlaced;

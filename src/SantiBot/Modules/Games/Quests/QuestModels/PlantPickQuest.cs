@@ -48,13 +48,13 @@ public sealed class PlantPickQuest : IQuest
         if ((progress & 0b01) == 0b01)
             emoji = IQuest.COMPLETED;
 
-        msg += emoji + " picked flowers\n";
+        msg += emoji + " picked fortune cookies\n";
 
         emoji = IQuest.INCOMPLETE;
         if ((progress & 0b10) == 0b10)
             emoji = IQuest.COMPLETED;
 
-        msg += emoji + " planted flowers";
+        msg += emoji + " planted fortune cookies";
 
         return msg;
     }

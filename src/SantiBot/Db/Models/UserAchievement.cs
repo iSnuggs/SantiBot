@@ -4,6 +4,10 @@ namespace SantiBot.Db.Models;
 public class UserAchievement : DbEntity
 {
     public ulong UserId { get; set; }
-    public string AchievementId { get; set; } = ""; // e.g. "msg_1000", "xp_level_10"
+    public ulong GuildId { get; set; }
+    public string AchievementId { get; set; } = "";
+    public string AchievementName { get; set; } = "";
+    public string Description { get; set; } = "";
+    public string Emoji { get; set; } = "";
     public DateTime UnlockedAt { get; set; }
 }

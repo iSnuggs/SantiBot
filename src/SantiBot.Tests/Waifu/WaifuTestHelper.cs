@@ -86,7 +86,7 @@ public static class WaifuTestHelper
     /// </summary>
     public static WaifuConfigService CreateConfigService()
     {
-        var tmpDir = Path.Combine(Path.GetTempPath(), "nadeko_test_" + Guid.NewGuid().ToString("N"));
+        var tmpDir = Path.Combine(Path.GetTempPath(), "santi_test_" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(tmpDir);
         var tmpPath = Path.Combine(tmpDir, "waifu.yml");
         return new WaifuConfigService(tmpPath, new YamlSeria(), Substitute.For<IPubSub>());

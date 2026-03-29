@@ -9,10 +9,10 @@ public sealed class GiveFlowersQuest : IQuest
         => "Sharing is Caring";
 
     public string Desc
-        => "Give 20 flowers to someone";
+        => "Give 20 fortune cookies to someone";
 
     public string ProgDesc
-        => "flowers given";
+        => "fortune cookies given";
 
     public QuestEventType EventType
         => QuestEventType.Give;

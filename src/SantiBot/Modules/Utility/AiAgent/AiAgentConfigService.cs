@@ -24,7 +24,7 @@ public sealed class AiAgentConfigService : ConfigServiceBase<AiAgentConfig>
             c => c.Backend,
             ConfigParsers.String,
             ConfigPrinters.ToString,
-            val => val is "openai" or "nadeko");
+            val => val is "openai" or "santi");
 
         AddParsedProp("model",
             c => c.ModelName,

@@ -81,8 +81,8 @@ public partial class Games
                                      `.nc` to see the whole canvas
                                      """)
                     .WithOkColor()
-#if GLOBAL_NADEKO
-                                .WithDescription("https://dashy.nadeko.bot/ncanvas")
+#if GLOBAL_SANTI
+                                .WithDescription("View the canvas on the dashboard")
 #endif
                     .WithFooter(hint)
                     .WithImageUrl("attachment://ncanvas.png"))

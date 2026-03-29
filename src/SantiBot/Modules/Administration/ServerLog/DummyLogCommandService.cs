@@ -3,7 +3,7 @@
 namespace SantiBot.Modules.Administration;
 
 public sealed class DummyLogCommandService : ILogCommandService
-#if GLOBAL_NADEKO
+#if GLOBAL_SANTI
 , INService
 #endif
 {

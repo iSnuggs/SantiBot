@@ -99,7 +99,7 @@ public sealed class CurrencyRewardService : INService, IReadyExecutor
             if (diff <= 0)
                 return; // no action if new is lower
 
-            // if the user pledges 5$ or more, they will get X % more flowers where X is amount in dollars,
+            // if the user pledges 5$ or more, they will get X % more currency where X is amount in dollars,
             // up to 100%
 
             await _cs.AddAsync(newPatron.UserId, diff, new TxData("patron", "update"));

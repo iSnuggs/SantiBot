@@ -43,7 +43,7 @@ public sealed class Bot : IBot
         _db = new SantiDbService(_credsProvider);
 
         var messageCacheSize =
-#if GLOBAL_NADEKO
+#if GLOBAL_SANTI
             0;
 #else
             50;
@@ -68,7 +68,7 @@ public sealed class Bot : IBot
             LogGatewayIntentWarnings = false,
             FormatUsersInBidirectionalUnicode = false,
             DefaultRetryMode = RetryMode.Retry502,
-#if GLOBAL_NADEKO
+#if GLOBAL_SANTI
             IncludeRawPayloadOnGatewayErrors = true,
 #endif
         });
@@ -357,7 +357,7 @@ public sealed class Bot : IBot
         if (arg.Exception is not null)
         {
             Log.Warning(arg.Exception, "{ErrorSource} | {ErrorMessage}", arg.Source, arg.Message);
-#if GLOBAL_NADEKO
+#if GLOBAL_SANTI
             if (arg.Exception.Data is { } data)
             {
                 Log.Warning("Full error: {FullError}",
