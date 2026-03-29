@@ -201,6 +201,7 @@ public abstract class SantiContext : DbContext
     public DbSet<TriviaTournamentEntry> TriviaTournamentEntries { get; set; }
     public DbSet<UserPokemon> UserPokemon { get; set; }
     public DbSet<DungeonPlayer> DungeonPlayers { get; set; }
+    public DbSet<DungeonItem> DungeonItems { get; set; }
     public DbSet<RaceCar> RaceCars { get; set; }
     public DbSet<CollectibleCard> CollectibleCards { get; set; }
     public DbSet<PuzzleScore> PuzzleScores { get; set; }
