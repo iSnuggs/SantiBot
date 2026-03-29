@@ -1144,4 +1144,30 @@ CREATE TABLE IF NOT EXISTS "RaidBossConfigs" (
 );
 CREATE UNIQUE INDEX IF NOT EXISTS "IX_RaidBossConfigs_GuildId" ON "RaidBossConfigs" ("GuildId");
 
+-- Pets
+CREATE TABLE IF NOT EXISTS "Pets" (
+    "Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "DateAdded" TEXT NULL,
+    "UserId" INTEGER NOT NULL,
+    "GuildId" INTEGER NOT NULL,
+    "Name" TEXT NOT NULL DEFAULT '',
+    "Species" TEXT NOT NULL DEFAULT 'Dog',
+    "Emoji" TEXT NOT NULL DEFAULT '',
+    "Level" INTEGER NOT NULL DEFAULT 1,
+    "Xp" INTEGER NOT NULL DEFAULT 0,
+    "Happiness" INTEGER NOT NULL DEFAULT 50,
+    "Hunger" INTEGER NOT NULL DEFAULT 50,
+    "Energy" INTEGER NOT NULL DEFAULT 100,
+    "IsShiny" INTEGER NOT NULL DEFAULT 0,
+    "Strength" INTEGER NOT NULL DEFAULT 0,
+    "Agility" INTEGER NOT NULL DEFAULT 0,
+    "Intelligence" INTEGER NOT NULL DEFAULT 0,
+    "AdventureCount" INTEGER NOT NULL DEFAULT 0,
+    "BattlesWon" INTEGER NOT NULL DEFAULT 0,
+    "LastFedAt" TEXT NOT NULL,
+    "LastPlayedAt" TEXT NOT NULL,
+    "EvolutionStage" INTEGER NOT NULL DEFAULT 1
+);
+CREATE INDEX IF NOT EXISTS "IX_Pets_UserId_GuildId" ON "Pets" ("UserId", "GuildId");
+
 COMMIT;

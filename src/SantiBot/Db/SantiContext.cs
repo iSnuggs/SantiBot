@@ -149,6 +149,7 @@ public abstract class SantiContext : DbContext
     public DbSet<ShopPurchase> ShopPurchases { get; set; }
     public DbSet<StickyMessage> StickyMessages { get; set; }
     public DbSet<UserPet> UserPets { get; set; }
+    public DbSet<Pet> Pets { get; set; }
 
     // public DbSet<GuildColors> GuildColors { get; set; }
 
