@@ -309,7 +309,7 @@ public sealed class RaidBossService : INService
             var match = BossTemplates.FirstOrDefault(b =>
                 b.Name.Contains(bossName, StringComparison.OrdinalIgnoreCase));
             if (match.Name is null)
-                return (false, $"Unknown boss! Available: {string.Join(", ", BossTemplates.Select(b => $"**{b.Name}**"))}");
+                return (false, $"Boss not found! Use `.raidboss bosses` to browse all 1000 bosses, or `.raidboss bosses <name>` to search.");
             template = match;
         }
         else
@@ -621,15 +621,17 @@ public sealed class RaidBossService : INService
 
             // Loot drops for top 5
             sb.AppendLine("\n**Boss Loot Drops:**");
+            var lootRank = 1;
             foreach (var p in participants.Take(5))
             {
-                if (_rng.Next(100) < 40 + (rank <= 3 ? 20 : 0))
+                if (_rng.Next(100) < 40 + (lootRank <= 3 ? 20 : 0))
                 {
                     var item = GenerateRaidLoot(p.UserId, guildId, boss.Name);
                     ctx.Add(item);
                     await ctx.SaveChangesAsync();
                     sb.AppendLine($"  {DungeonService.RarityEmoji(item.Rarity)} <@{p.UserId}> received: **{item.Name}** ({item.Rarity} {item.Slot})");
                 }
+                lootRank++;
             }
         }
 

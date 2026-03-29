@@ -812,8 +812,8 @@ public sealed class DungeonService : INService
             {
                 sb.AppendLine($"🌿 **Entangle!** {p.Username} deals {damage} — vines hold the monster!");
                 run.MonsterHp -= damage;
-                // Set flag to skip counterattack (handled below via MonsterDef trick)
-                run.MonsterAtk = 0; // temporarily zero — restored next explore
+                // Skip counterattack this round only — save and restore after counterattack section
+                run.MonsterAtk = -1; // sentinel value: skip counterattack this round
                 continue; // skip normal damage apply since we already did it
             }
             else
@@ -920,6 +920,19 @@ public sealed class DungeonService : INService
         // ═══════════════════════════════════════════════════════
         //  MONSTER COUNTERATTACK
         // ═══════════════════════════════════════════════════════
+
+        // Druid Entangle — skip counterattack this round
+        if (run.MonsterAtk == -1)
+        {
+            run.MonsterAtk = run.MonsterDef * 2; // restore approximate ATK from DEF ratio
+            HandleDeaths(run, sb);
+            if (run.Party.Count == 0)
+            {
+                ActiveDungeons.TryRemove(channelId, out _);
+                sb.AppendLine("\n💀 **Party wiped!** Dungeon failed.");
+            }
+            return (true, sb.ToString());
+        }
 
         // Bard Mockery debuff — 20% ATK reduction this round
         var effectiveMonsterAtk = run.BardMockeryActive ? run.MonsterAtk * 80 / 100 : run.MonsterAtk;
@@ -1086,7 +1099,7 @@ public sealed class DungeonService : INService
                 sb.AppendLine("💀 **Party wiped!**");
             }
 
-            return (run.Party.Count == 0, sb.ToString());
+            return (true, sb.ToString());
         }
 
         return (false, "Flee failed!");
@@ -1098,6 +1111,9 @@ public sealed class DungeonService : INService
 
     public async Task<(bool Success, string Message)> ChooseClassAsync(ulong userId, ulong guildId, string className)
     {
+        if (string.IsNullOrWhiteSpace(className))
+            return (false, $"Specify a class! Choose: {string.Join(", ", Classes.Keys.Select(k => $"**{k}**"))}");
+
         var normalized = className.Trim();
         normalized = char.ToUpper(normalized[0]) + normalized[1..].ToLower();
 
@@ -1118,6 +1134,9 @@ public sealed class DungeonService : INService
 
     public async Task<(bool Success, string Message)> ChooseRaceAsync(ulong userId, ulong guildId, string raceName)
     {
+        if (string.IsNullOrWhiteSpace(raceName))
+            return (false, $"Specify a race! Choose: {string.Join(", ", Races.Keys.Select(k => $"**{k}**"))}");
+
         var normalized = raceName.Trim();
         normalized = char.ToUpper(normalized[0]) + normalized[1..].ToLower();
 
@@ -1174,8 +1193,8 @@ public sealed class DungeonService : INService
         var perPlayer = run.TotalLoot / Math.Max(1, run.Party.Count);
         var xpPerPlayer = run.XpPool / Math.Max(1, run.Party.Count);
 
-        // Human: Versatile — +15% XP on completion too
-        foreach (var p in run.Party.Where(p => p.Race == "Human"))
+        // Human: Versatile — +15% XP on completion (once, even with multiple Humans)
+        if (run.Party.Any(p => p.Race == "Human"))
             xpPerPlayer = xpPerPlayer * 115 / 100;
 
         sb.AppendLine($"\n🏆 **DUNGEON COMPLETE!** (Difficulty {run.Difficulty})");

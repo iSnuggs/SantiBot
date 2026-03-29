@@ -166,7 +166,7 @@ public sealed class AdvancedModService : INService, IReadyExecutor
         try
         {
             var nuker = guild.GetUser(userId);
-            if (nuker is null || nuker.Id == guild.OwnerId)
+            if (nuker is null || nuker.Id == guild.OwnerId || nuker.IsBot)
                 return;
 
             // Remove all roles with permissions

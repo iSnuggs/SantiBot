@@ -328,7 +328,7 @@ public sealed class PvpService : INService
                 ability = "Divine Smite";
                 break;
             case "Bard" when _rng.Next(100) < 20:
-                damage = (int)(damage * 0.3);
+                damage = (int)(damage * 1.1); // normal hit + mockery debuffs opponent next turn
                 ability = "Vicious Mockery";
                 break;
             case "Druid" when _rng.Next(100) < 18:
