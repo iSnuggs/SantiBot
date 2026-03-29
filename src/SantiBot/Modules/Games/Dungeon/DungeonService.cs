@@ -14,6 +14,9 @@ public sealed class DungeonService : INService
     private static readonly SantiRandom _rng = new();
     public readonly ConcurrentDictionary<ulong, DungeonRun> ActiveDungeons = new();
 
+    // Raid boss random spawn callback — set by RaidBossService to avoid circular DI
+    public Func<ulong, Task<(bool Spawned, string Message, ulong ChannelId)>> OnDungeonClearedAsync { get; set; }
+
     public DungeonService(DbService db, ICurrencyService cs)
     {
         _db = db;
@@ -1220,6 +1223,18 @@ public sealed class DungeonService : INService
         }
 
         ActiveDungeons.TryRemove(channelId, out _);
+
+        // Check for random raid boss spawn
+        if (OnDungeonClearedAsync is not null)
+        {
+            var (spawned, raidMsg, raidChannel) = await OnDungeonClearedAsync(run.GuildId);
+            if (spawned)
+            {
+                sb.AppendLine($"\n🚨 **A RAID BOSS HAS APPEARED!** 🚨");
+                sb.AppendLine($"Head to <#{raidChannel}> to fight!");
+            }
+        }
+
         return (true, sb.ToString());
     }
 }
