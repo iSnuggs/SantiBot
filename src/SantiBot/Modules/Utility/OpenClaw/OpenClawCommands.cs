@@ -11,7 +11,6 @@ public partial class Utility
     {
         /// <summary>Ask Claude anything — maintains conversation per user</summary>
         [Cmd]
-        [RequireContext(ContextType.Guild)]
         public async Task Ask([Leftover] string question)
         {
             if (string.IsNullOrWhiteSpace(question))
@@ -42,7 +41,6 @@ public partial class Utility
 
         /// <summary>Reset your conversation — Claude forgets everything</summary>
         [Cmd]
-        [RequireContext(ContextType.Guild)]
         public async Task Reset()
         {
             _service.ResetSession(ctx.User.Id);
@@ -51,7 +49,6 @@ public partial class Utility
 
         /// <summary>Check if OpenClaw is online and responding</summary>
         [Cmd]
-        [RequireContext(ContextType.Guild)]
         public async Task Status()
         {
             using var typing = ctx.Channel.EnterTypingState();
@@ -70,7 +67,6 @@ public partial class Utility
 
         /// <summary>Ask a quick one-off question with no session memory</summary>
         [Cmd]
-        [RequireContext(ContextType.Guild)]
         public async Task Quick([Leftover] string question)
         {
             if (string.IsNullOrWhiteSpace(question))
@@ -90,7 +86,6 @@ public partial class Utility
 
         /// <summary>Show help for OpenClaw commands</summary>
         [Cmd]
-        [RequireContext(ContextType.Guild)]
         public async Task Info()
         {
             var eb = CreateEmbed()

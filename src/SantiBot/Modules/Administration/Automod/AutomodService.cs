@@ -97,26 +97,37 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
             if (IsExempt(rule, user, msg.Channel.Id))
                 continue;
 
+            // Include embed text so filters can't be bypassed via embeds
+            var fullContent = msg.Content;
+            if (msg.Embeds?.Count > 0)
+            {
+                var embedText = string.Join(" ", msg.Embeds.Select(e =>
+                    string.Join(" ", new[] { e.Title, e.Description, e.Footer?.Text, e.Author?.Name }
+                        .Where(s => !string.IsNullOrEmpty(s)))));
+                if (!string.IsNullOrEmpty(embedText))
+                    fullContent = $"{fullContent} {embedText}";
+            }
+
             var triggered = rule.FilterType switch
             {
-                AutomodFilterType.BannedWords => CheckBannedWords(rule, msg.Content),
-                AutomodFilterType.MassCaps => CheckMassCaps(rule, msg.Content),
-                AutomodFilterType.DuplicateText => CheckDuplicateText(rule, guild.Id, user.Id, msg.Content),
+                AutomodFilterType.BannedWords => CheckBannedWords(rule, fullContent),
+                AutomodFilterType.MassCaps => CheckMassCaps(rule, fullContent),
+                AutomodFilterType.DuplicateText => CheckDuplicateText(rule, guild.Id, user.Id, fullContent),
                 AutomodFilterType.FastSpam => CheckRateLimit(rule, guild.Id, user.Id),
                 AutomodFilterType.MassMentions => CheckMassMentions(rule, msg),
-                AutomodFilterType.EmojiSpam => CheckEmojiSpam(rule, msg.Content),
-                AutomodFilterType.NewlineSpam => CheckNewlineSpam(rule, msg.Content),
+                AutomodFilterType.EmojiSpam => CheckEmojiSpam(rule, fullContent),
+                AutomodFilterType.NewlineSpam => CheckNewlineSpam(rule, fullContent),
                 AutomodFilterType.AttachmentSpam => CheckRateLimit(rule, guild.Id, user.Id, msg.Attachments.Count > 0),
-                AutomodFilterType.SpoilerAbuse => CheckSpoilerAbuse(rule, msg.Content),
-                AutomodFilterType.ZalgoText => CheckZalgo(msg.Content),
-                AutomodFilterType.PhishingLinks => CheckPhishingLinks(msg.Content),
-                AutomodFilterType.MaskedLinks => CheckMaskedLinks(msg.Content),
-                AutomodFilterType.InviteLinks => CheckInviteLinks(msg.Content),
-                AutomodFilterType.AllLinks => CheckAllLinks(msg.Content),
-                AutomodFilterType.LinkBlacklist => CheckLinkBlacklist(rule, msg.Content),
-                AutomodFilterType.LinkWhitelist => CheckLinkWhitelist(rule, msg.Content),
+                AutomodFilterType.SpoilerAbuse => CheckSpoilerAbuse(rule, fullContent),
+                AutomodFilterType.ZalgoText => CheckZalgo(fullContent),
+                AutomodFilterType.PhishingLinks => CheckPhishingLinks(fullContent),
+                AutomodFilterType.MaskedLinks => CheckMaskedLinks(fullContent),
+                AutomodFilterType.InviteLinks => CheckInviteLinks(fullContent),
+                AutomodFilterType.AllLinks => CheckAllLinks(fullContent),
+                AutomodFilterType.LinkBlacklist => CheckLinkBlacklist(rule, fullContent),
+                AutomodFilterType.LinkWhitelist => CheckLinkWhitelist(rule, fullContent),
                 AutomodFilterType.StickerSpam => msg.Stickers.Count > rule.Threshold,
-                AutomodFilterType.ExternalEmoji => CheckExternalEmoji(rule, msg.Content, guild.Id),
+                AutomodFilterType.ExternalEmoji => CheckExternalEmoji(rule, fullContent, guild.Id),
                 AutomodFilterType.SelfbotDetection => false, // TODO: implement
                 _ => false,
             };
@@ -392,6 +403,20 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
 
             case AutomodAction.Warn:
                 Log.Information("Automod: Warned {User} in {Guild} for {Filter}", user, guild.Name, rule.FilterType);
+                try
+                {
+                    // Actually add warning to the user's warning history
+                    await using var ctx = _db.GetDbContext();
+                    ctx.Add(new Warning
+                    {
+                        GuildId = guild.Id,
+                        UserId = user.Id,
+                        Moderator = $"AutoMod",
+                        Reason = $"Automod: {rule.FilterType}",
+                    });
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception ex) { Log.Warning(ex, "Automod: Failed to save warning"); }
                 break;
 
             case AutomodAction.Mute:
@@ -437,7 +462,18 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
                 break;
 
             case AutomodAction.TempBan:
-                try { await guild.AddBanAsync(user, reason: $"Automod: {rule.FilterType} (temp {rule.ActionDurationMinutes}m)"); }
+                try
+                {
+                    var duration = rule.ActionDurationMinutes > 0 ? rule.ActionDurationMinutes : 60;
+                    await guild.AddBanAsync(user, reason: $"Automod: {rule.FilterType} (temp {duration}m)");
+                    // Schedule the unban — without this the "temp" ban is permanent!
+                    _ = Task.Run(async () =>
+                    {
+                        await Task.Delay(TimeSpan.FromMinutes(duration));
+                        try { await guild.RemoveBanAsync(user.Id); }
+                        catch { /* user may have been manually unbanned */ }
+                    });
+                }
                 catch (Exception ex) { Log.Warning(ex, "Automod: Failed to temp-ban user"); }
                 break;
 

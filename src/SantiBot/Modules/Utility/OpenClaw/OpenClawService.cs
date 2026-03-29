@@ -73,8 +73,7 @@ public sealed class OpenClawService : INService, IExecOnMessage
     // Connection config — thin client running OpenClaw
     private const string SSH_HOST = "100.86.110.14";
     private const string SSH_USER = "ubuntu";
-    private const string SSH_PASS = "***REDACTED***";
-    private const string OPENCLAW_BIN = "/home/ubuntu/.npm-global/bin/openclaw";
+    private static readonly string SSH_PASS = Environment.GetEnvironmentVariable("OPENCLAW_SSH_PASS") ?? "";
 
     // Per-user session tracking for conversation continuity
     private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, string> _sessions = new();
@@ -135,19 +134,12 @@ public sealed class OpenClawService : INService, IExecOnMessage
     {
         try
         {
-            // Escape for shell safety
-            var escaped = message
-                .Replace("\\", "\\\\")
-                .Replace("\"", "\\\"")
-                .Replace("$", "\\$")
-                .Replace("`", "\\`");
-
+            // Pass message via env var to prevent shell injection
             var sessionArg = sessionId != null ? $"--session-id {sessionId}" : "";
-
             var cmd = $"export PATH=\"$PATH:/home/ubuntu/.npm-global/bin\"; " +
-                $"openclaw agent --message \"{escaped}\" {sessionArg} --timeout {timeoutSec} 2>/dev/null";
+                $"openclaw agent --message \"$SANTI_MSG\" {sessionArg} --timeout {timeoutSec} 2>/dev/null";
 
-            var (success, output) = await RunSshAsync(cmd, timeoutSec + 30);
+            var (success, output) = await RunSshAsync(cmd, timeoutSec + 30, message);
 
             if (!success || string.IsNullOrWhiteSpace(output))
                 return (false, "Claude didn't respond. OpenClaw may be offline — check with `.oc status`");
@@ -171,10 +163,13 @@ public sealed class OpenClawService : INService, IExecOnMessage
         }
     }
 
-    private async Task<(bool Success, string Output)> RunSshAsync(string command, int timeoutSec)
+    private Task<(bool Success, string Output)> RunSshAsync(string command, int timeoutSec)
+        => RunSshAsync(command, timeoutSec, null);
+
+    private async Task<(bool Success, string Output)> RunSshAsync(string command, int timeoutSec, string messageEnvVar)
     {
         // Use /bin/bash -c to properly handle quoting and shell expansion
-        var fullCmd = $"sshpass -p {SSH_PASS} ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 {SSH_USER}@{SSH_HOST} '{command}'";
+        var fullCmd = $"sshpass -p $OPENCLAW_SSH_PASS ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 {SSH_USER}@{SSH_HOST} '{command}'";
         var psi = new ProcessStartInfo
         {
             FileName = "/bin/bash",
@@ -184,6 +179,10 @@ public sealed class OpenClawService : INService, IExecOnMessage
             UseShellExecute = false,
             CreateNoWindow = true,
         };
+        // Pass SSH password and user message via env vars — never interpolate into shell
+        psi.Environment["OPENCLAW_SSH_PASS"] = SSH_PASS;
+        if (messageEnvVar is not null)
+            psi.Environment["SANTI_MSG"] = messageEnvVar;
 
         using var process = Process.Start(psi);
         if (process is null) return (false, null);
