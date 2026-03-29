@@ -46,7 +46,9 @@ public sealed class CheckForUpdatesService(
                     continue;
 
                 var latest = githubRelease.TagName;
-                var latestVersion = Version.Parse(latest);
+                var cleanVersion = latest.TrimStart('v', 'V');
+                if (!Version.TryParse(cleanVersion, out var latestVersion))
+                    continue;
                 var lastKnownVersion = GetLastKnownVersion();
 
                 if (lastKnownVersion is null)
