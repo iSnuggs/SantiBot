@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS "RaidBossConfigs" (
     "GuildId" BIGINT NOT NULL,
     "RandomSpawnsEnabled" BOOLEAN NOT NULL DEFAULT TRUE,
     "MinDungeonClears" INTEGER NOT NULL DEFAULT 5,
-    "MaxDungeonClears" INTEGER NOT NULL DEFAULT 15,
+    "MaxDungeonClears" INTEGER NOT NULL DEFAULT 1000,
     "DungeonClearsSinceLastRaid" INTEGER NOT NULL DEFAULT 0,
     "NextSpawnThreshold" INTEGER NOT NULL DEFAULT 10,
     "SpawnChannelId" BIGINT NOT NULL DEFAULT 0,

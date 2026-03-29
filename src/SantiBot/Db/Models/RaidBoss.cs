@@ -50,7 +50,7 @@ public class RaidBossConfig : DbEntity
     // Random spawn settings
     public bool RandomSpawnsEnabled { get; set; } = true;
     public int MinDungeonClears { get; set; } = 5;
-    public int MaxDungeonClears { get; set; } = 15;
+    public int MaxDungeonClears { get; set; } = 1000;
 
     // Current counter toward next random spawn
     public int DungeonClearsSinceLastRaid { get; set; }

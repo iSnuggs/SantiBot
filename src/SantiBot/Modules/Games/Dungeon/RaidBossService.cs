@@ -514,7 +514,7 @@ public sealed class RaidBossService : INService
             config = new RaidBossConfig
             {
                 GuildId = guildId,
-                NextSpawnThreshold = _rng.Next(5, 16),
+                NextSpawnThreshold = _rng.Next(5, 1001),
             };
             ctx.Add(config);
             await ctx.SaveChangesAsync();
@@ -571,8 +571,8 @@ public sealed class RaidBossService : INService
 
     public async Task<(bool Success, string Message)> ConfigureAsync(ulong guildId, ulong channelId, int minClears, int maxClears, bool enabled)
     {
-        minClears = Math.Clamp(minClears, 2, 50);
-        maxClears = Math.Clamp(maxClears, minClears, 100);
+        minClears = Math.Clamp(minClears, 2, 1000);
+        maxClears = Math.Clamp(maxClears, minClears, 1000);
 
         await using var ctx = _db.GetDbContext();
         var config = await ctx.GetTable<RaidBossConfig>()

@@ -69,7 +69,7 @@ public partial class Games
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.Administrator)]
-        public async Task Config(ITextChannel channel, int minClears = 5, int maxClears = 15)
+        public async Task Config(ITextChannel channel, int minClears = 5, int maxClears = 1000)
         {
             var (success, message) = await _service.ConfigureAsync(
                 ctx.Guild.Id, channel.Id, minClears, maxClears, true);
@@ -86,7 +86,7 @@ public partial class Games
         {
             // Quick toggle for random spawns
             var (success, message) = await _service.ConfigureAsync(
-                ctx.Guild.Id, ctx.Channel.Id, 5, 15, true);
+                ctx.Guild.Id, ctx.Channel.Id, 5, 1000, true);
             if (success)
                 await Response().Confirm("Random raid boss spawns toggled! Use `.raidboss config #channel min max` for fine-tuning.").SendAsync();
             else
