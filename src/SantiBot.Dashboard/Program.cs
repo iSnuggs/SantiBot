@@ -42,6 +42,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "SantiBot Dashboard API",
+        Version = "v1",
+        Description = "API for managing SantiBot — a Discord bot with 1000+ features",
+    });
+});
 // SignalR for real-time dashboard updates between users
 builder.Services.AddSignalR();
 
@@ -69,6 +79,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors();
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SantiBot API v1"));
 app.UseAuthentication();
 app.UseAuthorization();
 // Verify the user has "Manage Server" permission before allowing guild config access

@@ -1,0 +1,160 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║              SANTIBOT — API & DASHBOARD SETUP GUIDE                  ║
+║              Phase 5 Configuration Checklist                         ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+This guide walks you through configuring SantiBot's API keys and
+dashboard. Most of these are OPTIONAL — the bot runs without them,
+but certain features need API keys to work.
+
+
+══════════════════════════════════════════════════════════════════════
+  STEP 1: DISCORD BOT TOKEN (already done)
+══════════════════════════════════════════════════════════════════════
+
+Your bot token is already set in: src/SantiBot/data/creds.yml
+
+If you need to change it:
+  1. Go to https://discord.com/developers/applications
+  2. Select your bot application
+  3. Go to Bot > Token > Reset Token
+  4. Paste the new token in creds.yml under "token:"
+
+
+══════════════════════════════════════════════════════════════════════
+  STEP 2: DASHBOARD — Discord OAuth2 (REQUIRED for dashboard)
+══════════════════════════════════════════════════════════════════════
+
+The dashboard needs OAuth2 to let users log in with Discord.
+
+  1. Go to https://discord.com/developers/applications
+  2. Select your bot application
+  3. Go to OAuth2 > General
+  4. Copy your CLIENT ID and CLIENT SECRET
+  5. Add a redirect URL:
+     http://localhost:5000/api/auth/callback
+     (or your production URL)
+
+  6. Edit this file:
+     src/SantiBot.Dashboard/appsettings.json
+
+     Change:
+       "Discord": {
+         "ClientId": "YOUR_CLIENT_ID_HERE",
+         "ClientSecret": "YOUR_CLIENT_SECRET_HERE",
+         "RedirectUri": "http://localhost:5000/api/auth/callback"
+       }
+
+  7. Also change the JWT secret (make it random, 32+ characters):
+       "Jwt": {
+         "Key": "CHANGE-THIS-TO-SOMETHING-RANDOM-AND-LONG-32CHARS"
+       }
+
+
+══════════════════════════════════════════════════════════════════════
+  STEP 3: OPTIONAL API KEYS (in creds.yml)
+══════════════════════════════════════════════════════════════════════
+
+These go in: src/SantiBot/data/creds.yml
+
+Each one enables extra features. Skip any you don't need.
+
+--- GOOGLE API KEY (already set) ---
+  Used for: YouTube search, Google Translate
+  Get one at: https://console.cloud.google.com/apis
+
+--- TWITCH ---
+  Used for: Twitch stream notifications
+  twitchClientId: ""
+  twitchClientSecret: ""
+  Get at: https://dev.twitch.tv/console
+
+--- OPEN WEATHER MAP ---
+  Used for: Weather commands
+  In the bot search config, add your key
+  Get at: https://openweathermap.org/api (free tier)
+
+--- COIN MARKET CAP ---
+  Used for: Crypto price commands
+  coinmarketcapApiKey: ""
+  Get at: https://coinmarketcap.com/api/ (free tier)
+
+--- OSU ---
+  Used for: osu! profile commands
+  osuApiKey: ""
+  Get at: https://osu.ppy.sh/home/account/edit (Legacy API)
+
+--- STEAM ---
+  Used for: Steam profile lookup
+  Find in: appsettings.json or creds.yml
+  Get at: https://steamcommunity.com/dev/apikey
+
+--- TOP.GG / BOT LISTS ---
+  Used for: Vote rewards, bot list stats
+  In: src/SantiBot.VotesApi/appsettings.json
+  Get at: https://top.gg/ (after listing your bot)
+
+
+══════════════════════════════════════════════════════════════════════
+  STEP 4: DATABASE (already configured)
+══════════════════════════════════════════════════════════════════════
+
+Default: SQLite (file-based, no setup needed)
+  Location: src/SantiBot/data/SantiBot.db
+
+To use PostgreSQL instead:
+  1. Install PostgreSQL
+  2. Create a database: CREATE DATABASE santibot;
+  3. Edit creds.yml:
+     db:
+       type: PostgreSql
+       connectionString: "Host=localhost;Port=5432;Database=santibot;Username=postgres;Password=YOUR_PASSWORD"
+
+
+══════════════════════════════════════════════════════════════════════
+  STEP 5: RUNNING THE DASHBOARD
+══════════════════════════════════════════════════════════════════════
+
+Backend API (C#):
+  cd src/SantiBot.Dashboard
+  dotnet run
+  → Runs on http://localhost:5000
+  → Swagger docs at http://localhost:5000/swagger
+
+Frontend (Next.js):
+  cd dashboard
+  cp .env.example .env.local
+  npm install
+  npm run dev
+  → Runs on http://localhost:3000
+
+Docker (everything together):
+  docker-compose up
+  → Bot on default port
+  → Dashboard API on :5000
+  → Dashboard frontend on :3000
+
+
+══════════════════════════════════════════════════════════════════════
+  STEP 6: VERIFY EVERYTHING WORKS
+══════════════════════════════════════════════════════════════════════
+
+[ ] Bot starts: dotnet run --project src/SantiBot
+[ ] Bot responds to .help in Discord
+[ ] Dashboard API: http://localhost:5000/api/status
+[ ] Dashboard health: http://localhost:5000/api/status/health
+[ ] Dashboard Swagger: http://localhost:5000/swagger
+[ ] Dashboard login: http://localhost:5000/api/auth/login
+[ ] Frontend loads: http://localhost:3000
+
+
+══════════════════════════════════════════════════════════════════════
+  QUICK REFERENCE — FILE LOCATIONS
+══════════════════════════════════════════════════════════════════════
+
+Bot credentials:     src/SantiBot/data/creds.yml
+Dashboard config:    src/SantiBot.Dashboard/appsettings.json
+VotesApi config:     src/SantiBot.VotesApi/appsettings.json
+Frontend env:        dashboard/.env.local
+Docker config:       docker-compose.yml
+Database:            src/SantiBot/data/SantiBot.db (SQLite)

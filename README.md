@@ -21,12 +21,22 @@ Built on a fork of [NadekoBot](https://github.com/nadeko-bot/nadekobot) v6, Sant
 
 ## Features
 
-### Core (inherited from NadekoBot)
-- **400+ Commands** — text prefix + slash commands side by side
+> **1,342 commands** across **171 command groups** with **1000+ features**
+
+### Core
+- **1,342 Commands** — text prefix + slash commands side by side
 - **Music** — YouTube, SoundCloud, and 1000+ sources via yt-dlp
-- **Economy** — currency, gambling, slots, blackjack, banking, shops, fishing
-- **Games** — trivia, hangman, tic-tac-toe, minesweeper, typing contests, pixel art
-- **XP & Leveling** — experience system with leaderboards and customizable rank cards
+- **Economy** — currency, gambling, slots, blackjack, banking, shops, fishing, crafting, jobs, stock market, crypto sim, auctions, real estate
+- **RPG Dungeon System** — 11 classes, 8 races, equipment, skill trees, prestige, party dungeons
+- **1,000 Raid Bosses** — 50 handcrafted + 950 procedural, 4 phases, 6 tiers (Common to Mythic)
+- **Pet System** — 30 species with evolution, battles, and adventures
+- **XP & Leveling** — experience system with multipliers, challenges, battle pass, prestige
+- **500 Achievements** — 12 categories including secret/hidden achievements
+- **100 Badges + 50 Titles** — collectible progression with display on profiles
+- **Crafting & Gathering** — 10 skills (mining, woodcutting, farming, cooking, alchemy, blacksmithing, etc.)
+- **PvP Arena** — 1v1 duels with Elo rating, tournaments with brackets
+- **Housing** — buy/upgrade houses, decorate rooms, guest books, 10 styles
+- **Quests** — daily, weekly, and story quests with 4 factions
 - **Stream Notifications** — Twitch, YouTube, Kick, Trovo, Facebook, Picarto go-live alerts
 - **Custom Expressions** — auto-responses with full customization
 - **Roles** — reaction roles, button roles, self-assignable roles, autoroles
@@ -47,17 +57,46 @@ Built on a fork of [NadekoBot](https://github.com/nadeko-bot/nadekobot) v6, Sant
 - **Mod Cases** — case numbering, mod notes, auto-punish escalation
 - **Mod Mail** — DM-to-staff relay with threaded channels, transcripts, and block list
 
-### Community Features
+### Social & Community
+- **30 RP Actions** — hug, pat, kiss, slap, yeet, and 25 more with flavor text
+- **20 Fun Commands** — 8-ball, tarot, jokes, facts, roasts, would-you-rather, horoscope
+- **8 Mini-Games** — Wordle, Minesweeper, Geography Quiz, Math Race, Emoji Quiz, and more
 - **Starboard** — highlight popular messages with star reactions
-- **Polls** — button-based voting with timed expiry
-- **Suggestions** — approve/deny community suggestions with reasons
+- **Polls & Suggestions** — button-based voting with timed expiry
+- **Events & Scheduling** — RSVP system, movie night polls, game night, study sessions
 - **Giveaways** — role requirements, multi-winner, auto-end
-- **Enhanced Reminders** — recurring reminders with auto-reschedule
+- **Marriage, Karma, Profiles** — full social system with friendship tracking
+
+### Server Tools
+- **Advanced Automod** — 19 filter types, anti-nuke protection, phishing detection
+- **Security Suite** — token leak scanner, honeypot channels, risk scoring, account age gates
+- **Server Analytics** — activity heatmaps, growth charts, peak hours, word frequency
+- **20 Server Themes** — Dark, Neon, Ocean, Galaxy, Halloween, Christmas, and more
+- **Custom Commands** — create server-specific commands with no code
+- **Channel Points** — Twitch-style points with predictions and rewards
+- **Lore System** — 50 lore entries, monster bestiary, treasure maps, world events
+- **Feed Subscriptions** — YouTube, Twitch, Reddit, RSS, Twitter, Steam, Weather
+- **Uptime Monitoring** — watch websites/game servers for downtime
+
+### AI & Smart Features
+- **Smart FAQ** — keyword-matching Q&A system per server
+- **Sentiment Analysis** — detect positive/negative message tone
+- **Topic Detection** — auto-categorize conversations (Gaming, Music, Tech, etc.)
+- **Name Generator** — character, fantasy, elf, dwarf, band, superhero names
+- **Writing Helper** — typo correction, passive voice detection
+
+### Developer Tools
+- **Feature Flags** — enable/disable features per server with rollout %
+- **Webhook Endpoints** — trigger actions via external webhooks
+- **Command Analytics** — usage stats, success rates, response times
+- **XP Multipliers** — global, per-channel, per-role, event-based, timed
+- **Premium Tiers** — Free, Basic, Pro, Enterprise with feature gating
 
 ### Web Dashboard
-- **32 config pages** — manage every feature from your browser
+- **32+ config pages** — manage every feature from your browser
 - **Real-time updates** — SignalR live sync between dashboard users
 - **Discord OAuth login** — secure authentication with permission checks
+- **Swagger API docs** — full API documentation at /swagger
 - **Embed builder** — visual builder with save/load templates
 
 ### Distribution
