@@ -102,6 +102,58 @@ public partial class Administration
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
+        [UserPerm(GuildPerm.Administrator)]
+        public async Task VerifySetup(IRole verifiedRole, ITextChannel verifyChannel)
+        {
+            // 1. Set role and channel
+            await _service.SetVerifiedRoleAsync(ctx.Guild.Id, verifiedRole.Id);
+            await _service.SetVerifyChannelAsync(ctx.Guild.Id, verifyChannel.Id);
+            await _service.EnableAsync(ctx.Guild.Id, true);
+
+            // 2. Lock @everyone out of all text channels EXCEPT the verify channel
+            var guild = (SocketGuild)ctx.Guild;
+            var everyoneRole = guild.EveryoneRole;
+            var lockedCount = 0;
+
+            foreach (var channel in guild.TextChannels)
+            {
+                try
+                {
+                    if (channel.Id == verifyChannel.Id)
+                    {
+                        // Verify channel: everyone can read, but only send after verified
+                        await channel.AddPermissionOverwriteAsync(everyoneRole,
+                            new OverwritePermissions(viewChannel: PermValue.Allow, sendMessages: PermValue.Deny));
+                        await channel.AddPermissionOverwriteAsync(verifiedRole,
+                            new OverwritePermissions(sendMessages: PermValue.Allow));
+                    }
+                    else
+                    {
+                        // All other channels: deny view for everyone, allow for verified
+                        await channel.AddPermissionOverwriteAsync(everyoneRole,
+                            new OverwritePermissions(viewChannel: PermValue.Deny));
+                        await channel.AddPermissionOverwriteAsync(verifiedRole,
+                            new OverwritePermissions(viewChannel: PermValue.Allow));
+                        lockedCount++;
+                    }
+                }
+                catch { /* bot may lack permissions on some channels */ }
+            }
+
+            // 3. Send the verify panel
+            await _service.SendVerifyPanelAsync(ctx.Guild.Id, verifyChannel);
+
+            await Response().Confirm(
+                $"✅ **Verification gate is live!**\n\n" +
+                $"Verified role: {verifiedRole.Mention}\n" +
+                $"Verify channel: {verifyChannel.Mention}\n" +
+                $"Channels locked: **{lockedCount}**\n\n" +
+                $"New members must click the verify button in {verifyChannel.Mention} to access the server."
+            ).SendAsync();
+        }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.BanMembers)]
         public async Task MassJoinBan(int seconds = 60)
         {

@@ -237,6 +237,36 @@ public sealed class TicketService : IReadyExecutor, INService
         ticket.ClosedByUserId = closedByUserId;
         await uow.SaveChangesAsync();
 
+        // Collect transcript before deleting the channel
+        string transcript = null;
+        try
+        {
+            var guild = _client.GetGuild(guildId);
+            var ticketChannel = guild?.GetTextChannel(channelId);
+            if (ticketChannel is not null)
+            {
+                var messages = await ticketChannel.GetMessagesAsync(500).FlattenAsync();
+                var ordered = messages.OrderBy(m => m.Timestamp).ToList();
+                var sb = new System.Text.StringBuilder();
+                sb.AppendLine($"=== Ticket #{ticket.TicketNumber} Transcript ===");
+                sb.AppendLine($"Opened: {ticket.CreatedAt:yyyy-MM-dd HH:mm UTC}");
+                sb.AppendLine($"Closed: {ticket.ClosedAt:yyyy-MM-dd HH:mm UTC}");
+                sb.AppendLine($"Opened by: {ticket.CreatorUserId}");
+                sb.AppendLine($"Closed by: {closedByUserId}");
+                sb.AppendLine(new string('─', 50));
+                foreach (var msg in ordered)
+                {
+                    var time = msg.Timestamp.UtcDateTime.ToString("HH:mm");
+                    var author = msg.Author?.Username ?? "Unknown";
+                    sb.AppendLine($"[{time}] {author}: {msg.Content}");
+                    if (msg.Attachments.Count > 0)
+                        sb.AppendLine($"  📎 {string.Join(", ", msg.Attachments.Select(a => a.Url))}");
+                }
+                transcript = sb.ToString();
+            }
+        }
+        catch (Exception ex) { Log.Warning(ex, "Failed to collect ticket transcript"); }
+
         // Log to transcript channel
         if (_configs.TryGetValue(guildId, out var config) && config.LogChannelId.HasValue)
         {
@@ -258,6 +288,14 @@ public sealed class TicketService : IReadyExecutor, INService
                         embed.AddField("Claimed by", $"<@{ticket.ClaimedByUserId}>", true);
 
                     await logChannel.SendMessageAsync(embed: embed.Build());
+
+                    // Send transcript as a text file attachment
+                    if (transcript is not null)
+                    {
+                        using var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(transcript));
+                        await logChannel.SendFileAsync(stream, $"ticket-{ticket.TicketNumber}-transcript.txt",
+                            $"Transcript for ticket #{ticket.TicketNumber}");
+                    }
                 }
             }
             catch { }

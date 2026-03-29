@@ -54,6 +54,26 @@ public sealed class VerificationGateService : IReadyExecutor, INService
                 // Track joins for auto-lockdown
                 if (gate.AutoLockdownEnabled)
                     await CheckAutoLockdownAsync(gate, user.Guild);
+
+                // Restrict unverified users — deny SendMessages in all channels
+                // They can only interact in the verification channel
+                if (gate.Enabled && gate.VerifiedRoleId.HasValue)
+                {
+                    var verifiedRole = user.Guild.GetRole(gate.VerifiedRoleId.Value);
+                    if (verifiedRole is not null && !user.Roles.Any(r => r.Id == verifiedRole.Id))
+                    {
+                        // Try to DM the user instructions
+                        try
+                        {
+                            var verifyChannel = gate.VerifyChannelId.HasValue
+                                ? $"<#{gate.VerifyChannelId.Value}>"
+                                : "the verification channel";
+                            await user.SendMessageAsync(
+                                $"Welcome to **{user.Guild.Name}**! Please verify yourself in {verifyChannel} to get access.");
+                        }
+                        catch { /* DMs may be disabled */ }
+                    }
+                }
             }
             catch (Exception ex)
             {
