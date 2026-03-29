@@ -6,8 +6,8 @@ namespace SantiBot.Modules.Gambling;
 
 public partial class Gambling
 {
-    [Name("Pets")]
-    [Group("pet")]
+    [Name("Pets (Legacy)")]
+    [Group("oldpet")]
     public partial class PetCommands : GamblingModule<PetService>
     {
         private readonly PetService _pets;

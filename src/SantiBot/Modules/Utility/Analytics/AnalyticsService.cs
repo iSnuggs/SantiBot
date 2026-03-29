@@ -278,7 +278,7 @@ public sealed class AnalyticsService : INService, IReadyExecutor
 
         var tokens = message
             .ToLowerInvariant()
-            .Split([' ', '\n', '\r', '\t', ',', '.', '!', '?', ';', ':', '"', '\'', '(', ')', '[', ']', '{', '}', '<', '>'],
+            .Split(new char[] { ' ', '\n', '\r', '\t', ',', '.', '!', '?', ';', ':', '"', '\'', '(', ')', '[', ']', '{', '}', '<', '>' },
                 StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var token in tokens)
