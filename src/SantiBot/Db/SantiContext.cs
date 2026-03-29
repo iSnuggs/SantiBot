@@ -220,6 +220,10 @@ public abstract class SantiContext : DbContext
     public DbSet<GatheringProfile> GatheringProfiles { get; set; }
     public DbSet<CraftingProfile> CraftingProfiles { get; set; }
     public DbSet<PlayerInventoryItem> PlayerInventoryItems { get; set; }
+    public DbSet<PlayerHouse> PlayerHouses { get; set; }
+    public DbSet<HouseRoom> HouseRooms { get; set; }
+    public DbSet<HouseFurniture> HouseFurniture { get; set; }
+    public DbSet<GuestBookEntry> GuestBookEntries { get; set; }
 
     // ==========================================
     // Phase 11 — Social, Profiles & XP
@@ -288,6 +292,22 @@ public abstract class SantiContext : DbContext
     public DbSet<BotCustomization> BotCustomizations { get; set; }
     public DbSet<CustomEmbed> CustomEmbeds { get; set; }
     public DbSet<CustomCommand> CustomCommands { get; set; }
+
+    // Voice, Streaming, Feeds, Predictions
+    public DbSet<SoundboardSound> SoundboardSounds { get; set; }
+    public DbSet<TempVoiceConfig> TempVoiceConfigs { get; set; }
+    public DbSet<TempVoiceChannel> TempVoiceChannels { get; set; }
+    public DbSet<VoiceSessionLog> VoiceSessionLogs { get; set; }
+    public DbSet<StreamAlert> StreamAlerts { get; set; }
+    public DbSet<ContentSchedule> ContentSchedules { get; set; }
+    public DbSet<ChannelPointsConfig> ChannelPointsConfigs { get; set; }
+    public DbSet<UserChannelPoints> UserChannelPoints { get; set; }
+    public DbSet<ChannelPointReward> ChannelPointRewards { get; set; }
+    public DbSet<Prediction> Predictions { get; set; }
+    public DbSet<PredictionBet> PredictionBets { get; set; }
+    public DbSet<FanArtSubmission> FanArtSubmissions { get; set; }
+    public DbSet<FeedSubscription> FeedSubscriptions { get; set; }
+    public DbSet<UptimeMonitor> UptimeMonitors { get; set; }
 
 
     #region Mandatory Provider-Specific Values
