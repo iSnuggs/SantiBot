@@ -212,6 +212,14 @@ public abstract class SantiContext : DbContext
     public DbSet<StoryProgress> StoryProgress { get; set; }
     public DbSet<IdlePlayer> IdlePlayers { get; set; }
     public DbSet<ChessGameModel> ChessGames { get; set; }
+    public DbSet<UserBadge> UserBadges { get; set; }
+    public DbSet<UserTitle> UserTitles { get; set; }
+    public DbSet<BattlePassProgress> BattlePassProgress { get; set; }
+    public DbSet<BattlePassConfig> BattlePassConfigs { get; set; }
+    public DbSet<DailyChallenge> DailyChallenges { get; set; }
+    public DbSet<GatheringProfile> GatheringProfiles { get; set; }
+    public DbSet<CraftingProfile> CraftingProfiles { get; set; }
+    public DbSet<PlayerInventoryItem> PlayerInventoryItems { get; set; }
 
     // ==========================================
     // Phase 11 — Social, Profiles & XP
