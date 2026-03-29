@@ -1,15 +1,75 @@
 #nullable disable
 using System.Diagnostics;
 using System.Text;
+using SantiBot.Common.ModuleBehaviors;
 
 namespace SantiBot.Modules.Utility.OpenClaw;
 
 /// <summary>
 /// Bridges SantiBot to OpenClaw's AI gateway running on the thin client.
 /// Sends messages via SSH → openclaw agent CLI and returns Claude's response.
+/// Also auto-responds to DMs — users can just chat naturally with SantiBot.
 /// </summary>
-public sealed class OpenClawService : INService
+public sealed class OpenClawService : INService, IExecOnMessage
 {
+    private readonly DiscordSocketClient _client;
+
+    // IExecOnMessage priority — lower than command handler so commands still work
+    public int Priority => -1;
+
+    public async Task<bool> ExecOnMessageAsync(IGuild guild, IUserMessage msg)
+    {
+        // Only handle DMs (guild is null for DMs)
+        if (guild is not null) return false;
+
+        // Ignore bot messages
+        if (msg.Author.IsBot) return false;
+
+        // Ignore messages that look like commands (start with .)
+        if (msg.Content.StartsWith(".")) return false;
+
+        // Ignore very short messages or empty
+        if (string.IsNullOrWhiteSpace(msg.Content) || msg.Content.Length < 2) return false;
+
+        // Forward to Claude via OpenClaw
+        using var typing = msg.Channel.EnterTypingState();
+        var (success, response) = await ChatAsync(msg.Author.Id, msg.Content);
+
+        if (success)
+        {
+            // Send as a natural message, not an embed — feels more like a conversation
+            if (response.Length <= 2000)
+                await msg.Channel.SendMessageAsync(response);
+            else
+            {
+                // Split long responses
+                var chunks = SplitMessage(response, 2000);
+                foreach (var chunk in chunks)
+                    await msg.Channel.SendMessageAsync(chunk);
+            }
+        }
+        else
+        {
+            await msg.Channel.SendMessageAsync($"Sorry, I couldn't process that right now. ({response})");
+        }
+
+        return true; // We handled this message
+    }
+
+    private static List<string> SplitMessage(string text, int maxLen)
+    {
+        var chunks = new List<string>();
+        while (text.Length > maxLen)
+        {
+            var splitAt = text.LastIndexOf('\n', maxLen);
+            if (splitAt <= 0) splitAt = text.LastIndexOf(' ', maxLen);
+            if (splitAt <= 0) splitAt = maxLen;
+            chunks.Add(text[..splitAt]);
+            text = text[splitAt..].TrimStart();
+        }
+        if (text.Length > 0) chunks.Add(text);
+        return chunks;
+    }
     // Connection config — thin client running OpenClaw
     private const string SSH_HOST = "100.86.110.14";
     private const string SSH_USER = "ubuntu";
@@ -22,6 +82,11 @@ public sealed class OpenClawService : INService
     // Rate limit — 10 second cooldown per user
     private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, DateTime> _cooldowns = new();
     private static readonly TimeSpan CooldownTime = TimeSpan.FromSeconds(10);
+
+    public OpenClawService(DiscordSocketClient client)
+    {
+        _client = client;
+    }
 
     /// <summary>
     /// Send a message to Claude via OpenClaw and get a response.
@@ -108,10 +173,12 @@ public sealed class OpenClawService : INService
 
     private async Task<(bool Success, string Output)> RunSshAsync(string command, int timeoutSec)
     {
+        // Use /bin/bash -c to properly handle quoting and shell expansion
+        var fullCmd = $"sshpass -p {SSH_PASS} ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 {SSH_USER}@{SSH_HOST} '{command}'";
         var psi = new ProcessStartInfo
         {
-            FileName = "sshpass",
-            Arguments = $"-p '{SSH_PASS}' ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 {SSH_USER}@{SSH_HOST} '{command}'",
+            FileName = "/bin/bash",
+            Arguments = $"-c \"{fullCmd.Replace("\"", "\\\"")}\"",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
