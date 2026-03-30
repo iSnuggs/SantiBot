@@ -359,14 +359,23 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
         return false;
     }
 
-    private static bool CheckExternalEmoji(AutomodRule rule, string content, ulong guildId)
+    private bool CheckExternalEmoji(AutomodRule rule, string content, ulong guildId)
     {
         if (string.IsNullOrEmpty(content))
             return false;
 
         // Custom emoji format: <:name:id> or <a:name:id>
         var matches = Regex.Matches(content, @"<a?:\w+:(\d+)>");
-        return matches.Count >= rule.Threshold;
+        if (matches.Count == 0) return false;
+
+        // Get guild's own emoji IDs to exclude them
+        var guild = _client.GetGuild(guildId);
+        var guildEmojiIds = guild?.Emotes?.Select(e => e.Id.ToString()).ToHashSet()
+            ?? new HashSet<string>();
+
+        // Only count emoji NOT from this guild
+        var externalCount = matches.Count(m => !guildEmojiIds.Contains(m.Groups[1].Value));
+        return externalCount >= rule.Threshold;
     }
 
     // ── Exemption Check ──
@@ -466,13 +475,26 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
                 {
                     var duration = rule.ActionDurationMinutes > 0 ? rule.ActionDurationMinutes : 60;
                     await guild.AddBanAsync(user, reason: $"Automod: {rule.FilterType} (temp {duration}m)");
-                    // Schedule the unban — without this the "temp" ban is permanent!
-                    _ = Task.Run(async () =>
+                    // Schedule unban via DB timer — survives bot restarts (unlike Task.Delay)
+                    await using (var uow = _db.GetDbContext())
                     {
-                        await Task.Delay(TimeSpan.FromMinutes(duration));
-                        try { await guild.RemoveBanAsync(user.Id); }
-                        catch { /* user may have been manually unbanned */ }
-                    });
+                        await uow.GetTable<UnbanTimer>()
+                            .InsertOrUpdateAsync(() => new UnbanTimer
+                            {
+                                GuildId = guild.Id,
+                                UserId = user.Id,
+                                UnbanAt = DateTime.UtcNow.AddMinutes(duration),
+                            },
+                            existing => new UnbanTimer
+                            {
+                                UnbanAt = DateTime.UtcNow.AddMinutes(duration),
+                            },
+                            () => new UnbanTimer
+                            {
+                                GuildId = guild.Id,
+                                UserId = user.Id,
+                            });
+                    }
                 }
                 catch (Exception ex) { Log.Warning(ex, "Automod: Failed to temp-ban user"); }
                 break;

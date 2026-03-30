@@ -76,6 +76,26 @@ public sealed class TicketService : IReadyExecutor, INService
                     var guild = (component.Channel as SocketGuildChannel)?.Guild;
                     if (guild is null) return;
 
+                    // Permission check: only ticket creator, staff role, or admins can close
+                    var guildUser = guild.GetUser(component.User.Id);
+                    var config = _configs.TryGetValue(guild.Id, out var cfg) ? cfg : null;
+                    var isStaff = guildUser is not null &&
+                        (guildUser.GuildPermissions.Administrator ||
+                         guildUser.GuildPermissions.ManageChannels ||
+                         (config?.SupportRoleId is not null && guildUser.Roles.Any(r => r.Id == config.SupportRoleId.Value)));
+
+                    // Check if they're the ticket creator
+                    await using var checkCtx = _db.GetDbContext();
+                    var ticket = await checkCtx.Set<Ticket>()
+                        .FirstOrDefaultAsyncEF(t => t.GuildId == guild.Id && t.ChannelId == component.Channel.Id && t.Status != TicketStatus.Closed);
+                    var isCreator = ticket is not null && ticket.CreatorUserId == component.User.Id;
+
+                    if (!isStaff && !isCreator)
+                    {
+                        await component.FollowupAsync("Only staff or the ticket creator can close tickets.", ephemeral: true);
+                        return;
+                    }
+
                     var success = await CloseTicketByChannelAsync(guild.Id, component.Channel.Id, component.User.Id);
                     if (success)
                         await component.FollowupAsync("Ticket will be closed shortly.", ephemeral: true);
@@ -97,6 +117,20 @@ public sealed class TicketService : IReadyExecutor, INService
                     await component.DeferAsync(ephemeral: true);
                     var guild = (component.Channel as SocketGuildChannel)?.Guild;
                     if (guild is null) return;
+
+                    // Permission check: only staff or admins can claim tickets
+                    var claimUser = guild.GetUser(component.User.Id);
+                    var claimConfig = _configs.TryGetValue(guild.Id, out var claimCfg) ? claimCfg : null;
+                    var canClaim = claimUser is not null &&
+                        (claimUser.GuildPermissions.Administrator ||
+                         claimUser.GuildPermissions.ManageChannels ||
+                         (claimConfig?.SupportRoleId is not null && claimUser.Roles.Any(r => r.Id == claimConfig.SupportRoleId.Value)));
+
+                    if (!canClaim)
+                    {
+                        await component.FollowupAsync("Only staff members can claim tickets.", ephemeral: true);
+                        return;
+                    }
 
                     var success = await ClaimTicketByChannelAsync(guild.Id, component.Channel.Id, component.User.Id);
                     if (success)

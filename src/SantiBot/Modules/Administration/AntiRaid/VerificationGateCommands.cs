@@ -57,12 +57,15 @@ public partial class Administration
             {
                 await _service.SetLockdownAsync(ctx.Guild.Id, false);
 
-                // Reset verification level to medium
+                // Restore previous verification level (saved before lockdown)
                 try
                 {
                     var guild = ctx.Guild as Discord.WebSocket.SocketGuild;
                     if (guild is not null)
-                        await guild.ModifyAsync(g => g.VerificationLevel = VerificationLevel.Medium);
+                    {
+                        var previousLevel = _service.GetPreviousVerificationLevel(guild.Id);
+                        await guild.ModifyAsync(g => g.VerificationLevel = previousLevel);
+                    }
                 }
                 catch { }
 

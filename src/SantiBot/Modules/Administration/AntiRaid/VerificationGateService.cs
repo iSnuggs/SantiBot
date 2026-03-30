@@ -18,6 +18,9 @@ public sealed class VerificationGateService : IReadyExecutor, INService
     // Track recent joins for auto-lockdown: GuildId → list of join timestamps
     private readonly ConcurrentDictionary<ulong, List<DateTime>> _joinTracker = new();
 
+    // Track previous verification level before lockdown so we can restore it
+    private readonly ConcurrentDictionary<ulong, VerificationLevel> _previousVerificationLevels = new();
+
     public VerificationGateService(DbService db, DiscordSocketClient client, IMessageSenderService sender)
     {
         _db = db;
@@ -108,6 +111,9 @@ public sealed class VerificationGateService : IReadyExecutor, INService
 
         try
         {
+            // Save previous verification level so we can restore it
+            _previousVerificationLevels[guild.Id] = guild.VerificationLevel;
+
             // Set verification level to highest
             await guild.ModifyAsync(g => g.VerificationLevel = VerificationLevel.Extreme);
 
@@ -347,6 +353,9 @@ public sealed class VerificationGateService : IReadyExecutor, INService
 
         return banned;
     }
+
+    public VerificationLevel GetPreviousVerificationLevel(ulong guildId)
+        => _previousVerificationLevels.TryRemove(guildId, out var level) ? level : VerificationLevel.Medium;
 
     private async Task<VerificationGate> GetOrCreateAsync(ulong guildId)
     {

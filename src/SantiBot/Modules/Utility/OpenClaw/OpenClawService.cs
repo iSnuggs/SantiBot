@@ -98,7 +98,7 @@ public sealed class OpenClawService : INService, IExecOnMessage
         {
             var wait = CooldownTime - (DateTime.UtcNow - last);
             if (wait > TimeSpan.Zero)
-                return (false, $"Cooldown! Wait **{wait.Seconds}s** before asking again.");
+                return (false, $"Cooldown! Wait **{(int)wait.TotalSeconds}s** before asking again.");
         }
         _cooldowns[userId] = DateTime.UtcNow;
 
