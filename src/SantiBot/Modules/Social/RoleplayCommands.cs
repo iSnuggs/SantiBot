@@ -103,11 +103,11 @@ public partial class Social
                     if (!string.IsNullOrEmpty(_klipyKey))
                     {
                         var json = await _gifHttp.GetStringAsync(
-                            $"https://api.klipy.com/v1/search?q={query}&key={_klipyKey}&limit=20");
-                        // Klipy returns results array with media urls
-                        var matches = Regex.Matches(json, "\"url\":\\s*\"(https://[^\"]+\\.gif)\"");
+                            $"https://api.klipy.com/v2/search?q={query}&key={_klipyKey}&limit=20");
+                        // Klipy v2: results[].media_formats.mediumgif.url
+                        var matches = Regex.Matches(json, "\"mediumgif\":\\{\"url\":\"(https://[^\"]+\\.gif)\"");
                         if (matches.Count > 0)
-                            return matches[_rng.Next(matches.Count)].Groups[1].Value;
+                            return matches[_rng.Next(matches.Count)].Groups[1].Value.Replace("\\/", "/");
                     }
 
                     // Fall back to Giphy if Klipy key not set or fails
