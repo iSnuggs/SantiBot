@@ -168,6 +168,15 @@ public sealed class PvpService : INService
         await SaveStatsAsync(challengerStats);
         await SaveStatsAsync(targetStats);
 
+        // PvP achievements
+        var winnerStats = winnerId == challengerId ? challengerStats : targetStats;
+        Social.AchievementService.Award(guildId, winnerId, "combat_first_blood");
+        if (winnerStats.Wins >= 10) Social.AchievementService.Award(guildId, winnerId, "combat_warrior");
+        if (winnerStats.Wins >= 25) Social.AchievementService.Award(guildId, winnerId, "combat_gladiator");
+        if (winnerStats.Wins >= 50) Social.AchievementService.Award(guildId, winnerId, "combat_champion");
+        if (winnerStats.Wins >= 100) Social.AchievementService.Award(guildId, winnerId, "combat_legend");
+        if (winnerStats.WinStreak >= 10) Social.AchievementService.Award(guildId, winnerId, "combat_undefeated");
+
         // Build embed
         var eb = new EmbedBuilder()
             .WithTitle($"PvP Duel: {challengerName} vs {targetName}")

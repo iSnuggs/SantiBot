@@ -218,6 +218,10 @@ public sealed class PetService(DbService _db, ICurrencyService _cs) : INService
         ctx.Set<Pet>().Add(pet);
         await ctx.SaveChangesAsync();
 
+        // Pet achievements
+        Social.AchievementService.Award(guildId, userId, "games_pet_master");
+        if (isShiny) Social.AchievementService.Award(guildId, userId, "games_pet_shiny");
+
         return (pet, null);
     }
 

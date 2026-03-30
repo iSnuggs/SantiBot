@@ -139,6 +139,15 @@ public partial class Gambling
         private string GetSlotMessageTextInternal(SlotResult result)
         {
             var multi = result.Multiplier.ToString("0.##");
+
+            // Gambling achievements
+            if (result.WinType is not SlotWinType.None && ctx?.Guild is not null)
+            {
+                Social.AchievementService.Award(ctx.Guild.Id, ctx.User.Id, "gamble_win");
+                if (result.WinType == SlotWinType.TrippleJoker)
+                    Social.AchievementService.Award(ctx.Guild.Id, ctx.User.Id, "gamble_jackpot");
+            }
+
             var msg = result.WinType switch
             {
                 SlotWinType.SingleJoker => GetText(strs.slot_single(CurrencySign, multi)),
