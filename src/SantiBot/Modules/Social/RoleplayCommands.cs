@@ -99,24 +99,33 @@ public partial class Social
                 {
                     var query = Uri.EscapeDataString(source.Category);
 
-                    // Try Klipy first (Tenor replacement, needs API key)
+                    // Try Klipy (Tenor replacement)
                     if (!string.IsNullOrEmpty(_klipyKey))
                     {
-                        var json = await _gifHttp.GetStringAsync(
-                            $"https://api.klipy.com/v2/search?q={query}&key={_klipyKey}&limit=20");
-                        // Klipy v2: results[].media_formats.mediumgif.url
-                        var matches = Regex.Matches(json, "\"mediumgif\":\\{\"url\":\"(https://[^\"]+\\.gif)\"");
-                        if (matches.Count > 0)
-                            return matches[_rng.Next(matches.Count)].Groups[1].Value.Replace("\\/", "/");
+                        try
+                        {
+                            var klipyJson = await _gifHttp.GetStringAsync(
+                                $"https://api.klipy.com/v2/search?q={query}&key={_klipyKey}&limit=20");
+                            // Klipy returns escaped URLs like https:\/\/static.klipy.com\/...
+                            var klipyMatches = Regex.Matches(klipyJson, "\"mediumgif\":\\{\"url\":\"([^\"]+)\"");
+                            if (klipyMatches.Count > 0)
+                            {
+                                var url = klipyMatches[_rng.Next(klipyMatches.Count)].Groups[1].Value;
+                                return url.Replace("\\/", "/");
+                            }
+                        }
+                        catch { /* fall through to Giphy */ }
                     }
 
-                    // Fall back to Giphy if Klipy key not set or fails
+                    // Giphy fallback
+                    try
                     {
-                        var json = await _gifHttp.GetStringAsync(
+                        var giphyJson = await _gifHttp.GetStringAsync(
                             $"https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag={query}&rating=g");
-                        var match = Regex.Match(json, "\"url\":\\s*\"(https://media[^\"]+\\.gif)\"");
-                        if (match.Success) return match.Groups[1].Value;
+                        var giphyMatch = Regex.Match(giphyJson, "\"url\":\\s*\"(https://media[^\"]+\\.gif)\"");
+                        if (giphyMatch.Success) return giphyMatch.Groups[1].Value;
                     }
+                    catch { /* both failed */ }
                 }
             }
             catch (Exception ex)
