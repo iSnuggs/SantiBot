@@ -21,58 +21,81 @@ public partial class Social
         private static string Pick(string[] pool)
             => pool[_rng.Next(pool.Length)];
 
-        // Map each RP action to its nekos.best API v2 category.
-        // Actions without a matching endpoint are omitted and won't show GIFs.
-        private static readonly Dictionary<string, string> _gifCategories = new()
+        // Multi-source GIF mapping: action → (source, category)
+        // Source: "nekos" = nekos.best, "waifu" = waifu.pics
+        private static readonly Dictionary<string, (string Source, string Category)> _gifSources = new()
         {
-            ["hug"]       = "hug",
-            ["pat"]       = "pat",
-            ["kiss"]      = "kiss",
-            ["slap"]      = "slap",
-            ["poke"]      = "poke",
-            ["cuddle"]    = "cuddle",
-            ["wave"]      = "wave",
-            ["highfive"]  = "highfive",
-            ["bite"]      = "bite",
-            ["punch"]     = "punch",
-            ["tickle"]    = "tickle",
-            ["boop"]      = "boop",
-            ["bonk"]      = "bonk",
-            ["lick"]      = "lick",
-            ["stare"]     = "stare",
-            ["cry"]       = "cry",
-            ["dance"]     = "dance",
-            ["yeet"]      = "yeet",
-            ["nuzzle"]    = "nuzzle",
-            ["wink"]      = "wink",
-            ["blush"]     = "blush",
-            ["handshake"] = "handshake",
-            // These actions have no nekos.best category:
-            // tackle, fistbump, salute, bow, cheer, pout, dab, backflip
+            // nekos.best primary sources
+            ["hug"]       = ("nekos", "hug"),
+            ["pat"]       = ("nekos", "pat"),
+            ["kiss"]      = ("nekos", "kiss"),
+            ["slap"]      = ("nekos", "slap"),
+            ["poke"]      = ("nekos", "poke"),
+            ["cuddle"]    = ("nekos", "cuddle"),
+            ["wave"]      = ("nekos", "wave"),
+            ["highfive"]  = ("nekos", "highfive"),
+            ["bite"]      = ("nekos", "bite"),
+            ["punch"]     = ("nekos", "punch"),
+            ["tickle"]    = ("nekos", "tickle"),
+            ["boop"]      = ("nekos", "boop"),
+            ["bonk"]      = ("nekos", "bonk"),
+            ["lick"]      = ("nekos", "lick"),
+            ["stare"]     = ("nekos", "stare"),
+            ["cry"]       = ("nekos", "cry"),
+            ["dance"]     = ("nekos", "dance"),
+            ["yeet"]      = ("nekos", "yeet"),
+            ["nuzzle"]    = ("nekos", "nuzzle"),
+            ["wink"]      = ("nekos", "wink"),
+            ["blush"]     = ("nekos", "blush"),
+            ["handshake"] = ("nekos", "handshake"),
+            // nekos.best additional
+            ["salute"]    = ("nekos", "salute"),
+            ["pout"]      = ("nekos", "pout"),
+            ["kick"]      = ("nekos", "kick"),
+            // waifu.pics fallbacks for actions nekos.best doesn't have
+            ["tackle"]    = ("waifu", "glomp"),      // glomp = tackle/pounce
+            ["fistbump"]  = ("waifu", "highfive"),    // closest match
+            ["cheer"]     = ("waifu", "happy"),       // closest match
+            ["bow"]       = ("waifu", "smile"),       // closest match
+            ["dab"]       = ("waifu", "smug"),        // closest match
+            ["backflip"]  = ("waifu", "happy"),       // closest match
         };
 
         /// <summary>
-        /// Fetches a random anime GIF URL from nekos.best API v2.
-        /// Returns null on failure or if the action has no API category.
+        /// Fetches a random anime GIF from nekos.best or waifu.pics.
+        /// Falls back between sources if one is down. Returns null on all failures.
         /// </summary>
         private static async Task<string> GetGifAsync(string action)
         {
-            if (!_gifCategories.TryGetValue(action, out var category))
+            if (!_gifSources.TryGetValue(action, out var source))
                 return null;
 
             try
             {
-                var json = await _gifHttp.GetStringAsync(
-                    $"https://nekos.best/api/v2/{category}");
-                // Response shape: {"results":[{"anime_name":"...","url":"https://nekos.best/...gif"}]}
-                var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
-                return match.Success ? match.Groups[1].Value : null;
+                if (source.Source == "nekos")
+                {
+                    var json = await _gifHttp.GetStringAsync(
+                        $"https://nekos.best/api/v2/{source.Category}");
+                    var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                    if (match.Success) return match.Groups[1].Value;
+                }
+
+                // waifu.pics as primary or fallback
+                {
+                    var waifuCat = source.Source == "waifu" ? source.Category
+                        : _gifSources.TryGetValue(action, out var ws) ? ws.Category : action;
+                    var json = await _gifHttp.GetStringAsync(
+                        $"https://api.waifu.pics/sfw/{waifuCat}");
+                    var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                    if (match.Success) return match.Groups[1].Value;
+                }
             }
             catch (Exception ex)
             {
-                Log.Warning(ex, "Failed to fetch GIF from nekos.best for action {Action}", action);
-                return null;
+                Log.Warning(ex, "Failed to fetch GIF for action {Action}", action);
             }
+
+            return null;
         }
 
         // ── 1. Hug ──────────────────────────────────────────────
@@ -522,11 +545,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Tackle(IUser target)
         {
-            // No nekos.best category for tackle — text only
+            var gifUrl = await GetGifAsync("tackle");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F3C8 Tackle!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_tackleLines)} {target.Mention}!")
                 .WithErrorColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -593,11 +617,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Fistbump(IUser target)
         {
-            // No nekos.best category for fistbump — text only
+            var gifUrl = await GetGifAsync("fistbump");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F91C Fist Bump!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_fistbumpLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -616,11 +641,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Salute(IUser target)
         {
-            // No nekos.best category for salute — text only
+            var gifUrl = await GetGifAsync("salute");
             var eb = CreateEmbed()
                 .WithTitle("\U0001FAE1 Salute!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_saluteLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -639,11 +665,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Bow(IUser target)
         {
-            // No nekos.best category for bow — text only
+            var gifUrl = await GetGifAsync("bow");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F647 Bow!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_bowLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -662,11 +689,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Cheer(IUser target)
         {
-            // No nekos.best category for cheer — text only
+            var gifUrl = await GetGifAsync("cheer");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F389 Cheer!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_cheerLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -685,11 +713,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Pout(IUser target)
         {
-            // No nekos.best category for pout — text only
+            var gifUrl = await GetGifAsync("pout");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F61E Pout!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_poutLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -756,11 +785,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Dab(IUser target)
         {
-            // No nekos.best category for dab — text only
+            var gifUrl = await GetGifAsync("dab");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F596 Dab!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_dabLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -779,11 +809,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Backflip(IUser target)
         {
-            // No nekos.best category for backflip — text only
+            var gifUrl = await GetGifAsync("backflip");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F938 Backflip!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_backflipLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
     }
