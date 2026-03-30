@@ -52,6 +52,37 @@ public partial class Social
             ["salute"]    = ("nekos", "salute"),
             ["pout"]      = ("nekos", "pout"),
             ["kick"]      = ("nekos", "kick"),
+            // nekos.best new actions
+            ["angry"]     = ("nekos", "angry"),
+            ["baka"]      = ("nekos", "baka"),
+            ["blowkiss"]  = ("nekos", "blowkiss"),
+            ["carry"]     = ("nekos", "carry"),
+            ["clap"]      = ("nekos", "clap"),
+            ["confused"]  = ("nekos", "confused"),
+            ["facepalm"]  = ("nekos", "facepalm"),
+            ["feed"]      = ("nekos", "feed"),
+            ["handhold"]  = ("nekos", "handhold"),
+            ["happy"]     = ("nekos", "happy"),
+            ["laugh"]     = ("nekos", "laugh"),
+            ["nom"]       = ("nekos", "nom"),
+            ["peck"]      = ("nekos", "peck"),
+            ["run"]       = ("nekos", "run"),
+            ["shocked"]   = ("nekos", "shocked"),
+            ["shoot"]     = ("nekos", "shoot"),
+            ["shrug"]     = ("nekos", "shrug"),
+            ["sip"]       = ("nekos", "sip"),
+            ["sleep"]     = ("nekos", "sleep"),
+            ["smile"]     = ("nekos", "smile"),
+            ["smug"]      = ("nekos", "smug"),
+            ["tableflip"] = ("nekos", "tableflip"),
+            ["think"]     = ("nekos", "think"),
+            ["thumbsup"]  = ("nekos", "thumbsup"),
+            ["yawn"]      = ("nekos", "yawn"),
+            // waifu.pics extras
+            ["bully"]     = ("waifu", "bully"),
+            ["cringe"]    = ("waifu", "cringe"),
+            ["glomp"]     = ("waifu", "glomp"),
+            ["awoo"]      = ("waifu", "awoo"),
             // Klipy/Giphy search for actions without anime API endpoints
             ["tackle"]    = ("klipy", "anime tackle"),
             ["fistbump"]  = ("klipy", "anime fist bump"),
@@ -855,5 +886,140 @@ public partial class Social
             if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
+
+        // ═══════════════════════════════════════════════════════════
+        //  NEW ACTIONS (25 more)
+        // ═══════════════════════════════════════════════════════════
+
+        private async Task<Discord.EmbedBuilder> MakeRpEmbed(IUser user, IUser target, string action, string emoji, string title, string[] lines, bool aggressive = false)
+        {
+            var gifUrl = await GetGifAsync(action);
+            var eb = CreateEmbed()
+                .WithTitle($"{emoji} {title}")
+                .WithDescription($"{user.Mention} {lines[_rng.Next(lines.Length)]} {target.Mention}!");
+            if (aggressive) eb.WithErrorColor(); else eb.WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
+            return eb;
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Angry(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "angry", "😠", "Angry!", ["is furious at", "glares angrily at", "yells at", "fumes at", "is mad at"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Baka(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "baka", "😤", "Baka!", ["calls", "yells BAKA at", "scolds", "pouts at", "calls an idiot:"], true)).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Blowkiss(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "blowkiss", "😘", "Blow Kiss!", ["blows a kiss to", "sends a flying kiss to", "winks and blows a kiss at", "throws a kiss toward", "blows a sweet kiss to"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Carry(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "carry", "🏋️", "Carry!", ["picks up and carries", "lifts", "scoops up", "princess-carries", "throws over their shoulder:"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Clap(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "clap", "👏", "Clap!", ["applauds", "gives a standing ovation to", "claps for", "slow claps at", "cheers on"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Confused(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "confused", "😕", "Confused!", ["is confused by", "tilts their head at", "doesn't understand", "gives a puzzled look to", "is bewildered by"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Facepalm(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "facepalm", "🤦", "Facepalm!", ["facepalms at", "can't believe", "is done with", "sighs at", "shakes their head at"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Feed(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "feed", "🍰", "Feed!", ["feeds", "shares food with", "gives a snack to", "stuffs food into", "hand-feeds"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Handhold(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "handhold", "🤝", "Hold Hands!", ["holds hands with", "grabs the hand of", "intertwines fingers with", "reaches for the hand of", "gently holds"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Happy(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "happy", "😊", "Happy!", ["is happy because of", "smiles brightly at", "beams with joy at", "is overjoyed around", "feels happy near"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Laugh(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "laugh", "😂", "Laugh!", ["laughs at", "can't stop laughing at", "cracks up because of", "giggles at", "bursts out laughing with"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Nom(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "nom", "😋", "Nom!", ["noms on", "takes a bite of", "nibbles on", "munches on", "nom nom noms"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Peck(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "peck", "💋", "Peck!", ["gives a quick peck to", "pecks", "plants a small kiss on", "lightly kisses", "gives a gentle peck to"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Run(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "run", "🏃", "Run!", ["runs toward", "chases after", "sprints to", "dashes toward", "runs away from"], true)).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Shocked(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "shocked", "😱", "Shocked!", ["is shocked by", "can't believe what", "gasps at", "is stunned by", "jaw drops looking at"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Shoot(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "shoot", "🔫", "Shoot!", ["finger-guns at", "shoots at", "pulls out the finger guns for", "pew pew pews at", "takes aim at"], true)).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Shrug(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "shrug", "🤷", "Shrug!", ["shrugs at", "doesn't know what to tell", "shrugs toward", "gives a big shrug to", "is indifferent toward"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Sip(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "sip", "☕", "Sip!", ["sips tea while looking at", "takes a slow sip near", "sips judgmentally at", "casually sips around", "drinks tea and side-eyes"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Sleep(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "sleep", "😴", "Sleep!", ["falls asleep on", "dozes off next to", "snores beside", "naps on the shoulder of", "falls asleep cuddling"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Smile(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "smile", "😊", "Smile!", ["smiles warmly at", "gives a big smile to", "grins at", "flashes a smile at", "beams at"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Smug(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "smug", "😏", "Smug!", ["gives a smug look to", "smirks at", "looks smugly at", "grins smugly toward", "has a smug face for"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Tableflip(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "tableflip", "╯°□°）╯", "Tableflip!", ["flips a table at", "rage-flips the table toward", "throws the table because of", "╯°□°）╯ ┻━┻ at", "is so done with"], true)).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Think(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "think", "🤔", "Think!", ["thinks about", "ponders", "contemplates", "is deep in thought about", "strokes their chin looking at"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Thumbsup(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "thumbsup", "👍", "Thumbs Up!", ["gives a thumbs up to", "approves of", "supports", "gives the OK to", "gives two thumbs up to"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Yawn(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "yawn", "🥱", "Yawn!", ["yawns next to", "is bored by", "yawns because of", "can't stay awake around", "lets out a big yawn near"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Bully(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "bully", "😈", "Bully!", ["bullies", "picks on", "teases mercilessly", "won't leave alone:", "messes with"], true)).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Cringe(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "cringe", "😬", "Cringe!", ["cringes at", "can't watch", "winces because of", "is embarrassed by", "dies inside because of"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Glomp(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "glomp", "💨", "Glomp!", ["glomps", "tackle-hugs", "pounces on", "flying-hugs", "launches at"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Awoo(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "awoo", "🐺", "Awoo!", ["awoos at", "howls for", "lets out a big AWOO near", "goes awoo~ at", "howls alongside"])).SendAsync(); }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Kick(IUser target)
+        { await Response().Embed(await MakeRpEmbed(ctx.User, target, "kick", "🦵", "Kick!", ["kicks", "roundhouse kicks", "drop kicks", "gives a swift kick to", "boots"], true)).SendAsync(); }
     }
 }

@@ -39,6 +39,14 @@ public partial class Social
             ["nuzzle"]   = "anime nuzzle nsfw",
             ["seduce"]   = "anime seduce",
             ["whisper"]  = "anime whisper nsfw",
+            ["grind"]    = "anime grind nsfw",
+            ["moan"]     = "anime moan nsfw",
+            ["strip"]    = "anime strip tease",
+            ["dominate"] = "anime dominate nsfw",
+            ["submit"]   = "anime submit nsfw",
+            ["handcuff"] = "anime handcuff nsfw",
+            ["blindfold"]= "anime blindfold nsfw",
+            ["tie"]      = "anime tie up nsfw",
         };
 
         // Flavor text per action
@@ -54,6 +62,14 @@ public partial class Social
             ["nuzzle"] = ["nuzzles intimately against", "presses close to", "rubs against", "buries into", "snuggles into the neck of"],
             ["seduce"] = ["gives bedroom eyes to", "seductively winks at", "tries to charm", "puts on their best moves for", "flirts dangerously with"],
             ["whisper"] = ["whispers something naughty to", "leans in and whispers to", "murmurs softly to", "breathes sweet words to", "whispers secrets to"],
+            ["grind"] = ["grinds against", "presses up against", "moves rhythmically with", "gets close and grinds on", "dances intimately with"],
+            ["moan"] = ["moans softly near", "lets out a soft moan for", "can't hold back a moan around", "moans breathlessly at", "whimpers softly for"],
+            ["strip"] = ["performs a strip tease for", "slowly undresses for", "puts on a show for", "teases with a slow reveal for", "strips seductively for"],
+            ["dominate"] = ["dominates", "takes control of", "pins down", "asserts dominance over", "commands"],
+            ["submit"] = ["submits to", "kneels before", "surrenders to", "gives in to", "yields to"],
+            ["handcuff"] = ["handcuffs", "restrains", "cuffs the wrists of", "clicks handcuffs on", "binds"],
+            ["blindfold"] = ["blindfolds", "covers the eyes of", "ties a blindfold on", "takes away the sight of", "blindfolds and teases"],
+            ["tie"] = ["ties up", "binds the hands of", "restrains with rope", "ties the wrists of", "binds and teases"],
         };
 
         // ── Gate check — NSFW channel + server opted in ──
@@ -281,6 +297,86 @@ public partial class Social
                 .WithTitle("🤫 Whisper")
                 .WithDescription($"{ctx.User.Mention} {Pick(_lines["whisper"])} {target.Mention}!")
                 .WithColor(new Discord.Color(0xFF69B4));
+            if (gif is not null) eb.WithImageUrl(gif);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Grind(IUser target)
+        {
+            if (!await CheckNsfwAllowed()) return;
+            var gif = await GetNsfwGifAsync("grind");
+            var eb = CreateEmbed().WithTitle("💃 Grind").WithDescription($"{ctx.User.Mention} {Pick(_lines["grind"])} {target.Mention}!").WithColor(new Discord.Color(0xFF1493));
+            if (gif is not null) eb.WithImageUrl(gif);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Moan(IUser target)
+        {
+            if (!await CheckNsfwAllowed()) return;
+            var gif = await GetNsfwGifAsync("moan");
+            var eb = CreateEmbed().WithTitle("😩 Moan").WithDescription($"{ctx.User.Mention} {Pick(_lines["moan"])} {target.Mention}!").WithColor(new Discord.Color(0xFF1493));
+            if (gif is not null) eb.WithImageUrl(gif);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Strip(IUser target)
+        {
+            if (!await CheckNsfwAllowed()) return;
+            var gif = await GetNsfwGifAsync("strip");
+            var eb = CreateEmbed().WithTitle("🔥 Strip").WithDescription($"{ctx.User.Mention} {Pick(_lines["strip"])} {target.Mention}!").WithColor(new Discord.Color(0xFF1493));
+            if (gif is not null) eb.WithImageUrl(gif);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Dominate(IUser target)
+        {
+            if (!await CheckNsfwAllowed()) return;
+            var gif = await GetNsfwGifAsync("dominate");
+            var eb = CreateEmbed().WithTitle("⛓️ Dominate").WithDescription($"{ctx.User.Mention} {Pick(_lines["dominate"])} {target.Mention}!").WithColor(new Discord.Color(0x8B0000));
+            if (gif is not null) eb.WithImageUrl(gif);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Submit(IUser target)
+        {
+            if (!await CheckNsfwAllowed()) return;
+            var gif = await GetNsfwGifAsync("submit");
+            var eb = CreateEmbed().WithTitle("🧎 Submit").WithDescription($"{ctx.User.Mention} {Pick(_lines["submit"])} {target.Mention}!").WithColor(new Discord.Color(0xFF69B4));
+            if (gif is not null) eb.WithImageUrl(gif);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Handcuff(IUser target)
+        {
+            if (!await CheckNsfwAllowed()) return;
+            var gif = await GetNsfwGifAsync("handcuff");
+            var eb = CreateEmbed().WithTitle("🔗 Handcuff").WithDescription($"{ctx.User.Mention} {Pick(_lines["handcuff"])} {target.Mention}!").WithColor(new Discord.Color(0x8B0000));
+            if (gif is not null) eb.WithImageUrl(gif);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Blindfold(IUser target)
+        {
+            if (!await CheckNsfwAllowed()) return;
+            var gif = await GetNsfwGifAsync("blindfold");
+            var eb = CreateEmbed().WithTitle("🙈 Blindfold").WithDescription($"{ctx.User.Mention} {Pick(_lines["blindfold"])} {target.Mention}!").WithColor(new Discord.Color(0x8B0000));
+            if (gif is not null) eb.WithImageUrl(gif);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Tie(IUser target)
+        {
+            if (!await CheckNsfwAllowed()) return;
+            var gif = await GetNsfwGifAsync("tie");
+            var eb = CreateEmbed().WithTitle("🪢 Tie Up").WithDescription($"{ctx.User.Mention} {Pick(_lines["tie"])} {target.Mention}!").WithColor(new Discord.Color(0x8B0000));
             if (gif is not null) eb.WithImageUrl(gif);
             await Response().Embed(eb).SendAsync();
         }
