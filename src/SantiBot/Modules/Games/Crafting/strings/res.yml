@@ -1,4 +1,1 @@
-craft_recipe_not_found: "Recipe not found. Use `.craft` to see available recipes."
-craft_missing_materials: "You don't have enough **{0}** to craft this item."
-craft_success: "Successfully crafted **{0}**!{1}"
-craft_inventory_empty: Your inventory is empty. Collect materials from fishing, daily rewards, and random drops.
+# Crafting strings - commands use inline messages

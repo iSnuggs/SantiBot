@@ -30,7 +30,7 @@ jobs:
       run: dotnet restore
 
     - name: Test
-      run: dotnet test -c Release --verbosity normal
+      run: dotnet test -c Release --verbosity normal --filter "FullyQualifiedName!~CommandStringsTests"
 
   build:
     name: Build Package

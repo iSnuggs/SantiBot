@@ -1,23 +1,100 @@
-craft:
-  desc: >-
-    Show available crafting recipes and what you can craft, or craft a specific
-    item by providing its name. Materials come from fishing, daily rewards, and
-    random drops.
+mine:
+  desc: "Mine for ores. Higher mining level unlocks better ores."
   ex:
     - ''
-    - '"Lucky Charm"'
   params:
     - {}
-    - itemName:
-        desc: The name of the item to craft (use quotes for multi-word names).
+chop:
+  desc: "Chop wood. Higher woodcutting level unlocks better wood."
+  ex:
+    - ''
+  params:
+    - {}
+farm:
+  desc: "Harvest crops from your farm."
+  ex:
+    - ''
+  params:
+    - {}
+gatherherbs:
+  desc: "Gather herbs for alchemy."
+  ex:
+    - ''
+  params:
+    - {}
+craftfish:
+  desc: "Fish for crafting materials."
+  ex:
+    - ''
+  params:
+    - {}
+cook:
+  desc: "Cook a recipe. Shows all cooking recipes if no name given."
+  ex:
+    - ''
+    - Bread
+  params:
+    - {}
+    - recipeName:
+        desc: "Name of the recipe to cook."
+brew:
+  desc: "Brew an alchemy potion. Shows all recipes if no name given."
+  ex:
+    - ''
+    - Health Potion
+  params:
+    - {}
+    - recipeName:
+        desc: "Name of the potion to brew."
+forge:
+  desc: "Forge a weapon or armor. Shows all recipes if no name given."
+  ex:
+    - ''
+    - Iron Sword
+  params:
+    - {}
+    - recipeName:
+        desc: "Name of the item to forge."
+enchant:
+  desc: "Enchant an item. Shows all enchantments if no name given."
+  ex:
+    - ''
+    - Fire
+  params:
+    - {}
+    - recipeName:
+        desc: "Name of the enchantment."
+craftjewelry:
+  desc: "Craft jewelry. Shows all recipes if no name given."
+  ex:
+    - ''
+  params:
+    - {}
+    - recipeName:
+        desc: "Name of the jewelry to craft."
 inventory:
-  desc: Show your crafting materials and items.
+  desc: "Show your crafting materials and items."
   ex:
     - ''
   params:
     - {}
-craftrecipes:
-  desc: List all crafting recipes with required materials and sell values.
+recipes:
+  desc: "List all crafting recipes for a skill."
+  ex:
+    - ''
+    - cooking
+  params:
+    - {}
+    - skill:
+        desc: "Skill to show recipes for (cooking, alchemy, blacksmithing, enchanting, jewelry)."
+gatheringstats:
+  desc: "Show your gathering skill levels and XP."
+  ex:
+    - ''
+  params:
+    - {}
+craftingstats:
+  desc: "Show your crafting skill levels and XP."
   ex:
     - ''
   params:
