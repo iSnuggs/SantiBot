@@ -27,27 +27,34 @@ public partial class Social
         private static string Pick(string[] pool) => pool[_rng.Next(pool.Length)];
 
         // ── NSFW RP actions with their search terms ──
-        private static readonly Dictionary<string, string> _nsfwActions = new()
+        // GIF source mapping: (source, category)
+        // "nekos" = nekos.best SFW (anime-themed, matches the mood)
+        // "waifunsfw" = waifu.pics /nsfw/ endpoint
+        private static readonly Dictionary<string, (string Source, string Category)> _nsfwGifSources = new()
         {
-            ["kiss"]     = "anime kiss nsfw",
-            ["cuddle"]   = "anime cuddle nsfw",
-            ["lick"]     = "anime lick nsfw",
-            ["bite"]     = "anime bite nsfw",
-            ["spank"]    = "anime spank",
-            ["tease"]    = "anime tease",
-            ["blush"]    = "anime blush nsfw",
-            ["nuzzle"]   = "anime nuzzle nsfw",
-            ["seduce"]   = "anime seduce",
-            ["whisper"]  = "anime whisper nsfw",
-            ["grind"]    = "anime grind nsfw",
-            ["moan"]     = "anime moan nsfw",
-            ["strip"]    = "anime strip tease",
-            ["dominate"] = "anime dominate nsfw",
-            ["submit"]   = "anime submit nsfw",
-            ["handcuff"] = "anime handcuff nsfw",
-            ["blindfold"]= "anime blindfold nsfw",
-            ["tie"]      = "anime tie up nsfw",
+            ["kiss"]      = ("nekos", "kiss"),
+            ["cuddle"]    = ("nekos", "cuddle"),
+            ["lick"]      = ("nekos", "lick"),
+            ["bite"]      = ("nekos", "bite"),
+            ["spank"]     = ("nekos", "slap"),      // closest match
+            ["tease"]     = ("nekos", "smug"),       // teasing smug face
+            ["blush"]     = ("nekos", "blush"),
+            ["nuzzle"]    = ("nekos", "nuzzle"),
+            ["seduce"]    = ("nekos", "wink"),       // flirty
+            ["whisper"]   = ("nekos", "peck"),       // close/intimate
+            ["grind"]     = ("nekos", "dance"),      // dancing = closest
+            ["moan"]      = ("nekos", "blush"),      // blushing = closest
+            ["strip"]     = ("waifunsfw", "waifu"),  // actual nsfw
+            ["dominate"]  = ("nekos", "punch"),      // assertive
+            ["submit"]    = ("nekos", "cuddle"),     // yielding
+            ["handcuff"]  = ("nekos", "bonk"),       // playful restraint
+            ["blindfold"] = ("nekos", "shy"),        // shy/hidden - may not exist, fallback
+            ["tie"]       = ("nekos", "handhold"),   // intimate holding
         };
+
+        // Keep this for the Actions list display
+        private static readonly Dictionary<string, string> _nsfwActions = _nsfwGifSources.Keys
+            .ToDictionary(k => k, k => k);
 
         // Flavor text per action
         private static readonly Dictionary<string, string[]> _lines = new()
@@ -92,40 +99,30 @@ public partial class Social
             return true;
         }
 
-        // ── Fetch GIF from Klipy ──
+        // ── Fetch GIF from anime APIs (nekos.best or waifu.pics NSFW) ──
         private static async Task<string> GetNsfwGifAsync(string action)
         {
-            if (!_nsfwActions.TryGetValue(action, out var query))
+            if (!_nsfwGifSources.TryGetValue(action, out var source))
                 return null;
 
             try
             {
-                var encoded = Uri.EscapeDataString(query);
-
-                if (!string.IsNullOrEmpty(_klipyKey))
-                {
-                    try
-                    {
-                        var json = await _http.GetStringAsync(
-                            $"https://api.klipy.com/v2/search?q={encoded}&key={_klipyKey}&limit=20");
-                        var matches = Regex.Matches(json, "\"mediumgif\":\\{\"url\":\"([^\"]+)\"");
-                        if (matches.Count > 0)
-                            return matches[_rng.Next(matches.Count)].Groups[1].Value.Replace("\\/", "/");
-                    }
-                    catch { /* fall through */ }
-                }
-
-                // Giphy fallback
-                try
+                if (source.Source == "nekos")
                 {
                     var json = await _http.GetStringAsync(
-                        $"https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag={encoded}&rating=r");
-                    var match = Regex.Match(json, "\"url\":\\s*\"(https://media[^\"]+\\.gif)\"");
+                        $"https://nekos.best/api/v2/{source.Category}");
+                    var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                     if (match.Success) return match.Groups[1].Value;
                 }
-                catch { /* both failed */ }
+                else if (source.Source == "waifunsfw")
+                {
+                    var json = await _http.GetStringAsync(
+                        $"https://api.waifu.pics/nsfw/{source.Category}");
+                    var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                    if (match.Success) return match.Groups[1].Value;
+                }
             }
-            catch { /* outer catch */ }
+            catch { /* API failed, no GIF */ }
 
             return null;
         }
