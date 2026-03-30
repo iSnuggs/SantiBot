@@ -27,7 +27,6 @@ permrole:
   - pr
 removeperm:
   - removeperm
-  - rp
 resetglobalperms:
   - resetglobalperms
 resetperms:
