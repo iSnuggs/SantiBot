@@ -158,8 +158,17 @@ public sealed class HousingService(DbService _db, ICurrencyService _cs) : INServ
             PurchasePrice = sizeDef.Price,
             Style = "Medieval",
         };
-        ctx.Set<PlayerHouse>().Add(house);
-        await ctx.SaveChangesAsync();
+        try
+        {
+            ctx.Add(house);
+            await ctx.SaveChangesAsync();
+        }
+        catch
+        {
+            // Refund currency if DB save fails
+            await _cs.AddAsync(userId, sizeDef.Price, new TxData("house", "refund", "House purchase failed"));
+            return (false, "Something went wrong buying your house. Currency refunded!", null);
+        }
 
         // Add a default bedroom
         var defaultRoom = new HouseRoom

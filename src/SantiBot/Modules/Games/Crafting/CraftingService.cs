@@ -258,7 +258,7 @@ public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INSer
             UserId = userId,
             GuildId = guildId,
         };
-        ctx.Set<GatheringProfile>().Add(profile);
+        ctx.Add(profile);
         await ctx.SaveChangesAsync();
         return profile;
     }
@@ -277,7 +277,7 @@ public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INSer
             UserId = userId,
             GuildId = guildId,
         };
-        ctx.Set<CraftingProfile>().Add(profile);
+        ctx.Add(profile);
         await ctx.SaveChangesAsync();
         return profile;
     }
@@ -309,7 +309,7 @@ public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INSer
         }
         else
         {
-            ctx.Set<PlayerInventoryItem>().Add(new PlayerInventoryItem
+            ctx.Add(new PlayerInventoryItem
             {
                 UserId = userId,
                 GuildId = guildId,

@@ -208,6 +208,8 @@ public sealed class PvpService : INService
         long p2TotalDmg = 0;
         var maxTurns = 30;
         var turn = 0;
+        var p1Debuffed = false; // Bard mockery: reduce next attack by 30%
+        var p2Debuffed = false;
 
         var p1ClassEmoji = DungeonService.Classes.TryGetValue(p1Class, out var c1) ? c1.Emoji : "⚔️";
         var p2ClassEmoji = DungeonService.Classes.TryGetValue(p2Class, out var c2) ? c2.Emoji : "⚔️";
@@ -223,10 +225,13 @@ public sealed class PvpService : INService
 
             // Player 1 attacks Player 2
             var (p1Hit, p1Ability) = CalculateAttack(p1Atk, p2Def, p1Class, p1Race, turn);
+            if (p1Debuffed) { p1Hit = (int)(p1Hit * 0.7); p1Debuffed = false; }
+            if (p1Ability == "Vicious Mockery") p2Debuffed = true; // debuff opponent next turn
             p2CurrHp -= p1Hit;
             p1TotalDmg += p1Hit;
             var p1Desc = p1Ability is not null ? $"uses **{p1Ability}** for" : "attacks for";
             sb.AppendLine($"  {p1ClassEmoji} {p1Name} {p1Desc} **{p1Hit}** dmg! ({Math.Max(0, p2CurrHp)}/{p2Hp} HP)");
+            if (p1Ability == "Vicious Mockery") sb.AppendLine($"  🎵 {p2Name}'s next attack is weakened!");
 
             // Class passive: Warrior Second Wind
             if (p1Class == "Warrior" && p1CurrHp <= p1Hp * 0.3 && _rng.Next(100) < 25)
@@ -240,6 +245,8 @@ public sealed class PvpService : INService
 
             // Player 2 attacks Player 1
             var (p2Hit, p2Ability) = CalculateAttack(p2Atk, p1Def, p2Class, p2Race, turn);
+            if (p2Debuffed) { p2Hit = (int)(p2Hit * 0.7); p2Debuffed = false; }
+            if (p2Ability == "Vicious Mockery") p1Debuffed = true;
             p1CurrHp -= p2Hit;
             p2TotalDmg += p2Hit;
             var p2Desc = p2Ability is not null ? $"uses **{p2Ability}** for" : "attacks for";

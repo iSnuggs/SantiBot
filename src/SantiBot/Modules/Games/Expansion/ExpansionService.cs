@@ -246,8 +246,17 @@ public sealed class ExpansionService(DbService _db, ICurrencyService _cs) : INSe
     /// Prestige: reset dungeon level to 1, gain +5% permanent stat bonus.
     /// Requires level 50+. Max prestige 20 (100% bonus).
     /// </summary>
+    // Prevent double-prestige from concurrent calls
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<(ulong, ulong), byte> _prestigeLocks = new();
+
     public async Task<(bool success, string error, int newPrestige)> PrestigeAsync(ulong userId, ulong guildId)
     {
+        // Atomic lock — only one prestige operation per user at a time
+        if (!_prestigeLocks.TryAdd((userId, guildId), 0))
+            return (false, "Prestige already in progress, please wait.", 0);
+
+        try
+        {
         await using var ctx = _db.GetDbContext();
 
         var player = await ctx.GetTable<DungeonPlayer>()
@@ -312,7 +321,7 @@ public sealed class ExpansionService(DbService _db, ICurrencyService _cs) : INSe
         }
         else
         {
-            ctx.Set<PrestigeData>().Add(new PrestigeData
+            ctx.Add(new PrestigeData
             {
                 UserId = userId,
                 GuildId = guildId,
@@ -324,6 +333,11 @@ public sealed class ExpansionService(DbService _db, ICurrencyService _cs) : INSe
         }
 
         return (true, null, newPrestige);
+        }
+        finally
+        {
+            _prestigeLocks.TryRemove((userId, guildId), out _);
+        }
     }
 
     // ═══════════════════════════════════════════════════════════════
