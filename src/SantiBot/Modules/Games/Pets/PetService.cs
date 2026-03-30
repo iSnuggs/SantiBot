@@ -241,6 +241,7 @@ public sealed class PetService(DbService _db, ICurrencyService _cs) : INService
         pet.Hunger = Math.Min(100, pet.Hunger + 25);
         pet.Xp += 10 + _rng.Next(0, 6);
         pet.LastFedAt = DateTime.UtcNow;
+        Quests.ExpandedQuestService.Progress(userId, guildId, "dc_pet_feed");
 
         if (pet.Hunger > 70)
             pet.Happiness = Math.Min(100, pet.Happiness + 5);

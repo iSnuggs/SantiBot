@@ -1,4 +1,6 @@
 #nullable disable
+using System.Net.Http;
+using System.Text.RegularExpressions;
 using Santi.Common;
 
 namespace SantiBot.Modules.Social;
@@ -10,9 +12,63 @@ public partial class Social
     public partial class RoleplayCommands : SantiModule
     {
         private static readonly SantiRandom _rng = new();
+        private static readonly HttpClient _gifHttp = new();
 
         private static string Pick(string[] pool)
             => pool[_rng.Next(pool.Length)];
+
+        // Map each RP action to its nekos.best API v2 category.
+        // Actions without a matching endpoint are omitted and won't show GIFs.
+        private static readonly Dictionary<string, string> _gifCategories = new()
+        {
+            ["hug"]       = "hug",
+            ["pat"]       = "pat",
+            ["kiss"]      = "kiss",
+            ["slap"]      = "slap",
+            ["poke"]      = "poke",
+            ["cuddle"]    = "cuddle",
+            ["wave"]      = "wave",
+            ["highfive"]  = "highfive",
+            ["bite"]      = "bite",
+            ["punch"]     = "punch",
+            ["tickle"]    = "tickle",
+            ["boop"]      = "boop",
+            ["bonk"]      = "bonk",
+            ["lick"]      = "lick",
+            ["stare"]     = "stare",
+            ["cry"]       = "cry",
+            ["dance"]     = "dance",
+            ["yeet"]      = "yeet",
+            ["nuzzle"]    = "nuzzle",
+            ["wink"]      = "wink",
+            ["blush"]     = "blush",
+            ["handshake"] = "handshake",
+            // These actions have no nekos.best category:
+            // tackle, fistbump, salute, bow, cheer, pout, dab, backflip
+        };
+
+        /// <summary>
+        /// Fetches a random anime GIF URL from nekos.best API v2.
+        /// Returns null on failure or if the action has no API category.
+        /// </summary>
+        private static async Task<string> GetGifAsync(string action)
+        {
+            if (!_gifCategories.TryGetValue(action, out var category))
+                return null;
+
+            try
+            {
+                var json = await _gifHttp.GetStringAsync(
+                    $"https://nekos.best/api/v2/{category}");
+                // Response shape: {"results":[{"anime_name":"...","url":"https://nekos.best/...gif"}]}
+                var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                return match.Success ? match.Groups[1].Value : null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         // ── 1. Hug ──────────────────────────────────────────────
         private static readonly string[] _hugLines =
@@ -29,10 +85,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Hug(IUser target)
         {
+            var gifUrl = await GetGifAsync("hug");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F917 Hug!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_hugLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -51,10 +109,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Pat(IUser target)
         {
+            var gifUrl = await GetGifAsync("pat");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F90D Headpat!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_patLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -73,10 +133,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Kiss(IUser target)
         {
+            var gifUrl = await GetGifAsync("kiss");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F48B Kiss!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_kissLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -95,10 +157,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Slap(IUser target)
         {
+            var gifUrl = await GetGifAsync("slap");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F44B Slap!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_slapLines)} {target.Mention}!")
                 .WithErrorColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -117,10 +181,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Poke(IUser target)
         {
+            var gifUrl = await GetGifAsync("poke");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F449 Poke!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_pokeLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -139,10 +205,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Cuddle(IUser target)
         {
+            var gifUrl = await GetGifAsync("cuddle");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F97A Cuddle!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_cuddleLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -161,10 +229,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Wave(IUser target)
         {
+            var gifUrl = await GetGifAsync("wave");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F44B Wave!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_waveLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -183,10 +253,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Highfive(IUser target)
         {
+            var gifUrl = await GetGifAsync("highfive");
             var eb = CreateEmbed()
                 .WithTitle("\u270B High Five!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_highfiveLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -205,10 +277,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Bite(IUser target)
         {
+            var gifUrl = await GetGifAsync("bite");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F9DB Bite!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_biteLines)} {target.Mention}!")
                 .WithErrorColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -227,10 +301,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Punch(IUser target)
         {
+            var gifUrl = await GetGifAsync("punch");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F44A Punch!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_punchLines)} {target.Mention}!")
                 .WithErrorColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -249,10 +325,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Tickle(IUser target)
         {
+            var gifUrl = await GetGifAsync("tickle");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F923 Tickle!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_tickleLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -271,10 +349,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Boop(IUser target)
         {
+            var gifUrl = await GetGifAsync("boop");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F43E Boop!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_boopLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -293,10 +373,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Bonk(IUser target)
         {
+            var gifUrl = await GetGifAsync("bonk");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F528 Bonk!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_bonkLines)} {target.Mention}!")
                 .WithErrorColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -315,10 +397,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Lick(IUser target)
         {
+            var gifUrl = await GetGifAsync("lick");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F445 Lick!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_lickLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -337,10 +421,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Stare(IUser target)
         {
+            var gifUrl = await GetGifAsync("stare");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F440 Stare!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_stareLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -359,10 +445,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Cry(IUser target)
         {
+            var gifUrl = await GetGifAsync("cry");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F62D Cry!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_cryLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -381,10 +469,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Dance(IUser target)
         {
+            var gifUrl = await GetGifAsync("dance");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F57A Dance!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_danceLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -403,10 +493,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Yeet(IUser target)
         {
+            var gifUrl = await GetGifAsync("yeet");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F680 Yeet!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_yeetLines)} {target.Mention}!")
                 .WithErrorColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -425,6 +517,7 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Tackle(IUser target)
         {
+            // No nekos.best category for tackle — text only
             var eb = CreateEmbed()
                 .WithTitle("\U0001F3C8 Tackle!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_tackleLines)} {target.Mention}!")
@@ -447,10 +540,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Nuzzle(IUser target)
         {
+            var gifUrl = await GetGifAsync("nuzzle");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F431 Nuzzle!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_nuzzleLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -469,10 +564,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Wink(IUser target)
         {
+            var gifUrl = await GetGifAsync("wink");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F609 Wink!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_winkLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -491,6 +588,7 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Fistbump(IUser target)
         {
+            // No nekos.best category for fistbump — text only
             var eb = CreateEmbed()
                 .WithTitle("\U0001F91C Fist Bump!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_fistbumpLines)} {target.Mention}!")
@@ -513,6 +611,7 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Salute(IUser target)
         {
+            // No nekos.best category for salute — text only
             var eb = CreateEmbed()
                 .WithTitle("\U0001FAE1 Salute!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_saluteLines)} {target.Mention}!")
@@ -535,6 +634,7 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Bow(IUser target)
         {
+            // No nekos.best category for bow — text only
             var eb = CreateEmbed()
                 .WithTitle("\U0001F647 Bow!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_bowLines)} {target.Mention}!")
@@ -557,6 +657,7 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Cheer(IUser target)
         {
+            // No nekos.best category for cheer — text only
             var eb = CreateEmbed()
                 .WithTitle("\U0001F389 Cheer!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_cheerLines)} {target.Mention}!")
@@ -579,6 +680,7 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Pout(IUser target)
         {
+            // No nekos.best category for pout — text only
             var eb = CreateEmbed()
                 .WithTitle("\U0001F61E Pout!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_poutLines)} {target.Mention}!")
@@ -601,10 +703,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Blush(IUser target)
         {
+            var gifUrl = await GetGifAsync("blush");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F633 Blush!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_blushLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -623,10 +727,12 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Handshake(IUser target)
         {
+            var gifUrl = await GetGifAsync("handshake");
             var eb = CreateEmbed()
                 .WithTitle("\U0001F91D Handshake!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_handshakeLines)} {target.Mention}!")
                 .WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
             await Response().Embed(eb).SendAsync();
         }
 
@@ -645,6 +751,7 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Dab(IUser target)
         {
+            // No nekos.best category for dab — text only
             var eb = CreateEmbed()
                 .WithTitle("\U0001F596 Dab!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_dabLines)} {target.Mention}!")
@@ -667,6 +774,7 @@ public partial class Social
         [RequireContext(ContextType.Guild)]
         public async Task Backflip(IUser target)
         {
+            // No nekos.best category for backflip — text only
             var eb = CreateEmbed()
                 .WithTitle("\U0001F938 Backflip!")
                 .WithDescription($"{ctx.User.Mention} {Pick(_backflipLines)} {target.Mention}!")

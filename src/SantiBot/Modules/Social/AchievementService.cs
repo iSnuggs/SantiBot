@@ -655,6 +655,28 @@ public sealed class AchievementService : INService, IReadyExecutor
                 Description = def.Desc,
                 Emoji = def.Emoji
             });
+
+        // Send achievement notification to the user's guild
+        try
+        {
+            var guild = _client.GetGuild(guildId);
+            if (guild is not null)
+            {
+                var user = guild.GetUser(userId);
+                var channel = guild.SystemChannel ?? guild.DefaultChannel;
+                if (channel is not null && user is not null)
+                {
+                    var embed = new EmbedBuilder()
+                        .WithTitle("🏆 Achievement Unlocked!")
+                        .WithDescription($"{user.Mention} earned **{def.Emoji} {def.Name}**!\n*{def.Desc}*")
+                        .WithColor(new Color(0xFFD700))
+                        .WithFooter($"Category: {def.Category}")
+                        .Build();
+                    await channel.SendMessageAsync(embed: embed);
+                }
+            }
+        }
+        catch { /* notification is non-critical */ }
     }
 
     public async Task<List<UserAchievement>> GetAchievementsAsync(ulong guildId, ulong userId)
@@ -663,5 +685,18 @@ public sealed class AchievementService : INService, IReadyExecutor
         return await ctx.GetTable<UserAchievement>()
             .Where(x => x.GuildId == guildId && x.UserId == userId)
             .ToListAsyncLinqToDB();
+    }
+
+    public async Task<List<(ulong UserId, int Count)>> GetLeaderboardAsync(ulong guildId)
+    {
+        await using var ctx = _db.GetDbContext();
+        return await ctx.GetTable<UserAchievement>()
+            .Where(x => x.GuildId == guildId)
+            .GroupBy(x => x.UserId)
+            .Select(g => new { UserId = g.Key, Count = g.Count() })
+            .OrderByDescending(x => x.Count)
+            .Take(15)
+            .ToListAsyncLinqToDB()
+            .ContinueWith(t => t.Result.Select(x => (x.UserId, x.Count)).ToList());
     }
 }

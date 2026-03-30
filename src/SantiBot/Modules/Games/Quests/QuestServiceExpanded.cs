@@ -16,8 +16,12 @@ public sealed class ExpandedQuestService : INService
     private readonly ICurrencyService _cs;
     private static readonly SantiRandom _rng = new();
 
+    // Static reference for game modules to progress quests without DI
+    private static ExpandedQuestService _instance;
+
     public ExpandedQuestService(DbService db, ICurrencyService cs)
     {
+        _instance = this;
         _db = db;
         _cs = cs;
     }
@@ -487,6 +491,17 @@ public sealed class ExpandedQuestService : INService
 
     public int TotalStoryQuests
         => StoryTemplates.Length;
+
+    /// <summary>Progress a quest from any module without DI (fire and forget)</summary>
+    public static void Progress(ulong userId, ulong guildId, string questId, int amount = 1)
+    {
+        if (_instance is null) return;
+        _ = Task.Run(async () =>
+        {
+            try { await _instance.ProgressQuestAsync(userId, guildId, questId, amount); }
+            catch { /* non-critical */ }
+        });
+    }
 
     // ═══════════════════════════════════════════════════════════
     //  PROGRESS & COMPLETION

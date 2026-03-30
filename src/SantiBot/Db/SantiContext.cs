@@ -322,6 +322,7 @@ public abstract class SantiContext : DbContext
     public DbSet<XpMultiplier> XpMultipliers { get; set; }
     public DbSet<XpChallengeEntry> XpChallengeEntries { get; set; }
     public DbSet<XpChallengeParticipant> XpChallengeParticipants { get; set; }
+    public DbSet<SantiScheduledPost> SantiScheduledPosts { get; set; }
 
     // ==========================================
     // Missing Model Registrations (wiring fix)

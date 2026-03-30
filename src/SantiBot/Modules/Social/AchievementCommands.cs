@@ -133,5 +133,38 @@ public partial class Social
 
             await Response().Embed(eb).SendAsync();
         }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task AchievementLeaderboard()
+        {
+            var leaderboard = await _service.GetLeaderboardAsync(ctx.Guild.Id);
+
+            if (leaderboard.Count == 0)
+            {
+                await Response().Confirm("No one has earned any achievements yet!").SendAsync();
+                return;
+            }
+
+            var sb = new System.Text.StringBuilder();
+            var rank = 1;
+            foreach (var (userId, count) in leaderboard)
+            {
+                var medal = rank switch { 1 => "🥇", 2 => "🥈", 3 => "🥉", _ => $"#{rank}" };
+                var pct = AchievementService.AllAchievements.Count > 0
+                    ? count * 100 / AchievementService.AllAchievements.Count : 0;
+                var bar = new string('█', pct / 10) + new string('░', 10 - pct / 10);
+                sb.AppendLine($"{medal} <@{userId}> — **{count}** achievements [{bar}] {pct}%");
+                rank++;
+            }
+
+            var eb = CreateEmbed()
+                .WithTitle("🏆 Achievement Leaderboard")
+                .WithDescription(sb.ToString())
+                .WithFooter($"Total achievements available: {AchievementService.AllAchievements.Count}")
+                .WithOkColor();
+
+            await Response().Embed(eb).SendAsync();
+        }
     }
 }

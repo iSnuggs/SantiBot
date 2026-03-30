@@ -433,6 +433,7 @@ public sealed class CraftingService(DbService _db) : INService
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
         Social.AchievementService.Award(guildId, userId, "econ_miner");
+        Quests.ExpandedQuestService.Progress(userId, guildId, "dc_gather_10");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -464,6 +465,7 @@ public sealed class CraftingService(DbService _db) : INService
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
         Social.AchievementService.Award(guildId, userId, "econ_miner");
+        Quests.ExpandedQuestService.Progress(userId, guildId, "dc_gather_10");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -495,6 +497,7 @@ public sealed class CraftingService(DbService _db) : INService
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
         Social.AchievementService.Award(guildId, userId, "econ_miner");
+        Quests.ExpandedQuestService.Progress(userId, guildId, "dc_gather_10");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -526,6 +529,7 @@ public sealed class CraftingService(DbService _db) : INService
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
         Social.AchievementService.Award(guildId, userId, "econ_miner");
+        Quests.ExpandedQuestService.Progress(userId, guildId, "dc_gather_10");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -557,6 +561,7 @@ public sealed class CraftingService(DbService _db) : INService
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
         Social.AchievementService.Award(guildId, userId, "econ_miner");
+        Quests.ExpandedQuestService.Progress(userId, guildId, "dc_gather_10");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -645,8 +650,9 @@ public sealed class CraftingService(DbService _db) : INService
                 break;
         }
 
-        // Crafting achievements
+        // Crafting achievements + quest progress
         Social.AchievementService.Award(guildId, userId, "craft_100");
+        Quests.ExpandedQuestService.Progress(userId, guildId, "dc_craft_3");
         if (recipe.ResultRarity == "Legendary")
             Social.AchievementService.Award(guildId, userId, "crafting_legendary");
         switch (recipe.Skill)
