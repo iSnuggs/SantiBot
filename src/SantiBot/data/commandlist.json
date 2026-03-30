@@ -2,6 +2,113 @@
   "Administration": [
     {
       "Aliases": [
+        ".advmod antinuke"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".advmod antinuke"
+      ],
+      "Submodule": "Advanced Moderation",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".advmod riskscore"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".advmod riskscore"
+      ],
+      "Submodule": "Advanced Moderation",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".advmod nickfilter"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".advmod nickfilter"
+      ],
+      "Submodule": "Advanced Moderation",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".advmod mstats",
+        ".advmod modactions",
+        ".advmod modlog"
+      ],
+      "Description": "Show moderation action statistics for this server. Defaults to the last 30 days. You can specify a number of days, or mention a specific moderator to see their stats.",
+      "Usage": [
+        ".advmod mstats",
+        ".advmod mstats 7",
+        ".advmod mstats @ModeratorName"
+      ],
+      "Submodule": "Advanced Moderation",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".advmod spamcheck"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".advmod spamcheck"
+      ],
+      "Submodule": "Advanced Moderation",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".advmod massaction"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".advmod massaction"
+      ],
+      "Submodule": "Advanced Moderation",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".advmod modreport"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".advmod modreport"
+      ],
+      "Submodule": "Advanced Moderation",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".afkkick",
         ".afkkick status"
       ],
@@ -305,6 +412,21 @@
       "Options": null,
       "Requirements": [
         "ManageServer Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".verifysetup"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".verifysetup"
+      ],
+      "Submodule": "VerificationGateCommands",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
       ]
     },
     {
@@ -3884,6 +4006,139 @@
     },
     {
       "Aliases": [
+        ".security securityaudit"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".security securityaudit"
+      ],
+      "Submodule": "Security",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".security sethoneypot"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".security sethoneypot"
+      ],
+      "Submodule": "Security",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".security removehoneypot"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".security removehoneypot"
+      ],
+      "Submodule": "Security",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".security honeypotlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".security honeypotlist"
+      ],
+      "Submodule": "Security",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".security accountgate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".security accountgate"
+      ],
+      "Submodule": "Security",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".security leakscan"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".security leakscan"
+      ],
+      "Submodule": "Security",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".security scamscan"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".security scamscan"
+      ],
+      "Submodule": "Security",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".security securityscan"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".security securityscan"
+      ],
+      "Submodule": "Security",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".security securityreport"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".security securityreport"
+      ],
+      "Submodule": "Security",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".iam"
       ],
       "Description": "Adds a role to you that you choose. Role must be on the list of self-assignable roles.",
@@ -4157,7 +4412,6 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": [
-        "Bot Owner Only",
         "No Public Bot",
         "Administrator Server Permission"
       ]
@@ -4176,7 +4430,6 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": [
-        "Bot Owner Only",
         "No Public Bot",
         "Administrator Server Permission"
       ]
@@ -4193,7 +4446,6 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": [
-        "Bot Owner Only",
         "No Public Bot",
         "Administrator Server Permission"
       ]
@@ -4211,8 +4463,200 @@
       "Module": "Administration",
       "Options": null,
       "Requirements": [
-        "Bot Owner Only",
         "No Public Bot",
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st inviterewards"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st inviterewards"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st invitecount"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st invitecount"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".st recordinvite"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st recordinvite"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st emojistats"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st emojistats"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".st emojistatsreset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st emojistatsreset"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st autopublish"
+      ],
+      "Description": "Toggles whether the bot automatically publishes all messages posted in the news channel this command was executed in.",
+      "Usage": [
+        ".st autopublish"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st autopublishlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st autopublishlist"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st mirror"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st mirror"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st mirrorremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st mirrorremove"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st mirrorlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st mirrorlist"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "ManageChannels Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st milestonesetup"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st milestonesetup"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st milestonedisable",
+        ".st msdisable",
+        ".st msoff"
+      ],
+      "Description": "Disable milestone announcements for this server.",
+      "Usage": [
+        ".st milestonedisable"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".st backupsummary"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".st backupsummary"
+      ],
+      "Submodule": "Server Tools",
+      "Module": "Administration",
+      "Options": null,
+      "Requirements": [
         "Administrator Server Permission"
       ]
     },
@@ -7128,87 +7572,87 @@
     },
     {
       "Aliases": [
-        ".pet petadopt",
-        ".pet padopt",
-        ".pet adopt"
+        ".oldpet petadopt",
+        ".oldpet padopt",
+        ".oldpet adopt"
       ],
       "Description": "Adopt a pet! Choose a species (Cat, Dog, Bunny, Fox, Dragon, Phoenix) and give it a name. You can only have one pet at a time.",
       "Usage": [
-        ".pet petadopt Cat Whiskers",
-        ".pet petadopt Dragon Smaug"
+        ".oldpet petadopt Cat Whiskers",
+        ".oldpet petadopt Dragon Smaug"
       ],
-      "Submodule": "Pets",
+      "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
       "Options": null,
       "Requirements": []
     },
     {
       "Aliases": [
-        ".pet pet",
-        ".pet mypet"
+        ".oldpet pet",
+        ".oldpet mypet"
       ],
       "Description": "View your pet's stats including level, hunger, and happiness. Hunger decreases over time so remember to feed your pet!",
       "Usage": [
-        ".pet pet"
+        ".oldpet pet"
       ],
-      "Submodule": "Pets",
+      "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
       "Options": null,
       "Requirements": []
     },
     {
       "Aliases": [
-        ".pet petfeed",
-        ".pet pfeed"
+        ".oldpet petfeed",
+        ".oldpet pfeed"
       ],
       "Description": "Feed your pet to restore hunger. Costs 50 currency. Also gives your pet XP.",
       "Usage": [
-        ".pet petfeed"
+        ".oldpet petfeed"
       ],
-      "Submodule": "Pets",
+      "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
       "Options": null,
       "Requirements": []
     },
     {
       "Aliases": [
-        ".pet petplay",
-        ".pet pplay"
+        ".oldpet petplay",
+        ".oldpet pplay"
       ],
       "Description": "Play with your pet to restore happiness and earn XP. Has a 1 hour cooldown.",
       "Usage": [
-        ".pet petplay"
+        ".oldpet petplay"
       ],
-      "Submodule": "Pets",
+      "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
       "Options": null,
       "Requirements": []
     },
     {
       "Aliases": [
-        ".pet petrename",
-        ".pet prename"
+        ".oldpet petrename",
+        ".oldpet prename"
       ],
       "Description": "Give your pet a new name (max 32 characters).",
       "Usage": [
-        ".pet petrename Fluffy"
+        ".oldpet petrename Fluffy"
       ],
-      "Submodule": "Pets",
+      "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
       "Options": null,
       "Requirements": []
     },
     {
       "Aliases": [
-        ".pet petleaderboard",
-        ".pet petlb",
-        ".pet plb"
+        ".oldpet petleaderboard",
+        ".oldpet petlb",
+        ".oldpet plb"
       ],
       "Description": "View the highest level pets on this bot.",
       "Usage": [
-        ".pet petleaderboard"
+        ".oldpet petleaderboard"
       ],
-      "Submodule": "Pets",
+      "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
       "Options": null,
       "Requirements": []
@@ -8038,13 +8482,132 @@
     },
     {
       "Aliases": [
-        ".craft craft",
-        ".craft cr"
+        ".craft mine"
       ],
-      "Description": "Show available crafting recipes and what you can craft, or craft a specific item by providing its name. Materials come from fishing, daily rewards, and random drops.",
+      "Description": "Mine for ores. Higher mining level unlocks better ores.",
       "Usage": [
-        ".craft craft",
-        ".craft craft \"Lucky Charm\""
+        ".craft mine"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft chop"
+      ],
+      "Description": "Chop wood. Higher woodcutting level unlocks better wood.",
+      "Usage": [
+        ".craft chop"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft farm"
+      ],
+      "Description": "Harvest crops from your farm.",
+      "Usage": [
+        ".craft farm"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft gatherherbs"
+      ],
+      "Description": "Gather herbs for alchemy.",
+      "Usage": [
+        ".craft gatherherbs"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft craftfish"
+      ],
+      "Description": "Fish for crafting materials.",
+      "Usage": [
+        ".craft craftfish"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft cook"
+      ],
+      "Description": "Cook a recipe. Shows all cooking recipes if no name given.",
+      "Usage": [
+        ".craft cook",
+        ".craft cook Bread"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft brew"
+      ],
+      "Description": "Brew an alchemy potion. Shows all recipes if no name given.",
+      "Usage": [
+        ".craft brew",
+        ".craft brew Health Potion"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft forge"
+      ],
+      "Description": "Forge a weapon or armor. Shows all recipes if no name given.",
+      "Usage": [
+        ".craft forge",
+        ".craft forge Iron Sword"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft enchant"
+      ],
+      "Description": "Enchant an item. Shows all enchantments if no name given.",
+      "Usage": [
+        ".craft enchant",
+        ".craft enchant Fire"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft craftjewelry"
+      ],
+      "Description": "Craft jewelry. Shows all recipes if no name given.",
+      "Usage": [
+        ".craft craftjewelry"
       ],
       "Submodule": "Crafting",
       "Module": "Games",
@@ -8068,13 +8631,38 @@
     },
     {
       "Aliases": [
-        ".craft craftrecipes",
-        ".craft crrecipes",
-        ".craft crlist"
+        ".craft recipes"
       ],
-      "Description": "List all crafting recipes with required materials and sell values.",
+      "Description": "List all crafting recipes for a skill.",
       "Usage": [
-        ".craft craftrecipes"
+        ".craft recipes",
+        ".craft recipes cooking"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft gatheringstats"
+      ],
+      "Description": "Show your gathering skill levels and XP.",
+      "Usage": [
+        ".craft gatheringstats"
+      ],
+      "Submodule": "Crafting",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".craft craftingstats"
+      ],
+      "Description": "Show your crafting skill levels and XP.",
+      "Usage": [
+        ".craft craftingstats"
       ],
       "Submodule": "Crafting",
       "Module": "Games",
@@ -8148,6 +8736,73 @@
     },
     {
       "Aliases": [
+        ".dungeon chooseclass"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon chooseclass"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon chooserace"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon chooserace"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon profile"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon profile"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon inventory",
+        ".dungeon inv",
+        ".dungeon bag"
+      ],
+      "Description": "Show your crafting materials and items.",
+      "Usage": [
+        ".dungeon inventory"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dungeon equip"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dungeon equip"
+      ],
+      "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".dungeon status"
       ],
       "Description": "?",
@@ -8155,6 +8810,319 @@
         ".dungeon status"
       ],
       "Submodule": "Dungeon",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".raidboss spawn"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".raidboss spawn"
+      ],
+      "Submodule": "Raid Boss",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".raidboss attack"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".raidboss attack"
+      ],
+      "Submodule": "Raid Boss",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".raidboss status"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".raidboss status"
+      ],
+      "Submodule": "Raid Boss",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".raidboss leaderboard",
+        ".raidboss lb"
+      ],
+      "Description": "Displays the bot's currency leaderboard, or in other words, the richest users.\nSpecifying -c flag will show only users who are in this server.\nPaginated with 9 users per page.",
+      "Usage": [
+        ".raidboss leaderboard",
+        ".raidboss leaderboard -c"
+      ],
+      "Submodule": "Raid Boss",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".raidboss config",
+        ".raidboss conf"
+      ],
+      "Description": "Gets or sets configuration values.\nProvide no arguments to see the list of configs you can edit/view.\nProvide config name to see all properties in that configuration and their values.\nProvide config name and property name to see that property's description and value.\nProvide config name, property name and value to set that property to the new value.",
+      "Usage": [
+        ".raidboss config",
+        ".raidboss config bot",
+        ".raidboss config bot color.ok",
+        ".raidboss config bot color.ok ff0000"
+      ],
+      "Submodule": "Raid Boss",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".raidboss toggle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".raidboss toggle"
+      ],
+      "Submodule": "Raid Boss",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".raidboss bosses"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".raidboss bosses"
+      ],
+      "Submodule": "Raid Boss",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex skilltree"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex skilltree"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex skillupgrade"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex skillupgrade"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex prestige"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex prestige"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex prestigeinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex prestigeinfo"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex modifiers"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex modifiers"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex bountypost"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex bountypost"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex bountyboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex bountyboard"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex bountyclaim"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex bountyclaim"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex treasurehide"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex treasurehide"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".ex treasurehint"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex treasurehint"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex horoscope"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex horoscope"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex horoscopeset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex horoscopeset"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex goalset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex goalset"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex goalprogress"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex goalprogress"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex goals"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex goals"
+      ],
+      "Submodule": "Expansion",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".ex newspaper"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".ex newspaper"
+      ],
+      "Submodule": "Expansion",
       "Module": "Games",
       "Options": null,
       "Requirements": []
@@ -8326,6 +9294,397 @@
     },
     {
       "Aliases": [
+        ".fun eightball",
+        ".fun 8ball"
+      ],
+      "Description": "Ask the 8ball a yes/no question.",
+      "Usage": [
+        ".fun eightball Is b1nzy a nice guy?"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun tarot"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun tarot"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun fortune"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun fortune"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun joke"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun joke"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun fact"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun fact"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun compliment"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun compliment"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun insult"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun insult"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun pickupline"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun pickupline"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun hottake"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun hottake"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun wouldyourather"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun wouldyourather"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun thisorthat"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun thisorthat"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun truthordare"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun truthordare"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun neverhaveiever"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun neverhaveiever"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun roast"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun roast"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun showerthought"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun showerthought"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun debatetopic"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun debatetopic"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun motivation"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun motivation"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun dadjoke"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun dadjoke"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun pickrandom"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun pickrandom"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".fun rate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".fun rate"
+      ],
+      "Submodule": "Fun",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf badges"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf badges"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf badgelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf badgelist"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf badgedisplay"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf badgedisplay"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf titles"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf titles"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf titlelist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf titlelist"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf titleequip"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf titleequip"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf battlepass"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf battlepass"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf battlepassrewards"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf battlepassrewards"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf dailychallenges"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf dailychallenges"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".gf gfstats"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".gf gfstats"
+      ],
+      "Submodule": "Gamification",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".hangmanlist"
       ],
       "Description": "Shows a list of hangman question categories.",
@@ -8390,6 +9749,176 @@
         ".heist heistjoin"
       ],
       "Submodule": "Heist",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house shopbuy",
+        ".house buy"
+      ],
+      "Description": "Buys an item from the shop on a given index. If buying items, make sure that the bot can DM you.",
+      "Usage": [
+        ".house shopbuy 2"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house upgrade"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house upgrade"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house addroom"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house addroom"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house buyfurniture"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house buyfurniture"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house decorate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house decorate"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house myhouse"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house myhouse"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house visit"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house visit"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house guestbook"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house guestbook"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house guestbooksign"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house guestbooksign"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house styles"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house styles"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house setstyle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house setstyle"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house houseshop"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house houseshop"
+      ],
+      "Submodule": "Housing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".house housevalue"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".house housevalue"
+      ],
+      "Submodule": "Housing",
       "Module": "Games",
       "Options": null,
       "Requirements": []
@@ -8514,6 +10043,110 @@
         ".idle shop 2"
       ],
       "Submodule": "Idle",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lore bestiary"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lore bestiary"
+      ],
+      "Submodule": "Lore",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lore lorebook"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lore lorebook"
+      ],
+      "Submodule": "Lore",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lore loreread"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lore loreread"
+      ],
+      "Submodule": "Lore",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lore treasuremap"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lore treasuremap"
+      ],
+      "Submodule": "Lore",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lore treasuresolve"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lore treasuresolve"
+      ],
+      "Submodule": "Lore",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lore worldevents"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lore worldevents"
+      ],
+      "Submodule": "Lore",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lore worldhistory"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lore worldhistory"
+      ],
+      "Submodule": "Lore",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".lore lorestats"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".lore lorestats"
+      ],
+      "Submodule": "Lore",
       "Module": "Games",
       "Options": null,
       "Requirements": []
@@ -8655,6 +10288,254 @@
     },
     {
       "Aliases": [
+        ".mg wordle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg wordle"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg wordleguess"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg wordleguess"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg wordleend"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg wordleend"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg minesweeper",
+        ".mg mw"
+      ],
+      "Description": "Creates a spoiler-based minesweeper mini game.\nYou may specify the number of mines.",
+      "Usage": [
+        ".mg minesweeper 15"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg guessnumber"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg guessnumber"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg gn"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg gn"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg gnend"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg gnend"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg scramble"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg scramble"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg unscramble"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg unscramble"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg scrambleend"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg scrambleend"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg geoquiz"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg geoquiz"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg geoanswer"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg geoanswer"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg mathrace"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg mathrace"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg mathanswer"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg mathanswer"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg emojiquiz"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg emojiquiz"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg emojianswer"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg emojianswer"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg memorygame"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg memorygame"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg memoryanswer"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg memoryanswer"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".mg memoryend"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".mg memoryend"
+      ],
+      "Submodule": "Mini Games",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".ncanvas",
         ".nc",
         ".ncanv",
@@ -8776,6 +10657,156 @@
         ".countup"
       ],
       "Submodule": "CountUpCommands",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petadopt",
+        ".pet padopt",
+        ".pet adopt"
+      ],
+      "Description": "Adopt a pet! Choose a species (Cat, Dog, Bunny, Fox, Dragon, Phoenix) and give it a name. You can only have one pet at a time.",
+      "Usage": [
+        ".pet petadopt Cat Whiskers",
+        ".pet petadopt Dragon Smaug"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petfeed",
+        ".pet pfeed"
+      ],
+      "Description": "Feed your pet to restore hunger. Costs 50 currency. Also gives your pet XP.",
+      "Usage": [
+        ".pet petfeed"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petplay",
+        ".pet pplay"
+      ],
+      "Description": "Play with your pet to restore happiness and earn XP. Has a 1 hour cooldown.",
+      "Usage": [
+        ".pet petplay"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petrest"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pet petrest"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet pet",
+        ".pet mypet"
+      ],
+      "Description": "View your pet's stats including level, hunger, and happiness. Hunger decreases over time so remember to feed your pet!",
+      "Usage": [
+        ".pet pet"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pet petlist"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petrename",
+        ".pet prename"
+      ],
+      "Description": "Give your pet a new name (max 32 characters).",
+      "Usage": [
+        ".pet petrename Fluffy"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petrelease"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pet petrelease"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petadventure"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pet petadventure"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petbattle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pet petbattle"
+      ],
+      "Submodule": "Pets",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pet petspecies"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pet petspecies"
+      ],
+      "Submodule": "Pets",
       "Module": "Games",
       "Options": null,
       "Requirements": []
@@ -8914,6 +10945,140 @@
     },
     {
       "Aliases": [
+        ".pvp duel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp duel"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pvp pvpstats"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp pvpstats"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pvp pvpleaderboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp pvpleaderboard"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pvp tournamentcreate"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp tournamentcreate"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".pvp tournamentjoin"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp tournamentjoin"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pvp tournamentstart"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp tournamentstart"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".pvp tournamentbracket"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp tournamentbracket"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pvp tournamentinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp tournamentinfo"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pvp randomteams"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp randomteams"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".pvp balancedteams"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".pvp balancedteams"
+      ],
+      "Submodule": "PvP",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".questlog",
         ".qlog",
         ".quest",
@@ -8925,6 +11090,110 @@
         ".questlog"
       ],
       "Submodule": "QuestCommands",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest quests"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest quests"
+      ],
+      "Submodule": "Quests",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest queststats"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest queststats"
+      ],
+      "Submodule": "Quests",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest dailyquests"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest dailyquests"
+      ],
+      "Submodule": "Quests",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest weeklyquest"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest weeklyquest"
+      ],
+      "Submodule": "Quests",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest storyquest"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest storyquest"
+      ],
+      "Submodule": "Quests",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest factions"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest factions"
+      ],
+      "Submodule": "Quests",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest factioninfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest factioninfo"
+      ],
+      "Submodule": "Quests",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".quest questcomplete"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".quest questcomplete"
+      ],
+      "Submodule": "Quests",
       "Module": "Games",
       "Options": null,
       "Requirements": []
@@ -9310,6 +11579,299 @@
       "Module": "Games",
       "Options": null,
       "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt soundadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt soundadd"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vt sounds"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt sounds"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt soundremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt soundremove"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vt tempvoicesetup"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt tempvoicesetup"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vt voiceleaderboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt voiceleaderboard"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt myvoice"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt myvoice"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt points"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt points"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt pointrewards"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt pointrewards"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt predict"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt predict"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vt bet"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt bet"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt predictresolve"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt predictresolve"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vt predictstatus"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt predictstatus"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt fanartsubmit"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt fanartsubmit"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt fanartgallery"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt fanartgallery"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt fanartvote"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt fanartvote"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt feedadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt feedadd"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vt feeds"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt feeds"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt feedremove",
+        ".vt feedrm",
+        ".vt feeddel"
+      ],
+      "Description": "Stops tracking a feed on the given index. Use `.feeds` command to see a list of feeds and their indexes.",
+      "Usage": [
+        ".vt feedremove 3"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vt monitoradd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt monitoradd"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".vt monitors"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt monitors"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".vt monitorremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".vt monitorremove"
+      ],
+      "Submodule": "Voice Tools",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
     },
     {
       "Aliases": [
@@ -13155,6 +15717,19 @@
     },
     {
       "Aliases": [
+        ".achievements achievementstats"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".achievements achievementstats"
+      ],
+      "Submodule": "Achievements",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".bg bgshop"
       ],
       "Description": "?",
@@ -13460,6 +16035,32 @@
     },
     {
       "Aliases": [
+        ".marriage accept"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".marriage accept"
+      ],
+      "Submodule": "Marriage",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".marriage decline"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".marriage decline"
+      ],
+      "Submodule": "Marriage",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".marriage divorce"
       ],
       "Description": "?",
@@ -13571,6 +16172,402 @@
         ".profile profileset"
       ],
       "Submodule": "Profile",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp hug"
+      ],
+      "Description": "Hugs one or more users to improve their mood. If no valid user is found, just shows a hug GIF.",
+      "Usage": [
+        ".rp hug @user",
+        ".rp hug @user1 @user2 @user3",
+        ".rp hug cutie"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp pat"
+      ],
+      "Description": "Pats one or more users to improve their mood. If no valid user is found, just shows a pat GIF.",
+      "Usage": [
+        ".rp pat @user",
+        ".rp pat @user1 @user2 @user3",
+        ".rp pat cutie"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp kiss"
+      ],
+      "Description": "Kisses one or more users to improve their mood. If no valid user is found, just shows a kiss GIF.",
+      "Usage": [
+        ".rp kiss @user",
+        ".rp kiss @user1 @user2 @user3",
+        ".rp kiss cutie"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp slap"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp slap"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp poke"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp poke"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp cuddle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp cuddle"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp wave"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp wave"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp highfive"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp highfive"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp bite"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp bite"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp punch"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp punch"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp tickle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp tickle"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp boop"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp boop"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp bonk"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp bonk"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp lick"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp lick"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp stare"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp stare"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp cry"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp cry"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp dance"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp dance"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp yeet"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp yeet"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp tackle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp tackle"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp nuzzle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp nuzzle"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp wink"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp wink"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp fistbump"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp fistbump"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp salute"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp salute"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp bow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp bow"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp cheer"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp cheer"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp pout"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp pout"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp blush"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp blush"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp handshake"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp handshake"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp dab"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp dab"
+      ],
+      "Submodule": "Roleplay",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".rp backflip"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".rp backflip"
+      ],
+      "Submodule": "Roleplay",
       "Module": "Social",
       "Options": null,
       "Requirements": []
@@ -14149,6 +17146,116 @@
     },
     {
       "Aliases": [
+        ".analytics start",
+        ".analytics play",
+        ".analytics launch"
+      ],
+      "Description": "Start a Discord voice channel activity. You must be in a voice channel. Use `.activity list` to see available activities.",
+      "Usage": [
+        ".analytics start youtube",
+        ".analytics start poker",
+        ".analytics start chess"
+      ],
+      "Submodule": "Analytics",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".analytics topchannels"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".analytics topchannels"
+      ],
+      "Submodule": "Analytics",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".analytics topposters"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".analytics topposters"
+      ],
+      "Submodule": "Analytics",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".analytics peakhours"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".analytics peakhours"
+      ],
+      "Submodule": "Analytics",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".analytics heatmap"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".analytics heatmap"
+      ],
+      "Submodule": "Analytics",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".analytics growth"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".analytics growth"
+      ],
+      "Submodule": "Analytics",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".analytics topwords"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".analytics topwords"
+      ],
+      "Submodule": "Analytics",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".analytics serverreport"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".analytics serverreport"
+      ],
+      "Submodule": "Analytics",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".birthday birthday",
         ".birthday bday"
       ],
@@ -14459,6 +17566,209 @@
       "Requirements": [
         "Bot Owner Only"
       ]
+    },
+    {
+      "Aliases": [
+        ".customize theme"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize theme"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize currencyname"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize currencyname"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize xpname"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize xpname"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize embedcolor",
+        ".customize embedclr"
+      ],
+      "Description": "Sends a colored embed with a title and description. Color is a hex code.",
+      "Usage": [
+        ".customize embedcolor #announcements FF0000 \"Important\" Read this carefully!"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize levelupmsg"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize levelupmsg"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize welcomemsg"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize welcomemsg"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize saveembed"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize saveembed"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize sendembed"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize sendembed"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".customize embeds"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize embeds"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".customize deleteembed"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize deleteembed"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize addcmd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize addcmd"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize cmdlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize cmdlist"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".customize delcmd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize delcmd"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".customize settings"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".customize settings"
+      ],
+      "Submodule": "Customization",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
     },
     {
       "Aliases": [
@@ -14820,6 +18130,209 @@
     },
     {
       "Aliases": [
+        ".dev featureflag"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev featureflag"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev featureflags"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev featureflags"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev whcreate",
+        ".dev webhookadd"
+      ],
+      "Description": "Create a new webhook relay endpoint. External services can POST JSON to the generated URL, and the bot will forward it as an embed to the specified channel.",
+      "Usage": [
+        ".dev whcreate #webhook-feed"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev webhooks"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev webhooks"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev webhookdelete"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev webhookdelete"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev cmdstats"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev cmdstats"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev xpmult"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev xpmult"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev xpmultchannel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev xpmultchannel"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev xpmultrole"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev xpmultrole"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev xpmults"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev xpmults"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dev xpchallenge"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev xpchallenge"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".dev xpchallenges"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev xpchallenges"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dev changelog"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev changelog"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".dev botinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".dev botinfo"
+      ],
+      "Submodule": "Developer",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".embed"
       ],
       "Description": "Sends a rich embed to a channel using JSON. Use `.embed template` to see the format.",
@@ -14905,20 +18418,7 @@
         ".event create \"Game Night\" \"Playing Valorant together\" 2026-04-01 20:00",
         ".event create \"Movie Night\" \"Watching Lord of the Rings\" 2026-04-05 19:00"
       ],
-      "Submodule": "EventScheduler",
-      "Module": "Utility",
-      "Options": null,
-      "Requirements": []
-    },
-    {
-      "Aliases": [
-        ".event rsvp"
-      ],
-      "Description": "RSVP to an upcoming event by its ID number.",
-      "Usage": [
-        ".event rsvp 3"
-      ],
-      "Submodule": "EventScheduler",
+      "Submodule": "Events",
       "Module": "Utility",
       "Options": null,
       "Requirements": []
@@ -14931,7 +18431,33 @@
       "Usage": [
         ".event list"
       ],
-      "Submodule": "EventScheduler",
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event eventinfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".event eventinfo"
+      ],
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event rsvp"
+      ],
+      "Description": "RSVP to an upcoming event by its ID number.",
+      "Usage": [
+        ".event rsvp 3"
+      ],
+      "Submodule": "Events",
       "Module": "Utility",
       "Options": null,
       "Requirements": []
@@ -14944,7 +18470,111 @@
       "Usage": [
         ".event cancel 3"
       ],
-      "Submodule": "EventScheduler",
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event movienight"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".event movienight"
+      ],
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event movieadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".event movieadd"
+      ],
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event movievote"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".event movievote"
+      ],
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event movieresults"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".event movieresults"
+      ],
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event moviepick"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".event moviepick"
+      ],
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event gamenight"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".event gamenight"
+      ],
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event teams"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".event teams"
+      ],
+      "Submodule": "Events",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".event studysession"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".event studysession"
+      ],
+      "Submodule": "Events",
       "Module": "Utility",
       "Options": null,
       "Requirements": []
@@ -15719,6 +19349,71 @@
     },
     {
       "Aliases": [
+        ".oc ask"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".oc ask"
+      ],
+      "Submodule": "OpenClaw AI",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".oc reset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".oc reset"
+      ],
+      "Submodule": "OpenClaw AI",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".oc status"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".oc status"
+      ],
+      "Submodule": "OpenClaw AI",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".oc quick"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".oc quick"
+      ],
+      "Submodule": "OpenClaw AI",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".oc info"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".oc info"
+      ],
+      "Submodule": "OpenClaw AI",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".pluginmarket pluginmarketsearch"
       ],
       "Description": "?",
@@ -15882,6 +19577,86 @@
       "Requirements": [
         "ManageMessages Server Permission"
       ]
+    },
+    {
+      "Aliases": [
+        ".premium premiuminfo"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".premium premiuminfo"
+      ],
+      "Submodule": "Premium",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".premium premiumfeatures"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".premium premiumfeatures"
+      ],
+      "Submodule": "Premium",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".premium premiumcompare"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".premium premiumcompare"
+      ],
+      "Submodule": "Premium",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".premium premiumset"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".premium premiumset"
+      ],
+      "Submodule": "Premium",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".premium premiumcheck"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".premium premiumcheck"
+      ],
+      "Submodule": "Premium",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".premium premiumlimits"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".premium premiumlimits"
+      ],
+      "Submodule": "Premium",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
     },
     {
       "Aliases": [
@@ -16366,6 +20141,140 @@
     },
     {
       "Aliases": [
+        ".smart summarize"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smart summarize"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".smart faq"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smart faq"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".smart faqadd"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smart faqadd"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".smart faqlist"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smart faqlist"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".smart faqremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smart faqremove"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "ManageMessages Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".smart sentiment"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smart sentiment"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".smart topics"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smart topics"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".smart greet"
+      ],
+      "Description": "Toggles announcements on the current channel when someone joins the server.",
+      "Usage": [
+        ".smart greet"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".smart writingcheck"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smart writingcheck"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".smart namegen"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".smart namegen"
+      ],
+      "Submodule": "Smart Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".starboard channel",
         ".starboard setchannel"
       ],
@@ -16685,6 +20594,233 @@
         ".todo archive delete 99"
       ],
       "Submodule": "archive",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools convert"
+      ],
+      "Description": "Convert quantities. Use `.convertlist` to see supported dimensions and currencies.",
+      "Usage": [
+        ".tools convert m km 1000"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools timestamp"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools timestamp"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools snowflake"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools snowflake"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools count"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools count"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools color",
+        ".tools clr"
+      ],
+      "Description": "Shows you pictures of colors which correspond to the inputted hex values. Max 10.",
+      "Usage": [
+        ".tools color 00ff00",
+        ".tools color f00 0f0 00f"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools roll"
+      ],
+      "Description": "Rolls 1-100. If you supply a number `X` it rolls up to 30 normal dice. If you split 2 numbers with letter `d` (`xdy`) it will roll `X` dice from 1 to `y`. `Y` can be a letter 'F' if you want to roll fate dice instead of dnd.",
+      "Usage": [
+        ".tools roll",
+        ".tools roll 7",
+        ".tools roll 3d5",
+        ".tools roll 5dF"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools flip"
+      ],
+      "Description": "Flips coin(s) - heads or tails, and shows an image.",
+      "Usage": [
+        ".tools flip",
+        ".tools flip 3"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools random"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools random"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools choose"
+      ],
+      "Description": "Chooses a thing from a list of things. Separate items with a semicolon ;",
+      "Usage": [
+        ".tools choose Get up;Sleep;Sleep more"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools quickpoll"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools quickpoll"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools countdown"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools countdown"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools base64encode"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools base64encode"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools base64decode"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools base64decode"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools reverse"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools reverse"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools mock"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools mock"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools bigtext"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools bigtext"
+      ],
+      "Submodule": "Tools",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".tools members"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".tools members"
+      ],
+      "Submodule": "Tools",
       "Module": "Utility",
       "Options": null,
       "Requirements": []
