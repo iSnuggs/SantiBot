@@ -57,7 +57,7 @@ public partial class Utility
             var eb = CreateEmbed()
                 .WithTitle("🦞 OpenClaw Status")
                 .AddField("Gateway", online ? "🟢 Online" : "🔴 Offline", true)
-                .AddField("Host", "100.86.110.14:18789", true)
+                .AddField("Host", $"{Environment.GetEnvironmentVariable("OPENCLAW_SSH_HOST") ?? "configured"}:18789", true)
                 .AddField("Model", "Claude Sonnet 4.6", true)
                 .AddField("Features", "Multi-turn chat, web search, file access", false)
                 .WithFooter("Use .oc ask <question> to chat with Claude")

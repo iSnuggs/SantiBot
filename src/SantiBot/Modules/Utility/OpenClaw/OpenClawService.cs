@@ -70,9 +70,9 @@ public sealed class OpenClawService : INService, IExecOnMessage
         if (text.Length > 0) chunks.Add(text);
         return chunks;
     }
-    // Connection config — thin client running OpenClaw
-    private const string SSH_HOST = "100.86.110.14";
-    private const string SSH_USER = "ubuntu";
+    // Connection config — thin client running OpenClaw (all from env vars)
+    private static readonly string SSH_HOST = Environment.GetEnvironmentVariable("OPENCLAW_SSH_HOST") ?? "127.0.0.1";
+    private static readonly string SSH_USER = Environment.GetEnvironmentVariable("OPENCLAW_SSH_USER") ?? "ubuntu";
     private static readonly string SSH_PASS = Environment.GetEnvironmentVariable("OPENCLAW_SSH_PASS") ?? "";
 
     // Per-user session tracking for conversation continuity
