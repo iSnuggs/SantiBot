@@ -9685,6 +9685,210 @@
     },
     {
       "Aliases": [
+        ".guild create"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild create"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild info"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild info"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild join",
+        ".guild j",
+        ".guild move",
+        ".guild mv"
+      ],
+      "Description": "Makes the bot join a voice channel.\nIf no channel is specified, the bot joins the voice channel you are currently in.\nIf a channel is specified by name or ID, the bot joins that channel directly.",
+      "Usage": [
+        ".guild join",
+        ".guild join Music Room",
+        ".guild join 123456789012345678"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild leave"
+      ],
+      "Description": "Makes Santi leave the server. Either server name or server ID is required.",
+      "Usage": [
+        ".guild leave 123123123331"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild members"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild members"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild contribute"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild contribute"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild promote"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild promote"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild demote"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild demote"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild kick",
+        ".guild k"
+      ],
+      "Description": "Kicks a mentioned user.",
+      "Usage": [
+        ".guild kick @Someone Get out!",
+        ".guild kick \"Some Guy#1234\" Your behaviour is toxic."
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild war"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild war"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild warbattle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild warbattle"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild warstatus"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild warstatus"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild leaderboard",
+        ".guild lb"
+      ],
+      "Description": "Displays the bot's currency leaderboard, or in other words, the richest users.\nSpecifying -c flag will show only users who are in this server.\nPaginated with 9 users per page.",
+      "Usage": [
+        ".guild leaderboard",
+        ".guild leaderboard -c"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild recruit"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild recruit"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".guild setdescription"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".guild setdescription"
+      ],
+      "Submodule": "Guild",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".hangmanlist"
       ],
       "Description": "Shows a list of hangman question categories.",
@@ -10243,6 +10447,85 @@
         ".mafia resolve"
       ],
       "Submodule": "Mafia",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".market list"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".market list"
+      ],
+      "Submodule": "Marketplace",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".market shopbuy",
+        ".market buy"
+      ],
+      "Description": "Buys an item from the shop on a given index. If buying items, make sure that the bot can DM you.",
+      "Usage": [
+        ".market shopbuy 2"
+      ],
+      "Submodule": "Marketplace",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".market cancel"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".market cancel"
+      ],
+      "Submodule": "Marketplace",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".market market"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".market market"
+      ],
+      "Submodule": "Marketplace",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".market mylistings"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".market mylistings"
+      ],
+      "Submodule": "Marketplace",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".market pricecheck"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".market pricecheck"
+      ],
+      "Submodule": "Marketplace",
       "Module": "Games",
       "Options": null,
       "Requirements": []
@@ -11251,6 +11534,84 @@
         ".race upgrade"
       ],
       "Submodule": "Racing",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season current"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season current"
+      ],
+      "Submodule": "Seasonal",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season calendar"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season calendar"
+      ],
+      "Submodule": "Seasonal",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season boss"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season boss"
+      ],
+      "Submodule": "Seasonal",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season advent"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season advent"
+      ],
+      "Submodule": "Seasonal",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season egghunt"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season egghunt"
+      ],
+      "Submodule": "Seasonal",
+      "Module": "Games",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".season seasonalshop"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".season seasonalshop"
+      ],
+      "Submodule": "Seasonal",
       "Module": "Games",
       "Options": null,
       "Requirements": []
@@ -15730,6 +16091,19 @@
     },
     {
       "Aliases": [
+        ".achievements achievementleaderboard"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".achievements achievementleaderboard"
+      ],
+      "Submodule": "Achievements",
+      "Module": "Social",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
         ".bg bgshop"
       ],
       "Description": "?",
@@ -19408,6 +19782,107 @@
         ".oc info"
       ],
       "Submodule": "OpenClaw AI",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".santi schedule"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".santi schedule"
+      ],
+      "Submodule": "Proactive Santi",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".santi schedulecustom"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".santi schedulecustom"
+      ],
+      "Submodule": "Proactive Santi",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".santi posts"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".santi posts"
+      ],
+      "Submodule": "Proactive Santi",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": []
+    },
+    {
+      "Aliases": [
+        ".santi postnow"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".santi postnow"
+      ],
+      "Submodule": "Proactive Santi",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".santi postremove"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".santi postremove"
+      ],
+      "Submodule": "Proactive Santi",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".santi posttoggle"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".santi posttoggle"
+      ],
+      "Submodule": "Proactive Santi",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".santi posttypes"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".santi posttypes"
+      ],
+      "Submodule": "Proactive Santi",
       "Module": "Utility",
       "Options": null,
       "Requirements": []

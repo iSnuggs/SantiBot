@@ -1,120 +1,92 @@
 #!/bin/bash
 # ╔══════════════════════════════════════════════════════════════╗
-# ║              SantiBot Linux Updater                          ║
+# ║              SantiBot Auto-Updater v2.0                      ║
 # ║                                                              ║
-# ║  Usage: sudo /opt/santibot/update.sh                         ║
+# ║  Can be run manually or via cron for automatic updates.      ║
+# ║                                                              ║
+# ║  Manual:  sudo /opt/santibot/update.sh                       ║
+# ║  Cron:    0 4 * * * /opt/santibot/update.sh                  ║
 # ╚══════════════════════════════════════════════════════════════╝
 
 set -euo pipefail
 
 INSTALL_DIR="/opt/santibot"
+SERVICE_USER="santibot"
 REPO="iSnuggs/SantiBot"
+BACKUP_DIR="/opt/santibot-backups"
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m'
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"; }
 
-info()  { echo -e "${BLUE}[INFO]${NC} $1"; }
-ok()    { echo -e "${GREEN}[OK]${NC} $1"; }
-warn()  { echo -e "${YELLOW}[WARN]${NC} $1"; }
-error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
+log "=== SantiBot Update Check ==="
 
-echo ""
-echo -e "${BLUE}╔══════════════════════════════════════╗${NC}"
-echo -e "${BLUE}║        SantiBot Linux Updater        ║${NC}"
-echo -e "${BLUE}╚══════════════════════════════════════╝${NC}"
-echo ""
-
-if [ "$EUID" -ne 0 ]; then
-    error "Please run as root: sudo $0"
+if [ ! -d "$INSTALL_DIR" ]; then
+    log "ERROR: Not installed at $INSTALL_DIR"
+    exit 1
 fi
 
-# Detect architecture
 ARCH=$(uname -m)
 case "$ARCH" in
     x86_64)  RUNTIME="linux-x64" ;;
     aarch64) RUNTIME="linux-arm64" ;;
-    *)       error "Unsupported architecture: $ARCH" ;;
+    *)       log "ERROR: Unsupported arch: $ARCH"; exit 1 ;;
 esac
 
-# Get current version (if available)
-CURRENT="unknown"
-if [ -f "$INSTALL_DIR/version.txt" ]; then
-    CURRENT=$(cat "$INSTALL_DIR/version.txt")
-fi
-
-# Fetch latest version
-info "Checking for updates..."
-LATEST=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" | grep -oP '"tag_name": "\K[^"]+')
+# Check for new version
+LATEST=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" 2>/dev/null | grep -oP '"tag_name": "\K[^"]+' || echo "")
 if [ -z "$LATEST" ]; then
-    error "Could not fetch latest version. Check your internet connection."
-fi
-
-info "Current version: $CURRENT"
-info "Latest version:  $LATEST"
-
-if [ "$CURRENT" = "$LATEST" ]; then
-    ok "Already up to date!"
+    log "No release found. Skipping."
     exit 0
 fi
 
-# Stop the bot
-info "Stopping SantiBot..."
-systemctl stop santibot 2>/dev/null || true
-ok "Bot stopped"
+CURRENT=""
+[ -f "$INSTALL_DIR/.version" ] && CURRENT=$(cat "$INSTALL_DIR/.version")
 
-# Backup current install (keep data)
-info "Creating backup..."
-if [ -d "$INSTALL_DIR.bak" ]; then
-    rm -rf "$INSTALL_DIR.bak"
+if [ "$LATEST" = "$CURRENT" ]; then
+    log "Up to date ($CURRENT)"
+    exit 0
 fi
-cp -r "$INSTALL_DIR" "$INSTALL_DIR.bak"
-ok "Backup created at $INSTALL_DIR.bak"
 
-# Download new version
+log "Update: $CURRENT -> $LATEST"
+
+# Backup
+mkdir -p "$BACKUP_DIR"
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+[ -d "$INSTALL_DIR/data" ] && tar -czf "$BACKUP_DIR/santibot-backup-$TIMESTAMP.tar.gz" -C "$INSTALL_DIR" data/ 2>/dev/null
+ls -t "$BACKUP_DIR"/santibot-backup-*.tar.gz 2>/dev/null | tail -n +11 | xargs rm -f 2>/dev/null || true
+log "Backup saved"
+
+# Stop
+systemctl stop santibot 2>/dev/null || true
+sleep 2
+
+# Download
 DOWNLOAD_URL="https://github.com/$REPO/releases/download/$LATEST/santi-${RUNTIME}.tar.gz"
-info "Downloading $LATEST..."
+log "Downloading $LATEST..."
 curl -L -o /tmp/santibot-update.tar.gz "$DOWNLOAD_URL" 2>/dev/null
 
-# Extract (preserve data directory)
-info "Installing update..."
-# Save data directory
-mv "$INSTALL_DIR/data" /tmp/santibot-data-preserve
+if [ ! -s /tmp/santibot-update.tar.gz ]; then
+    log "ERROR: Download failed. Restarting current version."
+    systemctl start santibot 2>/dev/null || true
+    exit 1
+fi
 
-# Extract new files
-rm -rf "$INSTALL_DIR"
-mkdir -p "$INSTALL_DIR"
-tar -xzf /tmp/santibot-update.tar.gz -C "$INSTALL_DIR" --strip-components=1
+# Extract (keep data)
+tar -xzf /tmp/santibot-update.tar.gz -C "$INSTALL_DIR" --strip-components=1 --exclude='data'
+rm -f /tmp/santibot-update.tar.gz
+chmod +x "$INSTALL_DIR/SantiBot" 2>/dev/null || true
+echo "$LATEST" > "$INSTALL_DIR/.version"
+chown -R "$SERVICE_USER:$SERVICE_USER" "$INSTALL_DIR"
 
-# Restore data directory
-rm -rf "$INSTALL_DIR/data"
-mv /tmp/santibot-data-preserve "$INSTALL_DIR/data"
+# Restart
+systemctl start santibot 2>/dev/null || true
+sleep 5
 
-# Clean up
-rm /tmp/santibot-update.tar.gz
-chmod +x "$INSTALL_DIR/SantiBot"
+if systemctl is-active --quiet santibot; then
+    log "SUCCESS: Updated to $LATEST"
+else
+    log "WARNING: Bot may not have started. Restoring backup..."
+    tar -xzf "$BACKUP_DIR/santibot-backup-$TIMESTAMP.tar.gz" -C "$INSTALL_DIR" 2>/dev/null || true
+    systemctl start santibot 2>/dev/null || true
+fi
 
-# Save version
-echo "$LATEST" > "$INSTALL_DIR/version.txt"
-
-# Fix permissions
-chown -R santibot:santibot "$INSTALL_DIR"
-ok "Update installed"
-
-# Restart the bot
-info "Starting SantiBot..."
-systemctl start santibot
-ok "Bot started"
-
-echo ""
-echo -e "${GREEN}╔══════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║        Update Complete!              ║${NC}"
-echo -e "${GREEN}║   $CURRENT → $LATEST${NC}"
-echo -e "${GREEN}╚══════════════════════════════════════╝${NC}"
-echo ""
-echo -e "  Check status: ${BLUE}sudo systemctl status santibot${NC}"
-echo -e "  View logs:    ${BLUE}journalctl -u santibot -f${NC}"
-echo -e "  Rollback:     ${BLUE}sudo rm -rf $INSTALL_DIR && sudo mv $INSTALL_DIR.bak $INSTALL_DIR && sudo systemctl restart santibot${NC}"
-echo ""
+log "=== Done ==="
