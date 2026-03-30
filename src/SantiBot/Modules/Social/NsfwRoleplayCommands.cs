@@ -44,7 +44,7 @@ public partial class Social
             ["nuzzle"]    = ("nekos", "nuzzle"),
             ["seduce"]    = ("waifunsfw", "waifu"),     // suggestive anime images
             ["whisper"]   = ("nekos", "peck"),
-            ["grind"]     = ("waifunsfw", "waifu"),     // suggestive
+            ["grind"]     = ("nekos", "dance"),            // intimate dancing
             ["moan"]      = ("nekoslife", "lewd"),      // nekos.life lewd category
             ["strip"]     = ("waifunsfw", "waifu"),     // suggestive anime
             ["dominate"]  = ("purrbot", "spank"),       // purrbot NSFW spank
