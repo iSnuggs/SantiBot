@@ -14,7 +14,7 @@ public partial class Social
         private static readonly SantiRandom _rng = new();
         private static readonly HttpClient _gifHttp = new()
         {
-            Timeout = TimeSpan.FromSeconds(5),
+            Timeout = TimeSpan.FromSeconds(10),
             DefaultRequestHeaders = { { "User-Agent", "SantiBot/1.0" } }
         };
 
@@ -52,19 +52,22 @@ public partial class Social
             ["salute"]    = ("nekos", "salute"),
             ["pout"]      = ("nekos", "pout"),
             ["kick"]      = ("nekos", "kick"),
-            // waifu.pics fallbacks for actions nekos.best doesn't have
-            ["tackle"]    = ("waifu", "glomp"),      // glomp = tackle/pounce
-            ["fistbump"]  = ("waifu", "highfive"),    // closest match
-            ["cheer"]     = ("waifu", "happy"),       // closest match
-            ["bow"]       = ("waifu", "smile"),       // closest match
-            ["dab"]       = ("waifu", "smug"),        // closest match
-            ["backflip"]  = ("waifu", "happy"),       // closest match
+            // Tenor search for actions without anime API endpoints
+            ["tackle"]    = ("tenor", "anime tackle"),
+            ["fistbump"]  = ("tenor", "anime fist bump"),
+            ["cheer"]     = ("tenor", "anime cheer"),
+            ["bow"]       = ("tenor", "anime bow"),
+            ["dab"]       = ("tenor", "anime dab"),
+            ["backflip"]  = ("tenor", "anime backflip"),
         };
 
         /// <summary>
         /// Fetches a random anime GIF from nekos.best or waifu.pics.
         /// Falls back between sources if one is down. Returns null on all failures.
         /// </summary>
+        // Google/Tenor API key (read from env var or creds — same key used for YouTube)
+        private static readonly string _tenorKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY") ?? "";
+
         private static async Task<string> GetGifAsync(string action)
         {
             if (!_gifSources.TryGetValue(action, out var source))
@@ -78,21 +81,38 @@ public partial class Social
                         $"https://nekos.best/api/v2/{source.Category}");
                     var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                     if (match.Success) return match.Groups[1].Value;
-                }
 
-                // waifu.pics as primary or fallback
+                    // Fallback to waifu.pics if nekos fails
+                    json = await _gifHttp.GetStringAsync(
+                        $"https://api.waifu.pics/sfw/{source.Category}");
+                    match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                    if (match.Success) return match.Groups[1].Value;
+                }
+                else if (source.Source == "waifu")
                 {
-                    var waifuCat = source.Source == "waifu" ? source.Category
-                        : _gifSources.TryGetValue(action, out var ws) ? ws.Category : action;
                     var json = await _gifHttp.GetStringAsync(
-                        $"https://api.waifu.pics/sfw/{waifuCat}");
+                        $"https://api.waifu.pics/sfw/{source.Category}");
                     var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                     if (match.Success) return match.Groups[1].Value;
+                }
+                else if (source.Source == "tenor" && !string.IsNullOrEmpty(_tenorKey))
+                {
+                    // Tenor v2 API — search for specific action GIFs
+                    var query = Uri.EscapeDataString(source.Category);
+                    var json = await _gifHttp.GetStringAsync(
+                        $"https://tenor.googleapis.com/v2/search?q={query}&key={_tenorKey}&limit=20&media_filter=gif");
+                    // Pick a random result from up to 20
+                    var matches = Regex.Matches(json, "\"url\":\\s*\"(https://media\\.tenor\\.com/[^\"]+\\.gif)\"");
+                    if (matches.Count > 0)
+                    {
+                        var idx = _rng.Next(matches.Count);
+                        return matches[idx].Groups[1].Value;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Log.Warning(ex, "Failed to fetch GIF for action {Action}", action);
+                Log.Warning(ex, "Failed to fetch GIF for action {Action} from {Source}", action, source.Source);
             }
 
             return null;
