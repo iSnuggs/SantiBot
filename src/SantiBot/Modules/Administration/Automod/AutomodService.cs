@@ -79,6 +79,7 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
     /// <summary>
     /// Called for every message. Returns true if the message should be blocked.
     /// </summary>
+#pragma warning disable CS1998 // Async method lacks 'await' — fire-and-forget via Task.Run
     public async Task<bool> ExecOnMessageAsync(IGuild guild, IUserMessage msg)
     {
         if (guild is null || msg.Author is not IGuildUser user)
@@ -152,6 +153,7 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
 
         return false;
     }
+#pragma warning restore CS1998
 
     // ── Filter Checks ──
 

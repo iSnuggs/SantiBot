@@ -64,7 +64,7 @@ public partial class Utility
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageMessages)]
-        public async Task EmbedTemplateSend(string name, ITextChannel channel = null)
+        public async Task EmbedTemplateSend(string name, ITextChannel channel = null!)
         {
             channel ??= (ITextChannel)ctx.Channel;
             var builtIn = _service.GetBuiltInTemplates();

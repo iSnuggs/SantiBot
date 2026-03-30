@@ -180,6 +180,9 @@ public sealed class HousingService(DbService _db, ICurrencyService _cs) : INServ
         ctx.Set<HouseRoom>().Add(defaultRoom);
         await ctx.SaveChangesAsync();
 
+        // Housing achievement
+        Social.AchievementService.Award(guildId, userId, "econ_property_owned");
+
         return (true, null, house);
     }
 

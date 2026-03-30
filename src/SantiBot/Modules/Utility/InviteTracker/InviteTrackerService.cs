@@ -88,7 +88,7 @@ public sealed class InviteTrackerService : INService, IReadyExecutor
             oldDict ??= new();
 
             // Find the invite whose uses incremented
-            string usedCode = null;
+            string? usedCode = null;
             ulong inviterId = 0;
 
             foreach (var invite in newInvites)

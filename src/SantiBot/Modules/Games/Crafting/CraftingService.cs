@@ -5,7 +5,7 @@ using SantiBot.Db.Models;
 
 namespace SantiBot.Modules.Games.Crafting;
 
-public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INService
+public sealed class CraftingService(DbService _db) : INService
 {
     private static readonly SantiRandom _rng = new();
 
@@ -432,6 +432,7 @@ public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INSer
             });
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
+        Social.AchievementService.Award(guildId, userId, "econ_miner");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -462,6 +463,7 @@ public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INSer
             });
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
+        Social.AchievementService.Award(guildId, userId, "econ_miner");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -492,6 +494,7 @@ public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INSer
             });
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
+        Social.AchievementService.Award(guildId, userId, "econ_miner");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -522,6 +525,7 @@ public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INSer
             });
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
+        Social.AchievementService.Award(guildId, userId, "econ_miner");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -552,6 +556,7 @@ public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INSer
             });
 
         await AddToInventoryAsync(userId, guildId, drop.ItemName, drop.ItemType, drop.Rarity, quantity);
+        Social.AchievementService.Award(guildId, userId, "econ_miner");
         return (true, null, drop, quantity, newLevel, leveledUp, null);
     }
 
@@ -638,6 +643,18 @@ public sealed class CraftingService(DbService _db, ICurrencyService _cs) : INSer
                     .Where(x => x.Id == craftProfile.Id)
                     .UpdateAsync(_ => new CraftingProfile { JewelcraftingLevel = newLevel, JewelcraftingXp = newXp });
                 break;
+        }
+
+        // Crafting achievements
+        Social.AchievementService.Award(guildId, userId, "craft_100");
+        if (recipe.ResultRarity == "Legendary")
+            Social.AchievementService.Award(guildId, userId, "crafting_legendary");
+        switch (recipe.Skill)
+        {
+            case "Cooking": Social.AchievementService.Award(guildId, userId, "econ_chef"); break;
+            case "Alchemy": Social.AchievementService.Award(guildId, userId, "econ_alchemist"); break;
+            case "Blacksmithing": Social.AchievementService.Award(guildId, userId, "econ_blacksmith"); break;
+            case "Enchanting": Social.AchievementService.Award(guildId, userId, "enchant_20"); break;
         }
 
         return (true, null, recipe, leveledUp, newLevel);

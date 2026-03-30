@@ -43,6 +43,7 @@ public sealed class AutoResponderService : IExecOnMessage, IReadyExecutor, INSer
             allResponses.Count, (object)_responses.Count);
     }
 
+#pragma warning disable CS1998 // Async method lacks 'await' — fire-and-forget via Task.Run
     public async Task<bool> ExecOnMessageAsync(IGuild guild, IUserMessage msg)
     {
         if (guild is null || msg.Author is not IGuildUser user || user.IsBot)
@@ -110,6 +111,7 @@ public sealed class AutoResponderService : IExecOnMessage, IReadyExecutor, INSer
 
         return false;
     }
+#pragma warning restore CS1998
 
     private static bool IsTriggered(AutoResponse response, string content)
     {

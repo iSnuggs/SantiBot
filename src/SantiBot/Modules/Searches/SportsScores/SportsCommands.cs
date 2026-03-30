@@ -9,7 +9,7 @@ public partial class Searches
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageMessages)]
-        public async Task SportsFollow(string league, ITextChannel channel = null)
+        public async Task SportsFollow(string league, ITextChannel channel = null!)
         {
             channel ??= (ITextChannel)ctx.Channel;
             var success = await _service.FollowAsync(ctx.Guild.Id, channel.Id, league);

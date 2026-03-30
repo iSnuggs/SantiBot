@@ -127,6 +127,7 @@ public sealed class MafiaService : INService
         return (true, $"{voter.Username} voted for {target.Username}! ({voteCount}/{votesNeeded} votes cast)");
     }
 
+#pragma warning disable CS1998 // Async method lacks 'await' — all logic is synchronous
     public async Task<(bool Success, string Message)> ResolvePhaseAsync(ulong channelId)
     {
         if (!ActiveGames.TryGetValue(channelId, out var game))
@@ -199,6 +200,7 @@ public sealed class MafiaService : INService
 
         return (false, "Can't resolve in current phase.");
     }
+#pragma warning restore CS1998
 
     public (bool Success, string Message) NightAction(ulong channelId, ulong userId, ulong targetId)
     {

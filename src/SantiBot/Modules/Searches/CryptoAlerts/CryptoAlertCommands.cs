@@ -8,7 +8,7 @@ public partial class Searches
     {
         [Cmd]
         [RequireContext(ContextType.Guild)]
-        public async Task CryptoAlertAdd(string coin, string direction, decimal price, ITextChannel channel = null)
+        public async Task CryptoAlertAdd(string coin, string direction, decimal price, ITextChannel channel = null!)
         {
             if (direction.ToLower() is not ("above" or "below"))
             {

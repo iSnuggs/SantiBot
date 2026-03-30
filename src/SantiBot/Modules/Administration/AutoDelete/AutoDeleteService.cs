@@ -41,6 +41,7 @@ public sealed class AutoDeleteService : IExecOnMessage, IReadyExecutor, INServic
             allRules.Count, (object)_channelRules.Count);
     }
 
+#pragma warning disable CS1998 // Async method lacks 'await' — fire-and-forget via Task.Run
     public async Task<bool> ExecOnMessageAsync(IGuild guild, IUserMessage msg)
     {
         if (guild is null)
@@ -72,6 +73,7 @@ public sealed class AutoDeleteService : IExecOnMessage, IReadyExecutor, INServic
 
         return false;
     }
+#pragma warning restore CS1998
 
     private static bool ShouldDelete(AutoDeleteRule rule, IUserMessage msg)
     {

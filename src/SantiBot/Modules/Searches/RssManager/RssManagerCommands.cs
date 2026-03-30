@@ -9,7 +9,7 @@ public partial class Searches
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageMessages)]
-        public async Task RssAdd(string url, ITextChannel channel = null)
+        public async Task RssAdd(string url, ITextChannel channel = null!)
         {
             if (!Uri.TryCreate(url, UriKind.Absolute, out _))
             {

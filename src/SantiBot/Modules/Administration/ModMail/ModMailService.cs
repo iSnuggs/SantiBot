@@ -68,6 +68,7 @@ public sealed class ModMailService : IReadyExecutor, INService
     // MESSAGE HANDLER — Routes DMs to staff, staff replies to DMs
     // ═══════════════════════════════════════════════════════════
 
+#pragma warning disable CS1998 // Async method lacks 'await' — fire-and-forget via Task.Run
     private async Task OnMessageReceived(SocketMessage msg)
     {
         if (msg.Author.IsBot || msg.Author.IsWebhook)
@@ -100,6 +101,7 @@ public sealed class ModMailService : IReadyExecutor, INService
             }
         }
     }
+#pragma warning restore CS1998
 
     private async Task HandleUserDmAsync(SocketUserMessage msg)
     {
@@ -708,13 +710,13 @@ public sealed class ModMailService : IReadyExecutor, INService
 
     public void RegisterButtonHandler()
     {
-        _client.InteractionCreated += async interaction =>
+        _client.InteractionCreated += interaction =>
         {
             if (interaction is not SocketMessageComponent component)
-                return;
+                return Task.CompletedTask;
 
             if (component.Data.CustomId != "modmail:close")
-                return;
+                return Task.CompletedTask;
 
             _ = Task.Run(async () =>
             {
@@ -735,6 +737,7 @@ public sealed class ModMailService : IReadyExecutor, INService
                     Log.Warning(ex, "ModMail close button handler failed");
                 }
             });
+            return Task.CompletedTask;
         };
     }
 }

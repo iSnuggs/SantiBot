@@ -154,6 +154,7 @@ public sealed class VerificationGateService : IReadyExecutor, INService
         }
     }
 
+#pragma warning disable CS1998 // Async method lacks 'await' — fire-and-forget via Task.Run
     private async Task OnInteractionCreated(SocketInteraction interaction)
     {
         if (interaction is not SocketMessageComponent component)
@@ -208,6 +209,7 @@ public sealed class VerificationGateService : IReadyExecutor, INService
             }
         });
     }
+#pragma warning restore CS1998
 
     // ── Public API ──
 

@@ -9,7 +9,7 @@ public partial class Searches
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageMessages)]
-        public async Task XFeedFollow(string handle, ITextChannel channel = null)
+        public async Task XFeedFollow(string handle, ITextChannel channel = null!)
         {
             channel ??= (ITextChannel)ctx.Channel;
             handle = handle.TrimStart('@');

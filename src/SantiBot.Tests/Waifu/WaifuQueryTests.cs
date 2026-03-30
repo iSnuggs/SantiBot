@@ -29,7 +29,9 @@ public class WaifuQueryTests
 
     private const double CYCLE_HOURS = 24.0;
     private const double BASE_RETURN_RATE = 0.17;
+#pragma warning disable CS0414 // Field assigned but never used — kept for reference
     private static readonly double CYCLES_PER_YEAR = 365.25 * 24 / CYCLE_HOURS;
+#pragma warning restore CS0414
 
     [SetUp]
     public void Setup()

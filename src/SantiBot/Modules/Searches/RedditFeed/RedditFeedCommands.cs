@@ -9,7 +9,7 @@ public partial class Searches
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageMessages)]
-        public async Task RedditFollow(string subreddit, ITextChannel channel = null)
+        public async Task RedditFollow(string subreddit, ITextChannel channel = null!)
         {
             channel ??= (ITextChannel)ctx.Channel;
             var success = await _service.FollowAsync(ctx.Guild.Id, channel.Id, subreddit);
