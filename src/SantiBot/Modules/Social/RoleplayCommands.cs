@@ -52,21 +52,21 @@ public partial class Social
             ["salute"]    = ("nekos", "salute"),
             ["pout"]      = ("nekos", "pout"),
             ["kick"]      = ("nekos", "kick"),
-            // Giphy search for actions without anime API endpoints
-            ["tackle"]    = ("giphy", "anime tackle"),
-            ["fistbump"]  = ("giphy", "anime fist bump"),
-            ["cheer"]     = ("giphy", "anime cheer"),
-            ["bow"]       = ("giphy", "anime bow"),
-            ["dab"]       = ("giphy", "anime dab"),
-            ["backflip"]  = ("giphy", "anime backflip"),
+            // Klipy/Giphy search for actions without anime API endpoints
+            ["tackle"]    = ("klipy", "anime tackle"),
+            ["fistbump"]  = ("klipy", "anime fist bump"),
+            ["cheer"]     = ("klipy", "anime cheer"),
+            ["bow"]       = ("klipy", "anime bow"),
+            ["dab"]       = ("klipy", "anime dab"),
+            ["backflip"]  = ("klipy", "anime backflip"),
         };
 
         /// <summary>
         /// Fetches a random anime GIF from nekos.best or waifu.pics.
         /// Falls back between sources if one is down. Returns null on all failures.
         /// </summary>
-        // Google/Tenor API key (read from env var or creds — same key used for YouTube)
-        private static readonly string _tenorKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY") ?? "";
+        // Klipy API key — sign up free at partner.klipy.com
+        private static readonly string _klipyKey = Environment.GetEnvironmentVariable("KLIPY_API_KEY") ?? "";
 
         private static async Task<string> GetGifAsync(string action)
         {
@@ -95,14 +95,28 @@ public partial class Social
                     var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                     if (match.Success) return match.Groups[1].Value;
                 }
-                else if (source.Source == "giphy")
+                else if (source.Source == "klipy")
                 {
-                    // Giphy public beta key — free, no signup needed
                     var query = Uri.EscapeDataString(source.Category);
-                    var json = await _gifHttp.GetStringAsync(
-                        $"https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag={query}&rating=g");
-                    var match = Regex.Match(json, "\"url\":\\s*\"(https://media[^\"]+\\.gif)\"");
-                    if (match.Success) return match.Groups[1].Value;
+
+                    // Try Klipy first (Tenor replacement, needs API key)
+                    if (!string.IsNullOrEmpty(_klipyKey))
+                    {
+                        var json = await _gifHttp.GetStringAsync(
+                            $"https://api.klipy.com/v1/search?q={query}&key={_klipyKey}&limit=20");
+                        // Klipy returns results array with media urls
+                        var matches = Regex.Matches(json, "\"url\":\\s*\"(https://[^\"]+\\.gif)\"");
+                        if (matches.Count > 0)
+                            return matches[_rng.Next(matches.Count)].Groups[1].Value;
+                    }
+
+                    // Fall back to Giphy if Klipy key not set or fails
+                    {
+                        var json = await _gifHttp.GetStringAsync(
+                            $"https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag={query}&rating=g");
+                        var match = Regex.Match(json, "\"url\":\\s*\"(https://media[^\"]+\\.gif)\"");
+                        if (match.Success) return match.Groups[1].Value;
+                    }
                 }
             }
             catch (Exception ex)
