@@ -28,28 +28,30 @@ public partial class Social
 
         // ── NSFW RP actions with their search terms ──
         // GIF source mapping: (source, category)
-        // "nekos" = nekos.best SFW (anime-themed, matches the mood)
-        // "waifunsfw" = waifu.pics /nsfw/ endpoint
+        // "nekos" = nekos.best (anime SFW — mood-matched)
+        // "nekoslife" = nekos.life (has spank, lewd, kiss NSFW GIFs)
+        // "waifunsfw" = waifu.pics /nsfw/ (waifu, neko, blowjob)
+        // "purrbot" = purrbot.site /nsfw/ (spank, neko)
         private static readonly Dictionary<string, (string Source, string Category)> _nsfwGifSources = new()
         {
-            ["kiss"]      = ("nekos", "kiss"),
-            ["cuddle"]    = ("nekos", "cuddle"),
+            ["kiss"]      = ("nekoslife", "kiss"),      // nekos.life has NSFW-ish kiss GIFs
+            ["cuddle"]    = ("nekoslife", "cuddle"),
             ["lick"]      = ("nekos", "lick"),
             ["bite"]      = ("nekos", "bite"),
-            ["spank"]     = ("nekos", "slap"),      // closest match
-            ["tease"]     = ("nekos", "smug"),       // teasing smug face
+            ["spank"]     = ("nekoslife", "spank"),     // nekos.life actual spank GIFs
+            ["tease"]     = ("nekos", "smug"),
             ["blush"]     = ("nekos", "blush"),
             ["nuzzle"]    = ("nekos", "nuzzle"),
-            ["seduce"]    = ("nekos", "wink"),       // flirty
-            ["whisper"]   = ("nekos", "peck"),       // close/intimate
-            ["grind"]     = ("nekos", "dance"),      // dancing = closest
-            ["moan"]      = ("nekos", "blush"),      // blushing = closest
-            ["strip"]     = ("waifunsfw", "waifu"),  // actual nsfw
-            ["dominate"]  = ("nekos", "punch"),      // assertive
-            ["submit"]    = ("nekos", "cuddle"),     // yielding
-            ["handcuff"]  = ("nekos", "bonk"),       // playful restraint
-            ["blindfold"] = ("nekos", "shy"),        // shy/hidden - may not exist, fallback
-            ["tie"]       = ("nekos", "handhold"),   // intimate holding
+            ["seduce"]    = ("waifunsfw", "waifu"),     // suggestive anime images
+            ["whisper"]   = ("nekos", "peck"),
+            ["grind"]     = ("waifunsfw", "waifu"),     // suggestive
+            ["moan"]      = ("nekoslife", "lewd"),      // nekos.life lewd category
+            ["strip"]     = ("waifunsfw", "waifu"),     // suggestive anime
+            ["dominate"]  = ("purrbot", "spank"),       // purrbot NSFW spank
+            ["submit"]    = ("nekoslife", "lewd"),      // suggestive
+            ["handcuff"]  = ("nekoslife", "spank"),     // closest NSFW match
+            ["blindfold"] = ("waifunsfw", "neko"),      // suggestive neko
+            ["tie"]       = ("waifunsfw", "neko"),      // suggestive neko
         };
 
         // Keep this for the Actions list display
@@ -99,7 +101,7 @@ public partial class Social
             return true;
         }
 
-        // ── Fetch GIF from anime APIs (nekos.best or waifu.pics NSFW) ──
+        // ── Fetch GIF from multiple NSFW anime APIs ──
         private static async Task<string> GetNsfwGifAsync(string action)
         {
             if (!_nsfwGifSources.TryGetValue(action, out var source))
@@ -107,19 +109,38 @@ public partial class Social
 
             try
             {
-                if (source.Source == "nekos")
+                string json;
+                Regex.Match match;
+
+                switch (source.Source)
                 {
-                    var json = await _http.GetStringAsync(
-                        $"https://nekos.best/api/v2/{source.Category}");
-                    var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
-                    if (match.Success) return match.Groups[1].Value;
-                }
-                else if (source.Source == "waifunsfw")
-                {
-                    var json = await _http.GetStringAsync(
-                        $"https://api.waifu.pics/nsfw/{source.Category}");
-                    var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
-                    if (match.Success) return match.Groups[1].Value;
+                    case "nekos":
+                        json = await _http.GetStringAsync(
+                            $"https://nekos.best/api/v2/{source.Category}");
+                        match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                        if (match.Success) return match.Groups[1].Value;
+                        break;
+
+                    case "nekoslife":
+                        json = await _http.GetStringAsync(
+                            $"https://nekos.life/api/v2/img/{source.Category}");
+                        match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                        if (match.Success) return match.Groups[1].Value;
+                        break;
+
+                    case "waifunsfw":
+                        json = await _http.GetStringAsync(
+                            $"https://api.waifu.pics/nsfw/{source.Category}");
+                        match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                        if (match.Success) return match.Groups[1].Value;
+                        break;
+
+                    case "purrbot":
+                        json = await _http.GetStringAsync(
+                            $"https://purrbot.site/api/img/nsfw/{source.Category}/gif");
+                        match = Regex.Match(json, "\"link\"\\s*:\\s*\"([^\"]+)\"");
+                        if (match.Success) return match.Groups[1].Value;
+                        break;
                 }
             }
             catch { /* API failed, no GIF */ }
