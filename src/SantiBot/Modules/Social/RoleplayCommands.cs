@@ -12,7 +12,11 @@ public partial class Social
     public partial class RoleplayCommands : SantiModule
     {
         private static readonly SantiRandom _rng = new();
-        private static readonly HttpClient _gifHttp = new();
+        private static readonly HttpClient _gifHttp = new()
+        {
+            Timeout = TimeSpan.FromSeconds(5),
+            DefaultRequestHeaders = { { "User-Agent", "SantiBot/1.0" } }
+        };
 
         private static string Pick(string[] pool)
             => pool[_rng.Next(pool.Length)];
@@ -64,8 +68,9 @@ public partial class Social
                 var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                 return match.Success ? match.Groups[1].Value : null;
             }
-            catch
+            catch (Exception ex)
             {
+                Log.Warning(ex, "Failed to fetch GIF from nekos.best for action {Action}", action);
                 return null;
             }
         }
