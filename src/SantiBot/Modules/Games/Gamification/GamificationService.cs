@@ -419,6 +419,32 @@ public sealed class GamificationService : INService
         return progress;
     }
 
+    /// <summary>Reset daily challenge count if it's a new day</summary>
+    public async Task CheckDailyResetAsync(ulong userId, ulong guildId)
+    {
+        await using var ctx = _db.GetDbContext();
+        var config = await ctx.GetTable<BattlePassConfig>()
+            .FirstOrDefaultAsyncLinqToDB(x => x.GuildId == guildId);
+        var season = config?.CurrentSeason ?? 1;
+
+        var progress = await ctx.GetTable<BattlePassProgress>()
+            .FirstOrDefaultAsyncLinqToDB(x => x.UserId == userId && x.GuildId == guildId && x.Season == season);
+
+        if (progress is null) return;
+
+        // Reset daily count if last challenge was from a previous day
+        if (progress.LastDailyChallengeAt.Date < DateTime.UtcNow.Date)
+        {
+            await ctx.GetTable<BattlePassProgress>()
+                .Where(x => x.Id == progress.Id)
+                .UpdateAsync(_ => new BattlePassProgress
+                {
+                    DailyChallengesCompleted = 0,
+                    LastDailyChallengeAt = DateTime.UtcNow,
+                });
+        }
+    }
+
     public async Task<(int NewTier, bool LeveledUp)> AddBattlePassXpAsync(ulong userId, ulong guildId, long xp)
     {
         await using var ctx = _db.GetDbContext();

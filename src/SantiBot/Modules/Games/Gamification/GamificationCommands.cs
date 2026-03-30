@@ -246,6 +246,9 @@ public partial class Games
         [RequireContext(ContextType.Guild)]
         public async Task DailyChallenges()
         {
+            // Reset daily count if it's a new day
+            await _service.CheckDailyResetAsync(ctx.User.Id, ctx.Guild.Id);
+
             var sb = new System.Text.StringBuilder();
             sb.AppendLine("**Today's Daily Challenges:**\n");
 

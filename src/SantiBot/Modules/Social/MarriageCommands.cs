@@ -7,23 +7,94 @@ public partial class Social
     [Group("marriage")]
     public partial class MarriageCommands : SantiModule<MarriageService>
     {
+        // Pending proposals: targetUserId → (proposerId, guildId, expiresAt)
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, (ulong ProposerId, ulong GuildId, DateTime ExpiresAt)> _pendingProposals = new();
+
         [Cmd]
         [RequireContext(ContextType.Guild)]
         public async Task Marry(IUser target)
         {
-            var (success, error) = await _service.MarryAsync(ctx.Guild.Id, ctx.User.Id, target.Id);
+            if (target.Id == ctx.User.Id)
+            {
+                await Response().Error("You can't marry yourself!").SendAsync();
+                return;
+            }
+
+            // Check if already married
+            var existing = await _service.GetMarriageAsync(ctx.Guild.Id, ctx.User.Id);
+            if (existing is not null)
+            {
+                await Response().Error("You're already married! Divorce first with `.marriage divorce`").SendAsync();
+                return;
+            }
+
+            // Create proposal — target must accept
+            _pendingProposals[target.Id] = (ctx.User.Id, ctx.Guild.Id, DateTime.UtcNow.AddMinutes(5));
+
+            var eb = CreateEmbed()
+                .WithTitle("💍 Marriage Proposal!")
+                .WithDescription(
+                    $"{ctx.User.Mention} has proposed to {target.Mention}!\n\n" +
+                    $"{target.Mention}, type `.marriage accept` within 5 minutes to accept!\n" +
+                    $"Or `.marriage decline` to decline.\n\n" +
+                    $"Cost: 1000 🥠 (split between both)")
+                .WithColor(Discord.Color.Magenta);
+
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task Accept()
+        {
+            if (!_pendingProposals.TryRemove(ctx.User.Id, out var proposal))
+            {
+                await Response().Error("You don't have any pending proposals!").SendAsync();
+                return;
+            }
+
+            if (proposal.GuildId != ctx.Guild.Id)
+            {
+                await Response().Error("That proposal was for a different server!").SendAsync();
+                return;
+            }
+
+            if (DateTime.UtcNow > proposal.ExpiresAt)
+            {
+                await Response().Error("That proposal has expired!").SendAsync();
+                return;
+            }
+
+            var (success, error) = await _service.MarryAsync(ctx.Guild.Id, proposal.ProposerId, ctx.User.Id);
             if (!success)
             {
                 await Response().Error(error).SendAsync();
                 return;
             }
 
+            // Award achievements
+            AchievementService.Award(ctx.Guild.Id, proposal.ProposerId, "married");
+            AchievementService.Award(ctx.Guild.Id, ctx.User.Id, "married");
+
             var eb = CreateEmbed()
-                .WithTitle("\U0001F48D Marriage!")
-                .WithDescription($"{ctx.User.Mention} and {target.Mention} are now married!\nCost: 1000 \U0001F960")
+                .WithTitle("💍 Married!")
+                .WithDescription($"<@{proposal.ProposerId}> and {ctx.User.Mention} are now married! 🎉\nCongratulations!")
                 .WithColor(Discord.Color.Magenta);
 
             await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task Decline()
+        {
+            if (!_pendingProposals.TryRemove(ctx.User.Id, out var proposal))
+            {
+                await Response().Error("You don't have any pending proposals!").SendAsync();
+                return;
+            }
+
+            await Response().Confirm($"💔 {ctx.User.Mention} declined <@{proposal.ProposerId}>'s proposal.").SendAsync();
         }
 
         [Cmd]
