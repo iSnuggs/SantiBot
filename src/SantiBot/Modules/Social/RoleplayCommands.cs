@@ -52,13 +52,13 @@ public partial class Social
             ["salute"]    = ("nekos", "salute"),
             ["pout"]      = ("nekos", "pout"),
             ["kick"]      = ("nekos", "kick"),
-            // Tenor search for actions without anime API endpoints
-            ["tackle"]    = ("tenor", "anime tackle"),
-            ["fistbump"]  = ("tenor", "anime fist bump"),
-            ["cheer"]     = ("tenor", "anime cheer"),
-            ["bow"]       = ("tenor", "anime bow"),
-            ["dab"]       = ("tenor", "anime dab"),
-            ["backflip"]  = ("tenor", "anime backflip"),
+            // waifu.pics for remaining actions (best available match)
+            ["tackle"]    = ("waifu", "glomp"),
+            ["fistbump"]  = ("waifu", "highfive"),
+            ["cheer"]     = ("waifu", "happy"),
+            ["bow"]       = ("nekos", "smile"),
+            ["dab"]       = ("waifu", "smug"),
+            ["backflip"]  = ("waifu", "kick"),    // energetic action GIF
         };
 
         /// <summary>
