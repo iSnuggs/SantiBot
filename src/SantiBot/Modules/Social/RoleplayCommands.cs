@@ -52,13 +52,13 @@ public partial class Social
             ["salute"]    = ("nekos", "salute"),
             ["pout"]      = ("nekos", "pout"),
             ["kick"]      = ("nekos", "kick"),
-            // waifu.pics for remaining actions (best available match)
-            ["tackle"]    = ("waifu", "glomp"),
-            ["fistbump"]  = ("waifu", "highfive"),
-            ["cheer"]     = ("waifu", "happy"),
-            ["bow"]       = ("nekos", "smile"),
-            ["dab"]       = ("waifu", "smug"),
-            ["backflip"]  = ("waifu", "dance"),
+            // Giphy search for actions without anime API endpoints
+            ["tackle"]    = ("giphy", "anime tackle"),
+            ["fistbump"]  = ("giphy", "anime fist bump"),
+            ["cheer"]     = ("giphy", "anime cheer"),
+            ["bow"]       = ("giphy", "anime bow"),
+            ["dab"]       = ("giphy", "anime dab"),
+            ["backflip"]  = ("giphy", "anime backflip"),
         };
 
         /// <summary>
@@ -95,19 +95,14 @@ public partial class Social
                     var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                     if (match.Success) return match.Groups[1].Value;
                 }
-                else if (source.Source == "tenor" && !string.IsNullOrEmpty(_tenorKey))
+                else if (source.Source == "giphy")
                 {
-                    // Tenor v2 API — search for specific action GIFs
+                    // Giphy public beta key — free, no signup needed
                     var query = Uri.EscapeDataString(source.Category);
                     var json = await _gifHttp.GetStringAsync(
-                        $"https://tenor.googleapis.com/v2/search?q={query}&key={_tenorKey}&limit=20&media_filter=gif");
-                    // Pick a random result from up to 20
-                    var matches = Regex.Matches(json, "\"url\":\\s*\"(https://media\\.tenor\\.com/[^\"]+\\.gif)\"");
-                    if (matches.Count > 0)
-                    {
-                        var idx = _rng.Next(matches.Count);
-                        return matches[idx].Groups[1].Value;
-                    }
+                        $"https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag={query}&rating=g");
+                    var match = Regex.Match(json, "\"url\":\\s*\"(https://media[^\"]+\\.gif)\"");
+                    if (match.Success) return match.Groups[1].Value;
                 }
             }
             catch (Exception ex)
