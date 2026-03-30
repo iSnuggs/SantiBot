@@ -591,6 +591,11 @@ public sealed class RaidBossService : INService
                 // Award Battle Pass XP for raid participation
                 _ = Gamification.BattlePassBridge.AwardAsync(p.UserId, guildId, 100 + xpShare / 5);
 
+                // Raid achievements
+                Social.AchievementService.Award(guildId, p.UserId, "raid_first");
+                if (rank == 1) Social.AchievementService.Award(guildId, p.UserId, "raid_mvp");
+                if (rank <= 3) Social.AchievementService.Award(guildId, p.UserId, "raid_top3");
+
                 if (dPlayer is not null)
                 {
                     dPlayer.Xp += xpShare;

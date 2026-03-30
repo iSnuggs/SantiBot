@@ -108,6 +108,9 @@ public sealed class StockMarketService(DbService _db, ICurrencyService _cs) : IN
     public async Task<(bool success, string error, int shares)> BuyStockAsync(
         ulong userId, string symbol, int quantity)
     {
+        if (quantity <= 0 || quantity > 10_000)
+            return (false, "invalid_quantity", 0);
+
         await using var ctx = _db.GetDbContext();
 
         var stock = await ctx.GetTable<Stock>()

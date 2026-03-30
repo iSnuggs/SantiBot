@@ -551,10 +551,32 @@ public sealed class AchievementService : INService, IReadyExecutor
         ("its_over_9000",      "It's Over 9000!",      "Have any stat exceed 9000",                "💥", "Secret"),
     };
 
+    // Static reference so game services can award achievements without DI
+    private static AchievementService _instance;
+
     public AchievementService(DbService db, DiscordSocketClient client)
     {
         _db = db;
         _client = client;
+        _instance = this;
+    }
+
+    /// <summary>Award an achievement from any service (static call, fire-and-forget)</summary>
+    public static void Award(ulong guildId, ulong userId, string achievementId)
+    {
+        if (_instance is null) return;
+        _ = Task.Run(async () =>
+        {
+            try { await _instance.TryAwardAsync(guildId, userId, achievementId); }
+            catch { /* non-critical */ }
+        });
+    }
+
+    /// <summary>Award multiple achievements at once</summary>
+    public static void AwardMany(ulong guildId, ulong userId, params string[] ids)
+    {
+        foreach (var id in ids)
+            Award(guildId, userId, id);
     }
 
     public Task OnReadyAsync()
@@ -588,10 +610,20 @@ public sealed class AchievementService : INService, IReadyExecutor
                 await TryAwardAsync(guildId, userId, "first_msg");
             if (msgCount >= 100)
                 await TryAwardAsync(guildId, userId, "msg_100");
+            if (msgCount >= 500)
+                await TryAwardAsync(guildId, userId, "msg_500");
             if (msgCount >= 1000)
                 await TryAwardAsync(guildId, userId, "msg_1000");
+            if (msgCount >= 5000)
+                await TryAwardAsync(guildId, userId, "msg_5000");
             if (msgCount >= 10000)
                 await TryAwardAsync(guildId, userId, "msg_10000");
+            if (msgCount >= 25000)
+                await TryAwardAsync(guildId, userId, "msg_25000");
+            if (msgCount >= 50000)
+                await TryAwardAsync(guildId, userId, "msg_50000");
+            if (msgCount >= 100000)
+                await TryAwardAsync(guildId, userId, "msg_100000");
             if (hour >= 0 && hour < 4)
                 await TryAwardAsync(guildId, userId, "night_owl");
             if (hour >= 4 && hour < 6)

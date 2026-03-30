@@ -264,7 +264,7 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
 
         // Count both unicode emojis and custom Discord emojis
         var customEmojiCount = Regex.Matches(content, @"<a?:\w+:\d+>").Count;
-        var unicodeEmojiCount = Regex.Matches(content, @"[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]").Count;
+        var unicodeEmojiCount = Regex.Matches(content, @"\p{So}|\p{Cs}\p{Cs}").Count;
 
         return (customEmojiCount + unicodeEmojiCount) >= rule.Threshold;
     }

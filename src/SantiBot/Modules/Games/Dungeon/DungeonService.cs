@@ -393,8 +393,7 @@ public sealed class DungeonService : INService
     public async Task<(bool Success, string Message)> EnterDungeonAsync(
         ulong channelId, ulong guildId, ulong userId, string username, int difficulty)
     {
-        if (ActiveDungeons.ContainsKey(channelId))
-            return (false, "A dungeon run is already in progress!");
+        // Check handled by TryAdd below (atomic, no race condition)
 
         difficulty = Math.Clamp(difficulty, 1, 5);
 
@@ -427,7 +426,8 @@ public sealed class DungeonService : INService
         if (player.Class == "Barbarian")
             run.RagingPlayers.Add(userId);
 
-        ActiveDungeons[channelId] = run;
+        if (!ActiveDungeons.TryAdd(channelId, run))
+            return (false, "A dungeon run is already in progress!");
 
         var classEmoji = Classes.TryGetValue(player.Class, out var c) ? c.Emoji : "⚔️";
         var raceEmoji = Races.TryGetValue(player.Race, out var r) ? r.Emoji : "🧑";
@@ -1213,6 +1213,17 @@ public sealed class DungeonService : INService
 
             // Award Battle Pass XP for dungeon completion
             _ = Gamification.BattlePassBridge.AwardAsync(p.UserId, run.GuildId, 50 + run.Difficulty * 20);
+
+            // Award achievements based on dungeon milestones
+            if (player.DungeonsCleared >= 1) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_first");
+            if (player.DungeonsCleared >= 10) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_10");
+            if (player.DungeonsCleared >= 50) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_50");
+            if (player.DungeonsCleared >= 100) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_100");
+            if (player.DungeonsCleared >= 500) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_500");
+            if (player.DungeonsCleared >= 1000) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_1000");
+            if (run.Difficulty >= 5) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_diff5");
+            Social.AchievementService.Award(run.GuildId, p.UserId, $"class_{player.Class.ToLower()}");
+
             if (run.Difficulty > player.HighestDifficulty)
                 player.HighestDifficulty = run.Difficulty;
 
@@ -1222,6 +1233,11 @@ public sealed class DungeonService : INService
             if (levelsGained > 0)
             {
                 player.Level = newLevel;
+                // Dungeon level achievements
+                if (newLevel >= 10) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_level_10");
+                if (newLevel >= 25) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_level_25");
+                if (newLevel >= 50) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_level_50");
+                if (newLevel >= 100) Social.AchievementService.Award(run.GuildId, p.UserId, "dungeon_level_100");
                 player.BaseHp += levelsGained * 5;
                 player.BaseAttack += levelsGained * 2;
                 player.BaseDefense += levelsGained * 1;
