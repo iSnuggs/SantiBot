@@ -58,7 +58,7 @@ public partial class Social
             ["cheer"]     = ("waifu", "happy"),
             ["bow"]       = ("nekos", "smile"),
             ["dab"]       = ("waifu", "smug"),
-            ["backflip"]  = ("waifu", "kick"),    // energetic action GIF
+            ["backflip"]  = ("waifu", "dance"),
         };
 
         /// <summary>
