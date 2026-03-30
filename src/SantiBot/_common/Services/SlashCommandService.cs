@@ -157,6 +157,83 @@ public sealed class SlashCommandService : INService, IReadyExecutor
         ("modmail",      "modmailconfig","Show mod mail configuration", null),
         ("modmail-close","modmailclose", "Close the current mod mail thread", null),
         ("modmail-block","modmailblock", "Block a user from mod mail", null),
+
+        // ── Dungeon RPG ──
+        ("dungeon",      "dungeon enter","Start a dungeon run", new SlashParam[]
+        {
+            new("difficulty", "Difficulty 1-5 (default 1)", ApplicationCommandOptionType.Integer, Required: false),
+        }),
+        ("dungeon-profile","dungeon profile","View your RPG character profile", null),
+        ("dungeon-attack","dungeon attack","Attack the current monster", null),
+        ("dungeon-explore","dungeon explore","Explore the next dungeon room", null),
+
+        // ── Raid Boss ──
+        ("raidboss",     "raidboss status","Show active raid boss status", null),
+        ("raidboss-attack","raidboss attack","Attack the raid boss", null),
+        ("raidboss-bosses","raidboss bosses","Browse all 1000 raid bosses", null),
+
+        // ── Pets ──
+        ("pet",          "pet",          "View your active pet", null),
+        ("pet-adopt",    "pet adopt",    "Adopt a new pet companion", new SlashParam[]
+        {
+            new("species", "Species to adopt (e.g. Dog, Cat, Dragon Hatchling)", ApplicationCommandOptionType.String, Required: true),
+        }),
+        ("pet-battle",   "pet battle",   "Send your pet into battle", null),
+
+        // ── Crafting ──
+        ("mine",         "craft mine",   "Mine for ores", null),
+        ("chop",         "craft chop",   "Chop wood", null),
+        ("cook",         "craft cook",   "Cook a recipe", new SlashParam[]
+        {
+            new("recipe", "Recipe name to cook", ApplicationCommandOptionType.String, Required: false),
+        }),
+
+        // ── PvP ──
+        ("duel",         "pvp duel",     "Challenge someone to a 1v1 duel", new SlashParam[]
+        {
+            new("opponent", "User to challenge", ApplicationCommandOptionType.User, Required: true),
+        }),
+        ("pvp-stats",    "pvp pvpstats", "View your PvP record and Elo", null),
+
+        // ── Fun ──
+        ("8ball",        "fun eightball","Ask the magic 8-ball a question", new SlashParam[]
+        {
+            new("question", "Your question", ApplicationCommandOptionType.String, Required: true),
+        }),
+        ("joke",         "fun joke",     "Get a random joke", null),
+        ("tarot",        "fun tarot",    "Draw a tarot card", null),
+
+        // ── Social ──
+        ("hug",          "rp hug",       "Hug someone", new SlashParam[]
+        {
+            new("user", "Who to hug", ApplicationCommandOptionType.User, Required: true),
+        }),
+        ("pat",          "rp pat",       "Headpat someone", new SlashParam[]
+        {
+            new("user", "Who to pat", ApplicationCommandOptionType.User, Required: true),
+        }),
+
+        // ── AI ──
+        ("ask",          "oc ask",       "Ask Claude AI a question", new SlashParam[]
+        {
+            new("question", "Your question for Claude", ApplicationCommandOptionType.String, Required: true),
+        }),
+
+        // ── Achievements ──
+        ("achievements", "achievements achievements","View your achievements", null),
+        ("badges",       "gf badges",   "View your badges", null),
+        ("battlepass",   "gf battlepass","View your battle pass progress", null),
+
+        // ── Housing ──
+        ("house",        "house myhouse","View your house", null),
+        ("house-buy",    "house buy",    "Buy a house", new SlashParam[]
+        {
+            new("size", "House size (Cottage, Cabin, House, Manor, Mansion, Castle)", ApplicationCommandOptionType.String, Required: true),
+        }),
+
+        // ── Quests ──
+        ("quests",       "quest quests", "View your active quests", null),
+        ("daily-quests", "quest dailyquests","View today's daily quests", null),
     };
 
     private async Task RegisterSlashCommandsAsync()
