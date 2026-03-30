@@ -19674,6 +19674,96 @@
     },
     {
       "Aliases": [
+        ".migrate importmee6"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".migrate importmee6"
+      ],
+      "Submodule": "Migration",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".migrate importdyno"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".migrate importdyno"
+      ],
+      "Submodule": "Migration",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".migrate importcarl"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".migrate importcarl"
+      ],
+      "Submodule": "Migration",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".migrate importcsv"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".migrate importcsv"
+      ],
+      "Submodule": "Migration",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".migrate exportlevels"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".migrate exportlevels"
+      ],
+      "Submodule": "Migration",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
+        ".migrate preview"
+      ],
+      "Description": "?",
+      "Usage": [
+        ".migrate preview"
+      ],
+      "Submodule": "Migration",
+      "Module": "Utility",
+      "Options": null,
+      "Requirements": [
+        "Administrator Server Permission"
+      ]
+    },
+    {
+      "Aliases": [
         ".milestone milestone",
         ".milestone ms"
       ],
