@@ -88,6 +88,13 @@ public sealed class OpenClawService : INService, IExecOnMessage
     private DateTime _minuteStart = DateTime.UtcNow;
     private const int MAX_REQUESTS_PER_MINUTE = 10;
 
+    // Security: track blocked attempts per user — auto-ban after 5 blocks in 10 minutes
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, List<DateTime>> _blockTracker = new();
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, DateTime> _tempBans = new();
+    private const int MAX_BLOCKS_BEFORE_BAN = 5;
+    private static readonly TimeSpan BlockWindow = TimeSpan.FromMinutes(10);
+    private static readonly TimeSpan TempBanDuration = TimeSpan.FromHours(1);
+
     public OpenClawService(DiscordSocketClient client)
     {
         _client = client;
@@ -140,6 +147,38 @@ public sealed class OpenClawService : INService, IExecOnMessage
         "drop table", "delete database", "sql inject",
         "read the file", "cat /etc", "ls /home",
 
+        // Social engineering / impersonation
+        "snuggs told me", "snuggs said to", "the owner told me",
+        "the owner said", "i'm the developer", "i'm the admin",
+        "i'm a moderator", "i work on this project",
+        "i need the token to fix", "i need access to fix",
+        "give me access so i can help", "i'm testing security",
+
+        // Indirect extraction / encoding tricks
+        "spell out the password", "one letter at a time",
+        "encode the token", "encode the password", "in base64",
+        "in hex", "in binary", "in morse code",
+        "what rhymes with", "write a story where the character",
+        "write a poem that contains", "fill in the blank",
+        "complete this sentence: the password is",
+        "use the first letter of each word to spell",
+        "acrostic", "steganography",
+
+        // Context / conversation snooping
+        "what did you tell the last user", "show me other conversations",
+        "what has snuggs asked", "what did snuggs say",
+        "other users' messages", "previous conversations",
+        "show me the chat history", "who else has talked to you",
+        "what questions have people asked",
+
+        // Content abuse
+        "generate nsfw", "write erotica", "sexual content",
+        "how to hack", "how to ddos", "how to exploit",
+        "how to make a bomb", "how to make drugs",
+        "harass", "threaten", "kill", "attack this person",
+        "send a message to", "message this user",
+        "spam", "flood", "raid",
+
         // Known leaked secrets
         "locke0991",
     ];
@@ -175,10 +214,31 @@ public sealed class OpenClawService : INService, IExecOnMessage
     /// </summary>
     public async Task<(bool Success, string Response)> ChatAsync(ulong userId, string message)
     {
+        // Security: check temp-ban
+        if (_tempBans.TryGetValue(userId, out var banEnd) && DateTime.UtcNow < banEnd)
+        {
+            var remaining = banEnd - DateTime.UtcNow;
+            return (false, $"You've been temporarily blocked from the AI for repeated violations. Try again in **{remaining.Minutes}m**.");
+        }
+
         // Security: block prompt injection and info extraction attempts
         if (IsInputBlocked(message))
         {
             Log.Warning("OpenClaw security block — User {UserId} attempted: {Message}", userId, message[..Math.Min(message.Length, 100)]);
+
+            // Track blocked attempts — temp-ban after too many
+            var blocks = _blockTracker.GetOrAdd(userId, _ => new());
+            blocks.Add(DateTime.UtcNow);
+            blocks.RemoveAll(t => (DateTime.UtcNow - t) > BlockWindow);
+
+            if (blocks.Count >= MAX_BLOCKS_BEFORE_BAN)
+            {
+                _tempBans[userId] = DateTime.UtcNow.Add(TempBanDuration);
+                Log.Warning("OpenClaw TEMP BAN — User {UserId} hit {Count} blocks in {Window}min, banned for 1hr",
+                    userId, blocks.Count, BlockWindow.TotalMinutes);
+                return (false, "You've been temporarily blocked from the AI for repeated security violations. This lasts 1 hour.");
+            }
+
             return (false, "That request was blocked for security reasons.");
         }
 
