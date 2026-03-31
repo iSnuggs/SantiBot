@@ -168,9 +168,9 @@ public sealed class OpenClawService : INService, IExecOnMessage
         try
         {
             // Pass message via env var to prevent shell injection
-            var sessionArg = sessionId != null ? $"--session-id {sessionId}" : "";
+            var sessionArg = sessionId != null ? $"--session-id {sessionId}" : "--session-id default";
             var cmd = $"export PATH=\"$PATH:/home/ubuntu/.npm-global/bin\"; " +
-                $"openclaw agent --message \"$SANTI_MSG\" {sessionArg} --timeout {timeoutSec} 2>/dev/null";
+                $"openclaw agent --message \"$SANTI_MSG\" {sessionArg} --local --timeout {timeoutSec} 2>&1";
 
             var (success, output) = await RunSshAsync(cmd, timeoutSec + 30, message);
 
