@@ -139,6 +139,85 @@ public sealed class GamblingExpansionService : INService
         return CardValues[_rng.Next(CardValues.Length)] + Suits[_rng.Next(Suits.Length)];
     }
 
+    /// <summary>
+    /// Evaluate a 5-card poker hand. Returns a score where higher = better.
+    /// Hand ranks: Royal Flush(9) > Straight Flush(8) > Four of a Kind(7) >
+    /// Full House(6) > Flush(5) > Straight(4) > Three of a Kind(3) >
+    /// Two Pair(2) > Pair(1) > High Card(0)
+    /// Score = handRank * 1_000_000 + highCardTiebreaker
+    /// </summary>
+    private static int EvaluatePokerHand(List<string> hand)
+    {
+        // Parse cards into rank values and suits
+        var ranks = new List<int>();
+        var suits = new List<char>();
+
+        foreach (var card in hand)
+        {
+            var suit = card[^1];
+            var rankStr = card[..^1];
+            var rank = rankStr switch
+            {
+                "A" => 14,
+                "K" => 13,
+                "Q" => 12,
+                "J" => 11,
+                _ => int.TryParse(rankStr, out var r) ? r : 0
+            };
+            ranks.Add(rank);
+            suits.Add(suit);
+        }
+
+        ranks.Sort();
+        var isFlush = suits.All(s => s == suits[0]);
+        var isStraight = ranks.Distinct().Count() == 5
+            && (ranks[4] - ranks[0] == 4
+                || (ranks.SequenceEqual(new[] { 2, 3, 4, 5, 14 }))); // Ace-low straight
+
+        var groups = ranks.GroupBy(r => r).OrderByDescending(g => g.Count()).ThenByDescending(g => g.Key).ToList();
+        var highCard = ranks.OrderByDescending(r => r).Aggregate(0, (acc, r) => acc * 15 + r);
+
+        // Royal Flush
+        if (isFlush && isStraight && ranks.Contains(14) && ranks.Contains(13))
+            return 9_000_000 + highCard;
+
+        // Straight Flush
+        if (isFlush && isStraight)
+            return 8_000_000 + highCard;
+
+        // Four of a Kind
+        if (groups[0].Count() == 4)
+            return 7_000_000 + groups[0].Key * 15 + groups[1].Key;
+
+        // Full House
+        if (groups[0].Count() == 3 && groups[1].Count() == 2)
+            return 6_000_000 + groups[0].Key * 15 + groups[1].Key;
+
+        // Flush
+        if (isFlush)
+            return 5_000_000 + highCard;
+
+        // Straight
+        if (isStraight)
+            return 4_000_000 + highCard;
+
+        // Three of a Kind
+        if (groups[0].Count() == 3)
+            return 3_000_000 + groups[0].Key * 225 + highCard % 225;
+
+        // Two Pair
+        if (groups[0].Count() == 2 && groups[1].Count() == 2)
+            return 2_000_000 + Math.Max(groups[0].Key, groups[1].Key) * 225
+                + Math.Min(groups[0].Key, groups[1].Key) * 15 + groups[2].Key;
+
+        // Pair
+        if (groups[0].Count() == 2)
+            return 1_000_000 + groups[0].Key * 225 + highCard % 225;
+
+        // High Card
+        return highCard;
+    }
+
     private int HandValue(List<string> hand)
     {
         int value = 0;
@@ -207,13 +286,13 @@ public sealed class GamblingExpansionService : INService
         if (game.Players.Count < 2)
             return (0, "", 0, "Not enough players!");
 
-        // Simplified poker — each player gets a score, highest wins
+        // Real poker hand evaluation
         var results = new List<(ulong UserId, string Username, int Score, string Hand)>();
         foreach (var (uid, uname) in game.Players)
         {
             var hand = new List<string>();
             for (int i = 0; i < 5; i++) hand.Add(DrawCard());
-            var score = _rng.Next(1, 1000); // Simplified scoring
+            var score = EvaluatePokerHand(hand);
             results.Add((uid, uname, score, string.Join(" ", hand)));
         }
 
@@ -229,8 +308,14 @@ public sealed class GamblingExpansionService : INService
         }
         await _cs.AddAsync(winner.UserId, actualPot, new TxData("poker", "win"));
 
+        var handRankNames = new[] { "High Card", "Pair", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush", "Royal Flush" };
         var summary = string.Join("\n", results.OrderByDescending(r => r.Score)
-            .Select((r, i) => $"{(i == 0 ? "👑" : "  ")} {r.Username}: {r.Hand} (Score: {r.Score})"));
+            .Select((r, i) =>
+            {
+                var rankIdx = Math.Min(r.Score / 1_000_000, 9);
+                var rankName = handRankNames[rankIdx];
+                return $"{(i == 0 ? "👑" : "  ")} {r.Username}: {r.Hand} — **{rankName}**";
+            }));
 
         return (winner.UserId, winner.Username, actualPot, summary);
     }

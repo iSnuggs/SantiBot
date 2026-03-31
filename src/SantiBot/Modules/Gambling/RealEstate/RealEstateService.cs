@@ -26,33 +26,47 @@ public sealed class RealEstateService : INService
         _cs = cs;
     }
 
+    // Prevent race condition on property purchase
+    private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, SemaphoreSlim> _purchaseLocks = new();
+
     public async Task<(bool Success, string Message)> BuyPropertyAsync(ulong guildId, ulong userId, string propertyType)
     {
         if (!Properties.TryGetValue(propertyType, out var info))
             return (false, $"Unknown property. Available: {string.Join(", ", Properties.Keys)}");
 
-        await using var ctx = _db.GetDbContext();
-        var existing = await ctx.GetTable<RealEstateProperty>()
-            .FirstOrDefaultAsyncLinqToDB(x => x.GuildId == guildId && x.UserId == userId && x.PropertyType == propertyType);
-
-        if (existing is not null)
-            return (false, "You already own this property type!");
-
-        var removed = await _cs.RemoveAsync(userId, info.Cost, new TxData("realestate", "buy"));
-        if (!removed)
-            return (false, $"You need {info.Cost} 🥠 to buy a {propertyType}!");
-
-        await ctx.GetTable<RealEstateProperty>().InsertAsync(() => new RealEstateProperty
+        // Per-user per-property lock to prevent concurrent duplicate purchases
+        var lockKey = $"{guildId}:{userId}:{propertyType}";
+        var semaphore = _purchaseLocks.GetOrAdd(lockKey, _ => new SemaphoreSlim(1, 1));
+        await semaphore.WaitAsync();
+        try
         {
-            GuildId = guildId,
-            UserId = userId,
-            PropertyType = propertyType,
-            UpgradeLevel = 0,
-            LastCollected = DateTime.UtcNow,
-            DateAdded = DateTime.UtcNow
-        });
+            await using var ctx = _db.GetDbContext();
+            var existing = await ctx.GetTable<RealEstateProperty>()
+                .FirstOrDefaultAsyncLinqToDB(x => x.GuildId == guildId && x.UserId == userId && x.PropertyType == propertyType);
 
-        return (true, $"You bought a **{propertyType}** for {info.Cost} 🥠! It earns {info.IncomePerHour} 🥠/hr.");
+            if (existing is not null)
+                return (false, "You already own this property type!");
+
+            var removed = await _cs.RemoveAsync(userId, info.Cost, new TxData("realestate", "buy"));
+            if (!removed)
+                return (false, $"You need {info.Cost} 🥠 to buy a {propertyType}!");
+
+            await ctx.GetTable<RealEstateProperty>().InsertAsync(() => new RealEstateProperty
+            {
+                GuildId = guildId,
+                UserId = userId,
+                PropertyType = propertyType,
+                UpgradeLevel = 0,
+                LastCollected = DateTime.UtcNow,
+                DateAdded = DateTime.UtcNow
+            });
+
+            return (true, $"You bought a **{propertyType}** for {info.Cost} 🥠! It earns {info.IncomePerHour} 🥠/hr.");
+        }
+        finally
+        {
+            semaphore.Release();
+        }
     }
 
     public async Task<(bool Success, string Message)> UpgradePropertyAsync(ulong guildId, ulong userId, string propertyType)

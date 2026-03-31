@@ -60,7 +60,31 @@ public sealed class AuctionService : INService, IReadyExecutor
         if (durationHours is < 1 or > 168)
             return (false, "Duration must be between 1 and 168 hours!");
 
+        if (string.IsNullOrWhiteSpace(item) || item.Length > 100)
+            return (false, "Item description must be 1-100 characters!");
+
+        // Verify the seller owns the item (check DungeonItems inventory)
         await using var ctx = _db.GetDbContext();
+        var ownedItem = await ctx.GetTable<DungeonItem>()
+            .FirstOrDefaultAsyncLinqToDB(x => x.UserId == sellerId
+                && x.GuildId == guildId
+                && x.Name == item
+                && !x.IsEquipped);
+
+        if (ownedItem is null)
+        {
+            // Also allow "service" auctions (non-item listings) with a minimum price of 100
+            if (startPrice < 100)
+                return (false, $"Item **{item}** not found in your inventory! For service/custom auctions, set a minimum price of 100.");
+        }
+        else
+        {
+            // Remove item from seller's inventory (it's now in the auction)
+            await ctx.GetTable<DungeonItem>()
+                .Where(x => x.Id == ownedItem.Id)
+                .DeleteAsync();
+        }
+
         var id = await ctx.GetTable<Auction>().InsertWithInt32IdentityAsync(() => new Auction
         {
             GuildId = guildId,

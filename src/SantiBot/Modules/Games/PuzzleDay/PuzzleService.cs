@@ -46,6 +46,9 @@ public sealed class PuzzleService : INService
         ("What has a ring but no finger?", "phone", "It buzzes in your pocket"),
     ];
 
+    // Rate limit: 3 seconds between answer attempts
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<(ulong, ulong), DateTime> _answerCooldowns = new();
+
     public PuzzleService(DbService db, ICurrencyService cs)
     {
         _db = db;
@@ -66,6 +69,15 @@ public sealed class PuzzleService : INService
 
     public async Task<(bool Success, string Message)> SolveAsync(ulong guildId, ulong userId, string answer)
     {
+        // Rate limit: 3 seconds between attempts
+        var key = (guildId, userId);
+        if (_answerCooldowns.TryGetValue(key, out var lastAttempt))
+        {
+            if ((DateTime.UtcNow - lastAttempt).TotalSeconds < 3)
+                return (false, "Too fast! Wait a few seconds between attempts.");
+        }
+        _answerCooldowns[key] = DateTime.UtcNow;
+
         var puzzle = GetTodaysPuzzle();
         var today = DateTime.UtcNow.Date;
 
