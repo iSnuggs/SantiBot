@@ -20,9 +20,6 @@ public sealed class OpenClawService : INService, IExecOnMessage
 
     public async Task<bool> ExecOnMessageAsync(IGuild guild, IUserMessage msg)
     {
-        // Only handle DMs (guild is null for DMs)
-        if (guild is not null) return false;
-
         // Ignore bot messages
         if (msg.Author.IsBot) return false;
 
@@ -32,18 +29,45 @@ public sealed class OpenClawService : INService, IExecOnMessage
         // Ignore very short messages or empty
         if (string.IsNullOrWhiteSpace(msg.Content) || msg.Content.Length < 2) return false;
 
+        bool isMention = false;
+        var content = msg.Content;
+
+        if (guild is not null)
+        {
+            // In a server — only respond to @SantiBot mentions
+            if (!msg.Content.Contains($"<@{_client.CurrentUser.Id}>") && !msg.Content.Contains($"<@!{_client.CurrentUser.Id}>"))
+                return false;
+
+            isMention = true;
+            // Strip the mention from the message so Santi gets clean text
+            content = System.Text.RegularExpressions.Regex.Replace(content, $@"<@!?{_client.CurrentUser.Id}>", "").Trim();
+
+            // If they just @mentioned with nothing else, give a friendly nudge
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                await msg.Channel.SendMessageAsync("Hey! 🐾 Ask me anything — just type your question after mentioning me.");
+                return true;
+            }
+        }
+        // else: DMs — respond to everything (no mention needed)
+
         // Forward to Claude via OpenClaw
         using var typing = msg.Channel.EnterTypingState();
-        var (success, response) = await ChatAsync(msg.Author.Id, msg.Content);
+        var (success, response) = await ChatAsync(msg.Author.Id, content);
 
         if (success)
         {
-            // Send as a natural message, not an embed — feels more like a conversation
-            if (response.Length <= 2000)
+            // In guild, reply to the message so it's threaded
+            if (isMention)
+            {
+                await msg.Channel.SendMessageAsync(response, messageReference: new MessageReference(msg.Id));
+            }
+            else if (response.Length <= 2000)
+            {
                 await msg.Channel.SendMessageAsync(response);
+            }
             else
             {
-                // Split long responses
                 var chunks = SplitMessage(response, 2000);
                 foreach (var chunk in chunks)
                     await msg.Channel.SendMessageAsync(chunk);
@@ -51,7 +75,10 @@ public sealed class OpenClawService : INService, IExecOnMessage
         }
         else
         {
-            await msg.Channel.SendMessageAsync($"Sorry, I couldn't process that right now. ({response})");
+            if (isMention)
+                await msg.Channel.SendMessageAsync($"Sorry, I couldn't process that right now. ({response})", messageReference: new MessageReference(msg.Id));
+            else
+                await msg.Channel.SendMessageAsync($"Sorry, I couldn't process that right now. ({response})");
         }
 
         return true; // We handled this message

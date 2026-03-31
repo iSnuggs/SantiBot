@@ -274,10 +274,8 @@ public sealed class AiAgentService(
 
         if (string.IsNullOrWhiteSpace(credsProvider.GetCreds().AiApiKey) && config.Backend != "santi")
         {
-            await sender.Response(channel)
-                        .Error("AI agent is not configured. The bot owner must set aiApiKey in data/creds.yml.")
-                        .SendAsync();
-            return true;
+            // No AI key configured — fall through so OpenClaw handler can pick it up
+            return false;
         }
 
         var guildUser = await guild.GetUserAsync(message.Author.Id);
