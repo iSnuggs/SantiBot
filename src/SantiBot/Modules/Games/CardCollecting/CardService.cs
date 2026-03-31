@@ -67,22 +67,35 @@ public sealed class CardService : INService
         _cs = cs;
     }
 
-    // Track last daily draw per user
-    private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, DateTime> _lastDailyDraw = new();
-
     public async Task<(string Name, string Set, string Rarity, string Error)> DrawDailyCardAsync(ulong userId)
     {
-        // Enforce 24-hour cooldown
-        if (_lastDailyDraw.TryGetValue(userId, out var lastDraw))
+        // DB-backed 24-hour cooldown (survives restarts)
+        await using var cooldownCtx = _db.GetDbContext();
+        var lastClaim = await cooldownCtx.GetTable<SeasonalClaim>()
+            .Where(x => x.UserId == userId && x.ClaimType == "carddaily")
+            .OrderByDescending(x => x.ClaimedAt)
+            .FirstOrDefaultAsyncLinqToDB();
+
+        if (lastClaim is not null)
         {
-            var nextDraw = lastDraw.AddHours(24);
+            var nextDraw = lastClaim.ClaimedAt.AddHours(24);
             if (DateTime.UtcNow < nextDraw)
             {
                 var remaining = nextDraw - DateTime.UtcNow;
                 return ("", "", "", $"You already drew today! Next draw in **{remaining.Hours}h {remaining.Minutes}m**.");
             }
         }
-        _lastDailyDraw[userId] = DateTime.UtcNow;
+
+        // Record this draw
+        cooldownCtx.Add(new SeasonalClaim
+        {
+            UserId = userId,
+            GuildId = 0,
+            ClaimType = "carddaily",
+            Day = 0,
+            ClaimedAt = DateTime.UtcNow,
+        });
+        await cooldownCtx.SaveChangesAsync();
 
         // Pick rarity
         var totalWeight = RarityWeights.Values.Sum();

@@ -15,9 +15,6 @@ public sealed class PokemonService : INService
 
     public readonly ConcurrentDictionary<ulong, PokeBattle> ActiveBattles = new();
 
-    // Cooldown tracking
-    private readonly ConcurrentDictionary<ulong, DateTime> _catchCooldowns = new();
-    private readonly ConcurrentDictionary<ulong, DateTime> _trainCooldowns = new();
     private const int CATCH_COOLDOWN_SECONDS = 30;
     private const int TRAIN_COOLDOWN_SECONDS = 60;
 
@@ -104,17 +101,28 @@ public sealed class PokemonService : INService
 
     public async Task<(bool Success, string Message, UserPokemon Caught)> CatchAsync(ulong userId)
     {
-        // Cooldown check
-        if (_catchCooldowns.TryGetValue(userId, out var lastCatch))
+        // DB-backed cooldown (survives restarts)
+        await using var cooldownCtx = _db.GetDbContext();
+        var lastClaim = await cooldownCtx.GetTable<SantiBot.Db.Models.SeasonalClaim>()
+            .Where(x => x.UserId == userId && x.ClaimType == "pokecatch")
+            .OrderByDescending(x => x.ClaimedAt)
+            .FirstOrDefaultAsyncLinqToDB();
+
+        if (lastClaim is not null)
         {
-            var cooldownEnd = lastCatch.AddSeconds(CATCH_COOLDOWN_SECONDS);
+            var cooldownEnd = lastClaim.ClaimedAt.AddSeconds(CATCH_COOLDOWN_SECONDS);
             if (DateTime.UtcNow < cooldownEnd)
             {
                 var remaining = cooldownEnd - DateTime.UtcNow;
                 return (false, $"You're still searching! Try again in **{remaining.Seconds}s**.", null);
             }
         }
-        _catchCooldowns[userId] = DateTime.UtcNow;
+
+        cooldownCtx.Add(new SantiBot.Db.Models.SeasonalClaim
+        {
+            UserId = userId, GuildId = 0, ClaimType = "pokecatch", Day = 0, ClaimedAt = DateTime.UtcNow,
+        });
+        await cooldownCtx.SaveChangesAsync();
 
         // 70% catch rate
         if (_rng.Next(100) >= 70)
@@ -173,17 +181,28 @@ public sealed class PokemonService : INService
 
     public async Task<(bool Success, string Message)> TrainAsync(ulong userId, string pokemonName)
     {
-        // Cooldown check
-        if (_trainCooldowns.TryGetValue(userId, out var lastTrain))
+        // DB-backed cooldown (survives restarts)
+        await using var cooldownCtx = _db.GetDbContext();
+        var lastTrain = await cooldownCtx.GetTable<SantiBot.Db.Models.SeasonalClaim>()
+            .Where(x => x.UserId == userId && x.ClaimType == "poketrain")
+            .OrderByDescending(x => x.ClaimedAt)
+            .FirstOrDefaultAsyncLinqToDB();
+
+        if (lastTrain is not null)
         {
-            var cooldownEnd = lastTrain.AddSeconds(TRAIN_COOLDOWN_SECONDS);
+            var cooldownEnd = lastTrain.ClaimedAt.AddSeconds(TRAIN_COOLDOWN_SECONDS);
             if (DateTime.UtcNow < cooldownEnd)
             {
                 var remaining = cooldownEnd - DateTime.UtcNow;
                 return (false, $"Your creature is resting! Try again in **{remaining.Seconds}s**.");
             }
         }
-        _trainCooldowns[userId] = DateTime.UtcNow;
+
+        cooldownCtx.Add(new SantiBot.Db.Models.SeasonalClaim
+        {
+            UserId = userId, GuildId = 0, ClaimType = "poketrain", Day = 0, ClaimedAt = DateTime.UtcNow,
+        });
+        await cooldownCtx.SaveChangesAsync();
 
         await using var ctx = _db.GetDbContext();
         var pokemon = await ctx.GetTable<UserPokemon>()
