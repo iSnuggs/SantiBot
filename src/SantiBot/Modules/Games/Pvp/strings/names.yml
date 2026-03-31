@@ -1,0 +1,20 @@
+balancedteams:
+  - balancedteams
+duel:
+  - duel
+pvpleaderboard:
+  - pvpleaderboard
+pvpstats:
+  - pvpstats
+randomteams:
+  - randomteams
+tournamentbracket:
+  - tournamentbracket
+tournamentcreate:
+  - tournamentcreate
+tournamentinfo:
+  - tournamentinfo
+tournamentjoin:
+  - tournamentjoin
+tournamentstart:
+  - tournamentstart

@@ -1,0 +1,42 @@
+antinuke:
+  desc: "antinuke command"
+  ex:
+    - ''
+  params:
+    - {}
+massaction:
+  desc: "massaction command"
+  ex:
+    - ''
+  params:
+    - {}
+modreport:
+  desc: "modreport command"
+  ex:
+    - ''
+  params:
+    - {}
+modstats:
+  desc: "modstats command"
+  ex:
+    - ''
+  params:
+    - {}
+nickfilter:
+  desc: "nickfilter command"
+  ex:
+    - ''
+  params:
+    - {}
+riskscore:
+  desc: "riskscore command"
+  ex:
+    - ''
+  params:
+    - {}
+spamcheck:
+  desc: "spamcheck command"
+  ex:
+    - ''
+  params:
+    - {}

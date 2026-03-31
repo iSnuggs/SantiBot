@@ -1,0 +1,66 @@
+pet:
+  desc: "pet command"
+  ex:
+    - ''
+  params:
+    - {}
+petadopt:
+  desc: "petadopt command"
+  ex:
+    - ''
+  params:
+    - {}
+petadventure:
+  desc: "petadventure command"
+  ex:
+    - ''
+  params:
+    - {}
+petbattle:
+  desc: "petbattle command"
+  ex:
+    - ''
+  params:
+    - {}
+petfeed:
+  desc: "petfeed command"
+  ex:
+    - ''
+  params:
+    - {}
+petlist:
+  desc: "petlist command"
+  ex:
+    - ''
+  params:
+    - {}
+petplay:
+  desc: "petplay command"
+  ex:
+    - ''
+  params:
+    - {}
+petrelease:
+  desc: "petrelease command"
+  ex:
+    - ''
+  params:
+    - {}
+petrename:
+  desc: "petrename command"
+  ex:
+    - ''
+  params:
+    - {}
+petrest:
+  desc: "petrest command"
+  ex:
+    - ''
+  params:
+    - {}
+petspecies:
+  desc: "petspecies command"
+  ex:
+    - ''
+  params:
+    - {}

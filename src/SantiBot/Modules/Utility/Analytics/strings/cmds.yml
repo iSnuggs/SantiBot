@@ -1,0 +1,48 @@
+activity:
+  desc: "activity command"
+  ex:
+    - ''
+  params:
+    - {}
+growth:
+  desc: "growth command"
+  ex:
+    - ''
+  params:
+    - {}
+heatmap:
+  desc: "heatmap command"
+  ex:
+    - ''
+  params:
+    - {}
+peakhours:
+  desc: "peakhours command"
+  ex:
+    - ''
+  params:
+    - {}
+serverreport:
+  desc: "serverreport command"
+  ex:
+    - ''
+  params:
+    - {}
+topchannels:
+  desc: "topchannels command"
+  ex:
+    - ''
+  params:
+    - {}
+topposters:
+  desc: "topposters command"
+  ex:
+    - ''
+  params:
+    - {}
+topwords:
+  desc: "topwords command"
+  ex:
+    - ''
+  params:
+    - {}

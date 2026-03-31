@@ -1,0 +1,26 @@
+addroom:
+  - addroom
+buy:
+  - buy
+buyfurniture:
+  - buyfurniture
+decorate:
+  - decorate
+guestbook:
+  - guestbook
+guestbooksign:
+  - guestbooksign
+houseshop:
+  - houseshop
+housevalue:
+  - housevalue
+myhouse:
+  - myhouse
+setstyle:
+  - setstyle
+styles:
+  - styles
+upgrade:
+  - upgrade
+visit:
+  - visit

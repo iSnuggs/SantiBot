@@ -1,0 +1,60 @@
+balancedteams:
+  desc: "balancedteams command"
+  ex:
+    - ''
+  params:
+    - {}
+duel:
+  desc: "duel command"
+  ex:
+    - ''
+  params:
+    - {}
+pvpleaderboard:
+  desc: "pvpleaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+pvpstats:
+  desc: "pvpstats command"
+  ex:
+    - ''
+  params:
+    - {}
+randomteams:
+  desc: "randomteams command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentbracket:
+  desc: "tournamentbracket command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentcreate:
+  desc: "tournamentcreate command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentinfo:
+  desc: "tournamentinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentjoin:
+  desc: "tournamentjoin command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentstart:
+  desc: "tournamentstart command"
+  ex:
+    - ''
+  params:
+    - {}

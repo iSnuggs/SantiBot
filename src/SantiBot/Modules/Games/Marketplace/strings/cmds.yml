@@ -1,0 +1,36 @@
+buy:
+  desc: "buy command"
+  ex:
+    - ''
+  params:
+    - {}
+cancel:
+  desc: "cancel command"
+  ex:
+    - ''
+  params:
+    - {}
+list:
+  desc: "list command"
+  ex:
+    - ''
+  params:
+    - {}
+market:
+  desc: "market command"
+  ex:
+    - ''
+  params:
+    - {}
+mylistings:
+  desc: "mylistings command"
+  ex:
+    - ''
+  params:
+    - {}
+pricecheck:
+  desc: "pricecheck command"
+  ex:
+    - ''
+  params:
+    - {}

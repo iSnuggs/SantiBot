@@ -1,0 +1,126 @@
+addcmd:
+  desc: "addcmd command"
+  ex:
+    - ''
+  params:
+    - {}
+cmdlist:
+  desc: "cmdlist command"
+  ex:
+    - ''
+  params:
+    - {}
+currencyname:
+  desc: "currencyname command"
+  ex:
+    - ''
+  params:
+    - {}
+delcmd:
+  desc: "delcmd command"
+  ex:
+    - ''
+  params:
+    - {}
+deleteembed:
+  desc: "deleteembed command"
+  ex:
+    - ''
+  params:
+    - {}
+embedcolor:
+  desc: "embedcolor command"
+  ex:
+    - ''
+  params:
+    - {}
+embeds:
+  desc: "embeds command"
+  ex:
+    - ''
+  params:
+    - {}
+incrementcommanduseasync:
+  desc: "incrementcommanduseasync command"
+  ex:
+    - ''
+  params:
+    - {}
+levelupmsg:
+  desc: "levelupmsg command"
+  ex:
+    - ''
+  params:
+    - {}
+saveembed:
+  desc: "saveembed command"
+  ex:
+    - ''
+  params:
+    - {}
+sendembed:
+  desc: "sendembed command"
+  ex:
+    - ''
+  params:
+    - {}
+setcurrencyasync:
+  desc: "setcurrencyasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setembedcolorasync:
+  desc: "setembedcolorasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setlevelupasync:
+  desc: "setlevelupasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setthemeasync:
+  desc: "setthemeasync command"
+  ex:
+    - ''
+  params:
+    - {}
+settings:
+  desc: "settings command"
+  ex:
+    - ''
+  params:
+    - {}
+setwelcomeasync:
+  desc: "setwelcomeasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setxpasync:
+  desc: "setxpasync command"
+  ex:
+    - ''
+  params:
+    - {}
+theme:
+  desc: "theme command"
+  ex:
+    - ''
+  params:
+    - {}
+welcomemsg:
+  desc: "welcomemsg command"
+  ex:
+    - ''
+  params:
+    - {}
+xpname:
+  desc: "xpname command"
+  ex:
+    - ''
+  params:
+    - {}

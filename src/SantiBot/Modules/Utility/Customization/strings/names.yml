@@ -1,0 +1,42 @@
+addcmd:
+  - addcmd
+cmdlist:
+  - cmdlist
+currencyname:
+  - currencyname
+delcmd:
+  - delcmd
+deleteembed:
+  - deleteembed
+embedcolor:
+  - embedcolor
+embeds:
+  - embeds
+incrementcommanduseasync:
+  - incrementcommanduseasync
+levelupmsg:
+  - levelupmsg
+saveembed:
+  - saveembed
+sendembed:
+  - sendembed
+setcurrencyasync:
+  - setcurrencyasync
+setembedcolorasync:
+  - setembedcolorasync
+setlevelupasync:
+  - setlevelupasync
+setthemeasync:
+  - setthemeasync
+settings:
+  - settings
+setwelcomeasync:
+  - setwelcomeasync
+setxpasync:
+  - setxpasync
+theme:
+  - theme
+welcomemsg:
+  - welcomemsg
+xpname:
+  - xpname

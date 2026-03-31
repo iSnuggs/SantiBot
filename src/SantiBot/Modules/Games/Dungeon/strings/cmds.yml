@@ -1,0 +1,102 @@
+attack:
+  desc: "attack command"
+  ex:
+    - ''
+  params:
+    - {}
+bosses:
+  desc: "bosses command"
+  ex:
+    - ''
+  params:
+    - {}
+chooseclass:
+  desc: "chooseclass command"
+  ex:
+    - ''
+  params:
+    - {}
+chooserace:
+  desc: "chooserace command"
+  ex:
+    - ''
+  params:
+    - {}
+config:
+  desc: "config command"
+  ex:
+    - ''
+  params:
+    - {}
+enter:
+  desc: "enter command"
+  ex:
+    - ''
+  params:
+    - {}
+equip:
+  desc: "equip command"
+  ex:
+    - ''
+  params:
+    - {}
+explore:
+  desc: "explore command"
+  ex:
+    - ''
+  params:
+    - {}
+flee:
+  desc: "flee command"
+  ex:
+    - ''
+  params:
+    - {}
+inventory:
+  desc: "inventory command"
+  ex:
+    - ''
+  params:
+    - {}
+invite:
+  desc: "invite command"
+  ex:
+    - ''
+  params:
+    - {}
+leaderboard:
+  desc: "leaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+profile:
+  desc: "profile command"
+  ex:
+    - ''
+  params:
+    - {}
+saveplayerasync:
+  desc: "saveplayerasync command"
+  ex:
+    - ''
+  params:
+    - {}
+spawn:
+  desc: "spawn command"
+  ex:
+    - ''
+  params:
+    - {}
+status:
+  desc: "status command"
+  ex:
+    - ''
+  params:
+    - {}
+toggle:
+  desc: "toggle command"
+  ex:
+    - ''
+  params:
+    - {}

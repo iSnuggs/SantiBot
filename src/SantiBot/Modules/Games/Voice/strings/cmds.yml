@@ -1,0 +1,162 @@
+addpointsasync:
+  desc: "addpointsasync command"
+  ex:
+    - ''
+  params:
+    - {}
+bet:
+  desc: "bet command"
+  ex:
+    - ''
+  params:
+    - {}
+fanartgallery:
+  desc: "fanartgallery command"
+  ex:
+    - ''
+  params:
+    - {}
+fanartsubmit:
+  desc: "fanartsubmit command"
+  ex:
+    - ''
+  params:
+    - {}
+fanartvote:
+  desc: "fanartvote command"
+  ex:
+    - ''
+  params:
+    - {}
+feedadd:
+  desc: "feedadd command"
+  ex:
+    - ''
+  params:
+    - {}
+feedremove:
+  desc: "feedremove command"
+  ex:
+    - ''
+  params:
+    - {}
+feeds:
+  desc: "feeds command"
+  ex:
+    - ''
+  params:
+    - {}
+incrementplaycountasync:
+  desc: "incrementplaycountasync command"
+  ex:
+    - ''
+  params:
+    - {}
+logsessionasync:
+  desc: "logsessionasync command"
+  ex:
+    - ''
+  params:
+    - {}
+monitoradd:
+  desc: "monitoradd command"
+  ex:
+    - ''
+  params:
+    - {}
+monitorremove:
+  desc: "monitorremove command"
+  ex:
+    - ''
+  params:
+    - {}
+monitors:
+  desc: "monitors command"
+  ex:
+    - ''
+  params:
+    - {}
+myvoice:
+  desc: "myvoice command"
+  ex:
+    - ''
+  params:
+    - {}
+pointrewards:
+  desc: "pointrewards command"
+  ex:
+    - ''
+  params:
+    - {}
+points:
+  desc: "points command"
+  ex:
+    - ''
+  params:
+    - {}
+predict:
+  desc: "predict command"
+  ex:
+    - ''
+  params:
+    - {}
+predictresolve:
+  desc: "predictresolve command"
+  ex:
+    - ''
+  params:
+    - {}
+predictstatus:
+  desc: "predictstatus command"
+  ex:
+    - ''
+  params:
+    - {}
+settempvoiceconfigasync:
+  desc: "settempvoiceconfigasync command"
+  ex:
+    - ''
+  params:
+    - {}
+soundadd:
+  desc: "soundadd command"
+  ex:
+    - ''
+  params:
+    - {}
+soundremove:
+  desc: "soundremove command"
+  ex:
+    - ''
+  params:
+    - {}
+sounds:
+  desc: "sounds command"
+  ex:
+    - ''
+  params:
+    - {}
+tempvoicesetup:
+  desc: "tempvoicesetup command"
+  ex:
+    - ''
+  params:
+    - {}
+tracktempchannelasync:
+  desc: "tracktempchannelasync command"
+  ex:
+    - ''
+  params:
+    - {}
+voiceleaderboard:
+  desc: "voiceleaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+votefanartasync:
+  desc: "votefanartasync command"
+  ex:
+    - ''
+  params:
+    - {}

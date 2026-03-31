@@ -1,0 +1,54 @@
+addfeatureasync:
+  desc: "addfeatureasync command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumcheck:
+  desc: "premiumcheck command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumcompare:
+  desc: "premiumcompare command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumfeatures:
+  desc: "premiumfeatures command"
+  ex:
+    - ''
+  params:
+    - {}
+premiuminfo:
+  desc: "premiuminfo command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumlimits:
+  desc: "premiumlimits command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumset:
+  desc: "premiumset command"
+  ex:
+    - ''
+  params:
+    - {}
+removefeatureasync:
+  desc: "removefeatureasync command"
+  ex:
+    - ''
+  params:
+    - {}
+settierasync:
+  desc: "settierasync command"
+  ex:
+    - ''
+  params:
+    - {}

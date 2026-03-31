@@ -1,0 +1,54 @@
+deleteoriginal:
+  desc: "deleteoriginal command"
+  ex:
+    - ''
+  params:
+    - {}
+disable:
+  desc: "disable command"
+  ex:
+    - ''
+  params:
+    - {}
+enable:
+  desc: "enable command"
+  ex:
+    - ''
+  params:
+    - {}
+fix:
+  desc: "fix command"
+  ex:
+    - ''
+  params:
+    - {}
+setdeleteoriginalasync:
+  desc: "setdeleteoriginalasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setenabledasync:
+  desc: "setenabledasync command"
+  ex:
+    - ''
+  params:
+    - {}
+status:
+  desc: "status command"
+  ex:
+    - ''
+  params:
+    - {}
+toggle:
+  desc: "toggle command"
+  ex:
+    - ''
+  params:
+    - {}
+toggleplatformasync:
+  desc: "toggleplatformasync command"
+  ex:
+    - ''
+  params:
+    - {}

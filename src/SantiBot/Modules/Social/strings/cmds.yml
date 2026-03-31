@@ -1,0 +1,846 @@
+accept:
+  desc: "accept command"
+  ex:
+    - ''
+  params:
+    - {}
+achievementleaderboard:
+  desc: "achievementleaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+achievementlist:
+  desc: "achievementlist command"
+  ex:
+    - ''
+  params:
+    - {}
+achievements:
+  desc: "achievements command"
+  ex:
+    - ''
+  params:
+    - {}
+achievementstats:
+  desc: "achievementstats command"
+  ex:
+    - ''
+  params:
+    - {}
+actions:
+  desc: "actions command"
+  ex:
+    - ''
+  params:
+    - {}
+adopt:
+  desc: "adopt command"
+  ex:
+    - ''
+  params:
+    - {}
+angry:
+  desc: "angry command"
+  ex:
+    - ''
+  params:
+    - {}
+awoo:
+  desc: "awoo command"
+  ex:
+    - ''
+  params:
+    - {}
+backflip:
+  desc: "backflip command"
+  ex:
+    - ''
+  params:
+    - {}
+baka:
+  desc: "baka command"
+  ex:
+    - ''
+  params:
+    - {}
+bgbuy:
+  desc: "bgbuy command"
+  ex:
+    - ''
+  params:
+    - {}
+bglist:
+  desc: "bglist command"
+  ex:
+    - ''
+  params:
+    - {}
+bgset:
+  desc: "bgset command"
+  ex:
+    - ''
+  params:
+    - {}
+bgshop:
+  desc: "bgshop command"
+  ex:
+    - ''
+  params:
+    - {}
+bioset:
+  desc: "bioset command"
+  ex:
+    - ''
+  params:
+    - {}
+bite:
+  desc: "bite command"
+  ex:
+    - ''
+  params:
+    - {}
+blindfold:
+  desc: "blindfold command"
+  ex:
+    - ''
+  params:
+    - {}
+blowkiss:
+  desc: "blowkiss command"
+  ex:
+    - ''
+  params:
+    - {}
+blush:
+  desc: "blush command"
+  ex:
+    - ''
+  params:
+    - {}
+bonk:
+  desc: "bonk command"
+  ex:
+    - ''
+  params:
+    - {}
+boop:
+  desc: "boop command"
+  ex:
+    - ''
+  params:
+    - {}
+bow:
+  desc: "bow command"
+  ex:
+    - ''
+  params:
+    - {}
+bully:
+  desc: "bully command"
+  ex:
+    - ''
+  params:
+    - {}
+carry:
+  desc: "carry command"
+  ex:
+    - ''
+  params:
+    - {}
+cheer:
+  desc: "cheer command"
+  ex:
+    - ''
+  params:
+    - {}
+clap:
+  desc: "clap command"
+  ex:
+    - ''
+  params:
+    - {}
+clearmoodasync:
+  desc: "clearmoodasync command"
+  ex:
+    - ''
+  params:
+    - {}
+compatible:
+  desc: "compatible command"
+  ex:
+    - ''
+  params:
+    - {}
+confused:
+  desc: "confused command"
+  ex:
+    - ''
+  params:
+    - {}
+createcapsuleasync:
+  desc: "createcapsuleasync command"
+  ex:
+    - ''
+  params:
+    - {}
+cringe:
+  desc: "cringe command"
+  ex:
+    - ''
+  params:
+    - {}
+cry:
+  desc: "cry command"
+  ex:
+    - ''
+  params:
+    - {}
+cuddle:
+  desc: "cuddle command"
+  ex:
+    - ''
+  params:
+    - {}
+dab:
+  desc: "dab command"
+  ex:
+    - ''
+  params:
+    - {}
+dance:
+  desc: "dance command"
+  ex:
+    - ''
+  params:
+    - {}
+decline:
+  desc: "decline command"
+  ex:
+    - ''
+  params:
+    - {}
+disable:
+  desc: "disable command"
+  ex:
+    - ''
+  params:
+    - {}
+disableasync:
+  desc: "disableasync command"
+  ex:
+    - ''
+  params:
+    - {}
+divorce:
+  desc: "divorce command"
+  ex:
+    - ''
+  params:
+    - {}
+dominate:
+  desc: "dominate command"
+  ex:
+    - ''
+  params:
+    - {}
+enable:
+  desc: "enable command"
+  ex:
+    - ''
+  params:
+    - {}
+facepalm:
+  desc: "facepalm command"
+  ex:
+    - ''
+  params:
+    - {}
+family:
+  desc: "family command"
+  ex:
+    - ''
+  params:
+    - {}
+feed:
+  desc: "feed command"
+  ex:
+    - ''
+  params:
+    - {}
+fistbump:
+  desc: "fistbump command"
+  ex:
+    - ''
+  params:
+    - {}
+friendaccept:
+  desc: "friendaccept command"
+  ex:
+    - ''
+  params:
+    - {}
+friendadd:
+  desc: "friendadd command"
+  ex:
+    - ''
+  params:
+    - {}
+frienddeny:
+  desc: "frienddeny command"
+  ex:
+    - ''
+  params:
+    - {}
+friendlist:
+  desc: "friendlist command"
+  ex:
+    - ''
+  params:
+    - {}
+friendremove:
+  desc: "friendremove command"
+  ex:
+    - ''
+  params:
+    - {}
+friendrequests:
+  desc: "friendrequests command"
+  ex:
+    - ''
+  params:
+    - {}
+glomp:
+  desc: "glomp command"
+  ex:
+    - ''
+  params:
+    - {}
+grind:
+  desc: "grind command"
+  ex:
+    - ''
+  params:
+    - {}
+handcuff:
+  desc: "handcuff command"
+  ex:
+    - ''
+  params:
+    - {}
+handhold:
+  desc: "handhold command"
+  ex:
+    - ''
+  params:
+    - {}
+handshake:
+  desc: "handshake command"
+  ex:
+    - ''
+  params:
+    - {}
+happy:
+  desc: "happy command"
+  ex:
+    - ''
+  params:
+    - {}
+heatmap:
+  desc: "heatmap command"
+  ex:
+    - ''
+  params:
+    - {}
+hentai:
+  desc: "hentai command"
+  ex:
+    - ''
+  params:
+    - {}
+highfive:
+  desc: "highfive command"
+  ex:
+    - ''
+  params:
+    - {}
+hug:
+  desc: "hug command"
+  ex:
+    - ''
+  params:
+    - {}
+incrementinteractionasync:
+  desc: "incrementinteractionasync command"
+  ex:
+    - ''
+  params:
+    - {}
+incrementmessagecountasync:
+  desc: "incrementmessagecountasync command"
+  ex:
+    - ''
+  params:
+    - {}
+incrementvoiceasync:
+  desc: "incrementvoiceasync command"
+  ex:
+    - ''
+  params:
+    - {}
+introdisable:
+  desc: "introdisable command"
+  ex:
+    - ''
+  params:
+    - {}
+introsetup:
+  desc: "introsetup command"
+  ex:
+    - ''
+  params:
+    - {}
+introtemplate:
+  desc: "introtemplate command"
+  ex:
+    - ''
+  params:
+    - {}
+karma:
+  desc: "karma command"
+  ex:
+    - ''
+  params:
+    - {}
+karmaboard:
+  desc: "karmaboard command"
+  ex:
+    - ''
+  params:
+    - {}
+kick:
+  desc: "kick command"
+  ex:
+    - ''
+  params:
+    - {}
+kiss:
+  desc: "kiss command"
+  ex:
+    - ''
+  params:
+    - {}
+laugh:
+  desc: "laugh command"
+  ex:
+    - ''
+  params:
+    - {}
+lewd:
+  desc: "lewd command"
+  ex:
+    - ''
+  params:
+    - {}
+lick:
+  desc: "lick command"
+  ex:
+    - ''
+  params:
+    - {}
+marry:
+  desc: "marry command"
+  ex:
+    - ''
+  params:
+    - {}
+moan:
+  desc: "moan command"
+  ex:
+    - ''
+  params:
+    - {}
+mood:
+  desc: "mood command"
+  ex:
+    - ''
+  params:
+    - {}
+moodboard:
+  desc: "moodboard command"
+  ex:
+    - ''
+  params:
+    - {}
+moodclear:
+  desc: "moodclear command"
+  ex:
+    - ''
+  params:
+    - {}
+neko:
+  desc: "neko command"
+  ex:
+    - ''
+  params:
+    - {}
+nom:
+  desc: "nom command"
+  ex:
+    - ''
+  params:
+    - {}
+nuzzle:
+  desc: "nuzzle command"
+  ex:
+    - ''
+  params:
+    - {}
+onreadyasync:
+  desc: "onreadyasync command"
+  ex:
+    - ''
+  params:
+    - {}
+pat:
+  desc: "pat command"
+  ex:
+    - ''
+  params:
+    - {}
+peck:
+  desc: "peck command"
+  ex:
+    - ''
+  params:
+    - {}
+poke:
+  desc: "poke command"
+  ex:
+    - ''
+  params:
+    - {}
+pout:
+  desc: "pout command"
+  ex:
+    - ''
+  params:
+    - {}
+profile:
+  desc: "profile command"
+  ex:
+    - ''
+  params:
+    - {}
+profileset:
+  desc: "profileset command"
+  ex:
+    - ''
+  params:
+    - {}
+pronouns:
+  desc: "pronouns command"
+  ex:
+    - ''
+  params:
+    - {}
+punch:
+  desc: "punch command"
+  ex:
+    - ''
+  params:
+    - {}
+recordactivityasync:
+  desc: "recordactivityasync command"
+  ex:
+    - ''
+  params:
+    - {}
+run:
+  desc: "run command"
+  ex:
+    - ''
+  params:
+    - {}
+salute:
+  desc: "salute command"
+  ex:
+    - ''
+  params:
+    - {}
+seduce:
+  desc: "seduce command"
+  ex:
+    - ''
+  params:
+    - {}
+setbackgroundasync:
+  desc: "setbackgroundasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setbioasync:
+  desc: "setbioasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setenabledasync:
+  desc: "setenabledasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setmoodasync:
+  desc: "setmoodasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setpronounsasync:
+  desc: "setpronounsasync command"
+  ex:
+    - ''
+  params:
+    - {}
+settemplateasync:
+  desc: "settemplateasync command"
+  ex:
+    - ''
+  params:
+    - {}
+settimezoneasync:
+  desc: "settimezoneasync command"
+  ex:
+    - ''
+  params:
+    - {}
+settitleasync:
+  desc: "settitleasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setupasync:
+  desc: "setupasync command"
+  ex:
+    - ''
+  params:
+    - {}
+shocked:
+  desc: "shocked command"
+  ex:
+    - ''
+  params:
+    - {}
+shoot:
+  desc: "shoot command"
+  ex:
+    - ''
+  params:
+    - {}
+shrug:
+  desc: "shrug command"
+  ex:
+    - ''
+  params:
+    - {}
+sip:
+  desc: "sip command"
+  ex:
+    - ''
+  params:
+    - {}
+slap:
+  desc: "slap command"
+  ex:
+    - ''
+  params:
+    - {}
+sleep:
+  desc: "sleep command"
+  ex:
+    - ''
+  params:
+    - {}
+smile:
+  desc: "smile command"
+  ex:
+    - ''
+  params:
+    - {}
+smug:
+  desc: "smug command"
+  ex:
+    - ''
+  params:
+    - {}
+socialboard:
+  desc: "socialboard command"
+  ex:
+    - ''
+  params:
+    - {}
+socialset:
+  desc: "socialset command"
+  ex:
+    - ''
+  params:
+    - {}
+spank:
+  desc: "spank command"
+  ex:
+    - ''
+  params:
+    - {}
+spouse:
+  desc: "spouse command"
+  ex:
+    - ''
+  params:
+    - {}
+stare:
+  desc: "stare command"
+  ex:
+    - ''
+  params:
+    - {}
+strip:
+  desc: "strip command"
+  ex:
+    - ''
+  params:
+    - {}
+submit:
+  desc: "submit command"
+  ex:
+    - ''
+  params:
+    - {}
+tableflip:
+  desc: "tableflip command"
+  ex:
+    - ''
+  params:
+    - {}
+tackle:
+  desc: "tackle command"
+  ex:
+    - ''
+  params:
+    - {}
+tease:
+  desc: "tease command"
+  ex:
+    - ''
+  params:
+    - {}
+think:
+  desc: "think command"
+  ex:
+    - ''
+  params:
+    - {}
+thumbsup:
+  desc: "thumbsup command"
+  ex:
+    - ''
+  params:
+    - {}
+tickle:
+  desc: "tickle command"
+  ex:
+    - ''
+  params:
+    - {}
+tie:
+  desc: "tie command"
+  ex:
+    - ''
+  params:
+    - {}
+timecapsule:
+  desc: "timecapsule command"
+  ex:
+    - ''
+  params:
+    - {}
+timecapsulelist:
+  desc: "timecapsulelist command"
+  ex:
+    - ''
+  params:
+    - {}
+timezoneset:
+  desc: "timezoneset command"
+  ex:
+    - ''
+  params:
+    - {}
+tryawardasync:
+  desc: "tryawardasync command"
+  ex:
+    - ''
+  params:
+    - {}
+vcleaderboard:
+  desc: "vcleaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+vcstats:
+  desc: "vcstats command"
+  ex:
+    - ''
+  params:
+    - {}
+waifu:
+  desc: "waifu command"
+  ex:
+    - ''
+  params:
+    - {}
+wave:
+  desc: "wave command"
+  ex:
+    - ''
+  params:
+    - {}
+whisper:
+  desc: "whisper command"
+  ex:
+    - ''
+  params:
+    - {}
+whois:
+  desc: "whois command"
+  ex:
+    - ''
+  params:
+    - {}
+wink:
+  desc: "wink command"
+  ex:
+    - ''
+  params:
+    - {}
+yawn:
+  desc: "yawn command"
+  ex:
+    - ''
+  params:
+    - {}
+yearbook:
+  desc: "yearbook command"
+  ex:
+    - ''
+  params:
+    - {}
+yeet:
+  desc: "yeet command"
+  ex:
+    - ''
+  params:
+    - {}

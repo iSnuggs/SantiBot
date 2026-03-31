@@ -1,0 +1,78 @@
+addroom:
+  desc: "addroom command"
+  ex:
+    - ''
+  params:
+    - {}
+buy:
+  desc: "buy command"
+  ex:
+    - ''
+  params:
+    - {}
+buyfurniture:
+  desc: "buyfurniture command"
+  ex:
+    - ''
+  params:
+    - {}
+decorate:
+  desc: "decorate command"
+  ex:
+    - ''
+  params:
+    - {}
+guestbook:
+  desc: "guestbook command"
+  ex:
+    - ''
+  params:
+    - {}
+guestbooksign:
+  desc: "guestbooksign command"
+  ex:
+    - ''
+  params:
+    - {}
+houseshop:
+  desc: "houseshop command"
+  ex:
+    - ''
+  params:
+    - {}
+housevalue:
+  desc: "housevalue command"
+  ex:
+    - ''
+  params:
+    - {}
+myhouse:
+  desc: "myhouse command"
+  ex:
+    - ''
+  params:
+    - {}
+setstyle:
+  desc: "setstyle command"
+  ex:
+    - ''
+  params:
+    - {}
+styles:
+  desc: "styles command"
+  ex:
+    - ''
+  params:
+    - {}
+upgrade:
+  desc: "upgrade command"
+  ex:
+    - ''
+  params:
+    - {}
+visit:
+  desc: "visit command"
+  ex:
+    - ''
+  params:
+    - {}

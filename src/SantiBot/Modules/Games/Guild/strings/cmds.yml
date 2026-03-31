@@ -1,0 +1,90 @@
+contribute:
+  desc: "contribute command"
+  ex:
+    - ''
+  params:
+    - {}
+create:
+  desc: "create command"
+  ex:
+    - ''
+  params:
+    - {}
+demote:
+  desc: "demote command"
+  ex:
+    - ''
+  params:
+    - {}
+info:
+  desc: "info command"
+  ex:
+    - ''
+  params:
+    - {}
+join:
+  desc: "join command"
+  ex:
+    - ''
+  params:
+    - {}
+kick:
+  desc: "kick command"
+  ex:
+    - ''
+  params:
+    - {}
+leaderboard:
+  desc: "leaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+leave:
+  desc: "leave command"
+  ex:
+    - ''
+  params:
+    - {}
+members:
+  desc: "members command"
+  ex:
+    - ''
+  params:
+    - {}
+promote:
+  desc: "promote command"
+  ex:
+    - ''
+  params:
+    - {}
+recruit:
+  desc: "recruit command"
+  ex:
+    - ''
+  params:
+    - {}
+setdescription:
+  desc: "setdescription command"
+  ex:
+    - ''
+  params:
+    - {}
+war:
+  desc: "war command"
+  ex:
+    - ''
+  params:
+    - {}
+warbattle:
+  desc: "warbattle command"
+  ex:
+    - ''
+  params:
+    - {}
+warstatus:
+  desc: "warstatus command"
+  ex:
+    - ''
+  params:
+    - {}

@@ -1,0 +1,54 @@
+addpointsasync:
+  - addpointsasync
+bet:
+  - bet
+fanartgallery:
+  - fanartgallery
+fanartsubmit:
+  - fanartsubmit
+fanartvote:
+  - fanartvote
+feedadd:
+  - feedadd
+feedremove:
+  - feedremove
+feeds:
+  - feeds
+incrementplaycountasync:
+  - incrementplaycountasync
+logsessionasync:
+  - logsessionasync
+monitoradd:
+  - monitoradd
+monitorremove:
+  - monitorremove
+monitors:
+  - monitors
+myvoice:
+  - myvoice
+pointrewards:
+  - pointrewards
+points:
+  - points
+predict:
+  - predict
+predictresolve:
+  - predictresolve
+predictstatus:
+  - predictstatus
+settempvoiceconfigasync:
+  - settempvoiceconfigasync
+soundadd:
+  - soundadd
+soundremove:
+  - soundremove
+sounds:
+  - sounds
+tempvoicesetup:
+  - tempvoicesetup
+tracktempchannelasync:
+  - tracktempchannelasync
+voiceleaderboard:
+  - voiceleaderboard
+votefanartasync:
+  - votefanartasync

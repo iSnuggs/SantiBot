@@ -1,0 +1,114 @@
+emojianswer:
+  desc: "emojianswer command"
+  ex:
+    - ''
+  params:
+    - {}
+emojiquiz:
+  desc: "emojiquiz command"
+  ex:
+    - ''
+  params:
+    - {}
+geoanswer:
+  desc: "geoanswer command"
+  ex:
+    - ''
+  params:
+    - {}
+geoquiz:
+  desc: "geoquiz command"
+  ex:
+    - ''
+  params:
+    - {}
+gn:
+  desc: "gn command"
+  ex:
+    - ''
+  params:
+    - {}
+gnend:
+  desc: "gnend command"
+  ex:
+    - ''
+  params:
+    - {}
+guessnumber:
+  desc: "guessnumber command"
+  ex:
+    - ''
+  params:
+    - {}
+mathanswer:
+  desc: "mathanswer command"
+  ex:
+    - ''
+  params:
+    - {}
+mathrace:
+  desc: "mathrace command"
+  ex:
+    - ''
+  params:
+    - {}
+memoryanswer:
+  desc: "memoryanswer command"
+  ex:
+    - ''
+  params:
+    - {}
+memoryend:
+  desc: "memoryend command"
+  ex:
+    - ''
+  params:
+    - {}
+memorygame:
+  desc: "memorygame command"
+  ex:
+    - ''
+  params:
+    - {}
+minesweeper:
+  desc: "minesweeper command"
+  ex:
+    - ''
+  params:
+    - {}
+scramble:
+  desc: "scramble command"
+  ex:
+    - ''
+  params:
+    - {}
+scrambleend:
+  desc: "scrambleend command"
+  ex:
+    - ''
+  params:
+    - {}
+unscramble:
+  desc: "unscramble command"
+  ex:
+    - ''
+  params:
+    - {}
+wordle:
+  desc: "wordle command"
+  ex:
+    - ''
+  params:
+    - {}
+wordleend:
+  desc: "wordleend command"
+  ex:
+    - ''
+  params:
+    - {}
+wordleguess:
+  desc: "wordleguess command"
+  ex:
+    - ''
+  params:
+    - {}

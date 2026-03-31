@@ -1,0 +1,36 @@
+advent:
+  desc: "advent command"
+  ex:
+    - ''
+  params:
+    - {}
+boss:
+  desc: "boss command"
+  ex:
+    - ''
+  params:
+    - {}
+calendar:
+  desc: "calendar command"
+  ex:
+    - ''
+  params:
+    - {}
+current:
+  desc: "current command"
+  ex:
+    - ''
+  params:
+    - {}
+egghunt:
+  desc: "egghunt command"
+  ex:
+    - ''
+  params:
+    - {}
+seasonalshop:
+  desc: "seasonalshop command"
+  ex:
+    - ''
+  params:
+    - {}

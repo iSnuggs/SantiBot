@@ -1,0 +1,258 @@
+addseasonxpasync:
+  desc: "addseasonxpasync command"
+  ex:
+    - ''
+  params:
+    - {}
+addteamxpasync:
+  desc: "addteamxpasync command"
+  ex:
+    - ''
+  params:
+    - {}
+disableasync:
+  desc: "disableasync command"
+  ex:
+    - ''
+  params:
+    - {}
+incrementprogressasync:
+  desc: "incrementprogressasync command"
+  ex:
+    - ''
+  params:
+    - {}
+levelcolorinfo:
+  desc: "levelcolorinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+levelcolorset:
+  desc: "levelcolorset command"
+  ex:
+    - ''
+  params:
+    - {}
+levelcolortoggle:
+  desc: "levelcolortoggle command"
+  ex:
+    - ''
+  params:
+    - {}
+lvlmsgchannel:
+  desc: "lvlmsgchannel command"
+  ex:
+    - ''
+  params:
+    - {}
+lvlmsginfo:
+  desc: "lvlmsginfo command"
+  ex:
+    - ''
+  params:
+    - {}
+lvlmsgoff:
+  desc: "lvlmsgoff command"
+  ex:
+    - ''
+  params:
+    - {}
+lvlmsgset:
+  desc: "lvlmsgset command"
+  ex:
+    - ''
+  params:
+    - {}
+onreadyasync:
+  desc: "onreadyasync command"
+  ex:
+    - ''
+  params:
+    - {}
+prestige:
+  desc: "prestige command"
+  ex:
+    - ''
+  params:
+    - {}
+prestigeinfo:
+  desc: "prestigeinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+prestigeleaderboard:
+  desc: "prestigeleaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+season:
+  desc: "season command"
+  ex:
+    - ''
+  params:
+    - {}
+seasonclaim:
+  desc: "seasonclaim command"
+  ex:
+    - ''
+  params:
+    - {}
+seasonrewards:
+  desc: "seasonrewards command"
+  ex:
+    - ''
+  params:
+    - {}
+seasonstart:
+  desc: "seasonstart command"
+  ex:
+    - ''
+  params:
+    - {}
+setboostasync:
+  desc: "setboostasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setchannelasync:
+  desc: "setchannelasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setcolorsasync:
+  desc: "setcolorsasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setenabledasync:
+  desc: "setenabledasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setmessageasync:
+  desc: "setmessageasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setrateasync:
+  desc: "setrateasync command"
+  ex:
+    - ''
+  params:
+    - {}
+teamcreate:
+  desc: "teamcreate command"
+  ex:
+    - ''
+  params:
+    - {}
+teaminfo:
+  desc: "teaminfo command"
+  ex:
+    - ''
+  params:
+    - {}
+teamjoin:
+  desc: "teamjoin command"
+  ex:
+    - ''
+  params:
+    - {}
+teamleaderboard:
+  desc: "teamleaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+teamleave:
+  desc: "teamleave command"
+  ex:
+    - ''
+  params:
+    - {}
+voicexpinfo:
+  desc: "voicexpinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+voicexprate:
+  desc: "voicexprate command"
+  ex:
+    - ''
+  params:
+    - {}
+voicexptoggle:
+  desc: "voicexptoggle command"
+  ex:
+    - ''
+  params:
+    - {}
+xpboost:
+  desc: "xpboost command"
+  ex:
+    - ''
+  params:
+    - {}
+xpbooststatus:
+  desc: "xpbooststatus command"
+  ex:
+    - ''
+  params:
+    - {}
+xpchallenge:
+  desc: "xpchallenge command"
+  ex:
+    - ''
+  params:
+    - {}
+xpchallengelist:
+  desc: "xpchallengelist command"
+  ex:
+    - ''
+  params:
+    - {}
+xpchallengeprogress:
+  desc: "xpchallengeprogress command"
+  ex:
+    - ''
+  params:
+    - {}
+xpdecayinfo:
+  desc: "xpdecayinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+xpdecayrate:
+  desc: "xpdecayrate command"
+  ex:
+    - ''
+  params:
+    - {}
+xpdecaytoggle:
+  desc: "xpdecaytoggle command"
+  ex:
+    - ''
+  params:
+    - {}
+xphistory:
+  desc: "xphistory command"
+  ex:
+    - ''
+  params:
+    - {}
+xphistorytop:
+  desc: "xphistorytop command"
+  ex:
+    - ''
+  params:
+    - {}

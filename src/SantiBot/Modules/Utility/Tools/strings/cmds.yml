@@ -1,0 +1,96 @@
+base:
+  desc: "base command"
+  ex:
+    - ''
+  params:
+    - {}
+bigtext:
+  desc: "bigtext command"
+  ex:
+    - ''
+  params:
+    - {}
+choose:
+  desc: "choose command"
+  ex:
+    - ''
+  params:
+    - {}
+color:
+  desc: "color command"
+  ex:
+    - ''
+  params:
+    - {}
+convert:
+  desc: "convert command"
+  ex:
+    - ''
+  params:
+    - {}
+count:
+  desc: "count command"
+  ex:
+    - ''
+  params:
+    - {}
+countdown:
+  desc: "countdown command"
+  ex:
+    - ''
+  params:
+    - {}
+flip:
+  desc: "flip command"
+  ex:
+    - ''
+  params:
+    - {}
+members:
+  desc: "members command"
+  ex:
+    - ''
+  params:
+    - {}
+mock:
+  desc: "mock command"
+  ex:
+    - ''
+  params:
+    - {}
+quickpoll:
+  desc: "quickpoll command"
+  ex:
+    - ''
+  params:
+    - {}
+random:
+  desc: "random command"
+  ex:
+    - ''
+  params:
+    - {}
+reverse:
+  desc: "reverse command"
+  ex:
+    - ''
+  params:
+    - {}
+roll:
+  desc: "roll command"
+  ex:
+    - ''
+  params:
+    - {}
+snowflake:
+  desc: "snowflake command"
+  ex:
+    - ''
+  params:
+    - {}
+timestamp:
+  desc: "timestamp command"
+  ex:
+    - ''
+  params:
+    - {}

@@ -1,0 +1,24 @@
+ask:
+  - ask
+info:
+  - info
+postnow:
+  - postnow
+postremove:
+  - postremove
+posts:
+  - posts
+posttoggle:
+  - posttoggle
+posttypes:
+  - posttypes
+quick:
+  - quick
+reset:
+  - reset
+schedule:
+  - schedule
+schedulecustom:
+  - schedulecustom
+status:
+  - status

@@ -1,0 +1,66 @@
+badgedisplay:
+  desc: "badgedisplay command"
+  ex:
+    - ''
+  params:
+    - {}
+badgelist:
+  desc: "badgelist command"
+  ex:
+    - ''
+  params:
+    - {}
+badges:
+  desc: "badges command"
+  ex:
+    - ''
+  params:
+    - {}
+battlepass:
+  desc: "battlepass command"
+  ex:
+    - ''
+  params:
+    - {}
+battlepassrewards:
+  desc: "battlepassrewards command"
+  ex:
+    - ''
+  params:
+    - {}
+checkdailyresetasync:
+  desc: "checkdailyresetasync command"
+  ex:
+    - ''
+  params:
+    - {}
+dailychallenges:
+  desc: "dailychallenges command"
+  ex:
+    - ''
+  params:
+    - {}
+gfstats:
+  desc: "gfstats command"
+  ex:
+    - ''
+  params:
+    - {}
+titleequip:
+  desc: "titleequip command"
+  ex:
+    - ''
+  params:
+    - {}
+titlelist:
+  desc: "titlelist command"
+  ex:
+    - ''
+  params:
+    - {}
+titles:
+  desc: "titles command"
+  ex:
+    - ''
+  params:
+    - {}

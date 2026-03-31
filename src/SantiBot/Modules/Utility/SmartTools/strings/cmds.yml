@@ -1,0 +1,60 @@
+faq:
+  desc: "faq command"
+  ex:
+    - ''
+  params:
+    - {}
+faqadd:
+  desc: "faqadd command"
+  ex:
+    - ''
+  params:
+    - {}
+faqlist:
+  desc: "faqlist command"
+  ex:
+    - ''
+  params:
+    - {}
+faqremove:
+  desc: "faqremove command"
+  ex:
+    - ''
+  params:
+    - {}
+greet:
+  desc: "greet command"
+  ex:
+    - ''
+  params:
+    - {}
+namegen:
+  desc: "namegen command"
+  ex:
+    - ''
+  params:
+    - {}
+sentiment:
+  desc: "sentiment command"
+  ex:
+    - ''
+  params:
+    - {}
+summarize:
+  desc: "summarize command"
+  ex:
+    - ''
+  params:
+    - {}
+topics:
+  desc: "topics command"
+  ex:
+    - ''
+  params:
+    - {}
+writingcheck:
+  desc: "writingcheck command"
+  ex:
+    - ''
+  params:
+    - {}

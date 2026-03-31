@@ -1,0 +1,102 @@
+bountyboard:
+  desc: "bountyboard command"
+  ex:
+    - ''
+  params:
+    - {}
+bountyclaim:
+  desc: "bountyclaim command"
+  ex:
+    - ''
+  params:
+    - {}
+bountypost:
+  desc: "bountypost command"
+  ex:
+    - ''
+  params:
+    - {}
+goalprogress:
+  desc: "goalprogress command"
+  ex:
+    - ''
+  params:
+    - {}
+goals:
+  desc: "goals command"
+  ex:
+    - ''
+  params:
+    - {}
+goalset:
+  desc: "goalset command"
+  ex:
+    - ''
+  params:
+    - {}
+horoscope:
+  desc: "horoscope command"
+  ex:
+    - ''
+  params:
+    - {}
+horoscopeset:
+  desc: "horoscopeset command"
+  ex:
+    - ''
+  params:
+    - {}
+modifiers:
+  desc: "modifiers command"
+  ex:
+    - ''
+  params:
+    - {}
+newspaper:
+  desc: "newspaper command"
+  ex:
+    - ''
+  params:
+    - {}
+prestige:
+  desc: "prestige command"
+  ex:
+    - ''
+  params:
+    - {}
+prestigeinfo:
+  desc: "prestigeinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+setusersignasync:
+  desc: "setusersignasync command"
+  ex:
+    - ''
+  params:
+    - {}
+skilltree:
+  desc: "skilltree command"
+  ex:
+    - ''
+  params:
+    - {}
+skillupgrade:
+  desc: "skillupgrade command"
+  ex:
+    - ''
+  params:
+    - {}
+treasurehide:
+  desc: "treasurehide command"
+  ex:
+    - ''
+  params:
+    - {}
+treasurehint:
+  desc: "treasurehint command"
+  ex:
+    - ''
+  params:
+    - {}

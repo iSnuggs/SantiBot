@@ -1,0 +1,84 @@
+autopublish:
+  desc: "autopublish command"
+  ex:
+    - ''
+  params:
+    - {}
+autopublishlist:
+  desc: "autopublishlist command"
+  ex:
+    - ''
+  params:
+    - {}
+backupsummary:
+  desc: "backupsummary command"
+  ex:
+    - ''
+  params:
+    - {}
+emojistats:
+  desc: "emojistats command"
+  ex:
+    - ''
+  params:
+    - {}
+emojistatsreset:
+  desc: "emojistatsreset command"
+  ex:
+    - ''
+  params:
+    - {}
+invitecount:
+  desc: "invitecount command"
+  ex:
+    - ''
+  params:
+    - {}
+inviterewards:
+  desc: "inviterewards command"
+  ex:
+    - ''
+  params:
+    - {}
+milestonedisable:
+  desc: "milestonedisable command"
+  ex:
+    - ''
+  params:
+    - {}
+milestonesetup:
+  desc: "milestonesetup command"
+  ex:
+    - ''
+  params:
+    - {}
+mirror:
+  desc: "mirror command"
+  ex:
+    - ''
+  params:
+    - {}
+mirrorlist:
+  desc: "mirrorlist command"
+  ex:
+    - ''
+  params:
+    - {}
+mirrorremove:
+  desc: "mirrorremove command"
+  ex:
+    - ''
+  params:
+    - {}
+recordinvite:
+  desc: "recordinvite command"
+  ex:
+    - ''
+  params:
+    - {}
+recordinviteasync:
+  desc: "recordinviteasync command"
+  ex:
+    - ''
+  params:
+    - {}

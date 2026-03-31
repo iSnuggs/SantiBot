@@ -1,0 +1,54 @@
+bestiary:
+  desc: "bestiary command"
+  ex:
+    - ''
+  params:
+    - {}
+lorebook:
+  desc: "lorebook command"
+  ex:
+    - ''
+  params:
+    - {}
+loreread:
+  desc: "loreread command"
+  ex:
+    - ''
+  params:
+    - {}
+lorestats:
+  desc: "lorestats command"
+  ex:
+    - ''
+  params:
+    - {}
+seedloreasync:
+  desc: "seedloreasync command"
+  ex:
+    - ''
+  params:
+    - {}
+treasuremap:
+  desc: "treasuremap command"
+  ex:
+    - ''
+  params:
+    - {}
+treasuresolve:
+  desc: "treasuresolve command"
+  ex:
+    - ''
+  params:
+    - {}
+worldevents:
+  desc: "worldevents command"
+  ex:
+    - ''
+  params:
+    - {}
+worldhistory:
+  desc: "worldhistory command"
+  ex:
+    - ''
+  params:
+    - {}

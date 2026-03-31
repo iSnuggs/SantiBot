@@ -1,0 +1,18 @@
+deleteoriginal:
+  - deleteoriginal
+disable:
+  - disable
+enable:
+  - enable
+fix:
+  - fix
+setdeleteoriginalasync:
+  - setdeleteoriginalasync
+setenabledasync:
+  - setenabledasync
+status:
+  - status
+toggle:
+  - toggle
+toggleplatformasync:
+  - toggleplatformasync

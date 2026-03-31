@@ -1,0 +1,54 @@
+accountgate:
+  desc: "accountgate command"
+  ex:
+    - ''
+  params:
+    - {}
+honeypotlist:
+  desc: "honeypotlist command"
+  ex:
+    - ''
+  params:
+    - {}
+leakscan:
+  desc: "leakscan command"
+  ex:
+    - ''
+  params:
+    - {}
+removehoneypot:
+  desc: "removehoneypot command"
+  ex:
+    - ''
+  params:
+    - {}
+scamscan:
+  desc: "scamscan command"
+  ex:
+    - ''
+  params:
+    - {}
+securityaudit:
+  desc: "securityaudit command"
+  ex:
+    - ''
+  params:
+    - {}
+securityreport:
+  desc: "securityreport command"
+  ex:
+    - ''
+  params:
+    - {}
+securityscan:
+  desc: "securityscan command"
+  ex:
+    - ''
+  params:
+    - {}
+sethoneypot:
+  desc: "sethoneypot command"
+  ex:
+    - ''
+  params:
+    - {}

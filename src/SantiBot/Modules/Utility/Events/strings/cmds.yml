@@ -1,0 +1,78 @@
+eventcancel:
+  desc: "eventcancel command"
+  ex:
+    - ''
+  params:
+    - {}
+eventcreate:
+  desc: "eventcreate command"
+  ex:
+    - ''
+  params:
+    - {}
+eventinfo:
+  desc: "eventinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+eventlist:
+  desc: "eventlist command"
+  ex:
+    - ''
+  params:
+    - {}
+eventrsvp:
+  desc: "eventrsvp command"
+  ex:
+    - ''
+  params:
+    - {}
+gamenight:
+  desc: "gamenight command"
+  ex:
+    - ''
+  params:
+    - {}
+movieadd:
+  desc: "movieadd command"
+  ex:
+    - ''
+  params:
+    - {}
+movienight:
+  desc: "movienight command"
+  ex:
+    - ''
+  params:
+    - {}
+moviepick:
+  desc: "moviepick command"
+  ex:
+    - ''
+  params:
+    - {}
+movieresults:
+  desc: "movieresults command"
+  ex:
+    - ''
+  params:
+    - {}
+movievote:
+  desc: "movievote command"
+  ex:
+    - ''
+  params:
+    - {}
+studysession:
+  desc: "studysession command"
+  ex:
+    - ''
+  params:
+    - {}
+teams:
+  desc: "teams command"
+  ex:
+    - ''
+  params:
+    - {}

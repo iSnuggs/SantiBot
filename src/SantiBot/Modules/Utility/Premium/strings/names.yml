@@ -1,0 +1,18 @@
+addfeatureasync:
+  - addfeatureasync
+premiumcheck:
+  - premiumcheck
+premiumcompare:
+  - premiumcompare
+premiumfeatures:
+  - premiumfeatures
+premiuminfo:
+  - premiuminfo
+premiumlimits:
+  - premiumlimits
+premiumset:
+  - premiumset
+removefeatureasync:
+  - removefeatureasync
+settierasync:
+  - settierasync

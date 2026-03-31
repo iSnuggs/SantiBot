@@ -1,0 +1,16 @@
+activity:
+  - activity
+growth:
+  - growth
+heatmap:
+  - heatmap
+peakhours:
+  - peakhours
+serverreport:
+  - serverreport
+topchannels:
+  - topchannels
+topposters:
+  - topposters
+topwords:
+  - topwords

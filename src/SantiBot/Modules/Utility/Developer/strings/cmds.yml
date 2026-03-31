@@ -1,0 +1,90 @@
+botinfo:
+  desc: "botinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+changelog:
+  desc: "changelog command"
+  ex:
+    - ''
+  params:
+    - {}
+cmdstats:
+  desc: "cmdstats command"
+  ex:
+    - ''
+  params:
+    - {}
+featureflag:
+  desc: "featureflag command"
+  ex:
+    - ''
+  params:
+    - {}
+featureflags:
+  desc: "featureflags command"
+  ex:
+    - ''
+  params:
+    - {}
+logcommandasync:
+  desc: "logcommandasync command"
+  ex:
+    - ''
+  params:
+    - {}
+webhookcreate:
+  desc: "webhookcreate command"
+  ex:
+    - ''
+  params:
+    - {}
+webhookdelete:
+  desc: "webhookdelete command"
+  ex:
+    - ''
+  params:
+    - {}
+webhooks:
+  desc: "webhooks command"
+  ex:
+    - ''
+  params:
+    - {}
+xpchallenge:
+  desc: "xpchallenge command"
+  ex:
+    - ''
+  params:
+    - {}
+xpchallenges:
+  desc: "xpchallenges command"
+  ex:
+    - ''
+  params:
+    - {}
+xpmult:
+  desc: "xpmult command"
+  ex:
+    - ''
+  params:
+    - {}
+xpmultchannel:
+  desc: "xpmultchannel command"
+  ex:
+    - ''
+  params:
+    - {}
+xpmultrole:
+  desc: "xpmultrole command"
+  ex:
+    - ''
+  params:
+    - {}
+xpmults:
+  desc: "xpmults command"
+  ex:
+    - ''
+  params:
+    - {}

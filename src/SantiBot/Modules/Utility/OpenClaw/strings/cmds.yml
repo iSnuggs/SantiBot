@@ -1,0 +1,72 @@
+ask:
+  desc: "ask command"
+  ex:
+    - ''
+  params:
+    - {}
+info:
+  desc: "info command"
+  ex:
+    - ''
+  params:
+    - {}
+postnow:
+  desc: "postnow command"
+  ex:
+    - ''
+  params:
+    - {}
+postremove:
+  desc: "postremove command"
+  ex:
+    - ''
+  params:
+    - {}
+posts:
+  desc: "posts command"
+  ex:
+    - ''
+  params:
+    - {}
+posttoggle:
+  desc: "posttoggle command"
+  ex:
+    - ''
+  params:
+    - {}
+posttypes:
+  desc: "posttypes command"
+  ex:
+    - ''
+  params:
+    - {}
+quick:
+  desc: "quick command"
+  ex:
+    - ''
+  params:
+    - {}
+reset:
+  desc: "reset command"
+  ex:
+    - ''
+  params:
+    - {}
+schedule:
+  desc: "schedule command"
+  ex:
+    - ''
+  params:
+    - {}
+schedulecustom:
+  desc: "schedulecustom command"
+  ex:
+    - ''
+  params:
+    - {}
+status:
+  desc: "status command"
+  ex:
+    - ''
+  params:
+    - {}

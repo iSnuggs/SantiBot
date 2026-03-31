@@ -1,0 +1,30 @@
+contribute:
+  - contribute
+create:
+  - create
+demote:
+  - demote
+info:
+  - info
+join:
+  - join
+kick:
+  - kick
+leaderboard:
+  - leaderboard
+leave:
+  - leave
+members:
+  - members
+promote:
+  - promote
+recruit:
+  - recruit
+setdescription:
+  - setdescription
+war:
+  - war
+warbattle:
+  - warbattle
+warstatus:
+  - warstatus

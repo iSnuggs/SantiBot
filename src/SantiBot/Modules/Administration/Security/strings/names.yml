@@ -1,0 +1,18 @@
+accountgate:
+  - accountgate
+honeypotlist:
+  - honeypotlist
+leakscan:
+  - leakscan
+removehoneypot:
+  - removehoneypot
+scamscan:
+  - scamscan
+securityaudit:
+  - securityaudit
+securityreport:
+  - securityreport
+securityscan:
+  - securityscan
+sethoneypot:
+  - sethoneypot

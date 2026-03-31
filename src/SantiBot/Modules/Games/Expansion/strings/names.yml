@@ -1,0 +1,34 @@
+bountyboard:
+  - bountyboard
+bountyclaim:
+  - bountyclaim
+bountypost:
+  - bountypost
+goalprogress:
+  - goalprogress
+goals:
+  - goals
+goalset:
+  - goalset
+horoscope:
+  - horoscope
+horoscopeset:
+  - horoscopeset
+modifiers:
+  - modifiers
+newspaper:
+  - newspaper
+prestige:
+  - prestige
+prestigeinfo:
+  - prestigeinfo
+setusersignasync:
+  - setusersignasync
+skilltree:
+  - skilltree
+skillupgrade:
+  - skillupgrade
+treasurehide:
+  - treasurehide
+treasurehint:
+  - treasurehint

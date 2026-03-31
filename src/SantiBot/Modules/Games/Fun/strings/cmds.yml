@@ -1,0 +1,120 @@
+compliment:
+  desc: "compliment command"
+  ex:
+    - ''
+  params:
+    - {}
+dadjoke:
+  desc: "dadjoke command"
+  ex:
+    - ''
+  params:
+    - {}
+debatetopic:
+  desc: "debatetopic command"
+  ex:
+    - ''
+  params:
+    - {}
+eightball:
+  desc: "eightball command"
+  ex:
+    - ''
+  params:
+    - {}
+fact:
+  desc: "fact command"
+  ex:
+    - ''
+  params:
+    - {}
+fortune:
+  desc: "fortune command"
+  ex:
+    - ''
+  params:
+    - {}
+hottake:
+  desc: "hottake command"
+  ex:
+    - ''
+  params:
+    - {}
+insult:
+  desc: "insult command"
+  ex:
+    - ''
+  params:
+    - {}
+joke:
+  desc: "joke command"
+  ex:
+    - ''
+  params:
+    - {}
+motivation:
+  desc: "motivation command"
+  ex:
+    - ''
+  params:
+    - {}
+neverhaveiever:
+  desc: "neverhaveiever command"
+  ex:
+    - ''
+  params:
+    - {}
+pickrandom:
+  desc: "pickrandom command"
+  ex:
+    - ''
+  params:
+    - {}
+pickupline:
+  desc: "pickupline command"
+  ex:
+    - ''
+  params:
+    - {}
+rate:
+  desc: "rate command"
+  ex:
+    - ''
+  params:
+    - {}
+roast:
+  desc: "roast command"
+  ex:
+    - ''
+  params:
+    - {}
+showerthought:
+  desc: "showerthought command"
+  ex:
+    - ''
+  params:
+    - {}
+tarot:
+  desc: "tarot command"
+  ex:
+    - ''
+  params:
+    - {}
+thisorthat:
+  desc: "thisorthat command"
+  ex:
+    - ''
+  params:
+    - {}
+truthordare:
+  desc: "truthordare command"
+  ex:
+    - ''
+  params:
+    - {}
+wouldyourather:
+  desc: "wouldyourather command"
+  ex:
+    - ''
+  params:
+    - {}
