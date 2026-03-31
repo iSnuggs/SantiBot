@@ -9,8 +9,10 @@ public class DiscordOAuthService
     private readonly IConfiguration _config;
     private readonly IHttpClientFactory _httpFactory;
 
-    private string ClientId => _config["Discord:ClientId"] ?? "";
-    private string ClientSecret => _config["Discord:ClientSecret"] ?? "";
+    private string ClientId => Environment.GetEnvironmentVariable("DISCORD_DASHBOARD_CLIENT_ID")
+        ?? _config["Discord:ClientId"] ?? "";
+    private string ClientSecret => Environment.GetEnvironmentVariable("DISCORD_DASHBOARD_CLIENT_SECRET")
+        ?? _config["Discord:ClientSecret"] ?? "";
     private string RedirectUri => _config["Discord:RedirectUri"] ?? "http://localhost:5000/api/auth/callback";
 
     public DiscordOAuthService(IConfiguration config, IHttpClientFactory httpFactory)
