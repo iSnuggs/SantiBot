@@ -7,12 +7,14 @@ namespace SantiBot.Modules.Games.Mafia;
 public sealed class MafiaService : INService
 {
     private readonly ICurrencyService _cs;
+    private readonly DiscordSocketClient _client;
     private static readonly SantiRandom _rng = new();
     public readonly ConcurrentDictionary<ulong, MafiaGame> ActiveGames = new();
 
-    public MafiaService(ICurrencyService cs)
+    public MafiaService(ICurrencyService cs, DiscordSocketClient client)
     {
         _cs = cs;
+        _client = client;
     }
 
     public enum MafiaRole { Villager, Mafia, Doctor, Detective }
@@ -71,7 +73,7 @@ public sealed class MafiaService : INService
         return (true, $"{username} joined! ({game.Players.Count} players)");
     }
 
-    public (bool Success, string Message) BeginGame(ulong channelId)
+    public async Task<(bool Success, string Message)> BeginGame(ulong channelId)
     {
         if (!ActiveGames.TryGetValue(channelId, out var game))
             return (false, "No game!");
@@ -99,9 +101,34 @@ public sealed class MafiaService : INService
         game.DayNumber = 1;
         game.Votes.Clear();
 
-        var roleList = string.Join("\n", game.Players.Select(p => $"<@{p.UserId}>: Role sent via DM (pretend)"));
+        // Send roles via DM
+        var roleEmojis = new Dictionary<MafiaRole, string>
+        {
+            [MafiaRole.Villager] = "🧑‍🌾",
+            [MafiaRole.Mafia] = "🐺",
+            [MafiaRole.Doctor] = "🩺",
+            [MafiaRole.Detective] = "🔍",
+        };
+        foreach (var player in game.Players)
+        {
+            try
+            {
+                var user = await _client.GetUserAsync(player.UserId);
+                if (user is not null)
+                {
+                    var dm = await user.CreateDMChannelAsync();
+                    var emoji = roleEmojis.GetValueOrDefault(player.Role, "❓");
+                    await dm.SendMessageAsync($"{emoji} **Mafia Game** — Your role is: **{player.Role}**\n"
+                        + (player.Role == MafiaRole.Mafia ? "Kill a villager each night with `.mafia nightaction @user`."
+                        : player.Role == MafiaRole.Doctor ? "Save someone each night with `.mafia nightaction @user`."
+                        : player.Role == MafiaRole.Detective ? "Investigate someone each night with `.mafia nightaction @user` (result sent here in DMs)."
+                        : "Find and vote out the Mafia during the day!"));
+                }
+            }
+            catch { /* DMs might be disabled */ }
+        }
 
-        return (true, $"🌅 **Day 1 begins!** {game.Players.Count} players, {mafiaCount} mafia among you.\nRoles have been assigned! Use `.mafia vote @user` to vote someone out.\n\nAlive: {string.Join(", ", game.Players.Where(p => p.IsAlive).Select(p => p.Username))}");
+        return (true, $"🌅 **Day 1 begins!** {game.Players.Count} players, {mafiaCount} mafia among you.\nRoles have been sent via DM! Use `.mafia vote @user` to vote someone out.\n\nAlive: {string.Join(", ", game.Players.Where(p => p.IsAlive).Select(p => p.Username))}");
     }
 
     public (bool Success, string Message) Vote(ulong channelId, ulong voterId, ulong targetId)
@@ -202,7 +229,7 @@ public sealed class MafiaService : INService
     }
 #pragma warning restore CS1998
 
-    public (bool Success, string Message) NightAction(ulong channelId, ulong userId, ulong targetId)
+    public async Task<(bool Success, string Message)> NightAction(ulong channelId, ulong userId, ulong targetId)
     {
         if (!ActiveGames.TryGetValue(channelId, out var game) || game.Phase != GamePhase.Night)
             return (false, "Not night phase!");
@@ -223,9 +250,20 @@ public sealed class MafiaService : INService
             case MafiaRole.Detective:
                 game.DetectiveInvestigate = targetId;
                 var investigated = game.Players.FirstOrDefault(p => p.UserId == targetId);
-                if (investigated is not null)
-                    return (true, $"🔍 Investigation: **{investigated.Username}** is a **{investigated.Role}**!");
-                return (false, "Target not found!");
+                if (investigated is null)
+                    return (false, "Target not found!");
+                // Send investigation result via DM so Mafia identity stays hidden
+                try
+                {
+                    var detectiveUser = await _client.GetUserAsync(userId);
+                    if (detectiveUser is not null)
+                    {
+                        var dm = await detectiveUser.CreateDMChannelAsync();
+                        await dm.SendMessageAsync($"🔍 **Investigation Result:** **{investigated.Username}** is a **{investigated.Role}**!");
+                    }
+                }
+                catch { /* DMs disabled */ }
+                return (true, "🔍 The Detective has investigated someone... (result sent via DM)");
 
             default:
                 return (false, "You don't have a night action!");

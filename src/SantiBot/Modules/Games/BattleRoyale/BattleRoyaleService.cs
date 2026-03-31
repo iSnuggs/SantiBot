@@ -72,6 +72,29 @@ public sealed class BattleRoyaleService : INService
         return (true, $"{username} entered the Battle Royale! ({game.Players.Count} tributes)");
     }
 
+    /// <summary>
+    /// Cancel a BR game and refund all entry fees.
+    /// </summary>
+    public async Task<(bool Success, string Message)> CancelGame(ulong channelId)
+    {
+        if (!ActiveGames.TryRemove(channelId, out var game))
+            return (false, "No Battle Royale running!");
+
+        if (game.Started)
+            return (false, "Can't cancel a game that's already started!");
+
+        // Refund all players
+        if (game.EntryFee > 0)
+        {
+            foreach (var (userId, username) in game.Players)
+            {
+                await _cs.AddAsync(userId, game.EntryFee, new TxData("br", "refund"));
+            }
+        }
+
+        return (true, $"Battle Royale cancelled. {game.Players.Count} player(s) refunded.");
+    }
+
     public async Task<(bool Success, string Message)> RunRoundAsync(ulong channelId)
     {
         if (!ActiveGames.TryGetValue(channelId, out var game))

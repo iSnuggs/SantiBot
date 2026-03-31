@@ -35,7 +35,7 @@ public partial class Games
         [RequireContext(ContextType.Guild)]
         public async Task Begin()
         {
-            var (success, message) = _service.BeginGame(ctx.Channel.Id);
+            var (success, message) = await _service.BeginGame(ctx.Channel.Id);
             if (success)
                 await Response().Confirm(message).SendAsync();
             else
@@ -57,7 +57,7 @@ public partial class Games
         [RequireContext(ContextType.Guild)]
         public async Task NightAction(IUser user)
         {
-            var (success, message) = _service.NightAction(ctx.Channel.Id, ctx.User.Id, user.Id);
+            var (success, message) = await _service.NightAction(ctx.Channel.Id, ctx.User.Id, user.Id);
             if (success)
                 await Response().Confirm(message).SendAsync();
             else

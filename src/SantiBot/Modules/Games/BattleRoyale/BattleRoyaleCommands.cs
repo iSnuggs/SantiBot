@@ -41,5 +41,16 @@ public partial class Games
             else
                 await Response().Error(message).SendAsync();
         }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task Cancel()
+        {
+            var (success, message) = await _service.CancelGame(ctx.Channel.Id);
+            if (success)
+                await Response().Confirm(message).SendAsync();
+            else
+                await Response().Error(message).SendAsync();
+        }
     }
 }

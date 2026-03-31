@@ -27,6 +27,8 @@ public sealed class LoanService : INService, IReadyExecutor
         return Task.CompletedTask;
     }
 
+    private const int MAX_LOAN_DAYS = 14; // Auto-default after 14 days
+
     private async Task ApplyInterest()
     {
         try
@@ -38,6 +40,31 @@ public sealed class LoanService : INService, IReadyExecutor
 
             foreach (var loan in activeLoans)
             {
+                // Auto-default after 14 days — currency seized from wallet, credit score destroyed
+                var daysSinceTaken = (DateTime.UtcNow - loan.TakenAt).TotalDays;
+                if (daysSinceTaken > MAX_LOAN_DAYS)
+                {
+                    // Try to seize whatever currency they have
+                    await _cs.RemoveAsync(loan.UserId, loan.AmountOwed,
+                        new TxData("loan", "default-seize", "Loan defaulted — currency seized"));
+
+                    // Mark loan as defaulted
+                    await ctx.GetTable<UserLoan>()
+                        .Where(l => l.Id == loan.Id)
+                        .UpdateAsync(l => new UserLoan { IsActive = false, AmountOwed = 0 });
+
+                    // Record as late repayment (tanks credit score)
+                    await ctx.GetTable<LoanHistory>().InsertAsync(() => new LoanHistory
+                    {
+                        GuildId = loan.GuildId,
+                        UserId = loan.UserId,
+                        Amount = loan.Principal,
+                        RepaidOnTime = false,
+                        DateAdded = DateTime.UtcNow
+                    });
+                    continue;
+                }
+
                 var hoursSinceLastInterest = (DateTime.UtcNow - loan.LastInterestApplied).TotalHours;
                 if (hoursSinceLastInterest < 24) continue;
 

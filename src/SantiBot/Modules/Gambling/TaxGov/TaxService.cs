@@ -180,4 +180,60 @@ public sealed class TaxService : INService, IReadyExecutor
     {
         return await GetOrCreateGovAsync(guildId);
     }
+
+    /// <summary>
+    /// Apply tax on a currency gain. Returns the tax amount deducted.
+    /// Call this from gambling/economy services when awarding currency.
+    /// </summary>
+    public async Task<long> ApplyTaxAsync(ulong guildId, ulong userId, long amount)
+    {
+        var gov = await GetOrCreateGovAsync(guildId);
+        if (gov.TaxRate <= 0 || amount <= 0)
+            return 0;
+
+        var tax = (long)(amount * gov.TaxRate / 100.0);
+        if (tax <= 0)
+            return 0;
+
+        // Add tax to treasury
+        await using var ctx = _db.GetDbContext();
+        await ctx.GetTable<TaxGovernment>()
+            .Where(g => g.Id == gov.Id)
+            .UpdateAsync(g => new TaxGovernment { Treasury = gov.Treasury + tax });
+
+        return tax;
+    }
+
+    /// <summary>
+    /// Get current treasury balance.
+    /// </summary>
+    public async Task<long> GetTreasuryAsync(ulong guildId)
+    {
+        var gov = await GetOrCreateGovAsync(guildId);
+        return gov.Treasury;
+    }
+
+    /// <summary>
+    /// Withdraw from treasury. Only elected official can withdraw.
+    /// </summary>
+    public async Task<(bool Success, string Message)> WithdrawTreasuryAsync(ulong guildId, ulong userId, long amount)
+    {
+        if (amount <= 0)
+            return (false, "Amount must be positive!");
+
+        var gov = await GetOrCreateGovAsync(guildId);
+        if (gov.ElectedOfficialId != userId)
+            return (false, "Only the elected official can withdraw from the treasury!");
+
+        if (amount > gov.Treasury)
+            return (false, $"Treasury only has **{gov.Treasury}** 🥠!");
+
+        await using var ctx = _db.GetDbContext();
+        await ctx.GetTable<TaxGovernment>()
+            .Where(g => g.Id == gov.Id)
+            .UpdateAsync(g => new TaxGovernment { Treasury = gov.Treasury - amount });
+
+        await _cs.AddAsync(userId, amount, new TxData("tax", "withdraw"));
+        return (true, $"Withdrew **{amount}** 🥠 from the treasury. Remaining: **{gov.Treasury - amount}** 🥠");
+    }
 }
