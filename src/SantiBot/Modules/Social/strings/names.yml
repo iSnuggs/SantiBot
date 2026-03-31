@@ -3,7 +3,7 @@ accept:
   - achievementsaccept
 achievementleaderboard:
   - achievementleaderboard
-  - achievementleaderboard
+  - achlb
 achievementlist:
   - achievementlist
   - achievementlist
@@ -12,7 +12,7 @@ achievements:
   - rpachievements
 achievementstats:
   - achievementstats
-  - achievementstats
+  - achstats
 actions:
   - actions
   - actions
@@ -21,16 +21,16 @@ adopt:
   - adopt
 angry:
   - angry
-  - angry
+  - rpangry
 awoo:
   - awoo
-  - awoo
+  - rpawoo
 backflip:
   - backflip
-  - backflip
+  - rpbackflip
 baka:
   - baka
-  - baka
+  - rpbaka
 bgbuy:
   - bgbuy
   - bgbuy
@@ -48,37 +48,37 @@ bioset:
   - bioset
 bite:
   - bite
-  - bite
+  - rpbite
 blindfold:
   - blindfold
-  - blindfold
+  - rpblindfold
 blowkiss:
   - blowkiss
-  - blowkiss
+  - rpblowkiss
 blush:
   - blush
-  - blush
+  - rpblush
 bonk:
   - bonk
-  - bonk
+  - rpbonk
 boop:
   - boop
-  - boop
+  - rpboop
 bow:
   - bow
-  - bow
+  - rpbow
 bully:
   - bully
-  - bully
+  - rpbully
 carry:
   - carry
-  - carry
+  - rpcarry
 cheer:
   - cheer
-  - cheer
+  - rpcheer
 clap:
   - clap
-  - clap
+  - rpclap
 clearmoodasync:
   - clearmoodasync
   - clearmoodasync
@@ -87,25 +87,25 @@ compatible:
   - compatible
 confused:
   - confused
-  - confused
+  - rpconfused
 createcapsuleasync:
   - createcapsuleasync
   - createcapsuleasync
 cringe:
   - cringe
-  - cringe
+  - rpcringe
 cry:
   - cry
-  - cry
+  - rpcry
 cuddle:
   - cuddle
-  - cuddle
+  - rpcuddle
 dab:
   - dab
-  - dab
+  - rpdab
 dance:
   - dance
-  - dance
+  - rpdance
 decline:
   - decline
   - decline
@@ -120,13 +120,13 @@ divorce:
   - divorce
 dominate:
   - dominate
-  - dominate
+  - rpdominate
 enable:
   - enable
   - rpenable
 facepalm:
   - facepalm
-  - facepalm
+  - rpfacepalm
 family:
   - family
   - family
@@ -156,22 +156,22 @@ friendrequests:
   - friendrequests
 glomp:
   - glomp
-  - glomp
+  - rpglomp
 grind:
   - grind
-  - grind
+  - rpgrind
 handcuff:
   - handcuff
-  - handcuff
+  - rphandcuff
 handhold:
   - handhold
-  - handhold
+  - rphandhold
 handshake:
   - handshake
-  - handshake
+  - rphandshake
 happy:
   - happy
-  - happy
+  - rphappy
 heatmap:
   - heatmap
   - rpheatmap
@@ -180,7 +180,7 @@ hentai:
   - hentai
 highfive:
   - highfive
-  - highfive
+  - rphighfive
 hug:
   - hug
   - rphug
@@ -216,19 +216,19 @@ kiss:
   - rpkiss
 laugh:
   - laugh
-  - laugh
+  - rplaugh
 lewd:
   - lewd
   - lewd
 lick:
   - lick
-  - lick
+  - rplick
 marry:
   - marry
   - marry
 moan:
   - moan
-  - moan
+  - rpmoan
 mood:
   - mood
   - mood
@@ -246,7 +246,7 @@ nom:
   - rpnom
 nuzzle:
   - nuzzle
-  - nuzzle
+  - rpnuzzle
 onreadyasync:
   - onreadyasync
   - rponreadyasync
@@ -255,13 +255,13 @@ pat:
   - rppat
 peck:
   - peck
-  - peck
+  - rppeck
 poke:
   - poke
-  - achievementspoke
+  - rppoke
 pout:
   - pout
-  - pout
+  - rppout
 profile:
   - profile
   - rpprofile
@@ -273,19 +273,19 @@ pronouns:
   - pronouns
 punch:
   - punch
-  - punch
+  - rppunch
 recordactivityasync:
   - recordactivityasync
   - recordactivityasync
 run:
   - run
-  - run
+  - rprun
 salute:
   - salute
-  - salute
+  - rpsalute
 seduce:
   - seduce
-  - seduce
+  - rpseduce
 setbackgroundasync:
   - setbackgroundasync
   - setbackgroundasync
@@ -315,28 +315,28 @@ setupasync:
   - setupasync
 shocked:
   - shocked
-  - shocked
+  - rpshocked
 shoot:
   - shoot
-  - shoot
+  - rpshoot
 shrug:
   - shrug
-  - shrug
+  - rpshrug
 sip:
   - sip
-  - sip
+  - rpsip
 slap:
   - slap
-  - slap
+  - rpslap
 sleep:
   - sleep
-  - sleep
+  - rpsleep
 smile:
   - smile
-  - smile
+  - rpsmile
 smug:
   - smug
-  - smug
+  - rpsmug
 socialboard:
   - socialboard
   - socialboard
@@ -351,7 +351,7 @@ spouse:
   - spouse
 stare:
   - stare
-  - stare
+  - rpstare
 strip:
   - strip
   - strip
@@ -360,25 +360,25 @@ submit:
   - achievementssubmit
 tableflip:
   - tableflip
-  - tableflip
+  - rptableflip
 tackle:
   - tackle
-  - tackle
+  - rptackle
 tease:
   - tease
-  - tease
+  - rptease
 think:
   - think
-  - think
+  - rpthink
 thumbsup:
   - thumbsup
-  - thumbsup
+  - rpthumbsup
 tickle:
   - tickle
-  - tickle
+  - rptickle
 tie:
   - tie
-  - tie
+  - rptie
 timecapsule:
   - timecapsule
   - timecapsule
@@ -402,22 +402,22 @@ waifu:
   - rpwaifu
 wave:
   - wave
-  - wave
+  - rpwave
 whisper:
   - whisper
-  - whisper
+  - rpwhisper
 whois:
   - whois
   - whois
 wink:
   - wink
-  - wink
+  - rpwink
 yawn:
   - yawn
-  - yawn
+  - rpyawn
 yearbook:
   - yearbook
   - yearbook
 yeet:
   - yeet
-  - yeet
+  - rpyeet

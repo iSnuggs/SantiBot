@@ -9,3 +9,42 @@ craftrecipes:
   - craftrecipes
   - crrecipes
   - crlist
+gatheringstats:
+  - gatheringstats
+  - gatherstats
+craftingstats:
+  - craftingstats
+  - craftstats
+mine:
+  - mine
+  - crmine
+chop:
+  - chop
+  - crchop
+farm:
+  - farm
+  - crfarm
+gatherherbs:
+  - gatherherbs
+  - crherbs
+craftfish:
+  - craftfish
+  - crfish
+cook:
+  - cook
+  - crcook
+forge:
+  - forge
+  - crforge
+brew:
+  - brew
+  - crbrew
+enchant:
+  - enchant
+  - crenchant
+craftjewelry:
+  - craftjewelry
+  - crjewelry
+recipes:
+  - recipes
+  - crrecipe
