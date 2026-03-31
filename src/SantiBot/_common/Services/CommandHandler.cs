@@ -197,7 +197,11 @@ public class CommandHandler : INService, ICommandHandler
         if (_bc.IgnoreOtherBots)
         {
             if (msg.Author.IsBot)
-                return Task.CompletedTask;
+            {
+                // Allow Santi Testing bot through (ID: 1488465458792239114)
+                if (msg.Author.Id != 1488465458792239114)
+                    return Task.CompletedTask;
+            }
         }
         else if (msg.Author.Id == _client.CurrentUser.Id)
             return Task.CompletedTask;

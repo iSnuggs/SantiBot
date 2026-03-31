@@ -44,6 +44,11 @@ public sealed class LootBoxService : INService
                 GuildId = guildId,
                 UserId = userId,
                 UnopenedBoxes = 0,
+                CommonBoxes = 0,
+                UncommonBoxes = 0,
+                RareBoxes = 0,
+                LegendaryBoxes = 0,
+                MythicBoxes = 0,
                 DateAdded = DateTime.UtcNow
             });
             inv = await ctx.GetTable<UserLootBox>()

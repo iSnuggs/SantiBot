@@ -1,0 +1,12 @@
+puzzle:
+  - puzzle
+  - puzzletoday
+solve:
+  - solve
+  - puzzlesolve
+hint:
+  - hint
+  - puzzlehint
+leaderboard:
+  - leaderboard
+  - puzzlelb
