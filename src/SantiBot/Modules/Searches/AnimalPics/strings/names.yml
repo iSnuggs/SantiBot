@@ -1,0 +1,24 @@
+cat:
+  - cat
+  - animalcat
+dog:
+  - dog
+  - animaldog
+bird:
+  - bird
+  - animalbird
+fox:
+  - fox
+  - animalfox
+bunny:
+  - bunny
+  - animalbunny
+duck:
+  - duck
+  - animalduck
+panda:
+  - panda
+  - animalpanda
+koala:
+  - koala
+  - animalkoala

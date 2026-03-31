@@ -1,8 +1,13 @@
 #nullable disable
+using LinqToDB;
+using LinqToDB.EntityFrameworkCore;
+using SantiBot.Db.Models;
+
 namespace SantiBot.Modules.Games.Seasonal;
 
 public sealed class SeasonalService(DbService _db, ICurrencyService _cs) : INService
 {
+    private const int EGG_HUNT_COOLDOWN_MINUTES = 30;
     private static readonly SantiRandom _rng = new();
 
     // ─── Seasonal Event Data Model ───────────────────────────────────────
@@ -316,8 +321,9 @@ public sealed class SeasonalService(DbService _db, ICurrencyService _cs) : INSer
 
     /// <summary>
     /// Returns the advent calendar reward for a given day (1-25). Christmas only.
+    /// Each user can only claim each day once.
     /// </summary>
-    public (bool success, string message) GetAdventCalendarReward(int day)
+    public async Task<(bool success, string message)> GetAdventCalendarRewardAsync(ulong userId, ulong guildId, int day)
     {
         if (!IsEventActive("Christmas"))
             return (false, "The Advent Calendar is only available during the Christmas event (Dec 1-25)!");
@@ -329,17 +335,62 @@ public sealed class SeasonalService(DbService _db, ICurrencyService _cs) : INSer
         if (day > today)
             return (false, $"Day {day} hasn't arrived yet! Today is December {today}.");
 
+        // Check if already claimed this day
+        await using var ctx = _db.GetDbContext();
+        var existing = await ctx.GetTable<SeasonalClaim>()
+            .FirstOrDefaultAsyncLinqToDB(x => x.UserId == userId
+                && x.GuildId == guildId
+                && x.ClaimType == "advent"
+                && x.Day == day);
+
+        if (existing is not null)
+            return (false, $"You already claimed Day {day}! Come back tomorrow for a new reward.");
+
+        // Record the claim
+        ctx.Add(new SeasonalClaim
+        {
+            UserId = userId,
+            GuildId = guildId,
+            ClaimType = "advent",
+            Day = day,
+            ClaimedAt = DateTime.UtcNow,
+        });
+        await ctx.SaveChangesAsync();
+
         var (reward, amount, emoji) = _adventRewards[day - 1];
+
+        // Award currency for snowflake rewards
+        if (reward == "Snowflake")
+            await _cs.AddAsync(userId, amount, new("seasonal", "advent", $"Advent Day {day}"));
+
         return (true, $"{emoji} **Day {day}:** {amount}x {reward}");
     }
 
     /// <summary>
     /// Easter egg hunt -- random egg find with currency reward. Easter only.
+    /// 30-minute cooldown per user to prevent infinite currency farming.
     /// </summary>
     public async Task<(bool success, string message)> EggHunt(ulong userId, ulong guildId)
     {
         if (!IsEventActive("Easter"))
             return (false, "The Egg Hunt is only available during the Easter event (Apr 1-15)!");
+
+        // Check cooldown
+        await using var ctx = _db.GetDbContext();
+        var lastClaim = await ctx.GetTable<SeasonalClaim>()
+            .Where(x => x.UserId == userId && x.GuildId == guildId && x.ClaimType == "egghunt")
+            .OrderByDescending(x => x.ClaimedAt)
+            .FirstOrDefaultAsyncLinqToDB();
+
+        if (lastClaim is not null)
+        {
+            var cooldownEnd = lastClaim.ClaimedAt.AddMinutes(EGG_HUNT_COOLDOWN_MINUTES);
+            if (DateTime.UtcNow < cooldownEnd)
+            {
+                var remaining = cooldownEnd - DateTime.UtcNow;
+                return (false, $"You're still looking for eggs! Try again in **{remaining.Minutes}m {remaining.Seconds}s**.");
+            }
+        }
 
         // Weighted random egg selection
         var totalWeight = _easterEggs.Sum(e => e.rarity);
@@ -356,6 +407,17 @@ public sealed class SeasonalService(DbService _db, ICurrencyService _cs) : INSer
                 break;
             }
         }
+
+        // Record the claim
+        ctx.Add(new SeasonalClaim
+        {
+            UserId = userId,
+            GuildId = guildId,
+            ClaimType = "egghunt",
+            Day = 0,
+            ClaimedAt = DateTime.UtcNow,
+        });
+        await ctx.SaveChangesAsync();
 
         // Award seasonal currency
         await _cs.AddAsync(userId, found.reward,

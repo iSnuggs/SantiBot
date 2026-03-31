@@ -387,5 +387,24 @@ public partial class Games
 
             await Response().Confirm($"Updated description for **{guildName}**.").SendAsync();
         }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task Disband()
+        {
+            var (guildName, treasury, error) = await _service.DisbandGuildAsync(ctx.Guild.Id, ctx.User.Id);
+            if (error is not null)
+            {
+                await Response().Error(error).SendAsync();
+                return;
+            }
+
+            var sign = _cp.GetCurrencySign();
+            var msg = $"**{guildName}** has been disbanded.";
+            if (treasury > 0)
+                msg += $"\nTreasury of **{treasury:N0}**{sign} has been returned to you.";
+
+            await Response().Confirm(msg).SendAsync();
+        }
     }
 }

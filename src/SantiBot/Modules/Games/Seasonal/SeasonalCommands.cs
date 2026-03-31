@@ -125,7 +125,7 @@ public partial class Games
             if (day == 0)
                 day = DateTime.UtcNow.Day;
 
-            var (success, message) = _service.GetAdventCalendarReward(day);
+            var (success, message) = await _service.GetAdventCalendarRewardAsync(ctx.User.Id, ctx.Guild.Id, day);
             if (!success)
             {
                 await Response().Error(message).SendAsync();

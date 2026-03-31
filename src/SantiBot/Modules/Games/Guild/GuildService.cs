@@ -56,6 +56,10 @@ public sealed class GuildService(DbService _db, ICurrencyService _cs) : INServic
 
     private const long GUILD_CREATE_COST = 5000;
     private const int WAR_DURATION_HOURS = 24;
+    private const int WAR_BATTLE_COOLDOWN_SECONDS = 60;
+
+    // Per-user war battle cooldown tracking
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<(ulong guildDiscordId, ulong userId), DateTime> _warBattleCooldowns = new();
 
     /// <summary>
     /// Create a new player guild. Costs 5000 currency.
@@ -558,6 +562,18 @@ public sealed class GuildService(DbService _db, ICurrencyService _cs) : INServic
     public async Task<(int pointsGained, int totalScore, string enemyTag, string error)> WarBattleAsync(
         ulong guildDiscordId, ulong userId)
     {
+        // Cooldown check (60 seconds between battles)
+        var key = (guildDiscordId, userId);
+        if (_warBattleCooldowns.TryGetValue(key, out var lastBattle))
+        {
+            var cooldownEnd = lastBattle.AddSeconds(WAR_BATTLE_COOLDOWN_SECONDS);
+            if (DateTime.UtcNow < cooldownEnd)
+            {
+                var remaining = cooldownEnd - DateTime.UtcNow;
+                return (0, 0, null, $"You're recovering from battle! Try again in **{remaining.Seconds}s**.");
+            }
+        }
+
         await using var ctx = _db.GetDbContext();
 
         var member = await ctx.GetTable<GuildMember>()
@@ -598,6 +614,9 @@ public sealed class GuildService(DbService _db, ICurrencyService _cs) : INServic
 
         var basePoints = _rng.Next(1, 4);
         var points = (int)(basePoints * levelBonus);
+
+        // Record cooldown
+        _warBattleCooldowns[key] = DateTime.UtcNow;
 
         var isAttacker = war.AttackerGuildId == guild.Id;
         string enemyTag;
@@ -748,6 +767,57 @@ public sealed class GuildService(DbService _db, ICurrencyService _cs) : INServic
             .UpdateAsync(_ => new PlayerGuild { Description = description });
 
         return (guild?.Name ?? "your guild", null);
+    }
+
+    /// <summary>
+    /// Disband a guild. Only the Leader can disband. Returns treasury to leader.
+    /// </summary>
+    public async Task<(string guildName, long treasury, string error)> DisbandGuildAsync(
+        ulong guildDiscordId, ulong userId)
+    {
+        await using var ctx = _db.GetDbContext();
+
+        var member = await ctx.GetTable<GuildMember>()
+            .FirstOrDefaultAsync(x => x.UserId == userId && x.GuildDiscordId == guildDiscordId);
+
+        if (member is null)
+            return (null, 0, "You are not in a guild.");
+
+        if (member.Rank != "Leader")
+            return (null, 0, "Only the guild Leader can disband the guild.");
+
+        var guild = await ctx.GetTable<PlayerGuild>()
+            .FirstOrDefaultAsync(x => x.Id == member.PlayerGuildId);
+
+        if (guild is null)
+            return (null, 0, "Guild not found.");
+
+        // Check for active wars
+        var activeWar = await ctx.GetTable<GuildWar>()
+            .FirstOrDefaultAsync(x => x.Status == "Active"
+                && (x.AttackerGuildId == guild.Id || x.DefenderGuildId == guild.Id));
+
+        if (activeWar is not null)
+            return (null, 0, "Cannot disband while in an active war.");
+
+        // Return treasury to leader
+        if (guild.Treasury > 0)
+        {
+            await _cs.AddAsync(userId, guild.Treasury,
+                new("guild", "disband", $"Treasury returned from [{guild.Tag}] {guild.Name}"));
+        }
+
+        // Delete all members
+        await ctx.GetTable<GuildMember>()
+            .Where(x => x.PlayerGuildId == guild.Id)
+            .DeleteAsync();
+
+        // Delete the guild
+        await ctx.GetTable<PlayerGuild>()
+            .Where(x => x.Id == guild.Id)
+            .DeleteAsync();
+
+        return (guild.Name, guild.Treasury, null);
     }
 
     /// <summary>

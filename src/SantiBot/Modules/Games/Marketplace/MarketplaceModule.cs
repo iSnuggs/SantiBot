@@ -43,6 +43,33 @@ namespace SantiBot.Modules.Games.Marketplace
             if (activeCount >= MAX_ACTIVE_LISTINGS)
                 return (null, $"You can only have {MAX_ACTIVE_LISTINGS} active listings at a time.");
 
+            // Verify seller actually owns the items (check inventory)
+            if (itemType is "Weapon" or "Armor" or "Potion" or "Tool")
+            {
+                var ownedCount = await ctx.GetTable<DungeonItem>()
+                    .CountAsync(x => x.UserId == userId
+                        && x.GuildId == guildDiscordId
+                        && x.Name == itemName
+                        && !x.IsEquipped);
+
+                if (ownedCount < quantity)
+                    return (null, $"You only have **{ownedCount}** unequipped **{itemName}** in your inventory (need {quantity}).");
+
+                // Remove items from seller's inventory
+                var toRemove = await ctx.GetTable<DungeonItem>()
+                    .Where(x => x.UserId == userId
+                        && x.GuildId == guildDiscordId
+                        && x.Name == itemName
+                        && !x.IsEquipped)
+                    .Take(quantity)
+                    .ToListAsyncLinqToDB();
+
+                foreach (var item in toRemove)
+                    await ctx.GetTable<DungeonItem>()
+                        .Where(x => x.Id == item.Id)
+                        .DeleteAsync();
+            }
+
             var offer = new TradeOffer
             {
                 SellerUserId = userId,
@@ -65,6 +92,7 @@ namespace SantiBot.Modules.Games.Marketplace
         /// <summary>
         /// Buy items from a marketplace listing.
         /// Transfers currency from buyer to seller (minus 5% tax).
+        /// Uses atomic update to prevent race conditions (two buyers on same listing).
         /// </summary>
         public async Task<(TradeTransaction transaction, string error)> BuyItemAsync(
             ulong guildDiscordId, ulong buyerId, int listingId, int quantity)
@@ -87,7 +115,6 @@ namespace SantiBot.Modules.Games.Marketplace
 
             if (DateTime.UtcNow > offer.ExpiresAt)
             {
-                // Auto-expire
                 await ctx.GetTable<TradeOffer>()
                     .Where(x => x.Id == listingId)
                     .UpdateAsync(_ => new TradeOffer { IsActive = false });
@@ -99,12 +126,38 @@ namespace SantiBot.Modules.Games.Marketplace
 
             var totalPrice = offer.PricePerUnit * quantity;
 
+            // ATOMIC: Update quantity only if still enough stock (prevents race condition)
+            var remainingQty = offer.Quantity - quantity;
+            int rowsAffected;
+
+            if (remainingQty <= 0)
+            {
+                rowsAffected = await ctx.GetTable<TradeOffer>()
+                    .Where(x => x.Id == listingId && x.IsActive && x.Quantity >= quantity)
+                    .UpdateAsync(_ => new TradeOffer { IsActive = false, Quantity = 0 });
+            }
+            else
+            {
+                rowsAffected = await ctx.GetTable<TradeOffer>()
+                    .Where(x => x.Id == listingId && x.IsActive && x.Quantity >= quantity)
+                    .UpdateAsync(_ => new TradeOffer { Quantity = remainingQty });
+            }
+
+            if (rowsAffected == 0)
+                return (null, "Someone else bought this item first! The listing is no longer available.");
+
             // Remove currency from buyer
             var taken = await _cs.RemoveAsync(buyerId, totalPrice,
                 new("marketplace", "buy", $"Bought {quantity}x {offer.ItemName}"));
 
             if (!taken)
+            {
+                // Refund the listing quantity since buyer can't pay
+                await ctx.GetTable<TradeOffer>()
+                    .Where(x => x.Id == listingId)
+                    .UpdateAsync(_ => new TradeOffer { IsActive = true, Quantity = offer.Quantity });
                 return (null, $"You need **{totalPrice:N0}** currency to buy {quantity}x {offer.ItemName}.");
+            }
 
             // Pay seller (minus tax)
             var tax = (long)(totalPrice * MARKETPLACE_TAX);
@@ -113,19 +166,22 @@ namespace SantiBot.Modules.Games.Marketplace
             await _cs.AddAsync(offer.SellerUserId, sellerPayout,
                 new("marketplace", "sell", $"Sold {quantity}x {offer.ItemName}"));
 
-            // Update or deactivate listing
-            var remainingQty = offer.Quantity - quantity;
-            if (remainingQty <= 0)
+            // Add item to buyer's inventory (DungeonItems for equipment, or generic)
+            for (var i = 0; i < quantity; i++)
             {
-                await ctx.GetTable<TradeOffer>()
-                    .Where(x => x.Id == listingId)
-                    .UpdateAsync(_ => new TradeOffer { IsActive = false, Quantity = 0 });
-            }
-            else
-            {
-                await ctx.GetTable<TradeOffer>()
-                    .Where(x => x.Id == listingId)
-                    .UpdateAsync(_ => new TradeOffer { Quantity = remainingQty });
+                ctx.Add(new DungeonItem
+                {
+                    UserId = buyerId,
+                    GuildId = guildDiscordId,
+                    Name = offer.ItemName,
+                    Slot = offer.ItemType switch
+                    {
+                        "Weapon" => "Weapon",
+                        "Armor" => "Armor",
+                        _ => "Consumable",
+                    },
+                    Rarity = "Common",
+                });
             }
 
             // Record transaction
