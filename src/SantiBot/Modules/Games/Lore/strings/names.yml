@@ -1,0 +1,16 @@
+bestiary:
+  - lorebestiary
+lorebook:
+  - lorelorebook
+loreread:
+  - loreloreread
+lorestats:
+  - lorelorestats
+treasuremap:
+  - loretreasuremap
+treasuresolve:
+  - loretreasuresolve
+worldevents:
+  - loreworldevents
+worldhistory:
+  - loreworldhistory

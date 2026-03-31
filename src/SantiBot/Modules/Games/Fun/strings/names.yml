@@ -1,0 +1,40 @@
+compliment:
+  - funcompliment
+dadjoke:
+  - fundadjoke
+debatetopic:
+  - fundebatetopic
+eightball:
+  - funeightball
+fact:
+  - funfact
+fortune:
+  - funfortune
+hottake:
+  - funhottake
+insult:
+  - funinsult
+joke:
+  - funjoke
+motivation:
+  - funmotivation
+neverhaveiever:
+  - funneverhaveiever
+pickrandom:
+  - funpickrandom
+pickupline:
+  - funpickupline
+rate:
+  - funrate
+roast:
+  - funroast
+showerthought:
+  - funshowerthought
+tarot:
+  - funtarot
+thisorthat:
+  - funthisorthat
+truthordare:
+  - funtruthordare
+wouldyourather:
+  - funwouldyourather

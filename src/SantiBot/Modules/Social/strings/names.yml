@@ -1,9 +1,11 @@
 accept:
-  - accept
+  - achievementsaccept
 achievementleaderboard:
   - achievementleaderboard
 achievementlist:
   - achievementlist
+achievements:
+  - rpachievements
 achievementstats:
   - achievementstats
 actions:
@@ -70,14 +72,22 @@ dance:
   - dance
 decline:
   - decline
+disable:
+  - rpdisable
+disableasync:
+  - rpdisableasync
 divorce:
   - divorce
 dominate:
   - dominate
+enable:
+  - rpenable
 facepalm:
   - facepalm
 family:
   - family
+feed:
+  - rpfeed
 fistbump:
   - fistbump
 friendaccept:
@@ -104,10 +114,14 @@ handshake:
   - handshake
 happy:
   - happy
+heatmap:
+  - rpheatmap
 hentai:
   - hentai
 highfive:
   - highfive
+hug:
+  - rphug
 incrementinteractionasync:
   - incrementinteractionasync
 incrementmessagecountasync:
@@ -124,6 +138,10 @@ karma:
   - karma
 karmaboard:
   - karmaboard
+kick:
+  - rpkick
+kiss:
+  - rpkiss
 laugh:
   - laugh
 lewd:
@@ -142,14 +160,22 @@ moodclear:
   - moodclear
 neko:
   - neko
+nom:
+  - rpnom
 nuzzle:
   - nuzzle
+onreadyasync:
+  - rponreadyasync
+pat:
+  - rppat
 peck:
   - peck
 poke:
-  - poke
+  - achievementspoke
 pout:
   - pout
+profile:
+  - rpprofile
 profileset:
   - profileset
 pronouns:
@@ -168,6 +194,8 @@ setbackgroundasync:
   - setbackgroundasync
 setbioasync:
   - setbioasync
+setenabledasync:
+  - setenabledasync
 setmoodasync:
   - setmoodasync
 setpronounsasync:
@@ -209,7 +237,7 @@ stare:
 strip:
   - strip
 submit:
-  - submit
+  - achievementssubmit
 tableflip:
   - tableflip
 tackle:
@@ -236,6 +264,8 @@ vcleaderboard:
   - vcleaderboard
 vcstats:
   - vcstats
+waifu:
+  - rpwaifu
 wave:
   - wave
 whisper:

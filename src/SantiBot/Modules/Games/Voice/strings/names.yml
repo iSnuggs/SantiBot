@@ -1,0 +1,42 @@
+bet:
+  - vtbet
+fanartgallery:
+  - vtfanartgallery
+fanartsubmit:
+  - vtfanartsubmit
+fanartvote:
+  - vtfanartvote
+feedadd:
+  - vtfeedadd
+feedremove:
+  - vtfeedremove
+feeds:
+  - vtfeeds
+monitoradd:
+  - vtmonitoradd
+monitorremove:
+  - vtmonitorremove
+monitors:
+  - vtmonitors
+myvoice:
+  - vtmyvoice
+pointrewards:
+  - vtpointrewards
+points:
+  - vtpoints
+predict:
+  - vtpredict
+predictresolve:
+  - vtpredictresolve
+predictstatus:
+  - vtpredictstatus
+soundadd:
+  - vtsoundadd
+soundremove:
+  - vtsoundremove
+sounds:
+  - vtsounds
+tempvoicesetup:
+  - vttempvoicesetup
+voiceleaderboard:
+  - vtvoiceleaderboard

@@ -1,0 +1,38 @@
+emojianswer:
+  - mgemojianswer
+emojiquiz:
+  - mgemojiquiz
+geoanswer:
+  - mggeoanswer
+geoquiz:
+  - mggeoquiz
+gn:
+  - mggn
+gnend:
+  - mggnend
+guessnumber:
+  - mgguessnumber
+mathanswer:
+  - mgmathanswer
+mathrace:
+  - mgmathrace
+memoryanswer:
+  - mgmemoryanswer
+memoryend:
+  - mgmemoryend
+memorygame:
+  - mgmemorygame
+minesweeper:
+  - mgminesweeper
+scramble:
+  - mgscramble
+scrambleend:
+  - mgscrambleend
+unscramble:
+  - mgunscramble
+wordle:
+  - mgwordle
+wordleend:
+  - mgwordleend
+wordleguess:
+  - mgwordleguess

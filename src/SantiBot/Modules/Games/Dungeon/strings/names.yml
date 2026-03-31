@@ -1,0 +1,32 @@
+attack:
+  - dnattack
+bosses:
+  - dnbosses
+chooseclass:
+  - dnchooseclass
+chooserace:
+  - dnchooserace
+config:
+  - dungeonconfig
+enter:
+  - dnenter
+equip:
+  - dnequip
+explore:
+  - dnexplore
+flee:
+  - dnflee
+inventory:
+  - dninventory
+invite:
+  - dninvite
+leaderboard:
+  - dnleaderboard
+profile:
+  - profile
+spawn:
+  - dnspawn
+status:
+  - dungeonstatus
+toggle:
+  - toggle

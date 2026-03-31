@@ -1,0 +1,26 @@
+autopublish:
+  - stautopublish
+autopublishlist:
+  - stautopublishlist
+backupsummary:
+  - stbackupsummary
+emojistats:
+  - stemojistats
+emojistatsreset:
+  - stemojistatsreset
+invitecount:
+  - stinvitecount
+inviterewards:
+  - stinviterewards
+milestonedisable:
+  - stmilestonedisable
+milestonesetup:
+  - stmilestonesetup
+mirror:
+  - stmirror
+mirrorlist:
+  - stmirrorlist
+mirrorremove:
+  - stmirrorremove
+recordinvite:
+  - strecordinvite

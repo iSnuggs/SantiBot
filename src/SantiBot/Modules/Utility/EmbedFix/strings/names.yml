@@ -1,0 +1,12 @@
+deleteoriginal:
+  - embedfixdeleteoriginal
+disable:
+  - embedfixdisable
+enable:
+  - embedfixenable
+fix:
+  - embedfixfix
+status:
+  - embedfixstatus
+toggle:
+  - embedfixtoggle

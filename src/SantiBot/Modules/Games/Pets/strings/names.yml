@@ -1,0 +1,22 @@
+pet:
+  - petpet
+petadopt:
+  - petpetadopt
+petadventure:
+  - petpetadventure
+petbattle:
+  - petpetbattle
+petfeed:
+  - petpetfeed
+petlist:
+  - petpetlist
+petplay:
+  - petpetplay
+petrelease:
+  - petpetrelease
+petrename:
+  - petpetrename
+petrest:
+  - petpetrest
+petspecies:
+  - petpetspecies

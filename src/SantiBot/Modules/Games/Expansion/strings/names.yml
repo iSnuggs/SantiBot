@@ -1,0 +1,32 @@
+bountyboard:
+  - exbountyboard
+bountyclaim:
+  - exbountyclaim
+bountypost:
+  - exbountypost
+goalprogress:
+  - exgoalprogress
+goals:
+  - exgoals
+goalset:
+  - exgoalset
+horoscope:
+  - exhoroscope
+horoscopeset:
+  - exhoroscopeset
+modifiers:
+  - exmodifiers
+newspaper:
+  - exnewspaper
+prestige:
+  - prestige
+prestigeinfo:
+  - prestigeinfo
+skilltree:
+  - exskilltree
+skillupgrade:
+  - exskillupgrade
+treasurehide:
+  - extreasurehide
+treasurehint:
+  - extreasurehint

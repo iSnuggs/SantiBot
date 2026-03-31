@@ -1,0 +1,12 @@
+advent:
+  - seasonadvent
+boss:
+  - seasonboss
+calendar:
+  - seasoncalendar
+current:
+  - seasoncurrent
+egghunt:
+  - seasonegghunt
+seasonalshop:
+  - seasonseasonalshop

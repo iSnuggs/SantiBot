@@ -169,10 +169,11 @@ public class MergeStringsTask : Task
                 {
                     if (merged.ContainsKey(kvp.Key))
                     {
-                        Log.LogWarning($"Duplicate alias found: {kvp.Key}");
+                        // Duplicate alias — last one wins (submodule overrides parent)
+                        // This is expected for grouped commands in different modules
                     }
 
-                    merged.Add(kvp.Key, kvp.Value);
+                    merged[kvp.Key] = kvp.Value;
                 }
             }
             catch (Exception ex)

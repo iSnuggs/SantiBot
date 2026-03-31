@@ -1,0 +1,20 @@
+faq:
+  - smartfaq
+faqadd:
+  - smartfaqadd
+faqlist:
+  - smartfaqlist
+faqremove:
+  - smartfaqremove
+greet:
+  - smartgreet
+namegen:
+  - smartnamegen
+sentiment:
+  - smartsentiment
+summarize:
+  - smartsummarize
+topics:
+  - smarttopics
+writingcheck:
+  - smartwritingcheck

@@ -1,0 +1,26 @@
+eventcancel:
+  - eventeventcancel
+eventcreate:
+  - eventeventcreate
+eventinfo:
+  - eventeventinfo
+eventlist:
+  - eventeventlist
+eventrsvp:
+  - eventeventrsvp
+gamenight:
+  - eventgamenight
+movieadd:
+  - eventmovieadd
+movienight:
+  - eventmovienight
+moviepick:
+  - eventmoviepick
+movieresults:
+  - eventmovieresults
+movievote:
+  - eventmovievote
+studysession:
+  - eventstudysession
+teams:
+  - eventteams

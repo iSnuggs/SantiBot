@@ -1,0 +1,16 @@
+activity:
+  - analyticsactivity
+growth:
+  - analyticsgrowth
+heatmap:
+  - heatmap
+peakhours:
+  - analyticspeakhours
+serverreport:
+  - analyticsserverreport
+topchannels:
+  - analyticstopchannels
+topposters:
+  - analyticstopposters
+topwords:
+  - analyticstopwords

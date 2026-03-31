@@ -1,0 +1,28 @@
+botinfo:
+  - devbotinfo
+changelog:
+  - devchangelog
+cmdstats:
+  - devcmdstats
+featureflag:
+  - devfeatureflag
+featureflags:
+  - devfeatureflags
+webhookcreate:
+  - devwebhookcreate
+webhookdelete:
+  - devwebhookdelete
+webhooks:
+  - devwebhooks
+xpchallenge:
+  - xpchallenge
+xpchallenges:
+  - devxpchallenges
+xpmult:
+  - devxpmult
+xpmultchannel:
+  - devxpmultchannel
+xpmultrole:
+  - devxpmultrole
+xpmults:
+  - devxpmults

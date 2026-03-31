@@ -1,0 +1,30 @@
+contribute:
+  - guildcontribute
+create:
+  - guildcreate
+demote:
+  - guilddemote
+info:
+  - guildinfo
+join:
+  - guildjoin
+kick:
+  - guildkick
+leaderboard:
+  - guildleaderboard
+leave:
+  - guildleave
+members:
+  - members
+promote:
+  - guildpromote
+recruit:
+  - guildrecruit
+setdescription:
+  - guildsetdescription
+war:
+  - guildwar
+warbattle:
+  - guildwarbattle
+warstatus:
+  - guildwarstatus
