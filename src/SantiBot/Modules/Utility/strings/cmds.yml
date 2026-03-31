@@ -329,3 +329,727 @@ whosplaying:
   params:
     - game:
         desc: The name of the game being played by the users.
+
+activity:
+  desc: "activity command"
+  ex:
+    - ''
+  params:
+    - {}
+growth:
+  desc: "growth command"
+  ex:
+    - ''
+  params:
+    - {}
+heatmap:
+  desc: "heatmap command"
+  ex:
+    - ''
+  params:
+    - {}
+peakhours:
+  desc: "peakhours command"
+  ex:
+    - ''
+  params:
+    - {}
+serverreport:
+  desc: "serverreport command"
+  ex:
+    - ''
+  params:
+    - {}
+topchannels:
+  desc: "topchannels command"
+  ex:
+    - ''
+  params:
+    - {}
+topposters:
+  desc: "topposters command"
+  ex:
+    - ''
+  params:
+    - {}
+topwords:
+  desc: "topwords command"
+  ex:
+    - ''
+  params:
+    - {}
+
+addcmd:
+  desc: "addcmd command"
+  ex:
+    - ''
+  params:
+    - {}
+cmdlist:
+  desc: "cmdlist command"
+  ex:
+    - ''
+  params:
+    - {}
+currencyname:
+  desc: "currencyname command"
+  ex:
+    - ''
+  params:
+    - {}
+delcmd:
+  desc: "delcmd command"
+  ex:
+    - ''
+  params:
+    - {}
+deleteembed:
+  desc: "deleteembed command"
+  ex:
+    - ''
+  params:
+    - {}
+embedcolor:
+  desc: "embedcolor command"
+  ex:
+    - ''
+  params:
+    - {}
+embeds:
+  desc: "embeds command"
+  ex:
+    - ''
+  params:
+    - {}
+incrementcommanduseasync:
+  desc: "incrementcommanduseasync command"
+  ex:
+    - ''
+  params:
+    - {}
+levelupmsg:
+  desc: "levelupmsg command"
+  ex:
+    - ''
+  params:
+    - {}
+saveembed:
+  desc: "saveembed command"
+  ex:
+    - ''
+  params:
+    - {}
+sendembed:
+  desc: "sendembed command"
+  ex:
+    - ''
+  params:
+    - {}
+setcurrencyasync:
+  desc: "setcurrencyasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setembedcolorasync:
+  desc: "setembedcolorasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setlevelupasync:
+  desc: "setlevelupasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setthemeasync:
+  desc: "setthemeasync command"
+  ex:
+    - ''
+  params:
+    - {}
+settings:
+  desc: "settings command"
+  ex:
+    - ''
+  params:
+    - {}
+setwelcomeasync:
+  desc: "setwelcomeasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setxpasync:
+  desc: "setxpasync command"
+  ex:
+    - ''
+  params:
+    - {}
+theme:
+  desc: "theme command"
+  ex:
+    - ''
+  params:
+    - {}
+welcomemsg:
+  desc: "welcomemsg command"
+  ex:
+    - ''
+  params:
+    - {}
+xpname:
+  desc: "xpname command"
+  ex:
+    - ''
+  params:
+    - {}
+
+botinfo:
+  desc: "botinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+changelog:
+  desc: "changelog command"
+  ex:
+    - ''
+  params:
+    - {}
+cmdstats:
+  desc: "cmdstats command"
+  ex:
+    - ''
+  params:
+    - {}
+featureflag:
+  desc: "featureflag command"
+  ex:
+    - ''
+  params:
+    - {}
+featureflags:
+  desc: "featureflags command"
+  ex:
+    - ''
+  params:
+    - {}
+logcommandasync:
+  desc: "logcommandasync command"
+  ex:
+    - ''
+  params:
+    - {}
+webhookcreate:
+  desc: "webhookcreate command"
+  ex:
+    - ''
+  params:
+    - {}
+webhookdelete:
+  desc: "webhookdelete command"
+  ex:
+    - ''
+  params:
+    - {}
+webhooks:
+  desc: "webhooks command"
+  ex:
+    - ''
+  params:
+    - {}
+xpchallenge:
+  desc: "xpchallenge command"
+  ex:
+    - ''
+  params:
+    - {}
+xpchallenges:
+  desc: "xpchallenges command"
+  ex:
+    - ''
+  params:
+    - {}
+xpmult:
+  desc: "xpmult command"
+  ex:
+    - ''
+  params:
+    - {}
+xpmultchannel:
+  desc: "xpmultchannel command"
+  ex:
+    - ''
+  params:
+    - {}
+xpmultrole:
+  desc: "xpmultrole command"
+  ex:
+    - ''
+  params:
+    - {}
+xpmults:
+  desc: "xpmults command"
+  ex:
+    - ''
+  params:
+    - {}
+
+eventcancel:
+  desc: "eventcancel command"
+  ex:
+    - ''
+  params:
+    - {}
+eventcreate:
+  desc: "eventcreate command"
+  ex:
+    - ''
+  params:
+    - {}
+eventinfo:
+  desc: "eventinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+eventlist:
+  desc: "eventlist command"
+  ex:
+    - ''
+  params:
+    - {}
+eventrsvp:
+  desc: "eventrsvp command"
+  ex:
+    - ''
+  params:
+    - {}
+gamenight:
+  desc: "gamenight command"
+  ex:
+    - ''
+  params:
+    - {}
+movieadd:
+  desc: "movieadd command"
+  ex:
+    - ''
+  params:
+    - {}
+movienight:
+  desc: "movienight command"
+  ex:
+    - ''
+  params:
+    - {}
+moviepick:
+  desc: "moviepick command"
+  ex:
+    - ''
+  params:
+    - {}
+movieresults:
+  desc: "movieresults command"
+  ex:
+    - ''
+  params:
+    - {}
+movievote:
+  desc: "movievote command"
+  ex:
+    - ''
+  params:
+    - {}
+studysession:
+  desc: "studysession command"
+  ex:
+    - ''
+  params:
+    - {}
+teams:
+  desc: "teams command"
+  ex:
+    - ''
+  params:
+    - {}
+
+exportlevels:
+  desc: "exportlevels command"
+  ex:
+    - ''
+  params:
+    - {}
+importcarl:
+  desc: "importcarl command"
+  ex:
+    - ''
+  params:
+    - {}
+importcsv:
+  desc: "importcsv command"
+  ex:
+    - ''
+  params:
+    - {}
+importdyno:
+  desc: "importdyno command"
+  ex:
+    - ''
+  params:
+    - {}
+importmee:
+  desc: "importmee command"
+  ex:
+    - ''
+  params:
+    - {}
+preview:
+  desc: "preview command"
+  ex:
+    - ''
+  params:
+    - {}
+
+ask:
+  desc: "ask command"
+  ex:
+    - ''
+  params:
+    - {}
+info:
+  desc: "info command"
+  ex:
+    - ''
+  params:
+    - {}
+postnow:
+  desc: "postnow command"
+  ex:
+    - ''
+  params:
+    - {}
+postremove:
+  desc: "postremove command"
+  ex:
+    - ''
+  params:
+    - {}
+posts:
+  desc: "posts command"
+  ex:
+    - ''
+  params:
+    - {}
+posttoggle:
+  desc: "posttoggle command"
+  ex:
+    - ''
+  params:
+    - {}
+posttypes:
+  desc: "posttypes command"
+  ex:
+    - ''
+  params:
+    - {}
+quick:
+  desc: "quick command"
+  ex:
+    - ''
+  params:
+    - {}
+reset:
+  desc: "reset command"
+  ex:
+    - ''
+  params:
+    - {}
+schedule:
+  desc: "schedule command"
+  ex:
+    - ''
+  params:
+    - {}
+schedulecustom:
+  desc: "schedulecustom command"
+  ex:
+    - ''
+  params:
+    - {}
+status:
+  desc: "status command"
+  ex:
+    - ''
+  params:
+    - {}
+
+addfeatureasync:
+  desc: "addfeatureasync command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumcheck:
+  desc: "premiumcheck command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumcompare:
+  desc: "premiumcompare command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumfeatures:
+  desc: "premiumfeatures command"
+  ex:
+    - ''
+  params:
+    - {}
+premiuminfo:
+  desc: "premiuminfo command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumlimits:
+  desc: "premiumlimits command"
+  ex:
+    - ''
+  params:
+    - {}
+premiumset:
+  desc: "premiumset command"
+  ex:
+    - ''
+  params:
+    - {}
+removefeatureasync:
+  desc: "removefeatureasync command"
+  ex:
+    - ''
+  params:
+    - {}
+settierasync:
+  desc: "settierasync command"
+  ex:
+    - ''
+  params:
+    - {}
+
+faq:
+  desc: "faq command"
+  ex:
+    - ''
+  params:
+    - {}
+faqadd:
+  desc: "faqadd command"
+  ex:
+    - ''
+  params:
+    - {}
+faqlist:
+  desc: "faqlist command"
+  ex:
+    - ''
+  params:
+    - {}
+faqremove:
+  desc: "faqremove command"
+  ex:
+    - ''
+  params:
+    - {}
+greet:
+  desc: "greet command"
+  ex:
+    - ''
+  params:
+    - {}
+namegen:
+  desc: "namegen command"
+  ex:
+    - ''
+  params:
+    - {}
+sentiment:
+  desc: "sentiment command"
+  ex:
+    - ''
+  params:
+    - {}
+summarize:
+  desc: "summarize command"
+  ex:
+    - ''
+  params:
+    - {}
+topics:
+  desc: "topics command"
+  ex:
+    - ''
+  params:
+    - {}
+writingcheck:
+  desc: "writingcheck command"
+  ex:
+    - ''
+  params:
+    - {}
+
+base:
+  desc: "base command"
+  ex:
+    - ''
+  params:
+    - {}
+bigtext:
+  desc: "bigtext command"
+  ex:
+    - ''
+  params:
+    - {}
+choose:
+  desc: "choose command"
+  ex:
+    - ''
+  params:
+    - {}
+color:
+  desc: "color command"
+  ex:
+    - ''
+  params:
+    - {}
+convert:
+  desc: "convert command"
+  ex:
+    - ''
+  params:
+    - {}
+count:
+  desc: "count command"
+  ex:
+    - ''
+  params:
+    - {}
+countdown:
+  desc: "countdown command"
+  ex:
+    - ''
+  params:
+    - {}
+flip:
+  desc: "flip command"
+  ex:
+    - ''
+  params:
+    - {}
+members:
+  desc: "members command"
+  ex:
+    - ''
+  params:
+    - {}
+mock:
+  desc: "mock command"
+  ex:
+    - ''
+  params:
+    - {}
+quickpoll:
+  desc: "quickpoll command"
+  ex:
+    - ''
+  params:
+    - {}
+random:
+  desc: "random command"
+  ex:
+    - ''
+  params:
+    - {}
+reverse:
+  desc: "reverse command"
+  ex:
+    - ''
+  params:
+    - {}
+roll:
+  desc: "roll command"
+  ex:
+    - ''
+  params:
+    - {}
+snowflake:
+  desc: "snowflake command"
+  ex:
+    - ''
+  params:
+    - {}
+timestamp:
+  desc: "timestamp command"
+  ex:
+    - ''
+  params:
+    - {}
+
+deleteoriginal:
+  desc: "deleteoriginal command"
+  ex:
+    - ''
+  params:
+    - {}
+disable:
+  desc: "disable command"
+  ex:
+    - ''
+  params:
+    - {}
+enable:
+  desc: "enable command"
+  ex:
+    - ''
+  params:
+    - {}
+fix:
+  desc: "fix command"
+  ex:
+    - ''
+  params:
+    - {}
+setdeleteoriginalasync:
+  desc: "setdeleteoriginalasync command"
+  ex:
+    - ''
+  params:
+    - {}
+setenabledasync:
+  desc: "setenabledasync command"
+  ex:
+    - ''
+  params:
+    - {}
+status:
+  desc: "status command"
+  ex:
+    - ''
+  params:
+    - {}
+toggle:
+  desc: "toggle command"
+  ex:
+    - ''
+  params:
+    - {}
+toggleplatformasync:
+  desc: "toggleplatformasync command"
+  ex:
+    - ''
+  params:
+    - {}

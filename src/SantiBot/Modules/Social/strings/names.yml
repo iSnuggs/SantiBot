@@ -1,0 +1,252 @@
+accept:
+  - accept
+achievementleaderboard:
+  - achievementleaderboard
+achievementlist:
+  - achievementlist
+achievementstats:
+  - achievementstats
+actions:
+  - actions
+adopt:
+  - adopt
+angry:
+  - angry
+awoo:
+  - awoo
+backflip:
+  - backflip
+baka:
+  - baka
+bgbuy:
+  - bgbuy
+bglist:
+  - bglist
+bgset:
+  - bgset
+bgshop:
+  - bgshop
+bioset:
+  - bioset
+bite:
+  - bite
+blindfold:
+  - blindfold
+blowkiss:
+  - blowkiss
+blush:
+  - blush
+bonk:
+  - bonk
+boop:
+  - boop
+bow:
+  - bow
+bully:
+  - bully
+carry:
+  - carry
+cheer:
+  - cheer
+clap:
+  - clap
+clearmoodasync:
+  - clearmoodasync
+compatible:
+  - compatible
+confused:
+  - confused
+createcapsuleasync:
+  - createcapsuleasync
+cringe:
+  - cringe
+cry:
+  - cry
+cuddle:
+  - cuddle
+dab:
+  - dab
+dance:
+  - dance
+decline:
+  - decline
+divorce:
+  - divorce
+dominate:
+  - dominate
+facepalm:
+  - facepalm
+family:
+  - family
+fistbump:
+  - fistbump
+friendaccept:
+  - friendaccept
+friendadd:
+  - friendadd
+frienddeny:
+  - frienddeny
+friendlist:
+  - friendlist
+friendremove:
+  - friendremove
+friendrequests:
+  - friendrequests
+glomp:
+  - glomp
+grind:
+  - grind
+handcuff:
+  - handcuff
+handhold:
+  - handhold
+handshake:
+  - handshake
+happy:
+  - happy
+hentai:
+  - hentai
+highfive:
+  - highfive
+incrementinteractionasync:
+  - incrementinteractionasync
+incrementmessagecountasync:
+  - incrementmessagecountasync
+incrementvoiceasync:
+  - incrementvoiceasync
+introdisable:
+  - introdisable
+introsetup:
+  - introsetup
+introtemplate:
+  - introtemplate
+karma:
+  - karma
+karmaboard:
+  - karmaboard
+laugh:
+  - laugh
+lewd:
+  - lewd
+lick:
+  - lick
+marry:
+  - marry
+moan:
+  - moan
+mood:
+  - mood
+moodboard:
+  - moodboard
+moodclear:
+  - moodclear
+neko:
+  - neko
+nuzzle:
+  - nuzzle
+peck:
+  - peck
+poke:
+  - poke
+pout:
+  - pout
+profileset:
+  - profileset
+pronouns:
+  - pronouns
+punch:
+  - punch
+recordactivityasync:
+  - recordactivityasync
+run:
+  - run
+salute:
+  - salute
+seduce:
+  - seduce
+setbackgroundasync:
+  - setbackgroundasync
+setbioasync:
+  - setbioasync
+setmoodasync:
+  - setmoodasync
+setpronounsasync:
+  - setpronounsasync
+settemplateasync:
+  - settemplateasync
+settimezoneasync:
+  - settimezoneasync
+settitleasync:
+  - settitleasync
+setupasync:
+  - setupasync
+shocked:
+  - shocked
+shoot:
+  - shoot
+shrug:
+  - shrug
+sip:
+  - sip
+slap:
+  - slap
+sleep:
+  - sleep
+smile:
+  - smile
+smug:
+  - smug
+socialboard:
+  - socialboard
+socialset:
+  - socialset
+spank:
+  - spank
+spouse:
+  - spouse
+stare:
+  - stare
+strip:
+  - strip
+submit:
+  - submit
+tableflip:
+  - tableflip
+tackle:
+  - tackle
+tease:
+  - tease
+think:
+  - think
+thumbsup:
+  - thumbsup
+tickle:
+  - tickle
+tie:
+  - tie
+timecapsule:
+  - timecapsule
+timecapsulelist:
+  - timecapsulelist
+timezoneset:
+  - timezoneset
+tryawardasync:
+  - tryawardasync
+vcleaderboard:
+  - vcleaderboard
+vcstats:
+  - vcstats
+wave:
+  - wave
+whisper:
+  - whisper
+whois:
+  - whois
+wink:
+  - wink
+yawn:
+  - yawn
+yearbook:
+  - yearbook
+yeet:
+  - yeet

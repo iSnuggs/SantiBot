@@ -21,3 +21,1102 @@ minesweeper:
   params:
     - mines:
         desc: The number of mines to create.
+
+attack:
+  desc: "attack command"
+  ex:
+    - ''
+  params:
+    - {}
+bosses:
+  desc: "bosses command"
+  ex:
+    - ''
+  params:
+    - {}
+chooseclass:
+  desc: "chooseclass command"
+  ex:
+    - ''
+  params:
+    - {}
+chooserace:
+  desc: "chooserace command"
+  ex:
+    - ''
+  params:
+    - {}
+config:
+  desc: "config command"
+  ex:
+    - ''
+  params:
+    - {}
+enter:
+  desc: "enter command"
+  ex:
+    - ''
+  params:
+    - {}
+equip:
+  desc: "equip command"
+  ex:
+    - ''
+  params:
+    - {}
+explore:
+  desc: "explore command"
+  ex:
+    - ''
+  params:
+    - {}
+flee:
+  desc: "flee command"
+  ex:
+    - ''
+  params:
+    - {}
+inventory:
+  desc: "inventory command"
+  ex:
+    - ''
+  params:
+    - {}
+invite:
+  desc: "invite command"
+  ex:
+    - ''
+  params:
+    - {}
+leaderboard:
+  desc: "leaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+profile:
+  desc: "profile command"
+  ex:
+    - ''
+  params:
+    - {}
+saveplayerasync:
+  desc: "saveplayerasync command"
+  ex:
+    - ''
+  params:
+    - {}
+spawn:
+  desc: "spawn command"
+  ex:
+    - ''
+  params:
+    - {}
+status:
+  desc: "status command"
+  ex:
+    - ''
+  params:
+    - {}
+toggle:
+  desc: "toggle command"
+  ex:
+    - ''
+  params:
+    - {}
+
+bountyboard:
+  desc: "bountyboard command"
+  ex:
+    - ''
+  params:
+    - {}
+bountyclaim:
+  desc: "bountyclaim command"
+  ex:
+    - ''
+  params:
+    - {}
+bountypost:
+  desc: "bountypost command"
+  ex:
+    - ''
+  params:
+    - {}
+goalprogress:
+  desc: "goalprogress command"
+  ex:
+    - ''
+  params:
+    - {}
+goals:
+  desc: "goals command"
+  ex:
+    - ''
+  params:
+    - {}
+goalset:
+  desc: "goalset command"
+  ex:
+    - ''
+  params:
+    - {}
+horoscope:
+  desc: "horoscope command"
+  ex:
+    - ''
+  params:
+    - {}
+horoscopeset:
+  desc: "horoscopeset command"
+  ex:
+    - ''
+  params:
+    - {}
+modifiers:
+  desc: "modifiers command"
+  ex:
+    - ''
+  params:
+    - {}
+newspaper:
+  desc: "newspaper command"
+  ex:
+    - ''
+  params:
+    - {}
+prestige:
+  desc: "prestige command"
+  ex:
+    - ''
+  params:
+    - {}
+prestigeinfo:
+  desc: "prestigeinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+setusersignasync:
+  desc: "setusersignasync command"
+  ex:
+    - ''
+  params:
+    - {}
+skilltree:
+  desc: "skilltree command"
+  ex:
+    - ''
+  params:
+    - {}
+skillupgrade:
+  desc: "skillupgrade command"
+  ex:
+    - ''
+  params:
+    - {}
+treasurehide:
+  desc: "treasurehide command"
+  ex:
+    - ''
+  params:
+    - {}
+treasurehint:
+  desc: "treasurehint command"
+  ex:
+    - ''
+  params:
+    - {}
+
+badgedisplay:
+  desc: "badgedisplay command"
+  ex:
+    - ''
+  params:
+    - {}
+badgelist:
+  desc: "badgelist command"
+  ex:
+    - ''
+  params:
+    - {}
+badges:
+  desc: "badges command"
+  ex:
+    - ''
+  params:
+    - {}
+battlepass:
+  desc: "battlepass command"
+  ex:
+    - ''
+  params:
+    - {}
+battlepassrewards:
+  desc: "battlepassrewards command"
+  ex:
+    - ''
+  params:
+    - {}
+checkdailyresetasync:
+  desc: "checkdailyresetasync command"
+  ex:
+    - ''
+  params:
+    - {}
+dailychallenges:
+  desc: "dailychallenges command"
+  ex:
+    - ''
+  params:
+    - {}
+gfstats:
+  desc: "gfstats command"
+  ex:
+    - ''
+  params:
+    - {}
+titleequip:
+  desc: "titleequip command"
+  ex:
+    - ''
+  params:
+    - {}
+titlelist:
+  desc: "titlelist command"
+  ex:
+    - ''
+  params:
+    - {}
+titles:
+  desc: "titles command"
+  ex:
+    - ''
+  params:
+    - {}
+
+contribute:
+  desc: "contribute command"
+  ex:
+    - ''
+  params:
+    - {}
+create:
+  desc: "create command"
+  ex:
+    - ''
+  params:
+    - {}
+demote:
+  desc: "demote command"
+  ex:
+    - ''
+  params:
+    - {}
+info:
+  desc: "info command"
+  ex:
+    - ''
+  params:
+    - {}
+join:
+  desc: "join command"
+  ex:
+    - ''
+  params:
+    - {}
+kick:
+  desc: "kick command"
+  ex:
+    - ''
+  params:
+    - {}
+leaderboard:
+  desc: "leaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+leave:
+  desc: "leave command"
+  ex:
+    - ''
+  params:
+    - {}
+members:
+  desc: "members command"
+  ex:
+    - ''
+  params:
+    - {}
+promote:
+  desc: "promote command"
+  ex:
+    - ''
+  params:
+    - {}
+recruit:
+  desc: "recruit command"
+  ex:
+    - ''
+  params:
+    - {}
+setdescription:
+  desc: "setdescription command"
+  ex:
+    - ''
+  params:
+    - {}
+war:
+  desc: "war command"
+  ex:
+    - ''
+  params:
+    - {}
+warbattle:
+  desc: "warbattle command"
+  ex:
+    - ''
+  params:
+    - {}
+warstatus:
+  desc: "warstatus command"
+  ex:
+    - ''
+  params:
+    - {}
+
+addroom:
+  desc: "addroom command"
+  ex:
+    - ''
+  params:
+    - {}
+buy:
+  desc: "buy command"
+  ex:
+    - ''
+  params:
+    - {}
+buyfurniture:
+  desc: "buyfurniture command"
+  ex:
+    - ''
+  params:
+    - {}
+decorate:
+  desc: "decorate command"
+  ex:
+    - ''
+  params:
+    - {}
+guestbook:
+  desc: "guestbook command"
+  ex:
+    - ''
+  params:
+    - {}
+guestbooksign:
+  desc: "guestbooksign command"
+  ex:
+    - ''
+  params:
+    - {}
+houseshop:
+  desc: "houseshop command"
+  ex:
+    - ''
+  params:
+    - {}
+housevalue:
+  desc: "housevalue command"
+  ex:
+    - ''
+  params:
+    - {}
+myhouse:
+  desc: "myhouse command"
+  ex:
+    - ''
+  params:
+    - {}
+setstyle:
+  desc: "setstyle command"
+  ex:
+    - ''
+  params:
+    - {}
+styles:
+  desc: "styles command"
+  ex:
+    - ''
+  params:
+    - {}
+upgrade:
+  desc: "upgrade command"
+  ex:
+    - ''
+  params:
+    - {}
+visit:
+  desc: "visit command"
+  ex:
+    - ''
+  params:
+    - {}
+
+bestiary:
+  desc: "bestiary command"
+  ex:
+    - ''
+  params:
+    - {}
+lorebook:
+  desc: "lorebook command"
+  ex:
+    - ''
+  params:
+    - {}
+loreread:
+  desc: "loreread command"
+  ex:
+    - ''
+  params:
+    - {}
+lorestats:
+  desc: "lorestats command"
+  ex:
+    - ''
+  params:
+    - {}
+seedloreasync:
+  desc: "seedloreasync command"
+  ex:
+    - ''
+  params:
+    - {}
+treasuremap:
+  desc: "treasuremap command"
+  ex:
+    - ''
+  params:
+    - {}
+treasuresolve:
+  desc: "treasuresolve command"
+  ex:
+    - ''
+  params:
+    - {}
+worldevents:
+  desc: "worldevents command"
+  ex:
+    - ''
+  params:
+    - {}
+worldhistory:
+  desc: "worldhistory command"
+  ex:
+    - ''
+  params:
+    - {}
+
+buy:
+  desc: "buy command"
+  ex:
+    - ''
+  params:
+    - {}
+cancel:
+  desc: "cancel command"
+  ex:
+    - ''
+  params:
+    - {}
+list:
+  desc: "list command"
+  ex:
+    - ''
+  params:
+    - {}
+market:
+  desc: "market command"
+  ex:
+    - ''
+  params:
+    - {}
+mylistings:
+  desc: "mylistings command"
+  ex:
+    - ''
+  params:
+    - {}
+pricecheck:
+  desc: "pricecheck command"
+  ex:
+    - ''
+  params:
+    - {}
+
+emojianswer:
+  desc: "emojianswer command"
+  ex:
+    - ''
+  params:
+    - {}
+emojiquiz:
+  desc: "emojiquiz command"
+  ex:
+    - ''
+  params:
+    - {}
+geoanswer:
+  desc: "geoanswer command"
+  ex:
+    - ''
+  params:
+    - {}
+geoquiz:
+  desc: "geoquiz command"
+  ex:
+    - ''
+  params:
+    - {}
+gn:
+  desc: "gn command"
+  ex:
+    - ''
+  params:
+    - {}
+gnend:
+  desc: "gnend command"
+  ex:
+    - ''
+  params:
+    - {}
+guessnumber:
+  desc: "guessnumber command"
+  ex:
+    - ''
+  params:
+    - {}
+mathanswer:
+  desc: "mathanswer command"
+  ex:
+    - ''
+  params:
+    - {}
+mathrace:
+  desc: "mathrace command"
+  ex:
+    - ''
+  params:
+    - {}
+memoryanswer:
+  desc: "memoryanswer command"
+  ex:
+    - ''
+  params:
+    - {}
+memoryend:
+  desc: "memoryend command"
+  ex:
+    - ''
+  params:
+    - {}
+memorygame:
+  desc: "memorygame command"
+  ex:
+    - ''
+  params:
+    - {}
+minesweeper:
+  desc: "minesweeper command"
+  ex:
+    - ''
+  params:
+    - {}
+scramble:
+  desc: "scramble command"
+  ex:
+    - ''
+  params:
+    - {}
+scrambleend:
+  desc: "scrambleend command"
+  ex:
+    - ''
+  params:
+    - {}
+unscramble:
+  desc: "unscramble command"
+  ex:
+    - ''
+  params:
+    - {}
+wordle:
+  desc: "wordle command"
+  ex:
+    - ''
+  params:
+    - {}
+wordleend:
+  desc: "wordleend command"
+  ex:
+    - ''
+  params:
+    - {}
+wordleguess:
+  desc: "wordleguess command"
+  ex:
+    - ''
+  params:
+    - {}
+
+pet:
+  desc: "pet command"
+  ex:
+    - ''
+  params:
+    - {}
+petadopt:
+  desc: "petadopt command"
+  ex:
+    - ''
+  params:
+    - {}
+petadventure:
+  desc: "petadventure command"
+  ex:
+    - ''
+  params:
+    - {}
+petbattle:
+  desc: "petbattle command"
+  ex:
+    - ''
+  params:
+    - {}
+petfeed:
+  desc: "petfeed command"
+  ex:
+    - ''
+  params:
+    - {}
+petlist:
+  desc: "petlist command"
+  ex:
+    - ''
+  params:
+    - {}
+petplay:
+  desc: "petplay command"
+  ex:
+    - ''
+  params:
+    - {}
+petrelease:
+  desc: "petrelease command"
+  ex:
+    - ''
+  params:
+    - {}
+petrename:
+  desc: "petrename command"
+  ex:
+    - ''
+  params:
+    - {}
+petrest:
+  desc: "petrest command"
+  ex:
+    - ''
+  params:
+    - {}
+petspecies:
+  desc: "petspecies command"
+  ex:
+    - ''
+  params:
+    - {}
+
+balancedteams:
+  desc: "balancedteams command"
+  ex:
+    - ''
+  params:
+    - {}
+duel:
+  desc: "duel command"
+  ex:
+    - ''
+  params:
+    - {}
+pvpleaderboard:
+  desc: "pvpleaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+pvpstats:
+  desc: "pvpstats command"
+  ex:
+    - ''
+  params:
+    - {}
+randomteams:
+  desc: "randomteams command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentbracket:
+  desc: "tournamentbracket command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentcreate:
+  desc: "tournamentcreate command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentinfo:
+  desc: "tournamentinfo command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentjoin:
+  desc: "tournamentjoin command"
+  ex:
+    - ''
+  params:
+    - {}
+tournamentstart:
+  desc: "tournamentstart command"
+  ex:
+    - ''
+  params:
+    - {}
+
+advent:
+  desc: "advent command"
+  ex:
+    - ''
+  params:
+    - {}
+boss:
+  desc: "boss command"
+  ex:
+    - ''
+  params:
+    - {}
+calendar:
+  desc: "calendar command"
+  ex:
+    - ''
+  params:
+    - {}
+current:
+  desc: "current command"
+  ex:
+    - ''
+  params:
+    - {}
+egghunt:
+  desc: "egghunt command"
+  ex:
+    - ''
+  params:
+    - {}
+seasonalshop:
+  desc: "seasonalshop command"
+  ex:
+    - ''
+  params:
+    - {}
+
+addpointsasync:
+  desc: "addpointsasync command"
+  ex:
+    - ''
+  params:
+    - {}
+bet:
+  desc: "bet command"
+  ex:
+    - ''
+  params:
+    - {}
+fanartgallery:
+  desc: "fanartgallery command"
+  ex:
+    - ''
+  params:
+    - {}
+fanartsubmit:
+  desc: "fanartsubmit command"
+  ex:
+    - ''
+  params:
+    - {}
+fanartvote:
+  desc: "fanartvote command"
+  ex:
+    - ''
+  params:
+    - {}
+feedadd:
+  desc: "feedadd command"
+  ex:
+    - ''
+  params:
+    - {}
+feedremove:
+  desc: "feedremove command"
+  ex:
+    - ''
+  params:
+    - {}
+feeds:
+  desc: "feeds command"
+  ex:
+    - ''
+  params:
+    - {}
+incrementplaycountasync:
+  desc: "incrementplaycountasync command"
+  ex:
+    - ''
+  params:
+    - {}
+logsessionasync:
+  desc: "logsessionasync command"
+  ex:
+    - ''
+  params:
+    - {}
+monitoradd:
+  desc: "monitoradd command"
+  ex:
+    - ''
+  params:
+    - {}
+monitorremove:
+  desc: "monitorremove command"
+  ex:
+    - ''
+  params:
+    - {}
+monitors:
+  desc: "monitors command"
+  ex:
+    - ''
+  params:
+    - {}
+myvoice:
+  desc: "myvoice command"
+  ex:
+    - ''
+  params:
+    - {}
+pointrewards:
+  desc: "pointrewards command"
+  ex:
+    - ''
+  params:
+    - {}
+points:
+  desc: "points command"
+  ex:
+    - ''
+  params:
+    - {}
+predict:
+  desc: "predict command"
+  ex:
+    - ''
+  params:
+    - {}
+predictresolve:
+  desc: "predictresolve command"
+  ex:
+    - ''
+  params:
+    - {}
+predictstatus:
+  desc: "predictstatus command"
+  ex:
+    - ''
+  params:
+    - {}
+settempvoiceconfigasync:
+  desc: "settempvoiceconfigasync command"
+  ex:
+    - ''
+  params:
+    - {}
+soundadd:
+  desc: "soundadd command"
+  ex:
+    - ''
+  params:
+    - {}
+soundremove:
+  desc: "soundremove command"
+  ex:
+    - ''
+  params:
+    - {}
+sounds:
+  desc: "sounds command"
+  ex:
+    - ''
+  params:
+    - {}
+tempvoicesetup:
+  desc: "tempvoicesetup command"
+  ex:
+    - ''
+  params:
+    - {}
+tracktempchannelasync:
+  desc: "tracktempchannelasync command"
+  ex:
+    - ''
+  params:
+    - {}
+voiceleaderboard:
+  desc: "voiceleaderboard command"
+  ex:
+    - ''
+  params:
+    - {}
+votefanartasync:
+  desc: "votefanartasync command"
+  ex:
+    - ''
+  params:
+    - {}
+
+compliment:
+  desc: "compliment command"
+  ex:
+    - ''
+  params:
+    - {}
+dadjoke:
+  desc: "dadjoke command"
+  ex:
+    - ''
+  params:
+    - {}
+debatetopic:
+  desc: "debatetopic command"
+  ex:
+    - ''
+  params:
+    - {}
+eightball:
+  desc: "eightball command"
+  ex:
+    - ''
+  params:
+    - {}
+fact:
+  desc: "fact command"
+  ex:
+    - ''
+  params:
+    - {}
+fortune:
+  desc: "fortune command"
+  ex:
+    - ''
+  params:
+    - {}
+hottake:
+  desc: "hottake command"
+  ex:
+    - ''
+  params:
+    - {}
+insult:
+  desc: "insult command"
+  ex:
+    - ''
+  params:
+    - {}
+joke:
+  desc: "joke command"
+  ex:
+    - ''
+  params:
+    - {}
+motivation:
+  desc: "motivation command"
+  ex:
+    - ''
+  params:
+    - {}
+neverhaveiever:
+  desc: "neverhaveiever command"
+  ex:
+    - ''
+  params:
+    - {}
+pickrandom:
+  desc: "pickrandom command"
+  ex:
+    - ''
+  params:
+    - {}
+pickupline:
+  desc: "pickupline command"
+  ex:
+    - ''
+  params:
+    - {}
+rate:
+  desc: "rate command"
+  ex:
+    - ''
+  params:
+    - {}
+roast:
+  desc: "roast command"
+  ex:
+    - ''
+  params:
+    - {}
+showerthought:
+  desc: "showerthought command"
+  ex:
+    - ''
+  params:
+    - {}
+tarot:
+  desc: "tarot command"
+  ex:
+    - ''
+  params:
+    - {}
+thisorthat:
+  desc: "thisorthat command"
+  ex:
+    - ''
+  params:
+    - {}
+truthordare:
+  desc: "truthordare command"
+  ex:
+    - ''
+  params:
+    - {}
+wouldyourather:
+  desc: "wouldyourather command"
+  ex:
+    - ''
+  params:
+    - {}
