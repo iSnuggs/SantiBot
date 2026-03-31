@@ -168,6 +168,15 @@ public partial class Utility
             await Response().Confirm($"🔒 <@{user.Id}> has been banned from OpenClaw AI for 1 hour.").SendAsync();
         }
 
+        /// <summary>Permanently ban a user from .oc — owner only</summary>
+        [Cmd]
+        [OwnerOnly]
+        public async Task PermaBan(IUser user)
+        {
+            _service.PermaBanUser(user.Id);
+            await Response().Confirm($"🚫 <@{user.Id}> has been **permanently banned** from OpenClaw AI.").SendAsync();
+        }
+
         /// <summary>View who is currently banned — owner only</summary>
         [Cmd]
         [OwnerOnly]
@@ -181,14 +190,19 @@ public partial class Utility
             }
 
             var sb = new System.Text.StringBuilder();
-            foreach (var (userId, expiresAt) in bans)
+            foreach (var (userId, expiresAt, permanent) in bans)
             {
-                var remaining = expiresAt - DateTime.UtcNow;
-                sb.AppendLine($"<@{userId}> — {remaining.Minutes}m {remaining.Seconds}s remaining");
+                if (permanent)
+                    sb.AppendLine($"🚫 <@{userId}> — **PERMANENT**");
+                else
+                {
+                    var remaining = expiresAt - DateTime.UtcNow;
+                    sb.AppendLine($"🔒 <@{userId}> — {remaining.Minutes}m {remaining.Seconds}s remaining");
+                }
             }
 
             var eb = CreateEmbed()
-                .WithTitle("🔒 OpenClaw Active Bans")
+                .WithTitle("🔒 OpenClaw Ban List")
                 .WithDescription(sb.ToString())
                 .WithColor(Discord.Color.Red);
             await Response().Embed(eb).SendAsync();

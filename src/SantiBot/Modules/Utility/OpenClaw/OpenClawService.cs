@@ -258,6 +258,10 @@ public sealed class OpenClawService : INService, IExecOnMessage
         if (message.Length > MAX_MESSAGE_LENGTH)
             return (false, $"Message too long! Maximum {MAX_MESSAGE_LENGTH} characters.");
 
+        // Security: check permanent ban
+        if (_permaBans.Contains(userId))
+            return (false, "You have been permanently banned from the AI. Contact the server owner if you believe this is an error.");
+
         // Security: check temp-ban
         if (_tempBans.TryGetValue(userId, out var banEnd) && DateTime.UtcNow < banEnd)
         {
@@ -346,26 +350,74 @@ public sealed class OpenClawService : INService, IExecOnMessage
         return result;
     }
 
+    // Permanent bans — persisted in memory, survives until bot restart
+    // For true persistence, these get saved to a file
+    private static readonly string PermaBanFile = "/home/Snuggs/SantiBot/data/oc_permabans.txt";
+    private readonly HashSet<ulong> _permaBans = LoadPermaBans();
+
+    private static HashSet<ulong> LoadPermaBans()
+    {
+        try
+        {
+            if (System.IO.File.Exists(PermaBanFile))
+                return System.IO.File.ReadAllLines(PermaBanFile)
+                    .Where(l => ulong.TryParse(l.Trim(), out _))
+                    .Select(l => ulong.Parse(l.Trim()))
+                    .ToHashSet();
+        }
+        catch { }
+        return new();
+    }
+
+    private void SavePermaBans()
+    {
+        try
+        {
+            var dir = System.IO.Path.GetDirectoryName(PermaBanFile);
+            if (!System.IO.Directory.Exists(dir))
+                System.IO.Directory.CreateDirectory(dir);
+            System.IO.File.WriteAllLines(PermaBanFile, _permaBans.Select(id => id.ToString()));
+        }
+        catch { }
+    }
+
     /// <summary>Unban a user from .oc — owner only</summary>
     public void UnbanUser(ulong userId)
     {
         _tempBans.TryRemove(userId, out _);
         _blockTracker.TryRemove(userId, out _);
+        _permaBans.Remove(userId);
+        SavePermaBans();
     }
 
-    /// <summary>Ban a user from .oc — owner only</summary>
+    /// <summary>Temp ban a user from .oc — owner only</summary>
     public void BanUser(ulong userId)
     {
         _tempBans[userId] = DateTime.UtcNow.Add(TempBanDuration);
     }
 
-    /// <summary>Get all active bans</summary>
-    public List<(ulong UserId, DateTime ExpiresAt)> GetActiveBans()
+    /// <summary>Permanently ban a user from .oc — owner only</summary>
+    public void PermaBanUser(ulong userId)
     {
-        return _tempBans
+        _permaBans.Add(userId);
+        SavePermaBans();
+    }
+
+    /// <summary>Check if user is permanently banned</summary>
+    public bool IsPermaBanned(ulong userId) => _permaBans.Contains(userId);
+
+    /// <summary>Get all active bans (temp + perma)</summary>
+    public List<(ulong UserId, DateTime ExpiresAt, bool Permanent)> GetActiveBans()
+    {
+        var bans = _tempBans
             .Where(kvp => DateTime.UtcNow < kvp.Value)
-            .Select(kvp => (kvp.Key, kvp.Value))
+            .Select(kvp => (kvp.Key, kvp.Value, false))
             .ToList();
+
+        foreach (var id in _permaBans)
+            bans.Add((id, DateTime.MaxValue, true));
+
+        return bans;
     }
 
     /// <summary>Quick one-shot question with no session memory</summary>
