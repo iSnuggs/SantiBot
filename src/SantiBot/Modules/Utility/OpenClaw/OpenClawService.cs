@@ -95,6 +95,9 @@ public sealed class OpenClawService : INService, IExecOnMessage
     private static readonly TimeSpan BlockWindow = TimeSpan.FromMinutes(10);
     private static readonly TimeSpan TempBanDuration = TimeSpan.FromHours(1);
 
+    // Multi-message context attack tracking — join recent messages and check combined
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, List<(string Msg, DateTime Time)>> _recentMessages = new();
+
     public OpenClawService(DiscordSocketClient client)
     {
         _client = client;
@@ -192,10 +195,47 @@ public sealed class OpenClawService : INService, IExecOnMessage
         "15.204.233.87", "100.86.110.14",  // Server IPs
     ];
 
+    private const int MAX_MESSAGE_LENGTH = 500;
+
+    // Unicode homoglyph normalization — converts lookalike characters to ASCII
+    private static string NormalizeHomoglyphs(string input)
+    {
+        // Cyrillic lookalikes → Latin
+        var replacements = new Dictionary<char, char>
+        {
+            ['\u0430'] = 'a', ['\u0435'] = 'e', ['\u043E'] = 'o', ['\u0440'] = 'p',
+            ['\u0441'] = 'c', ['\u0443'] = 'y', ['\u0445'] = 'x',
+            ['\u0410'] = 'A', ['\u0412'] = 'B', ['\u0415'] = 'E', ['\u041A'] = 'K',
+            ['\u041C'] = 'M', ['\u041D'] = 'H', ['\u041E'] = 'O', ['\u0420'] = 'P',
+            ['\u0421'] = 'C', ['\u0422'] = 'T', ['\u0425'] = 'X',
+            ['\u2170'] = 'i', ['\u2113'] = 'l',
+        };
+
+        var sb = new StringBuilder(input.Length);
+        foreach (var ch in input)
+        {
+            if (replacements.TryGetValue(ch, out var replacement))
+                sb.Append(replacement);
+            else if (ch < 0x20 && ch != '\n' && ch != '\r' && ch != '\t')
+                continue; // Strip control characters
+            else
+                sb.Append(ch);
+        }
+
+        // Strip zero-width characters and mathematical styled letters
+        var result = sb.ToString();
+        result = System.Text.RegularExpressions.Regex.Replace(result, @"[\u200B-\u200F\u2028-\u202F\uFEFF]", "");
+        result = System.Text.RegularExpressions.Regex.Replace(result, @"[\U0001D400-\U0001D7FF]", "x"); // Math styled → x
+        return result;
+    }
+
     private static bool IsInputBlocked(string message)
     {
-        var lower = message.ToLowerInvariant();
-        return BlockedInputPatterns.Any(p => lower.Contains(p.ToLowerInvariant()));
+        // Normalize homoglyphs and zero-width characters before checking
+        var normalized = NormalizeHomoglyphs(message).ToLowerInvariant();
+        // Also strip all non-ASCII whitespace tricks
+        normalized = System.Text.RegularExpressions.Regex.Replace(normalized, @"[\u200B-\u200F\u2028-\u202F\uFEFF]", "");
+        return BlockedInputPatterns.Any(p => normalized.Contains(p.ToLowerInvariant()));
     }
 
     private static string SanitizeOutput(string response)
@@ -214,6 +254,10 @@ public sealed class OpenClawService : INService, IExecOnMessage
     /// </summary>
     public async Task<(bool Success, string Response)> ChatAsync(ulong userId, string message)
     {
+        // Security: message length limit — block massive prompts
+        if (message.Length > MAX_MESSAGE_LENGTH)
+            return (false, $"Message too long! Maximum {MAX_MESSAGE_LENGTH} characters.");
+
         // Security: check temp-ban
         if (_tempBans.TryGetValue(userId, out var banEnd) && DateTime.UtcNow < banEnd)
         {
@@ -240,6 +284,24 @@ public sealed class OpenClawService : INService, IExecOnMessage
             }
 
             return (false, "That request was blocked for security reasons.");
+        }
+
+        // Security: multi-message context attack detection
+        // Track recent messages and check if combined text triggers filters
+        var recent = _recentMessages.GetOrAdd(userId, _ => new());
+        recent.Add((message, DateTime.UtcNow));
+        recent.RemoveAll(m => (DateTime.UtcNow - m.Time).TotalMinutes > 5);
+        if (recent.Count >= 3)
+        {
+            var combined = string.Join(" ", recent.Select(m => m.Msg));
+            if (IsInputBlocked(combined))
+            {
+                Log.Warning("OpenClaw multi-message attack — User {UserId} combined: {Message}", userId, combined[..Math.Min(combined.Length, 150)]);
+                var blocks = _blockTracker.GetOrAdd(userId, _ => new());
+                blocks.Add(DateTime.UtcNow);
+                recent.Clear();
+                return (false, "That sequence of messages was blocked for security reasons.");
+            }
         }
 
         // Global cooldown — if we hit an API rate limit, back off for 5 minutes
@@ -282,6 +344,28 @@ public sealed class OpenClawService : INService, IExecOnMessage
         }
 
         return result;
+    }
+
+    /// <summary>Unban a user from .oc — owner only</summary>
+    public void UnbanUser(ulong userId)
+    {
+        _tempBans.TryRemove(userId, out _);
+        _blockTracker.TryRemove(userId, out _);
+    }
+
+    /// <summary>Ban a user from .oc — owner only</summary>
+    public void BanUser(ulong userId)
+    {
+        _tempBans[userId] = DateTime.UtcNow.Add(TempBanDuration);
+    }
+
+    /// <summary>Get all active bans</summary>
+    public List<(ulong UserId, DateTime ExpiresAt)> GetActiveBans()
+    {
+        return _tempBans
+            .Where(kvp => DateTime.UtcNow < kvp.Value)
+            .Select(kvp => (kvp.Key, kvp.Value))
+            .ToList();
     }
 
     /// <summary>Quick one-shot question with no session memory</summary>

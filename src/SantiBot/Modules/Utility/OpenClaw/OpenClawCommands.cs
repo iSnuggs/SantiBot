@@ -114,5 +114,84 @@ public partial class Utility
                 .WithOkColor();
             await Response().Embed(eb).SendAsync();
         }
+
+        /// <summary>View security block log — owner only</summary>
+        [Cmd]
+        [OwnerOnly]
+        public async Task BlockLog()
+        {
+            var logLines = new List<string>();
+            try
+            {
+                var lines = System.IO.File.ReadAllLines("/tmp/santibot.log");
+                logLines = lines.Where(l => l.Contains("OpenClaw security block") || l.Contains("OpenClaw TEMP BAN") || l.Contains("multi-message attack"))
+                    .TakeLast(20).ToList();
+            }
+            catch { }
+
+            if (logLines.Count == 0)
+            {
+                await Response().Confirm("🛡️ No security events logged.").SendAsync();
+                return;
+            }
+
+            var sb = new System.Text.StringBuilder();
+            foreach (var line in logLines)
+            {
+                // Trim to fit Discord
+                var trimmed = line.Length > 120 ? line[..120] + "..." : line;
+                sb.AppendLine($"`{trimmed}`");
+            }
+
+            var eb = CreateEmbed()
+                .WithTitle("🛡️ OpenClaw Security Log (last 20)")
+                .WithDescription(sb.ToString())
+                .WithColor(Discord.Color.Red);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        /// <summary>Unban a user from .oc — owner only</summary>
+        [Cmd]
+        [OwnerOnly]
+        public async Task Unban(IUser user)
+        {
+            _service.UnbanUser(user.Id);
+            await Response().Confirm($"🔓 <@{user.Id}> has been unbanned from OpenClaw AI.").SendAsync();
+        }
+
+        /// <summary>Ban a user from .oc — owner only</summary>
+        [Cmd]
+        [OwnerOnly]
+        public async Task Ban(IUser user)
+        {
+            _service.BanUser(user.Id);
+            await Response().Confirm($"🔒 <@{user.Id}> has been banned from OpenClaw AI for 1 hour.").SendAsync();
+        }
+
+        /// <summary>View who is currently banned — owner only</summary>
+        [Cmd]
+        [OwnerOnly]
+        public async Task BanList()
+        {
+            var bans = _service.GetActiveBans();
+            if (bans.Count == 0)
+            {
+                await Response().Confirm("🛡️ No active bans.").SendAsync();
+                return;
+            }
+
+            var sb = new System.Text.StringBuilder();
+            foreach (var (userId, expiresAt) in bans)
+            {
+                var remaining = expiresAt - DateTime.UtcNow;
+                sb.AppendLine($"<@{userId}> — {remaining.Minutes}m {remaining.Seconds}s remaining");
+            }
+
+            var eb = CreateEmbed()
+                .WithTitle("🔒 OpenClaw Active Bans")
+                .WithDescription(sb.ToString())
+                .WithColor(Discord.Color.Red);
+            await Response().Embed(eb).SendAsync();
+        }
     }
 }
