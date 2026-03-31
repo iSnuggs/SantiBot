@@ -71,12 +71,27 @@ public sealed class StoryService : INService
 
     public static readonly string[] QuestIds = ["dragon", "treasure"];
 
+    // 1-hour cooldown between quest completions
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, DateTime> _questCooldowns = new();
+    private const int QUEST_COOLDOWN_MINUTES = 60;
+
     public async Task<(bool Success, string Message)> StartQuestAsync(ulong userId, string questId = null)
     {
         questId ??= QuestIds[new SantiRandom().Next(QuestIds.Length)];
 
         if (!Stories.ContainsKey(questId))
             return (false, $"Unknown quest. Available: {string.Join(", ", QuestIds)}");
+
+        // Check cooldown
+        if (_questCooldowns.TryGetValue(userId, out var lastQuest))
+        {
+            var cooldownEnd = lastQuest.AddMinutes(QUEST_COOLDOWN_MINUTES);
+            if (DateTime.UtcNow < cooldownEnd)
+            {
+                var remaining = cooldownEnd - DateTime.UtcNow;
+                return (false, $"You need rest before another quest! Try again in **{remaining.Minutes}m {remaining.Seconds}s**.");
+            }
+        }
 
         await using var ctx = _db.GetDbContext();
 
@@ -137,6 +152,9 @@ public sealed class StoryService : INService
 
             if (next.Reward > 0)
                 await _cs.AddAsync(userId, next.Reward, new TxData("quest", "reward"));
+
+            // Record cooldown on completion
+            _questCooldowns[userId] = DateTime.UtcNow;
 
             return (true, $"📖 {next.Text}\n\n💰 Reward: {next.Reward} 🥠");
         }

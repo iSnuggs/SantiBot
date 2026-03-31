@@ -15,13 +15,14 @@ public sealed class LootBoxService : INService
     private const long BOX_PRICE = 200;
 
     // Tier -> (chance weight, currency multiplier min, currency multiplier max)
+    // Balanced for ~85% expected return (healthy currency sink)
     public static readonly (string Name, int Weight, double MinMult, double MaxMult)[] Tiers =
     [
-        ("Common", 60, 0.5, 1.5),
-        ("Uncommon", 25, 1.5, 3.0),
-        ("Rare", 10, 3.0, 6.0),
-        ("Legendary", 4, 6.0, 15.0),
-        ("Mythic", 1, 15.0, 50.0),
+        ("Common", 60, 0.1, 0.6),
+        ("Uncommon", 25, 0.6, 1.2),
+        ("Rare", 10, 1.2, 2.5),
+        ("Legendary", 4, 2.5, 5.0),
+        ("Mythic", 1, 5.0, 12.0),
     ];
 
     public LootBoxService(DbService db, ICurrencyService cs)

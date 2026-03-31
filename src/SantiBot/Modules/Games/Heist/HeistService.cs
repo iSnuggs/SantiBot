@@ -8,6 +8,8 @@ namespace SantiBot.Modules.Games.Heist;
 public sealed class HeistService(DbService _db, ICurrencyService _cs) : INService
 {
     private static readonly SantiRandom _rng = new();
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, DateTime> _heistCooldowns = new();
+    private const int HEIST_COOLDOWN_MINUTES = 10;
 
     private static readonly string[] _successNarratives =
     [
@@ -34,6 +36,14 @@ public sealed class HeistService(DbService _db, ICurrencyService _cs) : INServic
     /// </summary>
     public async Task<HeistSession> StartHeistAsync(ulong guildId, ulong channelId, ulong userId, long bet)
     {
+        // Cooldown between heists
+        if (_heistCooldowns.TryGetValue(guildId, out var lastHeist))
+        {
+            var cooldownEnd = lastHeist.AddMinutes(HEIST_COOLDOWN_MINUTES);
+            if (DateTime.UtcNow < cooldownEnd)
+                return null; // Caller handles null as "can't start"
+        }
+
         await using var ctx = _db.GetDbContext();
 
         // Check for an active heist in this guild
@@ -129,6 +139,11 @@ public sealed class HeistService(DbService _db, ICurrencyService _cs) : INServic
         if (session is null)
             return (false, "No active heist found.", 0, new());
 
+        // Require at least 2 crew members
+        var crewIds = session.ParticipantIds.Split(',', StringSplitOptions.RemoveEmptyEntries);
+        if (crewIds.Length < 2)
+            return (false, "You need at least **2 crew members** to run a heist! Get someone to `.heist join`.", 0, new());
+
         // Mark as in progress
         await ctx.GetTable<HeistSession>()
             .Where(x => x.Id == session.Id)
@@ -168,10 +183,12 @@ public sealed class HeistService(DbService _db, ICurrencyService _cs) : INServic
             // Everyone loses their bet -- currency was already removed
         }
 
-        // Mark complete
+        // Mark complete and record cooldown
         await ctx.GetTable<HeistSession>()
             .Where(x => x.Id == session.Id)
             .UpdateAsync(_ => new HeistSession { Status = "Complete" });
+
+        _heistCooldowns[guildId] = DateTime.UtcNow;
 
         return (success, narrative, payout, winners);
     }

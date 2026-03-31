@@ -15,6 +15,12 @@ public sealed class PokemonService : INService
 
     public readonly ConcurrentDictionary<ulong, PokeBattle> ActiveBattles = new();
 
+    // Cooldown tracking
+    private readonly ConcurrentDictionary<ulong, DateTime> _catchCooldowns = new();
+    private readonly ConcurrentDictionary<ulong, DateTime> _trainCooldowns = new();
+    private const int CATCH_COOLDOWN_SECONDS = 30;
+    private const int TRAIN_COOLDOWN_SECONDS = 60;
+
     // Type -> (name, baseHp, baseAtk, baseDef)
     public static readonly (string Name, string Type, int BaseHp, int BaseAtk, int BaseDef)[] AllCreatures =
     [
@@ -98,6 +104,18 @@ public sealed class PokemonService : INService
 
     public async Task<(bool Success, string Message, UserPokemon Caught)> CatchAsync(ulong userId)
     {
+        // Cooldown check
+        if (_catchCooldowns.TryGetValue(userId, out var lastCatch))
+        {
+            var cooldownEnd = lastCatch.AddSeconds(CATCH_COOLDOWN_SECONDS);
+            if (DateTime.UtcNow < cooldownEnd)
+            {
+                var remaining = cooldownEnd - DateTime.UtcNow;
+                return (false, $"You're still searching! Try again in **{remaining.Seconds}s**.", null);
+            }
+        }
+        _catchCooldowns[userId] = DateTime.UtcNow;
+
         // 70% catch rate
         if (_rng.Next(100) >= 70)
             return (false, "The creature escaped! Try again.", null);
@@ -155,6 +173,18 @@ public sealed class PokemonService : INService
 
     public async Task<(bool Success, string Message)> TrainAsync(ulong userId, string pokemonName)
     {
+        // Cooldown check
+        if (_trainCooldowns.TryGetValue(userId, out var lastTrain))
+        {
+            var cooldownEnd = lastTrain.AddSeconds(TRAIN_COOLDOWN_SECONDS);
+            if (DateTime.UtcNow < cooldownEnd)
+            {
+                var remaining = cooldownEnd - DateTime.UtcNow;
+                return (false, $"Your creature is resting! Try again in **{remaining.Seconds}s**.");
+            }
+        }
+        _trainCooldowns[userId] = DateTime.UtcNow;
+
         await using var ctx = _db.GetDbContext();
         var pokemon = await ctx.GetTable<UserPokemon>()
             .FirstOrDefaultAsyncLinqToDB(p => p.UserId == userId && p.Name == pokemonName);
@@ -193,6 +223,9 @@ public sealed class PokemonService : INService
 
     public async Task<(bool Success, string Message)> StartBattleAsync(ulong channelId, ulong challengerId, ulong opponentId)
     {
+        if (challengerId == opponentId)
+            return (false, "You can't battle yourself!");
+
         if (ActiveBattles.ContainsKey(channelId))
             return (false, "A battle is already happening here!");
 
