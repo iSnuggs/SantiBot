@@ -258,7 +258,6 @@ public sealed partial class Help : SantiModule<HelpService>
                 .Name
                 .StartsWith(module, StringComparison.InvariantCultureIgnoreCase))
             .ToArray();
-
         if (mdls.Length == 0)
         {
             var group = _cmds.Modules
@@ -274,17 +273,27 @@ public sealed partial class Help : SantiModule<HelpService>
             }
         }
 
-        foreach (var cmd in mdls)
+        try
         {
-            var result = await _perms.CheckPermsAsync(ctx.Guild,
-                ctx.Channel,
-                ctx.User,
-                cmd.Module.GetTopLevelModule().Name,
-                cmd.Name);
+            foreach (var cmd in mdls)
+            {
+                var result = await _perms.CheckPermsAsync(ctx.Guild,
+                    ctx.Channel,
+                    ctx.User,
+                    cmd.Module.GetTopLevelModule().Name,
+                    cmd.Name);
 
-            if (result.IsAllowed)
-                allowed.Add(cmd);
+                if (result.IsAllowed)
+                    allowed.Add(cmd);
+            }
         }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "Permission check failed for module {Module}", module);
+            // If permission check fails, show all commands
+            allowed.AddRange(mdls);
+        }
+
 
 
         var cmds = allowed.OrderBy(c => c.Aliases[0])
@@ -297,16 +306,23 @@ public sealed partial class Help : SantiModule<HelpService>
         var succ = new HashSet<CommandInfo>();
         if (opts.View != CommandsOptions.ViewType.All)
         {
-            succ =
-            [
-                ..(await cmds.Select(async x =>
-                    {
-                        var pre = await x.CheckPreconditionsAsync(Context, _services);
-                        return (Cmd: x, Succ: pre.IsSuccess);
-                    })
-                    .WhenAll()).Where(x => x.Succ)
-                .Select(x => x.Cmd)
-            ];
+            try
+            {
+                succ =
+                [
+                    ..(await cmds.Select(async x =>
+                        {
+                            var pre = await x.CheckPreconditionsAsync(Context, _services);
+                            return (Cmd: x, Succ: pre.IsSuccess);
+                        })
+                        .WhenAll()).Where(x => x.Succ)
+                    .Select(x => x.Cmd)
+                ];
+            }
+            catch (Exception ex)
+            {
+                Log.Warning(ex, "Precondition check failed for module {Module}", module);
+            }
 
             if (opts.View == CommandsOptions.ViewType.Hide)
                 // if hidden is specified, completely remove these commands from the list
@@ -340,15 +356,23 @@ public sealed partial class Help : SantiModule<HelpService>
             }
         }
 
+        var groups = cmdsWithGroup.ToArray();
+
+        // Discord limits: max 25 select menu options, max 25 embed fields
+        // If we have more than 25 groups, we need to handle it gracefully
         var sb = new SelectMenuBuilder()
             .WithCustomId("cmds:submodule_select")
             .WithPlaceholder("Select a submodule to see detailed commands");
 
-        var groups = cmdsWithGroup.ToArray();
         var embed = CreateEmbed().WithOkColor();
+        var groupCount = 0;
         foreach (var g in groups)
         {
-            sb.AddOption(g.Key, g.Key);
+            groupCount++;
+            // Discord select menu max 25 options
+            if (groupCount <= 25)
+                sb.AddOption(g.Key, g.Key);
+
             var transformed = g
                 .Select(x =>
                 {
@@ -377,7 +401,16 @@ public sealed partial class Help : SantiModule<HelpService>
                     return output;
                 });
 
-            embed.AddField(g.Key, "" + string.Join("\n", transformed) + "", true);
+            // Discord embed max 25 fields, field value max 1024 chars
+            if (groupCount <= 25)
+            {
+                var fieldValue = string.Join("\n", transformed);
+                if (fieldValue.Length > 1024)
+                    fieldValue = fieldValue[..1021] + "...";
+                if (string.IsNullOrWhiteSpace(fieldValue))
+                    fieldValue = "-";
+                embed.AddField(g.Key, fieldValue, true);
+            }
         }
 
         embed.WithFooter(GetText(strs.commands_instr(prefix)));
@@ -397,7 +430,19 @@ public sealed partial class Help : SantiModule<HelpService>
             }
         );
 
-        await Response().Embed(embed).Interaction(inter).SendAsync();
+        try
+        {
+            await Response().Embed(embed).Interaction(inter).SendAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "Failed to send cmds embed for {Module} ({Groups} groups, {Cmds} cmds)", module, groups.Length, cmds.Count);
+            // Fallback: send a simple text list
+            var fallbackText = string.Join(", ", cmds.Select(x => $"`{prefix}{x.Aliases[0]}`"));
+            if (fallbackText.Length > 1900)
+                fallbackText = fallbackText[..1900] + "...";
+            await Response().Confirm($"**{module} commands:**\n{fallbackText}").SendAsync();
+        }
     }
 
     private async Task Group(ModuleInfo group)
@@ -406,7 +451,9 @@ public sealed partial class Help : SantiModule<HelpService>
             .WithCustomId("cmds:group_select")
             .WithPlaceholder("Select a command to see its details");
 
-        foreach (var cmd in group.Commands.DistinctBy(x => x.Aliases[0]))
+        var distinctCmds = group.Commands.DistinctBy(x => x.Aliases[0]).ToArray();
+        // Discord select menu max 25 options
+        foreach (var cmd in distinctCmds.Take(25))
         {
             menu.AddOption(prefix + cmd.Aliases[0], cmd.Aliases[0]);
         }
