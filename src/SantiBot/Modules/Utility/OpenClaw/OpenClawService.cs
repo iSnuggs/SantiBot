@@ -202,7 +202,7 @@ public sealed class OpenClawService : INService, IExecOnMessage
     private async Task<(bool Success, string Output)> RunSshAsync(string command, int timeoutSec, string messageEnvVar)
     {
         // Use /bin/bash -c to properly handle quoting and shell expansion
-        var fullCmd = $"sshpass -p $OPENCLAW_SSH_PASS ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 {SSH_USER}@{SSH_HOST} '{command}'";
+        var fullCmd = $"sshpass -e ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 {SSH_USER}@{SSH_HOST} '{command}'";
         var psi = new ProcessStartInfo
         {
             FileName = "/bin/bash",
@@ -213,7 +213,7 @@ public sealed class OpenClawService : INService, IExecOnMessage
             CreateNoWindow = true,
         };
         // Pass SSH password and user message via env vars — never interpolate into shell
-        psi.Environment["OPENCLAW_SSH_PASS"] = SSH_PASS;
+        psi.Environment["SSHPASS"] = SSH_PASS;
         if (messageEnvVar is not null)
             psi.Environment["SANTI_MSG"] = messageEnvVar;
 
