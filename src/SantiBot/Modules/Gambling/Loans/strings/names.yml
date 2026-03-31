@@ -1,0 +1,12 @@
+take:
+  - take
+  - loantake
+repay:
+  - repay
+  - loanrepay
+status:
+  - status
+  - loanstatus
+history:
+  - history
+  - loanhistory

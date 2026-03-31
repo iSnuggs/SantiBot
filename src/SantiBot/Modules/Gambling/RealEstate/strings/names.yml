@@ -1,0 +1,15 @@
+buy:
+  - buy
+  - rebuy
+upgrade:
+  - upgrade
+  - reupgrade
+list:
+  - list
+  - relist
+collect:
+  - collect
+  - recollect
+sell:
+  - sell
+  - resell

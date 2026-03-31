@@ -1,0 +1,18 @@
+catch:
+  - catch
+  - pokecatch
+list:
+  - list
+  - pokelist
+info:
+  - info
+  - pokeinfo
+train:
+  - train
+  - poketrain
+battle:
+  - battle
+  - pokebattle
+attack:
+  - attack
+  - pokeattack

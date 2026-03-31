@@ -1,0 +1,15 @@
+list:
+  - list
+  - cryptolist
+buy:
+  - buy
+  - cryptobuy
+sell:
+  - sell
+  - cryptosell
+portfolio:
+  - portfolio
+  - cryptoportfolio
+history:
+  - history
+  - cryptohistory

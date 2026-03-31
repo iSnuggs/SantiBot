@@ -1,0 +1,12 @@
+start:
+  - start
+  - queststart
+continue:
+  - continue
+  - questcontinue
+status:
+  - status
+  - queststatus
+abandon:
+  - abandon
+  - questabandon

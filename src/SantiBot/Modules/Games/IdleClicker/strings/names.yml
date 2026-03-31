@@ -1,0 +1,15 @@
+status:
+  - status
+  - idlestatus
+click:
+  - click
+  - idleclick
+buy:
+  - buy
+  - idlebuy
+prestige:
+  - prestige
+  - idleprestige
+shop:
+  - shop
+  - idleshop

@@ -1,0 +1,12 @@
+daily:
+  - daily
+  - carddaily
+inventory:
+  - inventory
+  - cardinv
+trade:
+  - trade
+  - cardtrade
+album:
+  - album
+  - cardalbum

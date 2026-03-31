@@ -1,0 +1,15 @@
+start:
+  - start
+  - tdstart
+place:
+  - place
+  - tdplace
+upgrade:
+  - upgrade
+  - tdupgrade
+wave:
+  - wave
+  - tdwave
+status:
+  - status
+  - tdstatus

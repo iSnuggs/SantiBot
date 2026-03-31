@@ -1,0 +1,12 @@
+start:
+  - start
+  - hgstart
+join:
+  - join
+  - hgjoin
+volunteer:
+  - volunteer
+  - hgvolunteer
+go:
+  - go
+  - hggo

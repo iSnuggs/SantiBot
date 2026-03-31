@@ -1,0 +1,15 @@
+create:
+  - create
+  - auctioncreate
+bid:
+  - bid
+  - auctionbid
+list:
+  - list
+  - auctionlist
+my:
+  - my
+  - auctionmy
+cancel:
+  - cancel
+  - auctioncancel

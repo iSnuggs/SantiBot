@@ -1,0 +1,9 @@
+open:
+  - open
+  - lootopen
+buy:
+  - buy
+  - lootbuy
+inventory:
+  - inventory
+  - lootinv

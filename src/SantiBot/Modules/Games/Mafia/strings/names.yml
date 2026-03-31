@@ -1,0 +1,21 @@
+start:
+  - start
+  - mafstart
+join:
+  - join
+  - mafjoin
+begin:
+  - begin
+  - mafbegin
+vote:
+  - vote
+  - mafvote
+nightaction:
+  - nightaction
+  - mafaction
+dawn:
+  - dawn
+  - mafdawn
+resolve:
+  - resolve
+  - mafresolve

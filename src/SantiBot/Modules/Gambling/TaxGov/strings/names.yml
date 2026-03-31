@@ -1,0 +1,18 @@
+rate:
+  - rate
+  - taxrate
+set:
+  - set
+  - taxset
+start:
+  - start
+  - electionstart
+vote:
+  - vote
+  - electionvote
+results:
+  - results
+  - electionresults
+treasury:
+  - treasury
+  - govtreasury

@@ -1,0 +1,21 @@
+create:
+  - create
+  - bizcreate
+hire:
+  - hire
+  - bizhire
+fire:
+  - fire
+  - bizfire
+info:
+  - info
+  - bizinfo
+list:
+  - list
+  - bizlist
+work:
+  - work
+  - bizwork
+collect:
+  - collect
+  - bizcollect

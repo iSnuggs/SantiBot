@@ -1,0 +1,12 @@
+join:
+  - join
+  - racejoin
+start:
+  - start
+  - racestart
+garage:
+  - garage
+  - racegarage
+upgrade:
+  - upgrade
+  - raceupgrade
