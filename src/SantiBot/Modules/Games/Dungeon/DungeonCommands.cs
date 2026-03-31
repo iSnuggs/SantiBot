@@ -69,7 +69,7 @@ public partial class Games
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
-        public async Task ChooseClass([Leftover] string className)
+        public async Task ChooseClass([Leftover] string className = null)
         {
             if (string.IsNullOrWhiteSpace(className))
             {
@@ -94,7 +94,7 @@ public partial class Games
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
-        public async Task ChooseRace([Leftover] string raceName)
+        public async Task ChooseRace([Leftover] string raceName = null)
         {
             if (string.IsNullOrWhiteSpace(raceName))
             {

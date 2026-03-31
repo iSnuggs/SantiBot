@@ -8,7 +8,9 @@ using SantiBot.Dashboard.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // JWT Authentication
-var jwtKey = builder.Configuration["Jwt:Key"] ?? "SantiBot-Dashboard-Secret-Key-Change-In-Production-Min32Chars!";
+var jwtKey = builder.Configuration["Jwt:Key"]
+    ?? Environment.GetEnvironmentVariable("SANTIBOT_JWT_KEY")
+    ?? throw new InvalidOperationException("JWT key not configured! Set Jwt:Key in appsettings.json or SANTIBOT_JWT_KEY env var.");
 var keyBytes = Encoding.UTF8.GetBytes(jwtKey);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

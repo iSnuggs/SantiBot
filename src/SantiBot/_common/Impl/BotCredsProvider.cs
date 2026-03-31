@@ -108,10 +108,10 @@ public sealed class BotCredsProvider : IBotCredsProvider
             if (string.IsNullOrWhiteSpace(_creds.RedisOptions))
                 _creds.RedisOptions = "127.0.0.1,syncTimeout=3000";
 
-            // replace the old generated key with the shared key
+            // CoinMarketCap API key must be set in creds.yml or CMC_API_KEY env var
             if (string.IsNullOrWhiteSpace(_creds.CoinmarketcapApiKey)
                 || _creds.CoinmarketcapApiKey.StartsWith("e79ec505-0913"))
-                _creds.CoinmarketcapApiKey = "3077537c-7dfb-4d97-9a60-56fc9a9f5035";
+                _creds.CoinmarketcapApiKey = Environment.GetEnvironmentVariable("CMC_API_KEY") ?? "";
 
             _creds.TotalShards = _totalShards ?? _creds.TotalShards;
         }
