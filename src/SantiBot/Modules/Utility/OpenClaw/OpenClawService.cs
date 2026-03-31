@@ -167,10 +167,9 @@ public sealed class OpenClawService : INService, IExecOnMessage
     {
         try
         {
-            // Pass message via env var to prevent shell injection
+            // Message passed via SANTI_MSG env var set in RunSshAsync
             var sessionArg = sessionId != null ? $"--session-id {sessionId}" : "--session-id default";
-            var cmd = $"export PATH=\"$PATH:/home/ubuntu/.npm-global/bin\"; " +
-                $"openclaw agent --message \"$SANTI_MSG\" {sessionArg} --local --timeout {timeoutSec} 2>&1";
+            var cmd = $"openclaw agent --message \"$SANTI_MSG\" {sessionArg} --local --timeout {timeoutSec} 2>&1";
 
             var (success, output) = await RunSshAsync(cmd, timeoutSec + 30, message);
 
@@ -182,6 +181,15 @@ public sealed class OpenClawService : INService, IExecOnMessage
 
             // OpenClaw sometimes wraps output in ANSI codes — strip them
             clean = System.Text.RegularExpressions.Regex.Replace(clean, @"\x1B\[[0-9;]*m", "");
+
+            // Strip debug/log lines (e.g. "[agents/model-providers] ...")
+            var lines = clean.Split('\n');
+            clean = string.Join("\n", lines.Where(l =>
+                !l.TrimStart().StartsWith("[agents/") &&
+                !l.TrimStart().StartsWith("[gateway") &&
+                !l.TrimStart().StartsWith("[debug") &&
+                !l.TrimStart().StartsWith("[warn")
+            )).Trim();
 
             // Discord message limit
             if (clean.Length > 1900)
@@ -201,21 +209,30 @@ public sealed class OpenClawService : INService, IExecOnMessage
 
     private async Task<(bool Success, string Output)> RunSshAsync(string command, int timeoutSec, string messageEnvVar)
     {
-        // Use /bin/bash -c to properly handle quoting and shell expansion
-        var fullCmd = $"sshpass -e ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 {SSH_USER}@{SSH_HOST} '{command}'";
+        // Build SSH command — pass message as env var on the remote side
+        string remoteCmd;
+        if (messageEnvVar is not null)
+        {
+            // Escape single quotes in the message for safe shell passing
+            var safeMsg = messageEnvVar.Replace("'", "'\\''");
+            remoteCmd = $"export PATH=\"$PATH:/home/ubuntu/.npm-global/bin\" && export SANTI_MSG='{safeMsg}' && {command}";
+        }
+        else
+        {
+            remoteCmd = command;
+        }
+
         var psi = new ProcessStartInfo
         {
-            FileName = "/bin/bash",
-            Arguments = $"-c \"{fullCmd.Replace("\"", "\\\"")}\"",
+            FileName = "sshpass",
+            ArgumentList = { "-e", "ssh", "-o", "StrictHostKeyChecking=no", "-o", "ConnectTimeout=10",
+                $"{SSH_USER}@{SSH_HOST}", remoteCmd },
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
             CreateNoWindow = true,
         };
-        // Pass SSH password and user message via env vars — never interpolate into shell
         psi.Environment["SSHPASS"] = SSH_PASS;
-        if (messageEnvVar is not null)
-            psi.Environment["SANTI_MSG"] = messageEnvVar;
 
         using var process = Process.Start(psi);
         if (process is null) return (false, null);
