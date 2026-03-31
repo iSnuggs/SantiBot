@@ -1,14 +1,21 @@
 antinuke:
+  - antinuke
   - advmodantinuke
 massaction:
+  - massaction
   - advmodmassaction
 modreport:
+  - modreport
   - advmodmodreport
 modstats:
+  - modstats
   - advmodmodstats
 nickfilter:
+  - nickfilter
   - advmodnickfilter
 riskscore:
+  - riskscore
   - advmodriskscore
 spamcheck:
+  - spamcheck
   - advmodspamcheck

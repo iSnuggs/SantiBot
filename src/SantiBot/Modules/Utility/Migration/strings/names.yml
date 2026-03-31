@@ -1,12 +1,18 @@
 exportlevels:
+  - exportlevels
   - migrateexportlevels
 importcarl:
+  - importcarl
   - migrateimportcarl
 importcsv:
+  - importcsv
   - migrateimportcsv
 importdyno:
+  - importdyno
   - migrateimportdyno
 importmee:
+  - importmee
   - migrateimportmee
 preview:
+  - preview
   - migratepreview

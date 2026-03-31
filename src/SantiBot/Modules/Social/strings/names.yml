@@ -1,282 +1,423 @@
 accept:
+  - accept
   - achievementsaccept
 achievementleaderboard:
   - achievementleaderboard
+  - achievementleaderboard
 achievementlist:
   - achievementlist
+  - achievementlist
 achievements:
+  - achievements
   - rpachievements
 achievementstats:
   - achievementstats
+  - achievementstats
 actions:
+  - actions
   - actions
 adopt:
   - adopt
+  - adopt
 angry:
+  - angry
   - angry
 awoo:
   - awoo
+  - awoo
 backflip:
+  - backflip
   - backflip
 baka:
   - baka
+  - baka
 bgbuy:
+  - bgbuy
   - bgbuy
 bglist:
   - bglist
+  - bglist
 bgset:
+  - bgset
   - bgset
 bgshop:
   - bgshop
+  - bgshop
 bioset:
+  - bioset
   - bioset
 bite:
   - bite
+  - bite
 blindfold:
+  - blindfold
   - blindfold
 blowkiss:
   - blowkiss
+  - blowkiss
 blush:
+  - blush
   - blush
 bonk:
   - bonk
+  - bonk
 boop:
+  - boop
   - boop
 bow:
   - bow
+  - bow
 bully:
+  - bully
   - bully
 carry:
   - carry
+  - carry
 cheer:
+  - cheer
   - cheer
 clap:
   - clap
+  - clap
 clearmoodasync:
+  - clearmoodasync
   - clearmoodasync
 compatible:
   - compatible
+  - compatible
 confused:
+  - confused
   - confused
 createcapsuleasync:
   - createcapsuleasync
+  - createcapsuleasync
 cringe:
+  - cringe
   - cringe
 cry:
   - cry
+  - cry
 cuddle:
+  - cuddle
   - cuddle
 dab:
   - dab
+  - dab
 dance:
+  - dance
   - dance
 decline:
   - decline
+  - decline
 disable:
+  - disable
   - rpdisable
 disableasync:
+  - disableasync
   - rpdisableasync
 divorce:
   - divorce
+  - divorce
 dominate:
   - dominate
+  - dominate
 enable:
+  - enable
   - rpenable
 facepalm:
   - facepalm
+  - facepalm
 family:
   - family
+  - family
 feed:
+  - feed
   - rpfeed
 fistbump:
   - fistbump
+  - fistbump
 friendaccept:
+  - friendaccept
   - friendaccept
 friendadd:
   - friendadd
+  - friendadd
 frienddeny:
+  - frienddeny
   - frienddeny
 friendlist:
   - friendlist
+  - friendlist
 friendremove:
+  - friendremove
   - friendremove
 friendrequests:
   - friendrequests
+  - friendrequests
 glomp:
+  - glomp
   - glomp
 grind:
   - grind
+  - grind
 handcuff:
+  - handcuff
   - handcuff
 handhold:
   - handhold
+  - handhold
 handshake:
+  - handshake
   - handshake
 happy:
   - happy
+  - happy
 heatmap:
+  - heatmap
   - rpheatmap
 hentai:
   - hentai
+  - hentai
 highfive:
   - highfive
+  - highfive
 hug:
+  - hug
   - rphug
 incrementinteractionasync:
   - incrementinteractionasync
+  - incrementinteractionasync
 incrementmessagecountasync:
+  - incrementmessagecountasync
   - incrementmessagecountasync
 incrementvoiceasync:
   - incrementvoiceasync
+  - incrementvoiceasync
 introdisable:
+  - introdisable
   - introdisable
 introsetup:
   - introsetup
+  - introsetup
 introtemplate:
+  - introtemplate
   - introtemplate
 karma:
   - karma
+  - karma
 karmaboard:
   - karmaboard
+  - karmaboard
 kick:
+  - kick
   - rpkick
 kiss:
+  - kiss
   - rpkiss
 laugh:
   - laugh
+  - laugh
 lewd:
+  - lewd
   - lewd
 lick:
   - lick
+  - lick
 marry:
+  - marry
   - marry
 moan:
   - moan
+  - moan
 mood:
+  - mood
   - mood
 moodboard:
   - moodboard
+  - moodboard
 moodclear:
+  - moodclear
   - moodclear
 neko:
   - neko
+  - neko
 nom:
+  - nom
   - rpnom
 nuzzle:
   - nuzzle
+  - nuzzle
 onreadyasync:
+  - onreadyasync
   - rponreadyasync
 pat:
+  - pat
   - rppat
 peck:
   - peck
+  - peck
 poke:
+  - poke
   - achievementspoke
 pout:
   - pout
+  - pout
 profile:
+  - profile
   - rpprofile
 profileset:
   - profileset
+  - profileset
 pronouns:
+  - pronouns
   - pronouns
 punch:
   - punch
+  - punch
 recordactivityasync:
+  - recordactivityasync
   - recordactivityasync
 run:
   - run
+  - run
 salute:
+  - salute
   - salute
 seduce:
   - seduce
+  - seduce
 setbackgroundasync:
+  - setbackgroundasync
   - setbackgroundasync
 setbioasync:
   - setbioasync
+  - setbioasync
 setenabledasync:
+  - setenabledasync
   - setenabledasync
 setmoodasync:
   - setmoodasync
+  - setmoodasync
 setpronounsasync:
+  - setpronounsasync
   - setpronounsasync
 settemplateasync:
   - settemplateasync
+  - settemplateasync
 settimezoneasync:
+  - settimezoneasync
   - settimezoneasync
 settitleasync:
   - settitleasync
+  - settitleasync
 setupasync:
+  - setupasync
   - setupasync
 shocked:
   - shocked
+  - shocked
 shoot:
+  - shoot
   - shoot
 shrug:
   - shrug
+  - shrug
 sip:
+  - sip
   - sip
 slap:
   - slap
+  - slap
 sleep:
+  - sleep
   - sleep
 smile:
   - smile
+  - smile
 smug:
+  - smug
   - smug
 socialboard:
   - socialboard
+  - socialboard
 socialset:
+  - socialset
   - socialset
 spank:
   - spank
+  - spank
 spouse:
+  - spouse
   - spouse
 stare:
   - stare
+  - stare
 strip:
   - strip
+  - strip
 submit:
+  - submit
   - achievementssubmit
 tableflip:
   - tableflip
+  - tableflip
 tackle:
+  - tackle
   - tackle
 tease:
   - tease
+  - tease
 think:
+  - think
   - think
 thumbsup:
   - thumbsup
+  - thumbsup
 tickle:
+  - tickle
   - tickle
 tie:
   - tie
+  - tie
 timecapsule:
+  - timecapsule
   - timecapsule
 timecapsulelist:
   - timecapsulelist
+  - timecapsulelist
 timezoneset:
+  - timezoneset
   - timezoneset
 tryawardasync:
   - tryawardasync
+  - tryawardasync
 vcleaderboard:
+  - vcleaderboard
   - vcleaderboard
 vcstats:
   - vcstats
+  - vcstats
 waifu:
+  - waifu
   - rpwaifu
 wave:
   - wave
+  - wave
 whisper:
+  - whisper
   - whisper
 whois:
   - whois
+  - whois
 wink:
+  - wink
   - wink
 yawn:
   - yawn
+  - yawn
 yearbook:
   - yearbook
+  - yearbook
 yeet:
+  - yeet
   - yeet

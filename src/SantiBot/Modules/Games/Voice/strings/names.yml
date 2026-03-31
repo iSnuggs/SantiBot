@@ -1,42 +1,63 @@
 bet:
+  - bet
   - vtbet
 fanartgallery:
+  - fanartgallery
   - vtfanartgallery
 fanartsubmit:
+  - fanartsubmit
   - vtfanartsubmit
 fanartvote:
+  - fanartvote
   - vtfanartvote
 feedadd:
+  - feedadd
   - vtfeedadd
 feedremove:
+  - feedremove
   - vtfeedremove
 feeds:
+  - feeds
   - vtfeeds
 monitoradd:
+  - monitoradd
   - vtmonitoradd
 monitorremove:
+  - monitorremove
   - vtmonitorremove
 monitors:
+  - monitors
   - vtmonitors
 myvoice:
+  - myvoice
   - vtmyvoice
 pointrewards:
+  - pointrewards
   - vtpointrewards
 points:
+  - points
   - vtpoints
 predict:
+  - predict
   - vtpredict
 predictresolve:
+  - predictresolve
   - vtpredictresolve
 predictstatus:
+  - predictstatus
   - vtpredictstatus
 soundadd:
+  - soundadd
   - vtsoundadd
 soundremove:
+  - soundremove
   - vtsoundremove
 sounds:
+  - sounds
   - vtsounds
 tempvoicesetup:
+  - tempvoicesetup
   - vttempvoicesetup
 voiceleaderboard:
+  - voiceleaderboard
   - vtvoiceleaderboard

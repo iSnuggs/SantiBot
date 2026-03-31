@@ -1,86 +1,129 @@
 addseasonxpasync:
+  - addseasonxpasync
   - xpeaddseasonxpasync
 addteamxpasync:
+  - addteamxpasync
   - xpeaddteamxpasync
 disableasync:
+  - disableasync
   - xpedisableasync
 incrementprogressasync:
+  - incrementprogressasync
   - xpeincrementprogressasync
 levelcolorinfo:
+  - levelcolorinfo
   - xpelevelcolorinfo
 levelcolorset:
+  - levelcolorset
   - xpelevelcolorset
 levelcolortoggle:
+  - levelcolortoggle
   - xpelevelcolortoggle
 lvlmsgchannel:
+  - lvlmsgchannel
   - xpelvlmsgchannel
 lvlmsginfo:
+  - lvlmsginfo
   - xpelvlmsginfo
 lvlmsgoff:
+  - lvlmsgoff
   - xpelvlmsgoff
 lvlmsgset:
+  - lvlmsgset
   - xpelvlmsgset
 onreadyasync:
+  - onreadyasync
   - xpeonreadyasync
 prestige:
+  - prestige
   - xpeprestige
 prestigeinfo:
+  - prestigeinfo
   - xpeprestigeinfo
 prestigeleaderboard:
+  - prestigeleaderboard
   - xpeprestigeleaderboard
 season:
+  - season
   - xpeseason
 seasonclaim:
+  - seasonclaim
   - xpeseasonclaim
 seasonrewards:
+  - seasonrewards
   - xpeseasonrewards
 seasonstart:
+  - seasonstart
   - xpeseasonstart
 setboostasync:
+  - setboostasync
   - xpesetboostasync
 setchannelasync:
+  - setchannelasync
   - xpesetchannelasync
 setcolorsasync:
+  - setcolorsasync
   - xpesetcolorsasync
 setenabledasync:
   - setenabledasync
+  - setenabledasync
 setmessageasync:
+  - setmessageasync
   - xpesetmessageasync
 setrateasync:
+  - setrateasync
   - xpesetrateasync
 teamcreate:
+  - teamcreate
   - xpeteamcreate
 teaminfo:
+  - teaminfo
   - xpeteaminfo
 teamjoin:
+  - teamjoin
   - xpeteamjoin
 teamleaderboard:
+  - teamleaderboard
   - xpeteamleaderboard
 teamleave:
+  - teamleave
   - xpeteamleave
 voicexpinfo:
+  - voicexpinfo
   - xpevoicexpinfo
 voicexprate:
+  - voicexprate
   - xpevoicexprate
 voicexptoggle:
+  - voicexptoggle
   - xpevoicexptoggle
 xpboost:
+  - xpboost
   - xpexpboost
 xpbooststatus:
+  - xpbooststatus
   - xpexpbooststatus
 xpchallenge:
+  - xpchallenge
   - xpexpchallenge
 xpchallengelist:
+  - xpchallengelist
   - xpexpchallengelist
 xpchallengeprogress:
+  - xpchallengeprogress
   - xpexpchallengeprogress
 xpdecayinfo:
+  - xpdecayinfo
   - xpexpdecayinfo
 xpdecayrate:
+  - xpdecayrate
   - xpexpdecayrate
 xpdecaytoggle:
+  - xpdecaytoggle
   - xpexpdecaytoggle
 xphistory:
+  - xphistory
   - xpexphistory
 xphistorytop:
+  - xphistorytop
   - xpexphistorytop

@@ -1,12 +1,18 @@
 advent:
+  - advent
   - seasonadvent
 boss:
+  - boss
   - seasonboss
 calendar:
+  - calendar
   - seasoncalendar
 current:
+  - current
   - seasoncurrent
 egghunt:
+  - egghunt
   - seasonegghunt
 seasonalshop:
+  - seasonalshop
   - seasonseasonalshop

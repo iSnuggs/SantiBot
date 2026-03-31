@@ -1,40 +1,60 @@
 compliment:
+  - compliment
   - funcompliment
 dadjoke:
+  - dadjoke
   - fundadjoke
 debatetopic:
+  - debatetopic
   - fundebatetopic
 eightball:
+  - eightball
   - funeightball
 fact:
+  - fact
   - funfact
 fortune:
+  - fortune
   - funfortune
 hottake:
+  - hottake
   - funhottake
 insult:
+  - insult
   - funinsult
 joke:
+  - joke
   - funjoke
 motivation:
+  - motivation
   - funmotivation
 neverhaveiever:
+  - neverhaveiever
   - funneverhaveiever
 pickrandom:
+  - pickrandom
   - funpickrandom
 pickupline:
+  - pickupline
   - funpickupline
 rate:
+  - rate
   - funrate
 roast:
+  - roast
   - funroast
 showerthought:
+  - showerthought
   - funshowerthought
 tarot:
+  - tarot
   - funtarot
 thisorthat:
+  - thisorthat
   - funthisorthat
 truthordare:
+  - truthordare
   - funtruthordare
 wouldyourather:
+  - wouldyourather
   - funwouldyourather

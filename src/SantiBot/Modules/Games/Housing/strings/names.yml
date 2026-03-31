@@ -1,26 +1,39 @@
 addroom:
+  - addroom
   - houseaddroom
 buy:
+  - buy
   - housebuy
 buyfurniture:
+  - buyfurniture
   - housebuyfurniture
 decorate:
+  - decorate
   - housedecorate
 guestbook:
+  - guestbook
   - houseguestbook
 guestbooksign:
+  - guestbooksign
   - houseguestbooksign
 houseshop:
+  - houseshop
   - househouseshop
 housevalue:
+  - housevalue
   - househousevalue
 myhouse:
+  - myhouse
   - housemyhouse
 setstyle:
+  - setstyle
   - housesetstyle
 styles:
+  - styles
   - housestyles
 upgrade:
+  - upgrade
   - houseupgrade
 visit:
+  - visit
   - housevisit

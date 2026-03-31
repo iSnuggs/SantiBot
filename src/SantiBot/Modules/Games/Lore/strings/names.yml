@@ -1,16 +1,24 @@
 bestiary:
+  - bestiary
   - lorebestiary
 lorebook:
+  - lorebook
   - lorelorebook
 loreread:
+  - loreread
   - loreloreread
 lorestats:
+  - lorestats
   - lorelorestats
 treasuremap:
+  - treasuremap
   - loretreasuremap
 treasuresolve:
+  - treasuresolve
   - loretreasuresolve
 worldevents:
+  - worldevents
   - loreworldevents
 worldhistory:
+  - worldhistory
   - loreworldhistory

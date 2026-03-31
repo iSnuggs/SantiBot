@@ -2,11 +2,12 @@
   "Administration": [
     {
       "Aliases": [
+        ".advmod antinuke",
         ".advmod advmodantinuke"
       ],
       "Description": "antinuke command",
       "Usage": [
-        ".advmod advmodantinuke"
+        ".advmod antinuke"
       ],
       "Submodule": "Advanced Moderation",
       "Module": "Administration",
@@ -17,11 +18,12 @@
     },
     {
       "Aliases": [
+        ".advmod riskscore",
         ".advmod advmodriskscore"
       ],
       "Description": "riskscore command",
       "Usage": [
-        ".advmod advmodriskscore"
+        ".advmod riskscore"
       ],
       "Submodule": "Advanced Moderation",
       "Module": "Administration",
@@ -30,11 +32,12 @@
     },
     {
       "Aliases": [
+        ".advmod nickfilter",
         ".advmod advmodnickfilter"
       ],
       "Description": "nickfilter command",
       "Usage": [
-        ".advmod advmodnickfilter"
+        ".advmod nickfilter"
       ],
       "Submodule": "Advanced Moderation",
       "Module": "Administration",
@@ -64,11 +67,12 @@
     },
     {
       "Aliases": [
+        ".advmod spamcheck",
         ".advmod advmodspamcheck"
       ],
       "Description": "spamcheck command",
       "Usage": [
-        ".advmod advmodspamcheck"
+        ".advmod spamcheck"
       ],
       "Submodule": "Advanced Moderation",
       "Module": "Administration",
@@ -79,11 +83,12 @@
     },
     {
       "Aliases": [
+        ".advmod massaction",
         ".advmod advmodmassaction"
       ],
       "Description": "massaction command",
       "Usage": [
-        ".advmod advmodmassaction"
+        ".advmod massaction"
       ],
       "Submodule": "Advanced Moderation",
       "Module": "Administration",
@@ -94,11 +99,12 @@
     },
     {
       "Aliases": [
+        ".advmod modreport",
         ".advmod advmodmodreport"
       ],
       "Description": "modreport command",
       "Usage": [
-        ".advmod advmodmodreport"
+        ".advmod modreport"
       ],
       "Submodule": "Advanced Moderation",
       "Module": "Administration",
@@ -1635,11 +1641,12 @@
     },
     {
       "Aliases": [
+        ".greet",
         ".smartgreet"
       ],
       "Description": "greet command",
       "Usage": [
-        ".smartgreet"
+        ".greet"
       ],
       "Submodule": "GreetCommands",
       "Module": "Administration",
@@ -2096,11 +2103,12 @@
     },
     {
       "Aliases": [
+        ".autopublish",
         ".stautopublish"
       ],
       "Description": "autopublish command",
       "Usage": [
-        ".stautopublish"
+        ".autopublish"
       ],
       "Submodule": "MessageCommands",
       "Module": "Administration",
@@ -4006,11 +4014,12 @@
     },
     {
       "Aliases": [
+        ".security securityaudit",
         ".security secsecurityaudit"
       ],
       "Description": "securityaudit command",
       "Usage": [
-        ".security secsecurityaudit"
+        ".security securityaudit"
       ],
       "Submodule": "Security",
       "Module": "Administration",
@@ -4021,11 +4030,12 @@
     },
     {
       "Aliases": [
+        ".security sethoneypot",
         ".security secsethoneypot"
       ],
       "Description": "sethoneypot command",
       "Usage": [
-        ".security secsethoneypot"
+        ".security sethoneypot"
       ],
       "Submodule": "Security",
       "Module": "Administration",
@@ -4036,11 +4046,12 @@
     },
     {
       "Aliases": [
+        ".security removehoneypot",
         ".security secremovehoneypot"
       ],
       "Description": "removehoneypot command",
       "Usage": [
-        ".security secremovehoneypot"
+        ".security removehoneypot"
       ],
       "Submodule": "Security",
       "Module": "Administration",
@@ -4051,11 +4062,12 @@
     },
     {
       "Aliases": [
+        ".security honeypotlist",
         ".security sechoneypotlist"
       ],
       "Description": "honeypotlist command",
       "Usage": [
-        ".security sechoneypotlist"
+        ".security honeypotlist"
       ],
       "Submodule": "Security",
       "Module": "Administration",
@@ -4066,11 +4078,12 @@
     },
     {
       "Aliases": [
+        ".security accountgate",
         ".security secaccountgate"
       ],
       "Description": "accountgate command",
       "Usage": [
-        ".security secaccountgate"
+        ".security accountgate"
       ],
       "Submodule": "Security",
       "Module": "Administration",
@@ -4081,11 +4094,12 @@
     },
     {
       "Aliases": [
+        ".security leakscan",
         ".security secleakscan"
       ],
       "Description": "leakscan command",
       "Usage": [
-        ".security secleakscan"
+        ".security leakscan"
       ],
       "Submodule": "Security",
       "Module": "Administration",
@@ -4096,11 +4110,12 @@
     },
     {
       "Aliases": [
+        ".security scamscan",
         ".security secscamscan"
       ],
       "Description": "scamscan command",
       "Usage": [
-        ".security secscamscan"
+        ".security scamscan"
       ],
       "Submodule": "Security",
       "Module": "Administration",
@@ -4111,11 +4126,12 @@
     },
     {
       "Aliases": [
+        ".security securityscan",
         ".security secsecurityscan"
       ],
       "Description": "securityscan command",
       "Usage": [
-        ".security secsecurityscan"
+        ".security securityscan"
       ],
       "Submodule": "Security",
       "Module": "Administration",
@@ -4124,11 +4140,12 @@
     },
     {
       "Aliases": [
+        ".security securityreport",
         ".security secsecurityreport"
       ],
       "Description": "securityreport command",
       "Usage": [
-        ".security secsecurityreport"
+        ".security securityreport"
       ],
       "Submodule": "Security",
       "Module": "Administration",
@@ -4469,11 +4486,12 @@
     },
     {
       "Aliases": [
+        ".st inviterewards",
         ".st stinviterewards"
       ],
       "Description": "inviterewards command",
       "Usage": [
-        ".st stinviterewards"
+        ".st inviterewards"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4484,11 +4502,12 @@
     },
     {
       "Aliases": [
+        ".st invitecount",
         ".st stinvitecount"
       ],
       "Description": "invitecount command",
       "Usage": [
-        ".st stinvitecount"
+        ".st invitecount"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4497,11 +4516,12 @@
     },
     {
       "Aliases": [
+        ".st recordinvite",
         ".st strecordinvite"
       ],
       "Description": "recordinvite command",
       "Usage": [
-        ".st strecordinvite"
+        ".st recordinvite"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4512,11 +4532,12 @@
     },
     {
       "Aliases": [
+        ".st emojistats",
         ".st stemojistats"
       ],
       "Description": "emojistats command",
       "Usage": [
-        ".st stemojistats"
+        ".st emojistats"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4525,11 +4546,12 @@
     },
     {
       "Aliases": [
+        ".st emojistatsreset",
         ".st stemojistatsreset"
       ],
       "Description": "emojistatsreset command",
       "Usage": [
-        ".st stemojistatsreset"
+        ".st emojistatsreset"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4540,11 +4562,12 @@
     },
     {
       "Aliases": [
+        ".st autopublish",
         ".st stautopublish"
       ],
       "Description": "autopublish command",
       "Usage": [
-        ".st stautopublish"
+        ".st autopublish"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4555,11 +4578,12 @@
     },
     {
       "Aliases": [
+        ".st autopublishlist",
         ".st stautopublishlist"
       ],
       "Description": "autopublishlist command",
       "Usage": [
-        ".st stautopublishlist"
+        ".st autopublishlist"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4570,11 +4594,12 @@
     },
     {
       "Aliases": [
+        ".st mirror",
         ".st stmirror"
       ],
       "Description": "mirror command",
       "Usage": [
-        ".st stmirror"
+        ".st mirror"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4585,11 +4610,12 @@
     },
     {
       "Aliases": [
+        ".st mirrorremove",
         ".st stmirrorremove"
       ],
       "Description": "mirrorremove command",
       "Usage": [
-        ".st stmirrorremove"
+        ".st mirrorremove"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4600,11 +4626,12 @@
     },
     {
       "Aliases": [
+        ".st mirrorlist",
         ".st stmirrorlist"
       ],
       "Description": "mirrorlist command",
       "Usage": [
-        ".st stmirrorlist"
+        ".st mirrorlist"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4615,11 +4642,12 @@
     },
     {
       "Aliases": [
+        ".st milestonesetup",
         ".st stmilestonesetup"
       ],
       "Description": "milestonesetup command",
       "Usage": [
-        ".st stmilestonesetup"
+        ".st milestonesetup"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -4647,11 +4675,12 @@
     },
     {
       "Aliases": [
+        ".st backupsummary",
         ".st stbackupsummary"
       ],
       "Description": "backupsummary command",
       "Usage": [
-        ".st stbackupsummary"
+        ".st backupsummary"
       ],
       "Submodule": "Server Tools",
       "Module": "Administration",
@@ -5477,11 +5506,12 @@
     },
     {
       "Aliases": [
+        ".kick",
         ".rpkick"
       ],
       "Description": "kick command",
       "Usage": [
-        ".rpkick"
+        ".kick"
       ],
       "Submodule": "UserPunishCommands",
       "Module": "Administration",
@@ -6520,11 +6550,12 @@
     },
     {
       "Aliases": [
+        ".leaderboard",
         ".guildleaderboard"
       ],
       "Description": "leaderboard command",
       "Usage": [
-        ".guildleaderboard"
+        ".leaderboard"
       ],
       "Submodule": "Gambling",
       "Module": "Gambling",
@@ -6626,11 +6657,12 @@
     },
     {
       "Aliases": [
+        ".auction create",
         ".auction guildcreate"
       ],
       "Description": "create command",
       "Usage": [
-        ".auction guildcreate"
+        ".auction create"
       ],
       "Submodule": "Auction",
       "Module": "Gambling",
@@ -6652,11 +6684,12 @@
     },
     {
       "Aliases": [
+        ".auction list",
         ".auction marketlist"
       ],
       "Description": "list command",
       "Usage": [
-        ".auction marketlist"
+        ".auction list"
       ],
       "Submodule": "Auction",
       "Module": "Gambling",
@@ -6678,11 +6711,12 @@
     },
     {
       "Aliases": [
+        ".auction cancel",
         ".auction marketcancel"
       ],
       "Description": "cancel command",
       "Usage": [
-        ".auction marketcancel"
+        ".auction cancel"
       ],
       "Submodule": "Auction",
       "Module": "Gambling",
@@ -6900,11 +6934,12 @@
     },
     {
       "Aliases": [
+        ".biz create",
         ".biz guildcreate"
       ],
       "Description": "create command",
       "Usage": [
-        ".biz guildcreate"
+        ".biz create"
       ],
       "Submodule": "Business",
       "Module": "Gambling",
@@ -6939,11 +6974,12 @@
     },
     {
       "Aliases": [
+        ".biz info",
         ".biz ocinfo"
       ],
       "Description": "info command",
       "Usage": [
-        ".biz ocinfo"
+        ".biz info"
       ],
       "Submodule": "Business",
       "Module": "Gambling",
@@ -6952,11 +6988,12 @@
     },
     {
       "Aliases": [
+        ".biz list",
         ".biz marketlist"
       ],
       "Description": "list command",
       "Usage": [
-        ".biz marketlist"
+        ".biz list"
       ],
       "Submodule": "Business",
       "Module": "Gambling",
@@ -6994,11 +7031,12 @@
     },
     {
       "Aliases": [
+        ".crypto list",
         ".crypto marketlist"
       ],
       "Description": "list command",
       "Usage": [
-        ".crypto marketlist"
+        ".crypto list"
       ],
       "Submodule": "Crypto",
       "Module": "Gambling",
@@ -7007,11 +7045,12 @@
     },
     {
       "Aliases": [
+        ".crypto buy",
         ".crypto marketbuy"
       ],
       "Description": "buy command",
       "Usage": [
-        ".crypto marketbuy"
+        ".crypto buy"
       ],
       "Submodule": "Crypto",
       "Module": "Gambling",
@@ -7088,11 +7127,12 @@
     },
     {
       "Aliases": [
+        ".roll",
         ".toolsroll"
       ],
       "Description": "roll command",
       "Usage": [
-        ".toolsroll"
+        ".roll"
       ],
       "Submodule": "DiceRollCommands",
       "Module": "Gambling",
@@ -7295,11 +7335,12 @@
     },
     {
       "Aliases": [
+        ".flip",
         ".toolsflip"
       ],
       "Description": "flip command",
       "Usage": [
-        ".toolsflip"
+        ".flip"
       ],
       "Submodule": "FlipCoinCommands",
       "Module": "Gambling",
@@ -7402,11 +7443,12 @@
     },
     {
       "Aliases": [
+        ".job list",
         ".job marketlist"
       ],
       "Description": "list command",
       "Usage": [
-        ".job marketlist"
+        ".job list"
       ],
       "Submodule": "Jobs",
       "Module": "Gambling",
@@ -7495,11 +7537,12 @@
     },
     {
       "Aliases": [
+        ".loan status",
         ".loan ocstatus"
       ],
       "Description": "status command",
       "Usage": [
-        ".loan ocstatus"
+        ".loan status"
       ],
       "Submodule": "Loan",
       "Module": "Gambling",
@@ -7534,11 +7577,12 @@
     },
     {
       "Aliases": [
+        ".lootbox buy",
         ".lootbox marketbuy"
       ],
       "Description": "buy command",
       "Usage": [
-        ".lootbox marketbuy"
+        ".lootbox buy"
       ],
       "Submodule": "LootBox",
       "Module": "Gambling",
@@ -7547,11 +7591,12 @@
     },
     {
       "Aliases": [
+        ".lootbox inventory",
         ".lootbox dninventory"
       ],
       "Description": "inventory command",
       "Usage": [
-        ".lootbox dninventory"
+        ".lootbox inventory"
       ],
       "Submodule": "LootBox",
       "Module": "Gambling",
@@ -7560,11 +7605,12 @@
     },
     {
       "Aliases": [
+        ".oldpet petadopt",
         ".oldpet petpetadopt"
       ],
       "Description": "petadopt command",
       "Usage": [
-        ".oldpet petpetadopt"
+        ".oldpet petadopt"
       ],
       "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
@@ -7573,11 +7619,12 @@
     },
     {
       "Aliases": [
+        ".oldpet pet",
         ".oldpet petpet"
       ],
       "Description": "pet command",
       "Usage": [
-        ".oldpet petpet"
+        ".oldpet pet"
       ],
       "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
@@ -7586,11 +7633,12 @@
     },
     {
       "Aliases": [
+        ".oldpet petfeed",
         ".oldpet petpetfeed"
       ],
       "Description": "petfeed command",
       "Usage": [
-        ".oldpet petpetfeed"
+        ".oldpet petfeed"
       ],
       "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
@@ -7599,11 +7647,12 @@
     },
     {
       "Aliases": [
+        ".oldpet petplay",
         ".oldpet petpetplay"
       ],
       "Description": "petplay command",
       "Usage": [
-        ".oldpet petpetplay"
+        ".oldpet petplay"
       ],
       "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
@@ -7612,11 +7661,12 @@
     },
     {
       "Aliases": [
+        ".oldpet petrename",
         ".oldpet petpetrename"
       ],
       "Description": "petrename command",
       "Usage": [
-        ".oldpet petpetrename"
+        ".oldpet petrename"
       ],
       "Submodule": "Pets (Legacy)",
       "Module": "Gambling",
@@ -7701,11 +7751,12 @@
     },
     {
       "Aliases": [
+        ".realestate buy",
         ".realestate marketbuy"
       ],
       "Description": "buy command",
       "Usage": [
-        ".realestate marketbuy"
+        ".realestate buy"
       ],
       "Submodule": "RealEstate",
       "Module": "Gambling",
@@ -7714,11 +7765,12 @@
     },
     {
       "Aliases": [
+        ".realestate upgrade",
         ".realestate houseupgrade"
       ],
       "Description": "upgrade command",
       "Usage": [
-        ".realestate houseupgrade"
+        ".realestate upgrade"
       ],
       "Submodule": "RealEstate",
       "Module": "Gambling",
@@ -7727,11 +7779,12 @@
     },
     {
       "Aliases": [
+        ".realestate list",
         ".realestate marketlist"
       ],
       "Description": "list command",
       "Usage": [
-        ".realestate marketlist"
+        ".realestate list"
       ],
       "Submodule": "RealEstate",
       "Module": "Gambling",
@@ -7766,11 +7819,12 @@
     },
     {
       "Aliases": [
+        ".season info",
         ".season ocinfo"
       ],
       "Description": "info command",
       "Usage": [
-        ".season ocinfo"
+        ".season info"
       ],
       "Submodule": "Season",
       "Module": "Gambling",
@@ -7779,11 +7833,12 @@
     },
     {
       "Aliases": [
+        ".season leaderboard",
         ".season guildleaderboard"
       ],
       "Description": "leaderboard command",
       "Usage": [
-        ".season guildleaderboard"
+        ".season leaderboard"
       ],
       "Submodule": "Season",
       "Module": "Gambling",
@@ -7805,11 +7860,12 @@
     },
     {
       "Aliases": [
+        ".season reset",
         ".season ocreset"
       ],
       "Description": "reset command",
       "Usage": [
-        ".season ocreset"
+        ".season reset"
       ],
       "Submodule": "Season",
       "Module": "Gambling",
@@ -7834,11 +7890,12 @@
     },
     {
       "Aliases": [
+        ".buy",
         ".marketbuy"
       ],
       "Description": "buy command",
       "Usage": [
-        ".marketbuy"
+        ".buy"
       ],
       "Submodule": "ShopCommands",
       "Module": "Gambling",
@@ -8063,11 +8120,12 @@
     },
     {
       "Aliases": [
+        ".tax rate",
         ".tax funrate"
       ],
       "Description": "rate command",
       "Usage": [
-        ".tax funrate"
+        ".tax rate"
       ],
       "Submodule": "Tax",
       "Module": "Gambling",
@@ -8217,11 +8275,12 @@
   "Games": [
     {
       "Aliases": [
+        ".choose",
         ".toolschoose"
       ],
       "Description": "choose command",
       "Usage": [
-        ".toolschoose"
+        ".choose"
       ],
       "Submodule": "Games",
       "Module": "Games",
@@ -8334,11 +8393,12 @@
     },
     {
       "Aliases": [
+        ".cards inventory",
         ".cards dninventory"
       ],
       "Description": "inventory command",
       "Usage": [
-        ".cards dninventory"
+        ".cards inventory"
       ],
       "Submodule": "Cards",
       "Module": "Games",
@@ -8591,11 +8651,12 @@
     },
     {
       "Aliases": [
+        ".craft inventory",
         ".craft dninventory"
       ],
       "Description": "inventory command",
       "Usage": [
-        ".craft dninventory"
+        ".craft inventory"
       ],
       "Submodule": "Crafting",
       "Module": "Games",
@@ -8644,11 +8705,12 @@
     },
     {
       "Aliases": [
+        ".dungeon enter",
         ".dungeon dnenter"
       ],
       "Description": "enter command",
       "Usage": [
-        ".dungeon dnenter"
+        ".dungeon enter"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8657,11 +8719,12 @@
     },
     {
       "Aliases": [
+        ".dungeon invite",
         ".dungeon dninvite"
       ],
       "Description": "invite command",
       "Usage": [
-        ".dungeon dninvite"
+        ".dungeon invite"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8670,11 +8733,12 @@
     },
     {
       "Aliases": [
+        ".dungeon explore",
         ".dungeon dnexplore"
       ],
       "Description": "explore command",
       "Usage": [
-        ".dungeon dnexplore"
+        ".dungeon explore"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8683,11 +8747,12 @@
     },
     {
       "Aliases": [
+        ".dungeon attack",
         ".dungeon dnattack"
       ],
       "Description": "attack command",
       "Usage": [
-        ".dungeon dnattack"
+        ".dungeon attack"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8696,11 +8761,12 @@
     },
     {
       "Aliases": [
+        ".dungeon flee",
         ".dungeon dnflee"
       ],
       "Description": "flee command",
       "Usage": [
-        ".dungeon dnflee"
+        ".dungeon flee"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8709,11 +8775,12 @@
     },
     {
       "Aliases": [
+        ".dungeon chooseclass",
         ".dungeon dnchooseclass"
       ],
       "Description": "chooseclass command",
       "Usage": [
-        ".dungeon dnchooseclass"
+        ".dungeon chooseclass"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8722,11 +8789,12 @@
     },
     {
       "Aliases": [
+        ".dungeon chooserace",
         ".dungeon dnchooserace"
       ],
       "Description": "chooserace command",
       "Usage": [
-        ".dungeon dnchooserace"
+        ".dungeon chooserace"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8735,11 +8803,12 @@
     },
     {
       "Aliases": [
+        ".dungeon profile",
         ".dungeon rpprofile"
       ],
       "Description": "profile command",
       "Usage": [
-        ".dungeon rpprofile"
+        ".dungeon profile"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8748,11 +8817,12 @@
     },
     {
       "Aliases": [
+        ".dungeon inventory",
         ".dungeon dninventory"
       ],
       "Description": "inventory command",
       "Usage": [
-        ".dungeon dninventory"
+        ".dungeon inventory"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8761,11 +8831,12 @@
     },
     {
       "Aliases": [
+        ".dungeon equip",
         ".dungeon dnequip"
       ],
       "Description": "equip command",
       "Usage": [
-        ".dungeon dnequip"
+        ".dungeon equip"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8774,11 +8845,12 @@
     },
     {
       "Aliases": [
+        ".dungeon status",
         ".dungeon ocstatus"
       ],
       "Description": "status command",
       "Usage": [
-        ".dungeon ocstatus"
+        ".dungeon status"
       ],
       "Submodule": "Dungeon",
       "Module": "Games",
@@ -8787,11 +8859,12 @@
     },
     {
       "Aliases": [
+        ".raidboss spawn",
         ".raidboss dnspawn"
       ],
       "Description": "spawn command",
       "Usage": [
-        ".raidboss dnspawn"
+        ".raidboss spawn"
       ],
       "Submodule": "Raid Boss",
       "Module": "Games",
@@ -8802,11 +8875,12 @@
     },
     {
       "Aliases": [
+        ".raidboss attack",
         ".raidboss dnattack"
       ],
       "Description": "attack command",
       "Usage": [
-        ".raidboss dnattack"
+        ".raidboss attack"
       ],
       "Submodule": "Raid Boss",
       "Module": "Games",
@@ -8815,11 +8889,12 @@
     },
     {
       "Aliases": [
+        ".raidboss status",
         ".raidboss ocstatus"
       ],
       "Description": "status command",
       "Usage": [
-        ".raidboss ocstatus"
+        ".raidboss status"
       ],
       "Submodule": "Raid Boss",
       "Module": "Games",
@@ -8828,11 +8903,12 @@
     },
     {
       "Aliases": [
+        ".raidboss leaderboard",
         ".raidboss guildleaderboard"
       ],
       "Description": "leaderboard command",
       "Usage": [
-        ".raidboss guildleaderboard"
+        ".raidboss leaderboard"
       ],
       "Submodule": "Raid Boss",
       "Module": "Games",
@@ -8860,11 +8936,12 @@
     },
     {
       "Aliases": [
+        ".raidboss toggle",
         ".raidboss embedfixtoggle"
       ],
       "Description": "toggle command",
       "Usage": [
-        ".raidboss embedfixtoggle"
+        ".raidboss toggle"
       ],
       "Submodule": "Raid Boss",
       "Module": "Games",
@@ -8875,11 +8952,12 @@
     },
     {
       "Aliases": [
+        ".raidboss bosses",
         ".raidboss dnbosses"
       ],
       "Description": "bosses command",
       "Usage": [
-        ".raidboss dnbosses"
+        ".raidboss bosses"
       ],
       "Submodule": "Raid Boss",
       "Module": "Games",
@@ -8888,11 +8966,12 @@
     },
     {
       "Aliases": [
+        ".ex skilltree",
         ".ex exskilltree"
       ],
       "Description": "skilltree command",
       "Usage": [
-        ".ex exskilltree"
+        ".ex skilltree"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -8901,11 +8980,12 @@
     },
     {
       "Aliases": [
+        ".ex skillupgrade",
         ".ex exskillupgrade"
       ],
       "Description": "skillupgrade command",
       "Usage": [
-        ".ex exskillupgrade"
+        ".ex skillupgrade"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -8914,11 +8994,12 @@
     },
     {
       "Aliases": [
+        ".ex prestige",
         ".ex xpeprestige"
       ],
       "Description": "prestige command",
       "Usage": [
-        ".ex xpeprestige"
+        ".ex prestige"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -8927,11 +9008,12 @@
     },
     {
       "Aliases": [
+        ".ex prestigeinfo",
         ".ex xpeprestigeinfo"
       ],
       "Description": "prestigeinfo command",
       "Usage": [
-        ".ex xpeprestigeinfo"
+        ".ex prestigeinfo"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -8940,11 +9022,12 @@
     },
     {
       "Aliases": [
+        ".ex modifiers",
         ".ex exmodifiers"
       ],
       "Description": "modifiers command",
       "Usage": [
-        ".ex exmodifiers"
+        ".ex modifiers"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -8953,11 +9036,12 @@
     },
     {
       "Aliases": [
+        ".ex bountypost",
         ".ex exbountypost"
       ],
       "Description": "bountypost command",
       "Usage": [
-        ".ex exbountypost"
+        ".ex bountypost"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -8966,11 +9050,12 @@
     },
     {
       "Aliases": [
+        ".ex bountyboard",
         ".ex exbountyboard"
       ],
       "Description": "bountyboard command",
       "Usage": [
-        ".ex exbountyboard"
+        ".ex bountyboard"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -8979,11 +9064,12 @@
     },
     {
       "Aliases": [
+        ".ex bountyclaim",
         ".ex exbountyclaim"
       ],
       "Description": "bountyclaim command",
       "Usage": [
-        ".ex exbountyclaim"
+        ".ex bountyclaim"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -8992,11 +9078,12 @@
     },
     {
       "Aliases": [
+        ".ex treasurehide",
         ".ex extreasurehide"
       ],
       "Description": "treasurehide command",
       "Usage": [
-        ".ex extreasurehide"
+        ".ex treasurehide"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -9007,11 +9094,12 @@
     },
     {
       "Aliases": [
+        ".ex treasurehint",
         ".ex extreasurehint"
       ],
       "Description": "treasurehint command",
       "Usage": [
-        ".ex extreasurehint"
+        ".ex treasurehint"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -9020,11 +9108,12 @@
     },
     {
       "Aliases": [
+        ".ex horoscope",
         ".ex exhoroscope"
       ],
       "Description": "horoscope command",
       "Usage": [
-        ".ex exhoroscope"
+        ".ex horoscope"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -9033,11 +9122,12 @@
     },
     {
       "Aliases": [
+        ".ex horoscopeset",
         ".ex exhoroscopeset"
       ],
       "Description": "horoscopeset command",
       "Usage": [
-        ".ex exhoroscopeset"
+        ".ex horoscopeset"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -9046,11 +9136,12 @@
     },
     {
       "Aliases": [
+        ".ex goalset",
         ".ex exgoalset"
       ],
       "Description": "goalset command",
       "Usage": [
-        ".ex exgoalset"
+        ".ex goalset"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -9059,11 +9150,12 @@
     },
     {
       "Aliases": [
+        ".ex goalprogress",
         ".ex exgoalprogress"
       ],
       "Description": "goalprogress command",
       "Usage": [
-        ".ex exgoalprogress"
+        ".ex goalprogress"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -9072,11 +9164,12 @@
     },
     {
       "Aliases": [
+        ".ex goals",
         ".ex exgoals"
       ],
       "Description": "goals command",
       "Usage": [
-        ".ex exgoals"
+        ".ex goals"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -9085,11 +9178,12 @@
     },
     {
       "Aliases": [
+        ".ex newspaper",
         ".ex exnewspaper"
       ],
       "Description": "newspaper command",
       "Usage": [
-        ".ex exnewspaper"
+        ".ex newspaper"
       ],
       "Submodule": "Expansion",
       "Module": "Games",
@@ -9277,11 +9371,12 @@
     },
     {
       "Aliases": [
+        ".fun tarot",
         ".fun funtarot"
       ],
       "Description": "tarot command",
       "Usage": [
-        ".fun funtarot"
+        ".fun tarot"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9290,11 +9385,12 @@
     },
     {
       "Aliases": [
+        ".fun fortune",
         ".fun funfortune"
       ],
       "Description": "fortune command",
       "Usage": [
-        ".fun funfortune"
+        ".fun fortune"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9303,11 +9399,12 @@
     },
     {
       "Aliases": [
+        ".fun joke",
         ".fun funjoke"
       ],
       "Description": "joke command",
       "Usage": [
-        ".fun funjoke"
+        ".fun joke"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9316,11 +9413,12 @@
     },
     {
       "Aliases": [
+        ".fun fact",
         ".fun funfact"
       ],
       "Description": "fact command",
       "Usage": [
-        ".fun funfact"
+        ".fun fact"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9329,11 +9427,12 @@
     },
     {
       "Aliases": [
+        ".fun compliment",
         ".fun funcompliment"
       ],
       "Description": "compliment command",
       "Usage": [
-        ".fun funcompliment"
+        ".fun compliment"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9342,11 +9441,12 @@
     },
     {
       "Aliases": [
+        ".fun insult",
         ".fun funinsult"
       ],
       "Description": "insult command",
       "Usage": [
-        ".fun funinsult"
+        ".fun insult"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9355,11 +9455,12 @@
     },
     {
       "Aliases": [
+        ".fun pickupline",
         ".fun funpickupline"
       ],
       "Description": "pickupline command",
       "Usage": [
-        ".fun funpickupline"
+        ".fun pickupline"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9368,11 +9469,12 @@
     },
     {
       "Aliases": [
+        ".fun hottake",
         ".fun funhottake"
       ],
       "Description": "hottake command",
       "Usage": [
-        ".fun funhottake"
+        ".fun hottake"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9381,11 +9483,12 @@
     },
     {
       "Aliases": [
+        ".fun wouldyourather",
         ".fun funwouldyourather"
       ],
       "Description": "wouldyourather command",
       "Usage": [
-        ".fun funwouldyourather"
+        ".fun wouldyourather"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9394,11 +9497,12 @@
     },
     {
       "Aliases": [
+        ".fun thisorthat",
         ".fun funthisorthat"
       ],
       "Description": "thisorthat command",
       "Usage": [
-        ".fun funthisorthat"
+        ".fun thisorthat"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9407,11 +9511,12 @@
     },
     {
       "Aliases": [
+        ".fun truthordare",
         ".fun funtruthordare"
       ],
       "Description": "truthordare command",
       "Usage": [
-        ".fun funtruthordare"
+        ".fun truthordare"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9420,11 +9525,12 @@
     },
     {
       "Aliases": [
+        ".fun neverhaveiever",
         ".fun funneverhaveiever"
       ],
       "Description": "neverhaveiever command",
       "Usage": [
-        ".fun funneverhaveiever"
+        ".fun neverhaveiever"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9433,11 +9539,12 @@
     },
     {
       "Aliases": [
+        ".fun roast",
         ".fun funroast"
       ],
       "Description": "roast command",
       "Usage": [
-        ".fun funroast"
+        ".fun roast"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9446,11 +9553,12 @@
     },
     {
       "Aliases": [
+        ".fun showerthought",
         ".fun funshowerthought"
       ],
       "Description": "showerthought command",
       "Usage": [
-        ".fun funshowerthought"
+        ".fun showerthought"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9459,11 +9567,12 @@
     },
     {
       "Aliases": [
+        ".fun debatetopic",
         ".fun fundebatetopic"
       ],
       "Description": "debatetopic command",
       "Usage": [
-        ".fun fundebatetopic"
+        ".fun debatetopic"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9472,11 +9581,12 @@
     },
     {
       "Aliases": [
+        ".fun motivation",
         ".fun funmotivation"
       ],
       "Description": "motivation command",
       "Usage": [
-        ".fun funmotivation"
+        ".fun motivation"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9485,11 +9595,12 @@
     },
     {
       "Aliases": [
+        ".fun dadjoke",
         ".fun fundadjoke"
       ],
       "Description": "dadjoke command",
       "Usage": [
-        ".fun fundadjoke"
+        ".fun dadjoke"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9498,11 +9609,12 @@
     },
     {
       "Aliases": [
+        ".fun pickrandom",
         ".fun funpickrandom"
       ],
       "Description": "pickrandom command",
       "Usage": [
-        ".fun funpickrandom"
+        ".fun pickrandom"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9511,11 +9623,12 @@
     },
     {
       "Aliases": [
+        ".fun rate",
         ".fun funrate"
       ],
       "Description": "rate command",
       "Usage": [
-        ".fun funrate"
+        ".fun rate"
       ],
       "Submodule": "Fun",
       "Module": "Games",
@@ -9524,11 +9637,12 @@
     },
     {
       "Aliases": [
+        ".gf badges",
         ".gf gfbadges"
       ],
       "Description": "badges command",
       "Usage": [
-        ".gf gfbadges"
+        ".gf badges"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9537,11 +9651,12 @@
     },
     {
       "Aliases": [
+        ".gf badgelist",
         ".gf gfbadgelist"
       ],
       "Description": "badgelist command",
       "Usage": [
-        ".gf gfbadgelist"
+        ".gf badgelist"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9550,11 +9665,12 @@
     },
     {
       "Aliases": [
+        ".gf badgedisplay",
         ".gf gfbadgedisplay"
       ],
       "Description": "badgedisplay command",
       "Usage": [
-        ".gf gfbadgedisplay"
+        ".gf badgedisplay"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9563,11 +9679,12 @@
     },
     {
       "Aliases": [
+        ".gf titles",
         ".gf gftitles"
       ],
       "Description": "titles command",
       "Usage": [
-        ".gf gftitles"
+        ".gf titles"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9576,11 +9693,12 @@
     },
     {
       "Aliases": [
+        ".gf titlelist",
         ".gf gftitlelist"
       ],
       "Description": "titlelist command",
       "Usage": [
-        ".gf gftitlelist"
+        ".gf titlelist"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9589,11 +9707,12 @@
     },
     {
       "Aliases": [
+        ".gf titleequip",
         ".gf gftitleequip"
       ],
       "Description": "titleequip command",
       "Usage": [
-        ".gf gftitleequip"
+        ".gf titleequip"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9602,11 +9721,12 @@
     },
     {
       "Aliases": [
+        ".gf battlepass",
         ".gf gfbattlepass"
       ],
       "Description": "battlepass command",
       "Usage": [
-        ".gf gfbattlepass"
+        ".gf battlepass"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9615,11 +9735,12 @@
     },
     {
       "Aliases": [
+        ".gf battlepassrewards",
         ".gf gfbattlepassrewards"
       ],
       "Description": "battlepassrewards command",
       "Usage": [
-        ".gf gfbattlepassrewards"
+        ".gf battlepassrewards"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9628,11 +9749,12 @@
     },
     {
       "Aliases": [
+        ".gf dailychallenges",
         ".gf gfdailychallenges"
       ],
       "Description": "dailychallenges command",
       "Usage": [
-        ".gf gfdailychallenges"
+        ".gf dailychallenges"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9641,11 +9763,12 @@
     },
     {
       "Aliases": [
+        ".gf gfstats",
         ".gf gfgfstats"
       ],
       "Description": "gfstats command",
       "Usage": [
-        ".gf gfgfstats"
+        ".gf gfstats"
       ],
       "Submodule": "Gamification",
       "Module": "Games",
@@ -9654,11 +9777,12 @@
     },
     {
       "Aliases": [
+        ".guild create",
         ".guild guildcreate"
       ],
       "Description": "create command",
       "Usage": [
-        ".guild guildcreate"
+        ".guild create"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9667,11 +9791,12 @@
     },
     {
       "Aliases": [
+        ".guild info",
         ".guild ocinfo"
       ],
       "Description": "info command",
       "Usage": [
-        ".guild ocinfo"
+        ".guild info"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9711,11 +9836,12 @@
     },
     {
       "Aliases": [
+        ".guild members",
         ".guild toolsmembers"
       ],
       "Description": "members command",
       "Usage": [
-        ".guild toolsmembers"
+        ".guild members"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9724,11 +9850,12 @@
     },
     {
       "Aliases": [
+        ".guild contribute",
         ".guild guildcontribute"
       ],
       "Description": "contribute command",
       "Usage": [
-        ".guild guildcontribute"
+        ".guild contribute"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9737,11 +9864,12 @@
     },
     {
       "Aliases": [
+        ".guild promote",
         ".guild guildpromote"
       ],
       "Description": "promote command",
       "Usage": [
-        ".guild guildpromote"
+        ".guild promote"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9750,11 +9878,12 @@
     },
     {
       "Aliases": [
+        ".guild demote",
         ".guild guilddemote"
       ],
       "Description": "demote command",
       "Usage": [
-        ".guild guilddemote"
+        ".guild demote"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9763,11 +9892,12 @@
     },
     {
       "Aliases": [
+        ".guild kick",
         ".guild rpkick"
       ],
       "Description": "kick command",
       "Usage": [
-        ".guild rpkick"
+        ".guild kick"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9776,11 +9906,12 @@
     },
     {
       "Aliases": [
+        ".guild war",
         ".guild guildwar"
       ],
       "Description": "war command",
       "Usage": [
-        ".guild guildwar"
+        ".guild war"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9789,11 +9920,12 @@
     },
     {
       "Aliases": [
+        ".guild warbattle",
         ".guild guildwarbattle"
       ],
       "Description": "warbattle command",
       "Usage": [
-        ".guild guildwarbattle"
+        ".guild warbattle"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9802,11 +9934,12 @@
     },
     {
       "Aliases": [
+        ".guild warstatus",
         ".guild guildwarstatus"
       ],
       "Description": "warstatus command",
       "Usage": [
-        ".guild guildwarstatus"
+        ".guild warstatus"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9815,11 +9948,12 @@
     },
     {
       "Aliases": [
+        ".guild leaderboard",
         ".guild guildleaderboard"
       ],
       "Description": "leaderboard command",
       "Usage": [
-        ".guild guildleaderboard"
+        ".guild leaderboard"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9828,11 +9962,12 @@
     },
     {
       "Aliases": [
+        ".guild recruit",
         ".guild guildrecruit"
       ],
       "Description": "recruit command",
       "Usage": [
-        ".guild guildrecruit"
+        ".guild recruit"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9841,11 +9976,12 @@
     },
     {
       "Aliases": [
+        ".guild setdescription",
         ".guild guildsetdescription"
       ],
       "Description": "setdescription command",
       "Usage": [
-        ".guild guildsetdescription"
+        ".guild setdescription"
       ],
       "Submodule": "Guild",
       "Module": "Games",
@@ -9924,11 +10060,12 @@
     },
     {
       "Aliases": [
+        ".house buy",
         ".house marketbuy"
       ],
       "Description": "buy command",
       "Usage": [
-        ".house marketbuy"
+        ".house buy"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -9937,11 +10074,12 @@
     },
     {
       "Aliases": [
+        ".house upgrade",
         ".house houseupgrade"
       ],
       "Description": "upgrade command",
       "Usage": [
-        ".house houseupgrade"
+        ".house upgrade"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -9950,11 +10088,12 @@
     },
     {
       "Aliases": [
+        ".house addroom",
         ".house houseaddroom"
       ],
       "Description": "addroom command",
       "Usage": [
-        ".house houseaddroom"
+        ".house addroom"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -9963,11 +10102,12 @@
     },
     {
       "Aliases": [
+        ".house buyfurniture",
         ".house housebuyfurniture"
       ],
       "Description": "buyfurniture command",
       "Usage": [
-        ".house housebuyfurniture"
+        ".house buyfurniture"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -9976,11 +10116,12 @@
     },
     {
       "Aliases": [
+        ".house decorate",
         ".house housedecorate"
       ],
       "Description": "decorate command",
       "Usage": [
-        ".house housedecorate"
+        ".house decorate"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -9989,11 +10130,12 @@
     },
     {
       "Aliases": [
+        ".house myhouse",
         ".house housemyhouse"
       ],
       "Description": "myhouse command",
       "Usage": [
-        ".house housemyhouse"
+        ".house myhouse"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -10002,11 +10144,12 @@
     },
     {
       "Aliases": [
+        ".house visit",
         ".house housevisit"
       ],
       "Description": "visit command",
       "Usage": [
-        ".house housevisit"
+        ".house visit"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -10015,11 +10158,12 @@
     },
     {
       "Aliases": [
+        ".house guestbook",
         ".house houseguestbook"
       ],
       "Description": "guestbook command",
       "Usage": [
-        ".house houseguestbook"
+        ".house guestbook"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -10028,11 +10172,12 @@
     },
     {
       "Aliases": [
+        ".house guestbooksign",
         ".house houseguestbooksign"
       ],
       "Description": "guestbooksign command",
       "Usage": [
-        ".house houseguestbooksign"
+        ".house guestbooksign"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -10041,11 +10186,12 @@
     },
     {
       "Aliases": [
+        ".house styles",
         ".house housestyles"
       ],
       "Description": "styles command",
       "Usage": [
-        ".house housestyles"
+        ".house styles"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -10054,11 +10200,12 @@
     },
     {
       "Aliases": [
+        ".house setstyle",
         ".house housesetstyle"
       ],
       "Description": "setstyle command",
       "Usage": [
-        ".house housesetstyle"
+        ".house setstyle"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -10067,11 +10214,12 @@
     },
     {
       "Aliases": [
+        ".house houseshop",
         ".house househouseshop"
       ],
       "Description": "houseshop command",
       "Usage": [
-        ".house househouseshop"
+        ".house houseshop"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -10080,11 +10228,12 @@
     },
     {
       "Aliases": [
+        ".house housevalue",
         ".house househousevalue"
       ],
       "Description": "housevalue command",
       "Usage": [
-        ".house househousevalue"
+        ".house housevalue"
       ],
       "Submodule": "Housing",
       "Module": "Games",
@@ -10150,11 +10299,12 @@
     },
     {
       "Aliases": [
+        ".idle status",
         ".idle ocstatus"
       ],
       "Description": "status command",
       "Usage": [
-        ".idle ocstatus"
+        ".idle status"
       ],
       "Submodule": "Idle",
       "Module": "Games",
@@ -10176,11 +10326,12 @@
     },
     {
       "Aliases": [
+        ".idle buy",
         ".idle marketbuy"
       ],
       "Description": "buy command",
       "Usage": [
-        ".idle marketbuy"
+        ".idle buy"
       ],
       "Submodule": "Idle",
       "Module": "Games",
@@ -10189,11 +10340,12 @@
     },
     {
       "Aliases": [
+        ".idle prestige",
         ".idle xpeprestige"
       ],
       "Description": "prestige command",
       "Usage": [
-        ".idle xpeprestige"
+        ".idle prestige"
       ],
       "Submodule": "Idle",
       "Module": "Games",
@@ -10216,11 +10368,12 @@
     },
     {
       "Aliases": [
+        ".lore bestiary",
         ".lore lorebestiary"
       ],
       "Description": "bestiary command",
       "Usage": [
-        ".lore lorebestiary"
+        ".lore bestiary"
       ],
       "Submodule": "Lore",
       "Module": "Games",
@@ -10229,11 +10382,12 @@
     },
     {
       "Aliases": [
+        ".lore lorebook",
         ".lore lorelorebook"
       ],
       "Description": "lorebook command",
       "Usage": [
-        ".lore lorelorebook"
+        ".lore lorebook"
       ],
       "Submodule": "Lore",
       "Module": "Games",
@@ -10242,11 +10396,12 @@
     },
     {
       "Aliases": [
+        ".lore loreread",
         ".lore loreloreread"
       ],
       "Description": "loreread command",
       "Usage": [
-        ".lore loreloreread"
+        ".lore loreread"
       ],
       "Submodule": "Lore",
       "Module": "Games",
@@ -10255,11 +10410,12 @@
     },
     {
       "Aliases": [
+        ".lore treasuremap",
         ".lore loretreasuremap"
       ],
       "Description": "treasuremap command",
       "Usage": [
-        ".lore loretreasuremap"
+        ".lore treasuremap"
       ],
       "Submodule": "Lore",
       "Module": "Games",
@@ -10268,11 +10424,12 @@
     },
     {
       "Aliases": [
+        ".lore treasuresolve",
         ".lore loretreasuresolve"
       ],
       "Description": "treasuresolve command",
       "Usage": [
-        ".lore loretreasuresolve"
+        ".lore treasuresolve"
       ],
       "Submodule": "Lore",
       "Module": "Games",
@@ -10281,11 +10438,12 @@
     },
     {
       "Aliases": [
+        ".lore worldevents",
         ".lore loreworldevents"
       ],
       "Description": "worldevents command",
       "Usage": [
-        ".lore loreworldevents"
+        ".lore worldevents"
       ],
       "Submodule": "Lore",
       "Module": "Games",
@@ -10294,11 +10452,12 @@
     },
     {
       "Aliases": [
+        ".lore worldhistory",
         ".lore loreworldhistory"
       ],
       "Description": "worldhistory command",
       "Usage": [
-        ".lore loreworldhistory"
+        ".lore worldhistory"
       ],
       "Submodule": "Lore",
       "Module": "Games",
@@ -10307,11 +10466,12 @@
     },
     {
       "Aliases": [
+        ".lore lorestats",
         ".lore lorelorestats"
       ],
       "Description": "lorestats command",
       "Usage": [
-        ".lore lorelorestats"
+        ".lore lorestats"
       ],
       "Submodule": "Lore",
       "Module": "Games",
@@ -10416,11 +10576,12 @@
     },
     {
       "Aliases": [
+        ".market list",
         ".market marketlist"
       ],
       "Description": "list command",
       "Usage": [
-        ".market marketlist"
+        ".market list"
       ],
       "Submodule": "Marketplace",
       "Module": "Games",
@@ -10429,11 +10590,12 @@
     },
     {
       "Aliases": [
+        ".market buy",
         ".market marketbuy"
       ],
       "Description": "buy command",
       "Usage": [
-        ".market marketbuy"
+        ".market buy"
       ],
       "Submodule": "Marketplace",
       "Module": "Games",
@@ -10442,11 +10604,12 @@
     },
     {
       "Aliases": [
+        ".market cancel",
         ".market marketcancel"
       ],
       "Description": "cancel command",
       "Usage": [
-        ".market marketcancel"
+        ".market cancel"
       ],
       "Submodule": "Marketplace",
       "Module": "Games",
@@ -10455,11 +10618,12 @@
     },
     {
       "Aliases": [
+        ".market market",
         ".market marketmarket"
       ],
       "Description": "market command",
       "Usage": [
-        ".market marketmarket"
+        ".market market"
       ],
       "Submodule": "Marketplace",
       "Module": "Games",
@@ -10468,11 +10632,12 @@
     },
     {
       "Aliases": [
+        ".market mylistings",
         ".market marketmylistings"
       ],
       "Description": "mylistings command",
       "Usage": [
-        ".market marketmylistings"
+        ".market mylistings"
       ],
       "Submodule": "Marketplace",
       "Module": "Games",
@@ -10481,11 +10646,12 @@
     },
     {
       "Aliases": [
+        ".market pricecheck",
         ".market marketpricecheck"
       ],
       "Description": "pricecheck command",
       "Usage": [
-        ".market marketpricecheck"
+        ".market pricecheck"
       ],
       "Submodule": "Marketplace",
       "Module": "Games",
@@ -10533,11 +10699,12 @@
     },
     {
       "Aliases": [
+        ".mg wordle",
         ".mg mgwordle"
       ],
       "Description": "wordle command",
       "Usage": [
-        ".mg mgwordle"
+        ".mg wordle"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10546,11 +10713,12 @@
     },
     {
       "Aliases": [
+        ".mg wordleguess",
         ".mg mgwordleguess"
       ],
       "Description": "wordleguess command",
       "Usage": [
-        ".mg mgwordleguess"
+        ".mg wordleguess"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10559,11 +10727,12 @@
     },
     {
       "Aliases": [
+        ".mg wordleend",
         ".mg mgwordleend"
       ],
       "Description": "wordleend command",
       "Usage": [
-        ".mg mgwordleend"
+        ".mg wordleend"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10586,11 +10755,12 @@
     },
     {
       "Aliases": [
+        ".mg guessnumber",
         ".mg mgguessnumber"
       ],
       "Description": "guessnumber command",
       "Usage": [
-        ".mg mgguessnumber"
+        ".mg guessnumber"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10599,11 +10769,12 @@
     },
     {
       "Aliases": [
+        ".mg gn",
         ".mg mggn"
       ],
       "Description": "gn command",
       "Usage": [
-        ".mg mggn"
+        ".mg gn"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10612,11 +10783,12 @@
     },
     {
       "Aliases": [
+        ".mg gnend",
         ".mg mggnend"
       ],
       "Description": "gnend command",
       "Usage": [
-        ".mg mggnend"
+        ".mg gnend"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10625,11 +10797,12 @@
     },
     {
       "Aliases": [
+        ".mg scramble",
         ".mg mgscramble"
       ],
       "Description": "scramble command",
       "Usage": [
-        ".mg mgscramble"
+        ".mg scramble"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10638,11 +10811,12 @@
     },
     {
       "Aliases": [
+        ".mg unscramble",
         ".mg mgunscramble"
       ],
       "Description": "unscramble command",
       "Usage": [
-        ".mg mgunscramble"
+        ".mg unscramble"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10651,11 +10825,12 @@
     },
     {
       "Aliases": [
+        ".mg scrambleend",
         ".mg mgscrambleend"
       ],
       "Description": "scrambleend command",
       "Usage": [
-        ".mg mgscrambleend"
+        ".mg scrambleend"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10664,11 +10839,12 @@
     },
     {
       "Aliases": [
+        ".mg geoquiz",
         ".mg mggeoquiz"
       ],
       "Description": "geoquiz command",
       "Usage": [
-        ".mg mggeoquiz"
+        ".mg geoquiz"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10677,11 +10853,12 @@
     },
     {
       "Aliases": [
+        ".mg geoanswer",
         ".mg mggeoanswer"
       ],
       "Description": "geoanswer command",
       "Usage": [
-        ".mg mggeoanswer"
+        ".mg geoanswer"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10690,11 +10867,12 @@
     },
     {
       "Aliases": [
+        ".mg mathrace",
         ".mg mgmathrace"
       ],
       "Description": "mathrace command",
       "Usage": [
-        ".mg mgmathrace"
+        ".mg mathrace"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10703,11 +10881,12 @@
     },
     {
       "Aliases": [
+        ".mg mathanswer",
         ".mg mgmathanswer"
       ],
       "Description": "mathanswer command",
       "Usage": [
-        ".mg mgmathanswer"
+        ".mg mathanswer"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10716,11 +10895,12 @@
     },
     {
       "Aliases": [
+        ".mg emojiquiz",
         ".mg mgemojiquiz"
       ],
       "Description": "emojiquiz command",
       "Usage": [
-        ".mg mgemojiquiz"
+        ".mg emojiquiz"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10729,11 +10909,12 @@
     },
     {
       "Aliases": [
+        ".mg emojianswer",
         ".mg mgemojianswer"
       ],
       "Description": "emojianswer command",
       "Usage": [
-        ".mg mgemojianswer"
+        ".mg emojianswer"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10742,11 +10923,12 @@
     },
     {
       "Aliases": [
+        ".mg memorygame",
         ".mg mgmemorygame"
       ],
       "Description": "memorygame command",
       "Usage": [
-        ".mg mgmemorygame"
+        ".mg memorygame"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10755,11 +10937,12 @@
     },
     {
       "Aliases": [
+        ".mg memoryanswer",
         ".mg mgmemoryanswer"
       ],
       "Description": "memoryanswer command",
       "Usage": [
-        ".mg mgmemoryanswer"
+        ".mg memoryanswer"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10768,11 +10951,12 @@
     },
     {
       "Aliases": [
+        ".mg memoryend",
         ".mg mgmemoryend"
       ],
       "Description": "memoryend command",
       "Usage": [
-        ".mg mgmemoryend"
+        ".mg memoryend"
       ],
       "Submodule": "Mini Games",
       "Module": "Games",
@@ -10908,11 +11092,12 @@
     },
     {
       "Aliases": [
+        ".pet petadopt",
         ".pet petpetadopt"
       ],
       "Description": "petadopt command",
       "Usage": [
-        ".pet petpetadopt"
+        ".pet petadopt"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -10921,11 +11106,12 @@
     },
     {
       "Aliases": [
+        ".pet petfeed",
         ".pet petpetfeed"
       ],
       "Description": "petfeed command",
       "Usage": [
-        ".pet petpetfeed"
+        ".pet petfeed"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -10934,11 +11120,12 @@
     },
     {
       "Aliases": [
+        ".pet petplay",
         ".pet petpetplay"
       ],
       "Description": "petplay command",
       "Usage": [
-        ".pet petpetplay"
+        ".pet petplay"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -10947,11 +11134,12 @@
     },
     {
       "Aliases": [
+        ".pet petrest",
         ".pet petpetrest"
       ],
       "Description": "petrest command",
       "Usage": [
-        ".pet petpetrest"
+        ".pet petrest"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -10960,11 +11148,12 @@
     },
     {
       "Aliases": [
+        ".pet pet",
         ".pet petpet"
       ],
       "Description": "pet command",
       "Usage": [
-        ".pet petpet"
+        ".pet pet"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -10973,11 +11162,12 @@
     },
     {
       "Aliases": [
+        ".pet petlist",
         ".pet petpetlist"
       ],
       "Description": "petlist command",
       "Usage": [
-        ".pet petpetlist"
+        ".pet petlist"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -10986,11 +11176,12 @@
     },
     {
       "Aliases": [
+        ".pet petrename",
         ".pet petpetrename"
       ],
       "Description": "petrename command",
       "Usage": [
-        ".pet petpetrename"
+        ".pet petrename"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -10999,11 +11190,12 @@
     },
     {
       "Aliases": [
+        ".pet petrelease",
         ".pet petpetrelease"
       ],
       "Description": "petrelease command",
       "Usage": [
-        ".pet petpetrelease"
+        ".pet petrelease"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -11012,11 +11204,12 @@
     },
     {
       "Aliases": [
+        ".pet petadventure",
         ".pet petpetadventure"
       ],
       "Description": "petadventure command",
       "Usage": [
-        ".pet petpetadventure"
+        ".pet petadventure"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -11025,11 +11218,12 @@
     },
     {
       "Aliases": [
+        ".pet petbattle",
         ".pet petpetbattle"
       ],
       "Description": "petbattle command",
       "Usage": [
-        ".pet petpetbattle"
+        ".pet petbattle"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -11038,11 +11232,12 @@
     },
     {
       "Aliases": [
+        ".pet petspecies",
         ".pet petpetspecies"
       ],
       "Description": "petspecies command",
       "Usage": [
-        ".pet petpetspecies"
+        ".pet petspecies"
       ],
       "Submodule": "Pets",
       "Module": "Games",
@@ -11064,11 +11259,12 @@
     },
     {
       "Aliases": [
+        ".pokemon list",
         ".pokemon marketlist"
       ],
       "Description": "list command",
       "Usage": [
-        ".pokemon marketlist"
+        ".pokemon list"
       ],
       "Submodule": "Pokemon",
       "Module": "Games",
@@ -11077,11 +11273,12 @@
     },
     {
       "Aliases": [
+        ".pokemon info",
         ".pokemon ocinfo"
       ],
       "Description": "info command",
       "Usage": [
-        ".pokemon ocinfo"
+        ".pokemon info"
       ],
       "Submodule": "Pokemon",
       "Module": "Games",
@@ -11116,11 +11313,12 @@
     },
     {
       "Aliases": [
+        ".pokemon attack",
         ".pokemon dnattack"
       ],
       "Description": "attack command",
       "Usage": [
-        ".pokemon dnattack"
+        ".pokemon attack"
       ],
       "Submodule": "Pokemon",
       "Module": "Games",
@@ -11168,11 +11366,12 @@
     },
     {
       "Aliases": [
+        ".puzzle leaderboard",
         ".puzzle guildleaderboard"
       ],
       "Description": "leaderboard command",
       "Usage": [
-        ".puzzle guildleaderboard"
+        ".puzzle leaderboard"
       ],
       "Submodule": "Puzzle",
       "Module": "Games",
@@ -11181,11 +11380,12 @@
     },
     {
       "Aliases": [
+        ".pvp duel",
         ".pvp pvpduel"
       ],
       "Description": "duel command",
       "Usage": [
-        ".pvp pvpduel"
+        ".pvp duel"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11194,11 +11394,12 @@
     },
     {
       "Aliases": [
+        ".pvp pvpstats",
         ".pvp pvppvpstats"
       ],
       "Description": "pvpstats command",
       "Usage": [
-        ".pvp pvppvpstats"
+        ".pvp pvpstats"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11207,11 +11408,12 @@
     },
     {
       "Aliases": [
+        ".pvp pvpleaderboard",
         ".pvp pvppvpleaderboard"
       ],
       "Description": "pvpleaderboard command",
       "Usage": [
-        ".pvp pvppvpleaderboard"
+        ".pvp pvpleaderboard"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11220,11 +11422,12 @@
     },
     {
       "Aliases": [
+        ".pvp tournamentcreate",
         ".pvp pvptournamentcreate"
       ],
       "Description": "tournamentcreate command",
       "Usage": [
-        ".pvp pvptournamentcreate"
+        ".pvp tournamentcreate"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11235,11 +11438,12 @@
     },
     {
       "Aliases": [
+        ".pvp tournamentjoin",
         ".pvp pvptournamentjoin"
       ],
       "Description": "tournamentjoin command",
       "Usage": [
-        ".pvp pvptournamentjoin"
+        ".pvp tournamentjoin"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11248,11 +11452,12 @@
     },
     {
       "Aliases": [
+        ".pvp tournamentstart",
         ".pvp pvptournamentstart"
       ],
       "Description": "tournamentstart command",
       "Usage": [
-        ".pvp pvptournamentstart"
+        ".pvp tournamentstart"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11263,11 +11468,12 @@
     },
     {
       "Aliases": [
+        ".pvp tournamentbracket",
         ".pvp pvptournamentbracket"
       ],
       "Description": "tournamentbracket command",
       "Usage": [
-        ".pvp pvptournamentbracket"
+        ".pvp tournamentbracket"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11276,11 +11482,12 @@
     },
     {
       "Aliases": [
+        ".pvp tournamentinfo",
         ".pvp pvptournamentinfo"
       ],
       "Description": "tournamentinfo command",
       "Usage": [
-        ".pvp pvptournamentinfo"
+        ".pvp tournamentinfo"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11289,11 +11496,12 @@
     },
     {
       "Aliases": [
+        ".pvp randomteams",
         ".pvp pvprandomteams"
       ],
       "Description": "randomteams command",
       "Usage": [
-        ".pvp pvprandomteams"
+        ".pvp randomteams"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11302,11 +11510,12 @@
     },
     {
       "Aliases": [
+        ".pvp balancedteams",
         ".pvp pvpbalancedteams"
       ],
       "Description": "balancedteams command",
       "Usage": [
-        ".pvp pvpbalancedteams"
+        ".pvp balancedteams"
       ],
       "Submodule": "PvP",
       "Module": "Games",
@@ -11480,11 +11689,12 @@
     },
     {
       "Aliases": [
+        ".race upgrade",
         ".race houseupgrade"
       ],
       "Description": "upgrade command",
       "Usage": [
-        ".race houseupgrade"
+        ".race upgrade"
       ],
       "Submodule": "Racing",
       "Module": "Games",
@@ -11493,11 +11703,12 @@
     },
     {
       "Aliases": [
+        ".season current",
         ".season seasoncurrent"
       ],
       "Description": "current command",
       "Usage": [
-        ".season seasoncurrent"
+        ".season current"
       ],
       "Submodule": "Seasonal",
       "Module": "Games",
@@ -11506,11 +11717,12 @@
     },
     {
       "Aliases": [
+        ".season calendar",
         ".season seasoncalendar"
       ],
       "Description": "calendar command",
       "Usage": [
-        ".season seasoncalendar"
+        ".season calendar"
       ],
       "Submodule": "Seasonal",
       "Module": "Games",
@@ -11519,11 +11731,12 @@
     },
     {
       "Aliases": [
+        ".season boss",
         ".season seasonboss"
       ],
       "Description": "boss command",
       "Usage": [
-        ".season seasonboss"
+        ".season boss"
       ],
       "Submodule": "Seasonal",
       "Module": "Games",
@@ -11532,11 +11745,12 @@
     },
     {
       "Aliases": [
+        ".season advent",
         ".season seasonadvent"
       ],
       "Description": "advent command",
       "Usage": [
-        ".season seasonadvent"
+        ".season advent"
       ],
       "Submodule": "Seasonal",
       "Module": "Games",
@@ -11545,11 +11759,12 @@
     },
     {
       "Aliases": [
+        ".season egghunt",
         ".season seasonegghunt"
       ],
       "Description": "egghunt command",
       "Usage": [
-        ".season seasonegghunt"
+        ".season egghunt"
       ],
       "Submodule": "Seasonal",
       "Module": "Games",
@@ -11558,11 +11773,12 @@
     },
     {
       "Aliases": [
+        ".season seasonalshop",
         ".season seasonseasonalshop"
       ],
       "Description": "seasonalshop command",
       "Usage": [
-        ".season seasonseasonalshop"
+        ".season seasonalshop"
       ],
       "Submodule": "Seasonal",
       "Module": "Games",
@@ -11669,11 +11885,12 @@
     },
     {
       "Aliases": [
+        ".quest status",
         ".quest ocstatus"
       ],
       "Description": "status command",
       "Usage": [
-        ".quest ocstatus"
+        ".quest status"
       ],
       "Submodule": "Quest",
       "Module": "Games",
@@ -11737,11 +11954,12 @@
     },
     {
       "Aliases": [
+        ".td upgrade",
         ".td houseupgrade"
       ],
       "Description": "upgrade command",
       "Usage": [
-        ".td houseupgrade"
+        ".td upgrade"
       ],
       "Submodule": "TowerDefense",
       "Module": "Games",
@@ -11763,11 +11981,12 @@
     },
     {
       "Aliases": [
+        ".td status",
         ".td ocstatus"
       ],
       "Description": "status command",
       "Usage": [
-        ".td ocstatus"
+        ".td status"
       ],
       "Submodule": "TowerDefense",
       "Module": "Games",
@@ -11881,11 +12100,12 @@
     },
     {
       "Aliases": [
+        ".triviatour leaderboard",
         ".triviatour guildleaderboard"
       ],
       "Description": "leaderboard command",
       "Usage": [
-        ".triviatour guildleaderboard"
+        ".triviatour leaderboard"
       ],
       "Submodule": "TriviaTournament",
       "Module": "Games",
@@ -11894,11 +12114,12 @@
     },
     {
       "Aliases": [
+        ".vt soundadd",
         ".vt vtsoundadd"
       ],
       "Description": "soundadd command",
       "Usage": [
-        ".vt vtsoundadd"
+        ".vt soundadd"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -11909,11 +12130,12 @@
     },
     {
       "Aliases": [
+        ".vt sounds",
         ".vt vtsounds"
       ],
       "Description": "sounds command",
       "Usage": [
-        ".vt vtsounds"
+        ".vt sounds"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -11922,11 +12144,12 @@
     },
     {
       "Aliases": [
+        ".vt soundremove",
         ".vt vtsoundremove"
       ],
       "Description": "soundremove command",
       "Usage": [
-        ".vt vtsoundremove"
+        ".vt soundremove"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -11937,11 +12160,12 @@
     },
     {
       "Aliases": [
+        ".vt tempvoicesetup",
         ".vt vttempvoicesetup"
       ],
       "Description": "tempvoicesetup command",
       "Usage": [
-        ".vt vttempvoicesetup"
+        ".vt tempvoicesetup"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -11952,11 +12176,12 @@
     },
     {
       "Aliases": [
+        ".vt voiceleaderboard",
         ".vt vtvoiceleaderboard"
       ],
       "Description": "voiceleaderboard command",
       "Usage": [
-        ".vt vtvoiceleaderboard"
+        ".vt voiceleaderboard"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -11965,11 +12190,12 @@
     },
     {
       "Aliases": [
+        ".vt myvoice",
         ".vt vtmyvoice"
       ],
       "Description": "myvoice command",
       "Usage": [
-        ".vt vtmyvoice"
+        ".vt myvoice"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -11978,11 +12204,12 @@
     },
     {
       "Aliases": [
+        ".vt points",
         ".vt vtpoints"
       ],
       "Description": "points command",
       "Usage": [
-        ".vt vtpoints"
+        ".vt points"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -11991,11 +12218,12 @@
     },
     {
       "Aliases": [
+        ".vt pointrewards",
         ".vt vtpointrewards"
       ],
       "Description": "pointrewards command",
       "Usage": [
-        ".vt vtpointrewards"
+        ".vt pointrewards"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12004,11 +12232,12 @@
     },
     {
       "Aliases": [
+        ".vt predict",
         ".vt vtpredict"
       ],
       "Description": "predict command",
       "Usage": [
-        ".vt vtpredict"
+        ".vt predict"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12019,11 +12248,12 @@
     },
     {
       "Aliases": [
+        ".vt bet",
         ".vt vtbet"
       ],
       "Description": "bet command",
       "Usage": [
-        ".vt vtbet"
+        ".vt bet"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12032,11 +12262,12 @@
     },
     {
       "Aliases": [
+        ".vt predictresolve",
         ".vt vtpredictresolve"
       ],
       "Description": "predictresolve command",
       "Usage": [
-        ".vt vtpredictresolve"
+        ".vt predictresolve"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12047,11 +12278,12 @@
     },
     {
       "Aliases": [
+        ".vt predictstatus",
         ".vt vtpredictstatus"
       ],
       "Description": "predictstatus command",
       "Usage": [
-        ".vt vtpredictstatus"
+        ".vt predictstatus"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12060,11 +12292,12 @@
     },
     {
       "Aliases": [
+        ".vt fanartsubmit",
         ".vt vtfanartsubmit"
       ],
       "Description": "fanartsubmit command",
       "Usage": [
-        ".vt vtfanartsubmit"
+        ".vt fanartsubmit"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12073,11 +12306,12 @@
     },
     {
       "Aliases": [
+        ".vt fanartgallery",
         ".vt vtfanartgallery"
       ],
       "Description": "fanartgallery command",
       "Usage": [
-        ".vt vtfanartgallery"
+        ".vt fanartgallery"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12086,11 +12320,12 @@
     },
     {
       "Aliases": [
+        ".vt fanartvote",
         ".vt vtfanartvote"
       ],
       "Description": "fanartvote command",
       "Usage": [
-        ".vt vtfanartvote"
+        ".vt fanartvote"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12099,11 +12334,12 @@
     },
     {
       "Aliases": [
+        ".vt feedadd",
         ".vt vtfeedadd"
       ],
       "Description": "feedadd command",
       "Usage": [
-        ".vt vtfeedadd"
+        ".vt feedadd"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12114,11 +12350,12 @@
     },
     {
       "Aliases": [
+        ".vt feeds",
         ".vt vtfeeds"
       ],
       "Description": "feeds command",
       "Usage": [
-        ".vt vtfeeds"
+        ".vt feeds"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12144,11 +12381,12 @@
     },
     {
       "Aliases": [
+        ".vt monitoradd",
         ".vt vtmonitoradd"
       ],
       "Description": "monitoradd command",
       "Usage": [
-        ".vt vtmonitoradd"
+        ".vt monitoradd"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12159,11 +12397,12 @@
     },
     {
       "Aliases": [
+        ".vt monitors",
         ".vt vtmonitors"
       ],
       "Description": "monitors command",
       "Usage": [
-        ".vt vtmonitors"
+        ".vt monitors"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -12172,11 +12411,12 @@
     },
     {
       "Aliases": [
+        ".vt monitorremove",
         ".vt vtmonitorremove"
       ],
       "Description": "monitorremove command",
       "Usage": [
-        ".vt vtmonitorremove"
+        ".vt monitorremove"
       ],
       "Submodule": "Voice Tools",
       "Module": "Games",
@@ -14762,11 +15002,12 @@
     },
     {
       "Aliases": [
+        ".feed",
         ".rpfeed"
       ],
       "Description": "feed command",
       "Usage": [
-        ".rpfeed"
+        ".feed"
       ],
       "Submodule": "FeedCommands",
       "Module": "Searches",
@@ -15914,11 +16155,12 @@
     },
     {
       "Aliases": [
+        ".color",
         ".toolscolor"
       ],
       "Description": "color command",
       "Usage": [
-        ".toolscolor"
+        ".color"
       ],
       "Submodule": "UtilityCommands",
       "Module": "Searches",
@@ -16458,11 +16700,12 @@
     },
     {
       "Aliases": [
+        ".marriage accept",
         ".marriage achievementsaccept"
       ],
       "Description": "accept command",
       "Usage": [
-        ".marriage achievementsaccept"
+        ".marriage accept"
       ],
       "Submodule": "Marriage",
       "Module": "Social",
@@ -16642,11 +16885,12 @@
     },
     {
       "Aliases": [
+        ".rp18 enable",
         ".rp18 embedfixenable"
       ],
       "Description": "enable command",
       "Usage": [
-        ".rp18 embedfixenable"
+        ".rp18 enable"
       ],
       "Submodule": "Roleplay 18+",
       "Module": "Social",
@@ -16657,11 +16901,12 @@
     },
     {
       "Aliases": [
+        ".rp18 disable",
         ".rp18 embedfixdisable"
       ],
       "Description": "disable command",
       "Usage": [
-        ".rp18 embedfixdisable"
+        ".rp18 disable"
       ],
       "Submodule": "Roleplay 18+",
       "Module": "Social",
@@ -16856,11 +17101,12 @@
     },
     {
       "Aliases": [
+        ".rp18 submit",
         ".rp18 achievementssubmit"
       ],
       "Description": "submit command",
       "Usage": [
-        ".rp18 achievementssubmit"
+        ".rp18 submit"
       ],
       "Submodule": "Roleplay 18+",
       "Module": "Social",
@@ -16921,11 +17167,12 @@
     },
     {
       "Aliases": [
+        ".profile profile",
         ".profile rpprofile"
       ],
       "Description": "profile command",
       "Usage": [
-        ".profile rpprofile"
+        ".profile profile"
       ],
       "Submodule": "Profile",
       "Module": "Social",
@@ -17005,11 +17252,12 @@
     },
     {
       "Aliases": [
+        ".rp poke",
         ".rp achievementspoke"
       ],
       "Description": "poke command",
       "Usage": [
-        ".rp achievementspoke"
+        ".rp poke"
       ],
       "Submodule": "Roleplay",
       "Module": "Social",
@@ -17434,11 +17682,12 @@
     },
     {
       "Aliases": [
+        ".rp feed",
         ".rp rpfeed"
       ],
       "Description": "feed command",
       "Usage": [
-        ".rp rpfeed"
+        ".rp feed"
       ],
       "Submodule": "Roleplay",
       "Module": "Social",
@@ -17722,11 +17971,12 @@
     },
     {
       "Aliases": [
+        ".rp kick",
         ".rp rpkick"
       ],
       "Description": "kick command",
       "Usage": [
-        ".rp rpkick"
+        ".rp kick"
       ],
       "Submodule": "Roleplay",
       "Module": "Social",
@@ -18324,11 +18574,12 @@
     },
     {
       "Aliases": [
+        ".analytics topchannels",
         ".analytics analyticstopchannels"
       ],
       "Description": "topchannels command",
       "Usage": [
-        ".analytics analyticstopchannels"
+        ".analytics topchannels"
       ],
       "Submodule": "Analytics",
       "Module": "Utility",
@@ -18337,11 +18588,12 @@
     },
     {
       "Aliases": [
+        ".analytics topposters",
         ".analytics analyticstopposters"
       ],
       "Description": "topposters command",
       "Usage": [
-        ".analytics analyticstopposters"
+        ".analytics topposters"
       ],
       "Submodule": "Analytics",
       "Module": "Utility",
@@ -18350,11 +18602,12 @@
     },
     {
       "Aliases": [
+        ".analytics peakhours",
         ".analytics analyticspeakhours"
       ],
       "Description": "peakhours command",
       "Usage": [
-        ".analytics analyticspeakhours"
+        ".analytics peakhours"
       ],
       "Submodule": "Analytics",
       "Module": "Utility",
@@ -18376,11 +18629,12 @@
     },
     {
       "Aliases": [
+        ".analytics growth",
         ".analytics analyticsgrowth"
       ],
       "Description": "growth command",
       "Usage": [
-        ".analytics analyticsgrowth"
+        ".analytics growth"
       ],
       "Submodule": "Analytics",
       "Module": "Utility",
@@ -18389,11 +18643,12 @@
     },
     {
       "Aliases": [
+        ".analytics topwords",
         ".analytics analyticstopwords"
       ],
       "Description": "topwords command",
       "Usage": [
-        ".analytics analyticstopwords"
+        ".analytics topwords"
       ],
       "Submodule": "Analytics",
       "Module": "Utility",
@@ -18402,11 +18657,12 @@
     },
     {
       "Aliases": [
+        ".analytics serverreport",
         ".analytics analyticsserverreport"
       ],
       "Description": "serverreport command",
       "Usage": [
-        ".analytics analyticsserverreport"
+        ".analytics serverreport"
       ],
       "Submodule": "Analytics",
       "Module": "Utility",
@@ -18730,11 +18986,12 @@
     },
     {
       "Aliases": [
+        ".customize theme",
         ".customize customtheme"
       ],
       "Description": "theme command",
       "Usage": [
-        ".customize customtheme"
+        ".customize theme"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18745,11 +19002,12 @@
     },
     {
       "Aliases": [
+        ".customize currencyname",
         ".customize customcurrencyname"
       ],
       "Description": "currencyname command",
       "Usage": [
-        ".customize customcurrencyname"
+        ".customize currencyname"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18760,11 +19018,12 @@
     },
     {
       "Aliases": [
+        ".customize xpname",
         ".customize customxpname"
       ],
       "Description": "xpname command",
       "Usage": [
-        ".customize customxpname"
+        ".customize xpname"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18791,11 +19050,12 @@
     },
     {
       "Aliases": [
+        ".customize levelupmsg",
         ".customize customlevelupmsg"
       ],
       "Description": "levelupmsg command",
       "Usage": [
-        ".customize customlevelupmsg"
+        ".customize levelupmsg"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18806,11 +19066,12 @@
     },
     {
       "Aliases": [
+        ".customize welcomemsg",
         ".customize customwelcomemsg"
       ],
       "Description": "welcomemsg command",
       "Usage": [
-        ".customize customwelcomemsg"
+        ".customize welcomemsg"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18821,11 +19082,12 @@
     },
     {
       "Aliases": [
+        ".customize saveembed",
         ".customize customsaveembed"
       ],
       "Description": "saveembed command",
       "Usage": [
-        ".customize customsaveembed"
+        ".customize saveembed"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18836,11 +19098,12 @@
     },
     {
       "Aliases": [
+        ".customize sendembed",
         ".customize customsendembed"
       ],
       "Description": "sendembed command",
       "Usage": [
-        ".customize customsendembed"
+        ".customize sendembed"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18849,11 +19112,12 @@
     },
     {
       "Aliases": [
+        ".customize embeds",
         ".customize customembeds"
       ],
       "Description": "embeds command",
       "Usage": [
-        ".customize customembeds"
+        ".customize embeds"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18862,11 +19126,12 @@
     },
     {
       "Aliases": [
+        ".customize deleteembed",
         ".customize customdeleteembed"
       ],
       "Description": "deleteembed command",
       "Usage": [
-        ".customize customdeleteembed"
+        ".customize deleteembed"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18877,11 +19142,12 @@
     },
     {
       "Aliases": [
+        ".customize addcmd",
         ".customize customaddcmd"
       ],
       "Description": "addcmd command",
       "Usage": [
-        ".customize customaddcmd"
+        ".customize addcmd"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18892,11 +19158,12 @@
     },
     {
       "Aliases": [
+        ".customize cmdlist",
         ".customize customcmdlist"
       ],
       "Description": "cmdlist command",
       "Usage": [
-        ".customize customcmdlist"
+        ".customize cmdlist"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18905,11 +19172,12 @@
     },
     {
       "Aliases": [
+        ".customize delcmd",
         ".customize customdelcmd"
       ],
       "Description": "delcmd command",
       "Usage": [
-        ".customize customdelcmd"
+        ".customize delcmd"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -18920,11 +19188,12 @@
     },
     {
       "Aliases": [
+        ".customize settings",
         ".customize customsettings"
       ],
       "Description": "settings command",
       "Usage": [
-        ".customize customsettings"
+        ".customize settings"
       ],
       "Submodule": "Customization",
       "Module": "Utility",
@@ -19291,11 +19560,12 @@
     },
     {
       "Aliases": [
+        ".dev featureflag",
         ".dev devfeatureflag"
       ],
       "Description": "featureflag command",
       "Usage": [
-        ".dev devfeatureflag"
+        ".dev featureflag"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19306,11 +19576,12 @@
     },
     {
       "Aliases": [
+        ".dev featureflags",
         ".dev devfeatureflags"
       ],
       "Description": "featureflags command",
       "Usage": [
-        ".dev devfeatureflags"
+        ".dev featureflags"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19337,11 +19608,12 @@
     },
     {
       "Aliases": [
+        ".dev webhooks",
         ".dev devwebhooks"
       ],
       "Description": "webhooks command",
       "Usage": [
-        ".dev devwebhooks"
+        ".dev webhooks"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19352,11 +19624,12 @@
     },
     {
       "Aliases": [
+        ".dev webhookdelete",
         ".dev devwebhookdelete"
       ],
       "Description": "webhookdelete command",
       "Usage": [
-        ".dev devwebhookdelete"
+        ".dev webhookdelete"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19367,11 +19640,12 @@
     },
     {
       "Aliases": [
+        ".dev cmdstats",
         ".dev devcmdstats"
       ],
       "Description": "cmdstats command",
       "Usage": [
-        ".dev devcmdstats"
+        ".dev cmdstats"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19382,11 +19656,12 @@
     },
     {
       "Aliases": [
+        ".dev xpmult",
         ".dev devxpmult"
       ],
       "Description": "xpmult command",
       "Usage": [
-        ".dev devxpmult"
+        ".dev xpmult"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19397,11 +19672,12 @@
     },
     {
       "Aliases": [
+        ".dev xpmultchannel",
         ".dev devxpmultchannel"
       ],
       "Description": "xpmultchannel command",
       "Usage": [
-        ".dev devxpmultchannel"
+        ".dev xpmultchannel"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19412,11 +19688,12 @@
     },
     {
       "Aliases": [
+        ".dev xpmultrole",
         ".dev devxpmultrole"
       ],
       "Description": "xpmultrole command",
       "Usage": [
-        ".dev devxpmultrole"
+        ".dev xpmultrole"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19427,11 +19704,12 @@
     },
     {
       "Aliases": [
+        ".dev xpmults",
         ".dev devxpmults"
       ],
       "Description": "xpmults command",
       "Usage": [
-        ".dev devxpmults"
+        ".dev xpmults"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19440,11 +19718,12 @@
     },
     {
       "Aliases": [
+        ".dev xpchallenge",
         ".dev xpexpchallenge"
       ],
       "Description": "xpchallenge command",
       "Usage": [
-        ".dev xpexpchallenge"
+        ".dev xpchallenge"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19455,11 +19734,12 @@
     },
     {
       "Aliases": [
+        ".dev xpchallenges",
         ".dev devxpchallenges"
       ],
       "Description": "xpchallenges command",
       "Usage": [
-        ".dev devxpchallenges"
+        ".dev xpchallenges"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19468,11 +19748,12 @@
     },
     {
       "Aliases": [
+        ".dev changelog",
         ".dev devchangelog"
       ],
       "Description": "changelog command",
       "Usage": [
-        ".dev devchangelog"
+        ".dev changelog"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19481,11 +19762,12 @@
     },
     {
       "Aliases": [
+        ".dev botinfo",
         ".dev devbotinfo"
       ],
       "Description": "botinfo command",
       "Usage": [
-        ".dev devbotinfo"
+        ".dev botinfo"
       ],
       "Submodule": "Developer",
       "Module": "Utility",
@@ -19572,11 +19854,12 @@
     },
     {
       "Aliases": [
+        ".embedfix enable",
         ".embedfix embedfixenable"
       ],
       "Description": "enable command",
       "Usage": [
-        ".embedfix embedfixenable"
+        ".embedfix enable"
       ],
       "Submodule": "Embed Fix",
       "Module": "Utility",
@@ -19587,11 +19870,12 @@
     },
     {
       "Aliases": [
+        ".embedfix disable",
         ".embedfix embedfixdisable"
       ],
       "Description": "disable command",
       "Usage": [
-        ".embedfix embedfixdisable"
+        ".embedfix disable"
       ],
       "Submodule": "Embed Fix",
       "Module": "Utility",
@@ -19602,11 +19886,12 @@
     },
     {
       "Aliases": [
+        ".embedfix toggle",
         ".embedfix embedfixtoggle"
       ],
       "Description": "toggle command",
       "Usage": [
-        ".embedfix embedfixtoggle"
+        ".embedfix toggle"
       ],
       "Submodule": "Embed Fix",
       "Module": "Utility",
@@ -19617,11 +19902,12 @@
     },
     {
       "Aliases": [
+        ".embedfix deleteoriginal",
         ".embedfix embedfixdeleteoriginal"
       ],
       "Description": "deleteoriginal command",
       "Usage": [
-        ".embedfix embedfixdeleteoriginal"
+        ".embedfix deleteoriginal"
       ],
       "Submodule": "Embed Fix",
       "Module": "Utility",
@@ -19632,11 +19918,12 @@
     },
     {
       "Aliases": [
+        ".embedfix status",
         ".embedfix ocstatus"
       ],
       "Description": "status command",
       "Usage": [
-        ".embedfix ocstatus"
+        ".embedfix status"
       ],
       "Submodule": "Embed Fix",
       "Module": "Utility",
@@ -19645,11 +19932,12 @@
     },
     {
       "Aliases": [
+        ".embedfix fix",
         ".embedfix embedfixfix"
       ],
       "Description": "fix command",
       "Usage": [
-        ".embedfix embedfixfix"
+        ".embedfix fix"
       ],
       "Submodule": "Embed Fix",
       "Module": "Utility",
@@ -19684,11 +19972,12 @@
     },
     {
       "Aliases": [
+        ".event eventinfo",
         ".event eventeventinfo"
       ],
       "Description": "eventinfo command",
       "Usage": [
-        ".event eventeventinfo"
+        ".event eventinfo"
       ],
       "Submodule": "Events",
       "Module": "Utility",
@@ -19723,11 +20012,12 @@
     },
     {
       "Aliases": [
+        ".event movienight",
         ".event eventmovienight"
       ],
       "Description": "movienight command",
       "Usage": [
-        ".event eventmovienight"
+        ".event movienight"
       ],
       "Submodule": "Events",
       "Module": "Utility",
@@ -19736,11 +20026,12 @@
     },
     {
       "Aliases": [
+        ".event movieadd",
         ".event eventmovieadd"
       ],
       "Description": "movieadd command",
       "Usage": [
-        ".event eventmovieadd"
+        ".event movieadd"
       ],
       "Submodule": "Events",
       "Module": "Utility",
@@ -19749,11 +20040,12 @@
     },
     {
       "Aliases": [
+        ".event movievote",
         ".event eventmovievote"
       ],
       "Description": "movievote command",
       "Usage": [
-        ".event eventmovievote"
+        ".event movievote"
       ],
       "Submodule": "Events",
       "Module": "Utility",
@@ -19762,11 +20054,12 @@
     },
     {
       "Aliases": [
+        ".event movieresults",
         ".event eventmovieresults"
       ],
       "Description": "movieresults command",
       "Usage": [
-        ".event eventmovieresults"
+        ".event movieresults"
       ],
       "Submodule": "Events",
       "Module": "Utility",
@@ -19775,11 +20068,12 @@
     },
     {
       "Aliases": [
+        ".event moviepick",
         ".event eventmoviepick"
       ],
       "Description": "moviepick command",
       "Usage": [
-        ".event eventmoviepick"
+        ".event moviepick"
       ],
       "Submodule": "Events",
       "Module": "Utility",
@@ -19788,11 +20082,12 @@
     },
     {
       "Aliases": [
+        ".event gamenight",
         ".event eventgamenight"
       ],
       "Description": "gamenight command",
       "Usage": [
-        ".event eventgamenight"
+        ".event gamenight"
       ],
       "Submodule": "Events",
       "Module": "Utility",
@@ -19801,11 +20096,12 @@
     },
     {
       "Aliases": [
+        ".event teams",
         ".event eventteams"
       ],
       "Description": "teams command",
       "Usage": [
-        ".event eventteams"
+        ".event teams"
       ],
       "Submodule": "Events",
       "Module": "Utility",
@@ -19814,11 +20110,12 @@
     },
     {
       "Aliases": [
+        ".event studysession",
         ".event eventstudysession"
       ],
       "Description": "studysession command",
       "Usage": [
-        ".event eventstudysession"
+        ".event studysession"
       ],
       "Submodule": "Events",
       "Module": "Utility",
@@ -20561,11 +20858,12 @@
     },
     {
       "Aliases": [
+        ".migrate importdyno",
         ".migrate migrateimportdyno"
       ],
       "Description": "importdyno command",
       "Usage": [
-        ".migrate migrateimportdyno"
+        ".migrate importdyno"
       ],
       "Submodule": "Migration",
       "Module": "Utility",
@@ -20576,11 +20874,12 @@
     },
     {
       "Aliases": [
+        ".migrate importcarl",
         ".migrate migrateimportcarl"
       ],
       "Description": "importcarl command",
       "Usage": [
-        ".migrate migrateimportcarl"
+        ".migrate importcarl"
       ],
       "Submodule": "Migration",
       "Module": "Utility",
@@ -20591,11 +20890,12 @@
     },
     {
       "Aliases": [
+        ".migrate importcsv",
         ".migrate migrateimportcsv"
       ],
       "Description": "importcsv command",
       "Usage": [
-        ".migrate migrateimportcsv"
+        ".migrate importcsv"
       ],
       "Submodule": "Migration",
       "Module": "Utility",
@@ -20606,11 +20906,12 @@
     },
     {
       "Aliases": [
+        ".migrate exportlevels",
         ".migrate migrateexportlevels"
       ],
       "Description": "exportlevels command",
       "Usage": [
-        ".migrate migrateexportlevels"
+        ".migrate exportlevels"
       ],
       "Submodule": "Migration",
       "Module": "Utility",
@@ -20621,11 +20922,12 @@
     },
     {
       "Aliases": [
+        ".migrate preview",
         ".migrate migratepreview"
       ],
       "Description": "preview command",
       "Usage": [
-        ".migrate migratepreview"
+        ".migrate preview"
       ],
       "Submodule": "Migration",
       "Module": "Utility",
@@ -20685,11 +20987,12 @@
     },
     {
       "Aliases": [
+        ".oc ask",
         ".oc ocask"
       ],
       "Description": "ask command",
       "Usage": [
-        ".oc ocask"
+        ".oc ask"
       ],
       "Submodule": "OpenClaw AI",
       "Module": "Utility",
@@ -20698,11 +21001,12 @@
     },
     {
       "Aliases": [
+        ".oc reset",
         ".oc ocreset"
       ],
       "Description": "reset command",
       "Usage": [
-        ".oc ocreset"
+        ".oc reset"
       ],
       "Submodule": "OpenClaw AI",
       "Module": "Utility",
@@ -20711,11 +21015,12 @@
     },
     {
       "Aliases": [
+        ".oc status",
         ".oc ocstatus"
       ],
       "Description": "status command",
       "Usage": [
-        ".oc ocstatus"
+        ".oc status"
       ],
       "Submodule": "OpenClaw AI",
       "Module": "Utility",
@@ -20724,11 +21029,12 @@
     },
     {
       "Aliases": [
+        ".oc quick",
         ".oc ocquick"
       ],
       "Description": "quick command",
       "Usage": [
-        ".oc ocquick"
+        ".oc quick"
       ],
       "Submodule": "OpenClaw AI",
       "Module": "Utility",
@@ -20737,11 +21043,12 @@
     },
     {
       "Aliases": [
+        ".oc info",
         ".oc ocinfo"
       ],
       "Description": "info command",
       "Usage": [
-        ".oc ocinfo"
+        ".oc info"
       ],
       "Submodule": "OpenClaw AI",
       "Module": "Utility",
@@ -20750,11 +21057,12 @@
     },
     {
       "Aliases": [
+        ".santi schedule",
         ".santi ocschedule"
       ],
       "Description": "schedule command",
       "Usage": [
-        ".santi ocschedule"
+        ".santi schedule"
       ],
       "Submodule": "Proactive Santi",
       "Module": "Utility",
@@ -20765,11 +21073,12 @@
     },
     {
       "Aliases": [
+        ".santi schedulecustom",
         ".santi ocschedulecustom"
       ],
       "Description": "schedulecustom command",
       "Usage": [
-        ".santi ocschedulecustom"
+        ".santi schedulecustom"
       ],
       "Submodule": "Proactive Santi",
       "Module": "Utility",
@@ -20780,11 +21089,12 @@
     },
     {
       "Aliases": [
+        ".santi posts",
         ".santi ocposts"
       ],
       "Description": "posts command",
       "Usage": [
-        ".santi ocposts"
+        ".santi posts"
       ],
       "Submodule": "Proactive Santi",
       "Module": "Utility",
@@ -20793,11 +21103,12 @@
     },
     {
       "Aliases": [
+        ".santi postnow",
         ".santi ocpostnow"
       ],
       "Description": "postnow command",
       "Usage": [
-        ".santi ocpostnow"
+        ".santi postnow"
       ],
       "Submodule": "Proactive Santi",
       "Module": "Utility",
@@ -20808,11 +21119,12 @@
     },
     {
       "Aliases": [
+        ".santi postremove",
         ".santi ocpostremove"
       ],
       "Description": "postremove command",
       "Usage": [
-        ".santi ocpostremove"
+        ".santi postremove"
       ],
       "Submodule": "Proactive Santi",
       "Module": "Utility",
@@ -20823,11 +21135,12 @@
     },
     {
       "Aliases": [
+        ".santi posttoggle",
         ".santi ocposttoggle"
       ],
       "Description": "posttoggle command",
       "Usage": [
-        ".santi ocposttoggle"
+        ".santi posttoggle"
       ],
       "Submodule": "Proactive Santi",
       "Module": "Utility",
@@ -20838,11 +21151,12 @@
     },
     {
       "Aliases": [
+        ".santi posttypes",
         ".santi ocposttypes"
       ],
       "Description": "posttypes command",
       "Usage": [
-        ".santi ocposttypes"
+        ".santi posttypes"
       ],
       "Submodule": "Proactive Santi",
       "Module": "Utility",
@@ -21017,11 +21331,12 @@
     },
     {
       "Aliases": [
+        ".premium premiuminfo",
         ".premium premiumpremiuminfo"
       ],
       "Description": "premiuminfo command",
       "Usage": [
-        ".premium premiumpremiuminfo"
+        ".premium premiuminfo"
       ],
       "Submodule": "Premium",
       "Module": "Utility",
@@ -21030,11 +21345,12 @@
     },
     {
       "Aliases": [
+        ".premium premiumfeatures",
         ".premium premiumpremiumfeatures"
       ],
       "Description": "premiumfeatures command",
       "Usage": [
-        ".premium premiumpremiumfeatures"
+        ".premium premiumfeatures"
       ],
       "Submodule": "Premium",
       "Module": "Utility",
@@ -21043,11 +21359,12 @@
     },
     {
       "Aliases": [
+        ".premium premiumcompare",
         ".premium premiumpremiumcompare"
       ],
       "Description": "premiumcompare command",
       "Usage": [
-        ".premium premiumpremiumcompare"
+        ".premium premiumcompare"
       ],
       "Submodule": "Premium",
       "Module": "Utility",
@@ -21056,11 +21373,12 @@
     },
     {
       "Aliases": [
+        ".premium premiumset",
         ".premium premiumpremiumset"
       ],
       "Description": "premiumset command",
       "Usage": [
-        ".premium premiumpremiumset"
+        ".premium premiumset"
       ],
       "Submodule": "Premium",
       "Module": "Utility",
@@ -21071,11 +21389,12 @@
     },
     {
       "Aliases": [
+        ".premium premiumcheck",
         ".premium premiumpremiumcheck"
       ],
       "Description": "premiumcheck command",
       "Usage": [
-        ".premium premiumpremiumcheck"
+        ".premium premiumcheck"
       ],
       "Submodule": "Premium",
       "Module": "Utility",
@@ -21084,11 +21403,12 @@
     },
     {
       "Aliases": [
+        ".premium premiumlimits",
         ".premium premiumpremiumlimits"
       ],
       "Description": "premiumlimits command",
       "Usage": [
-        ".premium premiumpremiumlimits"
+        ".premium premiumlimits"
       ],
       "Submodule": "Premium",
       "Module": "Utility",
@@ -21578,11 +21898,12 @@
     },
     {
       "Aliases": [
+        ".smart summarize",
         ".smart smartsummarize"
       ],
       "Description": "summarize command",
       "Usage": [
-        ".smart smartsummarize"
+        ".smart summarize"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -21591,11 +21912,12 @@
     },
     {
       "Aliases": [
+        ".smart faq",
         ".smart smartfaq"
       ],
       "Description": "faq command",
       "Usage": [
-        ".smart smartfaq"
+        ".smart faq"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -21604,11 +21926,12 @@
     },
     {
       "Aliases": [
+        ".smart faqadd",
         ".smart smartfaqadd"
       ],
       "Description": "faqadd command",
       "Usage": [
-        ".smart smartfaqadd"
+        ".smart faqadd"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -21619,11 +21942,12 @@
     },
     {
       "Aliases": [
+        ".smart faqlist",
         ".smart smartfaqlist"
       ],
       "Description": "faqlist command",
       "Usage": [
-        ".smart smartfaqlist"
+        ".smart faqlist"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -21632,11 +21956,12 @@
     },
     {
       "Aliases": [
+        ".smart faqremove",
         ".smart smartfaqremove"
       ],
       "Description": "faqremove command",
       "Usage": [
-        ".smart smartfaqremove"
+        ".smart faqremove"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -21647,11 +21972,12 @@
     },
     {
       "Aliases": [
+        ".smart sentiment",
         ".smart smartsentiment"
       ],
       "Description": "sentiment command",
       "Usage": [
-        ".smart smartsentiment"
+        ".smart sentiment"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -21660,11 +21986,12 @@
     },
     {
       "Aliases": [
+        ".smart topics",
         ".smart smarttopics"
       ],
       "Description": "topics command",
       "Usage": [
-        ".smart smarttopics"
+        ".smart topics"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -21673,11 +22000,12 @@
     },
     {
       "Aliases": [
+        ".smart greet",
         ".smart smartgreet"
       ],
       "Description": "greet command",
       "Usage": [
-        ".smart smartgreet"
+        ".smart greet"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -21686,11 +22014,12 @@
     },
     {
       "Aliases": [
+        ".smart writingcheck",
         ".smart smartwritingcheck"
       ],
       "Description": "writingcheck command",
       "Usage": [
-        ".smart smartwritingcheck"
+        ".smart writingcheck"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -21699,11 +22028,12 @@
     },
     {
       "Aliases": [
+        ".smart namegen",
         ".smart smartnamegen"
       ],
       "Description": "namegen command",
       "Usage": [
-        ".smart smartnamegen"
+        ".smart namegen"
       ],
       "Submodule": "Smart Tools",
       "Module": "Utility",
@@ -22050,11 +22380,12 @@
     },
     {
       "Aliases": [
+        ".tools timestamp",
         ".tools toolstimestamp"
       ],
       "Description": "timestamp command",
       "Usage": [
-        ".tools toolstimestamp"
+        ".tools timestamp"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22063,11 +22394,12 @@
     },
     {
       "Aliases": [
+        ".tools snowflake",
         ".tools toolssnowflake"
       ],
       "Description": "snowflake command",
       "Usage": [
-        ".tools toolssnowflake"
+        ".tools snowflake"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22076,11 +22408,12 @@
     },
     {
       "Aliases": [
+        ".tools count",
         ".tools toolscount"
       ],
       "Description": "count command",
       "Usage": [
-        ".tools toolscount"
+        ".tools count"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22089,11 +22422,12 @@
     },
     {
       "Aliases": [
+        ".tools color",
         ".tools toolscolor"
       ],
       "Description": "color command",
       "Usage": [
-        ".tools toolscolor"
+        ".tools color"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22102,11 +22436,12 @@
     },
     {
       "Aliases": [
+        ".tools roll",
         ".tools toolsroll"
       ],
       "Description": "roll command",
       "Usage": [
-        ".tools toolsroll"
+        ".tools roll"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22115,11 +22450,12 @@
     },
     {
       "Aliases": [
+        ".tools flip",
         ".tools toolsflip"
       ],
       "Description": "flip command",
       "Usage": [
-        ".tools toolsflip"
+        ".tools flip"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22128,11 +22464,12 @@
     },
     {
       "Aliases": [
+        ".tools random",
         ".tools toolsrandom"
       ],
       "Description": "random command",
       "Usage": [
-        ".tools toolsrandom"
+        ".tools random"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22141,11 +22478,12 @@
     },
     {
       "Aliases": [
+        ".tools choose",
         ".tools toolschoose"
       ],
       "Description": "choose command",
       "Usage": [
-        ".tools toolschoose"
+        ".tools choose"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22154,11 +22492,12 @@
     },
     {
       "Aliases": [
+        ".tools quickpoll",
         ".tools toolsquickpoll"
       ],
       "Description": "quickpoll command",
       "Usage": [
-        ".tools toolsquickpoll"
+        ".tools quickpoll"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22167,11 +22506,12 @@
     },
     {
       "Aliases": [
+        ".tools countdown",
         ".tools toolscountdown"
       ],
       "Description": "countdown command",
       "Usage": [
-        ".tools toolscountdown"
+        ".tools countdown"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22206,11 +22546,12 @@
     },
     {
       "Aliases": [
+        ".tools reverse",
         ".tools toolsreverse"
       ],
       "Description": "reverse command",
       "Usage": [
-        ".tools toolsreverse"
+        ".tools reverse"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22219,11 +22560,12 @@
     },
     {
       "Aliases": [
+        ".tools mock",
         ".tools toolsmock"
       ],
       "Description": "mock command",
       "Usage": [
-        ".tools toolsmock"
+        ".tools mock"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22232,11 +22574,12 @@
     },
     {
       "Aliases": [
+        ".tools bigtext",
         ".tools toolsbigtext"
       ],
       "Description": "bigtext command",
       "Usage": [
-        ".tools toolsbigtext"
+        ".tools bigtext"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -22245,11 +22588,12 @@
     },
     {
       "Aliases": [
+        ".tools members",
         ".tools toolsmembers"
       ],
       "Description": "members command",
       "Usage": [
-        ".tools toolsmembers"
+        ".tools members"
       ],
       "Submodule": "Tools",
       "Module": "Utility",
@@ -23347,11 +23691,12 @@
   "XpExtended": [
     {
       "Aliases": [
+        ".levelcolor levelcolortoggle",
         ".levelcolor xpelevelcolortoggle"
       ],
       "Description": "levelcolortoggle command",
       "Usage": [
-        ".levelcolor xpelevelcolortoggle"
+        ".levelcolor levelcolortoggle"
       ],
       "Submodule": "LevelColor",
       "Module": "XpExtended",
@@ -23362,11 +23707,12 @@
     },
     {
       "Aliases": [
+        ".levelcolor levelcolorset",
         ".levelcolor xpelevelcolorset"
       ],
       "Description": "levelcolorset command",
       "Usage": [
-        ".levelcolor xpelevelcolorset"
+        ".levelcolor levelcolorset"
       ],
       "Submodule": "LevelColor",
       "Module": "XpExtended",
@@ -23377,11 +23723,12 @@
     },
     {
       "Aliases": [
+        ".levelcolor levelcolorinfo",
         ".levelcolor xpelevelcolorinfo"
       ],
       "Description": "levelcolorinfo command",
       "Usage": [
-        ".levelcolor xpelevelcolorinfo"
+        ".levelcolor levelcolorinfo"
       ],
       "Submodule": "LevelColor",
       "Module": "XpExtended",
@@ -23390,11 +23737,12 @@
     },
     {
       "Aliases": [
+        ".lvlmsg lvlmsgset",
         ".lvlmsg xpelvlmsgset"
       ],
       "Description": "lvlmsgset command",
       "Usage": [
-        ".lvlmsg xpelvlmsgset"
+        ".lvlmsg lvlmsgset"
       ],
       "Submodule": "LevelMsg",
       "Module": "XpExtended",
@@ -23405,11 +23753,12 @@
     },
     {
       "Aliases": [
+        ".lvlmsg lvlmsgchannel",
         ".lvlmsg xpelvlmsgchannel"
       ],
       "Description": "lvlmsgchannel command",
       "Usage": [
-        ".lvlmsg xpelvlmsgchannel"
+        ".lvlmsg lvlmsgchannel"
       ],
       "Submodule": "LevelMsg",
       "Module": "XpExtended",
@@ -23420,11 +23769,12 @@
     },
     {
       "Aliases": [
+        ".lvlmsg lvlmsgoff",
         ".lvlmsg xpelvlmsgoff"
       ],
       "Description": "lvlmsgoff command",
       "Usage": [
-        ".lvlmsg xpelvlmsgoff"
+        ".lvlmsg lvlmsgoff"
       ],
       "Submodule": "LevelMsg",
       "Module": "XpExtended",
@@ -23435,11 +23785,12 @@
     },
     {
       "Aliases": [
+        ".lvlmsg lvlmsginfo",
         ".lvlmsg xpelvlmsginfo"
       ],
       "Description": "lvlmsginfo command",
       "Usage": [
-        ".lvlmsg xpelvlmsginfo"
+        ".lvlmsg lvlmsginfo"
       ],
       "Submodule": "LevelMsg",
       "Module": "XpExtended",
@@ -23448,11 +23799,12 @@
     },
     {
       "Aliases": [
+        ".prestige prestige",
         ".prestige xpeprestige"
       ],
       "Description": "prestige command",
       "Usage": [
-        ".prestige xpeprestige"
+        ".prestige prestige"
       ],
       "Submodule": "Prestige",
       "Module": "XpExtended",
@@ -23461,11 +23813,12 @@
     },
     {
       "Aliases": [
+        ".prestige prestigeinfo",
         ".prestige xpeprestigeinfo"
       ],
       "Description": "prestigeinfo command",
       "Usage": [
-        ".prestige xpeprestigeinfo"
+        ".prestige prestigeinfo"
       ],
       "Submodule": "Prestige",
       "Module": "XpExtended",
@@ -23474,11 +23827,12 @@
     },
     {
       "Aliases": [
+        ".prestige prestigeleaderboard",
         ".prestige xpeprestigeleaderboard"
       ],
       "Description": "prestigeleaderboard command",
       "Usage": [
-        ".prestige xpeprestigeleaderboard"
+        ".prestige prestigeleaderboard"
       ],
       "Submodule": "Prestige",
       "Module": "XpExtended",
@@ -23487,11 +23841,12 @@
     },
     {
       "Aliases": [
+        ".season season",
         ".season xpeseason"
       ],
       "Description": "season command",
       "Usage": [
-        ".season xpeseason"
+        ".season season"
       ],
       "Submodule": "Season",
       "Module": "XpExtended",
@@ -23500,11 +23855,12 @@
     },
     {
       "Aliases": [
+        ".season seasonstart",
         ".season xpeseasonstart"
       ],
       "Description": "seasonstart command",
       "Usage": [
-        ".season xpeseasonstart"
+        ".season seasonstart"
       ],
       "Submodule": "Season",
       "Module": "XpExtended",
@@ -23515,11 +23871,12 @@
     },
     {
       "Aliases": [
+        ".season seasonrewards",
         ".season xpeseasonrewards"
       ],
       "Description": "seasonrewards command",
       "Usage": [
-        ".season xpeseasonrewards"
+        ".season seasonrewards"
       ],
       "Submodule": "Season",
       "Module": "XpExtended",
@@ -23528,11 +23885,12 @@
     },
     {
       "Aliases": [
+        ".season seasonclaim",
         ".season xpeseasonclaim"
       ],
       "Description": "seasonclaim command",
       "Usage": [
-        ".season xpeseasonclaim"
+        ".season seasonclaim"
       ],
       "Submodule": "Season",
       "Module": "XpExtended",
@@ -23541,11 +23899,12 @@
     },
     {
       "Aliases": [
+        ".team teamcreate",
         ".team xpeteamcreate"
       ],
       "Description": "teamcreate command",
       "Usage": [
-        ".team xpeteamcreate"
+        ".team teamcreate"
       ],
       "Submodule": "Team",
       "Module": "XpExtended",
@@ -23554,11 +23913,12 @@
     },
     {
       "Aliases": [
+        ".team teamjoin",
         ".team xpeteamjoin"
       ],
       "Description": "teamjoin command",
       "Usage": [
-        ".team xpeteamjoin"
+        ".team teamjoin"
       ],
       "Submodule": "Team",
       "Module": "XpExtended",
@@ -23567,11 +23927,12 @@
     },
     {
       "Aliases": [
+        ".team teamleave",
         ".team xpeteamleave"
       ],
       "Description": "teamleave command",
       "Usage": [
-        ".team xpeteamleave"
+        ".team teamleave"
       ],
       "Submodule": "Team",
       "Module": "XpExtended",
@@ -23580,11 +23941,12 @@
     },
     {
       "Aliases": [
+        ".team teamleaderboard",
         ".team xpeteamleaderboard"
       ],
       "Description": "teamleaderboard command",
       "Usage": [
-        ".team xpeteamleaderboard"
+        ".team teamleaderboard"
       ],
       "Submodule": "Team",
       "Module": "XpExtended",
@@ -23593,11 +23955,12 @@
     },
     {
       "Aliases": [
+        ".team teaminfo",
         ".team xpeteaminfo"
       ],
       "Description": "teaminfo command",
       "Usage": [
-        ".team xpeteaminfo"
+        ".team teaminfo"
       ],
       "Submodule": "Team",
       "Module": "XpExtended",
@@ -23606,11 +23969,12 @@
     },
     {
       "Aliases": [
+        ".voicexp voicexptoggle",
         ".voicexp xpevoicexptoggle"
       ],
       "Description": "voicexptoggle command",
       "Usage": [
-        ".voicexp xpevoicexptoggle"
+        ".voicexp voicexptoggle"
       ],
       "Submodule": "VoiceXp",
       "Module": "XpExtended",
@@ -23621,11 +23985,12 @@
     },
     {
       "Aliases": [
+        ".voicexp voicexprate",
         ".voicexp xpevoicexprate"
       ],
       "Description": "voicexprate command",
       "Usage": [
-        ".voicexp xpevoicexprate"
+        ".voicexp voicexprate"
       ],
       "Submodule": "VoiceXp",
       "Module": "XpExtended",
@@ -23636,11 +24001,12 @@
     },
     {
       "Aliases": [
+        ".voicexp voicexpinfo",
         ".voicexp xpevoicexpinfo"
       ],
       "Description": "voicexpinfo command",
       "Usage": [
-        ".voicexp xpevoicexpinfo"
+        ".voicexp voicexpinfo"
       ],
       "Submodule": "VoiceXp",
       "Module": "XpExtended",
@@ -23649,11 +24015,12 @@
     },
     {
       "Aliases": [
+        ".xpboost xpboost",
         ".xpboost xpexpboost"
       ],
       "Description": "xpboost command",
       "Usage": [
-        ".xpboost xpexpboost"
+        ".xpboost xpboost"
       ],
       "Submodule": "XpBoost",
       "Module": "XpExtended",
@@ -23664,11 +24031,12 @@
     },
     {
       "Aliases": [
+        ".xpboost xpbooststatus",
         ".xpboost xpexpbooststatus"
       ],
       "Description": "xpbooststatus command",
       "Usage": [
-        ".xpboost xpexpbooststatus"
+        ".xpboost xpbooststatus"
       ],
       "Submodule": "XpBoost",
       "Module": "XpExtended",
@@ -23677,11 +24045,12 @@
     },
     {
       "Aliases": [
+        ".xpchallenge xpchallenge",
         ".xpchallenge xpexpchallenge"
       ],
       "Description": "xpchallenge command",
       "Usage": [
-        ".xpchallenge xpexpchallenge"
+        ".xpchallenge xpchallenge"
       ],
       "Submodule": "XpChallenge",
       "Module": "XpExtended",
@@ -23690,11 +24059,12 @@
     },
     {
       "Aliases": [
+        ".xpchallenge xpchallengeprogress",
         ".xpchallenge xpexpchallengeprogress"
       ],
       "Description": "xpchallengeprogress command",
       "Usage": [
-        ".xpchallenge xpexpchallengeprogress"
+        ".xpchallenge xpchallengeprogress"
       ],
       "Submodule": "XpChallenge",
       "Module": "XpExtended",
@@ -23703,11 +24073,12 @@
     },
     {
       "Aliases": [
+        ".xpchallenge xpchallengelist",
         ".xpchallenge xpexpchallengelist"
       ],
       "Description": "xpchallengelist command",
       "Usage": [
-        ".xpchallenge xpexpchallengelist"
+        ".xpchallenge xpchallengelist"
       ],
       "Submodule": "XpChallenge",
       "Module": "XpExtended",
@@ -23716,11 +24087,12 @@
     },
     {
       "Aliases": [
+        ".xpdecay xpdecaytoggle",
         ".xpdecay xpexpdecaytoggle"
       ],
       "Description": "xpdecaytoggle command",
       "Usage": [
-        ".xpdecay xpexpdecaytoggle"
+        ".xpdecay xpdecaytoggle"
       ],
       "Submodule": "XpDecay",
       "Module": "XpExtended",
@@ -23731,11 +24103,12 @@
     },
     {
       "Aliases": [
+        ".xpdecay xpdecayrate",
         ".xpdecay xpexpdecayrate"
       ],
       "Description": "xpdecayrate command",
       "Usage": [
-        ".xpdecay xpexpdecayrate"
+        ".xpdecay xpdecayrate"
       ],
       "Submodule": "XpDecay",
       "Module": "XpExtended",
@@ -23746,11 +24119,12 @@
     },
     {
       "Aliases": [
+        ".xpdecay xpdecayinfo",
         ".xpdecay xpexpdecayinfo"
       ],
       "Description": "xpdecayinfo command",
       "Usage": [
-        ".xpdecay xpexpdecayinfo"
+        ".xpdecay xpdecayinfo"
       ],
       "Submodule": "XpDecay",
       "Module": "XpExtended",
@@ -23759,11 +24133,12 @@
     },
     {
       "Aliases": [
+        ".xphistory xphistory",
         ".xphistory xpexphistory"
       ],
       "Description": "xphistory command",
       "Usage": [
-        ".xphistory xpexphistory"
+        ".xphistory xphistory"
       ],
       "Submodule": "XpHistory",
       "Module": "XpExtended",
@@ -23772,11 +24147,12 @@
     },
     {
       "Aliases": [
+        ".xphistory xphistorytop",
         ".xphistory xpexphistorytop"
       ],
       "Description": "xphistorytop command",
       "Usage": [
-        ".xphistory xpexphistorytop"
+        ".xphistory xphistorytop"
       ],
       "Submodule": "XpHistory",
       "Module": "XpExtended",

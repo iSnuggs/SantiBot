@@ -1,20 +1,30 @@
 balancedteams:
+  - balancedteams
   - pvpbalancedteams
 duel:
+  - duel
   - pvpduel
 pvpleaderboard:
+  - pvpleaderboard
   - pvppvpleaderboard
 pvpstats:
+  - pvpstats
   - pvppvpstats
 randomteams:
+  - randomteams
   - pvprandomteams
 tournamentbracket:
+  - tournamentbracket
   - pvptournamentbracket
 tournamentcreate:
+  - tournamentcreate
   - pvptournamentcreate
 tournamentinfo:
+  - tournamentinfo
   - pvptournamentinfo
 tournamentjoin:
+  - tournamentjoin
   - pvptournamentjoin
 tournamentstart:
+  - tournamentstart
   - pvptournamentstart

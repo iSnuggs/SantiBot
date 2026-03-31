@@ -1,24 +1,36 @@
 ask:
+  - ask
   - ocask
 info:
+  - info
   - ocinfo
 postnow:
+  - postnow
   - ocpostnow
 postremove:
+  - postremove
   - ocpostremove
 posts:
+  - posts
   - ocposts
 posttoggle:
+  - posttoggle
   - ocposttoggle
 posttypes:
+  - posttypes
   - ocposttypes
 quick:
+  - quick
   - ocquick
 reset:
+  - reset
   - ocreset
 schedule:
+  - schedule
   - ocschedule
 schedulecustom:
+  - schedulecustom
   - ocschedulecustom
 status:
+  - status
   - ocstatus

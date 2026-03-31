@@ -1,16 +1,24 @@
 activity:
+  - activity
   - analyticsactivity
 growth:
+  - growth
   - analyticsgrowth
 heatmap:
   - heatmap
+  - heatmap
 peakhours:
+  - peakhours
   - analyticspeakhours
 serverreport:
+  - serverreport
   - analyticsserverreport
 topchannels:
+  - topchannels
   - analyticstopchannels
 topposters:
+  - topposters
   - analyticstopposters
 topwords:
+  - topwords
   - analyticstopwords

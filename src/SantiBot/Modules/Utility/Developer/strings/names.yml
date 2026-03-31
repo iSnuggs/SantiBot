@@ -1,28 +1,42 @@
 botinfo:
+  - botinfo
   - devbotinfo
 changelog:
+  - changelog
   - devchangelog
 cmdstats:
+  - cmdstats
   - devcmdstats
 featureflag:
+  - featureflag
   - devfeatureflag
 featureflags:
+  - featureflags
   - devfeatureflags
 webhookcreate:
+  - webhookcreate
   - devwebhookcreate
 webhookdelete:
+  - webhookdelete
   - devwebhookdelete
 webhooks:
+  - webhooks
   - devwebhooks
 xpchallenge:
   - xpchallenge
+  - xpchallenge
 xpchallenges:
+  - xpchallenges
   - devxpchallenges
 xpmult:
+  - xpmult
   - devxpmult
 xpmultchannel:
+  - xpmultchannel
   - devxpmultchannel
 xpmultrole:
+  - xpmultrole
   - devxpmultrole
 xpmults:
+  - xpmults
   - devxpmults

@@ -1,26 +1,39 @@
 autopublish:
+  - autopublish
   - stautopublish
 autopublishlist:
+  - autopublishlist
   - stautopublishlist
 backupsummary:
+  - backupsummary
   - stbackupsummary
 emojistats:
+  - emojistats
   - stemojistats
 emojistatsreset:
+  - emojistatsreset
   - stemojistatsreset
 invitecount:
+  - invitecount
   - stinvitecount
 inviterewards:
+  - inviterewards
   - stinviterewards
 milestonedisable:
+  - milestonedisable
   - stmilestonedisable
 milestonesetup:
+  - milestonesetup
   - stmilestonesetup
 mirror:
+  - mirror
   - stmirror
 mirrorlist:
+  - mirrorlist
   - stmirrorlist
 mirrorremove:
+  - mirrorremove
   - stmirrorremove
 recordinvite:
+  - recordinvite
   - strecordinvite

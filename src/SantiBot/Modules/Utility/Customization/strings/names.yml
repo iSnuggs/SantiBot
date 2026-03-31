@@ -1,28 +1,42 @@
 addcmd:
+  - addcmd
   - customaddcmd
 cmdlist:
+  - cmdlist
   - customcmdlist
 currencyname:
+  - currencyname
   - customcurrencyname
 delcmd:
+  - delcmd
   - customdelcmd
 deleteembed:
+  - deleteembed
   - customdeleteembed
 embedcolor:
+  - embedcolor
   - customembedcolor
 embeds:
+  - embeds
   - customembeds
 levelupmsg:
+  - levelupmsg
   - customlevelupmsg
 saveembed:
+  - saveembed
   - customsaveembed
 sendembed:
+  - sendembed
   - customsendembed
 settings:
+  - settings
   - customsettings
 theme:
+  - theme
   - customtheme
 welcomemsg:
+  - welcomemsg
   - customwelcomemsg
 xpname:
+  - xpname
   - customxpname

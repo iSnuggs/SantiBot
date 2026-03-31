@@ -1,12 +1,18 @@
 buy:
+  - buy
   - marketbuy
 cancel:
+  - cancel
   - marketcancel
 list:
+  - list
   - marketlist
 market:
+  - market
   - marketmarket
 mylistings:
+  - mylistings
   - marketmylistings
 pricecheck:
+  - pricecheck
   - marketpricecheck

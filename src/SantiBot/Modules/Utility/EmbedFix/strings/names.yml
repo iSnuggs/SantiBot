@@ -1,12 +1,18 @@
 deleteoriginal:
+  - deleteoriginal
   - embedfixdeleteoriginal
 disable:
+  - disable
   - embedfixdisable
 enable:
+  - enable
   - embedfixenable
 fix:
+  - fix
   - embedfixfix
 status:
+  - status
   - embedfixstatus
 toggle:
+  - toggle
   - embedfixtoggle

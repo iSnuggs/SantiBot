@@ -1,20 +1,30 @@
 faq:
+  - faq
   - smartfaq
 faqadd:
+  - faqadd
   - smartfaqadd
 faqlist:
+  - faqlist
   - smartfaqlist
 faqremove:
+  - faqremove
   - smartfaqremove
 greet:
+  - greet
   - smartgreet
 namegen:
+  - namegen
   - smartnamegen
 sentiment:
+  - sentiment
   - smartsentiment
 summarize:
+  - summarize
   - smartsummarize
 topics:
+  - topics
   - smarttopics
 writingcheck:
+  - writingcheck
   - smartwritingcheck

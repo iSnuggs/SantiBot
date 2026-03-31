@@ -1,12 +1,18 @@
 premiumcheck:
+  - premiumcheck
   - premiumpremiumcheck
 premiumcompare:
+  - premiumcompare
   - premiumpremiumcompare
 premiumfeatures:
+  - premiumfeatures
   - premiumpremiumfeatures
 premiuminfo:
+  - premiuminfo
   - premiumpremiuminfo
 premiumlimits:
+  - premiumlimits
   - premiumpremiumlimits
 premiumset:
+  - premiumset
   - premiumpremiumset

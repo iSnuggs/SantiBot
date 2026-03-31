@@ -1,32 +1,48 @@
 base:
+  - base
   - toolsbase
 bigtext:
+  - bigtext
   - toolsbigtext
 choose:
+  - choose
   - toolschoose
 color:
+  - color
   - toolscolor
 convert:
+  - convert
   - toolsconvert
 count:
+  - count
   - toolscount
 countdown:
+  - countdown
   - toolscountdown
 flip:
+  - flip
   - toolsflip
 members:
+  - members
   - toolsmembers
 mock:
+  - mock
   - toolsmock
 quickpoll:
+  - quickpoll
   - toolsquickpoll
 random:
+  - random
   - toolsrandom
 reverse:
+  - reverse
   - toolsreverse
 roll:
+  - roll
   - toolsroll
 snowflake:
+  - snowflake
   - toolssnowflake
 timestamp:
+  - timestamp
   - toolstimestamp

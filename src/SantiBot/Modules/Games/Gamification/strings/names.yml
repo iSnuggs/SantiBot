@@ -1,20 +1,30 @@
 badgedisplay:
+  - badgedisplay
   - gfbadgedisplay
 badgelist:
+  - badgelist
   - gfbadgelist
 badges:
+  - badges
   - gfbadges
 battlepass:
+  - battlepass
   - gfbattlepass
 battlepassrewards:
+  - battlepassrewards
   - gfbattlepassrewards
 dailychallenges:
+  - dailychallenges
   - gfdailychallenges
 gfstats:
+  - gfstats
   - gfgfstats
 titleequip:
+  - titleequip
   - gftitleequip
 titlelist:
+  - titlelist
   - gftitlelist
 titles:
+  - titles
   - gftitles

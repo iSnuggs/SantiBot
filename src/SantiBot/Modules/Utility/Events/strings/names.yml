@@ -1,26 +1,39 @@
 eventcancel:
+  - eventcancel
   - eventeventcancel
 eventcreate:
+  - eventcreate
   - eventeventcreate
 eventinfo:
+  - eventinfo
   - eventeventinfo
 eventlist:
+  - eventlist
   - eventeventlist
 eventrsvp:
+  - eventrsvp
   - eventeventrsvp
 gamenight:
+  - gamenight
   - eventgamenight
 movieadd:
+  - movieadd
   - eventmovieadd
 movienight:
+  - movienight
   - eventmovienight
 moviepick:
+  - moviepick
   - eventmoviepick
 movieresults:
+  - movieresults
   - eventmovieresults
 movievote:
+  - movievote
   - eventmovievote
 studysession:
+  - studysession
   - eventstudysession
 teams:
+  - teams
   - eventteams
