@@ -78,9 +78,14 @@ public sealed class OpenClawService : INService, IExecOnMessage
     // Per-user session tracking for conversation continuity
     private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, string> _sessions = new();
 
-    // Rate limit — 10 second cooldown per user
+    // Rate limit — 30 second cooldown per user, 5 minute global cooldown if rate limited
     private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, DateTime> _cooldowns = new();
-    private static readonly TimeSpan CooldownTime = TimeSpan.FromSeconds(10);
+    private static readonly TimeSpan CooldownTime = TimeSpan.FromSeconds(30);
+    private static readonly TimeSpan GlobalCooldownTime = TimeSpan.FromMinutes(5);
+    private DateTime _globalCooldown = DateTime.MinValue;
+    private int _requestsThisMinute = 0;
+    private DateTime _minuteStart = DateTime.UtcNow;
+    private const int MAX_REQUESTS_PER_MINUTE = 10;
 
     public OpenClawService(DiscordSocketClient client)
     {
@@ -93,7 +98,23 @@ public sealed class OpenClawService : INService, IExecOnMessage
     /// </summary>
     public async Task<(bool Success, string Response)> ChatAsync(ulong userId, string message)
     {
-        // Rate limit
+        // Global cooldown — if we hit an API rate limit, back off for 5 minutes
+        if (DateTime.UtcNow < _globalCooldown)
+        {
+            var remaining = _globalCooldown - DateTime.UtcNow;
+            return (false, $"AI is cooling down. Try again in **{remaining.Minutes}m {remaining.Seconds}s**.");
+        }
+
+        // Global rate limit — max 10 requests per minute across all users
+        if ((DateTime.UtcNow - _minuteStart).TotalMinutes >= 1)
+        {
+            _requestsThisMinute = 0;
+            _minuteStart = DateTime.UtcNow;
+        }
+        if (_requestsThisMinute >= MAX_REQUESTS_PER_MINUTE)
+            return (false, "Too many AI requests this minute. Please wait a moment.");
+
+        // Per-user cooldown — 30 seconds between requests
         if (_cooldowns.TryGetValue(userId, out var last))
         {
             var wait = CooldownTime - (DateTime.UtcNow - last);
@@ -101,10 +122,22 @@ public sealed class OpenClawService : INService, IExecOnMessage
                 return (false, $"Cooldown! Wait **{(int)wait.TotalSeconds}s** before asking again.");
         }
         _cooldowns[userId] = DateTime.UtcNow;
+        _requestsThisMinute++;
 
         var sessionId = _sessions.GetOrAdd(userId, _ => Guid.NewGuid().ToString());
 
-        return await RunOpenClawAsync(message, sessionId, 120);
+        var result = await RunOpenClawAsync(message, sessionId, 120);
+
+        // If we got a rate limit response, trigger global cooldown
+        if (!result.Success && result.Response is not null
+            && (result.Response.Contains("rate limit", StringComparison.OrdinalIgnoreCase)
+                || result.Response.Contains("429")
+                || result.Response.Contains("too many requests", StringComparison.OrdinalIgnoreCase)))
+        {
+            _globalCooldown = DateTime.UtcNow.Add(GlobalCooldownTime);
+        }
+
+        return result;
     }
 
     /// <summary>Quick one-shot question with no session memory</summary>
