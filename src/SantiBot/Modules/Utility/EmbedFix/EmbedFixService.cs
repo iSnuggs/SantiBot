@@ -71,7 +71,18 @@ public sealed class EmbedFixService : INService, IExecOnMessage
 
         await EnsureLoadedAsync();
 
-        if (!_settings.TryGetValue(guild.Id, out var settings) || !settings.Enabled)
+        // Enabled by default for all servers — no setup needed
+        // Admins can disable with .embedfix disable if they don't want it
+        if (!_settings.TryGetValue(guild.Id, out var settings))
+        {
+            settings = new EmbedFixSettings
+            {
+                Enabled = true,
+                EnabledPlatforms = new HashSet<string>(Platforms.Keys),
+            };
+        }
+
+        if (!settings.Enabled)
             return false;
 
         var content = msg.Content;
