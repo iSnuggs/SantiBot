@@ -83,7 +83,7 @@ public sealed class HeistService(DbService _db, ICurrencyService _cs) : INServic
             return (null, "already_joined");
 
         // Each joiner matches the per-person bet (pot / participant count)
-        var perPersonBet = session.PotAmount / ids.Length;
+        var perPersonBet = Math.Max(session.PotAmount / ids.Length, 50);
         var taken = await _cs.RemoveAsync(userId, perPersonBet, new("heist", "bet", "Heist join bet"));
         if (!taken)
             return (null, "not_enough");

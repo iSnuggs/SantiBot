@@ -14,7 +14,12 @@ public partial class Games
         [RequireContext(ContextType.Guild)]
         public async Task Daily()
         {
-            var (name, set, rarity) = await _service.DrawDailyCardAsync(ctx.User.Id);
+            var (name, set, rarity, error) = await _service.DrawDailyCardAsync(ctx.User.Id);
+            if (error is not null)
+            {
+                await Response().Error(error).SendAsync();
+                return;
+            }
             var emoji = rarity switch
             {
                 "Common" => "⬜",

@@ -196,8 +196,8 @@ public sealed class HungerGamesService : INService
             if (game.Alive.Count == 1)
             {
                 var winner = game.Alive[0];
-                await _cs.AddAsync(winner.UserId, 500, new TxData("hg", "win"));
-                sb.AppendLine($"\n🏆 **{winner.Name}** is the Victor of the Hunger Games! +500 🥠!");
+                await _cs.AddAsync(winner.UserId, 50, new TxData("hg", "win"));
+                sb.AppendLine($"\n🏆 **{winner.Name}** is the Victor of the Hunger Games! +50 🥠!");
             }
             else
             {

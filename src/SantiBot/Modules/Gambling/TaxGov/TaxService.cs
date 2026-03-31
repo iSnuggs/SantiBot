@@ -120,6 +120,10 @@ public sealed class TaxService : INService, IReadyExecutor
         if (gov.ElectionActive)
             return (false, "An election is already in progress!");
 
+        // Cooldown: only one election per 7 days
+        if (gov.ElectionEndsAt != default && (DateTime.UtcNow - gov.ElectionEndsAt).TotalDays < 7)
+            return (false, "Elections can only be held once per week!");
+
         await using var ctx = _db.GetDbContext();
         await ctx.GetTable<TaxGovernment>()
             .Where(g => g.Id == gov.Id)

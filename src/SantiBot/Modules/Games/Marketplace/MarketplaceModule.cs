@@ -225,6 +225,28 @@ namespace SantiBot.Modules.Games.Marketplace
                 .Where(x => x.Id == listingId)
                 .UpdateAsync(_ => new TradeOffer { IsActive = false });
 
+            // Return items to seller's inventory
+            if (offer.ItemType is "Weapon" or "Armor" or "Potion" or "Tool")
+            {
+                for (var i = 0; i < offer.Quantity; i++)
+                {
+                    ctx.Add(new DungeonItem
+                    {
+                        UserId = userId,
+                        GuildId = guildDiscordId,
+                        Name = offer.ItemName,
+                        Slot = offer.ItemType switch
+                        {
+                            "Weapon" => "Weapon",
+                            "Armor" => "Armor",
+                            _ => "Consumable",
+                        },
+                        Rarity = "Common",
+                    });
+                }
+                await ctx.SaveChangesAsync();
+            }
+
             return (offer.ItemName, null);
         }
 

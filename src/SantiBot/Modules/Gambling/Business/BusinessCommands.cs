@@ -97,5 +97,16 @@ public partial class Gambling
             else
                 await Response().Error(message).SendAsync();
         }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task Collect()
+        {
+            var (success, message, _) = await _service.CollectRevenueAsync(ctx.Guild.Id, ctx.User.Id);
+            if (success)
+                await Response().Confirm(message).SendAsync();
+            else
+                await Response().Error(message).SendAsync();
+        }
     }
 }

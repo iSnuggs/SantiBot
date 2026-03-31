@@ -151,7 +151,7 @@ public sealed class BattleRoyaleService : INService
             {
                 var winner = game.Alive[0];
                 var pot = game.EntryFee * game.Players.Count;
-                var prize = pot > 0 ? pot : 500;
+                var prize = pot > 0 ? pot : 50; // Minimal prize for free games
                 await _cs.AddAsync(winner.UserId, prize, new TxData("br", "win"));
                 sb.AppendLine($"\n🏆 **{winner.Username}** is the last one standing! They win {prize} 🥠!");
             }

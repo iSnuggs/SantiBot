@@ -109,7 +109,7 @@ public sealed class RealEstateService : INService
             if (!Properties.TryGetValue(prop.PropertyType, out var info))
                 continue;
 
-            var hours = (now - prop.LastCollected).TotalHours;
+            var hours = Math.Min((now - prop.LastCollected).TotalHours, 48); // Cap at 48 hours
             if (hours < 1)
                 continue;
 

@@ -57,6 +57,9 @@ public sealed class BusinessService : INService
 
     public async Task<(bool Success, string Message)> HireAsync(ulong guildId, ulong ownerId, ulong employeeId)
     {
+        if (ownerId == employeeId)
+            return (false, "You can't hire yourself!");
+
         await using var ctx = _db.GetDbContext();
         var biz = await ctx.GetTable<UserBusiness>()
             .FirstOrDefaultAsyncLinqToDB(b => b.GuildId == guildId && b.OwnerId == ownerId);
@@ -146,6 +149,27 @@ public sealed class BusinessService : INService
             .UpdateAsync(e => new BusinessEmployee { LastWorked = DateTime.UtcNow });
 
         return (true, $"You worked at **{biz.Name}** and earned {salary} 🥠!");
+    }
+
+    public async Task<(bool Success, string Message, long Amount)> CollectRevenueAsync(ulong guildId, ulong ownerId)
+    {
+        await using var ctx = _db.GetDbContext();
+        var biz = await ctx.GetTable<UserBusiness>()
+            .FirstOrDefaultAsyncLinqToDB(b => b.GuildId == guildId && b.OwnerId == ownerId);
+
+        if (biz is null)
+            return (false, "You don't own a business!", 0);
+
+        if (biz.Revenue <= 0)
+            return (false, "No revenue to collect yet!", 0);
+
+        var revenue = biz.Revenue;
+        await ctx.GetTable<UserBusiness>()
+            .Where(b => b.Id == biz.Id)
+            .UpdateAsync(b => new UserBusiness { Revenue = 0 });
+
+        await _cs.AddAsync(ownerId, revenue, new TxData("business", "collect"));
+        return (true, $"Collected **{revenue}** 🥠 from **{biz.Name}**!", revenue);
     }
 
     public async Task<UserBusiness> GetBusinessInfoAsync(ulong guildId, ulong ownerId)

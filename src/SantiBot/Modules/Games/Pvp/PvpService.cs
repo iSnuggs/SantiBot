@@ -153,8 +153,8 @@ public sealed class PvpService : INService
             winStats.Elo = newWinElo;
             loseStats.Elo = newLoseElo;
 
-            // Currency: base 50 + 10 per Elo point gained
-            currencyReward = 50 + eloGain * 10;
+            // Currency: base 10 + 5 per Elo point gained
+            currencyReward = 10 + eloGain * 5;
             await _cs.AddAsync(winnerId, currencyReward, new TxData("pvp", "duel-win"));
         }
 

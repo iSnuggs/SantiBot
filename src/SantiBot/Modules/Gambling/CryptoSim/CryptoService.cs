@@ -90,8 +90,8 @@ public sealed class CryptoService : INService, IReadyExecutor
     public async Task<(bool Success, string Message)> BuyCryptoAsync(ulong guildId, ulong userId, string coinName, double amount)
     {
         await EnsureCoinsExist(guildId);
-        if (amount <= 0)
-            return (false, "Amount must be positive!");
+        if (amount < 0.01)
+            return (false, "Minimum purchase is 0.01!");
 
         await using var ctx = _db.GetDbContext();
         var coin = await ctx.GetTable<CryptoCoin>()
@@ -100,7 +100,7 @@ public sealed class CryptoService : INService, IReadyExecutor
         if (coin is null)
             return (false, $"Unknown coin. Use `.crypto list` to see available coins.");
 
-        var cost = (long)(coin.Price * amount);
+        var cost = (long)Math.Ceiling(coin.Price * amount);
         if (cost < 1) cost = 1;
 
         var removed = await _cs.RemoveAsync(userId, cost, new TxData("crypto", "buy"));

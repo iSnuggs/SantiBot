@@ -114,8 +114,8 @@ public sealed class RacingService : INService
         }
         else
         {
-            await _cs.AddAsync(winner.UserId, 100, new TxData("race", "win"));
-            sb.AppendLine($"\n🏆 **{winner.Username}** wins! +100 🥠");
+            await _cs.AddAsync(winner.UserId, 25, new TxData("race", "win"));
+            sb.AppendLine($"\n🏆 **{winner.Username}** wins! +25 🥠");
         }
 
         // Update stats
@@ -143,6 +143,18 @@ public sealed class RacingService : INService
     {
         var car = await GetOrCreateCar(userId);
         var cost = 500L;
+        const int MAX_STAT = 100;
+
+        // Check cap before charging
+        var currentVal = stat.ToLower() switch
+        {
+            "speed" => car.Speed,
+            "handling" => car.Handling,
+            "nitro" => car.Nitro,
+            _ => 0
+        };
+        if (currentVal >= MAX_STAT)
+            return (false, $"That stat is already maxed at {MAX_STAT}!");
 
         var removed = await _cs.RemoveAsync(userId, cost, new TxData("race", "upgrade"));
         if (!removed) return (false, $"Upgrade costs {cost} 🥠!");

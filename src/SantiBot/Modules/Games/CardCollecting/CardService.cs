@@ -67,8 +67,23 @@ public sealed class CardService : INService
         _cs = cs;
     }
 
-    public async Task<(string Name, string Set, string Rarity)> DrawDailyCardAsync(ulong userId)
+    // Track last daily draw per user
+    private readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, DateTime> _lastDailyDraw = new();
+
+    public async Task<(string Name, string Set, string Rarity, string Error)> DrawDailyCardAsync(ulong userId)
     {
+        // Enforce 24-hour cooldown
+        if (_lastDailyDraw.TryGetValue(userId, out var lastDraw))
+        {
+            var nextDraw = lastDraw.AddHours(24);
+            if (DateTime.UtcNow < nextDraw)
+            {
+                var remaining = nextDraw - DateTime.UtcNow;
+                return ("", "", "", $"You already drew today! Next draw in **{remaining.Hours}h {remaining.Minutes}m**.");
+            }
+        }
+        _lastDailyDraw[userId] = DateTime.UtcNow;
+
         // Pick rarity
         var totalWeight = RarityWeights.Values.Sum();
         var roll = _rng.Next(totalWeight);
@@ -111,7 +126,7 @@ public sealed class CardService : INService
             });
         }
 
-        return chosen;
+        return (chosen.Name, chosen.Set, chosen.Rarity, null);
     }
 
     public async Task<List<CollectibleCard>> GetInventoryAsync(ulong userId)
@@ -126,6 +141,9 @@ public sealed class CardService : INService
 
     public async Task<(bool Success, string Message)> TradeCardAsync(ulong fromUser, ulong toUser, string offerCardName, string wantCardName)
     {
+        if (fromUser == toUser)
+            return (false, "You can't trade with yourself!");
+
         await using var ctx = _db.GetDbContext();
 
         var offerCard = await ctx.GetTable<CollectibleCard>()

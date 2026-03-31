@@ -81,6 +81,9 @@ public sealed class AuctionService : INService, IReadyExecutor
 
     public async Task<(bool Success, string Message)> BidAsync(ulong guildId, ulong bidderId, string bidderName, int auctionId, long amount)
     {
+        if (amount > 1_000_000_000)
+            return (false, "Maximum bid is 1,000,000,000!");
+
         await using var ctx = _db.GetDbContext();
         var auction = await ctx.GetTable<Auction>()
             .FirstOrDefaultAsyncLinqToDB(a => a.Id == auctionId && a.GuildId == guildId && a.IsActive);
@@ -94,23 +97,34 @@ public sealed class AuctionService : INService, IReadyExecutor
         if (amount <= auction.CurrentBid)
             return (false, $"Bid must be higher than current bid of {auction.CurrentBid} 🥠!");
 
-        // Remove currency from new bidder
+        // Remove currency from new bidder FIRST
         var removed = await _cs.RemoveAsync(bidderId, amount, new TxData("auction", "bid"));
         if (!removed)
             return (false, $"You don't have {amount} 🥠!");
 
-        // Refund previous bidder
-        if (auction.HighestBidderId != 0)
-            await _cs.AddAsync(auction.HighestBidderId, auction.CurrentBid, new TxData("auction", "outbid-refund"));
+        // Atomic update: only succeed if bid is still higher (prevents race condition)
+        var previousBidderId = auction.HighestBidderId;
+        var previousBid = auction.CurrentBid;
 
-        await ctx.GetTable<Auction>()
-            .Where(a => a.Id == auctionId)
+        var rowsAffected = await ctx.GetTable<Auction>()
+            .Where(a => a.Id == auctionId && a.IsActive && a.CurrentBid < amount)
             .UpdateAsync(a => new Auction
             {
                 CurrentBid = amount,
                 HighestBidderId = bidderId,
                 HighestBidderName = bidderName
             });
+
+        if (rowsAffected == 0)
+        {
+            // Someone outbid us between our check and update — refund
+            await _cs.AddAsync(bidderId, amount, new TxData("auction", "bid-refund"));
+            return (false, "Someone placed a higher bid first! Your currency has been refunded.");
+        }
+
+        // Refund previous bidder
+        if (previousBidderId != 0)
+            await _cs.AddAsync(previousBidderId, previousBid, new TxData("auction", "outbid-refund"));
 
         return (true, $"Bid of {amount} 🥠 placed on auction #{auctionId}!");
     }

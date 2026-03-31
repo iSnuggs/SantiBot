@@ -220,17 +220,19 @@ public sealed class GamblingExpansionService : INService
         var winner = results.OrderByDescending(r => r.Score).First();
         var pot = game.Bet * game.Players.Count;
 
-        // Remove bets from losers, add pot to winner
+        // Remove bets from all players (check each one succeeds)
+        long actualPot = 0;
         foreach (var p in game.Players)
         {
-            await _cs.RemoveAsync(p.UserId, game.Bet, new TxData("poker", "bet"));
+            var taken = await _cs.RemoveAsync(p.UserId, game.Bet, new TxData("poker", "bet"));
+            if (taken) actualPot += game.Bet;
         }
-        await _cs.AddAsync(winner.UserId, pot, new TxData("poker", "win"));
+        await _cs.AddAsync(winner.UserId, actualPot, new TxData("poker", "win"));
 
         var summary = string.Join("\n", results.OrderByDescending(r => r.Score)
             .Select((r, i) => $"{(i == 0 ? "👑" : "  ")} {r.Username}: {r.Hand} (Score: {r.Score})"));
 
-        return (winner.UserId, winner.Username, pot, summary);
+        return (winner.UserId, winner.Username, actualPot, summary);
     }
     #endregion
 }

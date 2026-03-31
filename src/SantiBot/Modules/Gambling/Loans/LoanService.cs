@@ -109,6 +109,9 @@ public sealed class LoanService : INService, IReadyExecutor
 
     public async Task<(bool Success, string Message)> RepayLoanAsync(ulong guildId, ulong userId, long? amount)
     {
+        if (amount.HasValue && amount.Value <= 0)
+            return (false, "Repayment amount must be positive!");
+
         await using var ctx = _db.GetDbContext();
         var loan = await ctx.GetTable<UserLoan>()
             .FirstOrDefaultAsyncLinqToDB(l => l.GuildId == guildId && l.UserId == userId && l.IsActive);

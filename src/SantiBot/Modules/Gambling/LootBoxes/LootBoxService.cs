@@ -76,9 +76,16 @@ public sealed class LootBoxService : INService
         if (amount < 1 || amount > 20)
             return (false, "Open between 1 and 20 boxes at a time!", null);
 
+        // Atomic: only subtract if enough boxes exist (prevents race condition)
+        await using var atomicCtx = _db.GetDbContext();
+        var rowsAffected = await atomicCtx.GetTable<UserLootBox>()
+            .Where(x => x.GuildId == guildId && x.UserId == userId && x.UnopenedBoxes >= amount)
+            .UpdateAsync(x => new UserLootBox { UnopenedBoxes = x.UnopenedBoxes - amount });
+
+        if (rowsAffected == 0)
+            return (false, "You don't have enough unopened boxes!", null);
+
         var inv = await GetOrCreateInventory(guildId, userId);
-        if (inv.UnopenedBoxes < amount)
-            return (false, $"You only have {inv.UnopenedBoxes} unopened boxes!", null);
 
         var results = new List<(string Tier, long Reward)>();
         long totalReward = 0;
@@ -118,7 +125,6 @@ public sealed class LootBoxService : INService
             .Where(x => x.Id == inv.Id)
             .UpdateAsync(x => new UserLootBox
             {
-                UnopenedBoxes = inv.UnopenedBoxes - amount,
                 CommonBoxes = inv.CommonBoxes + common,
                 UncommonBoxes = inv.UncommonBoxes + uncommon,
                 RareBoxes = inv.RareBoxes + rare,
