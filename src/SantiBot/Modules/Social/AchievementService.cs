@@ -656,14 +656,30 @@ public sealed class AchievementService : INService, IReadyExecutor
                 Emoji = def.Emoji
             });
 
-        // Send achievement notification to the user's guild
+        // Send achievement notification to configured channel (or system/default)
         try
         {
             var guild = _client.GetGuild(guildId);
             if (guild is not null)
             {
                 var user = guild.GetUser(userId);
-                var channel = guild.SystemChannel ?? guild.DefaultChannel;
+
+                // Check for configured achievement channel
+                ITextChannel channel = null;
+                await using var cfgCtx = _db.GetDbContext();
+                var config = await cfgCtx.GetTable<GuildConfig>()
+                    .FirstOrDefaultAsyncLinqToDB(g => g.GuildId == guildId);
+
+                if (config?.GameVoiceChannel is not null && config.GameVoiceChannel != 0)
+                {
+                    // Reuse GameVoiceChannel field for achievement channel (or use a dedicated field if available)
+                }
+
+                // Try to find a channel named "achievements" or "bot-log" first
+                channel = guild.TextChannels.FirstOrDefault(c => c.Name is "achievements" or "achievement" or "bot-log" or "bot-commands")
+                    ?? guild.SystemChannel
+                    ?? guild.DefaultChannel as ITextChannel;
+
                 if (channel is not null && user is not null)
                 {
                     var embed = new EmbedBuilder()

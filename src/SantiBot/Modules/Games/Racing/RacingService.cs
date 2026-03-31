@@ -97,11 +97,17 @@ public sealed class RacingService : INService
 
         results = results.OrderByDescending(r => r.Score).ToList();
 
-        var positions = new[] { "🥇", "🥈", "🥉", "4th", "5th", "6th", "7th", "8th" };
         for (int i = 0; i < results.Count; i++)
         {
             var r = results[i];
-            sb.AppendLine($"{positions[Math.Min(i, positions.Length - 1)]} **{r.Username}** — Score: {r.Score} (S:{r.Car.Speed} H:{r.Car.Handling} N:{r.Car.Nitro})");
+            var pos = i switch
+            {
+                0 => "🥇",
+                1 => "🥈",
+                2 => "🥉",
+                _ => $"{i + 1}th"
+            };
+            sb.AppendLine($"{pos} **{r.Username}** — Score: {r.Score} (S:{r.Car.Speed} H:{r.Car.Handling} N:{r.Car.Nitro})");
         }
 
         // Winner gets pot

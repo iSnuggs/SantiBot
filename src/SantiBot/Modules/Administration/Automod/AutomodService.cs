@@ -129,7 +129,7 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
                 AutomodFilterType.LinkWhitelist => CheckLinkWhitelist(rule, fullContent),
                 AutomodFilterType.StickerSpam => msg.Stickers.Count > rule.Threshold,
                 AutomodFilterType.ExternalEmoji => CheckExternalEmoji(rule, fullContent, guild.Id),
-                AutomodFilterType.SelfbotDetection => false, // TODO: implement
+                AutomodFilterType.SelfbotDetection => CheckSelfbot(rule, guild.Id, user.Id, msg),
                 _ => false,
             };
 
@@ -378,6 +378,55 @@ public sealed class AutomodService : IExecOnMessage, IReadyExecutor, INService
         // Only count emoji NOT from this guild
         var externalCount = matches.Count(m => !guildEmojiIds.Contains(m.Groups[1].Value));
         return externalCount >= rule.Threshold;
+    }
+
+    // ── Selfbot Detection ──
+    // Tracks per-user message timing to detect inhuman patterns
+    private readonly ConcurrentDictionary<ulong, ConcurrentDictionary<ulong, List<DateTime>>> _selfbotTracker = new();
+
+    private bool CheckSelfbot(AutomodRule rule, ulong guildId, ulong userId, IUserMessage msg)
+    {
+        var guildTracker = _selfbotTracker.GetOrAdd(guildId, _ => new());
+        var timestamps = guildTracker.GetOrAdd(userId, _ => new());
+
+        var now = DateTime.UtcNow;
+        timestamps.Add(now);
+
+        // Keep only last 60 seconds of timestamps
+        timestamps.RemoveAll(t => (now - t).TotalSeconds > 60);
+
+        // Heuristic 1: More than 20 messages in 10 seconds (inhuman speed)
+        var last10s = timestamps.Count(t => (now - t).TotalSeconds <= 10);
+        if (last10s > 20)
+            return true;
+
+        // Heuristic 2: Perfectly timed messages (< 50ms variance between intervals)
+        if (timestamps.Count >= 5)
+        {
+            var recent = timestamps.TakeLast(5).ToList();
+            var intervals = new List<double>();
+            for (int i = 1; i < recent.Count; i++)
+                intervals.Add((recent[i] - recent[i - 1]).TotalMilliseconds);
+
+            if (intervals.Count >= 4)
+            {
+                var avg = intervals.Average();
+                var variance = intervals.Select(x => Math.Abs(x - avg)).Average();
+                // If average interval < 500ms AND variance < 50ms, likely automated
+                if (avg < 500 && variance < 50)
+                    return true;
+            }
+        }
+
+        // Heuristic 3: User messages contain embeds (only bots/webhooks can send embeds via user accounts)
+        if (msg.Embeds.Count > 0 && !msg.Author.IsBot && !msg.Author.IsWebhook)
+        {
+            // Regular users can trigger link embeds, but rich embeds are suspicious
+            if (msg.Embeds.Any(e => e.Type == EmbedType.Rich))
+                return true;
+        }
+
+        return false;
     }
 
     // ── Exemption Check ──
