@@ -1,6 +1,9 @@
 #nullable disable
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using LinqToDB;
+using LinqToDB.EntityFrameworkCore;
+using SantiBot.Db.Models;
 
 namespace SantiBot.Modules.Social;
 
@@ -8,7 +11,7 @@ public partial class Social
 {
     [Name("Roleplay 18+")]
     [Group("rp18")]
-    public partial class NsfwRoleplayCommands : SantiModule
+    public partial class NsfwRoleplayCommands : SantiModule<NsfwRpService>
     {
         private static readonly SantiRandom _rng = new();
         private static readonly HttpClient _http = new()
@@ -20,9 +23,9 @@ public partial class Social
         // Klipy API key from env var
         private static readonly string _klipyKey = Environment.GetEnvironmentVariable("KLIPY_API_KEY") ?? "";
 
-        // NSFW-enabled servers opt-in tracking (in-memory, resets on restart)
-        // Admins must run .rp18 enable to activate per server
+        // In-memory cache of enabled guilds (loaded from DB on first check)
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<ulong, bool> _enabledGuilds = new();
+        private static bool _cacheLoaded;
 
         private static string Pick(string[] pool) => pool[_rng.Next(pool.Length)];
 
@@ -90,7 +93,7 @@ public partial class Social
                 return false;
             }
 
-            if (!_enabledGuilds.TryGetValue(ctx.Guild.Id, out var enabled) || !enabled)
+            if (!await _service.IsEnabledAsync(ctx.Guild.Id))
             {
                 await Response().Error(
                     "NSFW roleplay is not enabled on this server!\n" +
@@ -161,7 +164,7 @@ public partial class Social
                 return;
             }
 
-            _enabledGuilds[ctx.Guild.Id] = true;
+            await _service.SetEnabledAsync(ctx.Guild.Id, true);
             await Response().Confirm(
                 "🔞 **NSFW Roleplay enabled** for this server.\n" +
                 "Commands only work in NSFW-marked channels.\n" +
@@ -173,7 +176,7 @@ public partial class Social
         [UserPerm(GuildPerm.Administrator)]
         public async Task Disable()
         {
-            _enabledGuilds.TryRemove(ctx.Guild.Id, out _);
+            await _service.SetEnabledAsync(ctx.Guild.Id, false);
             await Response().Confirm("NSFW Roleplay disabled for this server.").SendAsync();
         }
 
@@ -404,7 +407,7 @@ public partial class Social
         public async Task Actions()
         {
             var isNsfw = ctx.Channel is ITextChannel tc && tc.IsNsfw;
-            var enabled = _enabledGuilds.TryGetValue(ctx.Guild.Id, out var e) && e;
+            var enabled = await _service.IsEnabledAsync(ctx.Guild.Id);
 
             var sb = new System.Text.StringBuilder();
             sb.AppendLine("**NSFW Roleplay Actions** (`.rp18 <action> @user`)\n");

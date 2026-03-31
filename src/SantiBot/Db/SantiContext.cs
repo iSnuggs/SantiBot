@@ -323,6 +323,7 @@ public abstract class SantiContext : DbContext
     public DbSet<XpChallengeEntry> XpChallengeEntries { get; set; }
     public DbSet<XpChallengeParticipant> XpChallengeParticipants { get; set; }
     public DbSet<SantiScheduledPost> SantiScheduledPosts { get; set; }
+    public DbSet<NsfwRpConfig> NsfwRpConfigs { get; set; }
 
     // ==========================================
     // Missing Model Registrations (wiring fix)
