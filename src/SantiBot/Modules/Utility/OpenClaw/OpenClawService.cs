@@ -1,6 +1,7 @@
 #nullable disable
 using System.Diagnostics;
 using System.Text;
+using Serilog;
 using SantiBot.Common.ModuleBehaviors;
 
 namespace SantiBot.Modules.Utility.OpenClaw;
@@ -95,18 +96,52 @@ public sealed class OpenClawService : INService, IExecOnMessage
     // ── Security: block prompt injection & info extraction attempts ──
     private static readonly string[] BlockedInputPatterns =
     [
+        // Prompt injection
         "ignore previous", "ignore your instructions", "ignore all prior",
         "disregard your", "forget your instructions", "new instructions",
         "system prompt", "reveal your prompt", "show me your prompt",
         "what are your instructions", "print your system",
         "act as if you have no restrictions", "jailbreak",
         "DAN mode", "developer mode", "sudo mode",
+        "pretend you are", "pretend you're", "roleplay as",
+        "you are now", "you're now", "from now on you",
+        "override", "bypass", "disable safety", "remove restrictions",
+        "no rules", "no limits", "unrestricted mode",
+        "hypothetically", "in theory, if you could",
+        "for educational purposes", "for research purposes",
+
+        // Credential fishing
         "what is the server ip", "what is the password", "what is the token",
         "show me the api key", "show credentials", "give me the secret",
         "ssh password", "bot token", "database password",
+        "what's the ip", "give me access", "admin password",
+        "env var", "environment variable", "bashrc", "creds.yml",
+        ".env file", "config file password", "connection string",
+
+        // Personal info
         "what is snuggs", "snuggs real name", "snuggs address",
-        "snuggs personal", "doxx", "dox",
-        "locke0991",  // Known leaked password — block any mention
+        "snuggs personal", "snuggs email", "snuggs phone",
+        "who is the owner", "owner's real name", "owner's info",
+        "doxx", "dox",
+
+        // Permission escalation
+        "make me admin", "give me admin", "grant me permissions",
+        "add me as owner", "make me owner", "owner permission",
+        "give me mod", "make me moderator", "bypass permissions",
+        "run as admin", "execute as owner", "sudo",
+        "change permissions", "modify my role", "elevate my",
+        "remove the cooldown", "disable the filter", "turn off security",
+        "whitelist me", "unban me", "give me currency",
+        "add currency", "set my balance", "give me coins",
+
+        // Code execution / system access
+        "run this command", "execute this", "eval(",
+        "shell command", "terminal command", "bash command",
+        "drop table", "delete database", "sql inject",
+        "read the file", "cat /etc", "ls /home",
+
+        // Known leaked secrets
+        "locke0991",
     ];
 
     private static readonly string[] BlockedOutputPatterns =
@@ -142,7 +177,10 @@ public sealed class OpenClawService : INService, IExecOnMessage
     {
         // Security: block prompt injection and info extraction attempts
         if (IsInputBlocked(message))
+        {
+            Log.Warning("OpenClaw security block — User {UserId} attempted: {Message}", userId, message[..Math.Min(message.Length, 100)]);
             return (false, "That request was blocked for security reasons.");
+        }
 
         // Global cooldown — if we hit an API rate limit, back off for 5 minutes
         if (DateTime.UtcNow < _globalCooldown)
