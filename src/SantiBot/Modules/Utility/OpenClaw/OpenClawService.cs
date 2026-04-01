@@ -493,9 +493,12 @@ public sealed class OpenClawService : INService, IExecOnMessage
             var lines = clean.Split('\n');
             clean = string.Join("\n", lines.Where(l =>
                 !l.TrimStart().StartsWith("[agents/") &&
+                !l.TrimStart().StartsWith("[agent/") &&
                 !l.TrimStart().StartsWith("[gateway") &&
                 !l.TrimStart().StartsWith("[debug") &&
-                !l.TrimStart().StartsWith("[warn")
+                !l.TrimStart().StartsWith("[warn") &&
+                !l.TrimStart().StartsWith("[diagnostic") &&
+                !l.TrimStart().StartsWith("[model-fallback")
             )).Trim();
 
             // Security: redact any leaked secrets from the response

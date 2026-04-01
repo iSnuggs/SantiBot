@@ -88,6 +88,10 @@ public partial class Social
             ["cringe"]    = ("waifu", "cringe"),
             ["glomp"]     = ("waifu", "glomp"),
             ["awoo"]      = ("waifu", "awoo"),
+            // nekos.best extras
+            ["lurk"]      = ("nekos", "lurk"),
+            // otakugifs extras
+            ["sing"]      = ("otaku", "sing"),
             // Klipy/Giphy search for actions without anime API endpoints
             ["tackle"]    = ("klipy", "anime tackle"),
             ["fistbump"]  = ("klipy", "anime fist bump"),
@@ -128,6 +132,13 @@ public partial class Social
                 {
                     var json = await _gifHttp.GetStringAsync(
                         $"https://api.waifu.pics/sfw/{source.Category}");
+                    var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                    if (match.Success) return match.Groups[1].Value;
+                }
+                else if (source.Source == "otaku")
+                {
+                    var json = await _gifHttp.GetStringAsync(
+                        $"https://api.otakugifs.xyz/gif?reaction={source.Category}");
                     var match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                     if (match.Success) return match.Groups[1].Value;
                 }
@@ -629,5 +640,138 @@ public partial class Social
         [Cmd] [RequireContext(ContextType.Guild)]
         public async Task RpKick(IUser target = null)
         { await Response().Embed(await MakeRpEmbed(ctx.User, target, "kick", "🦵", "Kick!", ["kicks", "roundhouse kicks", "drop kicks", "gives a swift kick to", "boots"], ["kicks the air", "roundhouse kicks nothing", "practices their kicks", "does a flying kick", "kicks around"], true)).SendAsync(); }
+
+        // ═══════════════════════════════════════════════════════════
+        //  SANTI'S NEW RP COMMANDS (23 more) — uses {0} format for target
+        // ═══════════════════════════════════════════════════════════
+
+        // Helper: Santi's flavor text uses {0} placeholder for target mention
+        private async Task SantiRpAsync(string action, string emoji, string title, IUser target,
+            string[] targetLines, string[] soloLines, bool aggressive = false)
+        {
+            var gifUrl = await GetGifAsync(action);
+            string desc;
+            if (target is not null)
+                desc = string.Format(Pick(targetLines), target.Mention);
+            else
+                desc = Pick(soloLines);
+            var eb = CreateEmbed()
+                .WithTitle($"{emoji} {title}")
+                .WithDescription($"{ctx.User.Mention} {desc}");
+            if (aggressive) eb.WithErrorColor(); else eb.WithOkColor();
+            if (gifUrl is not null) eb.WithImageUrl(gifUrl);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Squeeze(IUser target = null) => await SantiRpAsync("hug", "🫂", "Squeeze!", target,
+            ["squeezes {0} tight, refusing to let go.", "grabs {0} and squeezes like their life depends on it.", "gives {0} the most aggressive hug-squeeze combo known to mankind.", "squeezes {0} until they make a little noise."],
+            ["squeezes a pillow tight", "squeezes the air desperately", "needs someone to squeeze", "gives themselves a squeeze"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Comfort(IUser target = null) => await SantiRpAsync("hug", "💛", "Comfort!", target,
+            ["sits next to {0} and gently puts an arm around them. 'Hey. I've got you.'", "pulls {0} into a soft hug without saying a word.", "says quietly 'it's going to be okay,' squeezing {0}'s shoulder.", "makes {0} tea, wraps them in a blanket, and sits with them.", "doesn't say anything — just shows up for {0}. Sometimes that's enough."],
+            ["wraps up in a blanket", "takes a deep breath", "is being gentle with themselves today", "sits quietly and breathes"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Protect(IUser target = null) => await SantiRpAsync("stare", "🛡️", "Protect!", target,
+            ["steps in front of {0}, arms spread. 'You'll have to go through me first.'", "has decided nobody is touching {0} today. Personally.", "stands between {0} and the world. Ride or die.", "announces '{0} is under my protection now' to absolutely no one.", "wraps a protective arm around {0} and glares at everything nearby."],
+            ["activates protect mode", "stands guard", "is protecting everyone", "shields up"], true);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Snuggle(IUser target = null) => await SantiRpAsync("cuddle", "🥰", "Snuggle!", target,
+            ["burrows into {0}'s side like a small determined animal.", "and {0} achieve maximum snuggle. No one is moving. This is home now.", "drags {0} into a blanket nest and refuses to release them.", "announces '{0} is warm and I have decided to snuggle them.'", "snuggles {0} aggressively. This is not a request."],
+            ["snuggles into a blanket", "curls up in a cozy ball", "achieves maximum snuggle solo", "snuggles a pillow aggressively"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Headbutt(IUser target = null) => await SantiRpAsync("bonk", "🤕", "Headbutt!", target,
+            ["gently bonks their forehead against {0}'s. Affection achieved.", "headbutts {0} lovingly like a small goat. BONK.", "presses their forehead to {0}'s. It means 'I like you' in chaotic.", "gives {0} a gentle forehead bonk. Consider yourself loved.", "headbutts {0} softly. It's basically a hug but with their head."],
+            ["headbutts the air", "bonks their head gently on the wall", "does a little headbutt into nothing", "headbutts a pillow"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Nibble(IUser target = null) => await SantiRpAsync("bite", "😬", "Nibble!", target,
+            ["gives {0} a little nibble. Playful. Harmless. Slightly feral.", "nibbles {0}. Please remain calm.", "nibbles {0}'s ear gently. Nom.", "couldn't help it. {0} looked too nibbleable.", "nibbles {0} affectionately like a hamster who loves you."],
+            ["nibbles on a snack", "nibbles the air", "is feeling nibblish", "nom nom nom"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Yoink(IUser target = null) => await SantiRpAsync("yeet", "🫳", "Yoink!", target,
+            ["yoinks {0}'s snack/hat/dignity and bolts.", "swipes {0}'s thing with zero hesitation and maximum confidence. YOINK.", "yoinks something from {0} and sprints. Classic.", "blinks at {0}. Something is gone. Already three rooms away."],
+            ["yoinks something from the void", "yoinks the air", "grabs at nothing", "YOINK"], true);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Kidnap(IUser target = null) => await SantiRpAsync("carry", "🚐", "Kidnap!", target,
+            ["throws a blanket over {0} and drags them away. 'You're coming with me.'", "has kidnapped {0}. Destination: unknown. Snacks: maybe.", "says '{0}, you're needed,' already pulling them out the door.", "grabs {0} by the wrist dramatically. 'No time to explain. Run.'", "has claimed {0}. They seem fine with it honestly."],
+            ["kidnaps themselves", "runs off dramatically alone", "throws a blanket over nothing", "is planning a kidnapping"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task RpThrow(IUser target = null) => await SantiRpAsync("yeet", "🏈", "Throw!", target,
+            ["picks up {0} and yeets them across the room. With love.", "LAUNCHES {0} like a bowling ball. Impressive form.", "shouts '{0} INCOMING!' already mid-throw.", "spins once for momentum then releases {0} into the void."],
+            ["throws something into the void", "launches an invisible object", "YEET", "throws with all their might at nothing"], true);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task RpChallenge(IUser target = null) => await SantiRpAsync("punch", "⚔️", "Challenge!", target,
+            ["points at {0} dramatically. 'You. Me. Right now. Let's go.'", "declares 'I challenge you' to {0}, slamming a gauntlet they definitely own.", "cracks their knuckles and stares {0} down. It's on.", "squares up to {0}. This beef has been officially started."],
+            ["challenges the void", "issues a challenge to no one", "cracks their knuckles menacingly", "is looking for a fight"], true);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Flex(IUser target = null) => await SantiRpAsync("dab", "💪", "Flex!", target,
+            ["flexes on {0} with zero remorse.", "turns to {0} and begins flexing. The message is clear.", "asks {0} 'you see this?' gesturing vaguely at themselves. 'All of this.'", "strikes a pose directly at {0}. Consider yourself flexed upon."],
+            ["flexes", "strikes a pose", "flexes on everyone", "begins flexing. Confidence: maximum"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task RpIgnore(IUser target = null) => await SantiRpAsync("shrug", "🙄", "Ignore!", target,
+            ["walks right past {0} without acknowledgment. Devastating.", "stares directly over {0}'s head into the middle distance.", "pretends {0} does not exist. Oscar-worthy performance.", "activates the silent treatment. {0} is being ignored."],
+            ["ignores everything", "stares into the distance", "pretends no one exists", "is ignoring the world"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Stalk(IUser target = null) => await SantiRpAsync("lurk", "🕵️", "Stalk!", target,
+            ["follows {0} at a suspicious distance, pretending to look at their phone.", "is 10 steps behind {0}. Casually. Definitely not on purpose.", "ducks behind a plant as {0} turns around. Suspicious.", "has been tailing {0} for 20 minutes and counting."],
+            ["lurks suspiciously", "hides behind a plant", "is being very suspicious", "watches from the shadows"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Forehead(IUser target = null) => await SantiRpAsync("kiss", "😚", "Forehead Kiss!", target,
+            ["presses a soft kiss to {0}'s forehead. Gentle. Pure.", "leans in and kisses {0}'s forehead tenderly. 'There.'", "gives {0} a forehead kiss. They have been blessed.", "cups {0}'s face and presses their lips to their forehead softly.", "gives {0} a forehead kiss that says everything. No words needed."],
+            ["kisses the air gently", "sends forehead kisses to everyone", "presses a kiss to an invisible forehead", "mwah~"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Nap(IUser target = null) => await SantiRpAsync("sleep", "💤", "Nap!", target,
+            ["falls asleep on {0}'s shoulder. Do not move. Do not breathe.", "has claimed {0}'s lap as their pillow. This is permanent now.", "curls up on {0} and is asleep within seconds. Without warning.", "naps on {0} with complete confidence and zero apology.", "mumbles '{0}'s lap is the best pillow' before passing out entirely."],
+            ["takes a nap", "curls up and falls asleep", "is napping", "zzz... naptime"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Share(IUser target = null) => await SantiRpAsync("feed", "🤝", "Share!", target,
+            ["silently slides their snack over to {0}. No words needed.", "splits their last piece with {0}. That's real friendship.", "says 'here,' handing over half their food to {0} without hesitation.", "shares their blanket with {0}. Maximum warmth achieved.", "is sharing with {0} anyway. That's just how they are."],
+            ["shares with the void", "offers snacks to everyone", "is feeling generous", "shares their blanket with no one"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Serenade(IUser target = null) => await SantiRpAsync("sing", "🎤", "Serenade!", target,
+            ["clears their throat and begins serenading {0}. Quality TBD.", "grabs an invisible microphone and serenades {0} with full commitment.", "sings to {0} like no one is watching. Everyone is watching.", "performs directly in {0}'s face. For you~"],
+            ["serenades the void", "sings to no one", "belts out a tune", "grabs an invisible mic and goes for it"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Propose(IUser target = null) => await SantiRpAsync("happy", "💍", "Propose!", target,
+            ["drops to one knee in front of {0}. The room goes silent.", "asks {0} 'will you?' holding out something small and sparkly.", "proposes to {0} with full drama and zero warning.", "looks at {0} with complete sincerity. 'Will you be mine?'"],
+            ["proposes to the air", "drops to one knee dramatically", "holds out an invisible ring", "is proposing to no one"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task RpDivorce(IUser target = null) => await SantiRpAsync("tableflip", "📄", "Divorce!", target,
+            ["slides divorce papers across the table to {0}. 'It's over.'", "says 'I want my blanket back,' starting the proceedings against {0}.", "has filed for divorce from {0}. Reason: vibes.", "announces 'I'm leaving' to {0} dramatically. Walks 3 feet away."],
+            ["files for divorce from no one", "slides papers across the table dramatically", "is done. Just done.", "announces a divorce to the void"], true);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Groom(IUser target = null) => await SantiRpAsync("pat", "🐱", "Groom!", target,
+            ["begins grooming {0}'s hair like a cat who has decided to adopt them.", "licks their hand and smooths down {0}'s hair. You're welcome.", "grooms {0} with the dedication of a cat who takes hygiene seriously.", "whether {0} wanted it or not, the grooming has been handled."],
+            ["grooms themselves", "licks their paw and fixes their hair", "is self-grooming", "smooths down their own hair"]);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Hiss(IUser target = null) => await SantiRpAsync("angry", "🐍", "Hiss!", target,
+            ["hisses at {0}. Do not approach.", "has triggered their hiss response at {0}. Back up.", "puffs up and hisses at {0} like a very small, very dramatic cat.", "directs a HISSSSS specifically at {0}."],
+            ["hisses at the world", "hisses at nothing", "HISSSSS", "puffs up and hisses at everything"], true);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Headpat(IUser target = null) => await SantiRpAsync("pat", "🤚", "Headpat!", target,
+            ["reaches over and gives {0} a very deliberate headpat.", "has headpatted {0}. They're good now. Pat. Pat. Pat.", "places their hand on {0}'s head with complete authority and pats.", "gives {0} the most sincere headpat they have ever received."],
+            ["pats their own head", "headpats the air", "is looking for a head to pat", "gives themselves a headpat"]);
     }
 }
+
