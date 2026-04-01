@@ -35,26 +35,38 @@ public partial class Social
         // "nekoslife" = nekos.life (has spank, lewd, kiss NSFW GIFs)
         // "waifunsfw" = waifu.pics /nsfw/ (waifu, neko, blowjob)
         // "purrbot" = purrbot.site /nsfw/ (spank, neko)
+        // GIF sources: nekos = nekos.best, nekoslife = nekos.life, waifunsfw = waifu.pics/nsfw
+        // purrbot = purrbot.site, otaku = otakugifs.xyz, waifuim = waifu.im, nekobot = nekobot.xyz
         private static readonly Dictionary<string, (string Source, string Category)> _nsfwGifSources = new()
         {
-            ["kiss"]      = ("nekoslife", "kiss"),      // nekos.life has NSFW-ish kiss GIFs
-            ["cuddle"]    = ("nekoslife", "cuddle"),
-            ["lick"]      = ("nekos", "lick"),
-            ["bite"]      = ("nekos", "bite"),
-            ["spank"]     = ("nekoslife", "spank"),     // nekos.life actual spank GIFs
+            ["kiss"]      = ("otaku", "kiss"),           // otakugifs — great kiss GIFs
+            ["cuddle"]    = ("otaku", "cuddle"),          // otakugifs cuddle
+            ["lick"]      = ("otaku", "lick"),            // otakugifs lick
+            ["bite"]      = ("otaku", "bite"),            // otakugifs bite
+            ["spank"]     = ("purrbot", "spank"),         // purrbot NSFW spank GIFs
             ["tease"]     = ("nekos", "smug"),
-            ["blush"]     = ("nekos", "blush"),
-            ["nuzzle"]    = ("nekos", "nuzzle"),
-            ["seduce"]    = ("waifunsfw", "waifu"),     // suggestive anime images
+            ["blush"]     = ("otaku", "blush"),           // otakugifs blush
+            ["nuzzle"]    = ("nekos", "nuzzle"),          // nekos.best nuzzle
+            ["seduce"]    = ("waifuim", "ero"),           // waifu.im ero — suggestive
             ["whisper"]   = ("nekos", "peck"),
-            ["grind"]     = ("nekos", "dance"),            // intimate dancing
-            ["moan"]      = ("nekoslife", "lewd"),      // nekos.life lewd category
-            ["strip"]     = ("waifunsfw", "waifu"),     // suggestive anime
-            ["dominate"]  = ("purrbot", "spank"),       // purrbot NSFW spank
-            ["submit"]    = ("nekoslife", "lewd"),      // suggestive
-            ["handcuff"]  = ("nekoslife", "spank"),     // closest NSFW match
-            ["blindfold"] = ("waifunsfw", "neko"),      // suggestive neko
-            ["tie"]       = ("waifunsfw", "neko"),      // suggestive neko
+            ["grind"]     = ("nekobot", "pgif"),            // nekobot NSFW GIF — intimate
+            ["moan"]      = ("nekobot", "pgif"),            // nekobot NSFW GIF
+            ["strip"]     = ("nekobot", "pgif"),            // nekobot NSFW GIF — undressing
+            ["dominate"]  = ("nekobot", "pgif"),            // nekobot NSFW GIF — dominant
+            ["submit"]    = ("nekobot", "pgif"),            // nekobot NSFW GIF — submissive
+            ["handcuff"]  = ("nekobot", "pgif"),            // nekobot NSFW GIF — bondage
+            ["blindfold"] = ("nekobot", "pgif"),            // nekobot NSFW GIF — bondage
+            ["tie"]       = ("nekobot", "pgif"),            // nekobot NSFW GIF — bondage
+            ["caress"]    = ("otaku", "peck"),            // otakugifs gentle touch
+            ["pin"]       = ("nekobot", "pgif"),            // nekobot NSFW GIF — pinning
+            ["collar"]    = ("nekobot", "pgif"),            // nekobot NSFW GIF — collar
+            ["praise"]    = ("otaku", "pat"),             // otakugifs wholesome
+            ["punish"]    = ("nekobot", "pgif"),            // nekobot NSFW GIF — punishment
+            ["claim"]     = ("otaku", "bite"),            // otakugifs possessive
+            ["undress"]   = ("waifunsfw", "waifu"),          // waifu.pics NSFW waifu — suggestive
+            ["worship"]   = ("otaku", "kiss"),            // otakugifs devotional
+            ["makeout"]   = ("otaku", "kiss"),            // otakugifs intense kiss
+            ["leash"]     = ("nekobot", "pgif"),            // nekobot NSFW GIF — leash
         };
 
         // Keep this for the Actions list display
@@ -82,6 +94,16 @@ public partial class Social
             ["handcuff"] = ["handcuffs", "restrains", "cuffs the wrists of", "clicks handcuffs on", "binds"],
             ["blindfold"] = ["blindfolds", "covers the eyes of", "ties a blindfold on", "takes away the sight of", "blindfolds and teases"],
             ["tie"] = ["ties up", "binds the hands of", "restrains with rope", "ties the wrists of", "binds and teases"],
+            ["caress"] = ["gently caresses {0}'s cheek, fingertips barely touching skin...", "traces slow, tender lines along {0}'s arm, savoring every inch.", "caresses {0} softly, leaving a trail of warmth wherever they touch.", "'s hands drift across {0}'s back in long, deliberate strokes.", "cups {0}'s face and caresses them like they're something precious."],
+            ["pin"] = ["pins {0} against the wall, eyes dark with intent. 'Going somewhere?'", "grabs {0}'s wrists and pins them above their head with a slow smirk.", "presses {0} down, leaning in close. 'Stay still.'", "pins {0} in place — firm, deliberate, no room to escape.", "has {0} pinned and isn't planning on letting go anytime soon."],
+            ["collar"] = ["fastens a collar around {0}'s neck and steps back to admire it. 'Perfect.'", "reaches for {0}'s collar and tugs them closer without a word.", "slips a collar around {0}. A quiet claim. A quiet promise.", "adjusts {0}'s collar slowly, eyes never leaving theirs.", "collars {0} with a soft click. They belong to each other now."],
+            ["praise"] = ["tilts {0}'s chin up. 'You did so well. I'm proud of you.'", "murmurs 'such a good boy/girl' against {0}'s ear.", "strokes {0}'s hair softly. 'That's it. Just like that. Good.'", "breathes 'you're perfect, you know that?' clearly pleased with {0}.", "pulls {0} close and whispers praise that makes their whole body warm."],
+            ["punish"] = ["says quietly 'you knew the rules,' turning to face {0} with a look.", "decides {0} needs a reminder of who's in charge tonight.", "asks {0} 'did I say you could do that?' tilting their head slowly.", "makes {0} very aware that their behavior has consequences.", "tried {0}'s patience. Now they're about to find out what that costs."],
+            ["claim"] = ["pulls {0} close by the waist. 'Mine.' Simple. Final.", "marks {0} — a silent declaration of ownership.", "says 'everyone needs to know,' leaving their claim on {0} for all to see.", "holds {0} possessively, daring anyone to say otherwise.", "looks at {0} with that familiar intensity. 'You're mine. Don't forget it.'"],
+            ["undress"] = ["reaches for the hem of {0}'s shirt, eyes asking permission — then proceeding.", "undresses {0} slow and deliberate, like they have all the time in the world.", "one button at a time, undresses {0}, savoring every reveal.", "murmurs 'relax' as they undress {0} carefully.", "slides {0}'s jacket off their shoulders and lets it drop to the floor."],
+            ["worship"] = ["drops to their knees before {0}. 'Let me show you how much I adore you.'", "intends to give every inch of {0} the reverence they deserve.", "presses slow kisses along {0}'s collarbone, worshipping every inch.", "murmurs 'you deserve to be worshipped' to {0}, lips moving across their skin.", "worships {0} with hands and lips and every ounce of devotion they have."],
+            ["makeout"] = ["grabs {0} and pulls them into a deep, breathless kiss that says everything.", "starts slow — then pulls {0} closer and things escalate quickly.", "and {0} lose track of time, lips locked, hands wandering.", "cups {0}'s face and kisses them deeply, thoroughly, completely.", "answers every breath from {0} by kissing them harder."],
+            ["leash"] = ["clips a leash to {0}'s collar and gives a gentle tug. 'Come.'", "fastens the leash to {0}. 'You don't go anywhere without me.'", "wraps the leash around their hand and leads {0} without a word.", "watches {0} follow obediently — the leash a reminder of who holds the lead.", "trails the leash through their fingers, watching {0} with quiet satisfaction."],
         };
 
         // ── Gate check — NSFW channel + server opted in ──
@@ -117,31 +139,52 @@ public partial class Social
 
                 switch (source.Source)
                 {
-                    case "nekos":
+                    case "nekos": // nekos.best — SFW anime GIFs
                         json = await _http.GetStringAsync(
                             $"https://nekos.best/api/v2/{source.Category}");
                         match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                         if (match.Success) return match.Groups[1].Value;
                         break;
 
-                    case "nekoslife":
+                    case "nekoslife": // nekos.life — has some NSFW categories
                         json = await _http.GetStringAsync(
                             $"https://nekos.life/api/v2/img/{source.Category}");
                         match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                         if (match.Success) return match.Groups[1].Value;
                         break;
 
-                    case "waifunsfw":
+                    case "waifunsfw": // waifu.pics NSFW
                         json = await _http.GetStringAsync(
                             $"https://api.waifu.pics/nsfw/{source.Category}");
                         match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
                         if (match.Success) return match.Groups[1].Value;
                         break;
 
-                    case "purrbot":
+                    case "purrbot": // purrbot.site — SFW + NSFW GIFs
                         json = await _http.GetStringAsync(
                             $"https://purrbot.site/api/img/nsfw/{source.Category}/gif");
                         match = Regex.Match(json, "\"link\"\\s*:\\s*\"([^\"]+)\"");
+                        if (match.Success) return match.Groups[1].Value;
+                        break;
+
+                    case "otaku": // otakugifs.xyz — free, no key, great categories
+                        json = await _http.GetStringAsync(
+                            $"https://api.otakugifs.xyz/gif?reaction={source.Category}");
+                        match = Regex.Match(json, "\"url\"\\s*:\\s*\"([^\"]+)\"");
+                        if (match.Success) return match.Groups[1].Value;
+                        break;
+
+                    case "waifuim": // waifu.im — tags like ero, ecchi, waifu
+                        json = await _http.GetStringAsync(
+                            $"https://api.waifu.im/images?included_tags={source.Category}&is_nsfw=true");
+                        match = Regex.Match(json, "\"url\"\\s*:\\s*\"(https://cdn[^\"]+)\"");
+                        if (match.Success) return match.Groups[1].Value;
+                        break;
+
+                    case "nekobot": // nekobot.xyz — hentai, boobs, ass, pgif
+                        json = await _http.GetStringAsync(
+                            $"https://nekobot.xyz/api/image?type={source.Category}");
+                        match = Regex.Match(json, "\"message\"\\s*:\\s*\"([^\"]+)\"");
                         if (match.Success) return match.Groups[1].Value;
                         break;
                 }
@@ -401,6 +444,47 @@ public partial class Social
             if (gif is not null) eb.WithImageUrl(gif);
             await Response().Embed(eb).SendAsync();
         }
+
+        // Helper for new commands — Santi's flavor text uses {0} for target name
+        private async Task NsfwRpAsync(string action, string emoji, string title, IUser target, uint color)
+        {
+            if (!await CheckNsfwAllowed()) return;
+            var gif = await GetNsfwGifAsync(action);
+            var line = string.Format(Pick(_lines[action]), target.Mention);
+            var eb = CreateEmbed().WithTitle($"{emoji} {title}").WithDescription($"{ctx.User.Mention} {line}").WithColor(new Discord.Color(color));
+            if (gif is not null) eb.WithImageUrl(gif);
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Caress(IUser target) => await NsfwRpAsync("caress", "✋", "Caress", target, 0xFF69B4);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Pin(IUser target) => await NsfwRpAsync("pin", "📌", "Pin", target, 0x8B0000);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Collar(IUser target) => await NsfwRpAsync("collar", "🔗", "Collar", target, 0x8B0000);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Praise(IUser target) => await NsfwRpAsync("praise", "🌟", "Praise", target, 0xFF69B4);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Punish(IUser target) => await NsfwRpAsync("punish", "⚡", "Punish", target, 0x8B0000);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Claim(IUser target) => await NsfwRpAsync("claim", "🔥", "Claim", target, 0xFF1493);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Undress(IUser target) => await NsfwRpAsync("undress", "👗", "Undress", target, 0xFF1493);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Worship(IUser target) => await NsfwRpAsync("worship", "🙏", "Worship", target, 0xFF69B4);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Makeout(IUser target) => await NsfwRpAsync("makeout", "💋", "Makeout", target, 0xFF1493);
+
+        [Cmd] [RequireContext(ContextType.Guild)]
+        public async Task Leash(IUser target) => await NsfwRpAsync("leash", "🪢", "Leash", target, 0x8B0000);
 
         [Cmd]
         [RequireContext(ContextType.Guild)]

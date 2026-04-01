@@ -76,6 +76,11 @@ public partial class Social
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
+        public async Task Porn()
+            => await PostImage("Porn GIF", "🔥", "https://nekobot.xyz/api/image?type=pgif", "message", new Discord.Color(0xFF4500));
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
         public async Task Actions()
         {
             var isNsfw = ctx.Channel is ITextChannel tc && tc.IsNsfw;
@@ -87,6 +92,7 @@ public partial class Social
             sb.AppendLine("  😺 `.nsfw neko` — Random NSFW neko");
             sb.AppendLine("  🔞 `.nsfw lewd` — Random lewd image");
             sb.AppendLine("  🔞 `.nsfw hentai` — Random hentai image");
+            sb.AppendLine("  🔥 `.nsfw porn` — Random NSFW GIF");
             sb.AppendLine($"\n**Status:** {(enabled ? "🟢 Enabled" : "🔴 Disabled")}");
             sb.AppendLine($"**NSFW Channel:** {(isNsfw ? "✅ Yes" : "❌ No")}");
             if (!enabled)
