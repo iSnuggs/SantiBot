@@ -252,7 +252,7 @@ public sealed class OpenClawService : INService, IExecOnMessage
         // Strip zero-width characters and mathematical styled letters
         var result = sb.ToString();
         result = System.Text.RegularExpressions.Regex.Replace(result, @"[\u200B-\u200F\u2028-\u202F\uFEFF]", "");
-        result = System.Text.RegularExpressions.Regex.Replace(result, @"[\U0001D400-\U0001D7FF]", "x"); // Math styled → x
+        result = System.Text.RegularExpressions.Regex.Replace(result, @"[\uD835][\uDC00-\uDFFF]", "x"); // Math styled → x (surrogate pair)
         return result;
     }
 
