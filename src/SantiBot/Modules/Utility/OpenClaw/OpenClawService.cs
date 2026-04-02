@@ -53,7 +53,7 @@ public sealed class OpenClawService : INService, IExecOnMessage
 
         // Forward to Claude via OpenClaw
         using var typing = msg.Channel.EnterTypingState();
-        var (success, response) = await ChatAsync(msg.Author.Id, content);
+        var (success, response) = await ChatAsync(msg.Author.Id, content, msg.Author.Username);
 
         if (success)
         {
@@ -279,7 +279,7 @@ public sealed class OpenClawService : INService, IExecOnMessage
     /// Send a message to Claude via OpenClaw and get a response.
     /// Each user gets their own persistent session for multi-turn conversations.
     /// </summary>
-    public async Task<(bool Success, string Response)> ChatAsync(ulong userId, string message)
+    public async Task<(bool Success, string Response)> ChatAsync(ulong userId, string message, string username = null)
     {
         // Security: message length limit — block massive prompts
         if (message.Length > MAX_MESSAGE_LENGTH)
@@ -363,7 +363,9 @@ public sealed class OpenClawService : INService, IExecOnMessage
 
         var sessionId = _sessions.GetOrAdd(userId, _ => Guid.NewGuid().ToString());
 
-        var result = await RunOpenClawAsync(message, sessionId, 120);
+        // Prepend username so Santi knows who is talking
+        var msgForOc = username is not null ? $"[User: {username}] {message}" : message;
+        var result = await RunOpenClawAsync(msgForOc, sessionId, 120);
 
         // If we got a rate limit response, trigger global cooldown
         if (!result.Success && result.Response is not null

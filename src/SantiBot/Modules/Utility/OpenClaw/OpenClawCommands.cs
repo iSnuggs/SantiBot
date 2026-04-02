@@ -22,7 +22,7 @@ public partial class Utility
             // Show typing indicator while Claude thinks
             using var typing = ctx.Channel.EnterTypingState();
 
-            var (success, response) = await _service.ChatAsync(ctx.User.Id, question);
+            var (success, response) = await _service.ChatAsync(ctx.User.Id, question, ctx.User.Username);
 
             if (success)
             {

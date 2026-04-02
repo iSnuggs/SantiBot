@@ -19,7 +19,7 @@ public partial class Utility
                 "📎 **Embed Fix enabled!**\n\n" +
                 "SantiBot will automatically fix broken embeds from:\n" +
                 "🐦 Twitter/X → fxtwitter.com\n" +
-                "📸 Instagram → ddinstagram.com\n" +
+                "📸 Instagram → kkinstagram.com\n" +
                 "🎵 TikTok → vxtiktok.com\n" +
                 "🤖 Reddit → rxddit.com\n" +
                 "🦋 Bluesky → fxbsky.app\n\n" +

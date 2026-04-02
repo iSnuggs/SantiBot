@@ -26,7 +26,7 @@ public sealed class EmbedFixService : INService, IExecOnMessage
     public static readonly Dictionary<string, (string Name, string FixDomain, string Emoji)> Platforms = new()
     {
         ["twitter"]   = ("Twitter/X",   "fxtwitter.com",     "🐦"),
-        ["instagram"] = ("Instagram",   "ddinstagram.com",   "📸"),
+        ["instagram"] = ("Instagram",   "kkinstagram.com",   "📸"),
         ["tiktok"]    = ("TikTok",      "vxtiktok.com",      "🎵"),
         ["reddit"]    = ("Reddit",      "rxddit.com",        "🤖"),
         ["bluesky"]   = ("Bluesky",     "fxbsky.app",        "🦋"),
