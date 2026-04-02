@@ -67,12 +67,12 @@ public partial class Social
         [Cmd]
         [RequireContext(ContextType.Guild)]
         public async Task Lewd()
-            => await PostImage("Lewd", "🔞", "https://nekos.life/api/v2/img/lewd", "url", new Discord.Color(0xFF4500));
+            => await PostImage("Lewd", "🔞", "https://api.waifu.im/images?included_tags=ecchi&is_nsfw=true", "url", new Discord.Color(0xFF4500));
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
         public async Task Hentai()
-            => await PostImage("Hentai", "🔞", "https://nekos.life/api/v2/img/lewd", "url", new Discord.Color(0x8B0000));
+            => await PostImage("Hentai", "🔞", "https://api.waifu.im/images?included_tags=hentai&is_nsfw=true", "url", new Discord.Color(0x8B0000));
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
