@@ -80,9 +80,17 @@ public partial class Games
                 sb.AppendLine();
             }
 
+            var desc = sb.ToString();
+            if (desc.Length > 4096)
+            {
+                var cats = GamificationService.AllBadges.Select(b => b.Category).Distinct();
+                var footer = $"\n*...truncated. Use `.gf badgelist <category>` — categories: {string.Join(", ", cats.Select(c => $"`{c}`"))}*";
+                desc = desc[..(4096 - footer.Length)] + footer;
+            }
+
             var eb = CreateEmbed()
                 .WithTitle($"🎖️ Badge Catalog ({earnedIds.Count}/{GamificationService.AllBadges.Length} earned)")
-                .WithDescription(sb.ToString())
+                .WithDescription(desc)
                 .WithOkColor();
 
             await Response().Embed(eb).SendAsync();

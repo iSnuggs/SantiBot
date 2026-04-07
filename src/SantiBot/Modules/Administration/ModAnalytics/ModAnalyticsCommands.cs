@@ -8,19 +8,19 @@ public partial class Administration
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageGuild)]
-        public async Task ModStats()
+        public async Task GuildModStats()
             => await ShowGuildStats(30);
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageGuild)]
-        public async Task ModStats(int days)
+        public async Task GuildModStats(int days)
             => await ShowGuildStats(days);
 
         [Cmd]
         [RequireContext(ContextType.Guild)]
         [UserPerm(GuildPerm.ManageGuild)]
-        public async Task ModStats(IUser moderator)
+        public async Task GuildModStats(IUser moderator)
         {
             var stats = await _service.GetModStatsAsync(ctx.Guild.Id, moderator.Id);
 

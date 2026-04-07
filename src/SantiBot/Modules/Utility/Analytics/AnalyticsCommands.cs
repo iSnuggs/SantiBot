@@ -25,6 +25,12 @@ public partial class Utility
             var todayCount = today.Sum(x => x.Count);
             var weekCount = week.Sum(x => x.Count);
 
+            if (weekCount == 0)
+            {
+                await Response().Pending("No activity data recorded yet. Analytics begins tracking as messages are sent.").SendAsync();
+                return;
+            }
+
             var peakText = peakHours.Count > 0
                 ? string.Join(", ", peakHours.Select(p => $"`{FormatHour(p.Hour)}` ({p.Count:N0})"))
                 : "No data yet";

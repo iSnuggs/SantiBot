@@ -6,7 +6,7 @@ growth:
   - analyticsgrowth
 heatmap:
   - heatmap
-  - heatmap
+  - analyticsheatmap
 peakhours:
   - peakhours
   - analyticspeakhours

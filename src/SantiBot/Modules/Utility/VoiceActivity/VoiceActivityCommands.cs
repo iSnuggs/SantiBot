@@ -8,7 +8,7 @@ public partial class Utility
     {
         [Cmd]
         [RequireContext(ContextType.Guild)]
-        public async Task Activity([Leftover] string activityName = "")
+        public async Task Launch([Leftover] string activityName = "")
         {
             if (string.IsNullOrWhiteSpace(activityName))
             {

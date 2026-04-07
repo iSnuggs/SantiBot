@@ -1,20 +1,19 @@
 petadopt:
-  - petadopt
+  - oldpetadopt
   - padopt
-  - adopt
 pet:
-  - pet
+  - oldpet
   - mypet
 petfeed:
-  - petfeed
+  - oldpetfeed
   - pfeed
 petplay:
-  - petplay
+  - oldpetplay
   - pplay
 petrename:
-  - petrename
+  - oldpetrename
   - prename
 petleaderboard:
-  - petleaderboard
+  - oldpetleaderboard
   - petlb
   - plb
