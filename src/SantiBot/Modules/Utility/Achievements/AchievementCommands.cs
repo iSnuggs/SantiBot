@@ -6,9 +6,9 @@ namespace SantiBot.Modules.Utility;
 
 public partial class Utility
 {
-    [Group("achievements")]
+    // Standalone — responds to just .achievements (no subcommand needed)
     [Name("Achievements")]
-    public partial class AchievementCommands(AchievementService ach) : SantiModule
+    public partial class AchievementsBase(AchievementService ach) : SantiModule
     {
         [Cmd]
         [RequireContext(ContextType.Guild)]
@@ -48,7 +48,13 @@ public partial class Utility
 
             await Response().Embed(eb).SendAsync();
         }
+    }
 
+    // Group — responds to .achievements list
+    [Group("achievements")]
+    [Name("Achievements")]
+    public partial class AchievementCommands(AchievementService ach) : SantiModule
+    {
         [Cmd]
         [RequireContext(ContextType.Guild)]
         public async Task AchievementsList()
