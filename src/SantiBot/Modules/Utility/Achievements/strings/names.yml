@@ -2,3 +2,8 @@ achievements:
   - achievements
 achievementslist:
   - list
+achievementsstats:
+  - stats
+achievementslb:
+  - lb
+  - leaderboard

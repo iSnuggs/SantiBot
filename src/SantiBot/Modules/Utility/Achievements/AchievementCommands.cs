@@ -50,7 +50,7 @@ public partial class Utility
         }
     }
 
-    // Group — responds to .achievements list
+    // Group — responds to .achievements list / .achievements stats / .achievements lb
     [Group("achievements")]
     [Name("Achievements")]
     public partial class AchievementCommands(AchievementService ach) : SantiModule
@@ -81,6 +81,85 @@ public partial class Utility
                 .WithFooter($"[+] = unlocked | [-] = locked | {unlockedIds.Count}/{AchievementService.AllAchievements.Length} unlocked");
 
             await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task AchievementsStats()
+        {
+            var unlocked = await ach.GetUserAchievementsAsync(ctx.User.Id);
+            var unlockedIds = unlocked.Select(a => a.AchievementId).ToHashSet();
+            var total = AchievementService.AllAchievements.Length;
+            var count = unlockedIds.Count;
+            var pct = total == 0 ? 0 : (int)Math.Round((double)count / total * 100);
+
+            var sb = new StringBuilder();
+            sb.AppendLine($"**Overall:** {count}/{total} ({pct}%)");
+            sb.AppendLine();
+
+            foreach (var group in AchievementService.GetAllGrouped())
+            {
+                var groupTotal = group.Count();
+                var groupUnlocked = group.Count(d => unlockedIds.Contains(d.Id));
+                var bar = BuildBar(groupUnlocked, groupTotal);
+                sb.AppendLine($"**{group.Key}** {bar} {groupUnlocked}/{groupTotal}");
+            }
+
+            if (unlocked.Count > 0)
+            {
+                var latest = unlocked.OrderByDescending(a => a.UnlockedAt).First();
+                var latestDef = AchievementService.GetDef(latest.AchievementId);
+                if (latestDef is not null)
+                    sb.AppendLine($"\n🕐 **Latest:** {latestDef.Emoji} {latestDef.Name} ({latest.UnlockedAt:MMM dd, yyyy})");
+            }
+
+            var eb = CreateEmbed()
+                .WithOkColor()
+                .WithTitle($"🏆 {ctx.User.Username}'s Achievement Stats")
+                .WithDescription(sb.ToString());
+
+            await Response().Embed(eb).SendAsync();
+        }
+
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task AchievementsLb()
+        {
+            var lb = await ach.GetLeaderboardAsync(ctx.Guild.Id);
+            var total = AchievementService.AllAchievements.Length;
+
+            if (lb.Count == 0)
+            {
+                await Response().Error("No one in this server has unlocked any achievements yet!").SendAsync();
+                return;
+            }
+
+            var sb = new StringBuilder();
+            var medals = new[] { "🥇", "🥈", "🥉" };
+
+            for (int i = 0; i < lb.Count; i++)
+            {
+                var (userId, count) = lb[i];
+                var user = await ctx.Guild.GetUserAsync(userId);
+                var name = user?.Username ?? $"User {userId}";
+                var medal = i < medals.Length ? medals[i] : $"#{i + 1}";
+                var pct = (int)Math.Round((double)count / total * 100);
+                sb.AppendLine($"{medal} **{name}** — {count}/{total} ({pct}%)");
+            }
+
+            var eb = CreateEmbed()
+                .WithOkColor()
+                .WithTitle("🏆 Achievement Leaderboard")
+                .WithDescription(sb.ToString());
+
+            await Response().Embed(eb).SendAsync();
+        }
+
+        private static string BuildBar(int value, int max, int width = 8)
+        {
+            if (max == 0) return new string('░', width);
+            var filled = (int)Math.Round((double)value / max * width);
+            return new string('█', filled) + new string('░', width - filled);
         }
     }
 }

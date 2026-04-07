@@ -15,3 +15,17 @@ achievementslist:
     - ''
   params:
     - {}
+achievementsstats:
+  desc: >-
+    Show your achievement progress broken down by category, with a progress
+    bar for each category and your most recently unlocked achievement.
+  ex:
+    - ''
+  params:
+    - {}
+achievementslb:
+  desc: Show the top 10 users in this server ranked by achievements unlocked.
+  ex:
+    - ''
+  params:
+    - {}

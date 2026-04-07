@@ -88,4 +88,30 @@ public sealed class AchievementService(DbService _db) : INService
     /// </summary>
     public static IEnumerable<IGrouping<string, AchievementDef>> GetAllGrouped()
         => AllAchievements.GroupBy(a => a.Category);
+
+    /// <summary>
+    /// Get top N users in a guild by number of achievements unlocked.
+    /// </summary>
+    public async Task<List<(ulong UserId, int Count)>> GetLeaderboardAsync(ulong guildId, int limit = 10)
+    {
+        await using var ctx = _db.GetDbContext();
+
+        // Get all users who have achievements, join with DiscordUser to filter by guild
+        var guildUserIds = await ctx.GetTable<UserXpStats>()
+            .Where(x => x.GuildId == guildId)
+            .Select(x => x.UserId)
+            .ToListAsyncLinqToDB();
+
+        if (guildUserIds.Count == 0)
+            return [];
+
+        return await ctx.GetTable<UserAchievement>()
+            .Where(x => guildUserIds.Contains(x.UserId))
+            .GroupBy(x => x.UserId)
+            .Select(g => new { UserId = g.Key, Count = g.Count() })
+            .OrderByDescending(x => x.Count)
+            .Take(limit)
+            .ToListAsyncLinqToDB()
+            .ContinueWith(t => t.Result.Select(x => (x.UserId, x.Count)).ToList());
+    }
 }
