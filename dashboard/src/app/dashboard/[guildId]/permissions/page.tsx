@@ -65,7 +65,6 @@ export default function PermissionsPage() {
             label="Verbose Permissions (use .verbose command to change)"
             checked={data?.verbosePermissions ?? false}
             onChange={() => {}}
-            disabled
           />
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1.5">Permission Role</label>

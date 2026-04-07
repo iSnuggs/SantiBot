@@ -1,0 +1,563 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║              SANTIBOT — COMPLETE TESTING CHECKLIST                    ║
+║           For Test Users & Community Helpers                         ║
+║                                                                      ║
+║  1,342 commands  |  171 command groups  |  5 priority tiers          ║
+║  Prefix: .       |  Example: .dungeon enter                         ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+HOW TO TEST:
+  1. Try each command listed below
+  2. Mark it PASS ✅ or FAIL ❌
+  3. If it fails, note what happened (error message, no response, crash, etc.)
+  4. Report results to Snuggs
+
+LEGEND:
+  [ADMIN] = Requires Administrator permission
+  [OWNER] = Requires Bot Owner
+  @user  = Mention any user
+  #ch    = Mention any channel
+
+══════════════════════════════════════════════════════════════════════
+  TIER 1: CRITICAL — Test these FIRST
+══════════════════════════════════════════════════════════════════════
+
+--- BOT STARTUP ---
+[ ] Bot is online and shows green status
+[ ] Bot responds to . prefix
+[ ] .help — shows help menu
+[ ] .stats — shows SantiBot branding (NOT NadekoBot)
+
+--- BASIC MODERATION ---
+[ ] .warn @user test warning
+[ ] .warnlog @user — shows warnings
+[ ] .mute @user — mutes user [ADMIN]
+[ ] .unmute @user [ADMIN]
+[ ] .ban @user reason [ADMIN]
+[ ] .kick @user reason [ADMIN]
+[ ] .softban @user [ADMIN]
+[ ] .prune 5 — deletes 5 messages [ADMIN]
+[ ] .role @user @role — toggle role [ADMIN]
+
+--- AUTOMOD ---
+[ ] .automod — shows automod settings [ADMIN]
+
+--- TICKETS ---
+[ ] .ticket — opens a support ticket
+[ ] .ticketclose — closes ticket [ADMIN]
+
+--- ADVANCED MODERATION ---
+[ ] .advmod antinuke — toggle [ADMIN]
+[ ] .advmod riskscore @user — risk assessment
+[ ] .advmod modstats — mod statistics [ADMIN]
+[ ] .advmod spamcheck [ADMIN]
+
+--- SECURITY ---
+[ ] .security securityaudit [ADMIN]
+[ ] .security sethoneypot #channel [ADMIN]
+[ ] .security accountgate 7 [ADMIN]
+[ ] .security leakscan [ADMIN]
+[ ] .security scamscan [ADMIN]
+[ ] .security securityscan — quick check (everyone)
+
+
+══════════════════════════════════════════════════════════════════════
+  TIER 2: IMPORTANT — Core features users will use daily
+══════════════════════════════════════════════════════════════════════
+
+--- ECONOMY & CURRENCY ---
+[ ] .daily — claim daily reward
+[ ] .bal — check balance
+[ ] .bal @user — check someone else's balance
+[ ] .give @user 100 — give currency
+[ ] .timely — claim timely reward
+
+--- GAMBLING ---
+[ ] .bet 10 — bet currency
+[ ] .betflip 10 h — bet on coin flip
+[ ] .betroll 10 — bet on roll
+[ ] .slot 10 — slot machine
+[ ] .draw — draw a card
+
+--- BANKING & ECONOMY ---
+[ ] .bank deposit 100
+[ ] .bank withdraw 100
+[ ] .bank balance
+[ ] .stock list — stock market
+[ ] .stock buy AAPL 1
+[ ] .crypto list — crypto sim
+[ ] .auction list — auction house
+[ ] .job work — do a job
+[ ] .job list — available jobs
+[ ] .shop — view shop
+[ ] .usershop — user shops
+
+--- DUNGEON RPG ---
+[ ] .dungeon enter — start dungeon (difficulty 1)
+[ ] .dungeon enter 3 — difficulty 3
+[ ] .dungeon explore — move to next room
+[ ] .dungeon attack — fight monster
+[ ] .dungeon flee — try to escape
+[ ] .dungeon invite @user — invite to party
+[ ] .dungeon status — show current run
+[ ] .dungeon chooseclass — list all classes
+[ ] .dungeon chooseclass Warrior
+[ ] .dungeon chooseclass Mage
+[ ] .dungeon chooseclass Rogue
+[ ] .dungeon chooseclass Cleric
+[ ] .dungeon chooseclass Monk
+[ ] .dungeon chooseclass Barbarian
+[ ] .dungeon chooseclass Ranger
+[ ] .dungeon chooseclass Paladin
+[ ] .dungeon chooseclass Bard
+[ ] .dungeon chooseclass Necromancer
+[ ] .dungeon chooseclass Druid
+[ ] .dungeon chooserace — list all races
+[ ] .dungeon chooserace Human
+[ ] .dungeon chooserace Elf
+[ ] .dungeon chooserace Dwarf
+[ ] .dungeon chooserace Halfling
+[ ] .dungeon chooserace Orc
+[ ] .dungeon chooserace Dragonborn
+[ ] .dungeon chooserace Tiefling
+[ ] .dungeon chooserace Gnome
+[ ] .dungeon profile — view RPG profile
+[ ] .dungeon inventory — view items
+[ ] .dungeon equip 1 — equip an item
+
+--- RAID BOSSES ---
+[ ] .raidboss spawn — spawn random boss [ADMIN]
+[ ] .raidboss spawn Infernal Dragon [ADMIN]
+[ ] .raidboss attack — hit the boss (45s cooldown)
+[ ] .raidboss status — HP bar + damage leaderboard
+[ ] .raidboss leaderboard — lifetime raid stats
+[ ] .raidboss bosses — list all 10 bosses
+[ ] .raidboss config #channel 5 25 [ADMIN]
+
+--- PET SYSTEM ---
+[ ] .pet species — browse all 30 species
+[ ] .pet adopt Dog — adopt a pet
+[ ] .pet adopt Dragon Hatchling — adopt rare pet
+[ ] .pet — view your active pet
+[ ] .pet feed — feed pet
+[ ] .pet play — play with pet
+[ ] .pet rest — rest pet
+[ ] .pet battle — PvE battle
+[ ] .pet adventure — send on adventure
+[ ] .pet list — show all your pets
+[ ] .pet rename Fluffy — rename pet
+[ ] .pet release — release pet (careful!)
+
+--- XP & LEVELING ---
+[ ] Send messages and verify XP is earned
+[ ] Level-up message appears
+[ ] .xp — show your XP card
+[ ] .xpleaderboard — XP rankings
+
+--- CRAFTING & GATHERING ---
+[ ] .craft mine — mine ores (60s cooldown)
+[ ] .craft chop — chop wood
+[ ] .craft farm — farm crops
+[ ] .craft gatherherbs — gather herbs
+[ ] .craft inventory — view materials
+[ ] .craft cook — list cooking recipes
+[ ] .craft cook Bread — cook something
+[ ] .craft brew — list alchemy recipes
+[ ] .craft brew Health Potion — brew something
+[ ] .craft forge — list smithing recipes
+[ ] .craft forge Iron Sword — forge something
+[ ] .craft enchant — list enchantments
+[ ] .craft gatheringstats — skill levels
+[ ] .craft craftingstats — crafting levels
+
+--- PVP & TOURNAMENTS ---
+[ ] .pvp duel @user — challenge someone
+[ ] .pvp pvpstats — your W/L/Elo
+[ ] .pvp pvpleaderboard — Elo rankings
+[ ] .pvp tournamentcreate "Test Tourney" 8 50 [ADMIN]
+[ ] .pvp tournamentjoin — register for tournament
+[ ] .pvp tournamentstart [ADMIN]
+[ ] .pvp tournamentbracket — view bracket
+[ ] .pvp randomteams 2 — split into 2 teams
+[ ] .pvp balancedteams 2 — balanced split
+
+
+══════════════════════════════════════════════════════════════════════
+  TIER 3: ENGAGEMENT — Fun features that keep users coming back
+══════════════════════════════════════════════════════════════════════
+
+--- ACHIEVEMENTS (500 total) ---
+[ ] .achievements achievements — your earned achievements
+[ ] .achievements achievementlist — category overview
+[ ] .achievements achievementlist Messaging — specific category
+[ ] .achievements achievementlist Dungeon — dungeon achievements
+[ ] .achievements achievementlist Secret — secret achievements (hidden!)
+[ ] .achievements achievementstats — progress + recent unlocks
+
+--- GAMIFICATION ---
+[ ] .gf badges — your badges
+[ ] .gf badgelist — all badges by category
+[ ] .gf badgelist Combat — combat badges
+[ ] .gf titles — your titles
+[ ] .gf titlelist — all available titles
+[ ] .gf titleequip title_adventurer — equip a title
+[ ] .gf battlepass — battle pass progress
+[ ] .gf battlepassrewards 1 — tier 1-10 rewards
+[ ] .gf battlepassrewards 5 — tier 41-50 rewards
+[ ] .gf dailychallenges — today's 3 challenges
+[ ] .gf gfstats — overview of all gamification
+
+--- QUESTS ---
+[ ] .quest dailyquests — get 3 daily quests
+[ ] .quest weeklyquest — get weekly quest
+[ ] .quest storyquest — story progression
+[ ] .quest quests — all active quests
+[ ] .quest queststats — lifetime quest stats
+[ ] .quest factions — faction standings
+[ ] .quest factioninfo Warriors Guild — faction details
+[ ] .quest questcomplete 1 — claim completed quest
+
+--- RPG EXPANSION ---
+[ ] .ex skilltree — view your skill tree
+[ ] .ex skillupgrade 1 — upgrade skill 1
+[ ] .ex prestigeinfo — prestige requirements
+[ ] .ex prestige — prestige (requires level 50!)
+[ ] .ex modifiers — active dungeon modifiers
+[ ] .ex bountypost @user 500 — post a bounty
+[ ] .ex bountyboard — view all bounties
+[ ] .ex bountyclaim @user — claim a bounty
+[ ] .ex horoscope Aries — daily horoscope
+[ ] .ex horoscopeset Taurus — set your sign
+[ ] .ex goalset "Reach Level 10" 10 "Level up!" — set a goal
+[ ] .ex goalprogress "Reach Level 10" 1 — update progress
+[ ] .ex goals — view all goals
+[ ] .ex newspaper — server newspaper
+
+--- FUN COMMANDS ---
+[ ] .fun eightball Will I win? — magic 8 ball
+[ ] .fun tarot — draw a tarot card
+[ ] .fun fortune — fortune cookie
+[ ] .fun joke — random joke
+[ ] .fun dadjoke — dad joke (spoiler punchline)
+[ ] .fun fact — random fun fact
+[ ] .fun compliment @user — compliment someone
+[ ] .fun insult @user — playful insult
+[ ] .fun roast @user — playful roast
+[ ] .fun pickupline — cheesy line
+[ ] .fun hottake — hot take
+[ ] .fun wouldyourather — WYR question
+[ ] .fun thisorthat — A vs B
+[ ] .fun truthordare — truth or dare
+[ ] .fun neverhaveiever — NHIE prompt
+[ ] .fun showerthought — shower thought
+[ ] .fun debatetopic — debate starter
+[ ] .fun motivation — motivational quote
+[ ] .fun rate pizza — rate anything 0-10
+[ ] .fun pickrandom — pick random user
+
+--- SOCIAL RP (test with a friend!) ---
+[ ] .rp hug @user
+[ ] .rp pat @user
+[ ] .rp kiss @user
+[ ] .rp slap @user
+[ ] .rp poke @user
+[ ] .rp cuddle @user
+[ ] .rp wave @user
+[ ] .rp highfive @user
+[ ] .rp bite @user
+[ ] .rp punch @user
+[ ] .rp tickle @user
+[ ] .rp boop @user
+[ ] .rp bonk @user
+[ ] .rp lick @user
+[ ] .rp stare @user
+[ ] .rp cry @user
+[ ] .rp dance @user
+[ ] .rp yeet @user
+[ ] .rp tackle @user
+[ ] .rp nuzzle @user
+[ ] .rp wink @user
+[ ] .rp fistbump @user
+[ ] .rp salute @user
+[ ] .rp bow @user
+[ ] .rp cheer @user
+[ ] .rp pout @user
+[ ] .rp blush @user
+[ ] .rp handshake @user
+[ ] .rp dab @user
+[ ] .rp backflip @user
+
+--- MINI-GAMES ---
+[ ] .mg wordle — start a Wordle game
+[ ] .mg wordleguess HELLO — guess a word
+[ ] .mg minesweeper easy — easy minesweeper grid
+[ ] .mg minesweeper medium
+[ ] .mg minesweeper hard
+[ ] .mg guessnumber — start number guessing
+[ ] .mg gn 500 — guess a number
+[ ] .mg scramble — get a scrambled word
+[ ] .mg unscramble hello — try to unscramble
+[ ] .mg geoquiz — geography question
+[ ] .mg geoanswer Paris — answer
+[ ] .mg mathrace — math problem
+[ ] .mg mathanswer 42 — answer
+[ ] .mg emojiquiz — emoji movie quiz
+[ ] .mg emojianswer Titanic — answer
+[ ] .mg memorygame — memory sequence
+
+--- HOUSING ---
+[ ] .house buy Cottage — buy your first house (500 currency)
+[ ] .house myhouse — view your house
+[ ] .house styles — browse 10 styles
+[ ] .house setstyle Japanese — change style
+[ ] .house addroom Bedroom — add a room
+[ ] .house addroom Kitchen
+[ ] .house addroom Workshop
+[ ] .house houseshop — browse furniture
+[ ] .house buyfurniture — buy furniture
+[ ] .house visit @user — visit someone's house
+[ ] .house guestbooksign "Nice house!" — sign guest book
+[ ] .house guestbook — read guest book
+[ ] .house housevalue — total house value
+[ ] .house upgrade — upgrade house size
+
+--- LORE & WORLD ---
+[ ] .lore bestiary — discovered monsters
+[ ] .lore lorebook — all discovered lore
+[ ] .lore loreread Goblin — read a lore entry
+[ ] .lore treasuremap — get a treasure map
+[ ] .lore treasuresolve answer — solve the riddle
+[ ] .lore worldevents — active world events
+[ ] .lore worldhistory — timeline
+[ ] .lore lorestats — discovery progress %
+
+
+══════════════════════════════════════════════════════════════════════
+  TIER 4: UTILITY & ADMIN TOOLS
+══════════════════════════════════════════════════════════════════════
+
+--- UTILITY TOOLS ---
+[ ] .tools convert 100 f to c — temperature
+[ ] .tools convert 5 km to mi — distance
+[ ] .tools convert 10 kg to lb — weight
+[ ] .tools convert 1 gal to l — volume
+[ ] .tools timestamp — Discord timestamp formats
+[ ] .tools timestamp 2026-12-25 — specific date
+[ ] .tools snowflake 123456789012345678 — decode ID
+[ ] .tools count Hello World — text analysis
+[ ] .tools color FF5733 — color info
+[ ] .tools color — random color
+[ ] .tools roll — roll 1d20
+[ ] .tools roll 2d6+3 — custom dice
+[ ] .tools roll 4d8 — multiple dice
+[ ] .tools flip — single coin flip
+[ ] .tools flip 20 — multiple flips
+[ ] .tools random 1 100 — random number
+[ ] .tools choose pizza | tacos | sushi — random pick
+[ ] .tools quickpoll Should we do game night? — quick poll
+[ ] .tools countdown 2026-12-31 — countdown timer
+[ ] .tools base64encode Hello World — encode
+[ ] .tools base64decode SGVsbG8gV29ybGQ= — decode
+[ ] .tools reverse Hello — reverse text
+[ ] .tools mock Hello World — sPoNgEbOb text
+[ ] .tools bigtext HI — emoji letter text
+[ ] .tools members — server member stats
+
+--- SERVER ANALYTICS ---
+[ ] .analytics activity — server activity summary
+[ ] .analytics topchannels — busiest channels
+[ ] .analytics topchannels 30 — last 30 days
+[ ] .analytics topposters — most active users
+[ ] .analytics peakhours — activity by hour chart
+[ ] .analytics heatmap — day × hour heatmap
+[ ] .analytics growth — join/leave chart
+[ ] .analytics topwords — most used words
+[ ] .analytics serverreport [ADMIN]
+
+--- EVENTS & SCHEDULING ---
+[ ] .event create "Movie Night" 2026-04-05 "Let's watch movies!"
+[ ] .event list — upcoming events
+[ ] .event info 1 — event details + RSVPs
+[ ] .event rsvp 1 going — RSVP going
+[ ] .event rsvp 1 maybe — RSVP maybe
+[ ] .event cancel 1 — cancel event
+[ ] .movie night — start movie poll
+[ ] .movie add "Interstellar" — add movie
+[ ] .movie add "The Matrix" — add another
+[ ] .movie vote "Interstellar" — vote
+[ ] .movie results — see votes
+[ ] .movie pick — end poll, announce winner
+[ ] .gamenight — quick create game night
+[ ] .teams 2 — split voice channel into 2 teams
+[ ] .studysession 2 — create 2-hour study session
+
+--- SERVER CUSTOMIZATION ---
+[ ] .customize theme — browse 20 themes
+[ ] .customize theme dark — set dark theme
+[ ] .customize theme neon — set neon theme
+[ ] .customize theme halloween — set halloween
+[ ] .customize currencyname Coins 🪙 [ADMIN]
+[ ] .customize xpname Stars ⭐ [ADMIN]
+[ ] .customize embedcolor FF5733 [ADMIN]
+[ ] .customize levelupmsg "🎉 {user} hit level {level}!" [ADMIN]
+[ ] .customize welcomemsg "Welcome!" "Hey {user}!" [ADMIN]
+[ ] .customize saveembed rules "Server Rules" "1. Be nice..." [ADMIN]
+[ ] .customize sendembed rules — post saved embed
+[ ] .customize embeds — list saved embeds
+[ ] .customize deleteembed rules [ADMIN]
+[ ] .customize addcmd hello Hi there! [ADMIN]
+[ ] .customize cmdlist — list custom commands
+[ ] .customize delcmd hello [ADMIN]
+[ ] .customize settings — view all settings
+
+--- VOICE TOOLS ---
+[ ] .vt soundadd laugh https://example.com/laugh.mp3 [ADMIN]
+[ ] .vt sounds — list soundboard
+[ ] .vt soundremove laugh [ADMIN]
+[ ] .vt tempvoicesetup #create-channel [ADMIN]
+[ ] .vt voiceleaderboard — voice time rankings
+[ ] .vt voiceleaderboard 30 — last 30 days
+[ ] .vt myvoice — your voice stats
+[ ] .vt myvoice @user — someone else's
+[ ] .vt points — channel points balance
+[ ] .vt pointrewards — available rewards
+[ ] .vt predict "Win" "Lose" "Will we win this game?" [ADMIN]
+[ ] .vt predictstatus — prediction status
+[ ] .vt bet 1 50 — bet 50 points on option 1
+[ ] .vt predictresolve 1 — resolve prediction [ADMIN]
+[ ] .vt fanartsubmit "My Art" https://i.imgur.com/example.png
+[ ] .vt fanartgallery — view gallery
+[ ] .vt fanartvote 1 — vote for fan art
+[ ] .vt feedadd YouTube #videos https://youtube.com/@channel [ADMIN]
+[ ] .vt feeds — list feed subscriptions
+[ ] .vt feedremove 1 [ADMIN]
+[ ] .vt monitoradd #alerts https://mysite.com "My Website" [ADMIN]
+[ ] .vt monitors — list uptime monitors
+[ ] .vt monitorremove 1 [ADMIN]
+
+--- DEVELOPER TOOLS ---
+[ ] .dev featureflags — list all flags [ADMIN]
+[ ] .dev featureflag testfeature true [ADMIN]
+[ ] .dev featureflag testfeature — check status [ADMIN]
+[ ] .dev webhookcreate mywebhook #channel [ADMIN]
+[ ] .dev webhooks — list webhooks [ADMIN]
+[ ] .dev webhookdelete 1 [ADMIN]
+[ ] .dev cmdstats — command usage analytics [ADMIN]
+[ ] .dev cmdstats 30 — last 30 days [ADMIN]
+[ ] .dev xpmult 2.0 1 — 2x XP for 1 hour [ADMIN]
+[ ] .dev xpmultchannel #general 1.5 [ADMIN]
+[ ] .dev xpmultrole @VIP 2.0 [ADMIN]
+[ ] .dev xpmults — active multipliers
+[ ] .dev xpchallenge "Chat King" "messages:100" 500 7 [ADMIN]
+[ ] .dev xpchallenges — active challenges
+[ ] .dev changelog — version history
+[ ] .dev botinfo — bot statistics
+
+--- SERVER MANAGEMENT ---
+[ ] .st inviterewards — invite tracking info [ADMIN]
+[ ] .st emojistats — emoji usage stats [ADMIN]
+[ ] .st autopublish #announcements [ADMIN]
+[ ] .st autopublishlist [ADMIN]
+[ ] .st mirror #source #destination [ADMIN]
+[ ] .st mirrorlist [ADMIN]
+[ ] .st milestonesetup #general [ADMIN]
+[ ] .st backupsummary — full server config dump [ADMIN]
+
+--- SMART TOOLS ---
+[ ] .smart summarize 20 — summarize last 20 messages
+[ ] .smart faqadd "How do I level up?" "Send messages to earn XP!"
+[ ] .smart faq How do I level up? — search FAQ
+[ ] .smart faqlist — list all FAQs
+[ ] .smart faqremove "How do I level up?"
+[ ] .smart sentiment I love this server! — analyze sentiment
+[ ] .smart sentiment This is terrible — negative sentiment
+[ ] .smart topics I just finished a game of Valorant — detect topics
+[ ] .smart greet — contextual greeting
+[ ] .smart writingcheck "I recieve teh package" — writing check
+[ ] .smart namegen character — generate character names
+[ ] .smart namegen fantasy — fantasy names
+[ ] .smart namegen band — band names
+[ ] .smart namegen superhero — superhero names
+[ ] .smart namegen elf — elf names
+
+--- PREMIUM ---
+[ ] .premium premiuminfo — current tier
+[ ] .premium premiumfeatures — all premium features
+[ ] .premium premiumcompare — tier comparison table
+[ ] .premium premiumlimits — current limits
+
+
+══════════════════════════════════════════════════════════════════════
+  TIER 5: INTEGRATION & EDGE CASES
+══════════════════════════════════════════════════════════════════════
+
+--- DATABASE ---
+[ ] Bot starts fresh without database errors
+[ ] All tables created automatically
+[ ] Data persists between bot restarts
+[ ] Currency transactions are saved
+[ ] XP is saved between sessions
+[ ] Dungeon characters persist
+[ ] Pet data persists
+[ ] Achievement progress persists
+
+--- PERMISSIONS ---
+[ ] [ADMIN] commands reject regular users
+[ ] Regular commands work for everyone
+[ ] Bot owner commands only work for owner
+[ ] Channel-restricted commands respect channels
+
+--- ERROR HANDLING ---
+[ ] Invalid arguments show helpful error message
+[ ] Missing arguments show usage hint
+[ ] Cooldown messages show time remaining
+[ ] Bot doesn't crash on bad input
+[ ] Bot recovers from temporary Discord API issues
+
+--- DASHBOARD ---
+[ ] Dashboard loads in browser
+[ ] Login/OAuth works
+[ ] Settings pages render correctly
+[ ] Changes made in dashboard apply to bot
+
+--- SLASH COMMANDS ---
+[ ] /help — shows in Discord autocomplete
+[ ] Slash commands register on startup
+[ ] Slash commands execute correctly
+
+
+══════════════════════════════════════════════════════════════════════
+  QUICK REFERENCE — ALL COMMAND PREFIXES
+══════════════════════════════════════════════════════════════════════
+
+.dungeon     — RPG dungeon system
+.raidboss    — Raid boss fights
+.pet         — Pet companions
+.craft       — Crafting & gathering
+.pvp         — PvP duels & tournaments
+.house       — Housing & decoration
+.lore        — Lore & world building
+.ex          — RPG expansion (skills, prestige, bounties)
+.quest       — Quest system
+.gf          — Gamification (badges, titles, battle pass)
+.achievements — Achievement tracking
+.fun         — Fun commands (jokes, 8-ball, etc.)
+.rp          — Social roleplay actions
+.mg          — Mini-games (wordle, minesweeper, etc.)
+.tools       — Utility tools (converter, dice, etc.)
+.analytics   — Server analytics
+.event       — Events & scheduling
+.movie       — Movie night polls
+.customize   — Server customization
+.vt          — Voice tools & streaming
+.smart       — AI smart tools
+.dev         — Developer tools
+.security    — Security & anti-abuse
+.advmod      — Advanced moderation
+.st          — Server management tools
+.premium     — Premium tier system
+
+══════════════════════════════════════════════════════════════════════
+  Thank you for testing SantiBot! Report bugs to Snuggs.
+  Built by Snuggs & Claude — named after Santi the dog 🐕
+══════════════════════════════════════════════════════════════════════
