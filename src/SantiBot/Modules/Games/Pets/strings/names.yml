@@ -1,33 +1,33 @@
 pet:
+  - view
   - pet
-  - petpet
 petadopt:
+  - adopt
   - petadopt
-  - petpetadopt
 petadventure:
+  - adventure
   - petadventure
-  - petpetadventure
 petbattle:
+  - battle
   - petbattle
-  - petpetbattle
 petfeed:
+  - feed
   - petfeed
-  - petpetfeed
 petlist:
+  - list
   - petlist
-  - petpetlist
 petplay:
+  - play
   - petplay
-  - petpetplay
 petrelease:
+  - release
   - petrelease
-  - petpetrelease
 petrename:
+  - rename
   - petrename
-  - petpetrename
 petrest:
+  - rest
   - petrest
-  - petpetrest
 petspecies:
+  - species
   - petspecies
-  - petpetspecies
