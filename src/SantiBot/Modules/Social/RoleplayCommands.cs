@@ -197,7 +197,7 @@ public partial class Social
         }
 
         // ── 1. Hug ──────────────────────────────────────────────
-        [Cmd] [RequireContext(ContextType.Guild)]
+        [Cmd] [Priority(2)] [RequireContext(ContextType.Guild)]
         public async Task Hug(IUser target = null)
         {
             await Response().Embed(await BuildRpEmbed("hug", "\U0001F917", "Hug!", target,
@@ -207,7 +207,7 @@ public partial class Social
         }
 
         // ── 2. Pat ──────────────────────────────────────────────
-        [Cmd] [RequireContext(ContextType.Guild)]
+        [Cmd] [Priority(2)] [RequireContext(ContextType.Guild)]
         public async Task Pat(IUser target = null)
         {
             await Response().Embed(await BuildRpEmbed("pat", "\U0001F90D", "Headpat!", target,
@@ -217,7 +217,7 @@ public partial class Social
         }
 
         // ── 3. Kiss ─────────────────────────────────────────────
-        [Cmd] [RequireContext(ContextType.Guild)]
+        [Cmd] [Priority(2)] [RequireContext(ContextType.Guild)]
         public async Task Kiss(IUser target = null)
         {
             await Response().Embed(await BuildRpEmbed("kiss", "\U0001F48B", "Kiss!", target,
@@ -565,7 +565,7 @@ public partial class Social
         public async Task Laugh(IUser target = null)
         { await Response().Embed(await MakeRpEmbed(ctx.User, target, "laugh", "😂", "Laugh!", ["laughs at", "can't stop laughing at", "cracks up because of", "giggles at", "bursts out laughing with"], ["laughs", "can't stop laughing", "cracks up", "giggles", "bursts out laughing"])).SendAsync(); }
 
-        [Cmd] [RequireContext(ContextType.Guild)]
+        [Cmd] [Priority(2)] [RequireContext(ContextType.Guild)]
         public async Task Nom(IUser target = null)
         { await Response().Embed(await MakeRpEmbed(ctx.User, target, "nom", "😋", "Nom!", ["noms on", "takes a bite of", "nibbles on", "munches on", "nom nom noms"], ["noms", "nibbles on a snack", "goes nom nom nom", "munches happily", "is nomming"])).SendAsync(); }
 

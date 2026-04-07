@@ -7,7 +7,6 @@ namespace SantiBot.Modules.Gambling;
 public partial class Gambling
 {
     [Name("DailyStreak")]
-    [Group("daily")]
     public partial class DailyStreakCommands : GamblingModule<DailyStreakService>
     {
         private readonly DailyStreakService _streaks;

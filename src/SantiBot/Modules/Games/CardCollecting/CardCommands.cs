@@ -12,7 +12,7 @@ public partial class Games
     {
         [Cmd]
         [RequireContext(ContextType.Guild)]
-        public async Task Daily()
+        public async Task CardDaily()
         {
             var (name, set, rarity, error) = await _service.DrawDailyCardAsync(ctx.User.Id);
             if (error is not null)
