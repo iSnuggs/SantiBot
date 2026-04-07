@@ -1,5 +1,7 @@
 achievements:
   - achievements
+achievementsshow:
+  - show
 achievementslist:
   - list
 achievementsstats:

@@ -6,7 +6,7 @@ namespace SantiBot.Modules.Utility;
 
 public partial class Utility
 {
-    // Standalone — responds to just .achievements (no subcommand needed)
+    // Standalone — responds to just .achievements (no subcommand needed, self only)
     [Name("Achievements")]
     public partial class AchievementsBase(AchievementService ach) : SantiModule
     {
@@ -14,11 +14,6 @@ public partial class Utility
         [RequireContext(ContextType.Guild)]
         public async Task Achievements()
             => await ShowAchievements(ctx.User);
-
-        [Cmd]
-        [RequireContext(ContextType.Guild)]
-        public async Task Achievements(IUser user)
-            => await ShowAchievements(user);
 
         private async Task ShowAchievements(IUser user)
         {
@@ -50,11 +45,40 @@ public partial class Utility
         }
     }
 
-    // Group — responds to .achievements list / .achievements stats / .achievements lb
+    // Group — responds to .achievements list / .achievements stats / .achievements lb / .achievements show @user
     [Group("achievements")]
     [Name("Achievements")]
     public partial class AchievementCommands(AchievementService ach) : SantiModule
     {
+        [Cmd]
+        [RequireContext(ContextType.Guild)]
+        public async Task AchievementsShow(IUser user)
+        {
+            var unlocked = await ach.GetUserAchievementsAsync(user.Id);
+
+            if (unlocked.Count == 0)
+            {
+                await Response().Error(strs.achievements_none(user.Mention)).SendAsync();
+                return;
+            }
+
+            var sb = new StringBuilder();
+            foreach (var ua in unlocked)
+            {
+                var def = AchievementService.GetDef(ua.AchievementId);
+                if (def is null) continue;
+                sb.AppendLine($"{def.Emoji} **{def.Name}** - {def.Description}");
+                sb.AppendLine($"  Unlocked: {ua.UnlockedAt:MMM dd, yyyy}");
+            }
+
+            var eb = CreateEmbed()
+                .WithOkColor()
+                .WithTitle($"{user.Username}'s Achievements ({unlocked.Count}/{AchievementService.AllAchievements.Length})")
+                .WithDescription(sb.ToString());
+
+            await Response().Embed(eb).SendAsync();
+        }
+
         [Cmd]
         [RequireContext(ContextType.Guild)]
         public async Task AchievementsList()
